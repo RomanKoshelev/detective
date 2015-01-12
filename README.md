@@ -1,2 +1,0 @@
-# detective
-Game
