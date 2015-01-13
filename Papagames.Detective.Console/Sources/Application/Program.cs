@@ -25,7 +25,7 @@ namespace Papagames.Detective.Console
             Stage.SilenceMode = false;
             Stage.AutoMode = true;
 
-            RunGame(game,8,3);
+            RunGame(game,9,3);
         }
     }
 }

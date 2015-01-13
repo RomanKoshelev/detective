@@ -11,6 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papagames.Detective.Present
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E0525FC8-42C4-4D63-9605-2A7BF6442424}"
 	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
@@ -28,14 +31,17 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B359A4BA-1B31-44B2-9849-D914ED482C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B359A4BA-1B31-44B2-9849-D914ED482C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B359A4BA-1B31-44B2-9849-D914ED482C00}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{B359A4BA-1B31-44B2-9849-D914ED482C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B359A4BA-1B31-44B2-9849-D914ED482C00}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E299C35A-B010-43A0-9A25-7308680F1610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E299C35A-B010-43A0-9A25-7308680F1610}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E299C35A-B010-43A0-9A25-7308680F1610}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{E299C35A-B010-43A0-9A25-7308680F1610}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E299C35A-B010-43A0-9A25-7308680F1610}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

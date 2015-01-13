@@ -1,4 +1,5 @@
-﻿@model dynamic
+﻿@using Papagames.Detective.Core
+@model dynamic
 
 @{
     ViewBag.Title = "Detective";
@@ -7,4 +8,5 @@
 <h2>Detective Game</h2>
 <h2>Server time: @DateTime.Now.ToLongTimeString()</h2>
 <hr/>
-xo-xo-xo
+xo-xo-xo.<br>
+@Test.HelloWorld()
