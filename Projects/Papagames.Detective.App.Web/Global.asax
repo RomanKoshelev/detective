@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Papagames.Detective.Presentation.Web.Playground.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Papagames.Detective.App.Web.MvcApplication" Language="C#" %>
