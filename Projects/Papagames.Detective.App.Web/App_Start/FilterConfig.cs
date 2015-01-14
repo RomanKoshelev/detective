@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace Papagames.Detective.Presentation.Web.Playground
+namespace Papagames.Detective.App.Web
 {
     public class FilterConfig
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Papagames.Detective.Presentation.Web.Playground
+namespace Papagames.Detective.App.Web
 {
     public class RouteConfig
     {

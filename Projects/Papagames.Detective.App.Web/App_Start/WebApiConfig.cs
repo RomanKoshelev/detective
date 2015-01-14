@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace Papagames.Detective.Presentation.Web.Playground
+namespace Papagames.Detective.App.Web
 {
     public static class WebApiConfig
     {

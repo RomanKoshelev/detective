@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Papagames.Detective.Presentation.Web.Playground.Controllers
+namespace Papagames.Detective.App.Web.Controllers
 {
     public class HomeController : Controller
     {
