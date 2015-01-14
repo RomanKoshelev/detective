@@ -1,8 +1,12 @@
-﻿@model dynamic
+﻿@using Papagames.Detective.Core
+@model dynamic
 
 @{
     ViewBag.Title = "Detective";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Detective Game</h2>
-<h2>@DateTime.Now</h2>
+<h2>Server time: @DateTime.Now.ToLongTimeString()</h2>
+<hr />
+xo-xo-xo.<br>
+@Test.HelloWorld()

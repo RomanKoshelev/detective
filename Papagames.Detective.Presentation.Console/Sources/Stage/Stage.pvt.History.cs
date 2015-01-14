@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Core;
 using Action = Papagames.Detective.Core.Action;
 
-namespace Papagames.Detective.Console
+namespace Papagames.Detective.Presentation.Console
 {
     internal partial class Stage
     {

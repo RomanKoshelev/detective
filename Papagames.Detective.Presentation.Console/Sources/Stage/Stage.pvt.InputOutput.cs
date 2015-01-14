@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Papagames.Detective.Core;
 
-namespace Papagames.Detective.Console
+namespace Papagames.Detective.Presentation.Console
 {
     internal partial class Stage
     {

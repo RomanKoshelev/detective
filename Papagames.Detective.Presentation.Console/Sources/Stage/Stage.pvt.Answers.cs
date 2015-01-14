@@ -3,7 +3,7 @@ using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Core;
 
-namespace Papagames.Detective.Console
+namespace Papagames.Detective.Presentation.Console
 {
     internal partial class Stage
     {

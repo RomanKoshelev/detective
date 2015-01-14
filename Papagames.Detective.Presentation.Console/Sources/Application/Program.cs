@@ -1,7 +1,7 @@
 ﻿using System;
 using Papagames.Detective.Core;
 
-namespace Papagames.Detective.Console
+namespace Papagames.Detective.Presentation.Console
 {
     internal partial class Program
     {
@@ -25,7 +25,7 @@ namespace Papagames.Detective.Console
             Stage.SilenceMode = false;
             Stage.AutoMode = true;
 
-            RunGame(game,9,3);
+            RunGame(game,8,3);
         }
     }
 }
