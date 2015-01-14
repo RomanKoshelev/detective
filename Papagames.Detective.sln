@@ -18,9 +18,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{663133DB-31BD-41AA-8E21-FA8571363FE5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{740D2A80-B34C-4750-8813-9EC7E6D93D40}"
-	ProjectSection(SolutionItems) = preProject
-		Papagames.Detective.Core\Sources\Сommon\Test.cs = Papagames.Detective.Core\Sources\Сommon\Test.cs
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
