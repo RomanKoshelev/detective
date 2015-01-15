@@ -24,7 +24,7 @@ namespace Papagames.Detective.Presentation.Console
         {
             Stage.SilenceMode = false;
             Stage.AutoMode = true;
-
+            // todo: https://rk-dev.atlassian.net/browse/DET-12
             RunGame(game,8,3);
         }
     }
