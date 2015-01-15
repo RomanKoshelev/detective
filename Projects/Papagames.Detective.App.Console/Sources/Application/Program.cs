@@ -23,7 +23,7 @@ namespace Papagames.Detective.Presentation.Console
         private static void Run(Game game)
         {
             Stage.SilenceMode = false;
-            Stage.AutoMode = true;
+            Stage.AutoMode = false;
 
             RunGame(game,8,3);
         }
