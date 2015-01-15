@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papagames.Detective.App.Con
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papagames.Detective.App.Web", "Projects\Papagames.Detective.App.Web\Papagames.Detective.App.Web.csproj", "{E299C35A-B010-43A0-9A25-7308680F1610}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papagames.Detective.Core.Common", "Papagames.Detective.Core.Common\Papagames.Detective.Core.Common.csproj", "{3B976C8E-645D-436C-80F6-E6E843CD42AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{E299C35A-B010-43A0-9A25-7308680F1610}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E299C35A-B010-43A0-9A25-7308680F1610}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E299C35A-B010-43A0-9A25-7308680F1610}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B976C8E-645D-436C-80F6-E6E843CD42AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B976C8E-645D-436C-80F6-E6E843CD42AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B976C8E-645D-436C-80F6-E6E843CD42AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B976C8E-645D-436C-80F6-E6E843CD42AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +50,6 @@ Global
 		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91} = {740D2A80-B34C-4750-8813-9EC7E6D93D40}
 		{B359A4BA-1B31-44B2-9849-D914ED482C00} = {663133DB-31BD-41AA-8E21-FA8571363FE5}
 		{E299C35A-B010-43A0-9A25-7308680F1610} = {663133DB-31BD-41AA-8E21-FA8571363FE5}
+		{3B976C8E-645D-436C-80F6-E6E843CD42AC} = {740D2A80-B34C-4750-8813-9EC7E6D93D40}
 	EndGlobalSection
 EndGlobal
