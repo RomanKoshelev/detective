@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Papagames.Detective.Common;
 using Papagames.Detective.Core;
 
 namespace Papagames.Detective.Presentation.Console

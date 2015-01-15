@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papagames.Detective.App.Con
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papagames.Detective.App.Web", "Projects\Papagames.Detective.App.Web\Papagames.Detective.App.Web.csproj", "{E299C35A-B010-43A0-9A25-7308680F1610}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papagames.Detective.Core.Common", "Papagames.Detective.Core.Common\Papagames.Detective.Core.Common.csproj", "{3B976C8E-645D-436C-80F6-E6E843CD42AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papagames.Detective.Common", "Papagames.Detective.Core.Common\Papagames.Detective.Common.csproj", "{3B976C8E-645D-436C-80F6-E6E843CD42AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1345467D-02F2-4D6B-A0EA-023E102D184E}"
 EndProject

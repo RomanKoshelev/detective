@@ -1,4 +1,6 @@
-﻿namespace Papagames.Detective.Core
+﻿using Papagames.Detective.Common;
+
+namespace Papagames.Detective.Core
 {
     public partial class Member
     {

@@ -1,4 +1,5 @@
 using System;
+using Papagames.Detective.Common;
 
 namespace Papagames.Detective.Core
 {

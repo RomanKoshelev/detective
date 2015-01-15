@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using MoreLinq;
+using Papagames.Detective.Common;
 
 namespace Papagames.Detective.Core
 {
