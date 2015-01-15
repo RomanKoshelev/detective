@@ -9,7 +9,7 @@ namespace Papagames.Detective.App.Web.Models
     public class Game
     {
         public string Name = "Detective Game";
-        private Core.Game _process;
+        //. private Core.Game _process;
 
         public Game()
         {

@@ -50,6 +50,9 @@
     <Compile Include="Sources\Pack\Rules\EmotionRule.cs" />
     <Compile Include="Sources\Pack\Rules\AnswerRule.cs" />
     <Compile Include="Sources\Pack\Profile\Profile.pvt.Murder.cs" />
+    <Compile Include="Sources\Pack\Utils\NameGenerator\NameGenerator.cs" />
+    <Compile Include="Sources\Pack\Utils\NameGenerator\NameGenerator.pvt.FirstNames.cs" />
+    <Compile Include="Sources\Pack\Utils\NameGenerator\NameGenerator.pvt.LastNames.cs" />
     <Compile Include="Sources\Scheme\Enums\EvidenceSign.cs" />
     <Compile Include="Sources\Scheme\Enums\VictimSign.cs" />
     <Compile Include="Sources\Scheme\Enums\Relation.cs" />
