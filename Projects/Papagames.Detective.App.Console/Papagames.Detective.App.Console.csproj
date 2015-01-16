@@ -63,14 +63,14 @@
   <ItemGroup>
     <Compile Include="Sources\Application\Program.pvt.System.cs" />
     <Compile Include="Sources\Application\Program.pvt.Statistics.cs" />
-    <Compile Include="Sources\Player\Stage.pvt.Evidences.cs" />
-    <Compile Include="Sources\Player\Stage.pvt.Emotions.cs" />
-    <Compile Include="Sources\Player\Stage.pvt.Commom.cs" />
-    <Compile Include="Sources\Player\Stage.pvt.Relations.cs" />
-    <Compile Include="Sources\Player\Stage.pvt.Members.cs" />
-    <Compile Include="Sources\Player\Stage.pvt.InputOutput.cs" />
-    <Compile Include="Sources\Player\Stage.pvt.History.cs" />
-    <Compile Include="Sources\Player\Stage.pvt.Answers.cs" />
+    <Compile Include="Sources\Player\Player.pvt.Evidences.cs" />
+    <Compile Include="Sources\Player\Player.pvt.Emotions.cs" />
+    <Compile Include="Sources\Player\Player.pvt.Commom.cs" />
+    <Compile Include="Sources\Player\Player.pvt.Relations.cs" />
+    <Compile Include="Sources\Player\Player.pvt.Members.cs" />
+    <Compile Include="Sources\Player\Player.pvt.InputOutput.cs" />
+    <Compile Include="Sources\Player\Player.pvt.History.cs" />
+    <Compile Include="Sources\Player\Player.pvt.Answers.cs" />
     <Compile Include="Sources\Player\Player.cs" />
     <Compile Include="Sources\Application\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
