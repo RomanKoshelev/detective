@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Sources\App\Program.pvt.System.cs" />
     <Compile Include="Sources\App\Program.pvt.Statistics.cs" />
+    <Compile Include="Sources\Player\Player.pvt.Events.cs" />
     <Compile Include="Sources\Player\Player.pvt.Process.cs" />
     <Compile Include="Sources\Player\Player.pvt.Evidences.cs" />
     <Compile Include="Sources\Player\Player.pvt.Emotions.cs" />

@@ -1,13 +1,20 @@
-﻿using System.Collections.Generic;
-using Papagames.Detective.Core.Game;
+﻿using Papagames.Detective.Core.Game;
 
 namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
+        private Process _process;
         private void DoRun(Process process)
         {
-            WriteLine("Process");
+            _process = process;
+
+            switch (process.State)
+            {
+                case State.Start:
+                    OnGameStart();
+                    break;
+            }
         }
     }
 }
