@@ -10,7 +10,7 @@ namespace Papagames.Detective.App.Console
         {
             try
             {
-                PlayGame(Scheme.WorldId.Simpsons, 8, 3, autoMode: true);
+                PlayGame(Scheme.WorldId.Simpsons, 8, 3, autoMode: false);
             }
             catch (Exception e)
             {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Core.Game;
@@ -7,9 +8,6 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        #region Print Answer
-
-        // ===================================================================================== []
         private void PrintAnswers(bool isGameOver=false)
         {
             if (SilenceMode) return;
@@ -67,13 +65,8 @@ namespace Papagames.Detective.App.Console
             WriteLine();
         }
 
-        #endregion
 
-        #region Do On Answer
-
-        // ===================================================================================== []
-
-        public void DoOnAnswerWithAdverb(Member respondent, Member subject, Answer answer)
+        public void PrintAnswerWithAdverb(Member respondent, Member subject, Answer answer)
         {
             if (SilenceMode) return;
             var verb = "";
@@ -101,7 +94,7 @@ namespace Papagames.Detective.App.Console
                         verb = SelectOnRelation(respondent, subject, "seems", "is goddamn", "");
                         break;
                 }
-            DoOnAnswer(respondent, subject, answer, verb);
+            PrintAnswer(respondent, subject, answer, verb);
         }
 
         private static string SelectOnRelation(Member respondent, Member subject, string love, string hate,
@@ -110,24 +103,13 @@ namespace Papagames.Detective.App.Console
             return respondent.Love(subject) ? love : respondent.Hate(subject) ? hate : ignore;
         }
 
-        private void DoOnAnswer(Member respondent, Member subject, Answer answer, string verb = "")
+        private void PrintAnswer(Member respondent, Member subject, Answer answer, string verb = "")
         {
+            Trace.Assert(subject != respondent, "subject != respondent");
             if (verb == "") verb = "is";
 
-            if (subject != respondent)
-            {
-                Write("    {0}:{1} {2} {3}", subject.Number, subject.Name, verb, answer.Verbal());
-            }
-            else
-            {
-                Write("    I am = {0}", answer);
-            }
-            WriteLine();
+            WriteLine("    {0}:{1} {2} {3}", subject.Number, subject.Name, verb, answer.Verbal());
             WriteLine();
         }
-
-        // ===================================================================================== []
-
-        #endregion
     }
 }

@@ -49,13 +49,14 @@ namespace Papagames.Detective.App.Console
 
             WriteHeader("Questioning");
             PrintAnswers();
+            WriteLine();
 
             ActiveMembers.ForEach(respondent =>
             {
                 var subjNum = GetQuestionSubjectForAsking(respondent, ActiveMembers.Where(s=>s!=respondent));
                 var subject = Members.First(m => m.Number == subjNum);
                 var answer = _process.AskMemberAboutSubject(respondent, subject);
-                DoOnAnswerWithAdverb(respondent, subject, answer);
+                PrintAnswerWithAdverb(respondent, subject, answer);
             });
             WriteLine();
             PressEnterToContinue();
