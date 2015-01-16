@@ -8,7 +8,7 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        private static void PrintRelations(IList<Member> members)
+        private void PrintRelations(IList<Member> members)
         {
             if (SilenceMode) return;
 
@@ -23,7 +23,7 @@ namespace Papagames.Detective.App.Console
             });
         }
 
-        private static void PrintRelationSubjects(string text, Member member, IEnumerable<Member> subjects, Func<Member, bool> predicate)
+        private void PrintRelationSubjects(string text, Member member, IEnumerable<Member> subjects, Func<Member, bool> predicate)
         {
             WriteLine("    {0}{1}", text, subjects.Where(predicate).Select(s => s.Name).Aggregate((res, name) => res + ", " + name));
         }

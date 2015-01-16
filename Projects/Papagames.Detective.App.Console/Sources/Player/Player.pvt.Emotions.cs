@@ -9,7 +9,7 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        private static void PrintEmotions(IEnumerable<Member> members, History history, bool printAll=false)
+        private void PrintEmotions(IEnumerable<Member> members, History history, bool printAll=false)
         {
             if (SilenceMode) return;
 
@@ -49,7 +49,7 @@ namespace Papagames.Detective.App.Console
             get { return r => r.Action == Action.Murder || r.Action == Action.Arrest; }
         }
 
-        private static void PrintEmotionsHeader(History history, string indentFormat, string cellFormat)
+        private void PrintEmotionsHeader(History history, string indentFormat, string cellFormat)
         {
             Write(indentFormat, "Emotions");
             history.Records.ToArray().Reverse()
@@ -61,12 +61,12 @@ namespace Papagames.Detective.App.Console
             WriteLine();
         }
 
-        private static void PrintMemberName(string nameCellFormat, Member m)
+        private void PrintMemberName(string nameCellFormat, Member m)
         {
             Write(nameCellFormat, string.Format("  {0}{1}", NumberOrState(m),m.ShortName(12)));
         }
 
-        private static void PrintMemberEmotionOnEvent(Member m, History.Record e, string emotionCellFormat)
+        private void PrintMemberEmotionOnEvent(Member m, History.Record e, string emotionCellFormat)
         {
             Write(emotionCellFormat, FormatEmotion(e, m));
         }

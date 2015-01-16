@@ -5,7 +5,7 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        private static void WaitAndPrintGameAnalize(IList<Member> members, History history)
+        private void WaitAndPrintGameAnalize(IList<Member> members, History history)
         {
             WriteLine();
             PressEnterToContinue();

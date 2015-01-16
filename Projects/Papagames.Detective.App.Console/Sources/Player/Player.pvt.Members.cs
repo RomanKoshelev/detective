@@ -8,7 +8,7 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        private static void PrintAllMembers(IList<Member> members, History history, bool printAll = false)
+        private void PrintAllMembers(IList<Member> members, History history, bool printAll = false)
         {
             if (SilenceMode) return;
 
@@ -17,7 +17,7 @@ namespace Papagames.Detective.App.Console
             PrintInactiveMembers(members, history, printAll);
         }
 
-        private static void PrintActiveMembers(IList<Member> members, History history, bool showAll = false)
+        private void PrintActiveMembers(IList<Member> members, History history, bool showAll = false)
         {
             if (SilenceMode) return;
 
@@ -36,13 +36,13 @@ namespace Papagames.Detective.App.Console
             return noun + "s";
         }
 
-        private static void PrintInactiveMembers(IList<Member> members, History history, bool showAll = false)
+        private void PrintInactiveMembers(IList<Member> members, History history, bool showAll = false)
         {
             WriteLine("Inactive Members");
             PrintMembers(m => !m.IsActive, members, history, DebugMode || showAll);
         }
 
-        private static void PrintMembers(Func<Member, bool> predicate, IList<Member> members, History history,
+        private void PrintMembers(Func<Member, bool> predicate, IList<Member> members, History history,
             bool showAll)
         {
             if (SilenceMode) return;

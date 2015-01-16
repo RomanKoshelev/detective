@@ -10,7 +10,7 @@ namespace Papagames.Detective.App.Console
         #region Print Answer
 
         // ===================================================================================== []
-        private static void PrintAnswers(IEnumerable<Member> members, History history, bool isGameOver=false)
+        private void PrintAnswers(IEnumerable<Member> members, History history, bool isGameOver=false)
         {
             if (SilenceMode) return;
 
@@ -35,7 +35,7 @@ namespace Papagames.Detective.App.Console
                 });
         }
 
-        private static object FormatAnswer(History.Record rec, Member member, bool isGameOver)
+        private object FormatAnswer(History.Record rec, Member member, bool isGameOver)
         {
             return string.Format("{0,-11}",
                 rec == null
@@ -60,7 +60,7 @@ namespace Papagames.Detective.App.Console
                 : m.IsInnocent ? "   " : m.IsMurderer ? " M " : "ERROR";
         }
 
-        private static void PrintAnswersHeader(History history, string indentFormat, string cellFormat)
+        private void PrintAnswersHeader(History history, string indentFormat, string cellFormat)
         {
             Write(indentFormat, "Answers");
             history.Days.Reverse().ForEach(d => Write(cellFormat, string.Format(" Day:{0}", d)));
@@ -110,7 +110,7 @@ namespace Papagames.Detective.App.Console
             return respondent.Love(subject) ? love : respondent.Hate(subject) ? hate : ignore;
         }
 
-        private static void DoOnAnswer(Member respondent, Member subject, Answer answer, string verb = "")
+        private void DoOnAnswer(Member respondent, Member subject, Answer answer, string verb = "")
         {
             if (verb == "") verb = "is";
 

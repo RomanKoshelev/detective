@@ -7,9 +7,9 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player : IStage
     {
-        public static bool DebugMode { get; set; }
-        public static bool AutoMode { get; set; }
-        public static bool SilenceMode { get; set; }
+        public bool DebugMode { get; set; }
+        public bool AutoMode { get; set; }
+        public bool SilenceMode { get; set; }
 
         public Player()
         {

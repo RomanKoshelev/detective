@@ -9,7 +9,7 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        private static int PromptInt(string text, IList<int> values, int defVal)
+        private int PromptInt(string text, IList<int> values, int defVal)
         {
             var strValues = values.Select(v => v.ToString(CultureInfo.InvariantCulture)).Aggregate((res, cur) => res + " " + cur);
             var num = values.RandomElement();
@@ -41,13 +41,13 @@ namespace Papagames.Detective.App.Console
             return num;
         }
 
-        private static void Write(string format = "", params Object[] args)
+        private void Write(string format = "", params Object[] args)
         {
             if (SilenceMode) return;
             System.Console.Write(format, args);
         }
 
-        private static void WriteHeader(string format = "", params Object[] args)
+        private void WriteHeader(string format = "", params Object[] args)
         {
             if (SilenceMode) return;
             System.Console.WriteLine();
@@ -57,13 +57,13 @@ namespace Papagames.Detective.App.Console
             System.Console.WriteLine();
         }
 
-        private static void WriteLine(string format = "", params Object[] args)
+        private void WriteLine(string format = "", params Object[] args)
         {
             if (SilenceMode) return;
             System.Console.WriteLine("  " + format, args);
         }
 
-        private static void PressEnterToContinue(string prompt = "Press Enter to continue...")
+        private void PressEnterToContinue(string prompt = "Press Enter to continue...")
         {
             if (SilenceMode) return;
             System.Console.Write(prompt);
@@ -71,7 +71,7 @@ namespace Papagames.Detective.App.Console
                 System.Console.ReadLine();
         }
 
-        private static void WriteDividingLine()
+        private void WriteDividingLine()
         {
             if (SilenceMode) return;
             System.Console.WriteLine(
