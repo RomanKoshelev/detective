@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using MoreLinq;
 
-namespace Papagames.Detective.Core
+namespace Papagames.Detective.Core.Game
 {
     public class Person
     {

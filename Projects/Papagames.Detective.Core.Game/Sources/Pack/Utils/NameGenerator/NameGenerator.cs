@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Papagames.Detective.Common;
 
-namespace Papagames.Detective.Core
+namespace Papagames.Detective.Core.Game
 {
     public partial class NameGenerator
     {

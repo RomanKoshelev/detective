@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Papagames.Detective.Core
+namespace Papagames.Detective.Core.Game
 {
     public interface IStage
     {

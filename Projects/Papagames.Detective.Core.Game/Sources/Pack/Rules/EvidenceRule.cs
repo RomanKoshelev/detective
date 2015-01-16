@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Papagames.Detective.Core
+namespace Papagames.Detective.Core.Game
 {
     public class EvidenceRule
     {

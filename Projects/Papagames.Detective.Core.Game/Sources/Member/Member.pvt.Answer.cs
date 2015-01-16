@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Papagames.Detective.Core
+namespace Papagames.Detective.Core.Game
 {
     public partial class Member
     {
@@ -40,7 +40,7 @@ namespace Papagames.Detective.Core
         {
             var attitudeSelector = MakeAnswerAttitudeSelector(subject);
             var answer = answerSelector(attitudeSelector(statusSelector(AnswerRule)));
-            Trace.Assert(answer != Core.Answer.Error, "Wrong answer");
+            Trace.Assert(answer != Game.Answer.Error, "Wrong answer");
             return answer;
         }
 

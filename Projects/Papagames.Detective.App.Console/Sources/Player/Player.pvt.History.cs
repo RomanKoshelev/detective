@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using MoreLinq;
-using Papagames.Detective.Core;
-using Action = Papagames.Detective.Core.Action;
+using Papagames.Detective.Core.Game;
+using Action = Papagames.Detective.Core.Game.Action;
 
 namespace Papagames.Detective.App.Console
 {

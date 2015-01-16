@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Papagames.Detective.Core
+namespace Papagames.Detective.Core.Game
 {
     public partial class Member
     {

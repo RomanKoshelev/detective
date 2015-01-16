@@ -1,7 +1,7 @@
 using System;
 using Papagames.Detective.Common;
 
-namespace Papagames.Detective.Core
+namespace Papagames.Detective.Core.Game
 {
     public partial class Profile
     {
@@ -56,11 +56,11 @@ namespace Papagames.Detective.Core
             switch (c)
             {
                 case 'i':
-                    return Core.Emotion.Indifferent;
+                    return Emotion.Indifferent;
                 case 'h':
-                    return Core.Emotion.Happy;
+                    return Emotion.Happy;
                 case 's':
-                    return Core.Emotion.Sad;
+                    return Emotion.Sad;
             }
             throw new Exception(string.Format("Wrong EmotionCode [{0}]", c));
         }

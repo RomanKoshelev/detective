@@ -1,7 +1,7 @@
 using System;
 using Papagames.Detective.Common;
 
-namespace Papagames.Detective.Core
+namespace Papagames.Detective.Core.Game
 {
     public partial class Profile
     {
@@ -56,15 +56,15 @@ namespace Papagames.Detective.Core
             switch (c)
             {
                 case 'u':
-                    return Core.Answer.Unknown;
+                    return Answer.Unknown;
                 case 'i':
-                    return Core.Answer.Innocent;
+                    return Answer.Innocent;
                 case 'm':
-                    return Core.Answer.Murderer;
+                    return Answer.Murderer;
                 case 's':
-                    return Core.Answer.Suspicious;
+                    return Answer.Suspicious;
                 case 'n':
-                    return Core.Answer.NotSuspicious;
+                    return Answer.NotSuspicious;
             }
 
             throw new Exception(string.Format("Wrong AnswerCode [{0}]", c));

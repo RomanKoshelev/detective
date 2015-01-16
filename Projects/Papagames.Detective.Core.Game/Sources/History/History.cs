@@ -4,7 +4,7 @@ using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Common;
 
-namespace Papagames.Detective.Core
+namespace Papagames.Detective.Core.Game
 {
     public partial class History
     {

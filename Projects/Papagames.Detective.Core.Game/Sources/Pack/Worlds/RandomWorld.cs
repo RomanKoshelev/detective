@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Papagames.Detective.Common;
 
-namespace Papagames.Detective.Core
+namespace Papagames.Detective.Core.Game
 {
     public sealed class RandomWorld : BaseWorld
     {
