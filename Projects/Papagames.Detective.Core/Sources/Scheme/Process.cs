@@ -1,4 +1,4 @@
-﻿namespace Papagames.Detective.App.Console
+﻿namespace Papagames.Detective.Core
 {
     public class Process
     {

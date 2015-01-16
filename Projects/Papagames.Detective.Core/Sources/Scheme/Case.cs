@@ -1,6 +1,4 @@
-﻿using Papagames.Detective.Core;
-
-namespace Papagames.Detective.App.Console
+﻿namespace Papagames.Detective.Core
 {
     public class Case
     {
