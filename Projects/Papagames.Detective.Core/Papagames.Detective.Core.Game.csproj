@@ -7,8 +7,8 @@
     <ProjectGuid>{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Papagames.Detective.Core</RootNamespace>
-    <AssemblyName>Papagames.Detective.Core</AssemblyName>
+    <RootNamespace>Papagames.Detective.Core.Game</RootNamespace>
+    <AssemblyName>Papagames.Detective.Core.Game</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -63,10 +63,10 @@
     <Compile Include="Sources\Pack\Worlds\IWorld.cs" />
     <Compile Include="Sources\Pack\Worlds\BaseWorld.cs" />
     <Compile Include="Sources\Enums\Emotion.cs" />
-    <Compile Include="Sources\Game\Game.pvt.History.cs" />
-    <Compile Include="Sources\Game\Game.pvt.Members.cs" />
-    <Compile Include="Sources\Game\Game.pvt.Actions.cs" />
-    <Compile Include="Sources\Game\Game.pvt.Logic.cs" />
+    <Compile Include="Sources\Game\Process.pvt.History.cs" />
+    <Compile Include="Sources\Game\Process.pvt.Members.cs" />
+    <Compile Include="Sources\Game\Process.pvt.Actions.cs" />
+    <Compile Include="Sources\Game\Process.pvt.Logic.cs" />
     <Compile Include="Sources\Enums\State.cs" />
     <Compile Include="Sources\Pack\Worlds\WorldExtension.cs" />
     <Compile Include="Sources\Enums\FactorPriority.cs" />
