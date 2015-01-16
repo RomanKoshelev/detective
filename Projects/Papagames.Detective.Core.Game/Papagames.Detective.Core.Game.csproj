@@ -86,7 +86,7 @@
     <Compile Include="Sources\Process\Process.cs" />
     <Compile Include="Sources\History\History.cs" />
     <Compile Include="Sources\History\History.Record.cs" />
-    <Compile Include="Sources\Scheme\Case.cs" />
+    <Compile Include="Sources\Case\Case.cs" />
     <Compile Include="Sources\Scheme\Scheme.cs" />
     <Compile Include="Sources\Stage\IStage.cs" />
     <Compile Include="Sources\Member\Member.cs" />
