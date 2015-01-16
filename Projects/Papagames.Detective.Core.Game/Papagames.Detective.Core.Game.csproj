@@ -98,9 +98,9 @@
     <None Include="Properties\packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Papagames.Detective.Common\Papagames.Detective.Common.csproj">
+    <ProjectReference Include="..\Papagames.Detective.Utils\Papagames.Detective.Utils.csproj">
       <Project>{3b976c8e-645d-436c-80f6-e6e843cd42ac}</Project>
-      <Name>Papagames.Detective.Common</Name>
+      <Name>Papagames.Detective.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

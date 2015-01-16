@@ -7,8 +7,8 @@
     <ProjectGuid>{3B976C8E-645D-436C-80F6-E6E843CD42AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Papagames.Detective.Common</RootNamespace>
-    <AssemblyName>Papagames.Detective.Common</AssemblyName>
+    <RootNamespace>Papagames.Detective.Utils</RootNamespace>
+    <AssemblyName>Papagames.Detective.Utils</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
