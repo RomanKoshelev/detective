@@ -4,7 +4,7 @@ using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Core;
 
-namespace Papagames.Detective.Presentation.Console
+namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {

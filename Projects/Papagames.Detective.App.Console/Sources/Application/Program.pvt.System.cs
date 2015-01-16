@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Papagames.Detective.Presentation.Console
+namespace Papagames.Detective.App.Console
 {
     internal partial class Program
     {
