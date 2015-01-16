@@ -41,16 +41,13 @@ namespace Papagames.Detective.Core.Game
 
         private void DoDetectiveAction()
         {
-            // Stage.OnArrestStart(Members, History);
-
+            //TODO suspectNumber = 2 : Stage.GetSuspectNumberForArrest(ActiveMembers);
             var suspectNumber = 2; // Stage.GetSuspectNumberForArrest(ActiveMembers);
             var suspect = ActiveMembers.First(m => m.Number == suspectNumber);
             suspect.IsPrisoner = true;
 
             History.StoreArrest(CurrentDay, Detective, suspect);
             HistoryStoreEmotionalReactionOnArrest(suspect);
-
-            // Stage.OnArrestEnd(suspect, Members, History);
         }
 
         private void SelectWitnessAndEvidence()
@@ -70,8 +67,13 @@ namespace Papagames.Detective.Core.Game
                 witness.RememberInnocent(subject);
                 History.StoreInnocentEvidence(CurrentDay, witness, subject);
             }
+        }
 
-            // Stage.OnWitness(witness, subject);
+        private Answer DoAskMemberAboutSubject(Member respondent, Member subject)
+        {
+            var answer = respondent.Ask(subject);
+            History.StoreAnswer(CurrentDay, respondent, subject, answer);
+            return answer;
         }
     }
 }

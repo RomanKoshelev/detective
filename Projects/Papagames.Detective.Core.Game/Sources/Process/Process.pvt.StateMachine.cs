@@ -21,7 +21,6 @@ namespace Papagames.Detective.Core.Game
                     State = RunCheckBefore(State.Morning);
                     break;
                 case State.Morning:
-                    RunMorning();
                     State = State.Questioning;
                     break;
                 case State.Questioning:
@@ -44,15 +43,12 @@ namespace Papagames.Detective.Core.Game
                     State = State.End;
                     break;
                 case State.MurdererWin:
-                    RunMurdererWin();
                     State = State.End;
                     break;
                 case State.Break:
-                    RunBreak();
                     State = State.End;
                     break;
                 case State.End:
-                    RunEnd();
                     State = State.Finished;
                     break;
                 default:
@@ -60,25 +56,13 @@ namespace Papagames.Detective.Core.Game
             }
         }
 
-        private static void RunBreak()
-        {
-        }
-
-        private void RunMurdererWin()
-        {
-            //  Stage.OnMurdererWin(Members, History);
-        }
-
         private void RunDetectiveWin()
         {
             DidDeteciveWin = true;
-            //     Stage.OnDetectiveWin(Members, History);
         }
 
         private State RunCheckBefore(State nextState)
         {
-            //   Stage.OnCheck();
-
             return ActiveMembers.NotExists(m => m.IsMurderer)
                 ? State.DetectiveWin
                 : ActiveMembers.NotExists(m => m.IsInnocent)
@@ -94,51 +78,24 @@ namespace Papagames.Detective.Core.Game
         private void RunQuestioning()
         {
             UpdateMembersKnownCounts();
-
-/*            Stage.OnQuestioningStart(Members, History);
-            foreach (var member in ActiveMembers)
-            {
-                var number = Stage.GetQuestionSubjectForAsking(member, ActiveMembers.Where(m => m != member).ToList());
-                var subject = ActiveMembers.First(m => m.Number == number);
-                var answer = member.Ask(subject);
-                Stage.OnAnswer(member, subject, answer);
-                History.StoreAnswer(CurrentDay, member, subject, answer);
-            }
-            Stage.OnQuestioningEnd(Members, History);*/
         }
 
         private void RunNextDay()
         {
             CurrentDay++;
-            // Stage.OnNextDay(CurrentDay);
-        }
-
-        private void RunMorning()
-        {
-            //Stage.OnMorning(Members, History);
         }
 
         private void RunStart()
         {
             CurrentDay = 1;
-            //Stage.OnGameStart(Members, MaxEvidenceNum, World.Name);
         }
 
         private void RunNight()
         {
             HistoryStoreParticipations();
 
-            //Stage.OnNightStart();
-
             DoWitnessActions();
             DoMurdererAction();
-
-            //  Stage.OnNightEnd();
-        }
-
-        private void RunEnd()
-        {
-            // Stage.OnGameEnd();
         }
     }
 }

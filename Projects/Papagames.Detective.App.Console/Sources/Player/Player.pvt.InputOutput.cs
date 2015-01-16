@@ -77,5 +77,13 @@ namespace Papagames.Detective.App.Console
             System.Console.WriteLine(
                 "\n  ---------------------------------------------------------------------------------------------------------------------------------------------------------------");
         }
+
+        private int GetQuestionSubjectForAsking(Member respondent, IEnumerable<Member> subjects)
+        {
+            var values = subjects.Select(m => m.Number).ToList();
+            const string strValues = "";
+            var defValue = values.RandomElement();
+            return PromptInt(string.Format("Ask{0}{1}", respondent.ShortInfoName(12), strValues), values, defValue);
+        }
     }
 }

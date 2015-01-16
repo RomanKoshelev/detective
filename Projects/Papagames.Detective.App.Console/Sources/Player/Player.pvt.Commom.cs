@@ -34,5 +34,6 @@ namespace Papagames.Detective.App.Console
 
         private IList<Member> Members {get { return _process.Members; }}
         public History History { get { return _process.History; } }
+        public IList<Member> ActiveMembers { get { return _process.ActiveMembers; } }
     }
 }

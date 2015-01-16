@@ -17,7 +17,7 @@ namespace Papagames.Detective.App.Console
             InitStateHandlers();
         }
 
-        public int GetSuspectNumberForArrest(IList<Member> members)
+        private int GetSuspectNumberForArrest(IList<Member> members)
         {
             var values = members.Select(m => m.Number).ToList();
             const string strValues = "";
@@ -32,14 +32,6 @@ namespace Papagames.Detective.App.Console
             
             var prompt = string.Format("{0}{1}", "Arrest", strValues);
             return PromptInt(prompt, values, values.RandomElement());
-        }
-
-        public int GetQuestionSubjectForAsking(Member respondent, IList<Member> subjects)
-        {
-            var values = subjects.Select(m => m.Number).ToList();
-            const string strValues = "";
-            var defValue = values.RandomElement();
-            return PromptInt(string.Format("Ask{0}{1}", respondent.ShortInfoName(12), strValues), values, defValue);
         }
 
         public void Run(Process process)

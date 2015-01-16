@@ -10,23 +10,23 @@ namespace Papagames.Detective.App.Console
         #region Print Answer
 
         // ===================================================================================== []
-        private void PrintAnswers(IEnumerable<Member> members, History history, bool isGameOver=false)
+        private void PrintAnswers(bool isGameOver=false)
         {
             if (SilenceMode) return;
 
             const string nameCellFormat = "  {0,-16}";
             const string answerCellFormat = "{0,-28}";
 
-            PrintAnswersHeader(history, nameCellFormat, answerCellFormat);
+            PrintAnswersHeader(History, nameCellFormat, answerCellFormat);
 
-            members.Where(m => m.IsActive || history.Records.Exists(r => r.Agent == m && r.Action == Action.Answer)).OrderBy(m => !m.IsActive?-1:m.Number).ForEach(m =>
+            Members.Where(m => m.IsActive || History.Records.Exists(r => r.Agent == m && r.Action == Action.Answer)).OrderBy(m => !m.IsActive?-1:m.Number).ForEach(m =>
                 {
                     Write(nameCellFormat, string.Format("  {0,2}{1}", NumberOrFullState(m), m.ShortName(12)));
 
-                    history.Days.Reverse().ForEach(day =>
+                    History.Days.Reverse().ForEach(day =>
                     {
                         var rec =
-                            history.Records.FirstOrDefault(
+                            History.Records.FirstOrDefault(
                                 r => r.Agent == m && r.Action == Action.Answer && r.Day == day);
                         Write(answerCellFormat, FormatAnswer(rec, m, isGameOver));
                     });
@@ -73,7 +73,7 @@ namespace Papagames.Detective.App.Console
 
         // ===================================================================================== []
 
-        public void DoOnAnswerWitAdverb(Member respondent, Member subject, Answer answer)
+        public void DoOnAnswerWithAdverb(Member respondent, Member subject, Answer answer)
         {
             if (SilenceMode) return;
             var verb = "";

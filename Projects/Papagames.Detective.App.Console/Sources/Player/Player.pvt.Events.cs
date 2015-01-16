@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using MoreLinq;
 using Papagames.Detective.Core.Game;
 
 namespace Papagames.Detective.App.Console
@@ -19,16 +20,16 @@ namespace Papagames.Detective.App.Console
         }
 
 
-        public void OnNight()
+        public void OnMorning()
         {
             if (SilenceMode) return;
             
-            WriteHeader("Night");
+            WriteHeader("Morning");
 
             var victim = _process.LastVictim;
 
-            //WriteLine("{0} is dead", victim.Name);
-            //WriteLine("{0} was {1}", victim.Name, victim.IsMurderer ? "Murderer" : "Innocent");
+            WriteLine("{0} is dead", victim.Name);
+            WriteLine("{0} was {1}", victim.Name, victim.IsMurderer ? "Murderer" : "Innocent");
 
             WriteLine();
             PrintEmotions();
@@ -42,25 +43,22 @@ namespace Papagames.Detective.App.Console
                 );
         }
 
-        public void OnGameEnd()
-        {
-            WriteHeader("Game End");
-        }
-
         public void OnQuestioning()
         {
             if (SilenceMode) return;
 
             WriteHeader("Questioning");
+            PrintAnswers();
 
+            ActiveMembers.ForEach(respondent =>
+            {
+                var subjNum = GetQuestionSubjectForAsking(respondent, ActiveMembers.Where(s=>s!=respondent));
+                var subject = Members.First(m => m.Number == subjNum);
+                var answer = _process.AskMemberAboutSubject(respondent, subject);
+                DoOnAnswerWithAdverb(respondent, subject, answer);
+            });
             WriteLine();
             PressEnterToContinue();
-        }
-
-        public void OnAnswer(Member respondent, Member subject, Answer answer)
-        {
-            if (SilenceMode) return;
-            DoOnAnswerWitAdverb(respondent, subject, answer);
         }
 
         public void OnArrest()
@@ -114,6 +112,10 @@ namespace Papagames.Detective.App.Console
             WaitAndPrintGameAnalize();
         }
 
+        public void OnGameEnd()
+        {
+            WriteHeader("Game End");
+        }
         private void OnError()
         {
             WriteLine("[Error]");

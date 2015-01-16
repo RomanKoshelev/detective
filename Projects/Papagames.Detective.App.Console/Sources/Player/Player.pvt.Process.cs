@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Papagames.Detective.Common;
 using Papagames.Detective.Core.Game;
 using Action = System.Action;
 
@@ -21,11 +22,11 @@ namespace Papagames.Detective.App.Console
             _stateHandlers[State.Error] = OnError;
             _stateHandlers[State.Start] = OnStart;
             _stateHandlers[State.Questioning] = OnQuestioning;
-            _stateHandlers[State.Night] = OnNight;
+            _stateHandlers[State.Morning] = OnMorning;
             _stateHandlers[State.Arrest] = OnArrest;
             _stateHandlers[State.DetectiveWin] = OnDetectiveWin;
             _stateHandlers[State.MurdererWin] = OnMurdererWin;
-            }
+        }
 
         private State State
         {
@@ -36,14 +37,20 @@ namespace Papagames.Detective.App.Console
         {
             do
             {
-                WriteLine("[Player.State = {0}]", State);
+                OnCurentState();
+                RunNextState();
+            } while (State != State.Arrest);
+        }
 
-                if(_stateHandlers.Keys.Contains(State))
-                    _stateHandlers[State]();
-                
-                _process.Step();
-            }
-            while (State != State.Questioning);
+        private void RunNextState()
+        {
+            _process.Step();
+        }
+
+        private void OnCurentState()
+        {
+            if (_stateHandlers.Keys.Contains(State))
+                _stateHandlers[State]();
         }
     }
 }

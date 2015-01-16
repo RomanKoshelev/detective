@@ -35,5 +35,10 @@ namespace Papagames.Detective.Core.Game
             Case = gcase;
             Reset();
         }
+
+        public Answer AskMemberAboutSubject(Member respondent, Member subject)
+        {
+            return DoAskMemberAboutSubject(respondent, subject);
+        }
     }
 }
