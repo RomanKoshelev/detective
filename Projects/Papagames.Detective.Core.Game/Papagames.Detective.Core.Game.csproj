@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sources\Case\Case.pvt.Members.cs" />
     <Compile Include="Sources\Pack\Profile\Profile.pvt.Evidence.cs" />
     <Compile Include="Sources\Pack\Rules\EvidenceRule.cs" />
     <Compile Include="Sources\Pack\Profile\Profile.dat.Rules.cs" />

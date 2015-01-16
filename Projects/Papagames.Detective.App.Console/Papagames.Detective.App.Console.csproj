@@ -61,8 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sources\Application\Program.pvt.System.cs" />
-    <Compile Include="Sources\Application\Program.pvt.Statistics.cs" />
+    <Compile Include="Sources\App\Program.pvt.System.cs" />
+    <Compile Include="Sources\App\Program.pvt.Statistics.cs" />
     <Compile Include="Sources\Player\Player.pvt.Process.cs" />
     <Compile Include="Sources\Player\Player.pvt.Evidences.cs" />
     <Compile Include="Sources\Player\Player.pvt.Emotions.cs" />
@@ -73,7 +73,7 @@
     <Compile Include="Sources\Player\Player.pvt.History.cs" />
     <Compile Include="Sources\Player\Player.pvt.Answers.cs" />
     <Compile Include="Sources\Player\Player.cs" />
-    <Compile Include="Sources\Application\Program.cs" />
+    <Compile Include="Sources\App\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

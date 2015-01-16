@@ -6,7 +6,7 @@ namespace Papagames.Detective.App.Console
     internal partial class Program
     {
         // ReSharper disable once UnusedMember.Local
-        private static void RunStatistics(Process process)
+/*        private static void RunStatistics(Process process)
         {
             Player.AutoMode = true;
             Player.SilenceMode = true;
@@ -27,8 +27,8 @@ namespace Papagames.Detective.App.Console
                 }
             }
             System.Console.WriteLine("\nDone.\n");
-        }
-
+        }*/
+/*
         private static Tuple<double, double, double> CalcGameSuccessRate(int count, Process process, int n, int m)
         {
             var success = 0.0;
@@ -50,7 +50,7 @@ namespace Papagames.Detective.App.Console
         {
             process.Run(memberNum, murderNum);
             return new Tuple<bool, int>(process.DidDeteciveWin, process.CurrentDay);
-        }
+        }*/
     }
 }
 

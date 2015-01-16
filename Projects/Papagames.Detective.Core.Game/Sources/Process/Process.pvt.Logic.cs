@@ -7,19 +7,6 @@ namespace Papagames.Detective.Core.Game
 {
     public partial class Process
     {
-        #region Implementetion
-
-        // ===================================================================================== []
-        private void DoRun(int memberNum, int murderNum)
-        {
-            Reset(memberNum, murderNum);
-            Loop();
-        }
-
-        // ===================================================================================== []
-
-        #endregion
-
         #region State Machine
 
         // ===================================================================================== []
@@ -179,12 +166,12 @@ namespace Papagames.Detective.Core.Game
             });
         }        
         
-        private void Reset(int memberNum, int murderNum)
+        private void Reset()
         {
             DidDeteciveWin = false;
             State = State.Start;
-            SelectMembers(memberNum);
-            AssignMurderers(murderNum);
+            InitMembers();
+            InitHistory();
         }
 
         // ===================================================================================== []

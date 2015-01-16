@@ -8,6 +8,22 @@ namespace Papagames.Detective.Core.Game
     {
         private readonly Random _random=new Random(333);
 
+        private Member Detective
+        {
+            get { return Case.Detective; }
+        }
+
+        private int MaxEvidenceNum
+        {
+            get
+            {
+                var n = (int) Math.Ceiling(ActiveMembers.Count*Case.World.EvidenceRate);
+                n = Math.Max(n, 0);
+                n = Math.Min(n, ActiveMembers.Count*(ActiveMembers.Count - 1));
+                return n;
+            }
+        }
+
         private void DoWitnessActions()
         {
             for (var w = 0; w < MaxEvidenceNum; w++)
