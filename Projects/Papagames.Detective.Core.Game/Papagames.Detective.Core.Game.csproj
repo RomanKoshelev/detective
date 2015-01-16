@@ -65,9 +65,10 @@
     <Compile Include="Sources\Pack\Worlds\BaseWorld.cs" />
     <Compile Include="Sources\Enums\Emotion.cs" />
     <Compile Include="Sources\Process\Process.pvt.History.cs" />
+    <Compile Include="Sources\Process\Process.pvt.Utils.cs" />
     <Compile Include="Sources\Process\Process.pvt.Members.cs" />
     <Compile Include="Sources\Process\Process.pvt.Actions.cs" />
-    <Compile Include="Sources\Process\Process.pvt.Logic.cs" />
+    <Compile Include="Sources\Process\Process.pvt.StateMachine.cs" />
     <Compile Include="Sources\Enums\State.cs" />
     <Compile Include="Sources\Pack\Worlds\WorldExtension.cs" />
     <Compile Include="Sources\Enums\FactorPriority.cs" />

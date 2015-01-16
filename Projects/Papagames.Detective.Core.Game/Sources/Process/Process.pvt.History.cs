@@ -4,8 +4,6 @@ namespace Papagames.Detective.Core.Game
 {
     public partial class Process
     {
-        private History History { get; set; }
-
         private void InitHistory()
         {
             History = new History();

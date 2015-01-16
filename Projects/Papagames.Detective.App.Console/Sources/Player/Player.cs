@@ -7,14 +7,14 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        public bool DebugMode { get; set; }
         public bool AutoMode { get; set; }
         public bool SilenceMode { get; set; }
 
         public Player()
         {
-            DebugMode = false;
+            SilenceMode = false;
             AutoMode = false;
+            InitStateHandlers();
         }
 
         public int GetSuspectNumberForArrest(IList<Member> members)

@@ -5,11 +5,12 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        private void WaitAndPrintGameAnalize(IList<Member> members, History history)
+        private void WaitAndPrintGameAnalize()
         {
             WriteLine();
             PressEnterToContinue();
             WriteHeader("Discovering");
+/*
             PrintRelations(members);
 
             WriteLine();
@@ -22,6 +23,7 @@ namespace Papagames.Detective.App.Console
             PrintAnswers(members, history, isGameOver: true);
             WriteLine();
             PrintHistory(history);
+*/
         }
         private static string NumberOrFullState(Member m)
         {
@@ -29,5 +31,8 @@ namespace Papagames.Detective.App.Console
                 ? string.Format("{0,2}:", m.Number)
                 : (m.IsPrisoner ? "#" : "x") + (m.IsInnocent ? "I " : m.IsMurderer ? "M " : "ERROR");
         }
+
+        private IList<Member> Members {get { return _process.Members; }}
+        public History History { get { return _process.History; } }
     }
 }

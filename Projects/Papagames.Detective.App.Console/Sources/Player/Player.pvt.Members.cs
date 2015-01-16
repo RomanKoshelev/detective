@@ -23,7 +23,7 @@ namespace Papagames.Detective.App.Console
 
             var murdersCount = members.Count(m => m.IsActiveMurderer);
             WriteLine("Active Members ({0} {1})", murdersCount, PluralNoun(murdersCount, "murder"));
-            PrintMembers(m => m.IsActive, members, history, DebugMode || showAll);
+            PrintMembers(m => m.IsActive, members, history, showAll);
         }
 
         private static string PluralNoun(int num, string noun)
@@ -39,7 +39,7 @@ namespace Papagames.Detective.App.Console
         private void PrintInactiveMembers(IList<Member> members, History history, bool showAll = false)
         {
             WriteLine("Inactive Members");
-            PrintMembers(m => !m.IsActive, members, history, DebugMode || showAll);
+            PrintMembers(m => !m.IsActive, members, history, showAll);
         }
 
         private void PrintMembers(Func<Member, bool> predicate, IList<Member> members, History history,

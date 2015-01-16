@@ -13,15 +13,12 @@ namespace Papagames.Detective.Core.Game
             get { return Case.Detective; }
         }
 
-        private int MaxEvidenceNum
+        private int CalcMaxEvidenceNum()
         {
-            get
-            {
-                var n = (int) Math.Ceiling(ActiveMembers.Count*Case.World.EvidenceRate);
-                n = Math.Max(n, 0);
-                n = Math.Min(n, ActiveMembers.Count*(ActiveMembers.Count - 1));
-                return n;
-            }
+            var n = (int) Math.Ceiling(ActiveMembers.Count*Case.World.EvidenceRate);
+            n = Math.Max(n, 0);
+            n = Math.Min(n, ActiveMembers.Count*(ActiveMembers.Count - 1));
+            return n;
         }
 
         private void DoWitnessActions()
@@ -34,14 +31,12 @@ namespace Papagames.Detective.Core.Game
 
         private void DoMurdererAction()
         {
-            var murderer = ActiveMurderers.RandomElement();
-            var victim = murderer.SelectVictim(ActiveInnocents);
-            victim.IsVictim = true;
+            LastMurderer = ActiveMurderers.RandomElement();
+            LastVictim = LastMurderer.SelectVictim(ActiveInnocents);
+            LastVictim.IsVictim = true;
 
-            History.StoreMurder(CurrentDay, murderer, victim);
-            HistoryStoreEmotionalReactionOnMurder(victim);
-
-          //  Stage.OnMurder(murderer, victim, Members, History);
+            History.StoreMurder(CurrentDay, LastMurderer, LastVictim);
+            HistoryStoreEmotionalReactionOnMurder(LastVictim);
         }
 
         private void DoDetectiveAction()

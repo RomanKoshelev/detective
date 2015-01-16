@@ -9,23 +9,23 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        private void PrintEmotions(IEnumerable<Member> members, History history, bool printAll=false)
+        private void PrintEmotions(bool printAll=false)
         {
             if (SilenceMode) return;
 
             const string nameCellFormat = "  {0,-17}";
             const string emotionCellFormat = "{0,-14}";
 
-            PrintEmotionsHeader(history, nameCellFormat, emotionCellFormat);
+            PrintEmotionsHeader(History, nameCellFormat, emotionCellFormat);
             
-            members.Where(m => m.IsActive || printAll)
+            Members.Where(m => m.IsActive || printAll)
                 .ForEach(m =>
             {
                 PrintMemberName(nameCellFormat, m);
-                history.Records.ToArray().Reverse()
+                History.Records.ToArray().Reverse()
                     .Where(EventIsEmotional)
                     .ForEach(
-                        e => PrintMemberEmotionOnEvent(m, FindMemberEmotionOnEvent(m, e, history), emotionCellFormat));
+                        e => PrintMemberEmotionOnEvent(m, FindMemberEmotionOnEvent(m, e, History), emotionCellFormat));
                 WriteLine();
             });
         }

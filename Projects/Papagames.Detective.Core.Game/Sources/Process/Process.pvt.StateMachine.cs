@@ -1,20 +1,11 @@
 ﻿using System;
-using System.Linq;
-using MoreLinq;
 using Papagames.Detective.Common;
 
 namespace Papagames.Detective.Core.Game
 {
     public partial class Process
     {
-        #region State Machine
-
-        // ===================================================================================== []
-        private void Loop()
-        {
-            do Step(); while (State != State.Finished);
-        }
-        private void Step()
+        public void Step()
         {
             switch (State)
             {
@@ -75,18 +66,18 @@ namespace Papagames.Detective.Core.Game
 
         private void RunMurdererWin()
         {
-          //  Stage.OnMurdererWin(Members, History);
+            //  Stage.OnMurdererWin(Members, History);
         }
 
         private void RunDetectiveWin()
         {
             DidDeteciveWin = true;
-       //     Stage.OnDetectiveWin(Members, History);
+            //     Stage.OnDetectiveWin(Members, History);
         }
 
         private State RunCheckBefore(State nextState)
         {
-         //   Stage.OnCheck();
+            //   Stage.OnCheck();
 
             return ActiveMembers.NotExists(m => m.IsMurderer)
                 ? State.DetectiveWin
@@ -103,7 +94,7 @@ namespace Papagames.Detective.Core.Game
         private void RunQuestioning()
         {
             UpdateMembersKnownCounts();
-            
+
 /*            Stage.OnQuestioningStart(Members, History);
             foreach (var member in ActiveMembers)
             {
@@ -119,7 +110,7 @@ namespace Papagames.Detective.Core.Game
         private void RunNextDay()
         {
             CurrentDay++;
-           // Stage.OnNextDay(CurrentDay);
+            // Stage.OnNextDay(CurrentDay);
         }
 
         private void RunMorning()
@@ -142,40 +133,12 @@ namespace Papagames.Detective.Core.Game
             DoWitnessActions();
             DoMurdererAction();
 
-          //  Stage.OnNightEnd();
+            //  Stage.OnNightEnd();
         }
 
-        
         private void RunEnd()
         {
-           // Stage.OnGameEnd();
+            // Stage.OnGameEnd();
         }
-        // ===================================================================================== []
-
-        #endregion
-
-        #region Utils
-
-        // ===================================================================================== []
-        private void UpdateMembersKnownCounts()
-        {
-            ActiveMembers.ForEach(m =>
-            {
-                m.ActualMurderersCount = ActiveMurderers.Count;
-                m.ActualMembersCount = ActiveMembers.Count;
-            });
-        }        
-        
-        private void Reset()
-        {
-            DidDeteciveWin = false;
-            State = State.Start;
-            InitMembers();
-            InitHistory();
-        }
-
-        // ===================================================================================== []
-
-        #endregion
     }
 }

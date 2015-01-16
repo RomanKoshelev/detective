@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -21,6 +20,15 @@ namespace Papagames.Detective.Core.Game
         {
             get { return DoGetActiveInnocents(); }
         }
+
+        public int MaxEvidenceNum
+        {
+            get { return CalcMaxEvidenceNum(); }
+        }
+
+        public Member LastVictim { get; private set; }
+        public Member LastMurderer { get; private set; }
+        public History History { get; set; }
 
         public Process(Case gcase)
         {
