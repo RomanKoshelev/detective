@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace c
+namespace Papagames.Detective.Core
 {
     public static class Scheme
     {
