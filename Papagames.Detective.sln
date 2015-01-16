@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E0525F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{663133DB-31BD-41AA-8E21-FA8571363FE5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{740D2A80-B34C-4750-8813-9EC7E6D93D40}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{740D2A80-B34C-4750-8813-9EC7E6D93D40}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papagames.Detective.Core.Game", "Projects\Papagames.Detective.Core\Papagames.Detective.Core.Game.csproj", "{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}"
 EndProject
