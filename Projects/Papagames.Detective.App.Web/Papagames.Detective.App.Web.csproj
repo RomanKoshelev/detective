@@ -267,7 +267,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Papagames.Detective.Core\Papagames.Detective.Core.Game.csproj">
+    <ProjectReference Include="..\Papagames.Detective.Common\Papagames.Detective.Common.csproj">
+      <Project>{3b976c8e-645d-436c-80f6-e6e843cd42ac}</Project>
+      <Name>Papagames.Detective.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Papagames.Detective.Core.Game\Papagames.Detective.Core.Game.csproj">
       <Project>{476e8372-03a5-4bca-9e1c-2c51cfe3eb91}</Project>
       <Name>Papagames.Detective.Core.Game</Name>
     </ProjectReference>
