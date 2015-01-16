@@ -10,7 +10,6 @@ namespace Papagames.Detective.Core.Game
         // ===================================================================================== []
 
         public IWorld World { get; private set; }
-        public IStage Stage { get; private set; }
         public State State { get; private set; }
         public List<Member> Members { get; private set; }
         public int CurrentDay { get; private set; }
@@ -39,19 +38,12 @@ namespace Papagames.Detective.Core.Game
 
         // ===================================================================================== []
 
-        public Process(IStage stage, IWorld world)
+        public Process(Case gcase)
         {
-            State = State.Error;
-            Stage = stage;
-            World = world;
+            World = gcase.World;
 
             InitHistory();
             InitMembers();
-        }
-
-        public Process(Case gcase)
-        {
-            
         }
 
         // ===================================================================================== []

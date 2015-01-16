@@ -5,7 +5,7 @@ using Papagames.Detective.Core.Game;
 
 namespace Papagames.Detective.App.Console
 {
-    internal partial class Player : IStage
+    internal partial class Player
     {
         public bool DebugMode { get; set; }
         public bool AutoMode { get; set; }

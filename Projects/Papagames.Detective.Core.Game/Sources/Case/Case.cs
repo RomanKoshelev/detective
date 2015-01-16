@@ -6,5 +6,7 @@
         {
             
         }
+
+        public IWorld World { get; set; }
     }
 }

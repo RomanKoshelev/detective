@@ -88,18 +88,18 @@ namespace Papagames.Detective.Core.Game
 
         private void RunMurdererWin()
         {
-            Stage.OnMurdererWin(Members, History);
+          //  Stage.OnMurdererWin(Members, History);
         }
 
         private void RunDetectiveWin()
         {
             DidDeteciveWin = true;
-            Stage.OnDetectiveWin(Members, History);
+       //     Stage.OnDetectiveWin(Members, History);
         }
 
         private State RunCheckBefore(State nextState)
         {
-            Stage.OnCheck();
+         //   Stage.OnCheck();
 
             return ActiveMembers.NotExists(m => m.IsMurderer)
                 ? State.DetectiveWin
@@ -117,7 +117,7 @@ namespace Papagames.Detective.Core.Game
         {
             UpdateMembersKnownCounts();
             
-            Stage.OnQuestioningStart(Members, History);
+/*            Stage.OnQuestioningStart(Members, History);
             foreach (var member in ActiveMembers)
             {
                 var number = Stage.GetQuestionSubjectForAsking(member, ActiveMembers.Where(m => m != member).ToList());
@@ -126,42 +126,42 @@ namespace Papagames.Detective.Core.Game
                 Stage.OnAnswer(member, subject, answer);
                 History.StoreAnswer(CurrentDay, member, subject, answer);
             }
-            Stage.OnQuestioningEnd(Members, History);
+            Stage.OnQuestioningEnd(Members, History);*/
         }
 
         private void RunNextDay()
         {
             CurrentDay++;
-            Stage.OnNextDay(CurrentDay);
+           // Stage.OnNextDay(CurrentDay);
         }
 
         private void RunMorning()
         {
-            Stage.OnMorning(Members, History);
+            //Stage.OnMorning(Members, History);
         }
 
         private void RunStart()
         {
             CurrentDay = 1;
-            Stage.OnGameStart(Members, MaxEvidenceNum, World.Name);
+            //Stage.OnGameStart(Members, MaxEvidenceNum, World.Name);
         }
 
         private void RunNight()
         {
             HistoryStoreParticipations();
 
-            Stage.OnNightStart();
+            //Stage.OnNightStart();
 
             DoWitnessActions();
             DoMurdererAction();
 
-            Stage.OnNightEnd();
+          //  Stage.OnNightEnd();
         }
 
         
         private void RunEnd()
         {
-            Stage.OnGameEnd();
+           // Stage.OnGameEnd();
         }
         // ===================================================================================== []
 
