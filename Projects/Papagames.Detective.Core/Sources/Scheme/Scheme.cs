@@ -6,7 +6,7 @@ namespace Papagames.Detective.Core
     {
         private static readonly Pack Pack = new Pack();
         private static readonly List<Case> Cases = new List<Case>();
-        private static readonly List<Process> Processes = new List<Process>();
+        private static readonly List<Game> Processes = new List<Game>();
         private static readonly IDictionary<WorldId, IWorld> WorldMap = new Dictionary<WorldId, IWorld>();
 
         static Scheme()
@@ -27,9 +27,9 @@ namespace Papagames.Detective.Core
             Random
         }
 
-        public static Process NewProcess(Case gcase)
+        public static Game NewProcess(Case gcase)
         {
-            var gprocess = new Process(gcase);
+            var gprocess = new Game(gcase);
             Processes.Add(gprocess);
             return gprocess;
         }

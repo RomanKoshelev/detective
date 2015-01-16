@@ -5,7 +5,7 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        private void DoRun(Process process)
+        private void DoRun(Game process)
         {
             WriteLine("Process");
         }

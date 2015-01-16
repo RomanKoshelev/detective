@@ -49,6 +49,11 @@ namespace Papagames.Detective.Core
             InitMembers();
         }
 
+        public Game(Case gcase)
+        {
+            throw new NotImplementedException();
+        }
+
         // ===================================================================================== []
 
         #endregion
