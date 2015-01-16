@@ -8,8 +8,8 @@ namespace Papagames.Detective.Presentation.Console
         // ReSharper disable once UnusedMember.Local
         private static void RunStatistics(Game game)
         {
-            Stage.AutoMode = true;
-            Stage.SilenceMode = true;
+            Player.AutoMode = true;
+            Player.SilenceMode = true;
 
             const int count = 1000;
             const int min = 3;

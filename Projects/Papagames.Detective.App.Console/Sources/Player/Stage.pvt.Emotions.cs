@@ -7,7 +7,7 @@ using Action = Papagames.Detective.Core.Action;
 
 namespace Papagames.Detective.Presentation.Console
 {
-    internal partial class Stage
+    internal partial class Player
     {
         private static void PrintEmotions(IEnumerable<Member> members, History history, bool printAll=false)
         {

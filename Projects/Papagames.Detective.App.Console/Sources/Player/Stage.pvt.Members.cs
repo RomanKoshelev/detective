@@ -6,7 +6,7 @@ using Papagames.Detective.Core;
 
 namespace Papagames.Detective.Presentation.Console
 {
-    internal partial class Stage
+    internal partial class Player
     {
         private static void PrintAllMembers(IList<Member> members, History history, bool printAll = false)
         {

@@ -5,13 +5,13 @@ using Papagames.Detective.Core;
 
 namespace Papagames.Detective.Presentation.Console
 {
-    internal partial class Stage : IStage
+    internal partial class Player : IStage
     {
         public static bool DebugMode { get; set; }
         public static bool AutoMode { get; set; }
         public static bool SilenceMode { get; set; }
 
-        public Stage()
+        public Player()
         {
             DebugMode = false;
             AutoMode = false;
@@ -205,6 +205,11 @@ namespace Papagames.Detective.Presentation.Console
             const string strValues = "";
             var defValue = values.RandomElement();
             return PromptInt(string.Format("Ask{0}{1}", respondent.ShortInfoName(12), strValues), values, defValue);
+        }
+
+        public void Run(Process gproc)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

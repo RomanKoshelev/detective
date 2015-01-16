@@ -5,7 +5,7 @@ using Action = Papagames.Detective.Core.Action;
 
 namespace Papagames.Detective.Presentation.Console
 {
-    internal partial class Stage
+    internal partial class Player
     {
         private static void PrintHistory(History history)
         {

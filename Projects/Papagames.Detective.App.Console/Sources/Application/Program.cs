@@ -10,7 +10,7 @@ namespace Papagames.Detective.Presentation.Console
         {
             try
             {
-                var stage = new Stage();
+                var stage = new Player();
                 var pack = new Pack();
                 var game = new Game(stage, pack.SimpsonsWorld);
                 Run(game);
@@ -23,8 +23,8 @@ namespace Papagames.Detective.Presentation.Console
 
         private static void Run(Game game)
         {
-            Stage.SilenceMode = false;
-            Stage.AutoMode = true;
+            Player.SilenceMode = false;
+            Player.AutoMode = true;
             // todo: https://rk-dev.atlassian.net/browse/DET-12
 
 
@@ -37,13 +37,6 @@ namespace Papagames.Detective.Presentation.Console
         }
     }
 
-    internal class Player
-    {
-        public void Run(Process gproc)
-        {
-            throw new NotImplementedException();
-        }
-    }
 
     public static class Scheme
     {

@@ -3,7 +3,7 @@ using Papagames.Detective.Core;
 
 namespace Papagames.Detective.Presentation.Console
 {
-    internal partial class Stage
+    internal partial class Player
     {
         private static void WaitAndPrintGameAnalize(IList<Member> members, History history)
         {

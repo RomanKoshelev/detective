@@ -7,7 +7,7 @@ using Papagames.Detective.Core;
 
 namespace Papagames.Detective.Presentation.Console
 {
-    internal partial class Stage
+    internal partial class Player
     {
         private static int PromptInt(string text, IList<int> values, int defVal)
         {
