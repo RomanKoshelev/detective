@@ -207,9 +207,9 @@ namespace Papagames.Detective.App.Console
             return PromptInt(string.Format("Ask{0}{1}", respondent.ShortInfoName(12), strValues), values, defValue);
         }
 
-        public void Run(Process gproc)
+        public void Run(Process process)
         {
-            throw new System.NotImplementedException();
+            DoRun(process);
         }
     }
 }
