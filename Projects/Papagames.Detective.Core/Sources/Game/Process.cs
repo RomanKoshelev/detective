@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Papagames.Detective.Core
 {
-    public partial class Game
+    public partial class Process
     {
         #region Pub Properties
 
@@ -39,7 +39,7 @@ namespace Papagames.Detective.Core
 
         // ===================================================================================== []
 
-        public Game(IStage stage, IWorld world)
+        public Process(IStage stage, IWorld world)
         {
             State = State.Error;
             Stage = stage;
@@ -49,9 +49,9 @@ namespace Papagames.Detective.Core
             InitMembers();
         }
 
-        public Game(Case gcase)
+        public Process(Case gcase)
         {
-            throw new NotImplementedException();
+            
         }
 
         // ===================================================================================== []

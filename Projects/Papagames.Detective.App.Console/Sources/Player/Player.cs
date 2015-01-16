@@ -21,7 +21,7 @@ namespace Papagames.Detective.App.Console
         {
             if (SilenceMode) return;
 
-            WriteHeader("Game Started\nWelcome to criminal {0} world", worldName);
+            WriteHeader("Process Started\nWelcome to criminal {0} world", worldName);
             var memberNum = members.Count;
             var murderNum = members.Count(m => m.IsMurderer);
 
@@ -73,7 +73,7 @@ namespace Papagames.Detective.App.Console
             if (!DebugMode) return;
             if (SilenceMode) return;
 
-            WriteLine("Game continues");
+            WriteLine("Process continues");
             WriteHeader("Morning");
             PrintHistory(history);
             WriteLine();
@@ -82,7 +82,7 @@ namespace Papagames.Detective.App.Console
 
         public void OnGameEnd()
         {
-            WriteHeader("Game End");
+            WriteHeader("Process End");
         }
 
         public void OnQuestioningStart(IList<Member> members, History history)
@@ -171,7 +171,7 @@ namespace Papagames.Detective.App.Console
         {
             if (SilenceMode) return;
             if (DebugMode)
-                WriteLine("Game continues");
+                WriteLine("Process continues");
             WriteHeader("Day {0} started", currentDay);
         }
 
@@ -207,7 +207,7 @@ namespace Papagames.Detective.App.Console
             return PromptInt(string.Format("Ask{0}{1}", respondent.ShortInfoName(12), strValues), values, defValue);
         }
 
-        public void Run(Game process)
+        public void Run(Process process)
         {
             DoRun(process);
         }

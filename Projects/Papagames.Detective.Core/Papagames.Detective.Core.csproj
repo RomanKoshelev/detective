@@ -83,7 +83,7 @@
     <Compile Include="Sources\Pack\Person\Person.cs" />
     <Compile Include="Sources\Pack\Profile\Profile.cs" />
     <Compile Include="Sources\Enums\ProfileType.cs" />
-    <Compile Include="Sources\Game\Game.cs" />
+    <Compile Include="Sources\Game\Process.cs" />
     <Compile Include="Sources\History\History.cs" />
     <Compile Include="Sources\History\History.Record.cs" />
     <Compile Include="Sources\Scheme\Case.cs" />

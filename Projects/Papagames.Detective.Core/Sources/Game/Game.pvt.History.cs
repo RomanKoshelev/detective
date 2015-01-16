@@ -2,7 +2,7 @@
 
 namespace Papagames.Detective.Core
 {
-    public partial class Game
+    public partial class Process
     {
         private History History { get; set; }
 
