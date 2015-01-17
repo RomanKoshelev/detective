@@ -46,5 +46,10 @@ namespace Papagames.Detective.App.Console
         {
             get { return _process.State; }
         }
+
+        public int CurrentDay
+        {
+            get { return _process.CurrentDay; }
+        }
     }
 }

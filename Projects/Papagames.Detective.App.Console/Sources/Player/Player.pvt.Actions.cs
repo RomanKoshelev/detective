@@ -19,12 +19,11 @@ namespace Papagames.Detective.App.Console
             WriteLine("And every night peaceful witnesses can take up to {0} evidence{1}", _process.MaxEvidenceNum, _process.MaxEvidenceNum > 1 ? "s" : "");
         }
 
-
         private void Morning()
         {
             if (SilenceMode) return;
             
-            WriteHeader("Morning");
+            WriteHeader("Day {0} Morning", CurrentDay);
 
             var victim = LastVictim;
 
@@ -58,7 +57,7 @@ namespace Papagames.Detective.App.Console
                 var answer = _process.Ask(respondent, subject);
                 PrintAnswerWithAdverb(respondent, subject, answer);
             });
-            WriteLine();
+            
             PressEnterToContinue();
         }
 
