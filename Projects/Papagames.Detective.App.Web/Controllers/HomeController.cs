@@ -14,6 +14,5 @@ namespace Papagames.Detective.App.Web.Controllers
             player.LoadCases();
             return View(player);
         }
-
     }
 }
