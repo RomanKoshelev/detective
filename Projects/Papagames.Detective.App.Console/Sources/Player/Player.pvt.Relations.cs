@@ -8,18 +8,18 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        private void PrintRelations(IList<Member> members)
+        private void PrintRelations()
         {
             if (SilenceMode) return;
 
             WriteLine("Relations");
 
-            members.ForEach(m =>
+            Members.ForEach(m =>
             {
                 WriteLine("  {0}",m.Name);
-                if (m.LoveAny(members))   PrintRelationSubjects("Loves: ", m, members, m.Love);
-                if (m.HateAny(members))   PrintRelationSubjects("Hates: ", m, members, m.Hate);
-                if (!m.LoveOrHateAny(members)) WriteLine("    Ignores all");
+                if (m.LoveAny(Members))   PrintRelationSubjects("Loves: ", m, Members, m.Love);
+                if (m.HateAny(Members))   PrintRelationSubjects("Hates: ", m, Members, m.Hate);
+                if (!m.LoveOrHateAny(Members)) WriteLine("    Ignores all");
             });
         }
 

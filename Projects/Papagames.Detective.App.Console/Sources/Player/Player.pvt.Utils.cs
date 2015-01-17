@@ -10,20 +10,19 @@ namespace Papagames.Detective.App.Console
             WriteLine();
             PressEnterToContinue();
             WriteHeader("Discovering");
-/*
-            PrintRelations(members);
+
+            PrintRelations();
 
             WriteLine();
-            PrintEvidences(members);
+            PrintEvidences();
             WriteLine();
-            PrintEmotions(members, history, printAll: true);
-            //WriteLine();
-            //PrintAllMembers(members, history, printAll: true);
+            PrintEmotions(printAll: true);
             WriteLine();
-            PrintAnswers(members, history, isGameOver: true);
+            PrintAllMembers(printAll: true);
             WriteLine();
-            PrintHistory(history);
-*/
+            PrintAnswers(isGameOver: true);
+            WriteLine();
+            PrintHistory();
         }
         private static string NumberOrFullState(Member m)
         {
@@ -43,6 +42,9 @@ namespace Papagames.Detective.App.Console
         {
             get { return _process.LastArrested; }
         }
-
+        private State State
+        {
+            get { return _process.State; }
+        }
     }
 }

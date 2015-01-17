@@ -8,22 +8,22 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        private void PrintAllMembers(IList<Member> members, History history, bool printAll = false)
+        private void PrintAllMembers(bool printAll = false)
         {
             if (SilenceMode) return;
 
-            PrintActiveMembers(members, history, printAll);
+            PrintActiveMembers(printAll);
             WriteLine();
-            PrintInactiveMembers(members, history, printAll);
+            PrintInactiveMembers(printAll);
         }
 
-        private void PrintActiveMembers(IList<Member> members, History history, bool showAll = false)
+        private void PrintActiveMembers(bool showAll = false)
         {
             if (SilenceMode) return;
 
-            var murdersCount = members.Count(m => m.IsActiveMurderer);
+            var murdersCount = Members.Count(m => m.IsActiveMurderer);
             WriteLine("Active Members ({0} {1})", murdersCount, PluralNoun(murdersCount, "murder"));
-            PrintMembers(m => m.IsActive, members, history, showAll);
+            PrintMembers(m => m.IsActive, showAll);
         }
 
         private static string PluralNoun(int num, string noun)
@@ -36,24 +36,23 @@ namespace Papagames.Detective.App.Console
             return noun + "s";
         }
 
-        private void PrintInactiveMembers(IList<Member> members, History history, bool showAll = false)
+        private void PrintInactiveMembers(bool showAll = false)
         {
             WriteLine("Inactive Members");
-            PrintMembers(m => !m.IsActive, members, history, showAll);
+            PrintMembers(m => !m.IsActive, showAll);
         }
 
-        private void PrintMembers(Func<Member, bool> predicate, IList<Member> members, History history,
-            bool showAll)
+        private void PrintMembers(Func<Member, bool> predicate, bool showAll)
         {
             if (SilenceMode) return;
-            members.Where(predicate)
+            Members.Where(predicate)
                 .ForEach(
                     m =>
                         WriteLine("  {0}{1,-10} {2,-7}{3,-48} {4}",
                             showAll
                                 ? (MemberStatus(m) + "  ")
                                 : MemberOpenStatus(m), m.Name, m.Person.Profile.Type,
-                            MemberRelationships(m, members), showAll ? BuildMemberHistory(m, history) : ""));
+                            MemberRelationships(m, Members), showAll ? BuildMemberHistory(m, History) : ""));
         }
 
         private static string MemberRelationships(Member member, IList<Member> members)

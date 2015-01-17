@@ -9,6 +9,9 @@ namespace Papagames.Detective.Core.Game
         {
             switch (State)
             {
+                case State.Initial:
+                    State = State.Start;
+                    break;
                 case State.Start:
                     RunStart();
                     State = State.Night;

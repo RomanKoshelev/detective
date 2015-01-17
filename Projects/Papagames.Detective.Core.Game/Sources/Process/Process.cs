@@ -34,7 +34,7 @@ namespace Papagames.Detective.Core.Game
         public Process(Case gcase)
         {
             Case = gcase;
-            Reset();
+            DoInit();
         }
 
         public Answer Ask(Member respondent, Member subject)
@@ -45,6 +45,10 @@ namespace Papagames.Detective.Core.Game
         public void Arrest(Member suspect)
         {
             DoArrest(suspect);
+        }
+        public void Init()
+        {
+            DoInit();
         }
     }
 }

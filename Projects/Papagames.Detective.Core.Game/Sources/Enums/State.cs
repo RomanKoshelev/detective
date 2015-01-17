@@ -3,7 +3,8 @@ namespace Papagames.Detective.Core.Game
     public enum State
     {
         Error = -1,
-        Start = 0,
+        Initial = 0,
+        Start,
         Night,
         Morning,
         Questioning,
@@ -15,6 +16,6 @@ namespace Papagames.Detective.Core.Game
         Break,
         End,
         CheckNight,
-        Finished
+        Finished,
     }
 }

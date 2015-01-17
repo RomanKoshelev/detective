@@ -9,17 +9,17 @@ namespace Papagames.Detective.App.Console
     internal partial class Player
     {
 
-        private void PrintEvidences(IList<Member> members)
+        private void PrintEvidences()
         {
             if (SilenceMode) return;
 
             WriteLine("Knowleges");
 
-            members.Where(m=>m.IsInnocent).ForEach(m =>
+            Members.Where(m=>m.IsInnocent).ForEach(m =>
             {
                 WriteLine("  {0}", m.Name);
-                if (m.WasWitnessMurderer) PrintEvidenceSubjects("Murderers: ", members, m.KnowIsMurderer);
-                if (m.WasWitnessInnocent) PrintEvidenceSubjects("Innocents: ", members, m.KnowIsInnocent);
+                if (m.WasWitnessMurderer) PrintEvidenceSubjects("Murderers: ", Members, m.KnowIsMurderer);
+                if (m.WasWitnessInnocent) PrintEvidenceSubjects("Innocents: ", Members, m.KnowIsInnocent);
                 if (m.WasUninformed) WriteLine("    Has no information");
             });
         }

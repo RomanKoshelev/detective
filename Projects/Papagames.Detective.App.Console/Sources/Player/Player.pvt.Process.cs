@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Papagames.Detective.Common;
 using Papagames.Detective.Core.Game;
 using Action = System.Action;
 
@@ -10,13 +8,6 @@ namespace Papagames.Detective.App.Console
     {
         private Process _process;
         private readonly IDictionary<State, Action> _stateHandlers = new Dictionary<State, Action>();
-
-        private void DoRun(Process process)
-        {
-            _process = process;
-            RunStateMachine();
-        }
-
         private void InitStateHandlers()
         {
             _stateHandlers[State.Start] = Start;
@@ -29,26 +20,33 @@ namespace Papagames.Detective.App.Console
             _stateHandlers[State.End] = End;
         }
 
-        private State State
+        private void DoRun(Process process)
         {
-            get { return _process.State; }
+            _process = process;
+            RunStateMachine();
         }
-
+        
         private void RunStateMachine()
         {
+            InitProcess();
             do
             {
-                OnCurentState();
-                RunNextState();
+                StepProcess();
+                HandleState();
             } while (State != State.End);
         }
 
-        private void RunNextState()
+        private void InitProcess()
+        {
+            _process.Init();
+        }
+
+        private void StepProcess()
         {
             _process.Step();
         }
 
-        private void OnCurentState()
+        private void HandleState()
         {
             if (_stateHandlers.Keys.Contains(State))
                 _stateHandlers[State]();

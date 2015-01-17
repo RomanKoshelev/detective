@@ -7,24 +7,24 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        private void PrintHistory(History history)
+        private void PrintHistory()
         {
             if (SilenceMode) return;
 
             WriteLine("History");
 
-            history.Days.ForEach(d =>
+            History.Days.ForEach(d =>
             {
                 WriteLine("  Day:{0} ", d);
-                WriteLine("    Active: {0}", GetParticipations(history, d));
-                history.Records.Where(r => r.Day == d).Where(RecordIsRealAction)
+                WriteLine("    Active: {0}", GetParticipations(d));
+                History.Records.Where(r => r.Day == d).Where(RecordIsRealAction)
                     .ForEach(r => WriteLine("    {0}", FormatActiveMemberHistoryRecord(r)));
             });
         }
 
-        private static string GetParticipations(History history, int day)
+        private string GetParticipations(int day)
         {
-            return history.Records.Where(r => r.Day == day && r.Action == Action.Participation).Select(r => MemberHistoryName(r.Agent)).Aggregate((res, s) => res + ", " + s);
+            return History.Records.Where(r => r.Day == day && r.Action == Action.Participation).Select(r => MemberHistoryName(r.Agent)).Aggregate((res, s) => res + ", " + s);
         }
 
         private static string MemberHistoryName(Member member)

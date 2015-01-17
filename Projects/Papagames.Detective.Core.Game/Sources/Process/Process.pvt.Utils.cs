@@ -14,10 +14,10 @@ namespace Papagames.Detective.Core.Game
             });
         }        
         
-        private void Reset()
+        private void DoInit()
         {
             DidDeteciveWin = false;
-            State = State.Start;
+            State = State.Initial;
             InitMembers();
             InitHistory();
         }
