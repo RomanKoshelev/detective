@@ -21,7 +21,7 @@ namespace Papagames.Detective.Core.Game
             return n;
         }
 
-        private void DoWitnessActions()
+        private void DoEvidence()
         {
             for (var w = 0; w < MaxEvidenceNum; w++)
             {
@@ -29,7 +29,7 @@ namespace Papagames.Detective.Core.Game
             }
         }
 
-        private void DoMurdererAction()
+        private void DoMurder()
         {
             LastMurderer = ActiveMurderers.RandomElement();
             LastVictim = LastMurderer.SelectVictim(ActiveInnocents);
@@ -39,7 +39,7 @@ namespace Papagames.Detective.Core.Game
             HistoryStoreEmotionalReactionOnMurder(LastVictim);
         }
 
-        private void DoDetectiveAction()
+        private void DoArrest()
         {
             //TODO suspectNumber = 2 : Stage.GetSuspectNumberForArrest(ActiveMembers);
             var suspectNumber = 2; // Stage.GetSuspectNumberForArrest(ActiveMembers);

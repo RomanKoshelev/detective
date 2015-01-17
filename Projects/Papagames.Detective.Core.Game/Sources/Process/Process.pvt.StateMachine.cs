@@ -72,7 +72,7 @@ namespace Papagames.Detective.Core.Game
 
         private void RunArrest()
         {
-            DoDetectiveAction();
+            DoArrest();
         }
 
         private void RunQuestioning()
@@ -94,8 +94,8 @@ namespace Papagames.Detective.Core.Game
         {
             HistoryStoreParticipations();
 
-            DoWitnessActions();
-            DoMurdererAction();
+            DoEvidence();
+            DoMurder();
         }
     }
 }
