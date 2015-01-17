@@ -77,7 +77,7 @@ namespace Papagames.Detective.Core.Game
             // Family
             "Homer"
                 .Love("Bart", "Liza", "Marge", "Maggie", "Abraham", "Moe", "Apu", "Barney", "Carl", "Lenny")
-                .Ha1te("Selma", "Patty", "Burns", "Flanders", "Todd", "Rod");
+                .Hate("Selma", "Patty", "Burns", "Flanders", "Todd", "Rod");
             "Marge"
                 .Love("Bart", "Liza", "Homer", "Maggie", "Selma", "Patty", "Nelson", "Snake", "Apu")
                 .Hate("Moe", "Burns", "Barney", "Lenny", "Carl", "Fat Tony", "Krusty", "Itchy", "Scratchy");

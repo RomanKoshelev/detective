@@ -7,12 +7,8 @@ namespace Papagames.Detective.Core.Game
     {
         private void UpdateMembersKnownCounts()
         {
-            ActiveMembers.ForEach(m =>
-            {
-                m.ActualMurderersCount = ActiveMurderers.Count;
-                m.ActualMembersCount = ActiveMembers.Count;
-            });
-        }        
+            ActiveMembers.ForEach(m => m.UpdateKnownCounts(ActiveMembers.Count, ActiveMurderers.Count));
+        }
         
         private void DoInit()
         {

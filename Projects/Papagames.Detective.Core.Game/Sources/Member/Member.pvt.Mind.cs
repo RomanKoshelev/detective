@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Papagames.Detective.Common;
 
@@ -16,6 +17,10 @@ namespace Papagames.Detective.Core.Game
 
         private bool ThinkIsMurderer(Member subj)
         {
+            Trace.Assert(ActualMembersCount > 0, "ActualMembersCount");
+            Trace.Assert(ActualMurderersCount > 0, "ActualMurderersCount");
+            Trace.Assert(ActualMurderersCount <= ActualMembersCount, "ActualMurderersCount <= ActualMembersCount");
+
             if (_murderers.Exists(m => m == subj))
                 return true;
 
@@ -30,6 +35,10 @@ namespace Papagames.Detective.Core.Game
 
         private bool ThinkIsInnocent(Member subj)
         {
+            Trace.Assert(ActualMembersCount > 0, "ActualMembersCount");
+            Trace.Assert(ActualMurderersCount > 0, "ActualMurderersCount");
+            Trace.Assert(ActualMurderersCount <= ActualMembersCount, "ActualMurderersCount <= ActualMembersCount");
+
             if (_innocents.Exists(m => m == subj))
                 return true;
 

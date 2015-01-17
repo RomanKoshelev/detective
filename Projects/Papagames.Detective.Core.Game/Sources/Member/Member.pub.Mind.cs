@@ -90,5 +90,11 @@ namespace Papagames.Detective.Core.Game
         {
             return _innocents.Exists(m => m == subj);
         }
+
+        public void UpdateKnownCounts(int membersCount, int murderersCount)
+        {
+            ActualMurderersCount = murderersCount;
+            ActualMembersCount = membersCount;
+        }
     }
 }

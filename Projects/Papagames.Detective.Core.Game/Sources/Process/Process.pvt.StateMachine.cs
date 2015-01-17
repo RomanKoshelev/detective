@@ -24,6 +24,7 @@ namespace Papagames.Detective.Core.Game
                     State = RunCheckBefore(State.Morning);
                     break;
                 case State.Morning:
+                    RunMorning();
                     State = State.Questioning;
                     break;
                 case State.Questioning:
@@ -73,13 +74,17 @@ namespace Papagames.Detective.Core.Game
                     : nextState;
         }
 
-        private void RunArrest()
+        private void RunMorning()
         {
+            UpdateMembersKnownCounts();
         }
 
         private void RunQuestioning()
         {
-            UpdateMembersKnownCounts();
+        }
+        
+        private void RunArrest()
+        {
         }
 
         private void RunNextDay()
