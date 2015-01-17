@@ -89,7 +89,7 @@
     <Compile Include="Sources\History\History.cs" />
     <Compile Include="Sources\History\History.Record.cs" />
     <Compile Include="Sources\Case\Case.cs" />
-    <Compile Include="Sources\Scheme\Scheme.cs" />
+    <Compile Include="Sources\Scheme\Schema.cs" />
     <Compile Include="Sources\Member\Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\Pack\Pack\Pack.cs" />

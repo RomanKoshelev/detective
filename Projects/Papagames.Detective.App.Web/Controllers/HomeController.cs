@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Papagames.Detective.App.Web.Models;
 
 namespace Papagames.Detective.App.Web.Controllers
 {
@@ -9,7 +10,9 @@ namespace Papagames.Detective.App.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var player = new Player();
+            player.LoadCases();
+            return View(player);
         }
 
     }

@@ -2,14 +2,14 @@ using System.Collections.Generic;
 
 namespace Papagames.Detective.Core.Game
 {
-    public static class Scheme
+    public static class Schema
     {
         private static readonly Pack Pack = new Pack();
         private static readonly List<Case> Cases = new List<Case>();
         private static readonly List<Process> Processes = new List<Process>();
         private static readonly IDictionary<WorldId, IWorld> WorldMap = new Dictionary<WorldId, IWorld>();
 
-        static Scheme()
+        static Schema()
         {
             WorldMap.Add(WorldId.Simpsons, Pack.SimpsonsWorld);
             WorldMap.Add(WorldId.Random, Pack.RandomWorld);

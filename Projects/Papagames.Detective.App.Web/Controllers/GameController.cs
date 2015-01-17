@@ -7,7 +7,7 @@ namespace Papagames.Detective.App.Web.Controllers
     {
         public ActionResult Index()
         {
-            var _game = new Game();
+            var _game = new Player();
 
             return View(_game);
         }
