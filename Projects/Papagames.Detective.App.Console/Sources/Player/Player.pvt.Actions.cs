@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using MoreLinq;
+using Papagames.Detective.Core.Game;
 
 namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
-        public void OnStart()
+        private void Start()
         {
             if (SilenceMode) return;
 
@@ -19,13 +20,13 @@ namespace Papagames.Detective.App.Console
         }
 
 
-        public void OnMorning()
+        private void Morning()
         {
             if (SilenceMode) return;
             
             WriteHeader("Morning");
 
-            var victim = _process.LastVictim;
+            var victim = LastVictim;
 
             WriteLine("{0} is dead", victim.Name);
             WriteLine("{0} was {1}", victim.Name, victim.IsMurderer ? "Murderer" : "Innocent");
@@ -42,7 +43,7 @@ namespace Papagames.Detective.App.Console
                 );
         }
 
-        public void OnQuestioning()
+        private void Questioning()
         {
             if (SilenceMode) return;
 
@@ -54,39 +55,40 @@ namespace Papagames.Detective.App.Console
             {
                 var subjNum = GetQuestionSubjectForAsking(respondent, ActiveMembers.Where(s=>s!=respondent));
                 var subject = Members.First(m => m.Number == subjNum);
-                var answer = _process.AskMemberAboutSubject(respondent, subject);
+                var answer = _process.Ask(respondent, subject);
                 PrintAnswerWithAdverb(respondent, subject, answer);
             });
             WriteLine();
             PressEnterToContinue();
         }
 
-        public void OnArrest()
+        private void Arrest()
         {
             if (SilenceMode) return;
 
             WriteHeader("Arrest");
-
-            //WriteLine("{0} was killed last night", LastVictim.Name);
-
+            WriteLine("{0} was killed last night", LastVictim.Name);
             WriteLine();
-            //PrintEmotions(members, history);
+            PrintEmotions();
             WriteLine();
-            //PrintAnswers(members, history);
+            PrintAnswers();
             WriteLine();
 
-            WriteLine();
-    //        WriteLine("{0,2}:{1} is arrested", arrested.Number, arrested.Name);
-  //          WriteLine("   {0} was {1}", arrested.Name, arrested.IsMurderer ? "Murderer" : "Innocent");
+            var suspNum = GetSuspectNumberForArrest(ActiveMembers);
+            var suspect = Members.First(m => m.Number == suspNum);
+            _process.Arrest(suspect);
 
             WriteLine();
-//            PrintEmotions(members, history);
+            WriteLine("{0,2}:{1} is arrested", LastArrested.Number, LastArrested.Name);
+            WriteLine("   {0} was {1}", LastArrested.Name, LastArrested.IsMurderer ? "Murderer" : "Innocent");
+
+            WriteLine();
+            PrintEmotions();
             WriteLine();
             PressEnterToContinue("Press Enter to run next day...");
-
         }
 
-        public void OnDetectiveWin()
+        private void DetectiveWin()
         {
             if (SilenceMode) return;
 
@@ -99,7 +101,7 @@ namespace Papagames.Detective.App.Console
             WaitAndPrintGameAnalize();
         }
 
-        public void OnMurdererWin()
+        private void MurdererWin()
         {
             if (SilenceMode) return;
 
@@ -112,11 +114,11 @@ namespace Papagames.Detective.App.Console
             WaitAndPrintGameAnalize();
         }
 
-        public void OnGameEnd()
+        private void End()
         {
             WriteHeader("Game End");
         }
-        private void OnError()
+        private void Error()
         {
             WriteLine("[Error]");
         }

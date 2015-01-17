@@ -72,7 +72,6 @@ namespace Papagames.Detective.Core.Game
 
         private void RunArrest()
         {
-            DoArrest();
         }
 
         private void RunQuestioning()

@@ -19,13 +19,14 @@ namespace Papagames.Detective.App.Console
 
         private void InitStateHandlers()
         {
-            _stateHandlers[State.Error] = OnError;
-            _stateHandlers[State.Start] = OnStart;
-            _stateHandlers[State.Questioning] = OnQuestioning;
-            _stateHandlers[State.Morning] = OnMorning;
-            _stateHandlers[State.Arrest] = OnArrest;
-            _stateHandlers[State.DetectiveWin] = OnDetectiveWin;
-            _stateHandlers[State.MurdererWin] = OnMurdererWin;
+            _stateHandlers[State.Start] = Start;
+            _stateHandlers[State.Morning] = Morning;
+            _stateHandlers[State.Questioning] = Questioning;
+            _stateHandlers[State.Arrest] = Arrest;
+            _stateHandlers[State.DetectiveWin] = DetectiveWin;
+            _stateHandlers[State.MurdererWin] = MurdererWin;
+            _stateHandlers[State.Error] = Error;
+            _stateHandlers[State.End] = End;
         }
 
         private State State
@@ -39,7 +40,7 @@ namespace Papagames.Detective.App.Console
             {
                 OnCurentState();
                 RunNextState();
-            } while (State != State.Arrest);
+            } while (State != State.End);
         }
 
         private void RunNextState()

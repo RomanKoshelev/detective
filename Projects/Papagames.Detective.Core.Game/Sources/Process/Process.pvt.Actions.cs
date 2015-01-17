@@ -8,19 +8,6 @@ namespace Papagames.Detective.Core.Game
     {
         private readonly Random _random=new Random(333);
 
-        private Member Detective
-        {
-            get { return Case.Detective; }
-        }
-
-        private int CalcMaxEvidenceNum()
-        {
-            var n = (int) Math.Ceiling(ActiveMembers.Count*Case.World.EvidenceRate);
-            n = Math.Max(n, 0);
-            n = Math.Min(n, ActiveMembers.Count*(ActiveMembers.Count - 1));
-            return n;
-        }
-
         private void DoEvidence()
         {
             for (var w = 0; w < MaxEvidenceNum; w++)
@@ -39,15 +26,20 @@ namespace Papagames.Detective.Core.Game
             HistoryStoreEmotionalReactionOnMurder(LastVictim);
         }
 
-        private void DoArrest()
+        private Answer DoAsk(Member respondent, Member subject)
         {
-            //TODO suspectNumber = 2 : Stage.GetSuspectNumberForArrest(ActiveMembers);
-            var suspectNumber = 2; // Stage.GetSuspectNumberForArrest(ActiveMembers);
-            var suspect = ActiveMembers.First(m => m.Number == suspectNumber);
-            suspect.IsPrisoner = true;
+            var answer = respondent.Ask(subject);
+            History.StoreAnswer(CurrentDay, respondent, subject, answer);
+            return answer;
+        }
 
-            History.StoreArrest(CurrentDay, Detective, suspect);
-            HistoryStoreEmotionalReactionOnArrest(suspect);
+        private void DoArrest(Member suspect)
+        {
+            LastArrested = suspect;
+            LastArrested.IsPrisoner = true;
+
+            History.StoreArrest(CurrentDay, Detective, LastArrested);
+            HistoryStoreEmotionalReactionOnArrest(LastArrested);
         }
 
         private void SelectWitnessAndEvidence()
@@ -67,13 +59,6 @@ namespace Papagames.Detective.Core.Game
                 witness.RememberInnocent(subject);
                 History.StoreInnocentEvidence(CurrentDay, witness, subject);
             }
-        }
-
-        private Answer DoAskMemberAboutSubject(Member respondent, Member subject)
-        {
-            var answer = respondent.Ask(subject);
-            History.StoreAnswer(CurrentDay, respondent, subject, answer);
-            return answer;
         }
     }
 }

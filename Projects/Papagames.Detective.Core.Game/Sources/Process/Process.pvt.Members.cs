@@ -26,6 +26,11 @@ namespace Papagames.Detective.Core.Game
             get { return DoGetActiveMurderers(); }
         }
 
+        private Member Detective
+        {
+            get { return Case.Detective; }
+        }
+
         private void InitMembers()
         {
             Members = Case.CloneMembers();

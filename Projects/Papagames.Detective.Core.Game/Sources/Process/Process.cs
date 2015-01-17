@@ -29,6 +29,7 @@ namespace Papagames.Detective.Core.Game
         public Member LastVictim { get; private set; }
         public Member LastMurderer { get; private set; }
         public History History { get; set; }
+        public Member LastArrested { get; set; }
 
         public Process(Case gcase)
         {
@@ -36,9 +37,14 @@ namespace Papagames.Detective.Core.Game
             Reset();
         }
 
-        public Answer AskMemberAboutSubject(Member respondent, Member subject)
+        public Answer Ask(Member respondent, Member subject)
         {
-            return DoAskMemberAboutSubject(respondent, subject);
+            return DoAsk(respondent, subject);
+        }
+
+        public void Arrest(Member suspect)
+        {
+            DoArrest(suspect);
         }
     }
 }
