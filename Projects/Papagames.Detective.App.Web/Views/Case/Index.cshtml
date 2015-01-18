@@ -1,0 +1,18 @@
+﻿@{
+    // Case / Index
+    ViewBag.Title = "Detective game";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@using Papagames.Detective.Core.Game
+@model Papagames.Detective.App.Web.Models.SchemaModel
+
+<h2>Cases</h2>
+
+<lu>
+    @foreach (Case c in Model.Cases)
+    {
+        <li>
+            @Html.ActionLink(string.Format("{0} {1}/{2}", c.World.Name, c.MemberNum, c.MurdererNum), "Index", "Case")
+        </li>
+    }
+</lu>   
