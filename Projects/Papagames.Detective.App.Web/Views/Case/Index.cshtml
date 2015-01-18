@@ -12,7 +12,7 @@
     @foreach (Case c in Model.Cases)
     {
         <li>
-            @Html.ActionLink(string.Format("{0} {1}/{2}", c.World.Name, c.MemberNum, c.MurdererNum), "Index", "Case")
+            @Html.ActionLink(string.Format("{0} {1}/{2}", c.World.Name, c.MemberNum, c.MurdererNum), "Detail", new {id = 123})
         </li>
     }
 </lu>   

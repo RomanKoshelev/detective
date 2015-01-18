@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Net;
+using System.Web.Mvc;
 using Papagames.Detective.App.Web.Models;
 
 namespace Papagames.Detective.App.Web.Controllers
@@ -20,6 +21,17 @@ namespace Papagames.Detective.App.Web.Controllers
         public ActionResult Index()
         {
             return View(Schema);
+        }
+
+        // GET: Case/Details/123
+        public ActionResult Detail(int? caseId)
+        {
+            if (caseId == null)
+            {
+               // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.CaseID = caseId;
+            return View(Schema);        
         }
     }
 }
