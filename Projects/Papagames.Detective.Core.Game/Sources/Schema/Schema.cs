@@ -1,37 +1,27 @@
-using System.Collections.Generic;
-
 namespace Papagames.Detective.Core.Game
 {
-    public static class Schema
+    public static partial class Schema
     {
-        private static readonly Pack Pack = new Pack();
-        private static readonly List<Case> Cases = new List<Case>();
-        private static readonly List<Process> Processes = new List<Process>();
-        private static readonly IDictionary<WorldId, IWorld> WorldMap = new Dictionary<WorldId, IWorld>();
-
-        static Schema()
-        {
-            WorldMap.Add(WorldId.Simpsons, Pack.SimpsonsWorld);
-            WorldMap.Add(WorldId.Random, Pack.RandomWorld);
-        }
-        public static Case NewCase(WorldId worldId, int memberNum, int murderNum)
-        {
-            var gcase = new Case(WorldMap[worldId], memberNum, murderNum);
-            Cases.Add(gcase);
-            return gcase;
-        }
-
         public enum WorldId
         {
             Simpsons,
             Random
         }
 
+        static Schema()
+        {
+            InitWorlds();
+            InitCases();
+        }
+
+        public static Case NewCase(WorldId worldId, int memberNum, int murderNum)
+        {
+            return DoNewCase(worldId, memberNum, murderNum);
+        }
+        
         public static Process NewProcess(Case gcase)
         {
-            var gprocess = new Process(gcase);
-            Processes.Add(gprocess);
-            return gprocess;
+            return DoNewProcess(gcase);
         }
     }
 }

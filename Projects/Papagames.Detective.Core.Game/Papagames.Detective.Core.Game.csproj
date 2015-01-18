@@ -89,6 +89,10 @@
     <Compile Include="Sources\History\History.cs" />
     <Compile Include="Sources\History\History.Record.cs" />
     <Compile Include="Sources\Case\Case.cs" />
+    <Compile Include="Sources\Schema\Schema.pvt.Pack.cs" />
+    <Compile Include="Sources\Schema\Schema.pvt.Worlds.cs" />
+    <Compile Include="Sources\Schema\Schema.pvt.Cases.cs" />
+    <Compile Include="Sources\Schema\Schema.pvt.Processes.cs" />
     <Compile Include="Sources\Schema\Schema.cs" />
     <Compile Include="Sources\Member\Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
