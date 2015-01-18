@@ -28,9 +28,9 @@ namespace Papagames.Detective.App.Web.Controllers
         {
             if (caseId == null)
             {
-               // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.CaseID = caseId;
+            ViewBag.CaseID = 11223;//caseId;
             return View(Schema);        
         }
     }
