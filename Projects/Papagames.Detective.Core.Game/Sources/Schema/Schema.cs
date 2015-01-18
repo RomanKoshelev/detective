@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Papagames.Detective.Core.Game
 {
     public static partial class Schema
@@ -13,6 +15,8 @@ namespace Papagames.Detective.Core.Game
             InitWorlds();
             InitCases();
         }
+
+        public static IList<Case> CasesInfo { get { return DoCasesInfo(); } }
 
         public static Case NewCase(WorldId worldId, int memberNum, int murderNum)
         {

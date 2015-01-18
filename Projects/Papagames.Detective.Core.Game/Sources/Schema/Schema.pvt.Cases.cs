@@ -24,5 +24,10 @@ namespace Papagames.Detective.Core.Game
             Cases.Add(gcase);
             return gcase;
         }
+
+        private static IList<Case> DoCasesInfo()
+        {
+            return Cases;
+        }
     }
 }

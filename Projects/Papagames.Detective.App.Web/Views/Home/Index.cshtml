@@ -1,8 +1,9 @@
-﻿@model Papagames.Detective.App.Web.Models.SchemaModel
-
-@{
+﻿@{
+    // Home / Index
     ViewBag.Title = "Detective game";
     Layout = "~/Views/Shared/Layout.cshtml";
-
-    @:<h2>Cases</h2>
-}
+}   
+<h2>Schema</h2>
+<lu>
+    <li>@Html.ActionLink("Cases", "Index", "Case")</li>
+</lu>
