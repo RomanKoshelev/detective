@@ -5,11 +5,21 @@ namespace Papagames.Detective.App.Web.Controllers
 {
     public class GameController : Controller
     {
+        private SchemaModel Schema { get; set; }
+
+        public GameController()
+        {
+            InitSchemaModel();
+        }
+
+        private void InitSchemaModel()
+        {
+            Schema = new SchemaModel();
+        }
+
         public ActionResult Index()
         {
-            var _game = new Player();
-
-            return View(_game);
+            return View(Schema);
         }
     }
 }

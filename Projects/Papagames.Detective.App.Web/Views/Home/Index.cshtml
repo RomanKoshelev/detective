@@ -1,14 +1,10 @@
-﻿@model Papagames.Detective.App.Web.Models.Player
+﻿@model Papagames.Detective.App.Web.Models.SchemaModel
 
 @{
     ViewBag.Title = "Detective game";
     Layout = "~/Views/Shared/Layout.cshtml";
 
     @:<h3>Cases</h3>
-    
-    foreach (var c in Model.Cases)
-    {
-        @: <br>
-        @: @c.WorldName
-    }
+   
+ 
 }

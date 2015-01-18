@@ -2,7 +2,7 @@
 
 namespace Papagames.Detective.App.Web.Models
 {
-    public class Case
+    public class CaseModel
     {
         public string WorldName="";
         

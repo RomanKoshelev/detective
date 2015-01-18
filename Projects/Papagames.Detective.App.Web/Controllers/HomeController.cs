@@ -10,9 +10,7 @@ namespace Papagames.Detective.App.Web.Controllers
 
         public ActionResult Index()
         {
-            var player = new Player();
-            player.LoadCases();
-            return View(player);
+            return View();
         }
     }
 }
