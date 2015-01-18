@@ -5,12 +5,21 @@ namespace Papagames.Detective.App.Web.Controllers
 {
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
+        private SchemaModel Schema { get; set; }
+
+        public HomeController()
+        {
+            InitSchemaModel();
+        }
+
+        private void InitSchemaModel()
+        {
+            Schema = new SchemaModel();
+        }
 
         public ActionResult Index()
         {
-            return View();
+            return View(Schema);
         }
     }
 }
