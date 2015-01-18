@@ -24,13 +24,13 @@ namespace Papagames.Detective.App.Web.Controllers
         }
 
         // GET: Case/Details/123
-        public ActionResult Detail(int? caseId)
+        public ActionResult Details(int? id)
         {
-            if (caseId == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.CaseID = 11223;//caseId;
+            ViewBag.CaseID = id;
             return View(Schema);        
         }
     }

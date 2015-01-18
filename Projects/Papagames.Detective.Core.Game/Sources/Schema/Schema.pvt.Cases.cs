@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -22,6 +23,7 @@ namespace Papagames.Detective.Core.Game
         {
             var gcase = new Case(WorldMap[worldId], memberNum, murderNum);
             Cases.Add(gcase);
+            gcase.Id = Cases.Select(c => c.Id).Max() + 1;
             return gcase;
         }
 

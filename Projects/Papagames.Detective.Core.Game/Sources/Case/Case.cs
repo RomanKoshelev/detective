@@ -14,6 +14,7 @@ namespace Papagames.Detective.Core.Game
             Init();
         }
 
+        public int Id { get; set; }
         public int MurdererNum { get; set; }
 
         public static int CalcMaxMurdersNum(int membersNum)

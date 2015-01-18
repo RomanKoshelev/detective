@@ -257,7 +257,7 @@
     <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Case\Index.cshtml" />
-    <Content Include="Views\Case\Detail.cshtml" />
+    <Content Include="Views\Case\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
