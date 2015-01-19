@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -32,6 +33,16 @@ namespace Papagames.Detective.Core.Game
         public string WorldName
         {
             get { return World.Name; }
+        }
+
+        public IList<Member> ActiveMembers
+        {
+            get { return Members.Where(m => m.IsActive).ToList(); }
+        }
+
+        public Member FindMember(int memberId)
+        {
+            return DoFindMember(memberId);
         }
     }
 }

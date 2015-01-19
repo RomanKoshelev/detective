@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Core.Game;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.App.Console
 {
@@ -22,18 +23,8 @@ namespace Papagames.Detective.App.Console
             if (SilenceMode) return;
 
             var murdersCount = Members.Count(m => m.IsActiveMurderer);
-            WriteLine("Active Members ({0} {1})", murdersCount, PluralNoun(murdersCount, "murder"));
+            WriteLine("Active Members ({0} {1})", murdersCount, "murder".Plural(murdersCount));
             PrintMembers(m => m.IsActive, showAll);
-        }
-
-        private static string PluralNoun(int num, string noun)
-        {
-            if (num == 1) return noun;
-            if (noun[noun.Length - 1] == 'y')
-            {
-                return noun.Substring(0, noun.Length - 1) + "ies";
-            }
-            return noun + "s";
         }
 
         private void PrintInactiveMembers(bool showAll = false)
@@ -91,7 +82,7 @@ namespace Papagames.Detective.App.Console
         {
             var role = m.IsActive ? "" : m.IsMurderer ? "M" : "I";
             var state = m.IsActive
-                ? string.Format("{0,-3}", m.Number)
+                ? string.Format("{0,-3}", m.Id)
                 : m.IsPrisoner ? "# " : m.IsVictim ? "x " : "ERROR ";
             return role + state;
         }

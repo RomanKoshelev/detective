@@ -23,7 +23,7 @@ namespace Papagames.Detective.Core.Game
         {
             return string.Format("{0}:{1}",
                 IsActive
-                    ? string.Format("{0,2}", Number)
+                    ? string.Format("{0,2}", Id)
                     : IsVictim
                         ? "xI"
                         : IsPrisoner ? (IsMurderer ? "#M" : "#I") : "ERROR",

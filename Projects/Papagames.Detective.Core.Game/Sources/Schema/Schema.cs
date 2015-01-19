@@ -32,5 +32,10 @@ namespace Papagames.Detective.Core.Game
         {
             return DoFindCase(caseId);
         }
+
+        public static Member FindMember(int caseId, int memberId)
+        {
+            return DoFindMember(caseId, memberId);
+        }
     }
 }

@@ -80,7 +80,7 @@ namespace Papagames.Detective.App.Console
 
         private int GetQuestionSubjectForAsking(Member respondent, IEnumerable<Member> subjects)
         {
-            var values = subjects.Select(m => m.Number).ToList();
+            var values = subjects.Select(m => m.Id).ToList();
             const string strValues = "";
             var defValue = values.RandomElement();
             return PromptInt(string.Format("Ask{0}{1}", respondent.ShortInfoName(12), strValues), values, defValue);

@@ -27,7 +27,7 @@ namespace Papagames.Detective.App.Console
         private static string NumberOrFullState(Member m)
         {
             return m.IsActive
-                ? string.Format("{0,2}:", m.Number)
+                ? string.Format("{0,2}:", m.Id)
                 : (m.IsPrisoner ? "#" : "x") + (m.IsInnocent ? "I " : m.IsMurderer ? "M " : "ERROR");
         }
 

@@ -19,13 +19,13 @@ namespace Papagames.Detective.App.Console
 
         private int GetSuspectNumberForArrest(IList<Member> members)
         {
-            var values = members.Select(m => m.Number).ToList();
+            var values = members.Select(m => m.Id).ToList();
             const string strValues = "";
             var memberNum = members.Count(m => m.IsActive);
             var murderNum = members.Count(m => m.IsActiveMurderer);
             WriteLine("You have {0} {1} and {2} suspects",
                 murderNum,
-                PluralNoun(murderNum, "murderer"),
+                "murderer".Plural(murderNum),
                 memberNum
             );
             WriteLine();

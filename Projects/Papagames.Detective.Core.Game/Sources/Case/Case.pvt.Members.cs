@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Utils;
 
@@ -17,7 +18,7 @@ namespace Papagames.Detective.Core.Game
                 return n;
             }
         }
-        
+
         private void Init()
         {
             CreateDetective();
@@ -49,8 +50,13 @@ namespace Papagames.Detective.Core.Game
         {
             var clones = new List<Member>();
             
-            Members.ForEach(m => clones.Add(new Member(m.Number, m.Person){IsMurderer = m.IsMurderer}));
+            Members.ForEach(m => clones.Add(new Member(m.Id, m.Person){IsMurderer = m.IsMurderer}));
             return clones;
+        }
+
+        private Member DoFindMember(int memberId)
+        {
+            return Members.First(m=>m.Id == memberId);
         }
     }
 }

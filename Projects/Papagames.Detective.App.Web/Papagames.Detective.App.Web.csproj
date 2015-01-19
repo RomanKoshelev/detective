@@ -167,6 +167,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CaseModel.cs" />
+    <Compile Include="Models\MemberModel.cs" />
     <Compile Include="Models\SchemaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

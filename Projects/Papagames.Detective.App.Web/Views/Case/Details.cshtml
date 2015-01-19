@@ -4,10 +4,23 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 @using Papagames.Detective.Core.Game
+@using Papagames.Detective.Utils
 @model Papagames.Detective.App.Web.Models.CaseModel
 
 <h2>Case #@Model.Id</h2>
 
-<ol>
-    <li>@Model.WorldName @Model.MemberNum/@Model.MurdererNum</li>
-</ol>
+<ul>
+    <li>@Model.WorldName world</li>
+    <li>
+        @Model.MemberNum participants:
+        <ol>
+            @foreach (var m in Model.ActiveMemberNames)
+            {
+                <li>@m</li>
+            }
+        </ol>
+    </li>
+    <li>@Model.MurdererNum.Plural("murder")</li>
+    <li>Victim: @Model.FirstVictim</li>
+    <li>run me!</li>
+</ul>

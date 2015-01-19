@@ -64,6 +64,21 @@ namespace Papagames.Detective.Utils
             return chars;
         }
 
+        public static string Plural(this string str, int num)
+        {
+            if (num == 1) return str;
+            if (str[str.Length - 1] == 'y')
+            {
+                return str.Substring(0, str.Length - 1) + "ies";
+            }
+            return str + "s";
+        }
+
+        public static string Plural(this int num, string str)
+        {
+            return string.Format("{0} {1}", num, str.Plural(num));
+        }
+
         public static bool NotExists<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
         {
             return !enumerable.Any(predicate);
