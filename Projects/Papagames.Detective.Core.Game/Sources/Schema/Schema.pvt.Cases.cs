@@ -25,13 +25,12 @@ namespace Papagames.Detective.Core.Game
         {
             var gcase = CreateCase(worldId, memberNum, murderNum);
             RunCaseProcessToGetVictims(gcase);
-            // Console.WriteLine("Case {0} Victim: {1}", gcase.Id, gcase.Victims[0].Name);
             return gcase;
         }
 
         private static void RunCaseProcessToGetVictims(Case gcase)
         {
-            var proc = NewProcess(gcase);
+            var proc = new Process(gcase);
             proc.RunFirstNight();
             proc.Victims.ForEach(v => gcase.FindMember(v.Id).IsVictim = true);
         }

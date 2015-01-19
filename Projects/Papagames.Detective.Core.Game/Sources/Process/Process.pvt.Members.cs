@@ -22,7 +22,7 @@ namespace Papagames.Detective.Core.Game
         }
         private IList<Member> DoGetVictims()
         {
-            return ActiveMembers.Where(m => !m.IsVictim).ToList();
+            return Members.Where(m => m.IsVictim).ToList();
         }
 
         private Member Detective

@@ -59,20 +59,20 @@ namespace Papagames.Detective.App.Web.Models
         private Case Case { get; set; }
         private IList<MemberModel> DoGetMembers()
         {
-            return MakeMemberModelsList(c => c.Members);
+            return MakeMemberModelList(c => c.Members);
         }
 
         private IList<MemberModel> DoGetMurders()
         {
-            return MakeMemberModelsList(c => c.Murderers);
+            return MakeMemberModelList(c => c.Murderers);
         }
 
         private IList<MemberModel> DoGetVictims()
         {
-            return MakeMemberModelsList(c => c.Victims);
+            return MakeMemberModelList(c => c.Victims);
         }
 
-        private List<MemberModel> MakeMemberModelsList(Func<Case, IList<Member>> membersSelector)
+        private List<MemberModel> MakeMemberModelList(Func<Case, IList<Member>> membersSelector)
         {
             return membersSelector(Case).Select(m => new MemberModel(Id, m.Id)).ToList();
         }

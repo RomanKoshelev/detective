@@ -180,6 +180,7 @@ namespace Papagames.Detective.Core.Game
             State = Initial();
             State = Start();
             State = Night();
+            State = State.Finished;
         }
     }
 }
