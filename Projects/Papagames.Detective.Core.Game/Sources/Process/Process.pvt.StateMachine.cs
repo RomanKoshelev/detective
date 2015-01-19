@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Papagames.Detective.Utils;
+﻿using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -8,122 +6,110 @@ namespace Papagames.Detective.Core.Game
     {
         private void DoStep()
         {
-            State = _stateHandlers[State]();
+            switch (State)
+            {
+                case State.Initial:
+                    Set(State.Start);
+                    break;
+                case State.Start:
+                    Start(State.Night);
+                    break;
+                case State.Night:
+                    Night(State.CheckNight);
+                    break;
+                case State.CheckNight:
+                    CheckAndSet(State.Morning, State.DetectiveWin, State.MurderersWin);
+                    break;
+                case State.Morning:
+                    Morning(State.Questioning);
+                    break;
+                case State.Questioning:
+                    Set(State.Arrest);
+                    break;
+                case State.Arrest:
+                    Set(State.CheckArrest);
+                    break;
+                case State.CheckArrest:
+                    CheckAndSet(State.NextDay, State.DetectiveWin, State.MurderersWin);
+                    break;
+                case State.NextDay:
+                    NextDay(State.Night);
+                    break;
+                case State.DetectiveWin:
+                    DetectiveWin(State.End);
+                    break;
+                case State.MurderersWin:
+                    Set(State.End);
+                    break;
+                case State.Break:
+                    Set(State.End);
+                    break;
+                case State.End:
+                    Set(State.Finished);
+                    break;
+                case State.Finished:
+                    Finished(State.Error);
+                    break;
+            }
         }
 
-        private readonly IDictionary<State, Func<State>> _stateHandlers = new Dictionary<State, Func<State>>();
-        private void InitStateHandlers()
+        private void Set(State state)
         {
-            _stateHandlers[State.Initial] = Initial;
-            _stateHandlers[State.Start] = Start;
-            _stateHandlers[State.Night] = Night;
-            _stateHandlers[State.CheckNight] = CheckNight;
-            _stateHandlers[State.Morning] = Morning;
-            _stateHandlers[State.Questioning] = Questioning;
-            _stateHandlers[State.Arrest] = Arrest;
-            _stateHandlers[State.CheckArrest] = CheckArrest;
-            _stateHandlers[State.NextDay] = NextDay;
-            _stateHandlers[State.DetectiveWin] = DetectiveWin;
-            _stateHandlers[State.MurderersWin] = MurderersWin;
-            _stateHandlers[State.Break] = Break;
-            _stateHandlers[State.End] = End;
-            _stateHandlers[State.Finished] = Finished;
+            State = state;
         }
 
-        private State Initial()
-        {
-            return State.Start;
-        }
-
-        private State Start()
+        private void Start(State state)
         {
             CurrentDay = 1;
-            return State.Night;
+            Set(state);
         }
 
-        private State Night()
+        private void Night(State state)
         {
             HistoryStoreParticipations();
 
             DoEvidence();
             DoMurder();
 
-            return State.CheckNight;
+            Set(state);
         }
 
-        private State Morning()
+        private void Morning(State state)
         {
             UpdateMembersKnownCounts();
-            
-            return State.Questioning;
+
+            Set(state);
         }
 
-        private State Questioning()
-        {
-            return State.Arrest;
-        }
-        
-        private State Arrest()
-        {
-            return State.CheckArrest;
-        }
-
-        private State NextDay()
+        private void NextDay(State state)
         {
             CurrentDay++;
-            return State.Night;
+            Set(state);
         }
 
-        private State CheckArrest()
+        private void CheckAndSet(State stateNext, State stateWin, State stateFail)
         {
-            return CheckBefore(State.NextDay);
-        }
-
-        private State CheckNight()
-        {
-            return CheckBefore(State.Morning);
-        }
-
-        private State CheckBefore(State nextState)
-        {
-            return ActiveMembers.NotExists(m => m.IsMurderer)
-                ? State.DetectiveWin
+            Set(ActiveMembers.NotExists(m => m.IsMurderer)
+                ? stateWin
                 : ActiveMembers.NotExists(m => m.IsInnocent)
-                    ? State.MurderersWin
-                    : nextState;
+                    ? stateFail
+                    : stateNext);
         }
 
-        private State DetectiveWin()
+        private void DetectiveWin(State state)
         {
             DidDeteciveWin = true;
-            return State.End;
-        }
-        private State MurderersWin()
-        {
-            DidDeteciveWin = true;
-            return State.End;
+            Set(state);
         }
 
-        private State End()
-        {
-            return State.Finished;
-        }
-
-        private State Break()
-        {
-            return State.End;
-        }
-
-        private State Finished()
+        private void Finished(State state)
         {
             throw new DetectiveException("State {0} can't be run", State);
         }
 
         private void DoRunFirstNight()
         {
-            State = Initial();
-            State = Start();
-            State = Night();
+            do DoStep(); while (State != State.Questioning);
             State = State.Finished;
         }
     }

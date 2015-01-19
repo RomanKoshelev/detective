@@ -15,7 +15,6 @@ namespace Papagames.Detective.Core.Game
         {
             DidDeteciveWin = false;
             State = State.Initial;
-            InitStateHandlers();
             InitMembers();
             InitHistory();
         }
