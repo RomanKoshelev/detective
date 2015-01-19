@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using Papagames.Detective.Core.Game;
 using Papagames.Detective.Utils;
@@ -11,7 +9,7 @@ namespace Papagames.Detective.App.Web.Models
     public class CaseModel
     {
         // ===================================================================================== []
-        // Publice
+        // Public
         public int Id
         {
             get { return Case.Id; }
@@ -71,8 +69,7 @@ namespace Papagames.Detective.App.Web.Models
         {
             get { return DoGetShortInfo(); }
         }
-
-
+        
         // ===================================================================================== []
         // Pivate
         private Case Case { get; set; }
@@ -104,7 +101,7 @@ namespace Papagames.Detective.App.Web.Models
 
         private string DoGetShortInfo()
         {
-            return string.Format("#{0} {1} {2}/{3} ({4})", Id, WorldName, MemberNum, MurdererNum, Victims.AggregateBy(v=>v.Name));
+            return string.Format("#{0} {1} {2}/{3} {4}", Id, WorldName, MemberNum, MurdererNum, Victims.AggregateBy(v=>v.Name));
         }
     }
 }

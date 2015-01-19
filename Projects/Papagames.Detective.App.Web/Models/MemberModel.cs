@@ -5,7 +5,7 @@ namespace Papagames.Detective.App.Web.Models
     public class MemberModel
     {
         // ===================================================================================== []
-        // Publice
+        // Public
         public int Id
         {
             get { return Member.Id; }

@@ -8,7 +8,7 @@ namespace Papagames.Detective.App.Web.Models
     public class SchemaModel
     {
         // ===================================================================================== []
-        // Publice
+        // Public
         public IList<CaseModel> Cases
         {
             get { return DoGetCases(); }
