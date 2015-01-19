@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace Papagames.Detective.App.Web.Models
             get { return DoGetMembers(); }
         }
 
+        public IList<MemberModel> ActiveMembers
+        {
+            get { return DoGetActiveMembers(); }
+        }
+
         public IList<MemberModel> Murders
         {
             get { return DoGetMurders(); }
@@ -40,10 +46,16 @@ namespace Papagames.Detective.App.Web.Models
             get { return Case.MemberNum; }
         }
 
+        public int ActiveMemberNum
+        {
+            get { return Case.ActiveMemberNum; }
+        }
+
         public int MurdererNum
         {
             get { return Case.MurdererNum; }
         }
+
         public int VictimNum
         {
             get { return Case.VictimNum; }
@@ -54,12 +66,24 @@ namespace Papagames.Detective.App.Web.Models
             Case = Schema.FindCase(id);
         }
 
+        public string ShortInfo
+        {
+            get { return DoGetShortInfo(); }
+        }
+
+
         // ===================================================================================== []
         // Pivate
         private Case Case { get; set; }
+
         private IList<MemberModel> DoGetMembers()
         {
             return MakeMemberModelList(c => c.Members);
+        }
+
+        private IList<MemberModel> DoGetActiveMembers()
+        {
+            return MakeMemberModelList(c => c.ActiveMembers);
         }
 
         private IList<MemberModel> DoGetMurders()
@@ -75,6 +99,11 @@ namespace Papagames.Detective.App.Web.Models
         private List<MemberModel> MakeMemberModelList(Func<Case, IList<Member>> membersSelector)
         {
             return membersSelector(Case).Select(m => new MemberModel(Id, m.Id)).ToList();
+        }
+
+        private string DoGetShortInfo()
+        {
+            return string.Format("#{0} {1} {2}/{3}", Id, WorldName, MemberNum, MurdererNum);
         }
     }
 }

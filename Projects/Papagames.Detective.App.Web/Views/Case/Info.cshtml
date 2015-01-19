@@ -6,14 +6,14 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
-<h2>Case #@Model.Id</h2>
+<h2>@Model.ShortInfo</h2>
 
 <ul>
     <li>@Model.WorldName world</li>
     <li>
-        @Model.MemberNum participants:
+        @Model.ActiveMemberNum active members:
         <ul>
-            @foreach (var m in Model.Members)
+            @foreach (var m in Model.ActiveMembers)
             {
                 <li>@m.Id: @m.Name</li>
             }
