@@ -22,7 +22,11 @@ namespace Papagames.Detective.App.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, e.Message);
             }
-     
+        }
+
+        public ActionResult Run(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
