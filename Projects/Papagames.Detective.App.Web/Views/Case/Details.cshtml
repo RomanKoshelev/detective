@@ -1,11 +1,11 @@
-﻿@{
-    // Case / Index
-    ViewBag.Title = "Detective game";
+﻿@using Papagames.Detective.App.Web.Models
+@using Papagames.Detective.Utils
+@model CaseModel
+@{
+    ViewBag.Title = "Detective Case";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
-@using Papagames.Detective.Core.Game
-@using Papagames.Detective.Utils
-@model Papagames.Detective.App.Web.Models.CaseModel
+
 
 <h2>Case #@Model.Id</h2>
 

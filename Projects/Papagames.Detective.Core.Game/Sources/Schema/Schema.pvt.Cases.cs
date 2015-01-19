@@ -1,18 +1,14 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Papagames.Detective.Core.Game;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
     public static partial class Schema
     {
-        private static readonly List<Case> Cases = new List<Case>();
-
         private static void InitCases()
         {
+            Cases = new List<Case>();
             DoNewCase(WorldId.Simpsons, 5, 1);
             DoNewCase(WorldId.Simpsons, 5, 1);
             DoNewCase(WorldId.Simpsons, 5, 2);
@@ -28,12 +24,8 @@ namespace Papagames.Detective.Core.Game
             var gcase = new Case(WorldMap[worldId], memberNum, murderNum);
             Cases.Add(gcase);
             gcase.Id = Cases.Select(c => c.Id).Max() + 1;
-            return gcase;
-        }
 
-        private static IList<Case> DoCasesInfo()
-        {
-            return Cases;
+            return gcase;
         }
 
         private static Case DoFindCase(int caseId)
@@ -45,8 +37,4 @@ namespace Papagames.Detective.Core.Game
             return gcase;
         }
     }
-}
-
-namespace Papagames.Detective.Utils
-{
 }

@@ -16,7 +16,7 @@ namespace Papagames.Detective.Core.Game
             InitCases();
         }
 
-        public static IList<Case> CasesInfo { get { return DoCasesInfo(); } }
+        public static List<Case> Cases { get; private set; }
 
         public static Case NewCase(WorldId worldId, int memberNum, int murderNum)
         {
