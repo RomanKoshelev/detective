@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using Papagames.Detective.Core.Game;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.App.Web.Models
 {
@@ -103,7 +104,8 @@ namespace Papagames.Detective.App.Web.Models
 
         private string DoGetShortInfo()
         {
-            return string.Format("#{0} {1} {2}/{3}", Id, WorldName, MemberNum, MurdererNum);
+            return string.Format("#{0} {1} {2}/{3} ({4})", Id, WorldName, MemberNum, MurdererNum, Victims.AggregateBy(v=>v.Name));
         }
     }
 }
+
