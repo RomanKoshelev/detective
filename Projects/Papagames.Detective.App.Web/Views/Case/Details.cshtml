@@ -13,14 +13,22 @@
     <li>@Model.WorldName world</li>
     <li>
         @Model.MemberNum participants:
-        <ol>
-            @foreach (var m in Model.ActiveMemberNames)
+        <ul>
+            @foreach (var m in Model.Members)
             {
-                <li>@m</li>
+                <li>@m.Id: @m.Name</li>
             }
-        </ol>
+        </ul>
     </li>
-    <li>@Model.MurdererNum.Plural("murder")</li>
-    <li>Victim: @Model.FirstVictim</li>
+    <li>
+        @Model.MurdererNum.Plural("murder")
+        <ul>
+            @foreach (var m in Model.Murders)
+            {
+                <li>@m.Id: @m.Name</li>
+            }
+        </ul>
+    </li>
+    <li>Victim: @Model.Victims</li>
     <li>run me!</li>
 </ul>

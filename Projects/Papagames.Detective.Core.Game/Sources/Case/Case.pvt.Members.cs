@@ -30,7 +30,7 @@ namespace Papagames.Detective.Core.Game
         {
             const int detectiveNumber = -1;
 
-            Detective = new Member(detectiveNumber, new Person(new Profile(ProfileType.Detective)) {Name = "Detective"});
+            Detective = new Member(detectiveNumber, new Person(new Profile(ProfileType.Detective)) {Name = "Detective"}, Id);
         }
 
         private void AssignMurderers()
@@ -43,14 +43,14 @@ namespace Papagames.Detective.Core.Game
             Members = new List<Member>();
             World.SelectRandomPersons(MemberNum)
                 .Index()
-                .ForEach(numPerson => Members.Add(new Member(numPerson.Key + 1, numPerson.Value)));
+                .ForEach(numPerson => Members.Add(new Member(numPerson.Key + 1, numPerson.Value, Id)));
         }
 
         public IList<Member> CloneMembers()
         {
             var clones = new List<Member>();
             
-            Members.ForEach(m => clones.Add(new Member(m.Id, m.Person){IsMurderer = m.IsMurderer}));
+            Members.ForEach(m => clones.Add(new Member(m.Id, m.Person, Id){IsMurderer = m.IsMurderer}));
             return clones;
         }
 

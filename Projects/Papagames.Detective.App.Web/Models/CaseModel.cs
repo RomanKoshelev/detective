@@ -10,19 +10,29 @@ namespace Papagames.Detective.App.Web.Models
     {
         // ===================================================================================== []
         // Publice
+        public int Id
+        {
+            get { return Case.Id; }
+        }
+
         public string WorldName
         {
             get { return Case.WorldName; }
         }
 
-        public IList<string> ActiveMemberNames { get { return DoGEtActiveMemberNames(); }}
-
-        public IList<string> Victims = new List<string>();
-        public IList<string> Prisons = new List<string>();
-
-        public int Id
+        public IList<MemberModel> Members
         {
-            get { return Case.Id; }
+            get { return DoGetMembers(); }
+        }
+
+        public IList<MemberModel> Murders
+        {
+            get { return DoGetMurders(); }
+        }
+
+        public IList<MemberModel> Victims
+        {
+            get { return DoGetVictims(); }
         }
 
         public int MemberNum
@@ -43,11 +53,25 @@ namespace Papagames.Detective.App.Web.Models
         // ===================================================================================== []
         // Pivate
         private Case Case { get; set; }
-        public MemberModel FirstVictim { get; set; }
 
-        private IList<string> DoGEtActiveMemberNames()
+        private IList<MemberModel> DoGetMembers()
         {
-            return Case.ActiveMembers.Select(m=>m.Name).ToList();
+            return MakeMemberModelsList(c => c.Members);
+        }
+
+        private IList<MemberModel> DoGetMurders()
+        {
+            return MakeMemberModelsList(c => c.Murderers);
+        }
+
+        private IList<MemberModel> DoGetVictims()
+        {
+            return MakeMemberModelsList(c => c.Victims);
+        }
+
+        private List<MemberModel> MakeMemberModelsList(Func<Case, IList<Member>> membersSelector)
+        {
+            return membersSelector(Case).Select(m => new MemberModel(Id, m.Id)).ToList();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Papagames.Detective.Core.Game;
-using Member = Microsoft.Ajax.Utilities.Member;
 
 namespace Papagames.Detective.App.Web.Models
 {
@@ -7,13 +6,21 @@ namespace Papagames.Detective.App.Web.Models
     {
         // ===================================================================================== []
         // Publice
+        public int Id
+        {
+            get { return Member.Id; }
+        }
+        public int CaseId
+        {
+            get { return Member.CaseId; }
+        }
         public string Name
         {
             get { return Member.Name; }
         }
         public MemberModel(int caseId, int memberId)
         {
-            //Member = Schema.FindMember(caseId, memberId);
+            Member = Schema.FindMember(caseId, memberId);
         }
         // ===================================================================================== []
         // Pivate
