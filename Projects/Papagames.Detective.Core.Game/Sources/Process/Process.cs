@@ -62,5 +62,10 @@ namespace Papagames.Detective.Core.Game
         {
             DoRunFirstNight();
         }
+
+        public void Step()
+        {
+            DoStep();
+        }
     }
 }

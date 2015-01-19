@@ -1,5 +1,6 @@
 ﻿using System;
 using MoreLinq;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -14,6 +15,7 @@ namespace Papagames.Detective.Core.Game
         {
             DidDeteciveWin = false;
             State = State.Initial;
+            InitStateHandlers();
             InitMembers();
             InitHistory();
         }
@@ -24,6 +26,11 @@ namespace Papagames.Detective.Core.Game
             n = Math.Max(n, 0);
             n = Math.Min(n, ActiveMembers.Count * (ActiveMembers.Count - 1));
             return n;
+        }
+
+        private void AssertState(State state)
+        {
+            Assert.Equal(State, state, "Wrong state {0}", State);
         }
     }
 }

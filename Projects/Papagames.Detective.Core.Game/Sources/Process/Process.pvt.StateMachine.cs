@@ -1,94 +1,48 @@
 ﻿using System;
+using System.Collections.Generic;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
     public partial class Process
     {
-        public void Step()
+        private void DoStep()
         {
-            // todo: refactore it
-/*
-                    private void InitStateHandlers()
+            State = _stateHandlers[State]();
+        }
+
+        private readonly IDictionary<State, Func<State>> _stateHandlers = new Dictionary<State, Func<State>>();
+        private void InitStateHandlers()
         {
+            _stateHandlers[State.Initial] = Initial;
             _stateHandlers[State.Start] = Start;
+            _stateHandlers[State.Night] = Night;
+            _stateHandlers[State.CheckNight] = CheckNight;
             _stateHandlers[State.Morning] = Morning;
             _stateHandlers[State.Questioning] = Questioning;
             _stateHandlers[State.Arrest] = Arrest;
+            _stateHandlers[State.CheckArrest] = CheckArrest;
+            _stateHandlers[State.NextDay] = NextDay;
             _stateHandlers[State.DetectiveWin] = DetectiveWin;
-            _stateHandlers[State.MurderersWin] = MurdererWin;
-            _stateHandlers[State.Error] = Error;
+            _stateHandlers[State.MurderersWin] = MurderersWin;
+            _stateHandlers[State.Break] = Break;
             _stateHandlers[State.End] = End;
-        }
-
-        private void DoRun(Process process)
-        {
-            _process = process;
-            RunStateMachine();
-        }*/
-            switch (State)
-            {
-                case State.Initial:
-                    State = Initial();
-                    break;
-                case State.Start:
-                    State = Start();
-                    break;
-                case State.Night:
-                    State = Night();
-                    break;
-                case State.CheckNight:
-                    State = CheckNight();
-                    break;
-                case State.Morning:
-                    State = Morning();
-                    break;
-                case State.Questioning:
-                    State = Questioning();
-                    break;
-                case State.Arrest:
-                    State = Arrest();
-                    break;
-                case State.CheckArrest:
-                    State = CheckArrest();
-                    break;
-                case State.NextDay:
-                    State = NextDay();
-                    break;
-                case State.DetectiveWin:
-                    State = DetectiveWin();
-                    break;
-                case State.MurderersWin:
-                    State = MurderersWin();
-                    break;
-                case State.Break:
-                    State = Break();
-                    break;
-                case State.End:
-                    State = End();
-                    break;
-                default:
-                    throw new DetectiveException("Unknoun state [{0}]", State);
-            }
+            _stateHandlers[State.Finished] = Finished;
         }
 
         private State Initial()
         {
-            AssertState(State.Initial);
             return State.Start;
         }
 
         private State Start()
         {
-            AssertState(State.Start);
             CurrentDay = 1;
             return State.Night;
         }
 
         private State Night()
         {
-            AssertState(State.Night);
-
             HistoryStoreParticipations();
 
             DoEvidence();
@@ -99,8 +53,6 @@ namespace Papagames.Detective.Core.Game
 
         private State Morning()
         {
-            AssertState(State.Morning);
-
             UpdateMembersKnownCounts();
             
             return State.Questioning;
@@ -108,32 +60,27 @@ namespace Papagames.Detective.Core.Game
 
         private State Questioning()
         {
-            AssertState(State.Questioning);
             return State.Arrest;
         }
         
         private State Arrest()
         {
-            AssertState(State.Arrest);
             return State.CheckArrest;
         }
 
         private State NextDay()
         {
-            AssertState(State.NextDay);
             CurrentDay++;
             return State.Night;
         }
 
         private State CheckArrest()
         {
-            AssertState(State.CheckArrest);
             return CheckBefore(State.NextDay);
         }
 
         private State CheckNight()
         {
-            AssertState(State.CheckNight);
             return CheckBefore(State.Morning);
         }
 
@@ -148,31 +95,28 @@ namespace Papagames.Detective.Core.Game
 
         private State DetectiveWin()
         {
-            AssertState(State.DetectiveWin);
             DidDeteciveWin = true;
             return State.End;
         }
         private State MurderersWin()
         {
-            AssertState(State.MurderersWin);
             DidDeteciveWin = true;
             return State.End;
         }
 
-        private void AssertState(State state)
-        {
-            Assert.Equal(State, state, "Wrong state {0}", State);
-        }
         private State End()
         {
-            AssertState(State.End);
             return State.Finished;
         }
 
         private State Break()
         {
-            AssertState(State.Break);
             return State.End;
+        }
+
+        private State Finished()
+        {
+            throw new DetectiveException("State {0} can't be run", State);
         }
 
         private void DoRunFirstNight()
