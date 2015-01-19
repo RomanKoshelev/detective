@@ -9,5 +9,20 @@ namespace Papagames.Detective.Utils
                 throw new DetectiveException(format, args);
             }
         }
+
+        public static void IsTrue(bool condition, string format, params object[] args)
+        {
+            if (!condition)
+            {
+                throw new DetectiveException(format, args);
+            }
+        }
+        public static void Equal(object o1, object o2, string format, params object[] args)
+        {
+            if (!o1.Equals(o2))
+            {
+                throw new DetectiveException(format, args);
+            }
+        }
     }
 }

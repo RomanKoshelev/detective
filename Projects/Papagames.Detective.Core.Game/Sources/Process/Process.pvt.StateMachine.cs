@@ -7,102 +7,179 @@ namespace Papagames.Detective.Core.Game
     {
         public void Step()
         {
+            // todo: refactore it
+/*
+                    private void InitStateHandlers()
+        {
+            _stateHandlers[State.Start] = Start;
+            _stateHandlers[State.Morning] = Morning;
+            _stateHandlers[State.Questioning] = Questioning;
+            _stateHandlers[State.Arrest] = Arrest;
+            _stateHandlers[State.DetectiveWin] = DetectiveWin;
+            _stateHandlers[State.MurderersWin] = MurdererWin;
+            _stateHandlers[State.Error] = Error;
+            _stateHandlers[State.End] = End;
+        }
+
+        private void DoRun(Process process)
+        {
+            _process = process;
+            RunStateMachine();
+        }*/
             switch (State)
             {
                 case State.Initial:
-                    State = State.Start;
+                    State = Initial();
                     break;
                 case State.Start:
-                    RunStart();
-                    State = State.Night;
+                    State = Start();
                     break;
                 case State.Night:
-                    RunNight();
-                    State = State.CheckNight;
+                    State = Night();
                     break;
                 case State.CheckNight:
-                    State = RunCheckBefore(State.Morning);
+                    State = CheckNight();
                     break;
                 case State.Morning:
-                    RunMorning();
-                    State = State.Questioning;
+                    State = Morning();
                     break;
                 case State.Questioning:
-                    RunQuestioning();
-                    State = State.Arrest;
+                    State = Questioning();
                     break;
                 case State.Arrest:
-                    RunArrest();
-                    State = State.CheckArrest;
+                    State = Arrest();
                     break;
                 case State.CheckArrest:
-                    State = RunCheckBefore(State.NextDay);
+                    State = CheckArrest();
                     break;
                 case State.NextDay:
-                    RunNextDay();
-                    State = State.Night;
+                    State = NextDay();
                     break;
                 case State.DetectiveWin:
-                    RunDetectiveWin();
-                    State = State.End;
+                    State = DetectiveWin();
                     break;
-                case State.MurdererWin:
-                    State = State.End;
+                case State.MurderersWin:
+                    State = MurderersWin();
                     break;
                 case State.Break:
-                    State = State.End;
+                    State = Break();
                     break;
                 case State.End:
-                    State = State.Finished;
+                    State = End();
                     break;
                 default:
-                    throw new Exception(string.Format("Unknoun state [{0}]", State));
+                    throw new DetectiveException("Unknoun state [{0}]", State);
             }
         }
 
-        private void RunDetectiveWin()
+        private State Initial()
         {
-            DidDeteciveWin = true;
+            AssertState(State.Initial);
+            return State.Start;
         }
 
-        private State RunCheckBefore(State nextState)
+        private State Start()
         {
-            return ActiveMembers.NotExists(m => m.IsMurderer)
-                ? State.DetectiveWin
-                : ActiveMembers.NotExists(m => m.IsInnocent)
-                    ? State.MurdererWin
-                    : nextState;
-        }
-
-        private void RunMorning()
-        {
-            UpdateMembersKnownCounts();
-        }
-
-        private void RunQuestioning()
-        {
-        }
-        
-        private void RunArrest()
-        {
-        }
-
-        private void RunNextDay()
-        {
-            CurrentDay++;
-        }
-
-        private void RunStart()
-        {
+            AssertState(State.Start);
             CurrentDay = 1;
+            return State.Night;
         }
 
-        private void RunNight()
+        private State Night()
         {
+            AssertState(State.Night);
+
             HistoryStoreParticipations();
 
             DoEvidence();
             DoMurder();
+
+            return State.CheckNight;
+        }
+
+        private State Morning()
+        {
+            AssertState(State.Morning);
+
+            UpdateMembersKnownCounts();
+            
+            return State.Questioning;
+        }
+
+        private State Questioning()
+        {
+            AssertState(State.Questioning);
+            return State.Arrest;
+        }
+        
+        private State Arrest()
+        {
+            AssertState(State.Arrest);
+            return State.CheckArrest;
+        }
+
+        private State NextDay()
+        {
+            AssertState(State.NextDay);
+            CurrentDay++;
+            return State.Night;
+        }
+
+        private State CheckArrest()
+        {
+            AssertState(State.CheckArrest);
+            return CheckBefore(State.NextDay);
+        }
+
+        private State CheckNight()
+        {
+            AssertState(State.CheckNight);
+            return CheckBefore(State.Morning);
+        }
+
+        private State CheckBefore(State nextState)
+        {
+            return ActiveMembers.NotExists(m => m.IsMurderer)
+                ? State.DetectiveWin
+                : ActiveMembers.NotExists(m => m.IsInnocent)
+                    ? State.MurderersWin
+                    : nextState;
+        }
+
+        private State DetectiveWin()
+        {
+            AssertState(State.DetectiveWin);
+            DidDeteciveWin = true;
+            return State.End;
+        }
+        private State MurderersWin()
+        {
+            AssertState(State.MurderersWin);
+            DidDeteciveWin = true;
+            return State.End;
+        }
+
+        private void AssertState(State state)
+        {
+            Assert.Equal(State, state, "Wrong state {0}", State);
+        }
+        private State End()
+        {
+            AssertState(State.End);
+            return State.Finished;
+        }
+
+        private State Break()
+        {
+            AssertState(State.Break);
+            return State.End;
+        }
+
+        private void DoRunFirstNight()
+        {
+            State = Initial();
+            State = Start();
+            State = Night();
         }
     }
 }

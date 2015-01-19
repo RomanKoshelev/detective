@@ -20,10 +20,9 @@ namespace Papagames.Detective.Core.Game
         {
             return ActiveMembers.Where(m => !m.IsMurderer).ToList();
         }
-
-        private IList<Member> ActiveMurderers
+        private IList<Member> DoGetVictims()
         {
-            get { return DoGetActiveMurderers(); }
+            return ActiveMembers.Where(m => !m.IsVictim).ToList();
         }
 
         private Member Detective

@@ -17,12 +17,6 @@ namespace Papagames.Detective.Core.Game
 
         public int Id { get; set; }
         public int MurdererNum { get; set; }
-
-        public static int CalcMaxMurdersNum(int membersNum)
-        {
-            return (int) Math.Floor((membersNum - 1.0)/2.0);
-        }
-
         public int MemberNum { get; set; }
 
         public IWorld World { get; set; }

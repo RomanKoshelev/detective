@@ -15,12 +15,19 @@ namespace Papagames.Detective.Core.Game
         {
             get { return DoGetActiveMembers(); }
         }
+        public IList<Member> Victims
+        {
+            get { return DoGetVictims(); }
+        }
 
         public IList<Member> ActiveInnocents
         {
             get { return DoGetActiveInnocents(); }
         }
-
+        public IList<Member> ActiveMurderers
+        {
+            get { return DoGetActiveMurderers(); }
+        }
         public int MaxEvidenceNum
         {
             get { return CalcMaxEvidenceNum(); }
@@ -49,6 +56,11 @@ namespace Papagames.Detective.Core.Game
         public void Init()
         {
             DoInit();
+        }
+
+        public void RunFirstNight()
+        {
+            DoRunFirstNight();
         }
     }
 }

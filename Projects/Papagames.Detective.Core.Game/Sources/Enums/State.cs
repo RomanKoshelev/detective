@@ -12,7 +12,7 @@ namespace Papagames.Detective.Core.Game
         CheckArrest,
         NextDay,
         DetectiveWin,
-        MurdererWin,
+        MurderersWin,
         Break,
         End,
         CheckNight,

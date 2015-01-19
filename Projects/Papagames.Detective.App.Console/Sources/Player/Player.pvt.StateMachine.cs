@@ -15,7 +15,7 @@ namespace Papagames.Detective.App.Console
             _stateHandlers[State.Questioning] = Questioning;
             _stateHandlers[State.Arrest] = Arrest;
             _stateHandlers[State.DetectiveWin] = DetectiveWin;
-            _stateHandlers[State.MurdererWin] = MurdererWin;
+            _stateHandlers[State.MurderersWin] = MurdererWin;
             _stateHandlers[State.Error] = Error;
             _stateHandlers[State.End] = End;
         }

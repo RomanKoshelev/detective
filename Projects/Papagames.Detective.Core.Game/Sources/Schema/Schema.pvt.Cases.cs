@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreLinq;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
@@ -21,10 +23,24 @@ namespace Papagames.Detective.Core.Game
 
         private static Case DoNewCase(WorldId worldId, int memberNum, int murderNum)
         {
+            var gcase = CreateCase(worldId, memberNum, murderNum);
+            RunCaseProcessToGetVictims(gcase);
+            // Console.WriteLine("Case {0} Victim: {1}", gcase.Id, gcase.Victims[0].Name);
+            return gcase;
+        }
+
+        private static void RunCaseProcessToGetVictims(Case gcase)
+        {
+            var proc = NewProcess(gcase);
+            proc.RunFirstNight();
+            proc.Victims.ForEach(v => gcase.FindMember(v.Id).IsVictim = true);
+        }
+
+        private static Case CreateCase(WorldId worldId, int memberNum, int murderNum)
+        {
             var gcase = new Case(WorldMap[worldId], memberNum, murderNum);
             Cases.Add(gcase);
             gcase.Id = Cases.Select(c => c.Id).Max() + 1;
-
             return gcase;
         }
 

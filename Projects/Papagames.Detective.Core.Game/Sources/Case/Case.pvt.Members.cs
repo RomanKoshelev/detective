@@ -8,17 +8,6 @@ namespace Papagames.Detective.Core.Game
 {
     public partial class Case
     {
-        private int MaxMurdererNum
-        {
-            get
-            {
-                var n = (int) Math.Ceiling(Members.Count*World.MurdererRate);
-                n = Math.Max(n, 1);
-                n = (int) Math.Min(n, Math.Floor((Members.Count - 1.0)/2.0));
-                return n;
-            }
-        }
-
         private void Init()
         {
             CreateDetective();
