@@ -11,7 +11,7 @@
     @foreach (var c in Model.Cases)
     {
         <li>
-            @Html.ActionLink(string.Format("#{0}: {1} {2}/{3}", c.Id, c.WorldName, c.MemberNum, c.MurdererNum), "Details", new { id = c.Id })
+            @Html.ActionLink(string.Format("#{0}: {1} {2}/{3}", c.Id, c.WorldName, c.MemberNum, c.MurdererNum), "Info", new { id = c.Id })
         </li>
     }
 </ul>   

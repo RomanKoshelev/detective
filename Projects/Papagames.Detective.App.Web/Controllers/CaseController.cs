@@ -7,14 +7,12 @@ namespace Papagames.Detective.App.Web.Controllers
 {
     public class CaseController : Controller
     {
-        // GET: /Case/
         public ActionResult Index()
         {
             return View(new SchemaModel());
         }
 
-        // GET: /Case/Details/123/
-        public ActionResult Details(int id)
+        public ActionResult Info(int id)
         {
             try
             {
