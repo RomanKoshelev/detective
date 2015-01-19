@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sources\Assert.cs" />
+    <Compile Include="Sources\DetectiveException.cs" />
     <Compile Include="Sources\Extensions.cs" />
     <Compile Include="Sources\Test.cs" />
   </ItemGroup>

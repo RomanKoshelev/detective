@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using Papagames.Detective.Core.Game;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -31,5 +35,18 @@ namespace Papagames.Detective.Core.Game
         {
             return Cases;
         }
+
+        private static Case DoFindCase(int caseId)
+        {
+            var gcase = Cases.Find(c => c.Id == caseId);
+
+            Assert.NotNull(gcase, "Can't find case {0}", caseId);
+            
+            return gcase;
+        }
     }
+}
+
+namespace Papagames.Detective.Utils
+{
 }

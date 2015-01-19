@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using MoreLinq;
-using Papagames.Detective.Common;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {

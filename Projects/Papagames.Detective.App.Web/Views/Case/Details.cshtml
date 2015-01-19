@@ -2,9 +2,14 @@
     // Case / Index
     ViewBag.Title = "Detective game";
     Layout = "~/Views/Shared/Layout.cshtml";
-   //ViewBag.CaseId = 123;
 }
 @using Papagames.Detective.Core.Game
-@model Papagames.Detective.App.Web.Models.SchemaModel
+@model Papagames.Detective.App.Web.Models.CaseModel
 
-<h2>Case [@ViewBag.CaseId]</h2>
+<h2>Case #@Model.Id</h2>
+
+<ol>
+@*
+    <li>@Model.MemberNum</li>
+*@
+</ol>

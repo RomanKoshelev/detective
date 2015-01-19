@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Papagames.Detective.Common
+namespace Papagames.Detective.Utils
 {
     public static class Extensions
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Papagames.Detective.Common;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {

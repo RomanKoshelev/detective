@@ -1,6 +1,6 @@
 ﻿using MoreLinq;
 
-namespace Papagames.Detective.Common
+namespace Papagames.Detective.Utils
 {
     public class Test
     {
