@@ -29,6 +29,14 @@
             }
         </ul>
     </li>
-    <li>Victim: @Model.Victims</li>
+    <li>
+        @Model.VictimNum.Plural("victim")
+        <ul>
+            @foreach (var m in Model.Victims)
+            {
+                <li>@m.Id: @m.Name</li>
+            }
+        </ul>
+    </li>
     <li>run me!</li>
 </ul>

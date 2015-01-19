@@ -44,6 +44,10 @@ namespace Papagames.Detective.App.Web.Models
         {
             get { return Case.MurdererNum; }
         }
+        public int VictimNum
+        {
+            get { return Case.VictimNum; }
+        }
 
         public CaseModel(int id)
         {
@@ -53,7 +57,6 @@ namespace Papagames.Detective.App.Web.Models
         // ===================================================================================== []
         // Pivate
         private Case Case { get; set; }
-
         private IList<MemberModel> DoGetMembers()
         {
             return MakeMemberModelsList(c => c.Members);
