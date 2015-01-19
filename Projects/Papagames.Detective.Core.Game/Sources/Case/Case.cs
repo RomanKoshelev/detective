@@ -19,7 +19,7 @@ namespace Papagames.Detective.Core.Game
 
         public static int CalcMaxMurdersNum(int membersNum)
         {
-            return (int)Math.Floor((membersNum - 1.0) / 2.0);
+            return (int) Math.Floor((membersNum - 1.0)/2.0);
         }
 
         public int MemberNum { get; set; }
@@ -28,5 +28,10 @@ namespace Papagames.Detective.Core.Game
         public IList<Member> Members { get; set; }
 
         public Member Detective { get; set; }
+
+        public string WorldName
+        {
+            get { return World.Name; }
+        }
     }
 }

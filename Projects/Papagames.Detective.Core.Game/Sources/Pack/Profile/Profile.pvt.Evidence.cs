@@ -52,7 +52,7 @@ namespace Papagames.Detective.Core.Game
                     return EvidenceSign.IgnoresMe;
             }
 
-            throw new Exception(string.Format("Wrong EvidenceCode [{0}]", c));
+            throw new DetectiveException("Wrong EvidenceCode [{0}]", c);
         }
     }
 }

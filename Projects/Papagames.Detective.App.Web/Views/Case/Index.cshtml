@@ -8,11 +8,11 @@
 
 <h2>Cases</h2>
 
-<ol>
+<ul>
     @foreach (Case c in Model.Cases)
     {
         <li>
-            @Html.ActionLink(string.Format("{0} {1}/{2}", c.World.Name, c.MemberNum, c.MurdererNum), "Details", new { id = c.Id })
+            @Html.ActionLink(string.Format("#{0}: {1} {2}/{3}", c.Id, c.WorldName, c.MemberNum, c.MurdererNum), "Details", new { id = c.Id })
         </li>
     }
-</ol>   
+</ul>   
