@@ -9,6 +9,18 @@ namespace Papagames.Detective.Core.Game
         private static void InitProcesses()
         {
             Processes = new List<Process>();
+
+            Cases.ForEach(CreateStartProcesses);
+        }
+
+        private static void CreateStartProcesses(Case c)
+        {
+            const int procNum = 3;
+            for (var i = 0; i < procNum; i++)
+            {
+                DoNewProcess(c).RunFirstNight();
+                // todo: Assert that Process Victims == Case Victims
+            }
         }
 
         private static Process DoNewProcess(Case gcase)

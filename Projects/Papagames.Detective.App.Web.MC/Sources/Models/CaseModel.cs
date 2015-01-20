@@ -14,7 +14,7 @@ namespace Papagames.Detective.App.Web.Models
         {
             Case = Schema.FindCase(id);
         }
-        
+
         public int Id
         {
             get { return Case.Id; }
@@ -27,72 +27,32 @@ namespace Papagames.Detective.App.Web.Models
 
         public IList<MemberModel> Members
         {
-            get { return DoGetMembers(); }
+            get { return MakeMemberModelList(c => c.Members); }
         }
 
         public IList<MemberModel> ActiveMembers
         {
-            get { return DoGetActiveMembers(); }
+            get { return MakeMemberModelList(c => c.ActiveMembers); }
         }
 
-        public IList<MemberModel> Murders
+        public IList<MemberModel> Murderers
         {
-            get { return DoGetMurders(); }
+            get { return MakeMemberModelList(c => c.Murderers); }
         }
 
         public IList<MemberModel> Victims
         {
-            get { return DoGetVictims(); }
-        }
-
-        public int MemberNum
-        {
-            get { return Case.MemberNum; }
-        }
-
-        public int ActiveMemberNum
-        {
-            get { return Case.ActiveMemberNum; }
-        }
-
-        public int MurdererNum
-        {
-            get { return Case.MurdererNum; }
-        }
-
-        public int VictimNum
-        {
-            get { return Case.VictimNum; }
+            get { return MakeMemberModelList(c => c.Victims); }
         }
 
         public string ShortInfo
         {
             get { return DoGetShortInfo(); }
         }
-        
+
         // ===================================================================================== []
         // Pivate
         private Case Case { get; set; }
-
-        private IList<MemberModel> DoGetMembers()
-        {
-            return MakeMemberModelList(c => c.Members);
-        }
-
-        private IList<MemberModel> DoGetActiveMembers()
-        {
-            return MakeMemberModelList(c => c.ActiveMembers);
-        }
-
-        private IList<MemberModel> DoGetMurders()
-        {
-            return MakeMemberModelList(c => c.Murderers);
-        }
-
-        private IList<MemberModel> DoGetVictims()
-        {
-            return MakeMemberModelList(c => c.Victims);
-        }
 
         private List<MemberModel> MakeMemberModelList(Func<Case, IList<Member>> membersSelector)
         {
@@ -101,8 +61,8 @@ namespace Papagames.Detective.App.Web.Models
 
         private string DoGetShortInfo()
         {
-            return string.Format("#{0} {1} {2}/{3} {4}", Id, WorldName, MemberNum, MurdererNum, Victims.AggregateBy(v=>v.Name));
+            return string.Format("#{0} {1} {2}/{3} {4}", Id, WorldName, Members.Count, Murderers.Count,
+                Victims.AggregateBy(v => v.Name));
         }
     }
 }
-
