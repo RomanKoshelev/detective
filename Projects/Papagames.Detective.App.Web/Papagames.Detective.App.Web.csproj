@@ -161,16 +161,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\CaseController.cs" />
-    <Compile Include="Controllers\SchemaController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CaseModel.cs" />
-    <Compile Include="Models\MemberModel.cs" />
-    <Compile Include="Models\HomeModel.cs" />
-    <Compile Include="Models\SchemaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
