@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using Papagames.Detective.App.Web.Models;
+
 
 namespace Papagames.Detective.App.Web.Controllers
 {
@@ -6,7 +8,7 @@ namespace Papagames.Detective.App.Web.Controllers
     {
         public ActionResult Index()
         {
-            throw new System.NotImplementedException();
+            return View(new ProcessModel());
         }
     }
 }
