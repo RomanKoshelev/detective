@@ -4,7 +4,15 @@ namespace Papagames.Detective.Core.Game
 {
     public partial class Process
     {
+        public Process(Case gcase)
+        {
+            Case = gcase;
+            DoInit();
+        }
+
+        public int Id { get; set; }
         public Case Case { get; set; }
+
         public State State { get; private set; }
 
         public IList<Member> Members { get; set; }
@@ -15,6 +23,7 @@ namespace Papagames.Detective.Core.Game
         {
             get { return DoGetActiveMembers(); }
         }
+
         public IList<Member> Victims
         {
             get { return DoGetVictims(); }
@@ -24,9 +33,15 @@ namespace Papagames.Detective.Core.Game
         {
             get { return DoGetActiveInnocents(); }
         }
+
         public IList<Member> ActiveMurderers
         {
             get { return DoGetActiveMurderers(); }
+        }
+
+        public IList<Member> Prisoners
+        {
+            get { return DoGetPrisoners(); }
         }
         public int MaxEvidenceNum
         {
@@ -38,10 +53,14 @@ namespace Papagames.Detective.Core.Game
         public History History { get; set; }
         public Member LastArrested { get; set; }
 
-        public Process(Case gcase)
+        public string WorldName
         {
-            Case = gcase;
-            DoInit();
+            get { return Case.WorldName; }
+        }
+
+        public int CaseId
+        {
+            get { return Case.Id; }
         }
 
         public Answer Ask(Member respondent, Member subject)
@@ -53,6 +72,7 @@ namespace Papagames.Detective.Core.Game
         {
             DoArrest(suspect);
         }
+
         public void Init()
         {
             DoInit();

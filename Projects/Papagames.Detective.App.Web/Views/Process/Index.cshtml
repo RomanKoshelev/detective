@@ -1,8 +1,19 @@
-﻿@model Papagames.Detective.App.Web.Models.ProcessModel
-
+﻿@model Papagames.Detective.App.Web.Models.SchemaModel
 @{
-    ViewBag.Title = "Process";
+    ViewBag.Title = "Detective Process";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
-<h2>@Model.Id</h2>
+<h2>Processes</h2>
+<ul>
+    @foreach (var p in Model.Processes)
+    {
+        <li>
+            @Html.ActionLink(p.ShortInfo, "Info", new { id = p.Id })
+        </li>
+    }
+    @if (Model.Processes.Count == 0)
+    {
+        @:No processes found
+    }
+</ul>   

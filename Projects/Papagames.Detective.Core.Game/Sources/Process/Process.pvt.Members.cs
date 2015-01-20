@@ -24,7 +24,10 @@ namespace Papagames.Detective.Core.Game
         {
             return Members.Where(m => m.IsVictim).ToList();
         }
-
+        private IList<Member> DoGetPrisoners()
+        {
+            return Members.Where(m => m.IsPrisoner).ToList();
+        }
         private Member Detective
         {
             get { return Case.Detective; }
@@ -34,5 +37,6 @@ namespace Papagames.Detective.Core.Game
         {
             Members = Case.CloneMembers();
         }
+
     }
 }

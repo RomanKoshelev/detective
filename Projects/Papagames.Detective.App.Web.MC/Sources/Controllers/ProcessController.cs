@@ -8,7 +8,12 @@ namespace Papagames.Detective.App.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View(new ProcessModel());
+            return View(new SchemaModel());
+        }
+
+        public ActionResult Info(int id)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

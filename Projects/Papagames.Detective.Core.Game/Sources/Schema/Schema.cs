@@ -14,9 +14,11 @@ namespace Papagames.Detective.Core.Game
         {
             InitWorlds();
             InitCases();
+            InitProcesses();
         }
 
         public static List<Case> Cases { get; private set; }
+        public static List<Process> Processes { get; private set; }
 
         public static Case NewCase(WorldId worldId, int memberNum, int murderNum)
         {
@@ -36,6 +38,11 @@ namespace Papagames.Detective.Core.Game
         public static Member FindMember(int caseId, int memberId)
         {
             return DoFindMember(caseId, memberId);
+        }
+
+        public static Process FindProcess(int processId)
+        {
+            return DoFindProcess(processId);
         }
     }
 }
