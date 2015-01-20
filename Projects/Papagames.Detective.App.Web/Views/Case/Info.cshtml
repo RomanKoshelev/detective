@@ -11,7 +11,7 @@
 <ul>
     <li>@Model.WorldName world</li>
     <li>
-        @Model.ActiveMemberNum active members:
+        @Model.ActiveMembers.Count active members:
         <ul>
             @foreach (var m in Model.ActiveMembers)
             {
@@ -20,16 +20,16 @@
         </ul>
     </li>
     <li>
-        @Model.MurdererNum.Plural("murder")
+        @Model.Murderers.Count.Plural("murder")
         <ul>
-            @foreach (var m in Model.Murders)
+            @foreach (var m in Model.Murderers)
             {
                 <li>@m.Id: @m.Name</li>
             }
         </ul>
     </li>
     <li>
-        @Model.VictimNum.Plural("victim")
+        @Model.Victims.Count.Plural("victim")
         <ul>
             @foreach (var m in Model.Victims)
             {

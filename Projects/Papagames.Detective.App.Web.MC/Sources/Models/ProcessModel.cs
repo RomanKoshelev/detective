@@ -1,4 +1,8 @@
-﻿using Papagames.Detective.Core.Game;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Papagames.Detective.Core.Game;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.App.Web.Models
 {
@@ -10,7 +14,7 @@ namespace Papagames.Detective.App.Web.Models
         {
             Process = Schema.FindProcess(id);
         }
-        public int Id { get { return 123; } }
+        public int Id { get { return Process.Id; } }
 
         public string ShortInfo
         {
@@ -20,21 +24,18 @@ namespace Papagames.Detective.App.Web.Models
         {
             get { return Process.WorldName; }
         }
-        public int ActiveMemberNum
+
+        public IList<MemberModel> ActiveMembers
         {
-            get { return Process.ActiveMembers.Count; }
+            get { return MakeMemberModelList(p => p.ActiveMembers); }
         }
-        public int ActiveMurdererNum
+        public IList<MemberModel> ActiveMurderers
         {
-            get { return Process.ActiveMurderers.Count; }
+            get { return MakeMemberModelList(p => p.ActiveMurderers); }
         }
-        public int ArrestedNum
+        public IList<MemberModel> Victims
         {
-            get { return Process.Prisoners.Count; }
-        }
-        public int VictimNum
-        {
-            get { return Process.Victims.Count; }
+            get { return MakeMemberModelList(p => p.Victims); }
         }
 
         public int CaseId
@@ -44,9 +45,15 @@ namespace Papagames.Detective.App.Web.Models
         // ===================================================================================== []
         // Pivate
         private Process Process { get; set; }
+
+        private List<MemberModel> MakeMemberModelList(Func<Process, IList<Member>> membersSelector)
+        {
+            // todo: Make Id type-safe -- to prevent using CaseId instead of ProcessId
+            return membersSelector(Process).Select(m => new MemberModel(CaseId, m.Id)).ToList();
+        }
         private string DoGetShortInfo()
         {
-            return string.Format("{0}: {1} case#{2} members: {3}/{4} #{5} x{6}", Id, WorldName, CaseId, ActiveMemberNum, ActiveMurdererNum, ArrestedNum, VictimNum);
+            return string.Format("{0}: {1}#{2} {3}/{4} {5}", Id, WorldName, CaseId, ActiveMembers.Count, ActiveMurderers.Count, Victims.AggregateBy(v => v.Name));
         }
     }
 }
