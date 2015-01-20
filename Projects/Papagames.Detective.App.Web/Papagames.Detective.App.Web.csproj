@@ -162,6 +162,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CaseController.cs" />
+    <Compile Include="Controllers\SchemaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProcessController.cs" />
     <Compile Include="Global.asax.cs">
@@ -169,6 +170,7 @@
     </Compile>
     <Compile Include="Models\CaseModel.cs" />
     <Compile Include="Models\MemberModel.cs" />
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\SchemaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -260,6 +262,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Case\Index.cshtml" />
     <Content Include="Views\Case\Info.cshtml" />
+    <Content Include="Views\Schema\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
