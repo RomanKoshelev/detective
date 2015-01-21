@@ -30,12 +30,12 @@ namespace Papagames.Detective.Core.Game
             return DoNewProcess(gcase);
         }
 
-        public static Case FindCase(int caseId)
+        public static Case FindCase(Case.Identifier caseId)
         {
             return DoFindCase(caseId);
         }
 
-        public static Member FindMember(int caseId, int memberId)
+        public static Member FindMember(Case.Identifier caseId, int memberId)
         {
             return DoFindMember(caseId, memberId);
         }
@@ -45,7 +45,7 @@ namespace Papagames.Detective.Core.Game
             return DoFindProcess(processId);
         }
 
-        public static int NewProcess(int caseId)
+        public static int NewProcess(Case.Identifier caseId)
         {
             return DoNewProcess(caseId);
         }

@@ -10,12 +10,12 @@ namespace Papagames.Detective.App.Web.Models
     {
         // ===================================================================================== []
         // Public
-        public CaseModel(int id)
+        public CaseModel(Case.Identifier id)
         {
             Case = Schema.FindCase(id);
         }
 
-        public int Id
+        public Case.Identifier Id
         {
             get { return Case.Id; }
         }

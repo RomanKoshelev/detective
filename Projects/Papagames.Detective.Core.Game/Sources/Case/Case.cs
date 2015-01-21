@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
-    public partial class Case
+    public partial class Case : Identifiable<int, Process>
     {
         public Case(IWorld world, int memberNum, int murdererNum)
         {
             World = world;
             MemberNum = memberNum;
             MurdererNum = murdererNum;
-
+            Id = (Identifier) 0;
             Init();
         }
 
-        public int Id { get; set; }
+        public Identifier Id { get; set; }
         public int MurdererNum { get; set; }
         public int MemberNum { get; set; }
 

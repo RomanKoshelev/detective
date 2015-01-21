@@ -19,7 +19,7 @@ namespace Papagames.Detective.App.Web.Models
             get { return DoGetProcesses(); }
         }
 
-        public static int NewProcess(int caseId)
+        public static int NewProcess(Case.Identifier caseId)
         {
             return Schema.NewProcess(caseId);
         }

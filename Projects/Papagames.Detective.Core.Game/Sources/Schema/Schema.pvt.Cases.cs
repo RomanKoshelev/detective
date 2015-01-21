@@ -39,11 +39,11 @@ namespace Papagames.Detective.Core.Game
         {
             var gcase = new Case(WorldMap[worldId], memberNum, murderNum);
             Cases.Add(gcase);
-            gcase.Id = Cases.Select(c => c.Id).Max() + 1;
+            gcase.Id = (Case.Identifier) (Cases.Select(c => (int)c.Id).Max() + 1);
             return gcase;
         }
 
-        private static Case DoFindCase(int caseId)
+        private static Case DoFindCase(Case.Identifier caseId)
         {
             var gcase = Cases.Find(c => c.Id == caseId);
 

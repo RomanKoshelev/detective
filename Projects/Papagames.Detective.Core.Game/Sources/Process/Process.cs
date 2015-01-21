@@ -8,7 +8,7 @@ namespace Papagames.Detective.Core.Game
         public Process(Case gcase)
         {
             Case = gcase;
-            Id = new Identifier (0);
+            Id = (Identifier) 0;
             DoInit();
         }
 
@@ -61,7 +61,7 @@ namespace Papagames.Detective.Core.Game
             get { return Case.WorldName; }
         }
 
-        public int CaseId
+        public Case.Identifier CaseId
         {
             get { return Case.Id; }
         }

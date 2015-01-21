@@ -50,7 +50,7 @@ namespace Papagames.Detective.App.Web.Models
             get { return MakeMemberModelList(p => p.Prisoners); }
         }
 
-        public int CaseId
+        public Case.Identifier CaseId
         {
             get { return Process.CaseId; }
         }

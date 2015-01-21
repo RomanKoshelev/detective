@@ -18,7 +18,7 @@ namespace Papagames.Detective.App.Web.Models
         {
             get { return Member.Name; }
         }
-        public MemberModel(int caseId, int memberId)
+        public MemberModel(Case.Identifier caseId, int memberId)
         {
             Member = Schema.FindMember(caseId, memberId);
         }
