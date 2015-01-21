@@ -61,7 +61,7 @@ namespace Papagames.Detective.App.Web.Models
 
         private string DoGetShortInfo()
         {
-            return string.Format("#{0} {1} {2}/{3} {4}", Id, WorldName, Members.Count, Murderers.Count,
+            return string.Format("Case {0}: {1} {2}/{3}/{4} {5}", Id, WorldName, ActiveMembers.Count, Murderers.Count, Victims.Count,
                 Victims.AggregateBy(v => v.Name));
         }
     }

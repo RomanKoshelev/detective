@@ -13,7 +13,7 @@ namespace Papagames.Detective.App.Web.Controllers
 
         public ActionResult Info(int id)
         {
-            throw new System.NotImplementedException();
+            return View(new ProcessModel(id));
         }
     }
 }

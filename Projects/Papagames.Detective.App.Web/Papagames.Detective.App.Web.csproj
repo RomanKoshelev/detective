@@ -256,6 +256,7 @@
     <Content Include="Views\Case\Info.cshtml" />
     <Content Include="Views\Schema\Index.cshtml" />
     <Content Include="Views\Process\Index.cshtml" />
+    <Content Include="Views\Process\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
