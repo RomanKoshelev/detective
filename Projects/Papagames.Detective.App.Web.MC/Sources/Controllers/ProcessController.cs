@@ -14,7 +14,8 @@ namespace Papagames.Detective.App.Web.Controllers
 
         public ActionResult Info(int id)
         {
-            var processId = (Process.Identifier) id;
+            var processId = (Case.Identifier)id;
+
             return View(new ProcessModel(processId));
         }
     }

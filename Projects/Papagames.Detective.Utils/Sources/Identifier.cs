@@ -33,12 +33,12 @@
 
         public static bool operator ==(GenericIdentifier<TV, TC> a, GenericIdentifier<TV, TC> b)
         {
-            return a != null && a.Equals(b);
+            return a.Equals(b);
         }
 
         public static bool operator !=(GenericIdentifier<TV, TC> a, GenericIdentifier<TV, TC> b)
         {
-            return a == null || !a.Equals(b);
+            return !a.Equals(b);
         }
 
         public bool Equals(GenericIdentifier<TV, TC> other)
