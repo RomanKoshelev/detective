@@ -9,16 +9,17 @@
     </head>
 
     <body>
-       <h1>@ViewBag.Title</h1>
-
-        @RenderBody()
-
-
-        <br>
-        <br>
+        @Html.ActionLink("Home", "Index", "Home")
+        | @Html.ActionLink("Schema", "Index", "Schema")
+        | @Html.ActionLink("Cases", "Index", "Case")
+        | @Html.ActionLink("Processes", "Index", "Process")
         <hr>
-        @DateTime.Now.ToLongTimeString()
-        <br>
+
+        <h1>@ViewBag.Title</h1>
+        
+        @RenderBody()
+        
+        <br><br><hr>
         <a href="http://localhost/detective" title="Local Issue">Local</a>
         | <a href="http://pgs-detective.azurewebsites.net/" title="Deployed Issue">Internet</a>
         | <a href="https://manage.windowsazure.com/@("@")romakoshgmail.onmicrosoft.com#Workspaces/WebsiteExtension/Website/pgs-detective/deployments" title="Site Control Panel">Azure</a>
