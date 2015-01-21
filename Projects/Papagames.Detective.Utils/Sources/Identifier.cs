@@ -24,6 +24,7 @@
         {
             return value._value;
         }
+
         public override string ToString()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
@@ -32,12 +33,12 @@
 
         public static bool operator ==(GenericIdentifier<TV, TC> a, GenericIdentifier<TV, TC> b)
         {
-            return a.Equals(b);
+            return a != null && a.Equals(b);
         }
 
         public static bool operator !=(GenericIdentifier<TV, TC> a, GenericIdentifier<TV, TC> b)
         {
-            return !a.Equals(b);
+            return a == null || !a.Equals(b);
         }
 
         public bool Equals(GenericIdentifier<TV, TC> other)
@@ -46,10 +47,6 @@
                 return ReferenceEquals(null, other._value);
             return _value.Equals(other._value);
         }
-        public override int GetHashCode()
-        {
-            return ReferenceEquals(null, _value) ? 0 : _value.GetHashCode();
-        }
 
         public override bool Equals(object obj)
         {
@@ -57,11 +54,16 @@
                 return false;
             return obj is GenericIdentifier<TV, TC> && Equals((GenericIdentifier<TV, TC>)obj);
         }
+
+        public override int GetHashCode()
+        {
+            return ReferenceEquals(null, _value) ? 0 : _value.GetHashCode();
+        }
     }
 
     public class Identifiable<TV, TC>
     {
-        public class Identifier : GenericIdentifier<TV, TC>
+        public class Identifier : GenericIdentifier<TV, TC> 
         {
             public Identifier(TV value)
                 : base(value)
