@@ -43,6 +43,7 @@ namespace Papagames.Detective.Core.Game
         {
             get { return DoGetPrisoners(); }
         }
+
         public int MaxEvidenceNum
         {
             get { return CalcMaxEvidenceNum(); }
@@ -88,4 +89,4 @@ namespace Papagames.Detective.Core.Game
             DoStep();
         }
     }
-}
+ }
