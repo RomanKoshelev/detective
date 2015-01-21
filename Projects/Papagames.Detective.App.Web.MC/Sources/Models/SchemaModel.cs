@@ -19,6 +19,11 @@ namespace Papagames.Detective.App.Web.Models
             get { return DoGetProcesses(); }
         }
 
+        public static int NewProcess(int caseId)
+        {
+            return Schema.NewProcess(caseId);
+        }
+
         // ===================================================================================== []
         // Pivate
         private static IList<CaseModel> DoGetCases()

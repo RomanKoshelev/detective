@@ -26,9 +26,9 @@ namespace Papagames.Detective.App.Web.Controllers
 
         public ActionResult Run(int id)
         {
-            // Todo: create new process and redirect to /Process/Play/123/
+            var processId = SchemaModel.NewProcess(id);
 
-            throw new NotImplementedException();
+            return RedirectToAction("Info", "Process", new { id = processId });
         }
     }
 }
