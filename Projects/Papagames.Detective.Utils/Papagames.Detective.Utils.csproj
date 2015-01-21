@@ -46,7 +46,7 @@
     <Compile Include="Sources\Assert.cs" />
     <Compile Include="Sources\DetectiveException.cs" />
     <Compile Include="Sources\Extensions.cs" />
-    <Compile Include="Sources\Identifier.cs" />
+    <Compile Include="Sources\GenericIdentifier.cs" />
     <Compile Include="Sources\Test.cs" />
   </ItemGroup>
   <ItemGroup>

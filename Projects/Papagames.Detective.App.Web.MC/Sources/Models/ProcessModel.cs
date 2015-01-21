@@ -15,7 +15,7 @@ namespace Papagames.Detective.App.Web.Models
             Process = Schema.FindProcess(id);
         }
 
-        public int Id
+        public Process.Identifier Id
         {
             get { return Process.Id; }
         }
@@ -76,7 +76,6 @@ namespace Papagames.Detective.App.Web.Models
 
         private List<MemberModel> MakeMemberModelList(Func<Process, IList<Member>> membersSelector)
         {
-            // todo: Make Id type-safe -- to prevent using CaseId instead of ProcessId
             return membersSelector(Process).Select(m => new MemberModel(CaseId, m.Id)).ToList();
         }
 

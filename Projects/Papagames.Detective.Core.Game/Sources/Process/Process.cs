@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
-    public partial class Process
+    public partial class Process : Identifiable<int, Process>
     {
         public Process(Case gcase)
         {
             Case = gcase;
+            Id = new Identifier (0);
             DoInit();
         }
 
-        public int Id { get; set; }
+        public Identifier Id { get; set; }
         public Case Case { get; set; }
 
         public State State { get; private set; }

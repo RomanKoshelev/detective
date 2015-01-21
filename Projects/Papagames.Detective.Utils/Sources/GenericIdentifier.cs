@@ -1,6 +1,6 @@
 ﻿namespace Papagames.Detective.Utils
 {
-    public class Identifier<TV, TC>
+    public class GenericIdentifier<TV, TC>
     {
         private TV _value;
 
@@ -10,29 +10,32 @@
             set { _value = value; }
         }
 
-        public Identifier(TV value)
+        public GenericIdentifier(TV value)
         {
             _value = value;
         }
 
-        public static implicit operator TV(Identifier<TV, TC> value)
+        public static implicit operator TV(GenericIdentifier<TV, TC> value)
         {
             return value._value;
         }
-
-        public static explicit operator Identifier<TV, TC>(TV value)
+        public override string ToString()
         {
-            return new Identifier<TV, TC>(value);
+            return ReferenceEquals(null, _value) ? null : _value.ToString();
         }
     }
 
     public class Identifiable<TV, TC>
     {
-        public class Identifier : Identifier<TV, TC>
+        public class Identifier : GenericIdentifier<TV, TC>
         {
             public Identifier(TV value)
                 : base(value)
             {
+            }
+            public static explicit operator Identifier(TV value)
+            {
+                return new Identifier(value);
             }
         }
     }
@@ -41,12 +44,13 @@
     // Sample
     internal class GoodProc : Identifiable<int, GoodProc>
     {
-        public Identifier Id;
+        public Identifier Id = new Identifier(0);
+
     }
 
     internal class GoodCase : Identifiable<int, GoodCase>
     {
-        public Identifier Id;
+        public Identifier Id = new Identifier(0);
     }
 
     public class GoodSchema
