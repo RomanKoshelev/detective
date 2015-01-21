@@ -10,7 +10,7 @@ namespace Papagames.Detective.App.Web.Models
     {
         // ===================================================================================== []
         // Public
-        public ProcessModel(int id)
+        public ProcessModel(Process.Identifier id)
         {
             Process = Schema.FindProcess(id);
         }

@@ -27,11 +27,12 @@ namespace Papagames.Detective.Core.Game
         {
             var gprocess = new Process(gcase);
             Processes.Add(gprocess);
+            // Todo use Identifier compare override -- in Cases too
             gprocess.Id = (Process.Identifier) (Processes.Select(p => (int)p.Id).Max() + 1);
             return gprocess;
         }
 
-        private static Process DoFindProcess(int processId)
+        private static Process DoFindProcess(Process.Identifier processId)
         {
             var process = Processes.Find(p => p.Id == processId);
 
