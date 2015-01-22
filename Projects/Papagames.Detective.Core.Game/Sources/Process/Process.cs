@@ -69,6 +69,40 @@ namespace Papagames.Detective.Core.Game
 
         // ===================================================================================== []
         // User Actions
+        public Answer Ask(Member respondent, Member subject)
+        {
+            return DoAsk(respondent, subject);
+        }
+
+        public void Arrest(Member suspect)
+        {
+            DoArrest(suspect);
+        }
+
+        public void Skip()
+        {
+            DoSkip();
+        }
+        public void Break()
+        {
+            DoBreak();
+        }
+
+        // ===================================================================================== []
+        // Core Actions
+        public void Init()
+        {
+            DoInit();
+        }
+
+        public void RunFirstNight()
+        {
+            DoRunFirstNight();
+        }
+
+
+        // ===================================================================================== []
+        // User Actions Menu
         public class UserAction
         {
             public enum ActionType
@@ -91,40 +125,9 @@ namespace Papagames.Detective.Core.Game
         {
             get { return _userActions; }
         }
-
-        public Answer Ask(Member respondent, Member subject)
-        {
-            return DoAsk(respondent, subject);
-        }
-
-        public void Arrest(Member suspect)
-        {
-            DoArrest(suspect);
-        }
-
-        public void Skip()
-        {
-            DoSkip();
-        }
         public void RunUserAction(UserAction.ActionType actionType)
         {
             DoRunUserAction(actionType);
-        }
-
-        // ===================================================================================== []
-        // Core Actions
-        public void Init()
-        {
-            DoInit();
-        }
-
-        public void RunFirstNight()
-        {
-            DoRunFirstNight();
-        }
-        public void Break()
-        {
-            DoBreak();
         }
 
         // ===================================================================================== []

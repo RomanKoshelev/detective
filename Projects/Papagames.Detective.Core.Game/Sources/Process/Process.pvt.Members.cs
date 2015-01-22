@@ -38,5 +38,9 @@ namespace Papagames.Detective.Core.Game
             Members = Case.CloneMembers();
         }
 
+        private Member FindMember(int number)
+        {
+            return Members.First(m => m.Number == number);
+        }
     }
 }

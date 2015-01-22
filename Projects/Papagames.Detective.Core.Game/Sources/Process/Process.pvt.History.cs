@@ -1,4 +1,5 @@
-﻿using MoreLinq;
+﻿using System.Linq;
+using MoreLinq;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -30,6 +31,11 @@ namespace Papagames.Detective.Core.Game
         private void HistoryStoreParticipations()
         {
             ActiveMembers.ForEach(m => History.StoreParticipation(CurrentDay, m));
+        }
+
+        private bool AlreadyHasAnsweredToday(Member correspondent, Member subject)
+        {
+            return History.GetAnswers(correspondent, CurrentDay).Any(r => r.Subject == subject);
         }
     }
 }

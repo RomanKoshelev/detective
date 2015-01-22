@@ -43,9 +43,9 @@ namespace Papagames.Detective.Core.Game
             return clones;
         }
 
-        private Member DoFindMember(int memberId)
+        private Member DoFindMember(int number)
         {
-            return Members.First(m=>m.Number == memberId);
+            return Members.First(m=>m.Number == number);
         }
     }
 }

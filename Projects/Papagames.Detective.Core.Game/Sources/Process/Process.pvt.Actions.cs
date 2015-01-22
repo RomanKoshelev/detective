@@ -28,6 +28,15 @@ namespace Papagames.Detective.Core.Game
             History.StoreArrest(CurrentDay, Detective, LastArrested);
             HistoryStoreEmotionalReactionOnArrest(LastArrested);
         }
+        private void DoAsk(int respondent, int subject)
+        {
+            DoAsk(FindMember(respondent),FindMember(subject));
+        }
+
+        private void DoBreak()
+        {
+            SetState(State.Break);
+        }
 
         // ===================================================================================== []
         // Core Actions
@@ -47,10 +56,6 @@ namespace Papagames.Detective.Core.Game
 
             History.StoreMurder(CurrentDay, LastMurderer, LastVictim);
             HistoryStoreEmotionalReactionOnMurder(LastVictim);
-        }
-        private void DoBreak()
-        {
-            SetState(State.Break);
         }
 
         // ===================================================================================== []

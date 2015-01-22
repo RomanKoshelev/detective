@@ -45,9 +45,9 @@ namespace Papagames.Detective.Core.Game
             get { return Members.Where(m => m.IsVictim).ToList(); }
         }
 
-        public Member FindMember(int memberId)
+        public Member FindMember(int number)
         {
-            return DoFindMember(memberId);
+            return DoFindMember(number);
         }
     }
 }

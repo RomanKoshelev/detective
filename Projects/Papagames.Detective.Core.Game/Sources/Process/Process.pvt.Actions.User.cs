@@ -8,9 +8,11 @@ namespace Papagames.Detective.Core.Game
     public partial class Process
     {
         // ===================================================================================== []
-        // User Action Variants
+        // User Action Menu
         private readonly IList<UserAction> _userActions = new List<UserAction>();
 
+        // ===================================================================================== []
+        // Update
         private void UpdateUserActions()
         {
             _userActions.Clear();
@@ -32,6 +34,8 @@ namespace Papagames.Detective.Core.Game
             }
         }
 
+        // ===================================================================================== []
+        // Skip, None
         private void AddSkipAction()
         {
             _userActions.Add(new UserAction {Type = UserAction.ActionType.Skip});
@@ -42,29 +46,50 @@ namespace Papagames.Detective.Core.Game
             _userActions.Add(new UserAction {Type = UserAction.ActionType.None});
         }
 
+        // ===================================================================================== []
+        // Arrest
         private void AddArrestActions()
         {
             Assert.Equal(State, State.Arrest);
             _userActions.Add(new UserAction {Type = UserAction.ActionType.Arrest});
         }
 
+        // ===================================================================================== []
+        // Ask
         private void AddQuestioningActions()
         {
             Assert.Equal(State, State.Questioning);
 
             var respondent = ActiveMembers.Where(NeedQuestioning).FirstOrDefault();
-            
-            if (respondent == null)
+
+            if (respondent != null)
             {
-                AddSkipAction();
-                return;
+                var subjects = ActiveMembers.Where(s => CanAskAbout(respondent, s)).ToList();
+                if (subjects.Any())
+                {
+                    subjects.ForEach(subject => _userActions.Add(new UserAction
+                    {
+                        Type = UserAction.ActionType.Ask,
+                        Params = new object[] {respondent.Number, subject.Number}
+                    }));
+                    return;
+                }
             }
 
-            ActiveMembers.ForEach(subject => _userActions.Add(new UserAction
-            {
-                Type = UserAction.ActionType.Ask,
-                Params = new object[] {respondent.Number, subject.Number}
-            }));
+            AddSkipAction();
+        }
+
+        // ===================================================================================== []
+        // Rules
+        private bool CanAskAbout(Member correspondent, Member subject)
+        {
+            if (correspondent == subject)
+                return false;
+
+            if (AlreadyHasAnsweredToday(correspondent, subject))
+                return false;
+
+            return true;
         }
 
         private bool NeedQuestioning(Member member)
@@ -72,6 +97,8 @@ namespace Papagames.Detective.Core.Game
             return History.GetAnswers(member, CurrentDay).Count == 0;
         }
 
+        // ===================================================================================== []
+        // Dispatcher
         private void DoRunUserAction(UserAction.ActionType actionType)
         {
             switch (actionType)
@@ -87,7 +114,7 @@ namespace Papagames.Detective.Core.Game
                     break;
                 case UserAction.ActionType.Ask:
                     // todo: call Ask action
-                    DoSkip();
+                    DoAsk(1, 2);
                     break;
                 default:
                     throw new DetectiveException("Unexpected action type {0}", actionType);
