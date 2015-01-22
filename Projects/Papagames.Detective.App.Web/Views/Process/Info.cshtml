@@ -2,7 +2,7 @@
 @using Papagames.Detective.Utils
 @model ProcessModel
 @{
-    ViewBag.Title = "Detective Process";
+    ViewBag.Title = "Detective Process Info";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
@@ -38,5 +38,15 @@
         </ul>
     </li>
     <li>State: @Model.State</li>
-    <li>Actions: [@Model.UserActions.AggregateBy(a=>a.Type.ToString())]</li>
+    <li>
+        Actions: [@Model.UserActions.AggregateBy(a => a.Type.ToString())]
+        <ul>
+            @foreach (var a in Model.UserActions)
+            {
+                <li>
+                    @Html.ActionLink(a.ToString(), "Play", new { id = Model.Id, actionType = (int)a.Type })
+                </li>
+            }
+        </ul>
+    </li>
 </ul>

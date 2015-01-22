@@ -96,10 +96,10 @@ namespace Papagames.Detective.Utils
             return end == "a" ? "she" : "he";
         }
         
-        public static string AggregateBy<T>(this IEnumerable<T> enumerable, Func<T, string> selector, string delimiter = ", ")
+        public static string AggregateBy<T>(this IList<T> list, Func<T, string> selector, string delimiter = ", ")
         {
-            return enumerable.Select(selector).Aggregate((a, s) => string.Format("{0}{1}{2}", a, delimiter, s));
+            if (list.Count==0) return "";
+            return list.Select(selector).Aggregate((a, s) => string.Format("{0}{1}{2}", a, delimiter, s));
         }
-
     }
 }

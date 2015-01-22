@@ -81,6 +81,10 @@ namespace Papagames.Detective.Core.Game
 
             public ActionType Type = ActionType.None;
             public IList<Object> Params = new List<object>();
+            public override string ToString()
+            {
+                return string.Format("{0} {1}", Type, Params.AggregateBy(p => p.ToString()));
+            }
         }
 
         public IList<UserAction> UserActions
