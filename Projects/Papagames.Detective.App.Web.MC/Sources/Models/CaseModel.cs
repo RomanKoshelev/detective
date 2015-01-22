@@ -56,7 +56,7 @@ namespace Papagames.Detective.App.Web.Models
 
         private List<MemberModel> MakeMemberModelList(Func<Case, IList<Member>> membersSelector)
         {
-            return membersSelector(Case).Select(m => new MemberModel(Id, m.Id)).ToList();
+            return membersSelector(Case).Select(m => new MemberModel(Id, m.Number)).ToList();
         }
 
         private string DoGetShortInfo()

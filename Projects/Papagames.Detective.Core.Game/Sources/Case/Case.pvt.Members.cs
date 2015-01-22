@@ -39,13 +39,13 @@ namespace Papagames.Detective.Core.Game
         {
             var clones = new List<Member>();
             
-            Members.ForEach(m => clones.Add(new Member(m.Id, m.Person, Id){IsMurderer = m.IsMurderer}));
+            Members.ForEach(m => clones.Add(new Member(m.Number, m.Person, Id){IsMurderer = m.IsMurderer}));
             return clones;
         }
 
         private Member DoFindMember(int memberId)
         {
-            return Members.First(m=>m.Id == memberId);
+            return Members.First(m=>m.Number == memberId);
         }
     }
 }

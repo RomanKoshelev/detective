@@ -19,7 +19,7 @@ namespace Papagames.Detective.App.Console
 
         private int GetSuspectNumberForArrest(IList<Member> members)
         {
-            var values = members.Select(m => m.Id).ToList();
+            var values = members.Select(m => m.Number).ToList();
             const string strValues = "";
             var memberNum = members.Count(m => m.IsActive);
             var murderNum = members.Count(m => m.IsActiveMurderer);

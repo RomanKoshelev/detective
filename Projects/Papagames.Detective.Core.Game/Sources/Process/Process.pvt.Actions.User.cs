@@ -63,7 +63,7 @@ namespace Papagames.Detective.Core.Game
             ActiveMembers.ForEach(subject => _userActions.Add(new UserAction
             {
                 Type = UserAction.ActionType.Ask,
-                Params = new object[] {respondent.Id, subject.Id}
+                Params = new object[] {respondent.Number, subject.Number}
             }));
         }
 

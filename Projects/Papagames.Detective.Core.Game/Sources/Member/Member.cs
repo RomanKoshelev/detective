@@ -5,10 +5,10 @@ namespace Papagames.Detective.Core.Game
 {
     public partial class Member
     {
-        public Member(int id, Person person, int caseId)
+        public Member(int number, Person person, int caseId)
         {
             Person = person;
-            Id = id;
+            Number = number;
             CaseId = caseId;
             IsMurderer = false;
             IsVictim = false;
@@ -18,8 +18,7 @@ namespace Papagames.Detective.Core.Game
         }
 
         public Person Person { get; set; }
-        // todo: rename to number back
-        public int Id { get; set; }
+        public int Number { get; set; }
         public int CaseId { get; set; }
 
         public string Name

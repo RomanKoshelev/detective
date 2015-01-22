@@ -8,7 +8,7 @@ namespace Papagames.Detective.App.Web.Models
         // Public
         public int Id
         {
-            get { return Member.Id; }
+            get { return Member.Number; }
         }
         public int CaseId
         {

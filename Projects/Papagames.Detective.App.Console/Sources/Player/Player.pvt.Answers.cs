@@ -17,7 +17,7 @@ namespace Papagames.Detective.App.Console
 
             PrintAnswersHeader(History, nameCellFormat, answerCellFormat);
 
-            Members.Where(m => m.IsActive || History.Records.Exists(r => r.Agent == m && r.Action == Action.Answer)).OrderBy(m => !m.IsActive?-1:m.Id).ForEach(m =>
+            Members.Where(m => m.IsActive || History.Records.Exists(r => r.Agent == m && r.Action == Action.Answer)).OrderBy(m => !m.IsActive?-1:m.Number).ForEach(m =>
                 {
                     Write(nameCellFormat, string.Format("  {0,2}{1}", NumberOrFullState(m), m.ShortName(12)));
 
@@ -54,7 +54,7 @@ namespace Papagames.Detective.App.Console
         private static string NumberOrState(Member m)
         {
             return m.IsActive
-                ? string.Format("{0,2}:", m.Id)
+                ? string.Format("{0,2}:", m.Number)
                 : m.IsInnocent ? "   " : m.IsMurderer ? " M " : "ERROR";
         }
 
@@ -108,7 +108,7 @@ namespace Papagames.Detective.App.Console
             Trace.Assert(subject != respondent, "subject != respondent");
             if (verb == "") verb = "is";
 
-            WriteLine("    {0}:{1} {2} {3}", subject.Id, subject.Name, verb, answer.Verbal());
+            WriteLine("    {0}:{1} {2} {3}", subject.Number, subject.Name, verb, answer.Verbal());
             WriteLine();
         }
     }

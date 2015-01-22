@@ -82,7 +82,7 @@ namespace Papagames.Detective.App.Console
         {
             var role = m.IsActive ? "" : m.IsMurderer ? "M" : "I";
             var state = m.IsActive
-                ? string.Format("{0,-3}", m.Id)
+                ? string.Format("{0,-3}", m.Number)
                 : m.IsPrisoner ? "# " : m.IsVictim ? "x " : "ERROR ";
             return role + state;
         }

@@ -54,7 +54,7 @@ namespace Papagames.Detective.App.Console
             ActiveMembers.ForEach(respondent =>
             {
                 var subjNum = GetQuestionSubjectForAsking(respondent, ActiveMembers.Where(s=>s!=respondent));
-                var subject = Members.First(m => m.Id == subjNum);
+                var subject = Members.First(m => m.Number == subjNum);
                 var answer = _process.Ask(respondent, subject);
                 PrintAnswerWithAdverb(respondent, subject, answer);
             });
@@ -75,11 +75,11 @@ namespace Papagames.Detective.App.Console
             WriteLine();
 
             var suspNum = GetSuspectNumberForArrest(ActiveMembers);
-            var suspect = Members.First(m => m.Id == suspNum);
+            var suspect = Members.First(m => m.Number == suspNum);
             _process.Arrest(suspect);
 
             WriteLine();
-            WriteLine("{0,2}:{1} is arrested", LastArrested.Id, LastArrested.Name);
+            WriteLine("{0,2}:{1} is arrested", LastArrested.Number, LastArrested.Name);
             WriteLine("   {0} was {1}", LastArrested.Name, LastArrested.IsMurderer ? "Murderer" : "Innocent");
 
             WriteLine();

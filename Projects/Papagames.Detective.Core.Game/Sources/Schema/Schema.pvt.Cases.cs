@@ -34,7 +34,7 @@ namespace Papagames.Detective.Core.Game
             proc.RunFirstNight();
             proc.Break();
 
-            proc.Victims.ForEach(v => gcase.FindMember(v.Id).IsVictim = true);
+            proc.Victims.ForEach(v => gcase.FindMember(v.Number).IsVictim = true);
         }
 
         private static Case CreateCase(WorldId worldId, int memberNum, int murderNum)
