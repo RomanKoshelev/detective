@@ -106,6 +106,10 @@ namespace Papagames.Detective.Core.Game
         {
             DoSkip();
         }
+        public void RunUserAction(UserAction.ActionType actionType)
+        {
+            DoRunUserAction(actionType);
+        }
 
         // ===================================================================================== []
         // Core Actions

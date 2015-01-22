@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -48,6 +49,11 @@ namespace Papagames.Detective.Core.Game
         public static int NewProcess(Case.Identifier caseId)
         {
             return DoNewProcess(caseId);
+        }
+
+        public static void PlayProcess(Process.Identifier processId, Process.UserAction.ActionType actionType)
+        {
+            DoPlayProcess(processId, actionType);
         }
     }
 }

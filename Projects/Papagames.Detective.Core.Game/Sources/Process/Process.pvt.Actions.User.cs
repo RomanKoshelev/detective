@@ -63,5 +63,17 @@ namespace Papagames.Detective.Core.Game
                 });
             });
         }
+
+        private void DoRunUserAction(UserAction.ActionType actionType)
+        {
+            switch (actionType)
+            {
+                case UserAction.ActionType.Skip:
+                    DoSkip();
+                    break;
+                default:
+                    throw new DetectiveException("Unexpected action type {0}", actionType);
+            }
+        }
     }
 }
