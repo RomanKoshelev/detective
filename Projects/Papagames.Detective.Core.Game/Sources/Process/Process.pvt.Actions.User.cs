@@ -52,7 +52,7 @@ namespace Papagames.Detective.Core.Game
         {
             Assert.Equal(State, State.Questioning);
 
-            var respondent = ActiveMembers.Where(WasNotAskedToday).FirstOrDefault();
+            var respondent = ActiveMembers.Where(NeedQuestioning).FirstOrDefault();
             
             if (respondent == null)
             {
@@ -67,7 +67,7 @@ namespace Papagames.Detective.Core.Game
             }));
         }
 
-        private bool WasNotAskedToday(Member member)
+        private bool NeedQuestioning(Member member)
         {
             return History.GetAnswers(member, CurrentDay).Count == 0;
         }

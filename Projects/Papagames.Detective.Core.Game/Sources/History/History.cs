@@ -12,6 +12,11 @@ namespace Papagames.Detective.Core.Game
         // Properties
         public List<Record> Records = new List<Record>();
 
+        public IList<Record> Answers
+        {
+            get { return Records.Where(r => r.Action == Action.Answer).ToList(); }
+        }
+
         public int LastDay
         {
             get { return Records.MaxBy(i => i.Day).Day; }
@@ -26,7 +31,6 @@ namespace Papagames.Detective.Core.Game
         {
             get { return Enumerable.Range(FirstDay, LastDay - FirstDay + 1); }
         }
-
 
         // ===================================================================================== []
         // Methods
@@ -84,7 +88,7 @@ namespace Papagames.Detective.Core.Game
 
         public IList<Record> GetAnswers(Member respondent, int day)
         {
-            return Records.Where(r => r.Agent == respondent && r.Day == day).ToList();
+            return Answers.Where(r => r.Agent == respondent && r.Day == day).ToList();
         }
     }
 }
