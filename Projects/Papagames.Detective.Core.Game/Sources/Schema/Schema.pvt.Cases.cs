@@ -39,7 +39,6 @@ namespace Papagames.Detective.Core.Game
         {
             var gcase = new Case(WorldMap[worldId], memberNum, murderNum);
             Cases.Add(gcase);
-            // Todo use Identifier compare override
             gcase.Id = (Case.Identifier) (Cases.Select(c => (int)c.Id).Max() + 1);
             return gcase;
         }

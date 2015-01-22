@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
     public partial class Process : Identifiable<int, Process>
     {
+        // ===================================================================================== []
+        // Constructor
         public Process(Case gcase)
         {
             Case = gcase;
@@ -12,23 +15,35 @@ namespace Papagames.Detective.Core.Game
             DoInit();
         }
 
+        // ===================================================================================== []
+        // Properties
         public Identifier Id { get; set; }
-        public Case Case { get; set; }
-
+        public Case Case { get; private set; }
         public State State { get; private set; }
-
-        public IList<Member> Members { get; set; }
         public int CurrentDay { get; private set; }
-        public bool DidDeteciveWin { get; set; }
+
+        public History History { get; private set; }
+
+        public string WorldName
+        {
+            get { return Case.WorldName; }
+        }
+
+        public Case.Identifier CaseId
+        {
+            get { return Case.Id; }
+        }
+
+        // ===================================================================================== []
+        // Members
+        public IList<Member> Members { get; private set; }
+        public Member LastVictim { get; private set; }
+        public Member LastMurderer { get; private set; }
+        public Member LastArrested { get; private set; }
 
         public IList<Member> ActiveMembers
         {
             get { return DoGetActiveMembers(); }
-        }
-
-        public IList<Member> Victims
-        {
-            get { return DoGetVictims(); }
         }
 
         public IList<Member> ActiveInnocents
@@ -41,29 +56,30 @@ namespace Papagames.Detective.Core.Game
             get { return DoGetActiveMurderers(); }
         }
 
+        public IList<Member> Victims
+        {
+            get { return DoGetVictims(); }
+        }
+
         public IList<Member> Prisoners
         {
             get { return DoGetPrisoners(); }
         }
 
-        public int MaxEvidenceNum
+        // ===================================================================================== []
+        // User Actions
+        public class UserAction
         {
-            get { return CalcMaxEvidenceNum(); }
-        }
+            public enum ActionType
+            {
+                None,
+                Skip,
+                Ask,
+                Arrest
+            }
 
-        public Member LastVictim { get; private set; }
-        public Member LastMurderer { get; private set; }
-        public History History { get; set; }
-        public Member LastArrested { get; set; }
-
-        public string WorldName
-        {
-            get { return Case.WorldName; }
-        }
-
-        public Case.Identifier CaseId
-        {
-            get { return Case.Id; }
+            public ActionType Type;
+            public IList<Object> Params;
         }
 
         public Answer Ask(Member respondent, Member subject)
@@ -76,6 +92,13 @@ namespace Papagames.Detective.Core.Game
             DoArrest(suspect);
         }
 
+        public void Step()
+        {
+            DoStep();
+        }
+
+        // ===================================================================================== []
+        // Core Actions
         public void Init()
         {
             DoInit();
@@ -86,9 +109,13 @@ namespace Papagames.Detective.Core.Game
             DoRunFirstNight();
         }
 
-        public void Step()
+        // ===================================================================================== []
+        // Utils
+        public bool DidDeteciveWin { get; private set; }
+
+        public int MaxEvidenceNum
         {
-            DoStep();
+            get { return CalcMaxEvidenceNum(); }
         }
     }
- }
+}

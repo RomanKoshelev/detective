@@ -27,7 +27,6 @@ namespace Papagames.Detective.Core.Game
         {
             var gprocess = new Process(gcase);
             Processes.Add(gprocess);
-            // Todo use Identifier compare override
             gprocess.Id = (Process.Identifier) (Processes.Select(p => (int)p.Id).Max() + 1);
             return gprocess;
         }

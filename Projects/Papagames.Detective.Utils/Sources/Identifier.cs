@@ -1,5 +1,6 @@
 ﻿namespace Papagames.Detective.Utils
 {
+    // Todo: simplify and use struct instead of class
     public class GenericIdentifier<TV, TC>
     {
         private TV _value;

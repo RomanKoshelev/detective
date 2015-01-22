@@ -10,7 +10,7 @@ namespace Papagames.Detective.App.Web.Models
     {
         // ===================================================================================== []
         // Public
-        public ProcessModel(Case.Identifier id)
+        public ProcessModel(Process.Identifier id)
         {
             Process = Schema.FindProcess(id);
         }
@@ -69,6 +69,9 @@ namespace Papagames.Detective.App.Web.Models
         {
             get { return Process.CurrentDay; }
         }
+
+        public IList<Process.UserAction> UserActions { get; set; }
+
 
         // ===================================================================================== []
         // Pivate

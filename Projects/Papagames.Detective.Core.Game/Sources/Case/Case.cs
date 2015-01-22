@@ -5,7 +5,7 @@ using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
-    public partial class Case : Identifiable<int, Process>
+    public partial class Case : Identifiable<int, Case>
     {
         public Case(IWorld world, int memberNum, int murdererNum)
         {
