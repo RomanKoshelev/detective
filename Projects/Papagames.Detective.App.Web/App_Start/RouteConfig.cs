@@ -11,7 +11,8 @@ namespace Papagames.Detective.App.Web
 
             routes.MapRoute(
                 name: "Process Play",
-                url: "{controller}/{action}/{id}/{actionType}"
+                url: "{controller}/{action}/{id}/{actionType}",
+                defaults: new { actionType = UrlParameter.Optional }
             );
             routes.MapRoute(
                 name: "Default",

@@ -38,15 +38,5 @@
         </ul>
     </li>
     <li>State: @Model.State</li>
-    <li>
-        Actions: [@Model.UserActions.AggregateBy(a => a.Type.ToString())]
-        <ul>
-            @foreach (var a in Model.UserActions)
-            {
-                <li>
-                    @Html.ActionLink(a.ToString(), "Play", new { id = Model.Id, actionType = (int)a.Type })
-                </li>
-            }
-        </ul>
-    </li>
+    <li>@Html.ActionLink("Play this process", "Play", new { id = Model.Id})</li>
 </ul>

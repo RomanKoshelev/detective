@@ -48,6 +48,10 @@ namespace Papagames.Detective.Core.Game
             History.StoreMurder(CurrentDay, LastMurderer, LastVictim);
             HistoryStoreEmotionalReactionOnMurder(LastVictim);
         }
+        private void DoBreak()
+        {
+            SetState(State.Break);
+        }
 
         // ===================================================================================== []
         // Utils

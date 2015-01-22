@@ -2,7 +2,6 @@
 using Papagames.Detective.App.Web.Models;
 using Papagames.Detective.Core.Game;
 
-
 namespace Papagames.Detective.App.Web.Controllers
 {
     public class ProcessController : Controller
@@ -19,7 +18,7 @@ namespace Papagames.Detective.App.Web.Controllers
             return View(new ProcessModel(processId));
         }
 
-        public ActionResult Play(int id, int actionType)
+        public ActionResult Play(int id, int? actionType)
         {
             var processId = (Process.Identifier)id;
             // todo: call user action Schema.UserAction (actionType, params) with unparsed args

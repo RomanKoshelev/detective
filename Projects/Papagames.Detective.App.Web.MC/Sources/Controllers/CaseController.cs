@@ -1,9 +1,6 @@
-﻿using System;
-using System.Net;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Papagames.Detective.App.Web.Models;
 using Papagames.Detective.Core.Game;
-using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.App.Web.Controllers
 {
@@ -25,7 +22,7 @@ namespace Papagames.Detective.App.Web.Controllers
             var caseId = (Case.Identifier)id;
             var processId = SchemaModel.NewProcess(caseId);
 
-            return RedirectToAction("Info", "Process", new { id = processId });
+            return RedirectToAction("Play", "Process", new { id = processId });
         }
     }
 }

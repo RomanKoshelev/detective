@@ -7,3 +7,46 @@
 }
 
 <h2>@Model.ShortInfo</h2>
+
+<ul>
+    <li>@Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })</li>
+    <li>
+        @Model.ActiveMembers.Count active members:
+        <ul>
+            @foreach (var m in Model.ActiveMembers)
+            {
+                <li>@m.Id: @m.Name</li>
+            }
+        </ul>
+    </li>
+    <li>
+        @Model.Prisoners.Count.Plural("prisoner")
+        <ul>
+            @foreach (var m in Model.Prisoners)
+            {
+                <li>@m.Id: @m.Name</li>
+            }
+        </ul>
+    </li>
+    <li>
+        @Model.Victims.Count.Plural("victim")
+        <ul>
+            @foreach (var m in Model.Victims)
+            {
+                <li>@m.Id: @m.Name</li>
+            }
+        </ul>
+    </li>
+    <li>State: @Model.State</li>
+    <li>
+        Actions:
+        <ul>
+            @foreach (var a in Model.UserActions)
+            {
+                <li>
+                    @Html.ActionLink(a.ToString(), "Play", new { id = Model.Id, actionType = (int)a.Type })
+                </li>
+            }
+        </ul>
+    </li>
+</ul>

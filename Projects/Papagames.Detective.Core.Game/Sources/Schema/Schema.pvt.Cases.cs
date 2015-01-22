@@ -32,6 +32,8 @@ namespace Papagames.Detective.Core.Game
         {
             var proc = new Process(gcase);
             proc.RunFirstNight();
+            proc.Break();
+
             proc.Victims.ForEach(v => gcase.FindMember(v.Id).IsVictim = true);
         }
 

@@ -112,8 +112,7 @@ namespace Papagames.Detective.Core.Game
 
         private void DoRunFirstNight()
         {
-            do DoStep(); while (State != State.Questioning);
-            SetState(State.Finished);
+            do DoStep(); while (State != State.Morning);
         }
     }
 }

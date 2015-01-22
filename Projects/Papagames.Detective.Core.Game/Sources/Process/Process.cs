@@ -118,6 +118,10 @@ namespace Papagames.Detective.Core.Game
         {
             DoRunFirstNight();
         }
+        public void Break()
+        {
+            DoBreak();
+        }
 
         // ===================================================================================== []
         // Utils
