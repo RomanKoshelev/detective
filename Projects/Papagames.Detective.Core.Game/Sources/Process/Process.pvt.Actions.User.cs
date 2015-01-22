@@ -51,7 +51,21 @@ namespace Papagames.Detective.Core.Game
         private void AddArrestActions()
         {
             Assert.Equal(State, State.Arrest);
-            _userActions.Add(new UserAction {Type = UserAction.ActionType.Arrest});
+
+            var suspects = ActiveMembers.Where(CanBeArrested).ToList();
+
+            if (suspects.Any())
+            {
+                suspects.ForEach(s => _userActions.Add(new UserAction
+                {
+                    Type = UserAction.ActionType.Arrest,
+                    Params = new []{s.Number}
+                }));
+
+                return;
+            }
+
+            AddSkipAction();
         }
 
         // ===================================================================================== []
@@ -60,7 +74,7 @@ namespace Papagames.Detective.Core.Game
         {
             Assert.Equal(State, State.Questioning);
 
-            var respondent = ActiveMembers.Where(NeedQuestioning).FirstOrDefault();
+            var respondent = ActiveMembers.Where(CanBeQuestioned).FirstOrDefault();
 
             if (respondent != null)
             {
@@ -92,14 +106,19 @@ namespace Papagames.Detective.Core.Game
             return true;
         }
 
-        private bool NeedQuestioning(Member member)
+        private bool CanBeQuestioned(Member member)
         {
             return History.GetAnswers(member, CurrentDay).Count == 0;
         }
 
+        private static bool CanBeArrested (Member member)
+        {
+            return member.IsActive;
+        }
+
         // ===================================================================================== []
         // Dispatcher
-        private void DoExecuteUserAction(UserAction.ActionType actionType, params int[] args)
+        private void DoExecuteUserAction(UserAction.ActionType actionType, params int[] actionParams)
         {
             switch (actionType)
             {
@@ -109,11 +128,10 @@ namespace Papagames.Detective.Core.Game
                     DoSkip();
                     break;
                 case UserAction.ActionType.Arrest:
-                    // todo: call Arrest action
-                    DoSkip();
+                    DoArrest(actionParams[0]);
                     break;
                 case UserAction.ActionType.Ask:
-                    DoAsk(args[0], args[1]);
+                    DoAsk(actionParams[0], actionParams[1]);
                     break;
                 default:
                     throw new DetectiveException("Unexpected action type {0}", actionType);

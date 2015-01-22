@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
@@ -27,10 +26,18 @@ namespace Papagames.Detective.Core.Game
 
             History.StoreArrest(CurrentDay, Detective, LastArrested);
             HistoryStoreEmotionalReactionOnArrest(LastArrested);
+            
+            DoStep();
         }
+
         private void DoAsk(int respondent, int subject)
         {
-            DoAsk(FindMember(respondent),FindMember(subject));
+            DoAsk(FindMember(respondent), FindMember(subject));
+        }
+
+        private void DoArrest(int suspect)
+        {
+            DoArrest(FindMember(suspect));
         }
 
         private void DoBreak()

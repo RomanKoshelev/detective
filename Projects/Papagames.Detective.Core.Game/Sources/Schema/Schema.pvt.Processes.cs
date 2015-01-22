@@ -19,7 +19,7 @@ namespace Papagames.Detective.Core.Game
             for (var i = 0; i < procNum; i++)
             {
                 DoNewProcess(c).RunFirstNight();
-                // todo: Assert that Process Victims == Case Victims
+                // Todo: TEST Assert that Process Victims == Case Victims
             }
         }
 
@@ -45,9 +45,9 @@ namespace Papagames.Detective.Core.Game
             return DoNewProcess(DoFindCase(caseId)).Id;
         }
 
-        private static void DoPlayProcess(Process.Identifier processId, Process.UserAction.ActionType actionType, params int[] args)
+        private static void DoPlayProcess(Process.Identifier processId, Process.UserAction.ActionType actionType, params int[] actionParams)
         {
-            DoFindProcess(processId).ExecuteUserAction(actionType, args);
+            DoFindProcess(processId).ExecuteUserAction(actionType, actionParams);
         }
     }
 }
