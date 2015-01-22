@@ -45,9 +45,9 @@ namespace Papagames.Detective.Core.Game
             return DoNewProcess(DoFindCase(caseId)).Id;
         }
 
-        private static void DoPlayProcess(Process.Identifier processId, Process.UserAction.ActionType actionType)
+        private static void DoPlayProcess(Process.Identifier processId, Process.UserAction.ActionType actionType, params int[] args)
         {
-            DoFindProcess(processId).RunUserAction(actionType);
+            DoFindProcess(processId).RunUserAction(actionType, args);
         }
     }
 }

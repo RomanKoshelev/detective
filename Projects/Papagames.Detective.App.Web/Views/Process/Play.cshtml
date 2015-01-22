@@ -44,9 +44,18 @@
             @foreach (var a in Model.UserActions)
             {
                 <li>
-                    @Html.ActionLink(a.ToString(), "Play", new { id = Model.Id, actionType = (int)a.Type })
+                    @Html.ActionLink(a.ToString(), "Play", new { id = Model.Id, actionType = (int)a.Type, actionParams = new[]{1,2} })
                 </li>
             }
         </ul>
     </li>
 </ul>
+<br><br>
+@Html.ActionLink("Click on me", "Index", new { id = 123, actionType = 999, names = new [] { "foo", "boo", "moo" } })
+
+
+<br><br>
+@Html.ActionLink("Click on me", "Index", new { id = 123, actionType = 999, names = new [] { 1,2,3 } })
+
+
+

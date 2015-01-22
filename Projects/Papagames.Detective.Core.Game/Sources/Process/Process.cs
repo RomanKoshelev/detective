@@ -125,9 +125,9 @@ namespace Papagames.Detective.Core.Game
         {
             get { return _userActions; }
         }
-        public void RunUserAction(UserAction.ActionType actionType)
+        public void RunUserAction(UserAction.ActionType actionType, params int[] args)
         {
-            DoRunUserAction(actionType);
+            DoRunUserAction(actionType, args);
         }
 
         // ===================================================================================== []

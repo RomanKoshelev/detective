@@ -99,7 +99,7 @@ namespace Papagames.Detective.Core.Game
 
         // ===================================================================================== []
         // Dispatcher
-        private void DoRunUserAction(UserAction.ActionType actionType)
+        private void DoRunUserAction(UserAction.ActionType actionType, params int[] args)
         {
             switch (actionType)
             {
@@ -113,8 +113,7 @@ namespace Papagames.Detective.Core.Game
                     DoSkip();
                     break;
                 case UserAction.ActionType.Ask:
-                    // todo: call Ask action
-                    DoAsk(1, 2);
+                    DoAsk(args[0], args[1]);
                     break;
                 default:
                     throw new DetectiveException("Unexpected action type {0}", actionType);
