@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MoreLinq;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
@@ -7,7 +8,6 @@ namespace Papagames.Detective.Core.Game
     {
         // ===================================================================================== []
         // User Action Variants
-        
         private readonly IList<UserAction> _userActions = new List<UserAction>();
 
         private void UpdateUserActions()
@@ -44,13 +44,24 @@ namespace Papagames.Detective.Core.Game
         private void AddArrestActions()
         {
             Assert.Equal(State, State.Arrest);
-            _userActions.Add(new UserAction {Type = UserAction.ActionType.None});
+            _userActions.Add(new UserAction {Type = UserAction.ActionType.Arrest});
         }
 
         private void AddQuestioningActions()
         {
             Assert.Equal(State, State.Questioning);
-            _userActions.Add(new UserAction { Type = UserAction.ActionType.None });
+            
+            ActiveMembers.ForEach(respondent =>
+            {
+                ActiveMembers.ForEach(subject =>
+                {
+                    var action = new UserAction();
+                    action.Type = UserAction.ActionType.Ask;
+                    action.Params.Add(respondent.Id);
+                    action.Params.Add(subject.Id);
+                    _userActions.Add(action);
+                });
+            });
         }
     }
 }
