@@ -70,7 +70,7 @@ namespace Papagames.Detective.Core.Game
                     subjects.ForEach(subject => _userActions.Add(new UserAction
                     {
                         Type = UserAction.ActionType.Ask,
-                        Params = new object[] {respondent.Number, subject.Number}
+                        Params = new [] {respondent.Number, subject.Number}
                     }));
                     return;
                 }
@@ -99,7 +99,7 @@ namespace Papagames.Detective.Core.Game
 
         // ===================================================================================== []
         // Dispatcher
-        private void DoRunUserAction(UserAction.ActionType actionType, params int[] args)
+        private void DoExecuteUserAction(UserAction.ActionType actionType, params int[] args)
         {
             switch (actionType)
             {
@@ -118,6 +118,7 @@ namespace Papagames.Detective.Core.Game
                 default:
                     throw new DetectiveException("Unexpected action type {0}", actionType);
             }
+            UpdateUserActions();
         }
     }
 }

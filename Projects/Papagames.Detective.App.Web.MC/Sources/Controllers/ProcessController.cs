@@ -18,12 +18,12 @@ namespace Papagames.Detective.App.Web.Controllers
             return View(new ProcessModel(processId));
         }
 
-        public ActionResult Play(int id, int? actionType, params int[] args)
+        public ActionResult Play(int id, int? actionType, params int[] actionParams)
         {
             var processId = (Process.Identifier) id;
             if (actionType != null)
             {
-                Schema.PlayProcess(processId, (Process.UserAction.ActionType) actionType, args);
+                Schema.PlayProcess(processId, (Process.UserAction.ActionType)actionType, actionParams);
                 return RedirectToAction("Play", "Process", new {id = processId});
             }
             return View(new ProcessModel(processId));

@@ -100,34 +100,15 @@ namespace Papagames.Detective.Core.Game
             DoRunFirstNight();
         }
 
-
         // ===================================================================================== []
-        // User Actions Menu
-        public class UserAction
-        {
-            public enum ActionType
-            {
-                None,
-                Skip,
-                Ask,
-                Arrest
-            }
-
-            public ActionType Type = ActionType.None;
-            public IList<Object> Params = new List<object>();
-            public override string ToString()
-            {
-                return string.Format("{0} {1}", Type, Params.AggregateBy(p => p.ToString()));
-            }
-        }
-
+        // User Action Menu
         public IList<UserAction> UserActions
         {
             get { return _userActions; }
         }
-        public void RunUserAction(UserAction.ActionType actionType, params int[] args)
+        public void ExecuteUserAction(UserAction.ActionType actionType, params int[] args)
         {
-            DoRunUserAction(actionType, args);
+            DoExecuteUserAction(actionType, args);
         }
 
         // ===================================================================================== []

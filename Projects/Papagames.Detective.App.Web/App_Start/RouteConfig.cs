@@ -19,21 +19,6 @@ namespace Papagames.Detective.App.Web
                 })
             };
             routes.Add("Default", route);
-
-
-/*            routes.MapRoute(
-                name: "Process Play",
-                url: "{controller}/{action}/{id}/{actionType}",
-                defaults: new { actionType = UrlParameter.Optional }
-            );*/
-
-/*
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
-*/
         }
     }
 }
