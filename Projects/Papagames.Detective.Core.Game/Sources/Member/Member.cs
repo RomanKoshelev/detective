@@ -18,6 +18,7 @@ namespace Papagames.Detective.Core.Game
         }
 
         public Person Person { get; set; }
+        // todo: rename to number back
         public int Id { get; set; }
         public int CaseId { get; set; }
 

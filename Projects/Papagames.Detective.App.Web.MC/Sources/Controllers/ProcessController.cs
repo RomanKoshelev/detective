@@ -23,8 +23,8 @@ namespace Papagames.Detective.App.Web.Controllers
             var processId = (Process.Identifier)id;
             if (actionType != null)
             {
-                // todo: call user action Schema.UserAction (actionType, params) with unparsed args
                 Schema.PlayProcess(processId, (Process.UserAction.ActionType) actionType);
+                return RedirectToAction("Play", "Process", new { id = processId });
             }
             return View(new ProcessModel(processId));
         }

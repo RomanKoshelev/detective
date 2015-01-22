@@ -8,9 +8,8 @@ namespace Papagames.Detective.Core.Game
 {
     public partial class History
     {
-        #region Properties
-
         // ===================================================================================== []
+        // Properties
         public List<Record> Records = new List<Record>();
 
         public int LastDay
@@ -28,13 +27,9 @@ namespace Papagames.Detective.Core.Game
             get { return Enumerable.Range(FirstDay, LastDay - FirstDay + 1); }
         }
 
-        // ===================================================================================== []
-
-        #endregion
-
-        #region Methods
 
         // ===================================================================================== []
+        // Methods
         public void StoreParticipation(int day, Member member)
         {
             Records.Add(new Record(day, Action.Participation, member));
@@ -80,15 +75,16 @@ namespace Papagames.Detective.Core.Game
             Trace.Assert(member.IsActive);
             Records.Add(new Record(day, Action.EmotionOnMurder, member, victim, emotion));
         }
+
         public void StoreEmotionOnArrest(int day, Member member, Member victim, Emotion emotion)
         {
             Trace.Assert(member.IsActive);
             Records.Add(new Record(day, Action.EmotionOnArrest, member, victim, emotion));
         }
 
-        // ===================================================================================== []
-
-        #endregion
-
+        public IList<Record> GetAnswers(Member respondent, int day)
+        {
+            return Records.Where(r => r.Agent == respondent && r.Day == day).ToList();
+        }
     }
 }

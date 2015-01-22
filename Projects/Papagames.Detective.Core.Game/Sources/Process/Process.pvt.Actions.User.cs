@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Utils;
 
@@ -38,7 +39,7 @@ namespace Papagames.Detective.Core.Game
 
         private void AddNoneAction()
         {
-            _userActions.Add(new UserAction { Type = UserAction.ActionType.None });
+            _userActions.Add(new UserAction {Type = UserAction.ActionType.None});
         }
 
         private void AddArrestActions()
@@ -50,25 +51,42 @@ namespace Papagames.Detective.Core.Game
         private void AddQuestioningActions()
         {
             Assert.Equal(State, State.Questioning);
+
+            var respondent = ActiveMembers.Where(WasNotAskedToday).FirstOrDefault();
             
-            ActiveMembers.ForEach(respondent =>
+            if (respondent == null)
             {
-                ActiveMembers.ForEach(subject =>
-                {
-                    var action = new UserAction();
-                    action.Type = UserAction.ActionType.Ask;
-                    action.Params.Add(respondent.Id);
-                    action.Params.Add(subject.Id);
-                    _userActions.Add(action);
-                });
-            });
+                AddSkipAction();
+                return;
+            }
+
+            ActiveMembers.ForEach(subject => _userActions.Add(new UserAction
+            {
+                Type = UserAction.ActionType.Ask,
+                Params = new object[] {respondent.Id, subject.Id}
+            }));
+        }
+
+        private bool WasNotAskedToday(Member member)
+        {
+            return History.GetAnswers(member, CurrentDay).Count == 0;
         }
 
         private void DoRunUserAction(UserAction.ActionType actionType)
         {
             switch (actionType)
             {
+                case UserAction.ActionType.None:
+                    break;
                 case UserAction.ActionType.Skip:
+                    DoSkip();
+                    break;
+                case UserAction.ActionType.Arrest:
+                    // todo: call Arrest action
+                    DoSkip();
+                    break;
+                case UserAction.ActionType.Ask:
+                    // todo: call Ask action
                     DoSkip();
                     break;
                 default:
