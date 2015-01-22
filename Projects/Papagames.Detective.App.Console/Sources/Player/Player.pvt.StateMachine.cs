@@ -43,7 +43,7 @@ namespace Papagames.Detective.App.Console
 
         private void StepProcess()
         {
-            _process.Step();
+            _process.Skip();
         }
 
         private void HandleState()

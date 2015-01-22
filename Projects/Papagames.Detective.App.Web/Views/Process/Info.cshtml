@@ -38,5 +38,5 @@
         </ul>
     </li>
     <li>State @Model.State</li>
-    <li>Actions @Model.UserActions</li>
+    <li>Actions @Model.UserActions.AggregateBy(a=>a.Type.ToString())</li>
 </ul>

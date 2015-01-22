@@ -18,17 +18,13 @@ namespace Papagames.Detective.Core.Game
         // ===================================================================================== []
         // Properties
         public Identifier Id { get; set; }
-        public Case Case { get; private set; }
         public State State { get; private set; }
         public int CurrentDay { get; private set; }
-
         public History History { get; private set; }
 
-        public string WorldName
-        {
-            get { return Case.WorldName; }
-        }
-
+        // ===================================================================================== []
+        // Case
+        public Case Case { get; private set; }
         public Case.Identifier CaseId
         {
             get { return Case.Id; }
@@ -92,9 +88,9 @@ namespace Papagames.Detective.Core.Game
             DoArrest(suspect);
         }
 
-        public void Step()
+        public void Skip()
         {
-            DoStep();
+            DoSkip();
         }
 
         // ===================================================================================== []
@@ -116,6 +112,10 @@ namespace Papagames.Detective.Core.Game
         public int MaxEvidenceNum
         {
             get { return CalcMaxEvidenceNum(); }
+        }
+        public string WorldName
+        {
+            get { return Case.WorldName; }
         }
     }
 }
