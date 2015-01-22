@@ -70,8 +70,10 @@ namespace Papagames.Detective.App.Web.Models
             get { return Process.CurrentDay; }
         }
 
-        public IList<Process.UserAction> UserActions { get; set; }
-
+        public IList<Process.UserAction> UserActions
+        {
+            get { return Process.UserActions; }
+        }
 
         // ===================================================================================== []
         // Pivate

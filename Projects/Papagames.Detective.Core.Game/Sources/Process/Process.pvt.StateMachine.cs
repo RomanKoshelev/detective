@@ -4,12 +4,14 @@ namespace Papagames.Detective.Core.Game
 {
     public partial class Process
     {
+        private State _state;
+
         private void DoStep()
         {
             switch (State)
             {
                 case State.Initial:
-                    Set(State.Start);
+                    SetState(State.Start);
                     break;
                 case State.Start:
                     Start(State.Night);
@@ -24,10 +26,10 @@ namespace Papagames.Detective.Core.Game
                     Morning(State.Questioning);
                     break;
                 case State.Questioning:
-                    Set(State.Arrest);
+                    SetState(State.Arrest);
                     break;
                 case State.Arrest:
-                    Set(State.CheckArrest);
+                    SetState(State.CheckArrest);
                     break;
                 case State.CheckArrest:
                     CheckAndSet(State.NextDay, State.DetectiveWin, State.MurderersWin);
@@ -39,13 +41,13 @@ namespace Papagames.Detective.Core.Game
                     DetectiveWin(State.End);
                     break;
                 case State.MurderersWin:
-                    Set(State.End);
+                    SetState(State.End);
                     break;
                 case State.Break:
-                    Set(State.End);
+                    SetState(State.End);
                     break;
                 case State.End:
-                    Set(State.Finished);
+                    SetState(State.Finished);
                     break;
                 case State.Finished:
                     Finished(State.Error);
@@ -53,15 +55,16 @@ namespace Papagames.Detective.Core.Game
             }
         }
 
-        private void Set(State state)
+        private void SetState(State state)
         {
-            State = state;
+            _state = state;
+            UpdateUserActions();
         }
 
         private void Start(State state)
         {
             CurrentDay = 1;
-            Set(state);
+            SetState(state);
         }
 
         private void Night(State state)
@@ -71,25 +74,25 @@ namespace Papagames.Detective.Core.Game
             DoEvidence();
             DoMurder();
 
-            Set(state);
+            SetState(state);
         }
 
         private void Morning(State state)
         {
             UpdateMembersKnownCounts();
 
-            Set(state);
+            SetState(state);
         }
 
         private void NextDay(State state)
         {
             CurrentDay++;
-            Set(state);
+            SetState(state);
         }
 
         private void CheckAndSet(State stateNext, State stateWin, State stateFail)
         {
-            Set(ActiveMembers.NotExists(m => m.IsMurderer)
+            SetState(ActiveMembers.NotExists(m => m.IsMurderer)
                 ? stateWin
                 : ActiveMembers.NotExists(m => m.IsInnocent)
                     ? stateFail
@@ -99,7 +102,7 @@ namespace Papagames.Detective.Core.Game
         private void DetectiveWin(State state)
         {
             DidDeteciveWin = true;
-            Set(state);
+            SetState(state);
         }
 
         private void Finished(State state)
@@ -110,7 +113,7 @@ namespace Papagames.Detective.Core.Game
         private void DoRunFirstNight()
         {
             do DoStep(); while (State != State.Questioning);
-            State = State.Finished;
+            SetState(State.Finished);
         }
     }
 }

@@ -64,6 +64,7 @@
     <Compile Include="Sources\Pack\Worlds\IWorld.cs" />
     <Compile Include="Sources\Pack\Worlds\BaseWorld.cs" />
     <Compile Include="Sources\Enums\Emotion.cs" />
+    <Compile Include="Sources\Process\Process.pvt.Actions.UserVariants.cs" />
     <Compile Include="Sources\Process\Process.pvt.History.cs" />
     <Compile Include="Sources\Process\Process.pvt.Utils.cs" />
     <Compile Include="Sources\Process\Process.pvt.Members.cs" />

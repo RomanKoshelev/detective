@@ -18,13 +18,18 @@ namespace Papagames.Detective.Core.Game
         // ===================================================================================== []
         // Properties
         public Identifier Id { get; set; }
-        public State State { get; private set; }
         public int CurrentDay { get; private set; }
         public History History { get; private set; }
+
+        public State State
+        {
+            get { return _state; }
+        }
 
         // ===================================================================================== []
         // Case
         public Case Case { get; private set; }
+
         public Case.Identifier CaseId
         {
             get { return Case.Id; }
@@ -74,8 +79,13 @@ namespace Papagames.Detective.Core.Game
                 Arrest
             }
 
-            public ActionType Type;
-            public IList<Object> Params;
+            public ActionType Type = ActionType.None;
+            public IList<Object> Params = new List<object>();
+        }
+
+        public IList<UserAction> UserActions
+        {
+            get { return _userActions; }
         }
 
         public Answer Ask(Member respondent, Member subject)
@@ -113,6 +123,7 @@ namespace Papagames.Detective.Core.Game
         {
             get { return CalcMaxEvidenceNum(); }
         }
+
         public string WorldName
         {
             get { return Case.WorldName; }
