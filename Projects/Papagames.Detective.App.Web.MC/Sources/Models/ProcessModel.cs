@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using Papagames.Detective.Core.Game;
-using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.App.Web.Models
 {
     public class ProcessModel
     {
         // ===================================================================================== []
-        // Public
+        // Constructor
         public ProcessModel(Process.Identifier id)
         {
             Process = Schema.FindProcess(id);
         }
 
+        // ===================================================================================== []
+        // Properties
         public Process.Identifier Id
         {
             get { return Process.Id; }
@@ -30,6 +31,18 @@ namespace Papagames.Detective.App.Web.Models
             get { return Process.WorldName; }
         }
 
+        public State State
+        {
+            get { return Process.State; }
+        }
+
+        public int CurrentDay
+        {
+            get { return Process.CurrentDay; }
+        }
+
+        // ===================================================================================== []
+        // Members
         public IList<MemberModel> ActiveMembers
         {
             get { return MakeMemberModelList(p => p.ActiveMembers); }
@@ -50,6 +63,15 @@ namespace Papagames.Detective.App.Web.Models
             get { return MakeMemberModelList(p => p.Prisoners); }
         }
 
+        // ===================================================================================== []
+        // History
+        public HistoryModel History
+        {
+            get { return MakeHistoryModel(); }
+        }
+
+        // ===================================================================================== []
+        // Case
         public Case.Identifier CaseId
         {
             get { return Process.CaseId; }
@@ -60,18 +82,11 @@ namespace Papagames.Detective.App.Web.Models
             get { return DoGetCaseModel(); }
         }
 
-        public State State
-        {
-            get { return Process.State; }
-        }
-
-        public int CurrentDay
-        {
-            get { return Process.CurrentDay; }
-        }
-
+        // ===================================================================================== []
+        // User Actions
         public IList<Process.UserAction> UserActions
         {
+            //Todo: REF use UserActionModel instead of UserAction
             get { return Process.UserActions; }
         }
 
@@ -87,12 +102,18 @@ namespace Papagames.Detective.App.Web.Models
         private string DoGetShortInfo()
         {
             return string.Format("Process {0}: {1}.{2} {3}-{4}-{5} {6}", Id, WorldName, CaseId, ActiveMembers.Count,
-                ActiveMurderers.Count, Victims.Count, State);
+                Prisoners.Count, Victims.Count, State);
         }
 
         private CaseModel DoGetCaseModel()
         {
             return new CaseModel(CaseId);
         }
+        private HistoryModel MakeHistoryModel()
+        {
+            return new HistoryModel(Process.History);
+        }
+
+        // ===================================================================================== []
     }
 }

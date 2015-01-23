@@ -23,7 +23,7 @@
     <li>Day: @Model.CurrentDay</li>
     <li>State: @Model.State</li>
     <li>Answers: 
-        @{ Html.RenderPartial("~/Views/Process/Common/AnswerList.cshtml", Model, ViewData); }
+        @{ Html.RenderPartial("~/Views/Process/Common/AnswerList.cshtml", Model.History, ViewData); }
     </li>
     <li>Actions:
         @{ Html.RenderPartial("~/Views/Process/Common/UserActionList.cshtml", Model.UserActions, ViewData); }

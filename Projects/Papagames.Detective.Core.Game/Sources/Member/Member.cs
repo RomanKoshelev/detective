@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Papagames.Detective.Core.Game
+﻿namespace Papagames.Detective.Core.Game
 {
     public partial class Member
     {
-        public Member(int number, Person person, int caseId)
+        public Member(int number, Person person)
         {
             Person = person;
             Number = number;
-            CaseId = caseId;
             IsMurderer = false;
             IsVictim = false;
             IsPrisoner = false;
@@ -19,7 +15,6 @@ namespace Papagames.Detective.Core.Game
 
         public Person Person { get; set; }
         public int Number { get; set; }
-        public int CaseId { get; set; }
 
         public string Name
         {
