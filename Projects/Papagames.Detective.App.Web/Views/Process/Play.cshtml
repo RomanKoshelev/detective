@@ -11,36 +11,21 @@
 
 <ul>
     <li>@Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new {id = Model.CaseId}, new {name = "case"})</li>
-    <li>@Model.ActiveMembers.Count active members:
-        <ul>
-            @foreach (var m in Model.ActiveMembers)
-            {
-                <li>@m.Id: @m.Name</li>
-            }
-        </ul>
+    <li>@Model.ActiveMembers.Count.Plural("active member")
+        @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.ActiveMembers, ViewData); }
     </li>
     <li>@Model.Prisoners.Count.Plural("prisoner")
-        <ul>
-            @foreach (var m in Model.Prisoners)
-            {
-                <li>@m.Id: @m.Name</li>
-            }
-        </ul>
+        @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Prisoners, ViewData); }
     </li>
     <li>@Model.Victims.Count.Plural("victim")
-        <ul>
-            @foreach (var m in Model.Victims)
-            {
-                <li>@m.Id: @m.Name</li>
-            }
-        </ul>
+        @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Victims, ViewData); }
     </li>
     <li>Day: @Model.CurrentDay</li>
     <li>State: @Model.State</li>
-    <li>Answers: ...</li>
+    <li>Answers: 
+        @{ Html.RenderPartial("~/Views/Process/Common/AnswerList.cshtml", Model, ViewData); }
+    </li>
     <li>Actions:
-        @{
-            Html.RenderPartial("~/Views/Process/Common/UserActions.cshtml", Model.UserActions, ViewData);
-        }
+        @{ Html.RenderPartial("~/Views/Process/Common/UserActionList.cshtml", Model.UserActions, ViewData); }
     </li>
 </ul>
