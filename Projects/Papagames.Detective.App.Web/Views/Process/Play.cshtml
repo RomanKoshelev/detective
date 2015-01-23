@@ -4,14 +4,14 @@
 @{
     ViewBag.Title = "Play Detective Process";
     Layout = "~/Views/Shared/Layout.cshtml";
+    ViewData["id"] = Model.Id;
 }
 
 <h2>@Model.ShortInfo</h2>
 
 <ul>
-    <li>@Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })</li>
-    <li>
-        @Model.ActiveMembers.Count active members:
+    <li>@Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new {id = Model.CaseId}, new {name = "case"})</li>
+    <li>@Model.ActiveMembers.Count active members:
         <ul>
             @foreach (var m in Model.ActiveMembers)
             {
@@ -19,8 +19,7 @@
             }
         </ul>
     </li>
-    <li>
-        @Model.Prisoners.Count.Plural("prisoner")
+    <li>@Model.Prisoners.Count.Plural("prisoner")
         <ul>
             @foreach (var m in Model.Prisoners)
             {
@@ -28,8 +27,7 @@
             }
         </ul>
     </li>
-    <li>
-        @Model.Victims.Count.Plural("victim")
+    <li>@Model.Victims.Count.Plural("victim")
         <ul>
             @foreach (var m in Model.Victims)
             {
@@ -37,25 +35,12 @@
             }
         </ul>
     </li>
+    <li>Day: @Model.CurrentDay</li>
     <li>State: @Model.State</li>
-    <li>
-        Actions:
-        <ul>
-            @foreach (var a in Model.UserActions)
-            {
-                <li>
-                    @if (a.Params.Count > 0)
-                    {
-                        @Html.ActionLink(a.ToString(), "Play", new {id = Model.Id, actionType = (int) a.Type, actionParams = a.Params});
-                    }
-                    else
-                    {
-                        @Html.ActionLink(a.ToString(), "Play", new {id = Model.Id, actionType = (int) a.Type});
-                    }
-                </li>
-            }
-        </ul>
+    <li>Answers: ...</li>
+    <li>Actions:
+        @{
+            Html.RenderPartial("~/Views/Process/Common/UserActions.cshtml", Model.UserActions, ViewData);
+        }
     </li>
 </ul>
-
-

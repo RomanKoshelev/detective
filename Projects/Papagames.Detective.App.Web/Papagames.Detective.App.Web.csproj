@@ -258,6 +258,7 @@
     <Content Include="Views\Process\Index.cshtml" />
     <Content Include="Views\Process\Info.cshtml" />
     <Content Include="Views\Process\Play.cshtml" />
+    <Content Include="Views\Process\Common\UserActions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

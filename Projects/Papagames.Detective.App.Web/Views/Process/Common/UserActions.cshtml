@@ -1,0 +1,18 @@
+﻿@using Papagames.Detective.Core.Game
+@model IList<Process.UserAction>
+
+<ul>
+    @foreach (var a in Model )
+    {
+        <li>
+            @if (a.Params.Count > 0)
+            {
+                @Html.ActionLink(a.ToString(), "Play", new { id = ViewData["id"], actionType = (int)a.Type, actionParams = a.Params });
+            }
+            else
+            {
+                @Html.ActionLink(a.ToString(), "Play", new { id = ViewData["id"], actionType = (int)a.Type });
+            }
+        </li>
+    }
+</ul>
