@@ -6,7 +6,6 @@ using System.Web.Routing;
 
 namespace Papagames.Detective.Utils.Web
 {
-    //Todo: 1. Move to Utils.Web namespace 
     //Todo: 2. Handle case when the routeValues is empty or null
     public class ArrayRoute : Route
     {
@@ -67,7 +66,6 @@ namespace Papagames.Detective.Utils.Web
 
                 path.VirtualPath = builder.Uri.PathAndQuery.TrimStart('/');
             }
-
             return path;
         }
     }
