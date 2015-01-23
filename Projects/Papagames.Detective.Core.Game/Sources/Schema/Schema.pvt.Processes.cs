@@ -19,7 +19,7 @@ namespace Papagames.Detective.Core.Game
             for (var i = 0; i < procNum; i++)
             {
                 DoNewProcess(c).RunFirstNight();
-                // Todo: TEST Assert that Process Victims == Case Victims
+                // Bug: Make test to assert that Process Victims == Case Victims
             }
         }
 

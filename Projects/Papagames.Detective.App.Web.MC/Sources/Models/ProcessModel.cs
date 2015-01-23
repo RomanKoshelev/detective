@@ -86,7 +86,7 @@ namespace Papagames.Detective.App.Web.Models
         // User Actions
         public IList<Process.UserAction> UserActions
         {
-            //Todo: REF use UserActionModel instead of UserAction
+            //Ref: use UserActionModel instead of UserAction
             get { return Process.UserActions; }
         }
 
