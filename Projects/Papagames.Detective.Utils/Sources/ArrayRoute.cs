@@ -4,9 +4,10 @@ using System.Collections.Specialized;
 using System.Web;
 using System.Web.Routing;
 
-namespace Papagames.Detective.App.Web
+namespace Papagames.Detective.Utils.Web
 {
-    // Todo: 1. Move to Utils.Web namespace 2. Handle case when the routeValues is empty or null
+    //Todo: 1. Move to Utils.Web namespace 
+    //Todo: 2. Handle case when the routeValues is empty or null
     public class ArrayRoute : Route
     {
         public ArrayRoute(string url, IRouteHandler routeHandler)

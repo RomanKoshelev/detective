@@ -108,6 +108,7 @@ namespace Papagames.Detective.Core.Game
         }
         public void ExecuteUserAction(UserAction.ActionType actionType, int[] actionParams, bool autoSkip = true)
         {
+            actionParams = actionParams?? new int[0];
             DoExecuteUserAction(actionType, actionParams, autoSkip);
         }
 

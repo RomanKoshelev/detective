@@ -8,7 +8,20 @@ namespace Papagames.Detective.Utils
     public static class Extensions
     {
         private static readonly Random Random = new Random();
+        public static bool EqualContent<T>(this IList<T> l1, ICollection<T> l2)
+        {
+            if (l2==null)
+                return false;
 
+            if (l1.Count() != l2.Count)
+                return false;
+
+            foreach (var i in l2)
+            {
+                if (!l1.Contains(i)) return false;
+            }
+            return true;
+        }
         public static List<T> ShuffleUsing<T>(this IEnumerable<T> set, Random random)
         {
             var shuffleList = set.ToList();

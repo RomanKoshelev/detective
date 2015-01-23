@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MoreLinq;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
@@ -59,7 +58,7 @@ namespace Papagames.Detective.Core.Game
                 suspects.ForEach(s => _userActions.Add(new UserAction
                 {
                     Type = UserAction.ActionType.Arrest,
-                    Params = new []{s.Number}
+                    Params = new[] {s.Number}
                 }));
 
                 return;
@@ -84,7 +83,7 @@ namespace Papagames.Detective.Core.Game
                     subjects.ForEach(subject => _userActions.Add(new UserAction
                     {
                         Type = UserAction.ActionType.Ask,
-                        Params = new [] {respondent.Number, subject.Number}
+                        Params = new[] {respondent.Number, subject.Number}
                     }));
                     return;
                 }
@@ -111,15 +110,17 @@ namespace Papagames.Detective.Core.Game
             return History.GetAnswers(member, CurrentDay).Count == 0;
         }
 
-        private static bool CanBeArrested (Member member)
+        private static bool CanBeArrested(Member member)
         {
             return member.IsActive;
         }
 
         // ===================================================================================== []
         // Dispatcher
-        private void DoExecuteUserAction(UserAction.ActionType actionType, int[] actionParams, bool autoSkip)
+        private void DoExecuteUserAction(UserAction.ActionType actionType, IList<int> actionParams, bool autoSkip)
         {
+            Assert.NotNull(actionParams, "Action params are null");
+
             DispatchExecuteAction(actionType, actionParams);
 
             if (autoSkip)
@@ -133,16 +134,17 @@ namespace Papagames.Detective.Core.Game
             while (OnlySkipActionIsAvailable())
             {
                 DoSkip();
-            } 
+            }
         }
 
         private bool OnlySkipActionIsAvailable()
         {
-            return UserActions.Count == 1 && UserActions[0].Type==UserAction.ActionType.Skip;
+            return UserActions.Count == 1 && UserActions[0].Type == UserAction.ActionType.Skip;
         }
 
-        private void DispatchExecuteAction(UserAction.ActionType actionType, int[] actionParams)
+        private void DispatchExecuteAction(UserAction.ActionType actionType, IList<int> actionParams)
         {
+            AssertParametersAreValid(actionType, actionParams);
             switch (actionType)
             {
                 case UserAction.ActionType.None:
@@ -160,6 +162,18 @@ namespace Papagames.Detective.Core.Game
                     throw new DetectiveException("Unexpected action type {0}", actionType);
             }
             UpdateUserActions();
+        }
+
+        private void AssertParametersAreValid(UserAction.ActionType actionType, ICollection<int> actionParams)
+        {
+            Assert.NotNull(actionParams,
+                "Parameters for action {0} are null", actionType);
+
+            var ok = UserActions.Where(a => a.Type == actionType).Any(a => a.Params.EqualContent(actionParams));
+
+            Assert.IsTrue(ok,
+                "Wrong parameters for action {0}: [{1}]", actionType,
+                actionParams.ToList().AggregateBy(i => string.Format("{0}", i)));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Papagames.Detective.Utils.Web;
 
 namespace Papagames.Detective.App.Web
 {
