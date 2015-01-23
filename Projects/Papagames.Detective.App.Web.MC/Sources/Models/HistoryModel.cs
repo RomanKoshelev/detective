@@ -8,6 +8,7 @@ namespace Papagames.Detective.App.Web.Models
         // Constructor
         public HistoryModel(History history)
         {
+
             History = history;
         }
 
