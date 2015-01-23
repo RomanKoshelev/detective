@@ -40,6 +40,10 @@ namespace Papagames.Detective.App.Web.Models
             get { return MakeMemberModelList(c => c.Murderers); }
         }
 
+        public IList<MemberModel> Prisoners
+        {
+            get { return MakeMemberModelList(c => c.Prisoners); }
+        }
         public IList<MemberModel> Victims
         {
             get { return MakeMemberModelList(c => c.Victims); }
@@ -61,7 +65,7 @@ namespace Papagames.Detective.App.Web.Models
 
         private string DoGetShortInfo()
         {
-            return string.Format("Case {0}: {1} {2}-{3}-{4} {5}", Id, WorldName, ActiveMembers.Count, Murderers.Count, Victims.Count,
+            return string.Format("Case {0}: {1} {2}-{3}-{4} {5}", Id, WorldName, ActiveMembers.Count, Prisoners.Count, Victims.Count,
                 Victims.AggregateBy(v => v.Name));
         }
     }

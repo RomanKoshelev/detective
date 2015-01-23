@@ -40,6 +40,10 @@ namespace Papagames.Detective.Core.Game
             get { return Members.Where(m => m.IsMurderer).ToList(); }
         }
 
+        public IList<Member> Prisoners
+        {
+            get { return Members.Where(m => m.IsPrisoner).ToList(); }
+        }
         public IList<Member> Victims
         {
             get { return Members.Where(m => m.IsVictim).ToList(); }
