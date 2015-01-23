@@ -6,7 +6,6 @@ using System.Web.Routing;
 
 namespace Papagames.Detective.Utils.Web
 {
-    //Todo: 2. Handle case when the routeValues is empty or null
     public class ArrayRoute : Route
     {
         public ArrayRoute(string url, IRouteHandler routeHandler)
@@ -31,11 +30,11 @@ namespace Papagames.Detective.Utils.Web
                         enumerables.Add(routeValue.Key, value);
                     }
                 }
-                else if (intValues!=null)
+                else if (intValues != null)
                 {
                     foreach (var value in intValues)
                     {
-                        enumerables.Add(routeValue.Key, string.Format("{0}",value));
+                        enumerables.Add(routeValue.Key, string.Format("{0}", value));
                     }
                 }
             }
