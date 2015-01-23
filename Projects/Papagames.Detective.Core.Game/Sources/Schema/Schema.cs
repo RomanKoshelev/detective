@@ -25,7 +25,7 @@ namespace Papagames.Detective.Core.Game
         {
             return DoNewCase(worldId, memberNum, murderNum);
         }
-        
+
         public static Process NewProcess(Case gcase)
         {
             return DoNewProcess(gcase);
@@ -51,9 +51,10 @@ namespace Papagames.Detective.Core.Game
             return DoNewProcess(caseId);
         }
 
-        public static void PlayProcess(Process.Identifier processId, Process.UserAction.ActionType actionType, params int[] actionParams)
+        public static void PlayProcess(Process.Identifier processId, Process.UserAction.ActionType actionType,
+            int[] actionParams, bool autoSkip = true)
         {
-            DoPlayProcess(processId, actionType, actionParams);
+            DoPlayProcess(processId, actionType, actionParams, autoSkip);
         }
     }
 }

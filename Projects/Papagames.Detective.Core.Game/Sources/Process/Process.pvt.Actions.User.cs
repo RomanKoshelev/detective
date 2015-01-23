@@ -118,7 +118,7 @@ namespace Papagames.Detective.Core.Game
 
         // ===================================================================================== []
         // Dispatcher
-        private void DoExecuteUserAction(UserAction.ActionType actionType, params int[] actionParams)
+        private void DoExecuteUserAction(UserAction.ActionType actionType, int[] actionParams, bool autoSkip)
         {
             switch (actionType)
             {
