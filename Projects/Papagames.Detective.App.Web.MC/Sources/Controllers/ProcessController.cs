@@ -23,7 +23,7 @@ namespace Papagames.Detective.App.Web.Controllers
             var processId = (Process.Identifier) id;
             if (actionType != null)
             {
-                Schema.PlayProcess(processId, (Process.UserAction.ActionType)actionType, actionParams);
+                Schema.PlayProcess(processId, (Process.UserAction.ActionType)actionType, actionParams, autoSkip: true);
                 return RedirectToAction("Play", "Process", new {id = processId});
             }
             return View(new ProcessModel(processId));

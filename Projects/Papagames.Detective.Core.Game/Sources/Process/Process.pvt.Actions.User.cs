@@ -120,6 +120,29 @@ namespace Papagames.Detective.Core.Game
         // Dispatcher
         private void DoExecuteUserAction(UserAction.ActionType actionType, int[] actionParams, bool autoSkip)
         {
+            DispatchExecuteAction(actionType, actionParams);
+
+            if (autoSkip)
+            {
+                SkipAllPossibleSteps();
+            }
+        }
+
+        private void SkipAllPossibleSteps()
+        {
+            while (OnlySkipActionIsAvailable())
+            {
+                DoSkip();
+            } 
+        }
+
+        private bool OnlySkipActionIsAvailable()
+        {
+            return UserActions.Count == 1 && UserActions[0].Type==UserAction.ActionType.Skip;
+        }
+
+        private void DispatchExecuteAction(UserAction.ActionType actionType, int[] actionParams)
+        {
             switch (actionType)
             {
                 case UserAction.ActionType.None:

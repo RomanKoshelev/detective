@@ -6,6 +6,7 @@ using System.Web.Routing;
 
 namespace Papagames.Detective.App.Web
 {
+    // Todo: 1. Move to Utils.Web namespace 2. Handle case when the routeValues is empty or null
     public class ArrayRoute : Route
     {
         public ArrayRoute(string url, IRouteHandler routeHandler)
