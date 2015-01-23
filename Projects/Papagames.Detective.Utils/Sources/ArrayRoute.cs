@@ -15,6 +15,7 @@ namespace Papagames.Detective.Utils.Web
 
         public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary routeValues)
         {
+            Assert.IsTrue(routeValues.Count > 0, "routeValues is empty");
             var enumerables = new NameValueCollection();
 
             // collects all enumerable route values

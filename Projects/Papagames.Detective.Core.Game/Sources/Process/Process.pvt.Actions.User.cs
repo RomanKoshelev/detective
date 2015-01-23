@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Papagames.Detective.Utils;
 
@@ -120,7 +121,6 @@ namespace Papagames.Detective.Core.Game
         private void DoExecuteUserAction(UserAction.ActionType actionType, IList<int> actionParams, bool autoSkip)
         {
             Assert.NotNull(actionParams, "Action params are null");
-
             DispatchExecuteAction(actionType, actionParams);
 
             if (autoSkip)
