@@ -1,6 +1,4 @@
-﻿@using Papagames.Detective.App.Web.Models
-@using Papagames.Detective.Utils
-@model ProcessModel
+﻿@model Papagames.Detective.App.Web.Models.ProcessModel
 @{
     ViewBag.Title = "Play Detective Process";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -10,22 +8,30 @@
 <h2>@Model.ShortInfo</h2>
 
 <ul>
-    <li>@Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new {id = Model.CaseId}, new {name = "case"})</li>
-    <li>@Model.ActiveMembers.Count.Plural("active member")
+    <li>
+        @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })
+    </li>
+    <li>
+        Day=@Model.CurrentDay, state=@Model.State
+    </li>
+    <li>
+        Members:
         @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.ActiveMembers, ViewData); }
     </li>
-    <li>@Model.Prisoners.Count.Plural("prisoner")
+    <li>
+        Pisoners:
         @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Prisoners, ViewData); }
     </li>
-    <li>@Model.Victims.Count.Plural("victim")
+    <li>
+        Victims:
         @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Victims, ViewData); }
     </li>
-    <li>Day: @Model.CurrentDay</li>
-    <li>State: @Model.State</li>
-    <li>Answers: 
+    <li>
+        Answers:
         @{ Html.RenderPartial("~/Views/Process/Common/AnswerList.cshtml", Model.History, ViewData); }
     </li>
-    <li>Actions:
+    <li>
+        Actions:
         @{ Html.RenderPartial("~/Views/Process/Common/UserActionList.cshtml", Model.UserActions, ViewData); }
     </li>
 </ul>

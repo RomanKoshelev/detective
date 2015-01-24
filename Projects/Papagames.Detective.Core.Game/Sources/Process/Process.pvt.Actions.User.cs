@@ -59,7 +59,8 @@ namespace Papagames.Detective.Core.Game
                 suspects.ForEach(s => _userActions.Add(new UserAction
                 {
                     Type = UserAction.ActionType.Arrest,
-                    Params = new[] {s.Number}
+                    Params = new[] {s.Number},
+                    Description = string.Format("Arrest {0}", s.Name)
                 }));
 
                 return;
@@ -84,7 +85,8 @@ namespace Papagames.Detective.Core.Game
                     subjects.ForEach(subject => _userActions.Add(new UserAction
                     {
                         Type = UserAction.ActionType.Ask,
-                        Params = new[] {respondent.Number, subject.Number}
+                        Params = new[] {respondent.Number, subject.Number},
+                        Description = string.Format("Ask {0} about {1}", respondent.Name, subject.Name)
                     }));
                     return;
                 }

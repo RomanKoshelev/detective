@@ -1,15 +1,11 @@
 ﻿@using Papagames.Detective.App.Web.Models
 @model HistoryModel
 
-@{
-    // Todo: >> Make answers page
-}
-
 <ul>
     @foreach (var day in Model.Days)
     {
         <li>
-            Day: @day
+            Day @day:
             <ul>
                 @foreach (var answer in Model.Answers(day))
                 {
