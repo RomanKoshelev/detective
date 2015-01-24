@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using MoreLinq;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
@@ -10,21 +9,11 @@ namespace Papagames.Detective.Core.Game
     {
         // ===================================================================================== []
         // Properties
-        public List<Record> Records = new List<Record>();
+        public readonly List<Record> Records = new List<Record>();
 
         public IList<Record> Answers
         {
             get { return Records.Where(r => r.Action == Action.Answer).ToList(); }
-        }
-
-        public int LastDay
-        {
-            get { return Records.MaxBy(i => i.Day).Day; }
-        }
-
-        public int FirstDay
-        {
-            get { return 1; }
         }
 
         public IEnumerable<int> Days

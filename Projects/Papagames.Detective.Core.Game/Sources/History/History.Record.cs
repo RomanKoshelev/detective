@@ -1,4 +1,6 @@
-﻿namespace Papagames.Detective.Core.Game
+﻿using MoreLinq;
+
+namespace Papagames.Detective.Core.Game
 {
     public partial class History
     {
@@ -32,6 +34,16 @@
             public Member Subject { get; set; }
             public Answer Answer { get; set; }
             public Emotion Emotion { get; set; }
+        }
+
+        private int LastDay
+        {
+            get { return Records.Count > 0 ? Records.MaxBy(i => i.Day).Day : FirstDay; }
+        }
+
+        private int FirstDay
+        {
+            get { return 1; }
         }
     }
 }

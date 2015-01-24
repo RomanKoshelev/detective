@@ -76,6 +76,7 @@
     <Compile Include="Sources\Controllers\HomeController.cs" />
     <Compile Include="Sources\Controllers\ProcessController.cs" />
     <Compile Include="Sources\Controllers\SchemaController.cs" />
+    <Compile Include="Sources\Models\AnswerModel.cs" />
     <Compile Include="Sources\Models\CaseModel.cs" />
     <Compile Include="Sources\Models\HistoryModel.cs" />
     <Compile Include="Sources\Models\HomeModel.cs" />

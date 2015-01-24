@@ -1,11 +1,21 @@
 ﻿@using Papagames.Detective.App.Web.Models
 @model HistoryModel
+
 @{
     // Todo: >> Make answers page
 }
 
 <ul>
-    @{
-        var history = Model;
+    @foreach (var day in Model.Days)
+    {
+        <li>
+            Day: @day
+            <ul>
+                @foreach (var answer in Model.Answers(day))
+                {
+                    <li>@answer.Agent: @answer.Subject is @answer.Value</li>
+                }
+            </ul>
+        </li>
     }
 </ul>

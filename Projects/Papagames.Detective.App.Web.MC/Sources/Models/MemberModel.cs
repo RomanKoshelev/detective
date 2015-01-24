@@ -6,19 +6,23 @@ namespace Papagames.Detective.App.Web.Models
     {
         // ===================================================================================== []
         // Public
-        public MemberModel(Case.Identifier caseId, int memberId)
+        public MemberModel(Member member)
         {
-            Member = Schema.FindMember(caseId, memberId);
-        }
-
-        public int Number
-        {
-            get { return Member.Number; }
+            Member = member;
         }
 
         public string Name
         {
             get { return Member.Name; }
+        }
+        public int Number
+        {
+            get { return Member.Number; }
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         // ===================================================================================== []
