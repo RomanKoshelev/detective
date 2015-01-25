@@ -11,7 +11,7 @@
             set { _value = value; }
         }
 
-        public GenericIdentifier(TV value)
+        protected GenericIdentifier(TV value)
         {
             _value = value;
         }
@@ -42,7 +42,7 @@
             return !a.Equals(b);
         }
 
-        public bool Equals(GenericIdentifier<TV, TC> other)
+        private bool Equals(GenericIdentifier<TV, TC> other)
         {
             if (ReferenceEquals(null, _value))
                 return ReferenceEquals(null, other._value);
@@ -66,7 +66,7 @@
     {
         public class Identifier : GenericIdentifier<TV, TC> 
         {
-            public Identifier(TV value)
+            private Identifier(TV value)
                 : base(value)
             {
             }
