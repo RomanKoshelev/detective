@@ -96,7 +96,6 @@ namespace Papagames.Detective.App.Web.Models
         // User Actions
         public IList<Process.UserAction> UserActions
         {
-            //Ref: use UserActionModel instead of UserAction
             get { return Process.UserActions; }
         }
 

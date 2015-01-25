@@ -47,6 +47,7 @@
     <Compile Include="Sources\Enums\Role.cs" />
     <Compile Include="Sources\Enums\Winner.cs" />
     <Compile Include="Sources\IOptions\IOptions.cs" />
+    <Compile Include="Sources\Member\Member.pvt.Utils.cs" />
     <Compile Include="Sources\Pack\Profile\Profile.pvt.Evidence.cs" />
     <Compile Include="Sources\Pack\Rules\EvidenceRule.cs" />
     <Compile Include="Sources\Pack\Profile\Profile.dat.Rules.cs" />

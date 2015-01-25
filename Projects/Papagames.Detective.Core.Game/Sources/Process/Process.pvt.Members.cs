@@ -37,7 +37,7 @@ namespace Papagames.Detective.Core.Game
         private void InitMembers()
         {
             Members = Case.CloneMembersForProcess();
-            Members.ForEach(m=>m.Process=this);
+            Members.ForEach(m=>m.SetProcess(this));
         }
 
         private Member FindMember(int number)

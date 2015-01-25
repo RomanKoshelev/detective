@@ -61,25 +61,10 @@ namespace Papagames.Detective.Core.Game
         {
             get { return DoGetRole(); }
         }
-        public Process Process { private get; set; }
 
-        // ===================================================================================== []
-        // todo: to utils
-        private Case Case { get; set; }
-
-        private Role DoGetOpenRole()
+        public void SetProcess(Process process)
         {
-            Assert.NotNull(Process,"Process is null");
-            return Schema.Master.GetOpenRole(Case, this, Process.State);
-        }
-
-        private Role DoGetRole()
-        {
-            if (IsDetective) 
-                return Role.Detective;
-            if (IsMurderer) 
-                return Role.Murderer;
-            return Role.Innocent;
+            Process = process;
         }
     }
 }
