@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
@@ -20,6 +19,7 @@ namespace Papagames.Detective.Core.Game
         public Identifier Id { get; set; }
         public int CurrentDay { get; private set; }
         public History History { get; private set; }
+        public Winner Winner { get; private set; }
 
         public State State
         {
@@ -83,6 +83,7 @@ namespace Papagames.Detective.Core.Game
         {
             DoSkip();
         }
+
         public void Stop()
         {
             DoStop();
@@ -106,16 +107,15 @@ namespace Papagames.Detective.Core.Game
         {
             get { return _userActions; }
         }
+
         public void ExecuteUserAction(UserAction.ActionType actionType, int[] actionParams, bool autoSkip = true)
         {
-            actionParams = actionParams?? new int[0];
+            actionParams = actionParams ?? new int[0];
             DoExecuteUserAction(actionType, actionParams, autoSkip);
         }
 
         // ===================================================================================== []
         // Utils
-        public bool DidDeteciveWin { get; private set; }
-
         public int MaxEvidenceNum
         {
             get { return CalcMaxEvidenceNum(); }

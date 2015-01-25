@@ -41,10 +41,10 @@ namespace Papagames.Detective.Core.Game
                     DetectiveWin(State.End);
                     break;
                 case State.MurderersWin:
-                    SetState(State.End);
+                    MurderersWin(State.End);
                     break;
                 case State.Stop:
-                    SetState(State.End);
+                    Stop(State.End);
                     break;
                 case State.End:
                     SetState(State.Finished);
@@ -101,7 +101,18 @@ namespace Papagames.Detective.Core.Game
 
         private void DetectiveWin(State state)
         {
-            DidDeteciveWin = true;
+            Winner = Winner.Detective;
+            SetState(state);
+        }
+        private void MurderersWin(State state)
+        {
+            Winner = Winner.Murderers;
+            SetState(state);
+        }
+
+        private void Stop(State state)
+        {
+            Winner = Winner.Nobody;
             SetState(state);
         }
 

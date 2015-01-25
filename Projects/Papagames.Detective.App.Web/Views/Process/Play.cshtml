@@ -15,13 +15,19 @@
                 @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })
             </li>
             <li>
-                Day=@Model.CurrentDay
+                Day: @Model.CurrentDay
+            </li> 
+            <li>
+                State: @Model.State
             </li>
             <li>
-                State=@Model.State
+                Start: Model.StartTime
             </li>
             <li>
-                Winner=Model.Winner
+                Winner: @Model.Winner
+            </li>
+            <li>
+                Murderer Number: Model.MurdererNumber?? "Unknown"
             </li>
         </ul>
     </li>

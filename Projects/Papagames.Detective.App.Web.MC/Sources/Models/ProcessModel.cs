@@ -41,6 +41,11 @@ namespace Papagames.Detective.App.Web.Models
             get { return Process.CurrentDay; }
         }
 
+        public Winner Winner
+        {
+            get { return Process.Winner; }
+        }
+
         // ===================================================================================== []
         // Members
         public IList<MemberModel> ActiveMembers
@@ -109,6 +114,7 @@ namespace Papagames.Detective.App.Web.Models
         {
             return new CaseModel(CaseId);
         }
+
         private HistoryModel MakeHistoryModel()
         {
             return new HistoryModel(Process.History);
