@@ -83,9 +83,9 @@ namespace Papagames.Detective.Core.Game
         {
             DoSkip();
         }
-        public void Break()
+        public void Stop()
         {
-            DoBreak();
+            DoStop();
         }
 
         // ===================================================================================== []

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Utils;
@@ -39,7 +38,7 @@ namespace Papagames.Detective.Core.Game
                 .ForEach(numPerson => Members.Add(new Member(this, numPerson.Key + 1, numPerson.Value)));
         }
 
-        public IList<Member> CloneMembers()
+        public IList<Member> CloneMembersForProcess()
         {
             var clones = new List<Member>();
             

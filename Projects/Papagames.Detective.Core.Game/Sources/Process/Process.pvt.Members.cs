@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreLinq;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -35,7 +36,8 @@ namespace Papagames.Detective.Core.Game
 
         private void InitMembers()
         {
-            Members = Case.CloneMembers();
+            Members = Case.CloneMembersForProcess();
+            Members.ForEach(m=>m.Process=this);
         }
 
         private Member FindMember(int number)

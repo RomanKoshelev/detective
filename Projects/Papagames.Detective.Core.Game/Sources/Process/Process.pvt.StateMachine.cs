@@ -43,7 +43,7 @@ namespace Papagames.Detective.Core.Game
                 case State.MurderersWin:
                     SetState(State.End);
                     break;
-                case State.Break:
+                case State.Stop:
                     SetState(State.End);
                     break;
                 case State.End:

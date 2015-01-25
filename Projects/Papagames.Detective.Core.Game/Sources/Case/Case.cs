@@ -17,6 +17,7 @@ namespace Papagames.Detective.Core.Game
 
             PrisonerRoleIsOpen = true;
             VictimRoleIsOpen = true;
+            MurdererNumIsOpen = true;
         }
 
         public Identifier Id { get; set; }
@@ -62,5 +63,6 @@ namespace Papagames.Detective.Core.Game
         // IOptopns
         public bool PrisonerRoleIsOpen { get; private set; }
         public bool VictimRoleIsOpen { get; private set; }
+        public bool MurdererNumIsOpen { get; private set; }
     }
 }

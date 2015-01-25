@@ -9,23 +9,43 @@
 
 <ul>
     <li>
-        @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })
+        Process Info:
+        <ul>
+            <li>
+                @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })
+            </li>
+            <li>
+                Day=@Model.CurrentDay
+            </li>
+            <li>
+                State=@Model.State
+            </li>
+            <li>
+                Winner=Model.Winner
+            </li>
+        </ul>
     </li>
-    <li>
-        Day=@Model.CurrentDay, state=@Model.State
-    </li>
-    <li>
+
+
+    <li >
         Members:
-        @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.ActiveMembers, ViewData); }
+        <ul >
+            <li>
+                Active:
+                @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.ActiveMembers, ViewData); }
+            </li>
+            <li>
+                Pisoners:
+                @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Prisoners, ViewData); }
+            </li>
+            <li>
+                Victims:
+                @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Victims, ViewData); }
+            </li>
+        </ul>
     </li>
-    <li>
-        Pisoners:
-        @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Prisoners, ViewData); }
-    </li>
-    <li>
-        Victims:
-        @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Victims, ViewData); }
-    </li>
+
+
     <li>
         Answers:
         @{ Html.RenderPartial("~/Views/Process/Common/AnswerList.cshtml", Model.History, ViewData); }

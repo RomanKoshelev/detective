@@ -1,4 +1,4 @@
-﻿using System.CodeDom;
+﻿using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -21,8 +21,8 @@ namespace Papagames.Detective.Core.Game
             IsMurderer = member.IsMurderer;
         }
 
-        public Person Person { get; set; }
-        public int Number { get; set; }
+        public Person Person { get; private set; }
+        public int Number { get; private set; }
 
         public string Name
         {
@@ -61,7 +61,7 @@ namespace Papagames.Detective.Core.Game
         {
             get { return DoGetRole(); }
         }
-
+        public Process Process { private get; set; }
 
         // ===================================================================================== []
         // todo: to utils
@@ -69,8 +69,10 @@ namespace Papagames.Detective.Core.Game
 
         private Role DoGetOpenRole()
         {
-            return Schema.Master.GetOpenRole(Case, this);
+            Assert.NotNull(Process,"Process is null");
+            return Schema.Master.GetOpenRole(Case, this, Process.State);
         }
+
         private Role DoGetRole()
         {
             if (IsDetective) 

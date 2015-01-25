@@ -4,5 +4,6 @@ namespace Papagames.Detective.Core.Game
     {
         bool PrisonerRoleIsOpen { get; }
         bool VictimRoleIsOpen { get; }
+        bool MurdererNumIsOpen { get; }
     }
 }

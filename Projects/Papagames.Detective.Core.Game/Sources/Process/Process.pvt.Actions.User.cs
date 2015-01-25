@@ -18,6 +18,9 @@ namespace Papagames.Detective.Core.Game
             _userActions.Clear();
             switch (State)
             {
+                case State.Initial:
+                    AddInitActions();
+                    break;
                 case State.Questioning:
                     AddQuestioningActions();
                     break;
@@ -35,12 +38,15 @@ namespace Papagames.Detective.Core.Game
         }
 
         // ===================================================================================== []
-        // Skip, None
+        // Skip, None, Init
+        private void AddInitActions()
+        {
+            _userActions.Add(new UserAction { Type = UserAction.ActionType.Start});
+        }
         private void AddSkipAction()
         {
             _userActions.Add(new UserAction {Type = UserAction.ActionType.Skip});
         }
-
         private void AddNoneAction()
         {
             _userActions.Add(new UserAction {Type = UserAction.ActionType.None});
@@ -150,6 +156,12 @@ namespace Papagames.Detective.Core.Game
             switch (actionType)
             {
                 case UserAction.ActionType.None:
+                    break;
+                case UserAction.ActionType.Stop:
+                    DoStop();
+                    break;
+                case UserAction.ActionType.Start:
+                    DoSkip();
                     break;
                 case UserAction.ActionType.Skip:
                     DoSkip();

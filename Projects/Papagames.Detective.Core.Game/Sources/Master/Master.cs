@@ -1,12 +1,14 @@
-using System.Diagnostics;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
     public class Master
     {
-        public Role GetOpenRole(IOptions options, Member member)
+        public Role GetOpenRole(IOptions options, Member member, State state)
         {
+            if (state==State.Finished)
+                return member.Role;
+
             if (member.IsActive)
                 return Role.Unknown;
 

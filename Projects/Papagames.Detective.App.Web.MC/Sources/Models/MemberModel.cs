@@ -30,9 +30,18 @@ namespace Papagames.Detective.App.Web.Models
         {
             return Name;
         }
+        public string NameRole {
+            get { return DoGetNameRole(); }
+        }
 
         // ===================================================================================== []
         // Pivate
         private Member Member { get; set; }
+        private string DoGetNameRole()
+        {
+            if (Role == Role.Unknown)
+                return Name;
+            return string.Format("{0} [{1}]", Name, Role);
+        }
     }
 }

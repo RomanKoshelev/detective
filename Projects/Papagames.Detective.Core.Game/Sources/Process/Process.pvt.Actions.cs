@@ -11,7 +11,6 @@ namespace Papagames.Detective.Core.Game
         {
             DoStep();
         }
-
         private Answer DoAsk(Member respondent, Member subject)
         {
             var answer = respondent.Ask(subject);
@@ -40,9 +39,9 @@ namespace Papagames.Detective.Core.Game
             DoArrest(FindMember(suspect));
         }
 
-        private void DoBreak()
+        private void DoStop()
         {
-            SetState(State.Break);
+            SetState(State.Stop);
         }
 
         // ===================================================================================== []
