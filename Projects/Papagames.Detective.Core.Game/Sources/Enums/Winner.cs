@@ -3,7 +3,7 @@ namespace Papagames.Detective.Core.Game
     public enum Winner
     {
         Error,
-        Unknown,
+        Undertermined,
         Nobody,
         Murderers,
         Detective

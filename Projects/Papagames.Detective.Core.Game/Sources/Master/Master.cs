@@ -23,5 +23,12 @@ namespace Papagames.Detective.Core.Game
 
             throw new DetectiveException("Can't get Role for {0}", member.Name);
         }
+
+        public int? GetOpenActiveMurderersNum(IOptions options, int num)
+        {
+            if (options.MurderersNumIsOpen && options.VictimRoleIsOpen && options.PrisonerRoleIsOpen)
+                return num;
+            return null;
+        }
     }
 }

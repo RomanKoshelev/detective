@@ -67,6 +67,11 @@ namespace Papagames.Detective.Core.Game
             get { return DoGetPrisoners(); }
         }
 
+        public int? OpenActiveMurderersNum
+        {
+            get { return DoOpenActiveMurderersNum(); }
+        }
+
         // ===================================================================================== []
         // User Actions
         public Answer Ask(Member respondent, Member subject)

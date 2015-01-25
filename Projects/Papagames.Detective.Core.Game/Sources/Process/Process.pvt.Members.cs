@@ -44,5 +44,10 @@ namespace Papagames.Detective.Core.Game
         {
             return Members.First(m => m.Number == number);
         }
+
+        private int? DoOpenActiveMurderersNum()
+        {
+            return Schema.Master.GetOpenActiveMurderersNum(Case, ActiveMurderers.Count);
+        }
     }
 }

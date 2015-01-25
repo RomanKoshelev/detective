@@ -1,4 +1,5 @@
-﻿@model Papagames.Detective.App.Web.Models.ProcessModel
+﻿@using Papagames.Detective.Utils
+@model Papagames.Detective.App.Web.Models.ProcessModel
 @{
     ViewBag.Title = "Play Detective Process";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -21,13 +22,10 @@
                 State: @Model.State
             </li>
             <li>
-                Start: Model.StartTime
-            </li>
-            <li>
                 Winner: @Model.Winner
             </li>
             <li>
-                Murderer Number: Model.MurdererNumber?? "Unknown"
+                Murderers left: @("Unknown".IfNull(Model.MurderersLeft))
             </li>
         </ul>
     </li>

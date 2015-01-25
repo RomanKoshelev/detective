@@ -13,7 +13,7 @@ namespace Papagames.Detective.Core.Game
         
         private void DoInit()
         {
-            Winner = Winner.Unknown;
+            Winner = Winner.Undertermined;
             SetState(State.Initial);
             InitMembers();
             InitHistory();

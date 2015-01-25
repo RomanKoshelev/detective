@@ -15,11 +15,10 @@ namespace Papagames.Detective.Core.Game
 
         private static void CreateStartProcesses(Case c)
         {
-            const int procNum = 1;
+            const int procNum = 0;
             for (var i = 0; i < procNum; i++)
             {
                 DoNewProcess(c).RunFirstNight();
-                // Bug: Make test to assert that Process Victims == Case Victims
             }
         }
 

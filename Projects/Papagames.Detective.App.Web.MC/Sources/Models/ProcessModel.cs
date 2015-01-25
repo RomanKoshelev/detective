@@ -68,6 +68,11 @@ namespace Papagames.Detective.App.Web.Models
             get { return MakeMemberModelList(p => p.Prisoners); }
         }
 
+        public int? MurderersLeft {
+            get { return Process.OpenActiveMurderersNum; }
+        }
+
+
         // ===================================================================================== []
         // History
         public HistoryModel History

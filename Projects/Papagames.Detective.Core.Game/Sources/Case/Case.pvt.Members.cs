@@ -27,13 +27,13 @@ namespace Papagames.Detective.Core.Game
 
         private void AssignMurderers()
         {
-            Members.SelectRandomList(MurdererNum).ForEach(m => m.IsMurderer = true);
+            Members.SelectRandomList(MurderersNum).ForEach(m => m.IsMurderer = true);
         }
 
         private void CreateMembers()
         {
             Members = new List<Member>();
-            World.SelectRandomPersons(MemberNum)
+            World.SelectRandomPersons(MembersNum)
                 .Index()
                 .ForEach(numPerson => Members.Add(new Member(this, numPerson.Key + 1, numPerson.Value)));
         }
@@ -50,5 +50,8 @@ namespace Papagames.Detective.Core.Game
         {
             return Members.First(m=>m.Number == number);
         }
+
+        private int MurderersNum { get; set; }
+        private int MembersNum { get; set; }
     }
 }

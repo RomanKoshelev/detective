@@ -114,5 +114,11 @@ namespace Papagames.Detective.Utils
             if (list.Count==0) return "";
             return list.Select(selector).Aggregate((a, s) => string.Format("{0}{1}{2}", a, delimiter, s));
         }
+
+        public static string IfNull(this string str, int? n)
+        {
+            return n == null ?  str: string.Format("{0}", n);
+        }
+
     }
 }
