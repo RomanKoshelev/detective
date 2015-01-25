@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
-    public partial class Case : Identifiable<int, Case>
+    public partial class Case : Identifiable<int, Case>, IOptions
     {
         public Case(IWorld world, int memberNum, int murdererNum)
         {
             World = world;
             MemberNum = memberNum;
             MurdererNum = murdererNum;
+
             Id = (Identifier) 0;
             Init();
+
+            PrisonerRoleIsOpen = true;
+            VictimRoleIsOpen = true;
         }
 
         public Identifier Id { get; set; }
@@ -21,9 +24,9 @@ namespace Papagames.Detective.Core.Game
         public int MemberNum { get; set; }
 
         public IWorld World { get; set; }
-        public IList<Member> Members { get; set; }
+        public IList<Member> Members { get; private set; }
 
-        public Member Detective { get; set; }
+        public Member Detective { get; private set; }
 
         public string WorldName
         {
@@ -44,6 +47,7 @@ namespace Papagames.Detective.Core.Game
         {
             get { return Members.Where(m => m.IsPrisoner).ToList(); }
         }
+
         public IList<Member> Victims
         {
             get { return Members.Where(m => m.IsVictim).ToList(); }
@@ -53,5 +57,10 @@ namespace Papagames.Detective.Core.Game
         {
             return DoFindMember(number);
         }
+
+        // ===================================================================================== []
+        // IOptopns
+        public bool PrisonerRoleIsOpen { get; private set; }
+        public bool VictimRoleIsOpen { get; private set; }
     }
 }

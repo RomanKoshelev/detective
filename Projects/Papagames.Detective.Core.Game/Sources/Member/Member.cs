@@ -57,6 +57,11 @@ namespace Papagames.Detective.Core.Game
         {
             get { return DoGetOpenRole(); }
         }
+        public Role Role
+        {
+            get { return DoGetRole(); }
+        }
+
 
         // ===================================================================================== []
         // todo: to utils
@@ -65,6 +70,14 @@ namespace Papagames.Detective.Core.Game
         private Role DoGetOpenRole()
         {
             return Schema.Master.GetOpenRole(Case, this);
+        }
+        private Role DoGetRole()
+        {
+            if (IsDetective) 
+                return Role.Detective;
+            if (IsMurderer) 
+                return Role.Murderer;
+            return Role.Innocent;
         }
     }
 }

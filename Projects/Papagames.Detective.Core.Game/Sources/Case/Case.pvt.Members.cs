@@ -6,7 +6,7 @@ using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
-    public partial class Case
+    public partial class Case : IOptions
     {
         private void Init()
         {

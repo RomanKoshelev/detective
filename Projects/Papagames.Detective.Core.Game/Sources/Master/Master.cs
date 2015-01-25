@@ -1,10 +1,25 @@
+using System.Diagnostics;
+using Papagames.Detective.Utils;
+
 namespace Papagames.Detective.Core.Game
 {
     public class Master
     {
-        public Role GetOpenRole(Case gcase, Member member)
+        public Role GetOpenRole(IOptions options, Member member)
         {
-            return Role.Error;
+            if (member.IsActive)
+                return Role.Unknown;
+
+            if (member.IsPrisoner && options.PrisonerRoleIsOpen)
+                return member.Role;
+
+            if (member.IsVictim && options.VictimRoleIsOpen)
+                return member.Role;
+
+            if (member.IsDetective)
+                return member.Role;
+
+            throw new DetectiveException("Can't get Role for {0}", member.Name);
         }
     }
 }
