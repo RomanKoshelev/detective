@@ -15,9 +15,15 @@ namespace Papagames.Detective.App.Web.Models
         {
             get { return Member.Name; }
         }
+
         public int Number
         {
             get { return Member.Number; }
+        }
+
+        public Role Role
+        {
+            get { return Member.OpenRole; }
         }
 
         public override string ToString()

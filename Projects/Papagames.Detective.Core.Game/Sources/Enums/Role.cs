@@ -2,8 +2,10 @@
 {
     public enum Role
     {
+        Error,
         Unknown,
+        Innocent,
         Murderer,
-        Innocent
+        Detective
     }
 }

@@ -13,6 +13,7 @@ namespace Papagames.Detective.Core.Game
 
         static Schema()
         {
+            InitMaster();
             InitWorlds();
             InitCases();
             InitProcesses();
@@ -20,6 +21,7 @@ namespace Papagames.Detective.Core.Game
 
         public static List<Case> Cases { get; private set; }
         public static List<Process> Processes { get; private set; }
+        public static Master Master { get; private set; }
 
         public static Case NewCase(WorldId worldId, int memberNum, int murderNum)
         {
