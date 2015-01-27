@@ -1,5 +1,6 @@
-﻿@using Papagames.Detective.App.Web.Models
+﻿@using Papagames.Detective.Core.Game
 @using Papagames.Detective.Utils
+@using Papagames.Detective.App.Web.Models
 @model ProcessModel
 @{
     ViewBag.Title = "Detective Process Info";
@@ -9,34 +10,46 @@
 <h2>@Model.ShortInfo</h2>
 
 <ul>
-    <li>@Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })</li>
     <li>
-        @Model.ActiveMembers.Count active members:
+        Process Info:
         <ul>
-            @foreach (var m in Model.ActiveMembers)
+            <li>
+                @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })
+            </li>
+            <li>
+                State: @Model.State
+            </li>
+            @if (Model.State != State.Finished)
             {
-                <li>@m.Number: @m.Name</li>
+                <li>
+                    Murderers left: @("Unknown".IfNull(Model.MurderersLeft))
+                </li>
+            }
+            else
+            {
+                <li>
+                    Winner: @Model.Winner
+                </li>
             }
         </ul>
     </li>
+
     <li>
-        @Model.Prisoners.Count.Plural("prisoner")
+        Members:
         <ul>
-            @foreach (var m in Model.Prisoners)
-            {
-                <li>@m.Number: @m.Name</li>
-            }
+            <li>
+                Active:
+                @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.ActiveMembers, ViewData); }
+            </li>
+            <li>
+                Prisoners:
+                @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Prisoners, ViewData); }
+            </li>
+            <li>
+                Victims:
+                @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Victims, ViewData); }
+            </li>
         </ul>
     </li>
-    <li>
-        @Model.Victims.Count.Plural("victim")
-        <ul>
-            @foreach (var m in Model.Victims)
-            {
-                <li>@m.Number: @m.Name</li>
-            }
-        </ul>
-    </li>
-    <li>State: @Model.State</li>
-    <li>@Html.ActionLink("Play this process", "Play", new { id = Model.Id })</li>
+    <li>@Html.ActionLink("Take this process", "Play", new { id = Model.Id })</li>
 </ul>

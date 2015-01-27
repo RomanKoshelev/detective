@@ -1,6 +1,7 @@
 ﻿@using Papagames.Detective.Core.Game
 @using Papagames.Detective.Utils
-@model Papagames.Detective.App.Web.Models.ProcessModel
+@using Papagames.Detective.App.Web.Models
+@model ProcessModel
 @{
     ViewBag.Title = "Play Detective Process";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -33,8 +34,7 @@
             }
         </ul>
     </li>
-
-
+    
     <li >
         Members:
         <ul >
@@ -52,7 +52,6 @@
             </li>
         </ul>
     </li>
-
 
     <li>
         Answers:
