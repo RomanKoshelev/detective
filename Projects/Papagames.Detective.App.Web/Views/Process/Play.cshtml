@@ -1,8 +1,10 @@
 ﻿@using Papagames.Detective.Core.Game
 @using Papagames.Detective.Utils
 @using Papagames.Detective.App.Web.Models
+@using Action = Papagames.Detective.Core.Game.Action
 @model ProcessModel
 @{
+    // Book: Process.Play View
     ViewBag.Title = "Play Detective Process";
     Layout = "~/Views/Shared/Layout.cshtml";
     ViewData["id"] = Model.Id;
@@ -34,10 +36,10 @@
             }
         </ul>
     </li>
-    
-    <li >
+
+    <li>
         Members:
-        <ul >
+        <ul>
             <li>
                 Active:
                 @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.ActiveMembers, ViewData); }
@@ -49,6 +51,26 @@
             <li>
                 Victims:
                 @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Victims, ViewData); }
+            </li>
+        </ul>
+    </li>
+
+    <li>Emotions:
+        <ul>
+            <li>
+                On Murder:
+                @{
+                    ViewData["EmotionType"] = Action.EmotionOnMurder;
+                    Html.RenderPartial("~/Views/Process/Common/EmotionList.cshtml", Model.History, ViewData);
+                }
+            </li>
+
+            <li>
+                On Arrest:
+                @{
+                    ViewData["EmotionType"] = Action.EmotionOnArrest;
+                    Html.RenderPartial("~/Views/Process/Common/EmotionList.cshtml", Model.History, ViewData);
+                }
             </li>
         </ul>
     </li>

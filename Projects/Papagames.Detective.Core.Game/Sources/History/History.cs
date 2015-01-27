@@ -79,5 +79,10 @@ namespace Papagames.Detective.Core.Game
         {
             return Answers.Where(r => r.Agent == respondent && r.Day == day).ToList();
         }
+
+        public bool IsActionEmotional(Action action)
+        {
+            return action == Action.EmotionOnMurder || action == Action.EmotionOnArrest;
+        }
     }
 }

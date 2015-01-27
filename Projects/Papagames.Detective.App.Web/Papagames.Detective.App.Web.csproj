@@ -261,6 +261,7 @@
     <Content Include="Views\Process\Common\UserActionList.cshtml" />
     <Content Include="Views\Process\Common\MemberList.cshtml" />
     <Content Include="Views\Process\Common\AnswerList.cshtml" />
+    <Content Include="Views\Process\Common\EmotionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
