@@ -19,9 +19,11 @@ namespace Papagames.Detective.App.Web.Models
             get { return DoGetProcesses(); }
         }
 
-        public static int NewProcess(Case.Identifier caseId)
+        public static Process.Identifier RunNewProcess(Case.Identifier caseId, State state=State.Initial)
         {
-            return Schema.NewProcess(caseId);
+            var procId = Schema.NewProcess(caseId);
+            Schema.SkipProcessTo(procId, state);
+            return procId;
         }
 
         // ===================================================================================== []

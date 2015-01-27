@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
+    [DebuggerDisplay("State = {State}")]
     public partial class Process : Identifiable<int, Process>
     {
         // ===================================================================================== []
@@ -92,6 +94,10 @@ namespace Papagames.Detective.Core.Game
         public void Stop()
         {
             DoStop();
+        }
+        public void SkipTo(State state)
+        {
+            DoSkipTo(state);
         }
 
         // ===================================================================================== []

@@ -17,9 +17,6 @@
                 @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })
             </li>
             <li>
-                Day: @Model.CurrentDay
-            </li>
-            <li>
                 State: @Model.State
             </li>
             @if (Model.State != State.Finished)

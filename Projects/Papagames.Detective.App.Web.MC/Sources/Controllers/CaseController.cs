@@ -20,7 +20,7 @@ namespace Papagames.Detective.App.Web.Controllers
         public ActionResult Run(int id)
         {
             var caseId = (Case.Identifier)id;
-            var processId = SchemaModel.NewProcess(caseId);
+            var processId = SchemaModel.RunNewProcess(caseId, State.Questioning);
 
             return RedirectToAction("Play", "Process", new { id = processId });
         }

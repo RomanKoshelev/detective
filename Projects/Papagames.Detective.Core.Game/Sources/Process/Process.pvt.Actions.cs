@@ -63,6 +63,17 @@ namespace Papagames.Detective.Core.Game
             History.StoreMurder(CurrentDay, LastMurderer, LastVictim);
             HistoryStoreEmotionalReactionOnMurder(LastVictim);
         }
+        private void DoSkipTo(State state)
+        {
+            Assert.IsTrue(state >= State, "Destinashion state [{0}] can't be achieved from current [{1}]", state, State);
+            do
+            {
+                Assert.IsTrue(UserActions.Count == 1, "Can't select action among {0} actions for auto skipping to {1}", UserActions.Count, state);
+                var action = UserActions[0];
+                DoExecuteUserAction(action.Type, action.Params, autoSkip: true);
+            } while (State != state && State != State.Finished);
+            Assert.IsTrue(State==state, "Achived state [{0}] != destinasion [{1}]", State, state);
+        }
 
         // ===================================================================================== []
         // Utils
