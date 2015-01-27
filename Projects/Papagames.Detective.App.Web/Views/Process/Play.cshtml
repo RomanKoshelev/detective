@@ -1,4 +1,5 @@
-﻿@using Papagames.Detective.Utils
+﻿@using Papagames.Detective.Core.Game
+@using Papagames.Detective.Utils
 @model Papagames.Detective.App.Web.Models.ProcessModel
 @{
     ViewBag.Title = "Play Detective Process";
@@ -17,16 +18,22 @@
             </li>
             <li>
                 Day: @Model.CurrentDay
-            </li> 
+            </li>
             <li>
                 State: @Model.State
             </li>
-            <li>
-                Winner: @Model.Winner
-            </li>
-            <li>
-                Murderers left: @("Unknown".IfNull(Model.MurderersLeft))
-            </li>
+            @if (Model.State != State.Finished)
+            {
+                <li>
+                    Murderers left: @("Unknown".IfNull(Model.MurderersLeft))
+                </li>
+            }
+            else
+            {
+                <li>
+                    Winner: @Model.Winner
+                </li>
+            }
         </ul>
     </li>
 
@@ -39,7 +46,7 @@
                 @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.ActiveMembers, ViewData); }
             </li>
             <li>
-                Pisoners:
+                Prisoners:
                 @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Prisoners, ViewData); }
             </li>
             <li>
