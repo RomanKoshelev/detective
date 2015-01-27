@@ -48,5 +48,10 @@ namespace Papagames.Detective.Core.Game
         {
             return Schema.Master.GetActiveMurderersOpenNum(Case, ActiveMurderers.Count);
         }
+
+        private void UpdateMembersLastActiviryDay()
+        {
+            ActiveMembers.ForEach(m => m.LastActivityDay = CurrentDay);
+        }
     }
 }

@@ -21,10 +21,7 @@ namespace Papagames.Detective.App.Web.Models
             get { return Member.Number; }
         }
 
-        public Role Role
-        {
-            get { return Member.OpenRole; }
-        }
+
 
         public string NameRole {
             get { return DoGetNameRole(); }
@@ -34,10 +31,19 @@ namespace Papagames.Detective.App.Web.Models
         {
             return Name;
         }
+        public int LastActivityaDay
+        {
+            get { return Member.LastActivityDay; }
+        }
 
         // ===================================================================================== []
         // Pivate
         private Member Member { get; set; }
+        private Role Role
+        {
+            get { return Member.OpenRole; }
+        }
+
         private string DoGetNameRole()
         {
             if (Role == Role.Unknown)

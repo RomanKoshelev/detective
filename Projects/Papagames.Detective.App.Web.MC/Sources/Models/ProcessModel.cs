@@ -60,12 +60,22 @@ namespace Papagames.Detective.App.Web.Models
 
         public IList<MemberModel> Victims
         {
-            get { return MakeMemberModelList(p => p.Victims); }
+            get
+            {
+                return MakeMemberModelList(p => p.Victims)
+                    .OrderBy(m => m.LastActivityaDay)
+                    .ToList();
+            }
         }
 
         public IList<MemberModel> Prisoners
         {
-            get { return MakeMemberModelList(p => p.Prisoners); }
+            get
+            {
+                return MakeMemberModelList(p => p.Prisoners)
+                    .OrderBy(m => m.LastActivityaDay)
+                    .ToList();
+            }
         }
 
         public int? MurderersLeft
@@ -105,7 +115,10 @@ namespace Papagames.Detective.App.Web.Models
 
         private List<MemberModel> MakeMemberModelList(Func<Process, IList<Member>> membersSelector)
         {
-            return membersSelector(Process).Select(m => new MemberModel(m)).ToList();
+            return
+                membersSelector(Process)
+                    .Select(m => new MemberModel(m))
+                    .ToList();
         }
 
         private string DoGetShortInfo()

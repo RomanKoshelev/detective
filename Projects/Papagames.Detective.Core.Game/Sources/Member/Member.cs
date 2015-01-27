@@ -62,6 +62,8 @@ namespace Papagames.Detective.Core.Game
             get { return DoGetRole(); }
         }
 
+        public int LastActivityDay { get; set; }
+        
         public void SetProcess(Process process)
         {
             Process = process;

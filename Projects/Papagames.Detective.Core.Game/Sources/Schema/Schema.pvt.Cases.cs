@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Utils;
@@ -11,14 +12,13 @@ namespace Papagames.Detective.Core.Game
         private static void InitCases()
         {
             Cases = new List<Case>();
-            DoNewCase(WorldId.Simpsons, 5, 1);
-            DoNewCase(WorldId.Simpsons, 5, 1);
-            DoNewCase(WorldId.Simpsons, 5, 2);
-            DoNewCase(WorldId.Simpsons, 5, 2);
-            DoNewCase(WorldId.Simpsons, 7, 2);
-            DoNewCase(WorldId.Simpsons, 8, 3);
-            DoNewCase(WorldId.Simpsons, 8, 3);
-            DoNewCase(WorldId.Simpsons, 8, 3);
+            for (var i = Master.MinMembersNum; i<=Master.MaxMembersNum; i++)
+            {
+                for (var j = Master.MinMurderersNum; j <= Master.MaxMurderersNum(i); j++)
+                {
+                    DoNewCase(WorldId.Simpsons, i, j);
+                }
+            }
         }
 
         private static Case DoNewCase(WorldId worldId, int memberNum, int murderNum)

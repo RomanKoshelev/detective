@@ -69,6 +69,7 @@ namespace Papagames.Detective.Core.Game
 
         private void Night(State state)
         {
+            UpdateMembersLastActiviryDay();
             HistoryStoreParticipations();
 
             DoEvidence();

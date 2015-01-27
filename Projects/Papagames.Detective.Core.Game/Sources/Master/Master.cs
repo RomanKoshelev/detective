@@ -1,3 +1,4 @@
+using System;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
@@ -35,6 +36,15 @@ namespace Papagames.Detective.Core.Game
             if (options.MurderersNumIsOpen)
                 return num;
             return null;
+        }
+
+        public static int MinMembersNum { get { return 3; } }
+        public static int MaxMembersNum { get { return 12; } }
+        public int MinMurderersNum { get { return 1; } }
+
+        public int MaxMurderersNum(int membersNum)
+        {
+            return (int) Math.Floor((membersNum - 1.0)/2.0);
         }
     }
 }
