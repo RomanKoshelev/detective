@@ -10,32 +10,23 @@
 
 <ul>
     <li>@Model.WorldName world</li>
-    <li>
-        @Model.ActiveMembers.Count active members:
+    <li>Active members:
         <ul>
             @foreach (var m in Model.ActiveMembers)
             {
-                <li>@m.Number: @m.Name</li>
+                <li>@m.Name</li>
             }
         </ul>
     </li>
-    <li>
-        @Model.Murderers.Count.Plural("murder")
-        <ul>
-            @foreach (var m in Model.Murderers)
-            {
-                <li>@m.Number: @m.Name</li>
-            }
-        </ul>
-    </li>
-    <li>
-        @Model.Victims.Count.Plural("victim")
+    <li>Vicims:
         <ul>
             @foreach (var m in Model.Victims)
             {
-                <li>@m.Number: @m.Name</li>
+                <li>@m.Name</li>
             }
         </ul>
+    </li>
+    <li>Murderers: @("Unknown".IfNull(Model.MurderersOpenNum))
     </li>
     <li>@Html.ActionLink("Run this case", "Run", new {id = Model.Id})</li>
 </ul>

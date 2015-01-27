@@ -26,12 +26,13 @@ namespace Papagames.Detective.App.Web.Models
             get { return Member.OpenRole; }
         }
 
+        public string NameRole {
+            get { return DoGetNameRole(); }
+        }
+
         public override string ToString()
         {
             return Name;
-        }
-        public string NameRole {
-            get { return DoGetNameRole(); }
         }
 
         // ===================================================================================== []

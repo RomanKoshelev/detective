@@ -9,7 +9,7 @@
 <h2>@Model.ShortInfo</h2>
 
 <ul>
-    <li>@Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new {id = Model.CaseId}, new {name = "case"})</li>
+    <li>@Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })</li>
     <li>
         @Model.ActiveMembers.Count active members:
         <ul>
@@ -38,5 +38,5 @@
         </ul>
     </li>
     <li>State: @Model.State</li>
-    <li>@Html.ActionLink("Play this process", "Play", new { id = Model.Id})</li>
+    <li>@Html.ActionLink("Play this process", "Play", new { id = Model.Id })</li>
 </ul>
