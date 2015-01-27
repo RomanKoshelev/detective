@@ -69,9 +69,9 @@ namespace Papagames.Detective.Core.Game
             get { return DoGetPrisoners(); }
         }
 
-        public int? OpenActiveMurderersNum
+        public int? ActiveMurderersOpenNum
         {
-            get { return DoOpenActiveMurderersNum(); }
+            get { return DoGetActiveMurderersOpenNum(); }
         }
 
         // ===================================================================================== []

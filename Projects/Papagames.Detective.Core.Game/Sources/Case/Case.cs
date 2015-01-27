@@ -15,9 +15,9 @@ namespace Papagames.Detective.Core.Game
             Id = (Identifier) 0;
             Init();
 
+            MurderersNumIsOpen = true;
             PrisonerRoleIsOpen = true;
             VictimRoleIsOpen = true;
-            MurderersNumIsOpen = true;
         }
 
         public Identifier Id { get; set; }
@@ -54,6 +54,11 @@ namespace Papagames.Detective.Core.Game
         public Member FindMember(int number)
         {
             return DoFindMember(number);
+        }
+
+        public int? MurderersOpenNum
+        {
+            get { return DoGetMurderersOpenNum(); }
         }
 
         // ===================================================================================== []

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MoreLinq;
 
@@ -45,9 +44,9 @@ namespace Papagames.Detective.Core.Game
             return Members.First(m => m.Number == number);
         }
 
-        private int? DoOpenActiveMurderersNum()
+        private int? DoGetActiveMurderersOpenNum()
         {
-            return Schema.Master.GetOpenActiveMurderersNum(Case, ActiveMurderers.Count);
+            return Schema.Master.GetActiveMurderersOpenNum(Case, ActiveMurderers.Count);
         }
     }
 }

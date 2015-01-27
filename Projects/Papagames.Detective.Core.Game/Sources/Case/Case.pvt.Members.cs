@@ -5,7 +5,7 @@ using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
-    public partial class Case : IOptions
+    public partial class Case
     {
         private void Init()
         {
@@ -53,5 +53,10 @@ namespace Papagames.Detective.Core.Game
 
         private int MurderersNum { get; set; }
         private int MembersNum { get; set; }
+
+        private int? DoGetMurderersOpenNum()
+        {
+            return Schema.Master.GetMurderersOpenNum(this, Murderers.Count);
+        }
     }
 }
