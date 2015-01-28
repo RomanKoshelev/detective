@@ -25,8 +25,6 @@ namespace Papagames.Detective.App.Web.Models
             return History.Answers.Where(r => r.Day == day).Select(r => new AnswerModel(r)).ToList();
         }
 
-        // Book: HistoryModel.Emotions
-
         public IList<EmotionModel> EmotionValues(Action emotionType, int subjectNum)
         {
             return Emotions(emotionType).Where(e => e.Subject.Number == subjectNum).ToList();

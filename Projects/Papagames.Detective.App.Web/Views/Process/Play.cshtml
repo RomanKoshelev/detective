@@ -4,7 +4,7 @@
 @using Action = Papagames.Detective.Core.Game.Action
 @model ProcessModel
 @{
-    // Book: Process.Play View
+    // >> Process.Play View
     ViewBag.Title = "Play Detective Process";
     Layout = "~/Views/Shared/Layout.cshtml";
     ViewData["id"] = Model.Id;
@@ -45,15 +45,15 @@
         <ul>
             <li>
                 Active:
-                @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.ActiveMembers, ViewData); }
+                @{ Html.RenderPartial("~/Views/Process/Simple/Member.cshtml", Model.ActiveMembers, ViewData); }
             </li>
             <li>
                 Prisoners:
-                @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Prisoners, ViewData); }
+                @{ Html.RenderPartial("~/Views/Process/Simple/Member.cshtml", Model.Prisoners, ViewData); }
             </li>
             <li>
                 Victims:
-                @{ Html.RenderPartial("~/Views/Process/Common/MemberList.cshtml", Model.Victims, ViewData); }
+                @{ Html.RenderPartial("~/Views/Process/Simple/Member.cshtml", Model.Victims, ViewData); }
             </li>
         </ul>
     </li>
@@ -65,7 +65,7 @@
                 On Murder:
                 @{
                     ViewData["EmotionType"] = Action.MurderEmotion;
-                    Html.RenderPartial("~/Views/Process/Common/EmotionList.cshtml", Model.History, ViewData);
+                    Html.RenderPartial("~/Views/Process/Simple/Emotion.cshtml", Model.History, ViewData);
                 }
             </li>
 
@@ -73,19 +73,33 @@
                 On Arrest:
                 @{
                     ViewData["EmotionType"] = Action.ArrestEmotion;
-                    Html.RenderPartial("~/Views/Process/Common/EmotionList.cshtml", Model.History, ViewData);
+                    Html.RenderPartial("~/Views/Process/Simple/Emotion.cshtml", Model.History, ViewData);
                 }
             </li>
         </ul>
     </li>
 
-
     <li>
         Answers:
-        @{ Html.RenderPartial("~/Views/Process/Common/AnswerList.cshtml", Model.History, ViewData); }
+        @{ Html.RenderPartial("~/Views/Process/Simple/Answer.cshtml", Model.History, ViewData); }
     </li>
-    <li>
-        Actions:
-        @{ Html.RenderPartial("~/Views/Process/Common/UserActionList.cshtml", Model.UserActions, ViewData); }
-    </li>
+    @if (Model.State != State.Finished)
+    {
+        <li>
+            Actions:
+            @{ Html.RenderPartial("~/Views/Process/Simple/UserAction.cshtml", Model.UserActions, ViewData); }
+        </li>
+        <li>
+            Actions:
+            @{ Html.RenderPartial("~/Views/Process/Simple/UserAction.cshtml", Model.UserActions, ViewData); }
+        </li>
+    }
+    else
+    {
+        <li>
+            @{
+                // >> todo: insert Clarifying info here
+            }
+        </li>
+    }
 </ul>

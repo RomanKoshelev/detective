@@ -9,7 +9,6 @@ namespace Papagames.Detective.Core.Game
         public Case(IWorld world, int membersNum, int murderersNum)
         {
             Id = (Identifier) 0;
-            InitMembers();
 
             World = world;
             MembersNum = membersNum;
@@ -18,6 +17,8 @@ namespace Papagames.Detective.Core.Game
             PrisonerRoleIsOpen = true;
             VictimRoleIsOpen = true;
             EvidencesNumIsOpen = true;
+
+            InitMembers();
         }
 
         public Identifier Id { get; set; }

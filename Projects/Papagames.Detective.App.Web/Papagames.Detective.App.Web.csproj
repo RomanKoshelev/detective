@@ -258,10 +258,10 @@
     <Content Include="Views\Process\Index.cshtml" />
     <Content Include="Views\Process\Info.cshtml" />
     <Content Include="Views\Process\Play.cshtml" />
-    <Content Include="Views\Process\Common\UserActionList.cshtml" />
-    <Content Include="Views\Process\Common\MemberList.cshtml" />
-    <Content Include="Views\Process\Common\AnswerList.cshtml" />
-    <Content Include="Views\Process\Common\EmotionList.cshtml" />
+    <Content Include="Views\Process\Simple\UserAction.cshtml" />
+    <Content Include="Views\Process\Simple\Member.cshtml" />
+    <Content Include="Views\Process\Simple\Answer.cshtml" />
+    <Content Include="Views\Process\Simple\Emotion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
