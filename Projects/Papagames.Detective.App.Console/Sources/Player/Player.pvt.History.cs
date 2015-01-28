@@ -35,10 +35,7 @@ namespace Papagames.Detective.App.Console
 
         private static bool RecordIsRealAction(History.Record r)
         {
-            return (r.Action == Action.Murder ||
-                    r.Action == Action.Arrest ||
-                    r.Action == Action.InnocentEvidence ||
-                    r.Action == Action.MurdererEvidence);
+            return r.Action.IsRealAction();
         }
 
         private static string FormatActiveMemberHistoryRecord(History.Record rec)

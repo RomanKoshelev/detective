@@ -22,9 +22,18 @@
             Day @day:
             <ul>
                 <li>
-                    Active:
+                    Active: @Model.Participations(day).FoldToStringBy(r => r.Agent.Name)
                     @Model.Participations(day).FoldToStringBy(r => r.Agent.Name)
                 </li>
+                @foreach (var rec in Model.RealActions(day))
+                {
+                    <li>
+                        @string.Format(rec.Action.VerbalTemplate(), MemberHistoryName(rec.Agent), MemberHistoryName(rec.Subject));
+
+                        Active: @Model.Participations(day).FoldToStringBy(r => r.Agent.Name)
+                        @Model.Participations(day).FoldToStringBy(r => r.Agent.Name)
+                    </li>
+                }
             </ul>
         </li>
     }

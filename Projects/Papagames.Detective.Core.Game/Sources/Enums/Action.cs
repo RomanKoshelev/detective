@@ -20,10 +20,20 @@
         {
             return action == Action.MurdererEvidence || action == Action.InnocentEvidence;
         }
+
         public static bool IsEmotion(this Action action)
         {
-            return action == Action.MurderEmotion|| action == Action.ArrestEmotion;
+            return action == Action.MurderEmotion || action == Action.ArrestEmotion;
         }
+
+        public static bool IsRealAction(this Action action)
+        {
+            return (action == Action.Murder ||
+                    action == Action.Arrest ||
+                    action == Action.InnocentEvidence ||
+                    action == Action.MurdererEvidence);
+        }
+
 
         public static string VerbalTemplate(this Action action)
         {
