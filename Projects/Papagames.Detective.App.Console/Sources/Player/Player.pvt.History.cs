@@ -7,6 +7,7 @@ namespace Papagames.Detective.App.Console
 {
     internal partial class Player
     {
+        // >> Player.History
         private void PrintHistory()
         {
             if (SilenceMode) return;

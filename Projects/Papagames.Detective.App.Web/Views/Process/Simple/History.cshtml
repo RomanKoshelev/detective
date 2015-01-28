@@ -1,0 +1,31 @@
+﻿@using Papagames.Detective.App.Web.Models
+@using Papagames.Detective.Utils
+@model HistoryModel
+
+<ul>
+    @foreach (var day in Model.Days)
+    {
+        // >> View: History
+
+
+        @*
+            History.Days.ForEach(d =>
+            {
+            WriteLine("  Day:{0} ", d);
+            WriteLine("    Active: {0}", GetParticipations(d));
+            History.Records.Where(r => r.Day == d).Where(RecordIsRealAction)
+            .ForEach(r => WriteLine("    {0}", FormatActiveMemberHistoryRecord(r)));
+            });
+        *@
+
+        <li>
+            Day @day:
+            <ul>
+                <li>
+                    Active:
+                    @Model.Participations(day).FoldToStringBy(r => r.Agent.Name)
+                </li>
+            </ul>
+        </li>
+    }
+</ul>

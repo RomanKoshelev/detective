@@ -2,7 +2,7 @@
 
 namespace Papagames.Detective.App.Web.Models
 {
-    sealed public class EmotionModel: HistoryRecordModel<Emotion>
+    sealed public class EmotionModel: GenericHistoryRecordModel<Emotion>
     {
         public EmotionModel(History.Record record)
             :base(record, r=>r.Emotion)

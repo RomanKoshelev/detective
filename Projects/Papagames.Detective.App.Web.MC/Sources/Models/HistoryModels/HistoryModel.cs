@@ -24,6 +24,13 @@ namespace Papagames.Detective.App.Web.Models
         {
             return History.Answers.Where(r => r.Day == day).Select(r => new AnswerModel(r)).ToList();
         }
+        public IList<RecordModel> Participations(int day)
+        {
+            return History.Records
+                .Where(r => r.Day == day && r.Action==Action.Participation)
+                .Select(r => new RecordModel(r))
+                .ToList();
+        }
 
         public IList<EmotionModel> EmotionValues(Action emotionType, int subjectNum)
         {

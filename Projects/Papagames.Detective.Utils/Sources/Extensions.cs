@@ -109,7 +109,7 @@ namespace Papagames.Detective.Utils
             return end == "a" ? "she" : "he";
         }
         
-        public static string AggregateBy<T>(this IList<T> list, Func<T, string> selector, string delimiter = ", ")
+        public static string FoldToStringBy<T>(this IList<T> list, Func<T, string> selector, string delimiter = ", ")
         {
             if (list.Count==0) return "";
             return list.Select(selector).Aggregate((a, s) => string.Format("{0}{1}{2}", a, delimiter, s));

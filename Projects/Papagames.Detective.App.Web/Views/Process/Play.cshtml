@@ -4,7 +4,7 @@
 @using Action = Papagames.Detective.Core.Game.Action
 @model ProcessModel
 @{
-    // >> Process.Play View
+    // >> View: Process.Play 
     ViewBag.Title = "Play Detective Process";
     Layout = "~/Views/Shared/Layout.cshtml";
     ViewData["id"] = Model.Id;
@@ -90,16 +90,15 @@
             @{ Html.RenderPartial("~/Views/Process/Simple/UserAction.cshtml", Model.UserActions, ViewData); }
         </li>
         <li>
-            Actions:
-            @{ Html.RenderPartial("~/Views/Process/Simple/UserAction.cshtml", Model.UserActions, ViewData); }
+            History:
+            @{ Html.RenderPartial("~/Views/Process/Simple/History.cshtml", Model.History, ViewData); }
         </li>
     }
     else
     {
         <li>
-            @{
-                // >> todo: insert Clarifying info here
-            }
+            History:
+            @{ Html.RenderPartial("~/Views/Process/Simple/History.cshtml", Model.History, ViewData); }
         </li>
     }
 </ul>

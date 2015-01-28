@@ -76,7 +76,7 @@ namespace Papagames.Detective.App.Web.Models
                 ActiveMembers.Count, 
                 Victims.Count,
                 "?".IfNull(MurderersOpenNum),
-                Victims.AggregateBy(v => v.Name));
+                Victims.FoldToStringBy(v => v.Name));
         }
     }
 }

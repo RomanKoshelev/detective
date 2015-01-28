@@ -23,7 +23,7 @@ namespace Papagames.Detective.Core.Game
 
             public override string ToString()
             {
-                return Description?? string.Format("{0} {1}", Type, Params.AggregateBy(p => string.Format("{0}", p)));
+                return Description?? string.Format("{0} {1}", Type, Params.FoldToStringBy(p => string.Format("{0}", p)));
             }
         }
     }

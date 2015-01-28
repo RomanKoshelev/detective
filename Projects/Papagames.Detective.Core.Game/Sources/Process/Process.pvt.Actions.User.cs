@@ -187,7 +187,7 @@ namespace Papagames.Detective.Core.Game
 
             Assert.IsTrue(ok,
                 "Wrong parameters for action {0}: [{1}]", actionType,
-                actionParams.ToList().AggregateBy(i => string.Format("{0}", i)));
+                actionParams.ToList().FoldToStringBy(i => string.Format("{0}", i)));
         }
     }
 }
