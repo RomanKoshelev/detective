@@ -9,8 +9,9 @@
 <h2>@Model.ShortInfo</h2>
 
 <ul>
-    <li>@Model.WorldName world</li>
-    <li>Active members:
+    <li>@Model.WorldName world (@Html.ActionLink("Relations", "Relations", new {id = Model.Id}))</li>
+    <li>
+        Active members:
         <ul>
             @foreach (var m in Model.ActiveMembers)
             {
@@ -18,7 +19,8 @@
             }
         </ul>
     </li>
-    <li>Victims:
+    <li>
+        Victims:
         <ul>
             @foreach (var m in Model.Victims)
             {
@@ -26,7 +28,8 @@
             }
         </ul>
     </li>
-    <li>Murderers: @("Unknown".IfNull(Model.MurderersOpenNum))
+    <li>
+        Murderers: @("Unknown".IfNull(Model.MurderersOpenNum))
     </li>
-    <li>@Html.ActionLink("Run this case", "Run", new {id = Model.Id})</li>
+    <li>@Html.ActionLink("Proceed to this case", "Run", new {id = Model.Id})</li>
 </ul>

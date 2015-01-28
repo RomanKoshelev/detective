@@ -17,7 +17,8 @@
         Process Info:
         <ul>
             <li>
-                @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new {id = Model.CaseId}, new {name = "case"})
+                @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new {id = Model.CaseId}, new {target = "_self"})
+                (@Html.ActionLink("Relations", "Relations", "Case", new { id = Model.CaseId }, new { target = "_self" }))
             </li>
             <li>
                 State: @Model.State
