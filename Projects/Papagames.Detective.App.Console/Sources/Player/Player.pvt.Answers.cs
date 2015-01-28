@@ -100,7 +100,7 @@ namespace Papagames.Detective.App.Console
         private static string SelectOnRelation(Member respondent, Member subject, string love, string hate,
             string ignore)
         {
-            return respondent.Love(subject) ? love : respondent.Hate(subject) ? hate : ignore;
+            return respondent.Loves(subject) ? love : respondent.Hates(subject) ? hate : ignore;
         }
 
         private void PrintAnswer(Member respondent, Member subject, Answer answer, string verb = "")

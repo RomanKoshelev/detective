@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using MoreLinq;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -65,11 +64,11 @@ namespace Papagames.Detective.Core.Game
                 case VictimSign.InnocentDontKnowActiveMurderers:
                     return InnocentDontKnowActiveMurderers;
                 case VictimSign.IsHated:
-                    return Hate;
+                    return Hates;
                 case VictimSign.IsLoved:
-                    return Love;
+                    return Loves;
                 case VictimSign.IsIgnored:
-                    return Ignore;
+                    return Ignores;
             }
             throw new Exception("Unknown Victim sign");
         }

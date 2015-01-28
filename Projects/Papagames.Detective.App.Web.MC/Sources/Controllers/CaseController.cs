@@ -28,8 +28,6 @@ namespace Papagames.Detective.App.Web.Controllers
 
         public ActionResult Relations(int id)
         {
-            // >> Case.Relations
-
             var caseId = (Identifiable<int, Case>.Identifier)id;
             return View(new CaseModel(caseId));
         }

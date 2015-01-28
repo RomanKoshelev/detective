@@ -1,10 +1,48 @@
-﻿@model Papagames.Detective.App.Web.Models.CaseModel
+﻿@using Papagames.Detective.Utils
+@using Papagames.Detective.App.Web.Models
+@*// ================================================================================== []*@
+@model CaseModel
 @{
     ViewBag.Title = "Members Relations";
     Layout = "~/Views/Shared/Layout.cshtml";
+    // >> View: Case/Relations
 }
+@*// ================================================================================== []*@
+@functions{
 
+    private string RelationsList(Func<MemberModel, bool> predicate)
+    {
+        return Model.Members.Where(predicate).FoldToStringBy(s => s.Name, ", ", "-");
+    }
+
+}
+@helper Relations(string title, Func<MemberModel, bool> predicate)
+{
+    <li>
+        @title:
+        @RelationsList(predicate)
+    </li>
+}
+@*// ================================================================================== []*@
+
+
+
+
+@*// ================================================================================== []*@
 <h2>@Model.ShortInfo</h2>
 
 <ul>
+    @{
+        foreach (var member in Model.Members)
+        {
+            <li>
+                @member.Name
+                <ul>
+                    @Relations("Loves", s => member.Loves(s))
+                    @Relations("Hates", s => member.Hates(s))
+                </ul>
+            </li>
+        }
+    }
 </ul>
+@*// ================================================================================== []*@

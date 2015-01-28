@@ -41,6 +41,15 @@ namespace Papagames.Detective.App.Web.Models
             get { return Member.LastActivityDay; }
         }
 
+        public bool Loves(MemberModel subject)
+        {
+            return Member.Loves(subject.Member);
+        }
+        public bool Hates(MemberModel subject)
+        {
+            return Member.Hates(subject.Member);
+        }
+
         // ===================================================================================== []
         // Pivate
         private Member Member { get; set; }

@@ -47,13 +47,13 @@ namespace Papagames.Detective.Core.Game
         private Func<AnswerRule.MyStatus, AnswerRule.MyStatus.Attitude> MakeAnswerAttitudeSelector(
             Member subj)
         {
-            if (Love(subj))
+            if (Loves(subj))
                 return status => status.Love;
 
-            if (Hate(subj))
+            if (Hates(subj))
                 return status => status.Hate;
 
-            if (Ignore(subj))
+            if (Ignores(subj))
                 return status => status.Ignore;
 
             throw new Exception("Wrong attitude");

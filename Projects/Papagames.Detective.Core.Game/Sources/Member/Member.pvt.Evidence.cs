@@ -52,11 +52,11 @@ namespace Papagames.Detective.Core.Game
             switch (EvidenceRule.GetEvidenceSign(order))
             {
                 case EvidenceSign.IsHated:
-                    return Hate;
+                    return Hates;
                 case EvidenceSign.IsLoved:
-                    return Love;
+                    return Loves;
                 case EvidenceSign.IsIgnored:
-                    return Ignore;
+                    return Ignores;
 
                 case EvidenceSign.LovesMe:
                     return LovesMe;
@@ -70,15 +70,15 @@ namespace Papagames.Detective.Core.Game
 
         private bool HatesMe(Member member)
         {
-            return member.Hate(this);
+            return member.Hates(this);
         }
         private bool LovesMe(Member member)
         {
-            return member.Love(this);
+            return member.Loves(this);
         }
         private bool IgnoresMe(Member member)
         {
-            return member.Ignore(this);
+            return member.Ignores(this);
         }
 
         private void AddEvidenceFactor(Predicate<Member> predicat, int value)

@@ -5,44 +5,44 @@ namespace Papagames.Detective.Core.Game
 {
     public partial class Member
     {
-        public bool Love(Member subj)
+        public bool Loves(Member subj)
         {
             return Person.Love(subj.Person);
         }
 
-        public bool Hate(Member subj)
+        public bool Hates(Member subj)
         {
             return Person.Hate(subj.Person);
         }
 
-        public bool Ignore(Member subj)
+        public bool Ignores(Member subj)
         {
             return Person.Ignore(subj.Person);
         }
 
-        public bool LoveOrHate(Member subj)
+        public bool LovesOrHates(Member subj)
         {
-            return subj != this && (Love(subj) || Hate(subj));
+            return subj != this && (Loves(subj) || Hates(subj));
         }
 
-        public bool LoveAny(IList<Member> subjects)
+        public bool LovesAny(IList<Member> subjects)
         {
-            return subjects.Any(Love);
+            return subjects.Any(Loves);
         }
 
-        public bool LoveOrHateAny(IList<Member> members)
+        public bool LovesOrHatesAny(IList<Member> members)
         {
-            return LoveAny(members) || HateAny(members);
+            return LovesAny(members) || HatesAny(members);
         }
 
-        public bool HateAny(IList<Member> subjects)
+        public bool HatesAny(IList<Member> subjects)
         {
-            return subjects.Any(Hate);
+            return subjects.Any(Hates);
         }
 
-        public bool IgnoreAny(IList<Member> subjects)
+        public bool IgnoresAny(IList<Member> subjects)
         {
-            return subjects.Any(Ignore);
+            return subjects.Any(Ignores);
         }
     }
 }

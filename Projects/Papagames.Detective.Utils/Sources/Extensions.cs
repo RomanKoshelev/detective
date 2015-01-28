@@ -8,9 +8,10 @@ namespace Papagames.Detective.Utils
     public static class Extensions
     {
         private static readonly Random Random = new Random();
+
         public static bool EqualContent<T>(this IList<T> l1, ICollection<T> l2)
         {
-            if (l2==null)
+            if (l2 == null)
                 return false;
 
             if (l1.Count() != l2.Count)
@@ -22,19 +23,21 @@ namespace Papagames.Detective.Utils
             }
             return true;
         }
+
         public static List<T> ShuffleUsing<T>(this IEnumerable<T> set, Random random)
         {
             var shuffleList = set.ToList();
             var n = shuffleList.Count;
             for (var i = 0; i < n; i++)
             {
-                var r = i + (int)(random.NextDouble() * (n - i));
+                var r = i + (int) (random.NextDouble()*(n - i));
                 var t = shuffleList[r];
                 shuffleList[r] = shuffleList[i];
                 shuffleList[i] = t;
             }
             return shuffleList;
         }
+
         public static List<T> Shuffle<T>(this IEnumerable<T> list)
         {
             return list.ShuffleUsing(Random);
@@ -47,14 +50,14 @@ namespace Papagames.Detective.Utils
 
         public static List<T> SelectRandomListUsing<T>(this IEnumerable<T> list, int num, Random random)
         {
-            Trace.Assert(num>0);
+            Trace.Assert(num > 0);
 
             var shuffleList = list.ShuffleUsing(random);
             var retList = new List<T>();
 
             for (var i = 0; i < num; i++)
-                retList.Add(shuffleList [i]);
-            
+                retList.Add(shuffleList[i]);
+
             return retList;
         }
 
@@ -72,7 +75,7 @@ namespace Papagames.Detective.Utils
 
         public static char[] GetChars(this string str)
         {
-            var chars = new char[str.Length * sizeof(char)];
+            var chars = new char[str.Length*sizeof (char)];
             System.Buffer.BlockCopy(str.ToCharArray(), 0, chars, 0, chars.Length);
             return chars;
         }
@@ -100,7 +103,7 @@ namespace Papagames.Detective.Utils
         public static string SubstringSafe(this string str, int startIndex, int length)
         {
             length = Math.Min(length, str.Length - startIndex);
-            return str.Substring(startIndex,length);
+            return str.Substring(startIndex, length);
         }
 
         public static string HeOrShe(this string str)
@@ -108,17 +111,18 @@ namespace Papagames.Detective.Utils
             var end = str.Substring(str.Length - 1, 1);
             return end == "a" ? "she" : "he";
         }
-        
-        public static string FoldToStringBy<T>(this IList<T> list, Func<T, string> selector, string delimiter = ", ")
+
+        public static string FoldToStringBy<T>(this IEnumerable<T> enumerable, Func<T, string> selector,
+            string delimiter = ", ", string emptyResult="")
         {
-            if (list.Count==0) return "";
+            var list = enumerable as IList<T> ?? enumerable.ToList();
+            if (!list.Any()) return emptyResult;
             return list.Select(selector).Aggregate((a, s) => string.Format("{0}{1}{2}", a, delimiter, s));
         }
 
         public static string IfNull(this string str, int? n)
         {
-            return n == null ?  str: string.Format("{0}", n);
+            return n == null ? str : string.Format("{0}", n);
         }
-
     }
 }
