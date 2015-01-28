@@ -8,7 +8,8 @@
     // >> View: Case/Relations
 }
 @*// ================================================================================== []*@
-@functions{
+@functions
+{
 
     private string RelationsList(Func<MemberModel, bool> predicate)
     {
@@ -30,7 +31,6 @@
 
 @*// ================================================================================== []*@
 <h2>@Model.ShortInfo</h2>
-
 <ul>
     @{
         foreach (var member in Model.Members)
