@@ -33,8 +33,7 @@
                     action == Action.InnocentEvidence ||
                     action == Action.MurdererEvidence);
         }
-
-
+        
         public static string VerbalTemplate(this Action action)
         {
             switch (action)

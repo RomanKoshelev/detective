@@ -25,16 +25,10 @@
             @if (Model.State != State.Finished)
             {
                 <li>
-                    Murderers left: @("Unknown".IfNull(Model.MurderersLeft))
-                </li>
-                <li>
                     Last night evidences num: @("Unknown".IfNull(Model.LastNightEvidencesNum))
                 </li>
-            }
-            else
-            {
                 <li>
-                    Winner: @Model.Winner
+                    Murderers left: @("Unknown".IfNull(Model.MurderersLeft))
                 </li>
             }
         </ul>
@@ -83,19 +77,19 @@
         Answers:
         @{ Html.RenderPartial("~/Views/Process/Simple/Answer.cshtml", Model.History, ViewData); }
     </li>
+
     @if (Model.State != State.Finished)
     {
         <li>
             Actions:
             @{ Html.RenderPartial("~/Views/Process/Simple/UserAction.cshtml", Model.UserActions, ViewData); }
         </li>
-        <li>
-            History:
-            @{ Html.RenderPartial("~/Views/Process/Simple/History.cshtml", Model.History, ViewData); }
-        </li>
     }
     else
     {
+        <li>
+            <b>Winner: @Model.Winner</b>
+        </li>
         <li>
             History:
             @{ Html.RenderPartial("~/Views/Process/Simple/History.cshtml", Model.History, ViewData); }

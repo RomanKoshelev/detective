@@ -1,4 +1,3 @@
-using System;
 using Papagames.Detective.Core.Game;
 
 namespace Papagames.Detective.App.Web.Models
@@ -9,10 +8,11 @@ namespace Papagames.Detective.App.Web.Models
         {
             Agent = new MemberModel(record.Agent);
             Subject = new MemberModel(record.Subject);
+            Action = record.Action;
         }
 
+        public Action Action { get; private set; }
         public MemberModel Subject { get; private set; }
-
         public MemberModel Agent { get; private set; }
     }
 }
