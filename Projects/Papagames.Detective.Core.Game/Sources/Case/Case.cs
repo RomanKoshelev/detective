@@ -8,21 +8,19 @@ namespace Papagames.Detective.Core.Game
     {
         public Case(IWorld world, int membersNum, int murderersNum)
         {
+            Id = (Identifier) 0;
+            InitMembers();
+
             World = world;
             MembersNum = membersNum;
             MurderersNum = murderersNum;
-
-            Id = (Identifier) 0;
-            Init();
-
             MurderersNumIsOpen = true;
             PrisonerRoleIsOpen = true;
             VictimRoleIsOpen = true;
+            EvidencesNumIsOpen = true;
         }
 
         public Identifier Id { get; set; }
-
-        public IWorld World { get; private set; }
         public IList<Member> Members { get; private set; }
         public Member Detective { get; private set; }
 
@@ -63,8 +61,12 @@ namespace Papagames.Detective.Core.Game
 
         // ===================================================================================== []
         // IOptopns
+        public IWorld World { get; private set; }
+        public int MurderersNum { get; private set; }
+        public int MembersNum { get; private set; }
         public bool PrisonerRoleIsOpen { get; private set; }
         public bool VictimRoleIsOpen { get; private set; }
         public bool MurderersNumIsOpen { get; private set; }
+        public bool EvidencesNumIsOpen { get; private set; }
     }
 }

@@ -46,6 +46,19 @@ namespace Papagames.Detective.App.Web.Models
             get { return Process.Winner; }
         }
 
+
+        // ===================================================================================== []
+        // Statistics
+        public int? LastNightEvidencesNum
+        {
+           get { return Process.LastNightEvidencesOpenNum; }
+        }
+
+        public int? MurderersLeft
+        {
+            get { return Process.ActiveMurderersOpenNum; }
+        }
+
         // ===================================================================================== []
         // Members
         public IList<MemberModel> ActiveMembers
@@ -76,11 +89,6 @@ namespace Papagames.Detective.App.Web.Models
                     .OrderBy(m => m.LastActivityaDay)
                     .ToList();
             }
-        }
-
-        public int? MurderersLeft
-        {
-            get { return Process.ActiveMurderersOpenNum; }
         }
 
         // ===================================================================================== []

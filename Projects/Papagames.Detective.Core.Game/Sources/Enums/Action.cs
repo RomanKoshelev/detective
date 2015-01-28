@@ -10,12 +10,21 @@
         Answer,
         Posthumous,
         Arrest,
-        EmotionOnMurder,
-        EmotionOnArrest
+        MurderEmotion,
+        ArrestEmotion,
     }
 
     public static class ActionExtension
     {
+        public static bool IsEvidence(this Action action)
+        {
+            return action == Action.MurdererEvidence || action == Action.InnocentEvidence;
+        }
+        public static bool IsEmotion(this Action action)
+        {
+            return action == Action.MurderEmotion|| action == Action.ArrestEmotion;
+        }
+
         public static string VerbalTemplate(this Action action)
         {
             switch (action)

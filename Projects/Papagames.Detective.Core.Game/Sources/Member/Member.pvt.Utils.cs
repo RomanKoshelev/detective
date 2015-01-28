@@ -10,7 +10,7 @@ namespace Papagames.Detective.Core.Game
         private Role DoGetOpenRole()
         {
             Assert.NotNull(Process,"Process is null");
-            return Schema.Master.GetOpenRole(Case, this, Process.State);
+            return Master.GetOpenRole(Case, this, Process.State);
         }
 
         private Role DoGetRole()

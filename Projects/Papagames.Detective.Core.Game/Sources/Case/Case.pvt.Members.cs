@@ -7,7 +7,7 @@ namespace Papagames.Detective.Core.Game
 {
     public partial class Case
     {
-        private void Init()
+        private void InitMembers()
         {
             CreateDetective();
             CreateMembers();
@@ -51,12 +51,9 @@ namespace Papagames.Detective.Core.Game
             return Members.First(m=>m.Number == number);
         }
 
-        private int MurderersNum { get; set; }
-        private int MembersNum { get; set; }
-
         private int? DoGetMurderersOpenNum()
         {
-            return Schema.Master.GetMurderersOpenNum(this, Murderers.Count);
+            return Master.GetMurderersOpenNum(this, Murderers.Count);
         }
     }
 }

@@ -17,7 +17,7 @@
         Process Info:
         <ul>
             <li>
-                @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })
+                @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new {id = Model.CaseId}, new {name = "case"})
             </li>
             <li>
                 State: @Model.State
@@ -26,6 +26,9 @@
             {
                 <li>
                     Murderers left: @("Unknown".IfNull(Model.MurderersLeft))
+                </li>
+                <li>
+                    Last night evidences num: @("Unknown".IfNull(Model.LastNightEvidencesNum))
                 </li>
             }
             else
@@ -55,12 +58,13 @@
         </ul>
     </li>
 
-    <li>Emotions:
+    <li>
+        Emotions:
         <ul>
             <li>
                 On Murder:
                 @{
-                    ViewData["EmotionType"] = Action.EmotionOnMurder;
+                    ViewData["EmotionType"] = Action.MurderEmotion;
                     Html.RenderPartial("~/Views/Process/Common/EmotionList.cshtml", Model.History, ViewData);
                 }
             </li>
@@ -68,7 +72,7 @@
             <li>
                 On Arrest:
                 @{
-                    ViewData["EmotionType"] = Action.EmotionOnArrest;
+                    ViewData["EmotionType"] = Action.ArrestEmotion;
                     Html.RenderPartial("~/Views/Process/Common/EmotionList.cshtml", Model.History, ViewData);
                 }
             </li>

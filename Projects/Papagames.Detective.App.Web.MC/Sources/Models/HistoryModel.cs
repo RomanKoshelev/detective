@@ -41,7 +41,7 @@ namespace Papagames.Detective.App.Web.Models
         private History History { get; set; }
         private IList<EmotionModel> Emotions(Action action)
         {
-            Assert.IsTrue(History.IsActionEmotional(action), "Wrong emotion [{0}]", action);
+            Assert.IsTrue(action.IsEmotion(), "Wrong emotion [{0}]", action);
             return History.Records.OrderBy(r=>r.Day).Where(r => r.Action == action).Select(r => new EmotionModel(r)).ToList();
         }
     }

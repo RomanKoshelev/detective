@@ -37,9 +37,9 @@ namespace Papagames.Detective.App.Console
         private static Action EmotionReactionOn(Action eventAction)
         {
             return eventAction == Action.Murder
-                ? Action.EmotionOnMurder
+                ? Action.MurderEmotion
                 : eventAction == Action.Arrest
-                    ? Action.EmotionOnArrest
+                    ? Action.ArrestEmotion
                     : Action.Error;
         }
 
