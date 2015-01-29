@@ -72,8 +72,8 @@ namespace Papagames.Detective.Core.Game
             UpdateMembersLastActiviryDay();
             HistoryStoreParticipations();
 
-            DoEvidence();
             DoMurder();
+            DoEvidence();
 
             SetState(state);
         }
