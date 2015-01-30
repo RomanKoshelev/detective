@@ -9,7 +9,7 @@ namespace Papagames.Detective.App.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View(new SchemeModel());
+            return View(new SchemaModel());
         }
 
         public ActionResult Info(int id)
@@ -21,7 +21,7 @@ namespace Papagames.Detective.App.Web.Controllers
         public ActionResult Run(int id)
         {
             var caseId = (Identifiable<int, Case>.Identifier)id;
-            var processId = SchemeModel.RunNewProcess(caseId, State.Questioning);
+            var processId = SchemaModel.RunNewProcess(caseId, State.Questioning);
 
             return RedirectToAction("Play", "Process", new { id = processId });
         }

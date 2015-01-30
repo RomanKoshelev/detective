@@ -5,7 +5,7 @@ using Papagames.Detective.Core.Game;
 
 namespace Papagames.Detective.App.Web.Models
 {
-    public class SchemeModel
+    public class SchemaModel
     {
         // ===================================================================================== []
         // Public
@@ -21,8 +21,8 @@ namespace Papagames.Detective.App.Web.Models
 
         public static Process.Identifier RunNewProcess(Case.Identifier caseId, State state=State.Initial)
         {
-            var procId = Scheme.NewProcess(caseId);
-            Scheme.SkipProcessTo(procId, state);
+            var procId = Schema.NewProcess(caseId);
+            Schema.SkipProcessTo(procId, state);
             return procId;
         }
 
@@ -30,11 +30,11 @@ namespace Papagames.Detective.App.Web.Models
         // Pivate
         private static IList<CaseModel> DoGetCases()
         {
-            return Scheme.Cases.Select(c => new CaseModel(c.Id)).ToList();
+            return Schema.Cases.Select(c => new CaseModel(c.Id)).ToList();
         }
         private List<ProcessModel> DoGetProcesses()
         {
-            return Scheme.Processes.Select(p => new ProcessModel(p.Id)).ToList();
+            return Schema.Processes.Select(p => new ProcessModel(p.Id)).ToList();
         }
     }
 }

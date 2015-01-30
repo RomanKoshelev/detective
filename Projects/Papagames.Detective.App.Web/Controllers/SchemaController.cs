@@ -3,11 +3,11 @@ using Papagames.Detective.App.Web.Models;
 
 namespace Papagames.Detective.App.Web.Controllers
 {
-    public class SchemeController : Controller
+    public class SchemaController : Controller
     {
         public ActionResult Index()
         {
-            return View(new SchemeModel());
+            return View(new SchemaModel());
         }
     }
 }

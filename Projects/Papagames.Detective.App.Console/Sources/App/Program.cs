@@ -10,7 +10,7 @@ namespace Papagames.Detective.App.Console
         {
             try
             {
-                PlayGame(Scheme.WorldId.Simpsons, 8, 3, autoMode: false);
+                PlayGame(Schema.WorldId.Simpsons, 8, 3, autoMode: false);
             }
             catch (Exception e)
             {
@@ -18,13 +18,13 @@ namespace Papagames.Detective.App.Console
             }
         }
 
-        private static void PlayGame(Scheme.WorldId worldId, int memberNum, int murderNum, bool autoMode = false)
+        private static void PlayGame(Schema.WorldId worldId, int memberNum, int murderNum, bool autoMode = false)
         {
             Player.SilenceMode = false;
             Player.AutoMode = autoMode;
 
-            var gcase = Scheme.NewCase(worldId, memberNum, murderNum);
-            var gproc = Scheme.NewProcess(gcase);
+            var gcase = Schema.NewCase(worldId, memberNum, murderNum);
+            var gproc = Schema.NewProcess(gcase);
 
             Player.Run(gproc);
         }
