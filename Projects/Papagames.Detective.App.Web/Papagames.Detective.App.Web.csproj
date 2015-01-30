@@ -184,7 +184,7 @@
   <ItemGroup>
     <Content Include="Content\Themes\Table\Site.css" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\Themes\Default\Site.css" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="App_Code\Shared.cshtml" />
     <None Include="Properties\PublishProfiles\pgs-detective.pubxml" />
@@ -196,8 +196,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\Layout.cshtml" />
+    <Content Include="Views\Shared\Layouts\Error.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Case\Index.cshtml" />
     <Content Include="Views\Case\Info.cshtml" />
@@ -215,6 +214,8 @@
     <Content Include="Views\Process\Table\Play.cshtml" />
     <Content Include="Views\Shared\Layouts\Table.cshtml" />
     <Content Include="Views\Shared\Parts\TopMenu.cshtml" />
+    <Content Include="Views\Shared\Parts\BottomLinks.cshtml" />
+    <None Include="Views\Shared\Layouts\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

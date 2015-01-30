@@ -11,22 +11,14 @@
 
 <body>
 
-@{
-    Html.RenderPartial("~/Views/Shared/Parts/TopMenu.cshtml");
-}
-
-
+@{ Html.RenderPartial("~/Views/Shared/Parts/TopMenu.cshtml"); }
+    
 <h1>@ViewBag.Title</h1>
 
 @RenderBody()
 
-<br><br><hr>
-<a href="http://localhost/detective" title="Local Issue">Local</a>
-| <a href="http://pgs-detective.azurewebsites.net/" title="Deployed Issue">Internet</a>
-| <a href="https://manage.windowsazure.com/@("@")romakoshgmail.onmicrosoft.com#Workspaces/WebsiteExtension/Website/pgs-detective/deployments" title="Site Control Panel">Azure</a>
-| <a href="https://rk-dev.atlassian.net/secure/RapidBoard.jspa?rapidView=1&view=detail" title="Scrum Board">Jira</a>
-| <a href="https://github.com/RomanKoshelev/detective" title="Code Repository">Github</a>
-| <a href="https://docs.google.com/document/d/1lIjCzt6j9BzGUCRqlUc_kvBMFaaieHP4n5MG_BvKoDs/" title="Documentation">GDocs</a>
+@{ Html.RenderPartial("~/Views/Shared/Parts/BottomLinks.cshtml"); }
+
 
 </body>
 </html>
