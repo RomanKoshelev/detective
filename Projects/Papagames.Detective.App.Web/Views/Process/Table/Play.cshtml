@@ -10,6 +10,13 @@
     ViewData["id"] = Model.Id;
 }
 @*// ================================================================================== []*@
+@helper TrTd(string content)
+{
+    <tr>
+        <td> @content </td>
+    </tr>
+}
+@*// ================================================================================== []*@
 @helper ProcessInfo()
 {
     <h2>@Model.ShortInfo</h2>
@@ -108,19 +115,21 @@
 @helper Table()
 {
     <table width="600">
-        <tr style="vertical-align: top;">
-            <td width="300">
-                @Members()
-                @Actions()
-            </td>
-            <td width="300">
-                @Answers()
-                @Emotions()
-                @History()
-            </td>
+        <tr>
+            <td>@Members()</td>
+        </tr>
+        <tr>
+            <td>@Actions()</td>
+        </tr>
+        <tr>
+            <td>@Emotions()</td>
+        </tr>
+        <tr>
+            <td>@History()</td>
         </tr>
     </table>
 }
+
 @*// ================================================================================== []*@
 
 
