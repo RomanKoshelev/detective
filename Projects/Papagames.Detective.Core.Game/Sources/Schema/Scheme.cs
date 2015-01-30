@@ -3,11 +3,11 @@ using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
-    public static partial class Schema
+    public static partial class Scheme
     {
         // ===================================================================================== []
         // Constructor
-        static Schema()
+        static Scheme()
         {
             InitMaster();
             InitWorlds();

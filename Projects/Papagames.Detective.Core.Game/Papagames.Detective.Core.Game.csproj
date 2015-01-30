@@ -103,7 +103,7 @@
     <Compile Include="Sources\Schema\Schema.pvt.Worlds.cs" />
     <Compile Include="Sources\Schema\Schema.pvt.Cases.cs" />
     <Compile Include="Sources\Schema\Schema.pvt.Processes.cs" />
-    <Compile Include="Sources\Schema\Schema.cs" />
+    <Compile Include="Sources\Schema\Scheme.cs" />
     <Compile Include="Sources\Member\Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\Pack\Pack\Pack.cs" />

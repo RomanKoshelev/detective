@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Papagames.Detective.Core.Game
 {
-    public static partial class Schema
+    public static partial class Scheme
     {
         private static readonly IDictionary<WorldId, IWorld> WorldMap = new Dictionary<WorldId, IWorld>();
 

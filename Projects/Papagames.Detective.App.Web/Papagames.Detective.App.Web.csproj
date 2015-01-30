@@ -164,7 +164,7 @@
     <Compile Include="Controllers\CaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProcessController.cs" />
-    <Compile Include="Controllers\SchemaController.cs" />
+    <Compile Include="Controllers\SchemeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -178,7 +178,7 @@
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\MemberModel.cs" />
     <Compile Include="Models\ProcessModel.cs" />
-    <Compile Include="Models\SchemaModel.cs" />
+    <Compile Include="Models\SchemeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -270,7 +270,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Case\Index.cshtml" />
     <Content Include="Views\Case\Info.cshtml" />
-    <Content Include="Views\Schema\Index.cshtml" />
+    <Content Include="Views\Scheme\Index.cshtml" />
     <Content Include="Views\Process\Index.cshtml" />
     <Content Include="Views\Process\Info.cshtml" />
     <Content Include="Views\Process\Play.cshtml" />

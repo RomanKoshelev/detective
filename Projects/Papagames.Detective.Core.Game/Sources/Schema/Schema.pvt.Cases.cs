@@ -7,7 +7,7 @@ using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
-    public static partial class Schema
+    public static partial class Scheme
     {
         private static void InitCases()
         {
