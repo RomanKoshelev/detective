@@ -4,8 +4,8 @@
 @using Action = Papagames.Detective.Core.Game.Action
 @model ProcessModel
 @{
-    // >> View: Process/Play/Simple
-    ViewBag.Title = "Play Detective Process [simple view]";
+    // >> View: Process/Play/Table
+    ViewBag.Title = "Play Detective Process [table view]";
     Layout = "~/Views/Shared/Layout.cshtml";
     ViewData["id"] = Model.Id;
 }
@@ -40,15 +40,15 @@
         <ul>
             <li>
                 Active:
-                @{ Html.RenderPartial("~/Views/Process/Simple/Member.cshtml", Model.ActiveMembers, ViewData); }
+                @{ Html.RenderPartial("~/Views/Process/List/Play/Member.cshtml", Model.ActiveMembers, ViewData); }
             </li>
             <li>
                 Prisoners:
-                @{ Html.RenderPartial("~/Views/Process/Simple/Member.cshtml", Model.Prisoners, ViewData); }
+                @{ Html.RenderPartial("~/Views/Process/List/Play/Member.cshtml", Model.Prisoners, ViewData); }
             </li>
             <li>
                 Victims:
-                @{ Html.RenderPartial("~/Views/Process/Simple/Member.cshtml", Model.Victims, ViewData); }
+                @{ Html.RenderPartial("~/Views/Process/List/Play/Member.cshtml", Model.Victims, ViewData); }
             </li>
         </ul>
     </li>
@@ -60,7 +60,7 @@
                 On Murder:
                 @{
                     ViewData["EmotionType"] = Action.MurderEmotion;
-                    Html.RenderPartial("~/Views/Process/Simple/Emotion.cshtml", Model.History, ViewData);
+                    Html.RenderPartial("~/Views/Process/List/Play/Emotion.cshtml", Model.History, ViewData);
                 }
             </li>
 
@@ -68,7 +68,7 @@
                 On Arrest:
                 @{
                     ViewData["EmotionType"] = Action.ArrestEmotion;
-                    Html.RenderPartial("~/Views/Process/Simple/Emotion.cshtml", Model.History, ViewData);
+                    Html.RenderPartial("~/Views/Process/List/Play/Emotion.cshtml", Model.History, ViewData);
                 }
             </li>
         </ul>
@@ -76,14 +76,14 @@
 
     <li>
         Answers:
-        @{ Html.RenderPartial("~/Views/Process/Simple/Answer.cshtml", Model.History, ViewData); }
+        @{ Html.RenderPartial("~/Views/Process/List/Play/Answer.cshtml", Model.History, ViewData); }
     </li>
 
     @if (Model.State != State.Finished)
     {
         <li>
             Actions:
-            @{ Html.RenderPartial("~/Views/Process/Simple/UserAction.cshtml", Model.UserActions, ViewData); }
+            @{ Html.RenderPartial("~/Views/Process/List/Play/UserAction.cshtml", Model.UserActions, ViewData); }
         </li>
     }
     else
@@ -93,7 +93,7 @@
         </li>
         <li>
             History:
-            @{ Html.RenderPartial("~/Views/Process/Simple/History.cshtml", Model.History, ViewData); }
+            @{ Html.RenderPartial("~/Views/Process/List/Play/History.cshtml", Model.History, ViewData); }
         </li>
     }
 </ul>

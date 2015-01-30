@@ -274,16 +274,18 @@
     <Content Include="Views\Process\Index.cshtml" />
     <Content Include="Views\Process\Info.cshtml" />
     <Content Include="Views\Process\Play.cshtml" />
-    <Content Include="Views\Process\Simple\UserAction.cshtml" />
-    <Content Include="Views\Process\Simple\Member.cshtml" />
-    <Content Include="Views\Process\Simple\Answer.cshtml" />
-    <Content Include="Views\Process\Simple\Emotion.cshtml" />
-    <Content Include="Views\Process\Simple\History.cshtml" />
+    <Content Include="Views\Process\List\Play\UserAction.cshtml" />
+    <Content Include="Views\Process\List\Play\Member.cshtml" />
+    <Content Include="Views\Process\List\Play\Answer.cshtml" />
+    <Content Include="Views\Process\List\Play\Emotion.cshtml" />
+    <Content Include="Views\Process\List\Play\History.cshtml" />
     <Content Include="Views\Case\Relations.cshtml" />
-    <Content Include="Views\Process\Simple\Play.cshtml" />
+    <Content Include="Views\Process\List\Play.cshtml" />
+    <Content Include="Views\Process\Table\Play.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Process\Table\Play\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
