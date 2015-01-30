@@ -1,14 +1,15 @@
-﻿@model Papagames.Detective.App.Web.Models.ProcessModel
+﻿@using Papagames.Detective.Core.Game
+@using Papagames.Detective.Utils
+@using Papagames.Detective.App.Web.Models
+@using Action = Papagames.Detective.Core.Game.Action
+@model ProcessModel
 @{
-    // >> View: Process/Play 
-    Html.RenderPartial("~/Views/Process/Simple/Play.cshtml", Model, ViewData);
+    // >> View: Process/Play/Simple
+    ViewBag.Title = "Play Detective Process [simple view]";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    ViewData["id"] = Model.Id;
 }
 
-
-@{
-}
-
-@*
 <h2>@Model.ShortInfo</h2>
 
 <ul>
@@ -95,4 +96,4 @@
             @{ Html.RenderPartial("~/Views/Process/Simple/History.cshtml", Model.History, ViewData); }
         </li>
     }
-</ul>*@
+</ul>

@@ -280,6 +280,7 @@
     <Content Include="Views\Process\Simple\Emotion.cshtml" />
     <Content Include="Views\Process\Simple\History.cshtml" />
     <Content Include="Views\Case\Relations.cshtml" />
+    <Content Include="Views\Process\Simple\Play.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
