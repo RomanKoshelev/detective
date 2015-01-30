@@ -39,15 +39,15 @@
         <ul>
             <li>
                 Active:
-                @{ Html.RenderPartial("~/Views/Process/Simple/Member.cshtml", Model.ActiveMembers, ViewData); }
+                @{ Html.RenderPartial("~/Views/Process/List/Common/Member.cshtml", Model.ActiveMembers, ViewData); }
             </li>
             <li>
                 Prisoners:
-                @{ Html.RenderPartial("~/Views/Process/Simple/Member.cshtml", Model.Prisoners, ViewData); }
+                @{ Html.RenderPartial("~/Views/Process/List/Common/Member.cshtml", Model.Prisoners, ViewData); }
             </li>
             <li>
                 Victims:
-                @{ Html.RenderPartial("~/Views/Process/Simple/Member.cshtml", Model.Victims, ViewData); }
+                @{ Html.RenderPartial("~/Views/Process/List/Common/Member.cshtml", Model.Victims, ViewData); }
             </li>
         </ul>
     </li>

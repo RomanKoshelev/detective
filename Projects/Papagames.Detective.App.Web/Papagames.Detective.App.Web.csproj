@@ -275,7 +275,7 @@
     <Content Include="Views\Process\Info.cshtml" />
     <Content Include="Views\Process\Play.cshtml" />
     <Content Include="Views\Process\List\Play\UserAction.cshtml" />
-    <Content Include="Views\Process\List\Play\Member.cshtml" />
+    <Content Include="Views\Process\List\Common\Member.cshtml" />
     <Content Include="Views\Process\List\Play\Answer.cshtml" />
     <Content Include="Views\Process\List\Play\Emotion.cshtml" />
     <Content Include="Views\Process\List\Play\History.cshtml" />
