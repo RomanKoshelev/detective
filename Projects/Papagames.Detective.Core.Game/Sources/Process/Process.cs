@@ -114,9 +114,9 @@ namespace Papagames.Detective.Core.Game
             DoInit();
         }
 
-        public void RunFirstNight()
+        public void RunFirstNightUntilQuestioning()
         {
-            DoRunFirstNight();
+            DoRunFirstNightUntilQuestioning();
         }
 
         // ===================================================================================== []

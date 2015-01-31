@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Papagames.Detective.App.Web.Models;
 using Papagames.Detective.Core.Game;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.App.Web.Controllers
 {
@@ -23,8 +24,19 @@ namespace Papagames.Detective.App.Web.Controllers
             var processId = (Process.Identifier) id;
             if (actionType != null)
             {
-                Schema.ExecuteProcess(processId, (Process.UserAction.ActionType)actionType, actionParams, autoSkip: true);
+                Schema.ExecuteProcess(processId, (Process.UserAction.ActionType)actionType, actionParams);
                 return RedirectToAction("Play", "Process", new {id = processId});
+            }
+            return View(new ProcessModel(processId));
+        }
+
+        public ActionResult NewPlay(int id, int? actionType, params int[] actionParams)
+        {
+            var processId = (Process.Identifier)id;
+            if (actionType != null)
+            {
+                Schema.ExecuteProcess(processId, (Process.UserAction.ActionType)actionType, actionParams);
+                return RedirectToAction("NewPlay", "Process", new { id = processId });
             }
             return View(new ProcessModel(processId));
         }

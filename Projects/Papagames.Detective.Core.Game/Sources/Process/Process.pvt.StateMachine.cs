@@ -122,9 +122,9 @@ namespace Papagames.Detective.Core.Game
             throw new DetectiveException("State {0} can't be run", state);
         }
 
-        private void DoRunFirstNight()
+        private void DoRunFirstNightUntilQuestioning()
         {
-            do DoStep(); while (State != State.Morning);
+            do DoStep(); while (State != State.Questioning);
         }
     }
 }

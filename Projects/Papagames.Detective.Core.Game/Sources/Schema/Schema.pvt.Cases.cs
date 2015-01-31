@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Globalization;
 using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Utils;
@@ -31,7 +30,7 @@ namespace Papagames.Detective.Core.Game
         private static void RunCaseProcessToGetVictims(Case gcase)
         {
             var proc = new Process(gcase);
-            proc.RunFirstNight();
+            proc.RunFirstNightUntilQuestioning();
             proc.Stop();
 
             proc.Victims.ForEach(v => gcase.FindMember(v.Number).IsVictim = true);

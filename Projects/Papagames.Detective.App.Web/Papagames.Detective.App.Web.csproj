@@ -182,7 +182,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Themes\Table\Site.css" />
+    <Content Include="Content\Themes\Classic\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Themes\Default\Site.css" />
     <Content Include="ApplicationInsights.config" />
@@ -211,15 +211,16 @@
     <Content Include="Views\Process\List\Play\History.cshtml" />
     <Content Include="Views\Case\Relations.cshtml" />
     <Content Include="Views\Process\List\Play.cshtml" />
-    <Content Include="Views\Process\Table\Play.cshtml" />
-    <Content Include="Views\Shared\Layouts\Table.cshtml" />
+    <Content Include="Views\Process\Classic\Play.cshtml" />
+    <Content Include="Views\Shared\Layouts\Classic.cshtml" />
     <Content Include="Views\Shared\Parts\TopMenu.cshtml" />
     <Content Include="Views\Shared\Parts\BottomLinks.cshtml" />
     <Content Include="Views\Shared\Layouts\Default.cshtml" />
+    <Content Include="Views\Process\NewPlay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Process\Table\Play\" />
+    <Folder Include="Views\Process\Classic\Play\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
