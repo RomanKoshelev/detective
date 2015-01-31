@@ -15,7 +15,6 @@ namespace Papagames.Detective.Core.Game
 
         private static void CreateStartProcesses(Case c)
         {
-            // >> CreateStartProcesses
             const int procNum = 1;
             for (var i = 0; i < procNum; i++)
             {

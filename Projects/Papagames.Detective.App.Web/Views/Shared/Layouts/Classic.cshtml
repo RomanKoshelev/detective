@@ -1,6 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 
+@{
+    // >> View: Layputs/Classic/
+}
+
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width"/>
@@ -13,8 +17,6 @@
 
 @{ Html.RenderPartial("~/Views/Shared/Parts/TopMenu.cshtml"); }
     
-<h1>@ViewBag.Title</h1>
-
 @RenderBody()
 
 @{ Html.RenderPartial("~/Views/Shared/Parts/BottomLinks.cshtml"); }
