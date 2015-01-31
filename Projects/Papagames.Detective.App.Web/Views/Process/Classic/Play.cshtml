@@ -1,0 +1,11 @@
+﻿@using Papagames.Detective.Core.Game
+@using Papagames.Detective.Utils
+@using Papagames.Detective.App.Web.Models
+@using Action = Papagames.Detective.Core.Game.Action
+@model ProcessModel
+@{
+    // >> View: Process/Classic/Play
+    ViewBag.Title = "Crime Nuts Case #"+Model.CaseId;
+    Layout = "~/Views/Shared/Layouts/Classic.cshtml";
+    ViewData["id"] = Model.Id;
+}
