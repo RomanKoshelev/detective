@@ -1,17 +1,29 @@
-﻿body {
-    font-size: 0.85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+﻿/*
+>> Classic/CSS
+*/
+
+body {
+    font-size: 1.5em;
+
+    font-family: 'Cousine';
+/*    
+    font-family: 'Roboto Slab', serif;
+    font-family: 'Cousine';
+    font-family: 'Roboto', sans-serif; 
+
+
+*/
+
     color: #4cff00;
     background-color: #000000;
 }
 
-header, footer, nav, section {
-    display: block;
-}
+header, footer, nav, section { display: block; }
 
 
 /* Styles for basic forms
 -----------------------------------------------------------*/
+
 fieldset {
     border: 1px solid #ddd;
     padding: 0 1.4em 1.4em 1.4em;
@@ -23,28 +35,19 @@ legend {
     font-weight: bold;
 }
 
-textarea {
-    min-height: 75px;
-}
+textarea { min-height: 75px; }
 
-.editor-label {
-    margin: 1em 0 0 0;
-}
+.editor-label { margin: 1em 0 0 0; }
 
-.editor-field {
-    margin: 0.5em 0 0 0;
-}
+.editor-field { margin: 0.5em 0 0 0; }
 
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-.field-validation-error {
-    color: #f00;
-}
 
-.field-validation-valid {
-    display: none;
-}
+.field-validation-error { color: #f00; }
+
+.field-validation-valid { display: none; }
 
 .input-validation-error {
     border: 1px solid #f00;
@@ -56,6 +59,4 @@ textarea {
     color: #f00;
 }
 
-.validation-summary-valid {
-    display: none;
-}
+.validation-summary-valid { display: none; }

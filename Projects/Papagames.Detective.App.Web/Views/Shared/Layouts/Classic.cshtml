@@ -2,25 +2,20 @@
 <html>
 
 @{
-    // >> View: Layputs/Classic/
+    // >> View: Layouts/Classic/
 }
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width"/>
+    <link href='http://fonts.googleapis.com/css?family=Cousine|Roboto+Slab:400,700|Roboto&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/Themes/Classic/css")
 </head>
 
 
 <body>
-
-@{ Html.RenderPartial("~/Views/Shared/Parts/TopMenu.cshtml"); }
-    
-@RenderBody()
-
-@{ Html.RenderPartial("~/Views/Shared/Parts/BottomLinks.cshtml"); }
-
-
+    @RenderBody()
 </body>
+
 </html>
