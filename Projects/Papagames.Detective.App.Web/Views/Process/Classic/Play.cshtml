@@ -1,19 +1,52 @@
-﻿@using Papagames.Detective.Core.Game
-@using Papagames.Detective.Utils
-@using Papagames.Detective.App.Web.Models
-@using Action = Papagames.Detective.Core.Game.Action
-@model ProcessModel
+﻿@model Papagames.Detective.App.Web.Models.ProcessModel
 @{
     // >> View: Process/Classic/Play
-    ViewBag.Title = "Crime Nuts Case #"+Model.CaseId;
+    ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewData["id"] = Model.Id;
 }
 
-<dev>
-    Crime Nuts Case #17, Find all murderers&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <u>Home</u> | <u>Cases</u> | <u>Help</u>
-</dev>
-        <br />
+@helper Header()
+{
+    <div class="det-page-header">
+        <div class="det-green-pad">
+            <div class="det-green-pad-inner">
+                <div class="det-green-pad-inner-left">
+                    Crime Nuts Case #17, Find all murderers
+                </div>
+                <div class="det-green-pad-inner-right">
+                    Home | Cases | Help
+                </div>
+            </div>
+        </div>
+        <div class="det-red-line"></div>
+    </div>
+}
+@helper Footer()
+{
+    <div class="det-page-footer">
+        <div class="det-red-line"></div>
+        <div class="det-green-pad">
+            <div class="det-green-pad-inner">
+                <div class="det-green-pad-inner-left">
+                    Crime Nuts (c) RKDev 2015
+                </div>
+                <div class="det-green-pad-inner-right">
+                    Local | Internet | Jira | Azura | Github
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@helper Content()
+{
+    <div class="det-page-content">
+        <h2>Content (expands)</h2>
+    </div>
+}
 
-
-<img src="~/Content/Images/DetectiveDesign.1.png" width="800"/>
+<div class="det-page">
+    @Header()
+    @Content()
+    @Footer()
+</div>
