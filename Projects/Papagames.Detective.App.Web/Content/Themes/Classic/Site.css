@@ -19,21 +19,25 @@ html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset {
     background-color: #000000;
 }
 
-html, body {
-    min-width: 800px;
+html, body, .det-body {
     height: 100%;
+    width: 100%;
+    background: #051104;
 }
 
 .det-page {
     display: table;
-    width: 100%;
     height: 100%;
+    width: 100%;
+    min-width: 800px;
+    max-width: 1000px;
 }
 
-.det-page-footer, .det-page-header {
+.det-page-footer, .det-page-content, .det-page-header {
     display: table-row;
     height: 1px;
     overflow: hidden;
+    width: 100%;
 }
 
 .det-page-content { height: auto; }
@@ -74,8 +78,8 @@ html, body {
     text-align: left;
     vertical-align: top;
     background-color: inherit;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .det-green-pad-inner-right { text-align: right; }

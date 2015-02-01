@@ -41,12 +41,21 @@
 @helper Content()
 {
     <div class="det-page-content">
+        <br>
         <h2>Content (expands)</h2>
     </div>
 }
 
-<div class="det-page">
+<div align="center" class="det-body">
+    <div class="det-page" align="center">
+        @Header()
+        @Content()
+        @Footer()
+    </div>
+</div>
+
+@*<div class="det-page" align="center">
     @Header()
     @Content()
     @Footer()
-</div>
+</div>*@
