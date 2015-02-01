@@ -38,6 +38,7 @@
         </div>
     </div>
 }
+
 @helper Content()
 {
     <div class="det-page-content">
@@ -45,17 +46,7 @@
             Content
             <div class="det-dev">
                 Room
-                <div class="det-dev">
-                    Members top
-                    @Members()
-                </div>
-                <div class="det-dev height-300">
-                    Table
-                </div>
-                <div class="det-dev">
-                    Members bottom
-                    @Members()
-                </div>
+                @Room()
             </div>
             <div class="det-dev height-400">
                 Files
@@ -63,11 +54,28 @@
         </div>
     </div>
 }
+
+@helper Room()
+{
+    <div class="det-dev">
+        Members top
+        @Members()
+    </div>
+    <div class="det-dev">
+        Table
+        @TableDesktop()
+    </div>
+    <div class="det-dev">
+        Members bottom
+        @Members()
+    </div>
+}
+
 @helper Members()
 {
     <nav>
         <ul>
-            <li class="det-dev height-100"> 1 </li>
+            <li class="det-dev"> 1 </li>
             <li class="det-dev height-100"> 2 </li>
             <li class="det-dev height-100"> 3 </li>
             <li class="det-dev height-100"> 4 </li>
@@ -75,6 +83,108 @@
             <li class="det-dev height-100"> 6 </li>
         </ul>
     </nav>
+}
+
+@helper Cards()
+{
+    <nav>
+        <ul>
+            <li class="det-dev"> 1 </li>
+            <li class="det-dev"> 2 </li>
+            <li class="det-dev"> 3 </li>
+            <li class="det-dev"> 4 </li>
+            <li class="det-dev"> 5 </li>
+            <li class="det-dev"> 6 </li>
+        </ul>
+    </nav>
+}
+
+@helper TableDesktop()
+{
+    <div class="det-dev">
+        Cards top
+        @Cards()
+    </div>
+    <div class="det-dev">
+        Play desk
+        @PlayDesk()
+    </div>
+    <div class="det-dev">
+        Cards bottom
+        @Cards()
+    </div>
+}
+
+@helper History()
+{
+    @DaySummary("Day 1", "Summary")
+    @DaySummary("Day 2", "Summary")
+}
+@helper DaySummary(string day, string summary)
+{
+    <div class="det-dev">
+        <div class="det-dev raw">
+            <div class="det-dev cell width-100">
+                @day
+            </div>
+            <div class="det-dev cell width-auto">
+                @summary
+            </div>
+        </div>
+    </div>
+}
+
+@helper Today()
+{
+    <div class="det-dev raw">
+        <div class="det-dev cell width-100">
+            Day 3
+        </div>
+        <div class="det-dev cell width-auto">
+            Today Information
+            <div class="det-dev">
+                Murders
+            </div>
+            <div class="det-dev">
+                Evidences
+            </div>
+            <div class="det-dev">
+                Answers
+            </div>
+            <div class="det-dev">
+                Arrest
+            </div>
+        </div>
+    </div>
+}
+@helper PlayDesk()
+{
+    <div class="det-dev">
+        History
+        @History()
+    </div>
+    <div class="det-dev">
+        Today
+        @Today()
+    </div>
+    <div class="det-dev">
+        Result
+    </div>
+    <div class="det-dev">
+        Actions
+        <div class="det-dev">
+            Questioning
+        </div>
+        <div class="det-dev">
+            Arrest
+        </div>
+        <div class="det-dev">
+            Next Day
+        </div>
+        <div class="det-dev">
+            Reveal Details
+        </div>
+    </div>
 }
 
 

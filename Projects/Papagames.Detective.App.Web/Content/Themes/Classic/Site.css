@@ -43,6 +43,8 @@ html, body, .det-body {
 
 .width-all { width: 100% }
 
+.width-100 { width: 100px }
+
 .width-200 { width: 200px }
 
 .width-auto { width: auto }
