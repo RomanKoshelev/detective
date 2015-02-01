@@ -91,6 +91,11 @@ namespace Papagames.Detective.App.Web.Models
             }
         }
 
+        public IList<MemberModel> Members
+        {
+            get { return MakeMemberModelList(p => p.Members); }
+        }
+
         // ===================================================================================== []
         // History
         public HistoryModel History

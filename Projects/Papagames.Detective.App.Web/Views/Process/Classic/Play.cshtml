@@ -1,4 +1,24 @@
 ﻿@model Papagames.Detective.App.Web.Models.ProcessModel
+
+@functions {
+
+    private string MemberName(int i)
+    {
+        var name = Model.Members.Where(m => m.Number == i).Select(m => m.Name).FirstOrDefault();
+        return name ?? " ";
+    }
+
+    private bool MemberExists(int i)
+    {
+        return Model.Members.Any(m => m.Number == i);
+    }
+
+    private bool MemberIsActive(int i)
+    {
+        return Model.ActiveMembers.Any(m => m.Number == i);
+    }
+
+}
 @{
     // >> View: Process/Classic/Play
     ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
@@ -42,10 +62,8 @@
 @helper Content()
 {
     <div class="det-page-content">
-        <div class="det-dev width-auto">
-            Content
-            <div class="det-dev">
-                Room
+        <div class="det">
+            <div class="det">
                 @Room()
             </div>
             <div class="det-dev height-400">
@@ -57,30 +75,26 @@
 
 @helper Room()
 {
-    <div class="det-dev">
-        Members top
-        @Members()
+    <div id="members-top" class="det">
+        @Members(1, 6, true)
     </div>
-    <div class="det-dev">
+    <div class="det-dev height-300">
         Table
-        @TableDesktop()
+        @*@TableDesktop()*@
     </div>
-    <div class="det-dev">
-        Members bottom
-        @Members()
+    <div id="members-bottom" class="det">
+        @Members(7, 12, false)
     </div>
 }
 
-@helper Members()
+@helper Members(int first, int last, bool sideIsTop)
 {
     <nav>
         <ul>
-            <li class="det-dev"> 1 </li>
-            <li class="det-dev height-100"> 2 </li>
-            <li class="det-dev height-100"> 3 </li>
-            <li class="det-dev height-100"> 4 </li>
-            <li class="det-dev height-100"> 5 </li>
-            <li class="det-dev height-100"> 6 </li>
+            @for (var i = first; i <= last; i++)
+            {
+                @Member(i, sideIsTop)
+            }
         </ul>
     </nav>
 }
@@ -187,6 +201,41 @@
     </div>
 }
 
+@helper Member(int i, bool sideIsTop)
+{
+    <li id="member">
+        <div id="member-cell-aligment" align="center">
+            <div id="member-cell-content" align="center">
+                @if (MemberExists(i))
+                {
+                    if (sideIsTop && MemberIsActive(i) || !sideIsTop && !MemberIsActive(i))
+                    {
+                        @FaceIndent(i)
+                        @Face(i)
+                    }
+                    else
+                    {
+                        @Face(i)
+                        @FaceIndent(i)
+                    }
+                }
+            </div>
+        </div>
+    </li>
+}
+@helper Face(int i)
+{
+    <div id="member-cell-content-face" align="center">
+        <div id="member-cell-content-face-text" class="vertical" align="center">
+            @(MemberIsActive(i) ? ":)" : "x")
+        </div>
+    </div>
+}
+@helper FaceIndent(int i)
+{
+    <div id="member-cell-content-indent">
+    </div>
+}
 
 <div align="center" class="det-body">
     <div align="left" class="det-page">

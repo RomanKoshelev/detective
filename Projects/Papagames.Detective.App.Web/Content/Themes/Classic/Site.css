@@ -25,11 +25,20 @@ html, body, .det-body {
     background: #050222;
 }
 
+.det { border: none; }
+
 
 /*
 // ============================================================================================= []
 // Attributes
 */
+
+.vertical {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+}
 
 .table { display: table; }
 
@@ -40,6 +49,8 @@ html, body, .det-body {
 .column { display: table-column; }
 
 .text-align-right { text-align: right; }
+
+.text-align-center { text-align: center; }
 
 .width-all { width: 100% }
 
@@ -67,7 +78,7 @@ html, body, .det-body {
     height: 100%;
     width: 100%;
     min-width: 768px;
-    max-width: 1000px;
+    max-width: 768px;
 }
 
 .det-page-footer, .det-page-content, .det-page-header {
@@ -91,7 +102,6 @@ html, body, .det-body {
     text-align: center;
     vertical-align: middle;
     border: 2px dashed #31ff00;
-    border-radius: 0;
 }
 
 /*
@@ -154,6 +164,66 @@ nav ul { display: table-row; }
 nav li {
     display: table-cell;
     margin: 0;
+}
+
+/*
+// ============================================================================================= []
+// Member
+*/
+
+#member {
+    background: inherit;
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+#members-top {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+#members-bottom {
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+#member-cell-aligment { width: 100%; }
+
+#member-cell-content {
+    width: 120px;
+    border: solid 0 red
+}
+
+#member-cell-content-face {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    background: #999999;
+    border: solid 0px red;
+}
+
+#member-cell-content-face-text {
+    text-align: center;
+    font-size: 60px;
+
+    display: block;
+    color: #000000;
+
+    position: relative;
+    left: -7px;
+
+    width: inherit;
+    height: inherit;
+    background: rgba(0, 0, 0, 0.00);
+
+    border: solid 0px red;
+}
+
+#member-cell-content-indent {
+    width: 10px;
+    height: 70px;
+    background: inherit;
 }
 
 /*
