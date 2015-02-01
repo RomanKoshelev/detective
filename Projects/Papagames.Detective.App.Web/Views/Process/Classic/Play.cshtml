@@ -11,10 +11,10 @@
     <div class="det-page-header">
         <div class="det-green-pad">
             <div class="det-green-pad-inner">
-                <div class="det-green-pad-inner-left">
+                <div class="det-green-pad-inner-text">
                     Crime Nuts Case #17, Find all murderers
                 </div>
-                <div class="det-green-pad-inner-right">
+                <div class="det-green-pad-inner-text text-align-right">
                     Home | Cases | Help
                 </div>
             </div>
@@ -28,10 +28,10 @@
         <div class="det-red-line"></div>
         <div class="det-green-pad">
             <div class="det-green-pad-inner">
-                <div class="det-green-pad-inner-left">
+                <div class="det-green-pad-inner-text">
                     Crime Nuts (c) RKDev 2015
                 </div>
-                <div class="det-green-pad-inner-right">
+                <div class="det-green-pad-inner-text text-align-right">
                     Loc | Pub | Jira | Azura | Github
                 </div>
             </div>
@@ -41,8 +41,24 @@
 @helper Content()
 {
     <div class="det-page-content">
-        <br>
-        Content
+        <div class="det-dev width-auto">
+            Content
+            <div class="det-dev">
+                Room
+                <div class="det-dev" style="height: 100px">
+                    Members top
+                </div>
+                <div class="det-dev" style="height: 200px">
+                    Table
+                </div>
+                <div class="det-dev" style="height: 100px">
+                    Members bottom
+                </div>
+            </div>
+            <div class="det-dev" style="height: 500px">
+                Files
+            </div>
+        </div>
     </div>
 }
 
@@ -54,8 +70,3 @@
     </div>
 </div>
 
-@*<div class="det-page" align="center">
-    @Header()
-    @Content()
-    @Footer()
-</div>*@

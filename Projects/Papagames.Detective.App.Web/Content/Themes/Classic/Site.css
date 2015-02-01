@@ -3,7 +3,7 @@
 */
 /*
 // ============================================================================================= []
-// Common styles
+// Common
 */
 html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset {
     margin: 0;
@@ -25,6 +25,33 @@ html, body, .det-body {
     background: #050222;
 }
 
+
+/*
+// ============================================================================================= []
+// Attributes
+*/
+.table { display: table; }
+
+.raw { display: table-row; }
+
+.column { display: table-column; }
+
+.text-align-right {
+    text-align: right;
+}
+
+.width-all {
+    width: 100%
+}
+.width-auto {
+    width: auto
+}
+
+/*
+// ============================================================================================= []
+// Page
+*/
+
 .det-page {
     display: table;
     height: 100%;
@@ -41,6 +68,26 @@ html, body, .det-body {
 }
 
 .det-page-content { height: auto; }
+
+/*
+// ============================================================================================= []
+// Dev
+*/
+
+.det-dev {
+    padding: 6px;
+    margin: 6px;
+    background: inherit;
+    text-align: center;
+    vertical-align: middle;
+    border: 2px dashed #31ff00;
+    border-radius: 0;
+}
+
+/*
+// ============================================================================================= []
+// Utils
+*/
 
 .det-green-pad {
     width: 100%;
@@ -68,18 +115,19 @@ html, body, .det-body {
     width: 100%;
 }
 
-.det-green-pad-inner-left, .det-green-pad-inner-right {
+.det-green-pad-inner-text {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     display: table-cell;
     margin: 0;
-    padding: 0;
-    text-align: left;
     vertical-align: top;
     background-color: inherit;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-.det-green-pad-inner-right { text-align: right; }
+/*
+// ============================================================================================= []
+// EOF
+*/
