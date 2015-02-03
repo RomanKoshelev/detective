@@ -78,54 +78,25 @@
     <div id="members-top" class="det">
         @Members(1, 6, true)
     </div>
-    <div class="det-dev height-300">
-        Table
-        @*@TableDesktop()*@
+    <div class="det">
+        @TableDesktop()
     </div>
     <div id="members-bottom" class="det">
         @Members(7, 12, false)
     </div>
 }
 
-@helper Members(int first, int last, bool sideIsTop)
-{
-    <nav>
-        <ul>
-            @for (var i = first; i <= last; i++)
-            {
-                @Member(i, sideIsTop)
-            }
-        </ul>
-    </nav>
-}
-
-@helper Cards()
-{
-    <nav>
-        <ul>
-            <li class="det-dev"> 1 </li>
-            <li class="det-dev"> 2 </li>
-            <li class="det-dev"> 3 </li>
-            <li class="det-dev"> 4 </li>
-            <li class="det-dev"> 5 </li>
-            <li class="det-dev"> 6 </li>
-        </ul>
-    </nav>
-}
-
 @helper TableDesktop()
 {
-    <div class="det-dev">
-        Cards top
-        @Cards()
+    <div class="det">
+        @Cards(1, 6, sideIsTop: true)
     </div>
-    <div class="det-dev">
+    <div class="det-dev height-300">
         Play desk
-        @PlayDesk()
+        @*@PlayDesk()*@
     </div>
-    <div class="det-dev">
-        Cards bottom
-        @Cards()
+    <div class="det">
+        @Cards(7, 12, sideIsTop: false)
     </div>
 }
 
@@ -201,27 +172,38 @@
     </div>
 }
 
+@helper Members(int first, int last, bool sideIsTop)
+{
+    <nav>
+        <ul>
+            @for (var i = first; i <= last; i++)
+            {
+                <li id="member">
+                    @Member(i, sideIsTop)
+                </li>
+            }
+        </ul>
+    </nav>
+}
 @helper Member(int i, bool sideIsTop)
 {
-    <li id="member">
-        <div id="member-cell-aligment" align="center">
-            <div id="member-cell-content" align="center">
-                @if (MemberExists(i))
+    <div id="member-cell-aligment" align="center">
+        <div id="member-cell-content" align="center">
+            @if (MemberExists(i))
+            {
+                if (sideIsTop && MemberIsActive(i) || !sideIsTop && !MemberIsActive(i))
                 {
-                    if (sideIsTop && MemberIsActive(i) || !sideIsTop && !MemberIsActive(i))
-                    {
-                        @FaceIndent(i)
-                        @Face(i)
-                    }
-                    else
-                    {
-                        @Face(i)
-                        @FaceIndent(i)
-                    }
+                    @FaceIndent(i)
+                    @Face(i)
                 }
-            </div>
+                else
+                {
+                    @Face(i)
+                    @FaceIndent(i)
+                }
+            }
         </div>
-    </li>
+    </div>
 }
 @helper Face(int i)
 {
@@ -236,6 +218,35 @@
     <div id="member-cell-content-indent">
     </div>
 }
+
+
+@helper Cards(int first, int last, bool sideIsTop)
+{
+    <nav>
+        <ul>
+            @for (var i = first; i <= last; i++)
+            {
+                <li id="card">
+                    @Card(i, sideIsTop)
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+
+@helper Card(int number, bool sideIsTop)
+{
+    <div id="card-aligment" align="center">
+        <div id="card-content" align="center">
+            @if (MemberExists(number))
+            {
+                @MemberName(number)
+            }
+        </div>
+    </div>
+}
+
 
 <div align="center" class="det-body">
     <div align="left" class="det-page">

@@ -171,6 +171,19 @@ nav li {
 // Member
 */
 
+#card {
+    background: inherit;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#card-aligment { width: 100%; }
+
+#card-content {
+    width: 120px;
+    border: solid 0 red
+}
+
 #member {
     background: inherit;
     text-align: center;
@@ -200,7 +213,7 @@ nav li {
     height: 80px;
     border-radius: 40px;
     background: #999999;
-    border: solid 0px red;
+    border: solid 0 red;
 }
 
 #member-cell-content-face-text {
@@ -211,7 +224,7 @@ nav li {
     color: #000000;
 
     position: relative;
-    left: -7px;
+    left: -6px;
 
     width: inherit;
     height: inherit;
