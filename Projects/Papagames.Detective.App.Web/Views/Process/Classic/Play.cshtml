@@ -23,7 +23,7 @@
 
     private string CurrentCardClass(int n)
     {
-        return _currentMember == n ? " det-card-current" : MemberIsActive(n)?" det-card-notcurrent" : "";
+        return _currentMember == n ? " det-card-primary" : MemberIsActive(n) ? " det-card-secondary" : "";
     }
     private string ActiveCardClass(int n)
     {
@@ -31,6 +31,17 @@
     }
 
     private int _currentMember;
+
+    private string CurrentMemberFaceClass(int n)
+    {
+        return _currentMember == n ? " det-member-face-primary" : " det-member-face-secondary";
+    }
+
+    private string MemberFace(int m)
+    {
+        return (MemberIsActive(m) ? ":)" : "x");
+    }
+
 }
 
 @{
@@ -58,7 +69,7 @@
 
 @helper Footer()
 {
-    <div class="det-green-pad det-border-bottom-red-4">
+    <div class="det-green-pad det-border-top-red-4">
         <nav>
             <ul>
                 <li>
@@ -207,32 +218,32 @@
 @helper Member(int i, bool sideIsTop)
 {
     <div class="det-member-cell-aligment" align="center">
-        <div class="det-member-cell-content det-member-cell-current" align="center">
+        <div class="det-member-cell-content" align="center">
             @if (MemberExists(i))
             {
                 if (sideIsTop && MemberIsActive(i) || !sideIsTop && !MemberIsActive(i))
                 {
-                    @FaceIndent(i)
+                    @FaceIndent()
                     @Face(i)
                 }
                 else
                 {
                     @Face(i)
-                    @FaceIndent(i)
+                    @FaceIndent()
                 }
             }
         </div>
     </div>
 }
-@helper Face(int i)
+@helper Face(int m)
 {
-    <div class="det-member-cell-content-face" align="center">
+    <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m))" align="center">
         <div class="det-member-cell-content-face-text vertical" align="center">
-            @(MemberIsActive(i) ? ":)" : "x")
+            @MemberFace(m)
         </div>
     </div>
 }
-@helper FaceIndent(int i)
+@helper FaceIndent()
 {
     <div class="det-member-cell-content-indent">
     </div>
