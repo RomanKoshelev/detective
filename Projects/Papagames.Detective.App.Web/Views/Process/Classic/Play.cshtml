@@ -1,5 +1,8 @@
 ﻿@model Papagames.Detective.App.Web.Models.ProcessModel
-
+@*
+// ============================================================================================= []
+// Functions
+*@
 @functions {
 
     private string MemberName(int i)
@@ -18,44 +21,54 @@
         return Model.ActiveMembers.Any(m => m.Number == i);
     }
 
+    private string CurrentCardClass(int n)
+    {
+        return _currentMember == n ? " det-card-current" : MemberIsActive(n)?" det-card-notcurrent" : "";
+    }
+    private string ActiveCardClass(int n)
+    {
+        return MemberIsActive(n) ? " det-card-active" : " det-card-inactive";
+    }
+
+    private int _currentMember;
 }
+
 @{
     // >> View: Process/Classic/Play
     ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewData["id"] = Model.Id;
+    _currentMember = 2;
 }
-
 @helper Header()
 {
-    <div class="det-page-header">
-        <div class="det-green-pad">
-            <div class="det-green-pad-inner">
-                <div class="det-green-pad-inner-text">
+    <div class="det-green-pad det-border-bottom-red-4">
+        <nav>
+            <ul>
+                <li>
                     Crime Nuts Case #17, Find all murderers
-                </div>
-                <div class="det-green-pad-inner-text text-align-right">
+                </li>
+                <li class="text-align-right">
                     Home | Cases | Help
-                </div>
-            </div>
-        </div>
-        <div class="det-red-line"></div>
+                </li>
+            </ul>
+        </nav>
     </div>
 }
+
 @helper Footer()
 {
-    <div class="det-page-footer">
-        <div class="det-red-line"></div>
-        <div class="det-green-pad">
-            <div class="det-green-pad-inner">
-                <div class="det-green-pad-inner-text">
+    <div class="det-green-pad det-border-bottom-red-4">
+        <nav>
+            <ul>
+                <li>
                     Crime Nuts (c) RKDev 2015
-                </div>
-                <div class="det-green-pad-inner-text text-align-right">
+                </li>
+                <li class="text-align-right">
                     Loc | Pub | Jira | Azura | Github
-                </div>
-            </div>
-        </div>
+                </li>
+            </ul>
+        </nav>
     </div>
 }
 
@@ -78,25 +91,11 @@
     <div id="members-top" class="det">
         @Members(1, 6, true)
     </div>
-    <div class="det">
-        @TableDesktop()
+    <div class="det-desktop det-desktop-color">
+        @Desktop()
     </div>
     <div id="members-bottom" class="det">
         @Members(7, 12, false)
-    </div>
-}
-
-@helper TableDesktop()
-{
-    <div class="det">
-        @Cards(1, 6, sideIsTop: true)
-    </div>
-    <div class="det-dev height-300">
-        Play desk
-        @*@PlayDesk()*@
-    </div>
-    <div class="det">
-        @Cards(7, 12, sideIsTop: false)
     </div>
 }
 
@@ -142,7 +141,24 @@
         </div>
     </div>
 }
-@helper PlayDesk()
+@*
+// ============================================================================================= []
+// Desktop
+*@
+@helper Desktop()
+{
+    <div class="det">
+        @Cards(1, 6)
+    </div>
+    <div class="det-dev height-300">
+        Play desk
+        @*@Infozone()*@
+    </div>
+    <div class="det">
+        @Cards(7, 12)
+    </div>
+}
+@helper Infozone()
 {
     <div class="det-dev">
         History
@@ -171,14 +187,17 @@
         </div>
     </div>
 }
-
+@*
+// ============================================================================================= []
+// Members
+*@
 @helper Members(int first, int last, bool sideIsTop)
 {
     <nav>
         <ul>
             @for (var i = first; i <= last; i++)
             {
-                <li id="member">
+                <li class="det-member">
                     @Member(i, sideIsTop)
                 </li>
             }
@@ -187,8 +206,8 @@
 }
 @helper Member(int i, bool sideIsTop)
 {
-    <div id="member-cell-aligment" align="center">
-        <div id="member-cell-content" align="center">
+    <div class="det-member-cell-aligment" align="center">
+        <div class="det-member-cell-content det-member-cell-current" align="center">
             @if (MemberExists(i))
             {
                 if (sideIsTop && MemberIsActive(i) || !sideIsTop && !MemberIsActive(i))
@@ -207,47 +226,50 @@
 }
 @helper Face(int i)
 {
-    <div id="member-cell-content-face" align="center">
-        <div id="member-cell-content-face-text" class="vertical" align="center">
+    <div class="det-member-cell-content-face" align="center">
+        <div class="det-member-cell-content-face-text vertical" align="center">
             @(MemberIsActive(i) ? ":)" : "x")
         </div>
     </div>
 }
 @helper FaceIndent(int i)
 {
-    <div id="member-cell-content-indent">
+    <div class="det-member-cell-content-indent">
     </div>
 }
-
-
-@helper Cards(int first, int last, bool sideIsTop)
+@*
+// ============================================================================================= []
+// Cards
+*@
+@helper Cards(int first, int last)
 {
-    <nav>
+    <nav class="det-desktop-color">
         <ul>
             @for (var i = first; i <= last; i++)
             {
-                <li id="card">
-                    @Card(i, sideIsTop)
+                <li class="det-card">
+                    @Card(i)
                 </li>
             }
         </ul>
     </nav>
 }
-
-
-@helper Card(int number, bool sideIsTop)
+@helper Card(int n)
 {
-    <div id="card-aligment" align="center">
-        <div id="card-content" align="center">
-            @if (MemberExists(number))
+    <div class="det-card-aligment" align="center">
+        <div class="@("det-card-content" + CurrentCardClass(n) + ActiveCardClass(n))" align="center">
+            @if (MemberExists(n))
             {
-                @MemberName(number)
+                @MemberName(n)
             }
         </div>
     </div>
 }
 
-
+@*
+// ============================================================================================= []
+// Main
+*@
 <div align="center" class="det-body">
     <div align="left" class="det-page">
         @Header()
