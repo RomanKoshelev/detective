@@ -196,13 +196,13 @@ nav li {
 
 .det-member-cell-content-face-text {
     text-align: center;
-    font-size: 60px;
+    font-size: 55px;
 
     display: block;
     color: #000000;
 
     position: relative;
-    left: -6px;
+    left: -10px;
 
     width: inherit;
     height: inherit;
