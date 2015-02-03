@@ -1,7 +1,8 @@
-﻿@model Papagames.Detective.App.Web.Models.ProcessModel
+﻿@using WebGrease.Css.Ast.Selectors
+@model Papagames.Detective.App.Web.Models.ProcessModel
 @*
-// ============================================================================================= []
-// Functions
+    // ============================================================================================= []
+    // Functions
 *@
 @functions {
 
@@ -21,26 +22,38 @@
         return Model.ActiveMembers.Any(m => m.Number == i);
     }
 
-    private string CurrentCardClass(int n)
+    private bool MemberIsCurrent(int m)
     {
-        return _currentMember == n ? " det-card-primary" : MemberIsActive(n) ? " det-card-secondary" : "";
+        return _currentMember == m;
     }
-    private string ActiveCardClass(int n)
+
+    private string CurrentCardClass(int m)
     {
-        return MemberIsActive(n) ? " det-card-active" : " det-card-inactive";
+        return MemberIsCurrent(m) ? " det-card-primary" : MemberIsActive(m) ? " det-card-secondary" : "";
+    }
+
+    private string ActiveCardClass(int m)
+    {
+        return MemberIsActive(m) ? " det-card-active" : " det-card-inactive";
     }
 
     private int _currentMember;
 
-    private string CurrentMemberFaceClass(int n)
+    private string CurrentMemberFaceClass(int m)
     {
-        return _currentMember == n ? " det-member-face-primary" : " det-member-face-secondary";
+        return MemberIsCurrent(m) ? " det-member-face-primary" : " det-member-face-secondary";
     }
 
     private string MemberFace(int m)
     {
         return (MemberIsActive(m) ? ":)" : "x");
     }
+
+    private string ActionPlaceholder(int m)
+    {
+        return MemberIsCurrent(m) ? "ask" : MemberIsActive(m)? "about" : "";
+    }
+
 }
 
 @{
@@ -152,8 +165,8 @@
     </div>
 }
 @*
-// ============================================================================================= []
-// Desktop
+    // ============================================================================================= []
+    // Desktop
 *@
 @helper Desktop()
 {
@@ -198,8 +211,8 @@
     </div>
 }
 @*
-// ============================================================================================= []
-// Members
+    // ============================================================================================= []
+    // Members
 *@
 @helper Members(int first, int last, bool sideIsTop)
 {
@@ -248,8 +261,8 @@
     </div>
 }
 @*
-// ============================================================================================= []
-// Cards
+    // ============================================================================================= []
+    // Cards
 *@
 @helper Cards(int first, int last)
 {
@@ -267,18 +280,23 @@
 @helper Card(int n)
 {
     <div class="det-card-aligment" align="center">
-        <div class="@("det-card-content" + CurrentCardClass(n) + ActiveCardClass(n))" align="center">
+     <div class="@("det-card-content" + CurrentCardClass(n) + ActiveCardClass(n))" align="center">
             @if (MemberExists(n))
             {
-                @MemberName(n)
+                <div class="det-card-content-action-placeholder">
+                    @ActionPlaceholder(n)
+                </div>
+                <div class="det-card-content-name">
+                    @MemberName(n)
+                </div>
             }
         </div>
     </div>
 }
 
 @*
-// ============================================================================================= []
-// Main
+    // ============================================================================================= []
+    // Main
 *@
 <div align="center" class="det-body">
     <div align="left" class="det-page">

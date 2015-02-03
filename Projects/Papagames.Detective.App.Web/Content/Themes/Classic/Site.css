@@ -258,7 +258,7 @@ nav li {
 
 .det-card-primary {
     border-radius: 4px;
-    border: solid 3px #999999;
+    border: solid 3px rgb(124, 124, 124);
     background-color: #ffffff;
 }
 
@@ -268,6 +268,19 @@ nav li {
     border: solid 3px rgba(153, 153, 153, 0.50);
     background-color: #e6e4d8;
     background-color: rgba(255, 255, 255, 0.50);
+}
+
+.det-card-content-action-placeholder 
+{
+    font-size: 12px;
+    color: inherit;
+    background-color: inherit;
+}
+.det-card-content-name 
+{
+    font-size: inherit;
+    color: inherit;
+    background-color: inherit;
 }
 /*
 // ============================================================================================= []
