@@ -35,6 +35,13 @@ namespace Papagames.Detective.Core.Game
             throw new Exception("Wrong emotion logic");
         }
 
+        private Emotion DoExpressEmotionOnRelationTo(Member subj)
+        {
+            return Loves(subj)
+                ? Emotion.Happy
+                : Hates(subj) ? Emotion.Sad : Ignores(subj) ? Emotion.Indifferent : Emotion.Error;
+        }
+
         private Emotion MakeEmotion(Func<EmotionRule, EmotionRule.MyStatus> statusSelector,
             Member subject,
             Func<EmotionRule.MyStatus.Attitude, Emotion> emotionSelector)

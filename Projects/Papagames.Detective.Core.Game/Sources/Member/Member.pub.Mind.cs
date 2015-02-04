@@ -71,6 +71,11 @@ namespace Papagames.Detective.Core.Game
             return DoExpressEmotionOnMurderOrArrest(subj);
         }
 
+        public Emotion ExpressEmotionOnRelationTo(Member subj)
+        {
+            return DoExpressEmotionOnRelationTo(subj);
+        }
+
         public Member SelectVictim(IList<Member> victims)
         {
             return DoSelectVictim(victims);

@@ -62,6 +62,12 @@ namespace Papagames.Detective.App.Web.Models
         {
             return Member.Hates(subject.Member);
         }
+
+        public Emotion ExpressEmotionOnRelationTo(MemberModel subject)
+        {
+            return Member.ExpressEmotionOnRelationTo(subject.Member);
+        }
+
         // ===================================================================================== []
         // Pivate
         private Member Member { get; set; }

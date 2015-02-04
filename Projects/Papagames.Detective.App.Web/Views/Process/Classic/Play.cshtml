@@ -5,12 +5,14 @@
 @using Papagames.Detective.App.Web.Models
 @using Papagames.Detective.Core.Game
 @using Papagames.Detective.Utils
-@model Papagames.Detective.App.Web.Models.ProcessModel
+@using Action = Papagames.Detective.Core.Game.Action
+@model ProcessModel
 @{
     ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewData["id"] = Model.Id;
-    _currentMember = 2;
+    _primaryMember = 2;
+    _action = Action.Answer;
 }
 @*
 // ============================================================================================= []
@@ -40,14 +42,14 @@
         return Model.ActiveMembers.Any(m => m.Number == num);
     }
 
-    private bool MemberIsCurrent(int num)
+    private bool MemberIsPrimary(int num)
     {
-        return _currentMember == num;
+        return _primaryMember == num;
     }
 
     private string CurrentCardClass(int num)
     {
-        return MemberIsCurrent(num) ? " det-card-primary" : MemberIsActive(num) ? " det-card-secondary" : "";
+        return MemberIsPrimary(num) ? " det-card-primary" : MemberIsActive(num) ? " det-card-secondary" : "";
     }
 
     private string ActiveCardClass(int num)
@@ -55,13 +57,14 @@
         return MemberIsActive(num) ? " det-card-active" : " det-card-inactive";
     }
 
-    private int _currentMember;
+    private int _primaryMember;
+    private Action _action;
 
     private string CurrentMemberFaceClass(int num)
     {
         return
             MemberIsActive(num)
-                ? MemberIsCurrent(num)
+                ? MemberIsPrimary(num)
                     ? " det-member-face-active-primary"
                     : " det-member-face-active-secondary"
                 : Member(num).IsOpenMurderer
@@ -87,6 +90,19 @@
 
     private Emotion MemberEmotion(int num)
     {
+        switch (_action)
+        {
+            case Action.Answer:
+                if (MemberIsPrimary(num))
+                {
+                    return Emotion.Indifferent;
+                }
+                if (MemberExists(_primaryMember))
+                {
+                    return Member(num).ExpressEmotionOnRelationTo(Member(_primaryMember));
+                }
+                break;
+        }
         return Emotion.Indifferent;
     }
 
@@ -112,7 +128,7 @@
 
     private string ActionPlaceholder(int num)
     {
-        return MemberIsCurrent(num) ? "ask" : MemberIsActive(num) ? "about" : "";
+        return MemberIsPrimary(num) ? "ask" : MemberIsActive(num) ? "about" : "";
     }
 
 }

@@ -1,6 +1,4 @@
-﻿using Papagames.Detective.Utils;
-
-namespace Papagames.Detective.Core.Game
+﻿namespace Papagames.Detective.Core.Game
 {
     public partial class Member
     {
@@ -80,4 +78,5 @@ namespace Papagames.Detective.Core.Game
             Process = process;
         }
     }
+
 }
