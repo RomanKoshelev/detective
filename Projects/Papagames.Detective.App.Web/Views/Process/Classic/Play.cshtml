@@ -1,22 +1,20 @@
 ﻿@*
-// ============================================================================================= []
-// >> View: Process/Classic/Play
+    // ============================================================================================= []
+    // >> View: Process/Classic/Play
 *@
 @using Papagames.Detective.App.Web.Models
 @using Papagames.Detective.Core.Game
 @using Papagames.Detective.Utils
-@using Action = Papagames.Detective.Core.Game.Action
 @model ProcessModel
 @{
     ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewData["id"] = Model.Id;
     _primaryMember = 2;
-    _action = Action.Answer;
 }
 @*
-// ============================================================================================= []
-// Functions
+    // ============================================================================================= []
+    // Functions
 *@
 @functions {
 
@@ -58,7 +56,6 @@
     }
 
     private int _primaryMember;
-    private Action _action;
 
     private string CurrentMemberFaceClass(int num)
     {
@@ -68,15 +65,15 @@
                     ? " det-member-face-active-primary"
                     : " det-member-face-active-secondary"
                 : Member(num).IsOpenMurderer
-                ? " det-member-face-inactive-murderer"
-                : Member(num).IsOpenInnocent
-                ? " det-member-face-inactive-innocent"
-                :"";
+                    ? " det-member-face-inactive-murderer"
+                    : Member(num).IsOpenInnocent
+                        ? " det-member-face-inactive-innocent"
+                        : "";
     }
 
     private string MemberFaceEmotionClass(int num)
     {
-        return MemberIsAlive(num) ? " det-member-face-text-alive vertical" : " det-member-face-text-dead";
+        return MemberIsAlive(num) ? " det-member-face-text-alive det-vertical" : " det-member-face-text-dead";
     }
 
     private MvcHtmlString MemberFace(int num)
@@ -90,9 +87,9 @@
 
     private Emotion MemberEmotion(int num)
     {
-        switch (_action)
+        switch (Model.State)
         {
-            case Action.Answer:
+            case State.Questioning:
                 if (MemberIsPrimary(num))
                 {
                     return Emotion.Indifferent;
@@ -142,7 +139,7 @@
                 <li>
                     Crime Nuts Case #17, Find all murderers
                 </li>
-                <li class="text-align-right">
+                <li class="det-text-align-right">
                     Home | Cases | Help
                 </li>
             </ul>
@@ -158,7 +155,7 @@
                 <li>
                     Crime Nuts (c) RKDev 2015
                 </li>
-                <li class="text-align-right">
+                <li class="det-text-align-right">
                     Loc | Pub | Jira | Azura | Github
                 </li>
             </ul>
@@ -173,7 +170,7 @@
             <div class="det">
                 @Room()
             </div>
-            <div class="det-dev height-400">
+            <div class="det-dev det-height-400">
                 Files
             </div>
         </div>
@@ -201,11 +198,11 @@
 @helper DaySummary(string day, string summary)
 {
     <div class="det-dev">
-        <div class="det-dev raw">
-            <div class="det-dev cell width-100">
+        <div class="det-dev det-raw">
+            <div class="det-dev det-cell det-width-100">
                 @day
             </div>
-            <div class="det-dev cell width-auto">
+            <div class="det-dev det-cell det-width-auto">
                 @summary
             </div>
         </div>
@@ -214,11 +211,11 @@
 
 @helper Today()
 {
-    <div class="det-dev raw">
-        <div class="det-dev cell width-100">
+    <div class="det-dev det-raw">
+        <div class="det-dev det-cell det-width-100">
             Day 3
         </div>
-        <div class="det-dev cell width-auto">
+        <div class="det-dev det-cell det-width-auto">
             Today Information
             <div class="det-dev">
                 Murders
@@ -236,15 +233,15 @@
     </div>
 }
 @*
-// ============================================================================================= []
-// Desktop
+    // ============================================================================================= []
+    // Desktop
 *@
 @helper Desktop()
 {
     <div class="det">
         @Cards(1, 6)
     </div>
-    <div class="det-dev height-300">
+    <div class="det-dev det-height-300">
         Play desk
         @*@Infozone()*@
     </div>
@@ -282,8 +279,8 @@
     </div>
 }
 @*
-// ============================================================================================= []
-// Members
+    // ============================================================================================= []
+    // Members
 *@
 @helper Members(int first, int last, bool sideIsTop)
 {
@@ -320,10 +317,11 @@
 }
 @helper Face(int m)
 {
-    <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m))" align="center">
-        <div class="@("det-member-cell-content-face-text " + MemberFaceEmotionClass(m))" align=" center">
+    <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m))">
+        <a class="@("det-no-text-decoration" + MemberFaceEmotionClass(m))"
+            href="@Url.Action("NewPlay", "Process", new {id = Model.Id, primaryMember = m})">
             @MemberFace(m)
-        </div>
+        </a>
     </div>
 }
 @helper FaceIndent()
@@ -332,8 +330,8 @@
     </div>
 }
 @*
-// ============================================================================================= []
-// Cards
+    // ============================================================================================= []
+    // Cards
 *@
 @helper Cards(int first, int last)
 {
@@ -366,8 +364,8 @@
 }
 
 @*
-// ============================================================================================= []
-// Main
+    // ============================================================================================= []
+    // Main
 *@
 <div align="center" class="det-body">
     <div align="left" class="det-page">
