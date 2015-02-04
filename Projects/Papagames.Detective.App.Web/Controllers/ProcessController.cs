@@ -14,14 +14,14 @@ namespace Papagames.Detective.App.Web.Controllers
 
         public ActionResult Info(int id)
         {
-            var processId = (Process.Identifier) id;
+            var processId = (Identifiable<int, Process>.Identifier) id;
 
             return View(new ProcessModel(processId));
         }
 
         public ActionResult Play(int id, int? actionType, params int[] actionParams)
         {
-            var processId = (Process.Identifier) id;
+            var processId = (Identifiable<int, Process>.Identifier) id;
             if (actionType != null)
             {
                 Schema.ExecuteProcess(processId, (Process.UserAction.ActionType)actionType, actionParams);
@@ -30,15 +30,19 @@ namespace Papagames.Detective.App.Web.Controllers
             return View(new ProcessModel(processId));
         }
 
-        public ActionResult NewPlay(int id, int? actionType, params int[] actionParams)
+        // >> Precess > Controller > ClassicPlay
+        public ActionResult ClassicPlay(int id, int? primaryMember, int? actionType, params int[] actionParams)
         {
-            var processId = (Process.Identifier)id;
+            var processId = (Identifiable<int, Process>.Identifier)id;
             if (actionType != null)
             {
                 Schema.ExecuteProcess(processId, (Process.UserAction.ActionType)actionType, actionParams);
-                return RedirectToAction("NewPlay", "Process", new { id = processId });
+                return RedirectToAction("ClassicPlay", "Process", new { id = processId });
             }
-            return View(new ProcessModel(processId));
+            return View(new ProcessModel(processId)
+            {
+                UIPrimaryMember = primaryMember
+            });
         }
     }
 }

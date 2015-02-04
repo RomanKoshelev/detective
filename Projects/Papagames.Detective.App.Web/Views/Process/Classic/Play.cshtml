@@ -1,16 +1,15 @@
 ﻿@*
     // ============================================================================================= []
-    // >> View: Process/Classic/Play
+    // >> Process > View > Classic > Play
 *@
 @using Papagames.Detective.App.Web.Models
 @using Papagames.Detective.Core.Game
 @using Papagames.Detective.Utils
-@model ProcessModel
+@model Papagames.Detective.App.Web.Models.ProcessModel
 @{
     ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewData["id"] = Model.Id;
-    _primaryMember = 2;
 }
 @*
     // ============================================================================================= []
@@ -18,7 +17,7 @@
 *@
 @functions {
 
-    private MemberModel Member(int num)
+    private MemberModel Member(int? num)
     {
         Assert.IsTrue(MemberExists(num), "Member {0} does't exist", num);
         return Model.Members.First(m => m.Number == num);
@@ -30,8 +29,9 @@
         return name ?? " ";
     }
 
-    private bool MemberExists(int num)
+    private bool MemberExists(int? num)
     {
+        if (num == null) return false;
         return Model.Members.Any(m => m.Number == num);
     }
 
@@ -42,7 +42,7 @@
 
     private bool MemberIsPrimary(int num)
     {
-        return _primaryMember == num;
+        return Model.UIPrimaryMember == num;
     }
 
     private string CurrentCardClass(int num)
@@ -54,8 +54,6 @@
     {
         return MemberIsActive(num) ? " det-card-active" : " det-card-inactive";
     }
-
-    private int _primaryMember;
 
     private string CurrentMemberFaceClass(int num)
     {
@@ -94,9 +92,9 @@
                 {
                     return Emotion.Indifferent;
                 }
-                if (MemberExists(_primaryMember))
+                if (MemberExists(Model.UIPrimaryMember))
                 {
-                    return Member(num).ExpressEmotionOnRelationTo(Member(_primaryMember));
+                    return Member(num).ExpressEmotionOnRelationTo(Member(Model.UIPrimaryMember));
                 }
                 break;
         }
@@ -319,7 +317,7 @@
 {
     <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m))">
         <a class="@("det-no-text-decoration" + MemberFaceEmotionClass(m))"
-            href="@Url.Action("NewPlay", "Process", new {id = Model.Id, primaryMember = m})">
+            href="@Url.Action("ClassicPlay", "Process", new {id = Model.Id, primaryMember = m})">
             @MemberFace(m)
         </a>
     </div>
