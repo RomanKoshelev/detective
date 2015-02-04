@@ -1,68 +1,123 @@
-﻿@using WebGrease.Css.Ast.Selectors
-@model Papagames.Detective.App.Web.Models.ProcessModel
-@*
-    // ============================================================================================= []
-    // Functions
+﻿@*
+// ============================================================================================= []
+// >> View: Process/Classic/Play
 *@
-@functions {
-
-    private string MemberName(int i)
-    {
-        var name = Model.Members.Where(m => m.Number == i).Select(m => m.Name).FirstOrDefault();
-        return name ?? " ";
-    }
-
-    private bool MemberExists(int i)
-    {
-        return Model.Members.Any(m => m.Number == i);
-    }
-
-    private bool MemberIsActive(int i)
-    {
-        return Model.ActiveMembers.Any(m => m.Number == i);
-    }
-
-    private bool MemberIsCurrent(int m)
-    {
-        return _currentMember == m;
-    }
-
-    private string CurrentCardClass(int m)
-    {
-        return MemberIsCurrent(m) ? " det-card-primary" : MemberIsActive(m) ? " det-card-secondary" : "";
-    }
-
-    private string ActiveCardClass(int m)
-    {
-        return MemberIsActive(m) ? " det-card-active" : " det-card-inactive";
-    }
-
-    private int _currentMember;
-
-    private string CurrentMemberFaceClass(int m)
-    {
-        return MemberIsCurrent(m) ? " det-member-face-primary" : " det-member-face-secondary";
-    }
-
-    private string MemberFace(int m)
-    {
-        return (MemberIsActive(m) ? ":)" : "x");
-    }
-
-    private string ActionPlaceholder(int m)
-    {
-        return MemberIsCurrent(m) ? "ask" : MemberIsActive(m)? "about" : "";
-    }
-
-}
-
+@using Papagames.Detective.App.Web.Models
+@using Papagames.Detective.Core.Game
+@using Papagames.Detective.Utils
+@model Papagames.Detective.App.Web.Models.ProcessModel
 @{
-    // >> View: Process/Classic/Play
     ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewData["id"] = Model.Id;
     _currentMember = 2;
 }
+@*
+// ============================================================================================= []
+// Functions
+*@
+@functions {
+
+    private MemberModel Member(int num)
+    {
+        Assert.IsTrue(MemberExists(num), "Member {0} does't exist", num);
+        return Model.Members.First(m => m.Number == num);
+    }
+
+    private string MemberName(int num)
+    {
+        var name = Model.Members.Where(m => m.Number == num).Select(m => m.Name).FirstOrDefault();
+        return name ?? " ";
+    }
+
+    private bool MemberExists(int num)
+    {
+        return Model.Members.Any(m => m.Number == num);
+    }
+
+    private bool MemberIsActive(int num)
+    {
+        return Model.ActiveMembers.Any(m => m.Number == num);
+    }
+
+    private bool MemberIsCurrent(int num)
+    {
+        return _currentMember == num;
+    }
+
+    private string CurrentCardClass(int num)
+    {
+        return MemberIsCurrent(num) ? " det-card-primary" : MemberIsActive(num) ? " det-card-secondary" : "";
+    }
+
+    private string ActiveCardClass(int num)
+    {
+        return MemberIsActive(num) ? " det-card-active" : " det-card-inactive";
+    }
+
+    private int _currentMember;
+
+    private string CurrentMemberFaceClass(int num)
+    {
+        return
+            MemberIsActive(num)
+                ? MemberIsCurrent(num)
+                    ? " det-member-face-active-primary"
+                    : " det-member-face-active-secondary"
+                : Member(num).IsOpenMurderer
+                ? " det-member-face-inactive-murderer"
+                : Member(num).IsOpenInnocent
+                ? " det-member-face-inactive-innocent"
+                :"";
+    }
+
+    private string MemberFaceEmotionClass(int num)
+    {
+        return MemberIsAlive(num) ? " det-member-face-text-alive vertical" : " det-member-face-text-dead";
+    }
+
+    private MvcHtmlString MemberFace(int num)
+    {
+        return new MvcHtmlString(
+            MemberIsAlive(num) ?
+                EmotionMarker(num) :
+                "x x<br>__"
+            );
+    }
+
+    private Emotion MemberEmotion(int num)
+    {
+        return Emotion.Indifferent;
+    }
+
+    private string EmotionMarker(int num)
+    {
+        switch (MemberEmotion(num))
+        {
+            case Emotion.Happy:
+                return ":)";
+            case Emotion.Sad:
+                return ":(";
+            case Emotion.Indifferent:
+                return ":|";
+            default:
+                return "ERROR";
+        }
+    }
+
+    private bool MemberIsAlive(int num)
+    {
+        return !Member(num).IsVictim;
+    }
+
+    private string ActionPlaceholder(int num)
+    {
+        return MemberIsCurrent(num) ? "ask" : MemberIsActive(num) ? "about" : "";
+    }
+
+}
+
+
 @helper Header()
 {
     <div class="det-green-pad det-border-bottom-red-4">
@@ -111,13 +166,13 @@
 
 @helper Room()
 {
-    <div id="members-top" class="det">
+    <div class="det">
         @Members(1, 6, true)
     </div>
     <div class="det-desktop det-desktop-color">
         @Desktop()
     </div>
-    <div id="members-bottom" class="det">
+    <div class="det">
         @Members(7, 12, false)
     </div>
 }
@@ -165,8 +220,8 @@
     </div>
 }
 @*
-    // ============================================================================================= []
-    // Desktop
+// ============================================================================================= []
+// Desktop
 *@
 @helper Desktop()
 {
@@ -211,8 +266,8 @@
     </div>
 }
 @*
-    // ============================================================================================= []
-    // Members
+// ============================================================================================= []
+// Members
 *@
 @helper Members(int first, int last, bool sideIsTop)
 {
@@ -250,7 +305,7 @@
 @helper Face(int m)
 {
     <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m))" align="center">
-        <div class="det-member-cell-content-face-text vertical" align="center">
+        <div class="@("det-member-cell-content-face-text " + MemberFaceEmotionClass(m))" align=" center">
             @MemberFace(m)
         </div>
     </div>
@@ -261,8 +316,8 @@
     </div>
 }
 @*
-    // ============================================================================================= []
-    // Cards
+// ============================================================================================= []
+// Cards
 *@
 @helper Cards(int first, int last)
 {
@@ -280,7 +335,7 @@
 @helper Card(int n)
 {
     <div class="det-card-aligment" align="center">
-     <div class="@("det-card-content" + CurrentCardClass(n) + ActiveCardClass(n))" align="center">
+        <div class="@("det-card-content" + CurrentCardClass(n) + ActiveCardClass(n))" align="center">
             @if (MemberExists(n))
             {
                 <div class="det-card-content-action-placeholder">
@@ -295,8 +350,8 @@
 }
 
 @*
-    // ============================================================================================= []
-    // Main
+// ============================================================================================= []
+// Main
 *@
 <div align="center" class="det-body">
     <div align="left" class="det-page">

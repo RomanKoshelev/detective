@@ -76,7 +76,7 @@ namespace Papagames.Detective.Core.Game
         private bool KnowsIamMurderer(Member subj)
         {
             Trace.Assert(IsMurderer);
-            return subj.KnowIsMurderer(this);
+            return subj.KnowsAsMurderer(this);
         }
 
         private bool KnowActiveMurderers(Member subj)

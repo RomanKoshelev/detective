@@ -18,8 +18,8 @@ namespace Papagames.Detective.App.Console
             Members.Where(m=>m.IsInnocent).ForEach(m =>
             {
                 WriteLine("  {0}", m.Name);
-                if (m.WasWitnessMurderer) PrintEvidenceSubjects("Murderers: ", Members, m.KnowIsMurderer);
-                if (m.WasWitnessInnocent) PrintEvidenceSubjects("Innocents: ", Members, m.KnowIsInnocent);
+                if (m.WasWitnessMurderer) PrintEvidenceSubjects("Murderers: ", Members, m.KnowsAsMurderer);
+                if (m.WasWitnessInnocent) PrintEvidenceSubjects("Innocents: ", Members, m.KnowsAsInnocent);
                 if (m.WasUninformed) WriteLine("    Has no information");
             });
         }

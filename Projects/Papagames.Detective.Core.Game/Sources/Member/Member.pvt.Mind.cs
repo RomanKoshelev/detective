@@ -12,7 +12,7 @@ namespace Papagames.Detective.Core.Game
 
         private bool HasEvidenceOn(Member subj)
         {
-            return KnowIsInnocent(subj) || KnowIsMurderer(subj);
+            return KnowsAsInnocent(subj) || KnowsAsMurderer(subj);
         }
 
         private bool ThinkIsMurderer(Member subj)
@@ -27,7 +27,7 @@ namespace Papagames.Detective.Core.Game
             var allInnocentsAreKnown = (1 + _innocents.Count(m => m.IsActive)) ==
                                        (ActualMembersCount - ActualMurderersCount);
 
-            if (allInnocentsAreKnown && !KnowIsInnocent(subj))
+            if (allInnocentsAreKnown && !KnowsAsInnocent(subj))
                 return true;
 
             return false;
@@ -44,7 +44,7 @@ namespace Papagames.Detective.Core.Game
 
             var allMurderersAreKnown = _murderers.Count(m => m.IsActive) == ActualMurderersCount;
 
-            if (allMurderersAreKnown && !KnowIsMurderer(subj))
+            if (allMurderersAreKnown && !KnowsAsMurderer(subj))
                 return true;
 
             return false;

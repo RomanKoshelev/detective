@@ -57,13 +57,24 @@ namespace Papagames.Detective.Core.Game
         {
             get { return DoGetOpenRole(); }
         }
+
         public Role Role
         {
             get { return DoGetRole(); }
         }
 
         public int LastActivityDay { get; set; }
-        
+
+        public bool IsOpenMurderer
+        {
+            get { return OpenRole == Role.Murderer; }
+        }
+
+        public bool IsOpenInnocent
+        {
+            get { return OpenRole == Role.Innocent; }
+        }
+
         public void SetProcess(Process process)
         {
             Process = process;

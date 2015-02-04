@@ -81,12 +81,12 @@ namespace Papagames.Detective.Core.Game
             return DoSelectEvidence(members);
         }
 
-        public bool KnowIsMurderer(Member subj)
+        public bool KnowsAsMurderer(Member subj)
         {
             return _murderers.Exists(m => m == subj);
         }
 
-        public bool KnowIsInnocent(Member subj)
+        public bool KnowsAsInnocent(Member subj)
         {
             return _innocents.Exists(m => m == subj);
         }

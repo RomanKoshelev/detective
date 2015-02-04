@@ -18,9 +18,9 @@ html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset {
     color: #00cc00;
     background-color: #000000;
 
-    -moz-box-sizing:border-box;
-    -webkit-box-sizing:border-box;
-    box-sizing:border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html, body, .det-body {
@@ -90,9 +90,8 @@ html, body, .det-body {
     height: 1px;
     overflow: hidden;
     width: 100%;
+    height: auto;
 }
-
-.det-page-content { height: auto; }
 
 /*
 // ============================================================================================= []
@@ -107,12 +106,10 @@ html, body, .det-body {
     vertical-align: middle;
     border: 2px dashed #31ff00;
 }
-
 /*
 // ============================================================================================= []
 // Pads
 */
-
 .det-green-pad {
     width: 100%;
     background: #003e00;
@@ -121,15 +118,9 @@ html, body, .det-body {
     padding-right: 15px;
 }
 
-.det-border-bottom-red-4 
-{
-    border-bottom: solid 4px #990000;
-}
-.det-border-top-red-4 
-{
-    border-top: solid 4px #990000;
-}
+.det-border-bottom-red-4 { border-bottom: solid 4px #990000; }
 
+.det-border-top-red-4 { border-top: solid 4px #990000; }
 /*
 // ============================================================================================= []
 // nav (stretch horizontally)
@@ -160,50 +151,68 @@ nav li {
     vertical-align: middle;
 }
 
-#members-top {
-    margin-top: 30px;
-    margin-bottom: 0;
-}
+.det-member-cell-aligment { width: 100%; }
 
-#members-bottom {
-    margin-top: 0;
-    margin-bottom: 30px;
-}
-
-.det-member-cell-aligment { width: 100%;}
-
-.det-member-cell-content {
-    width: 120px;
-}
+.det-member-cell-content { width: 120px; }
 
 /*
 // ============================================================================================= []
 // Face
 */
-.det-member-face-primary {
+
+.det-member-face-active-primary {
     background: #d7d700;
+    color: #6f6b00;
 }
-.det-member-face-secondary {
+
+.det-member-face-active-secondary {
     background: #827f00;
+    color: #353300;
+}
+
+.det-member-face-inactive-murderer {
+    background: #560000;
+    color: #240000;
+}
+
+.det-member-face-inactive-innocent {
+    background: #003e00;
+    color: #001a00;
 }
 
 .det-member-cell-content-face {
     width: 80px;
     height: 80px;
     border-radius: 40px;
-    margin: 15px
+    margin: 15px;
 }
 
-.det-member-cell-content-face-text {
+.det-member-face-text-alive {
     text-align: center;
     font-size: 55px;
 
     display: block;
-    color: #000000;
 
     position: relative;
     left: -10px;
+    
+    color: inherit;
+    width: inherit;
+    height: inherit;
+    background: none;
+}
 
+.det-member-face-text-dead {
+    text-align: center;
+    font-size: 20px;
+    font-weight: normal;
+
+    display: block;
+
+    position: relative;
+    top: 15px;
+
+    color: inherit;
     width: inherit;
     height: inherit;
     background: none;
@@ -211,7 +220,7 @@ nav li {
 
 .det-member-cell-content-indent {
     width: 10px;
-    height: 45px;
+    height: 55px;
     background: inherit;
 }
 
@@ -219,7 +228,9 @@ nav li {
 // ============================================================================================= []
 // Desktop
 */
+
 .det-desktop { border-radius: 0; }
+
 .det-desktop-color { background-color: #fff5cc; }
 
 /*
@@ -266,17 +277,15 @@ nav li {
     border-radius: 4px;
     border: solid 2px #8d8b69;
     background-color: #e9dfb4;
-
 }
 
-.det-card-content-action-placeholder 
-{
+.det-card-content-action-placeholder {
     font-size: 12px;
     color: inherit;
     background-color: inherit;
 }
-.det-card-content-name 
-{
+
+.det-card-content-name {
     font-size: inherit;
     color: inherit;
     background-color: inherit;

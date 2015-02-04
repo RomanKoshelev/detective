@@ -21,6 +21,19 @@ namespace Papagames.Detective.App.Web.Models
             get { return Member.Number; }
         }
 
+        public bool IsVictim
+        {
+            get { return Member.IsVictim; }
+        }
+        public bool IsOpenMurderer
+        {
+            get { return Member.IsOpenMurderer; }
+        }
+        public bool IsOpenInnocent
+        {
+            get { return Member.IsOpenInnocent; }
+        }
+
         public string MemberHistoryName
         {
             get { return (Member.IsMurderer? "*":"") + Name; }
@@ -49,7 +62,6 @@ namespace Papagames.Detective.App.Web.Models
         {
             return Member.Hates(subject.Member);
         }
-
         // ===================================================================================== []
         // Pivate
         private Member Member { get; set; }
