@@ -5,7 +5,7 @@
 @using Papagames.Detective.App.Web.Models
 @using Papagames.Detective.Core.Game
 @using Papagames.Detective.Utils
-@model Papagames.Detective.App.Web.Models.ProcessModel
+@model ProcessModel
 @{
     ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
@@ -129,6 +129,7 @@
 }
 
 
+@*
 @helper Header()
 {
     <div class="det-green-pad det-border-bottom-red-4">
@@ -160,6 +161,7 @@
         </nav>
     </div>
 }
+*@
 
 @helper Content()
 {
@@ -367,8 +369,8 @@
 *@
 <div align="center" class="det-body">
     <div align="left" class="det-page">
-        @Header()
+        @Shared.Header("Case #{0}, Find all murderers", Model.CaseId)
         @Content()
-        @Footer()
+        @Shared.Footer()
     </div>
 </div>

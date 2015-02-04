@@ -71,6 +71,27 @@ nav li {
     height: auto;
 }
 
+
+/*
+// ============================================================================================= []
+// Menu
+*/
+
+.det-menu {
+    color: inherit;
+    text-decoration: none;
+}
+.det-menu:visited { 
+    color: inherit; 
+}
+.det-menu:link{ 
+    color: inherit; 
+}
+.det-menu:hover{ 
+    color: inherit; 
+    text-decoration: underline;
+}
+
 /*
 // ============================================================================================= []
 // Attributes

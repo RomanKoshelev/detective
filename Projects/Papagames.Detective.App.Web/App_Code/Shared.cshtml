@@ -1,10 +1,58 @@
-﻿
-Usage: 
-http://stackoverflow.com/questions/6347447/shared-mvc-razor-functions-in-several-views
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@{
+    // >> App_Code > Shared
+}
 
-@helper ShowSomething()
+@helper Header(string title, params object[] args)
 {
-    <span>Something</span>
+
+    <div class="det-green-pad det-border-bottom-red-4">
+        <nav>
+            <ul>
+                <li>
+                    Crime Nuts @string.Format(title, args)
+                </li>
+                <li class="det-text-align-right">
+                    | @MenuActionLink("Home", "Home")
+                    | @MenuActionLink("Cases", "Case")
+                    | @MenuActionLink("Processes", "Process")
+                </li>
+            </ul>
+        </nav>
+    </div>
+}
+
+@helper Footer()
+{
+    <div class="det-green-pad det-border-top-red-4">
+        <nav>
+            <ul>
+                <li>
+                    Crime Nuts (c) @MenuLink("RKDev", "http://romankoshelev.info") 2015
+                </li>
+                <li class="det-text-align-right">
+                    | @MenuLink("Loc", "http://localhost/detective")
+                    | @MenuLink("Pub", "http://www.crimenuts.com")
+                    | @MenuLink("Azure","https://manage.windowsazure.com/@romakoshgmail.onmicrosoft.com#Workspaces/WebsiteExtension/Website/pgs-detective/deployments")
+                    | @MenuLink("Jira","https://rk-dev.atlassian.net/secure/RapidBoard.jspa?rapidView=1&view=detail")
+                    | @MenuLink("Github", "https://github.com/RomanKoshelev/detective")
+                    | @MenuLink("Docs","https://docs.google.com/document/d/1lIjCzt6j9BzGUCRqlUc_kvBMFaaieHP4n5MG_BvKoDs/")
+                    
+                </li>
+            </ul>
+        </nav>
+    </div>
+}
+@helper MenuActionLink(string text, string controller, string action="Index")
+{
+    var html = ((WebViewPage)WebPageContext.Current.Page).Html;
+
+    @html.ActionLink(text, action, controller, null, new { @class = "det-menu" })
+}
+@helper MenuLink(string text, string href)
+{
+    <a class="det-menu" href="@href" >@text</a>
 }
 
 @functions
