@@ -1,7 +1,8 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
-@{
+@functions{
     // >> App_Code > Shared
+   private new static HtmlHelper<object> Html {get { return ((WebViewPage) WebPageContext.Current.Page).Html; }}
 }
 
 @helper Header(string title, params object[] args)
@@ -11,7 +12,7 @@
         <nav>
             <ul>
                 <li>
-                    Crime Nuts @string.Format(title, args)
+                    @string.Format(title, args)
                 </li>
                 <li class="det-text-align-right">
                     | @MenuActionLink("Home", "Home")
@@ -46,9 +47,7 @@
 }
 @helper MenuActionLink(string text, string controller, string action="Index")
 {
-    var html = ((WebViewPage)WebPageContext.Current.Page).Html;
-
-    @html.ActionLink(text, action, controller, null, new { @class = "det-menu" })
+    @Html.ActionLink(text, action, controller, null, new { @class = "det-menu" })
 }
 @helper MenuLink(string text, string href)
 {

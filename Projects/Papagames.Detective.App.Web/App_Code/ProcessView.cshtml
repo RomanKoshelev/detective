@@ -1,9 +1,16 @@
 ﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
 @using Papagames.Detective.App.Web.Models
 @using Papagames.Detective.Core.Game
 @using Papagames.Detective.Utils
 
 @functions {
+    private new static HtmlHelper<object> Html { get { return ((WebViewPage)WebPageContext.Current.Page).Html; } }
+
+    public static void RenderPartial(string part, object args = null)
+    {
+        Html.RenderPartial("~/Views/Process/Classic/Play/" + part + ".cshtml", Model, Html.NewViewData(args ?? new { }));
+    }
 
     private new static ProcessModel Model
     {

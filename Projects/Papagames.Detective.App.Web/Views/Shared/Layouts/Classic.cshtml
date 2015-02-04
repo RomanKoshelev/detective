@@ -6,7 +6,7 @@
 }
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width"/>
     <link href='http://fonts.googleapis.com/css?family=Cousine|Roboto+Slab:400,700|Roboto&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <title>@ViewBag.Title</title>
@@ -14,7 +14,13 @@
 </head>
 
 <body>
-    @RenderBody()
+<div align="center" class="det-body">
+    <div align="left" class="det-page">
+        @LayoutView.Header(ViewBag.Title)
+        @RenderBody()
+        @LayoutView.Footer()
+    </div>
+</div>
 </body>
 
 </html>

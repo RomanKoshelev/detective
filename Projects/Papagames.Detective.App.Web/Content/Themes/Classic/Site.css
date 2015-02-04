@@ -15,9 +15,6 @@ html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset {
     font-size: 1.02em;
     font-family: 'Cousine';
 
-    color: #00cc00;
-    background-color: #000000;
-
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -65,7 +62,6 @@ nav li {
 
 .det-page-content {
     display: table-row;
-    height: 1px;
     overflow: hidden;
     width: 100%;
     height: auto;
@@ -78,17 +74,10 @@ nav li {
 */
 
 .det-menu {
-    color: inherit;
+    color: #00cc00;
     text-decoration: none;
 }
-.det-menu:visited { 
-    color: inherit; 
-}
-.det-menu:link{ 
-    color: inherit; 
-}
 .det-menu:hover{ 
-    color: inherit; 
     text-decoration: underline;
 }
 
@@ -140,9 +129,10 @@ nav li {
 */
 
 .det-dev {
+    color: #00cc00;
+    background-color: #000000;
     padding: 6px;
     margin: 6px;
-    background: inherit;
     text-align: center;
     vertical-align: middle;
     border: 2px dashed #31ff00;
@@ -152,6 +142,7 @@ nav li {
 // Pads
 */
 .det-green-pad {
+    color: #00cc00;
     width: 100%;
     background: #003e00;
     padding: 10px;
@@ -252,9 +243,9 @@ nav li {
 // Desktop
 */
 
-.det-desktop { border-radius: 0; }
+.det-gametable { border-radius: 0; }
 
-.det-desktop-color { background-color: #fff5cc; }
+.det-gametable-color { background-color: #fff5cc; }
 
 /*
 // ============================================================================================= []

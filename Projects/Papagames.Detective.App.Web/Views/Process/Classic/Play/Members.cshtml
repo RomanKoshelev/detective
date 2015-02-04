@@ -1,28 +1,32 @@
 ﻿@using Papagames.Detective.Core.Game
+@{
+    @Members((int)ViewData["First"], (int)ViewData["Last"], (bool)ViewData["SideIsTop"])
+}
+
 @functions
 {
     private string CurrentMemberFaceClass(int num)
     {
         return
-            ProcessLib.MemberIsActive(num)
-                ? ProcessLib.MemberIsPrimary(num)
+            ProcessView.MemberIsActive(num)
+                ? ProcessView.MemberIsPrimary(num)
                     ? " det-member-face-active-primary"
                     : " det-member-face-active-secondary"
-                : ProcessLib.Member(num).IsOpenMurderer
+                : ProcessView.Member(num).IsOpenMurderer
                     ? " det-member-face-inactive-murderer"
-                    : ProcessLib.Member(num).IsOpenInnocent
+                    : ProcessView.Member(num).IsOpenInnocent
                         ? " det-member-face-inactive-innocent"
                         : "";
     }
 
     private string MemberFaceEmotionClass(int num)
     {
-        return ProcessLib.MemberIsAlive(num) ? " det-member-face-text-alive det-vertical" : " det-member-face-text-dead";
+        return ProcessView.MemberIsAlive(num) ? " det-member-face-text-alive det-vertical" : " det-member-face-text-dead";
     }
 
     private string EmotionMarker(int num)
     {
-        switch (ProcessLib.MemberEmotion(num))
+        switch (ProcessView.MemberEmotion(num))
         {
             case Emotion.Happy:
                 return ":)";
@@ -38,7 +42,7 @@
     private MvcHtmlString MemberFace(int num)
     {
         return new MvcHtmlString(
-            ProcessLib.MemberIsAlive(num) ?
+            ProcessView.MemberIsAlive(num) ?
                 EmotionMarker(num) :
                 "x x<br>__"
             );
@@ -63,9 +67,9 @@
 {
     <div class="det-member-cell-aligment" align="center">
         <div class="det-member-cell-content" align="center">
-            @if (ProcessLib.MemberExists(i))
+            @if (ProcessView.MemberExists(i))
             {
-                if (sideIsTop && ProcessLib.MemberIsActive(i) || !sideIsTop && !ProcessLib.MemberIsActive(i))
+                if (sideIsTop && ProcessView.MemberIsActive(i) || !sideIsTop && !ProcessView.MemberIsActive(i))
                 {
                     @FaceIndent()
                     @Face(i)
@@ -95,5 +99,3 @@
     <div class="det-member-cell-content-indent">
     </div>
 }
-
-@Members((int)ViewData["First"], (int)ViewData["Last"], (bool)ViewData["SideIsTop"])

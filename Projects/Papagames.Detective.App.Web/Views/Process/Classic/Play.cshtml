@@ -1,24 +1,16 @@
 ﻿@*
     // ============================================================================================= []
-    // >> Process > View > Classic > Play **
+    // >> Process > View > Classic > Play *
 *@
-@using Papagames.Detective.Utils
 @model Papagames.Detective.App.Web.Models.ProcessModel
 
-@functions {
-
-    private void RendelPartitial(string part, object args)
-    {
-        Html.RenderPartial("~/Views/Process/Classic/Play/" + part + ".cshtml", Model, Html.NewViewData(args));
-    }
-
-}
 @{
     ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewData["id"] = Model.Id;
 }
 
+@Content()
 
 @helper Content()
 {
@@ -37,107 +29,25 @@
 @helper Room()
 {
     <div class="det">
-        @{ RendelPartitial("Members", new {First = 1, Last = 6, SideIsTop = true}); }
+        @{ ProcessView.RenderPartial("Members", new {First = 1, Last = 6, SideIsTop = true}); }
     </div>
-    <div class="det-desktop det-desktop-color">
-        @Desktop()
-    </div>
-    <div class="det">
-        @{ RendelPartitial("Members", new {First = 7, Last = 12, SideIsTop = false}); }
-    </div>
-}
-
-@helper Desktop()
-{
-    <div class="det">
-        @{ RendelPartitial("Cards", new { First = 1, Last = 6 }); }
-    </div>
-    <div class="det-dev det-height-300">
-        Play desk
-        @*@Infozone()*@
+    <div class="det-gametable det-gametable-color">
+        @GameTable()
     </div>
     <div class="det">
-        @{ RendelPartitial("Cards", new { First = 7, Last = 12 }); }
+        @{ ProcessView.RenderPartial("Members", new { First = 7, Last = 12, SideIsTop = false }); }
     </div>
 }
 
-@helper History()
+@helper GameTable()
 {
-    @DaySummary("Day 1", "Summary")
-    @DaySummary("Day 2", "Summary")
-}
-@helper DaySummary(string day, string summary)
-{
-    <div class="det-dev">
-        <div class="det-dev det-raw">
-            <div class="det-dev det-cell det-width-100">
-                @day
-            </div>
-            <div class="det-dev det-cell det-width-auto">
-                @summary
-            </div>
-        </div>
+    <div class="det">
+        @{ ProcessView.RenderPartial("Cards", new { First = 1, Last = 6 }); }
+    </div>
+    <div class="det">
+        @{ ProcessView.RenderPartial("Desktop"); }
+    </div>
+    <div class="det">
+        @{ ProcessView.RenderPartial("Cards", new { First = 7, Last = 12 }); }
     </div>
 }
-
-@helper Today()
-{
-    <div class="det-dev det-raw">
-        <div class="det-dev det-cell det-width-100">
-            Day 3
-        </div>
-        <div class="det-dev det-cell det-width-auto">
-            Today Information
-            <div class="det-dev">
-                Murders
-            </div>
-            <div class="det-dev">
-                Evidences
-            </div>
-            <div class="det-dev">
-                Answers
-            </div>
-            <div class="det-dev">
-                Arrest
-            </div>
-        </div>
-    </div>
-}
-
-@helper Infozone()
-{
-    <div class="det-dev">
-        History
-        @History()
-    </div>
-    <div class="det-dev">
-        Today
-        @Today()
-    </div>
-    <div class="det-dev">
-        Result
-    </div>
-    <div class="det-dev">
-        Actions
-        <div class="det-dev">
-            Questioning
-        </div>
-        <div class="det-dev">
-            Arrest
-        </div>
-        <div class="det-dev">
-            Next Day
-        </div>
-        <div class="det-dev">
-            Reveal Details
-        </div>
-    </div>
-}
-
-<div align="center" class="det-body">
-    <div align="left" class="det-page">
-        @Shared.Header("Case #{0}, Find all murderers", Model.CaseId)
-        @Content()
-        @Shared.Footer()
-    </div>
-</div>

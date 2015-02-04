@@ -1,0 +1,80 @@
+﻿@{
+    // >> Process > View > Classic > Desktop **
+    @Desktop()
+}
+
+@helper Desktop()
+{
+    <div class="det">
+        @Today()
+    </div>
+@*
+     <div class="det-dev">
+     History
+     @History()
+    
+    </div>
+    <div class="det-dev">
+        Result
+    </div>
+    <div class="det-dev">
+        Actions
+        <div class="det-dev">
+            Questioning
+        </div>
+        <div class="det-dev">
+            Arrest
+        </div>
+        <div class="det-dev">
+            Next Day
+        </div>
+        <div class="det-dev">
+            Reveal Details
+        </div>
+    </div>
+*@
+}
+
+@helper History()
+{
+    @DaySummary("Day 1", "Summary")
+    @DaySummary("Day 2", "Summary")
+}
+
+@helper DaySummary(string day, string summary)
+{
+    <div class="det-dev">
+        <div class="det-dev det-raw">
+            <div class="det-dev det-cell det-width-100">
+                @day
+            </div>
+            <div class="det-dev det-cell det-width-auto">
+                @summary
+            </div>
+        </div>
+    </div>
+}
+
+@helper Today()
+{
+    <div class="det-dev det-raw">
+        <div class="det-dev det-cell det-width-100">
+            Day 3
+        </div>
+        <div class="det-dev det-cell det-width-auto">
+            Today Information
+            <div class="det-dev">
+                Murders
+            </div>
+            <div class="det-dev">
+                Evidences
+            </div>
+            <div class="det-dev">
+                Answers
+            </div>
+            <div class="det-dev">
+                Arrest
+            </div>
+        </div>
+    </div>
+}
