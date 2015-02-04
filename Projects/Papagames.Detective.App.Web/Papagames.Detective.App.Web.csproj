@@ -188,6 +188,7 @@
     <Content Include="Content\Themes\Default\Site.css" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="App_Code\Shared.cshtml" />
+    <Content Include="App_Code\ProcessLib.cshtml" />
     <None Include="Properties\PublishProfiles\pgs-detective.pubxml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -218,10 +219,11 @@
     <Content Include="Views\Shared\Parts\BottomLinks.cshtml" />
     <Content Include="Views\Shared\Layouts\Default.cshtml" />
     <Content Include="Views\Process\ClassicPlay.cshtml" />
+    <Content Include="Views\Process\Classic\Play\Cards.cshtml" />
+    <Content Include="Views\Process\Classic\Play\Members.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Process\Classic\Play\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

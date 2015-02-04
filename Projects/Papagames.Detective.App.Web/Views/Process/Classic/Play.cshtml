@@ -1,167 +1,24 @@
 ﻿@*
     // ============================================================================================= []
-    // >> Process > View > Classic > Play
+    // >> Process > View > Classic > Play **
 *@
-@using Papagames.Detective.App.Web.Models
-@using Papagames.Detective.Core.Game
 @using Papagames.Detective.Utils
-@model ProcessModel
+@model Papagames.Detective.App.Web.Models.ProcessModel
+
+@functions {
+
+    private void RendelPartitial(string part, object args)
+    {
+        Html.RenderPartial("~/Views/Process/Classic/Play/" + part + ".cshtml", Model, Html.NewViewData(args));
+    }
+
+}
 @{
     ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewData["id"] = Model.Id;
 }
-@*
-    // ============================================================================================= []
-    // Functions
-*@
-@functions {
 
-    private MemberModel Member(int? num)
-    {
-        Assert.IsTrue(MemberExists(num), "Member {0} does't exist", num);
-        return Model.Members.First(m => m.Number == num);
-    }
-
-    private string MemberName(int num)
-    {
-        var name = Model.Members.Where(m => m.Number == num).Select(m => m.Name).FirstOrDefault();
-        return name ?? " ";
-    }
-
-    private bool MemberExists(int? num)
-    {
-        if (num == null) return false;
-        return Model.Members.Any(m => m.Number == num);
-    }
-
-    private bool MemberIsActive(int num)
-    {
-        return Model.ActiveMembers.Any(m => m.Number == num);
-    }
-
-    private bool MemberIsPrimary(int num)
-    {
-        return Model.UIPrimaryMember == num;
-    }
-
-    private string CurrentCardClass(int num)
-    {
-        return MemberIsPrimary(num) ? " det-card-primary" : MemberIsActive(num) ? " det-card-secondary" : "";
-    }
-
-    private string ActiveCardClass(int num)
-    {
-        return MemberIsActive(num) ? " det-card-active" : " det-card-inactive";
-    }
-
-    private string CurrentMemberFaceClass(int num)
-    {
-        return
-            MemberIsActive(num)
-                ? MemberIsPrimary(num)
-                    ? " det-member-face-active-primary"
-                    : " det-member-face-active-secondary"
-                : Member(num).IsOpenMurderer
-                    ? " det-member-face-inactive-murderer"
-                    : Member(num).IsOpenInnocent
-                        ? " det-member-face-inactive-innocent"
-                        : "";
-    }
-
-    private string MemberFaceEmotionClass(int num)
-    {
-        return MemberIsAlive(num) ? " det-member-face-text-alive det-vertical" : " det-member-face-text-dead";
-    }
-
-    private MvcHtmlString MemberFace(int num)
-    {
-        return new MvcHtmlString(
-            MemberIsAlive(num) ?
-                EmotionMarker(num) :
-                "x x<br>__"
-            );
-    }
-
-    private Emotion MemberEmotion(int num)
-    {
-        switch (Model.State)
-        {
-            case State.Questioning:
-                if (MemberIsPrimary(num))
-                {
-                    return Emotion.Indifferent;
-                }
-                if (MemberExists(Model.UIPrimaryMember))
-                {
-                    return Member(num).ExpressEmotionOnRelationTo(Member(Model.UIPrimaryMember));
-                }
-                break;
-        }
-        return Emotion.Indifferent;
-    }
-
-    private string EmotionMarker(int num)
-    {
-        switch (MemberEmotion(num))
-        {
-            case Emotion.Happy:
-                return ":)";
-            case Emotion.Sad:
-                return ":(";
-            case Emotion.Indifferent:
-                return ":|";
-            default:
-                return "ERROR";
-        }
-    }
-
-    private bool MemberIsAlive(int num)
-    {
-        return !Member(num).IsVictim;
-    }
-
-    private string ActionPlaceholder(int num)
-    {
-        return MemberIsPrimary(num) ? "ask" : MemberIsActive(num) ? "about" : "";
-    }
-
-}
-
-
-@*
-@helper Header()
-{
-    <div class="det-green-pad det-border-bottom-red-4">
-        <nav>
-            <ul>
-                <li>
-                    Crime Nuts Case #17, Find all murderers
-                </li>
-                <li class="det-text-align-right">
-                    Home | Cases | Help
-                </li>
-            </ul>
-        </nav>
-    </div>
-}
-
-@helper Footer()
-{
-    <div class="det-green-pad det-border-top-red-4">
-        <nav>
-            <ul>
-                <li>
-                    Crime Nuts (c) RKDev 2015
-                </li>
-                <li class="det-text-align-right">
-                    Loc | Pub | Jira | Azura | Github
-                </li>
-            </ul>
-        </nav>
-    </div>
-}
-*@
 
 @helper Content()
 {
@@ -180,13 +37,27 @@
 @helper Room()
 {
     <div class="det">
-        @Members(1, 6, true)
+        @{ RendelPartitial("Members", new {First = 1, Last = 6, SideIsTop = true}); }
     </div>
     <div class="det-desktop det-desktop-color">
         @Desktop()
     </div>
     <div class="det">
-        @Members(7, 12, false)
+        @{ RendelPartitial("Members", new {First = 7, Last = 12, SideIsTop = false}); }
+    </div>
+}
+
+@helper Desktop()
+{
+    <div class="det">
+        @{ RendelPartitial("Cards", new { First = 1, Last = 6 }); }
+    </div>
+    <div class="det-dev det-height-300">
+        Play desk
+        @*@Infozone()*@
+    </div>
+    <div class="det">
+        @{ RendelPartitial("Cards", new { First = 7, Last = 12 }); }
     </div>
 }
 
@@ -232,23 +103,7 @@
         </div>
     </div>
 }
-@*
-    // ============================================================================================= []
-    // Desktop
-*@
-@helper Desktop()
-{
-    <div class="det">
-        @Cards(1, 6)
-    </div>
-    <div class="det-dev det-height-300">
-        Play desk
-        @*@Infozone()*@
-    </div>
-    <div class="det">
-        @Cards(7, 12)
-    </div>
-}
+
 @helper Infozone()
 {
     <div class="det-dev">
@@ -278,95 +133,7 @@
         </div>
     </div>
 }
-@*
-    // ============================================================================================= []
-    // Members
-*@
-@helper Members(int first, int last, bool sideIsTop)
-{
-    <nav>
-        <ul>
-            @for (var i = first; i <= last; i++)
-            {
-                <li class="det-member">
-                    @Member(i, sideIsTop)
-                </li>
-            }
-        </ul>
-    </nav>
-}
-@helper Member(int i, bool sideIsTop)
-{
-    <div class="det-member-cell-aligment" align="center">
-        <div class="det-member-cell-content" align="center">
-            @if (MemberExists(i))
-            {
-                if (sideIsTop && MemberIsActive(i) || !sideIsTop && !MemberIsActive(i))
-                {
-                    @FaceIndent()
-                    @Face(i)
-                }
-                else
-                {
-                    @Face(i)
-                    @FaceIndent()
-                }
-            }
-        </div>
-    </div>
-}
-@helper Face(int m)
-{
-    <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m))">
-        <a class="@("det-no-text-decoration" + MemberFaceEmotionClass(m))"
-            href="@Url.Action("ClassicPlay", "Process", new {id = Model.Id, primaryMember = m})">
-            @MemberFace(m)
-        </a>
-    </div>
-}
-@helper FaceIndent()
-{
-    <div class="det-member-cell-content-indent">
-    </div>
-}
-@*
-    // ============================================================================================= []
-    // Cards
-*@
-@helper Cards(int first, int last)
-{
-    <nav class="det-desktop-color">
-        <ul>
-            @for (var i = first; i <= last; i++)
-            {
-                <li class="det-card">
-                    @Card(i)
-                </li>
-            }
-        </ul>
-    </nav>
-}
-@helper Card(int n)
-{
-    <div class="det-card-aligment" align="center">
-        <div class="@("det-card-content" + CurrentCardClass(n) + ActiveCardClass(n))" align="center">
-            @if (MemberExists(n))
-            {
-                <div class="det-card-content-action-placeholder">
-                    @ActionPlaceholder(n)
-                </div>
-                <div class="det-card-content-name">
-                    @MemberName(n)
-                </div>
-            }
-        </div>
-    </div>
-}
 
-@*
-    // ============================================================================================= []
-    // Main
-*@
 <div align="center" class="det-body">
     <div align="left" class="det-page">
         @Shared.Header("Case #{0}, Find all murderers", Model.CaseId)

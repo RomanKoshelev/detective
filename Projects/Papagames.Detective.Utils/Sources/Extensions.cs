@@ -76,7 +76,7 @@ namespace Papagames.Detective.Utils
         public static char[] GetChars(this string str)
         {
             var chars = new char[str.Length*sizeof (char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, chars, 0, chars.Length);
+            Buffer.BlockCopy(str.ToCharArray(), 0, chars, 0, chars.Length);
             return chars;
         }
 
@@ -123,6 +123,21 @@ namespace Papagames.Detective.Utils
         public static string IfNull(this string str, int? n)
         {
             return n == null ? str : string.Format("{0}", n);
+        }
+
+        public static Dictionary<string, object> ToDictionary(this object o)
+        {
+            var dictionary = new Dictionary<string, object>();
+
+            foreach (var propertyInfo in o.GetType().GetProperties())
+            {
+                if (propertyInfo.GetIndexParameters().Length == 0)
+                {
+                    dictionary.Add(propertyInfo.Name, propertyInfo.GetValue(o, null));
+                }
+            }
+
+            return dictionary;
         }
     }
 }

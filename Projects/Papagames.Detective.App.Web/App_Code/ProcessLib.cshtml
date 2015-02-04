@@ -1,0 +1,65 @@
+﻿@using System.Web.Mvc
+@using Papagames.Detective.App.Web.Models
+@using Papagames.Detective.Core.Game
+@using Papagames.Detective.Utils
+
+@functions {
+
+    private new static ProcessModel Model
+    {
+        get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }
+    }
+    
+    public static bool MemberExists(int? num)
+    {
+        if (num == null) return false;
+        return Model.Members.Any(m => m.Number == num);
+    }
+
+    public static MemberModel Member(int? num)
+    {
+        Assert.IsTrue(MemberExists(num), "Member {0} does't exist", num);
+        return Model.Members.First(m => m.Number == num);
+    }
+
+
+    public static string MemberName(int num)
+    {
+        var name = Model.Members.Where(m => m.Number == num).Select(m => m.Name).FirstOrDefault();
+        return name ?? " ";
+    }
+
+    public static bool MemberIsActive(int num)
+    {
+        return Model.ActiveMembers.Any(m => m.Number == num);
+    }
+
+    public static bool MemberIsPrimary(int num)
+    {
+        return Model.UIPrimaryMember == num;
+    }
+
+    public static Emotion MemberEmotion(int num)
+    {
+        switch (Model.State)
+        {
+            case State.Questioning:
+                if (MemberIsPrimary(num))
+                {
+                    return Emotion.Indifferent;
+                }
+                if (MemberExists(Model.UIPrimaryMember))
+                {
+                    return Member(num).ExpressEmotionOnRelationTo(Member(Model.UIPrimaryMember));
+                }
+                break;
+        }
+        return Emotion.Indifferent;
+    }
+
+    public static bool MemberIsAlive(int num)
+    {
+        return !Member(num).IsVictim;
+    }
+
+}

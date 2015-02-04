@@ -1,0 +1,99 @@
+﻿@using Papagames.Detective.Core.Game
+@functions
+{
+    private string CurrentMemberFaceClass(int num)
+    {
+        return
+            ProcessLib.MemberIsActive(num)
+                ? ProcessLib.MemberIsPrimary(num)
+                    ? " det-member-face-active-primary"
+                    : " det-member-face-active-secondary"
+                : ProcessLib.Member(num).IsOpenMurderer
+                    ? " det-member-face-inactive-murderer"
+                    : ProcessLib.Member(num).IsOpenInnocent
+                        ? " det-member-face-inactive-innocent"
+                        : "";
+    }
+
+    private string MemberFaceEmotionClass(int num)
+    {
+        return ProcessLib.MemberIsAlive(num) ? " det-member-face-text-alive det-vertical" : " det-member-face-text-dead";
+    }
+
+    private string EmotionMarker(int num)
+    {
+        switch (ProcessLib.MemberEmotion(num))
+        {
+            case Emotion.Happy:
+                return ":)";
+            case Emotion.Sad:
+                return ":(";
+            case Emotion.Indifferent:
+                return ":|";
+            default:
+                return "ERROR";
+        }
+    }
+
+    private MvcHtmlString MemberFace(int num)
+    {
+        return new MvcHtmlString(
+            ProcessLib.MemberIsAlive(num) ?
+                EmotionMarker(num) :
+                "x x<br>__"
+            );
+    }
+}
+
+@helper Members(int first, int last, bool sideIsTop)
+{
+    <nav>
+        <ul>
+            @for (var i = first; i <= last; i++)
+            {
+                <li class="det-member">
+                    @Member(i, sideIsTop)
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+@helper Member(int i, bool sideIsTop)
+{
+    <div class="det-member-cell-aligment" align="center">
+        <div class="det-member-cell-content" align="center">
+            @if (ProcessLib.MemberExists(i))
+            {
+                if (sideIsTop && ProcessLib.MemberIsActive(i) || !sideIsTop && !ProcessLib.MemberIsActive(i))
+                {
+                    @FaceIndent()
+                    @Face(i)
+                }
+                else
+                {
+                    @Face(i)
+                    @FaceIndent()
+                }
+            }
+        </div>
+    </div>
+}
+
+@helper Face(int m)
+{
+    <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m))">
+        <a class="@("det-no-text-decoration" + MemberFaceEmotionClass(m))"
+           href="@Url.Action("ClassicPlay", "Process", new {id = Model.Id, primaryMember = m})">
+            @MemberFace(m)
+        </a>
+    </div>
+}
+
+@helper FaceIndent()
+{
+    <div class="det-member-cell-content-indent">
+    </div>
+}
+
+@Members((int)ViewData["First"], (int)ViewData["Last"], (bool)ViewData["SideIsTop"])

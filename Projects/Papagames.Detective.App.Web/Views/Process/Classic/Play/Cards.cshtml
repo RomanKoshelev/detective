@@ -1,0 +1,50 @@
+﻿@functions
+{
+
+    private string CurrentCardClass(int num)
+    {
+        return ProcessLib.MemberIsPrimary(num) ? " det-card-primary" : ProcessLib.MemberIsActive(num) ? " det-card-secondary" : "";
+    }
+
+    private string ActiveCardClass(int num)
+    {
+        return ProcessLib.MemberIsActive(num) ? " det-card-active" : " det-card-inactive";
+    }
+
+    private string ActionPlaceholder(int num)
+    {
+        return ProcessLib.MemberIsPrimary(num) ? "ask" : ProcessLib.MemberIsActive(num) ? "about" : "";
+    }
+}
+
+@helper Cards(int first, int last)
+{
+    <nav class="det-desktop-color">
+        <ul>
+            @for (var i = first; i <= last; i++)
+            {
+                <li class="det-card">
+                    @Card(i)
+                </li>
+            }
+        </ul>
+    </nav>
+}
+@helper Card(int n)
+{
+    <div class="det-card-aligment" align="center">
+        <div class="@("det-card-content" + CurrentCardClass(n) + ActiveCardClass(n))" align="center">
+            @if (ProcessLib.MemberExists(n))
+            {
+                <div class="det-card-content-action-placeholder">
+                    @ActionPlaceholder(n)
+                </div>
+                <div class="det-card-content-name">
+                    @ProcessLib.MemberName(n)
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@Cards((int)ViewData["First"], (int)ViewData["Last"])
