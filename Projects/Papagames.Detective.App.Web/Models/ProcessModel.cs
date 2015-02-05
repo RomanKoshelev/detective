@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Papagames.Detective.Core.Game;
@@ -36,7 +37,7 @@ namespace Papagames.Detective.App.Web.Models
             get { return Process.State; }
         }
 
-        public int CurrentDay
+        public int Today
         {
             get { return Process.Today; }
         }
@@ -105,6 +106,10 @@ namespace Papagames.Detective.App.Web.Models
         public MemberModel TodayVictim
         {
             get { return DoGetTodayVictim(); }
+        }
+        public IList<AnswerModel> TodayAnswers()
+        {
+            return History.Answers(Today);
         }
 
         // ===================================================================================== []

@@ -68,7 +68,7 @@ nav li {
 }
 
 
-.det-room{
+.det-room {
     height: auto;
     padding-left: 0;
     padding-right: 0;
@@ -255,7 +255,11 @@ nav li {
 .det-gametable { border-radius: 0; }
 
 .det-gametable-color { background-color: #fff5cc; }
-.det-desktop { padding: 10px; }
+
+.det-desktop {
+    padding: 10px;
+    font-size: 15px;
+}
 
 /*
 // ============================================================================================= []
@@ -320,9 +324,7 @@ nav li {
 // Today
 */
 
-.det-today {
-    padding: 10px;
-}
+.det-today { padding: 10px; }
 
 .det-today-day {
     width: 90px;
@@ -337,18 +339,44 @@ nav li {
     display: table-cell;
     vertical-align: top;
 }
+
 .det-today-info-murder {
     color: #560000;
     padding-bottom: 5px;
 }
 
-.det-today-info-evidences{
+.det-today-info-evidences {
     color: #560000;
     padding-bottom: 5px;
 }
 
+/*
+// ============================================================================================= []
+// Answers
+*/
 
+.det-today-info-answers {
+    vertical-align: top;
+    color: #4800b1;
+}
 
+.det-today-info-answer {
+    padding: 0;
+    width: 100%;
+}
+
+.det-today-info-answer-agent {
+    display: table-cell;
+    width: 120px;
+    text-align: left;
+    padding: 0;
+}
+
+.det-today-info-answer-value {
+    display: table-cell;
+    width: auto;
+    padding: 0;
+}
 /*
 // ============================================================================================= []
 // EOF
