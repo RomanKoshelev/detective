@@ -31,7 +31,7 @@ namespace Papagames.Detective.App.Web.Controllers
             return View(new ProcessModel(processId));
         }
 
-        // >> Precess > Controller > ClassicPlay
+        // >> Precess > Controller > ClassicPlay **
         public ActionResult ClassicPlay(int id,
             int? face,
             int? card,
@@ -44,7 +44,7 @@ namespace Papagames.Detective.App.Web.Controllers
             {
                 Schema.ExecuteProcess(processId, (Process.UserAction.ActionType)actionType,
                     new[] {respondent ?? 0, subject ?? 0});
-                return RedirectToAction("ClassicPlay", "Process", new {id = processId});
+                return RedirectToAction("ClassicPlay", "Process", new {id = processId, face=respondent});
             }
 
             ViewBag.Face = face;

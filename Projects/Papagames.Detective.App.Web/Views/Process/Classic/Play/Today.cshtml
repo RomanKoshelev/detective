@@ -52,8 +52,6 @@
         <div class="det-today-info">
             @Murder()
             @Evidences()
-            @Answers()
-            @Arrest()
         </div>
     </div>
 }
@@ -69,28 +67,4 @@
     <div class="det-today-info-evidences">
         @InnocentNumDescription() made @EvidencesNumDescription()
     </div>
-}
-
-@helper Answers()
-{
-    <div class="det-today-info-answers det-answers-color">
-        @foreach (var a in Model.TodayAnswers())
-        {
-            <div class="det-today-info-answer">
-                <div class="det-today-info-answer-agent">
-                    @a.Agent:
-                </div>
-                <div class="det-today-info-answer-value">
-                    @a.Subject is @a.Value.Verbal()
-                </div>
-            </div>
-        }
-    </div>
-}
-
-@helper Arrest()
-{
-@*    <div class="det-today-info-murder">
-        Xxx was arrested
-    </div>*@
 }

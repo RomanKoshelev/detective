@@ -344,7 +344,7 @@ nav li {
 
 /*
 // ============================================================================================= []
-// Answers
+// Questioning
 */
 
 .det-today-info-answers { vertical-align: top; }
@@ -353,28 +353,24 @@ nav li {
 
 .det-today-info-answer {
     padding: 0;
-    width: 100%;
+    width: auto;
 }
 
 .det-today-info-answer-agent {
     display: table-cell;
     width: 120px;
     text-align: left;
-    padding: 0;
 }
 
 .det-today-info-answer-value {
     display: table-cell;
     width: auto;
-    padding: 0;
 }
 
-
-/*
-// ============================================================================================= []
-// Questioning
-*/
-
+.det-answer-highlight {
+    background-color: #fcff00;
+    color: #0015ff;
+}
 
 .det-questioning {
     vertical-align: top;

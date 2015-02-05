@@ -31,38 +31,53 @@
         return n == 1 ? "" : i == n - 2 ? " or " : i < n - 1 ? ", " : "";
     }
 
+    private string AnswerSelectedFaceClass(int num)
+    {
+        return num == ViewBag.Face ? " det-answer-highlight" : "";
+    }
+
+    private int? Face
+    {
+        get { return ViewBag.Face; }
+    }
+    private int? Card
+    {
+        get { return ViewBag.Card; }
+    }
+
 }
 
 @helper Questioning()
 {
-    if (ViewBag.Respondent == null)
-    {
-        @SelectRespondent()
-    }
-    else
-    {
-        @SelectSubject(ViewBag.Respondent)
-    }
+    ViewBag.Respondent = ViewBag.Respondent ?? ViewBag.Face;
+
+    <div class="det-today">
+        <div class="det-today-day det-answers-color det-questioning"></div>
+        <div class="det-today-info">
+            <div class="det-questioning det-answers-color">
+                @Answers()
+                @if (ViewBag.Respondent == null)
+                {
+                    @SelectRespondent()
+                }
+                else
+                {
+                    @SelectSubject(ViewBag.Respondent)
+                }
+            </div>
+        </div>
+    </div>
 }
 
 
 @helper SelectRespondent()
 {
-    <div class="det-today">
-        <div class="det-today-day det-answers-color det-questioning">Inquire:</div>
-        <div class="det-today-info">
-            <div class="det-questioning det-answers-color">
-                @{
-                    var respondents = QuestionRespondents();
-                    var i = 0;
-                    foreach (var num in respondents)
-                    {
-                        @RespondentLink(num, MemberNamesDelimiter(i++, respondents.Count))
-                    }
-                }
-            </div>
-        </div>
-    </div>
+    var respondents = QuestionRespondents();
+    var i = 0;
+    foreach (var num in respondents)
+    {
+        @RespondentLink(num, MemberNamesDelimiter(i++, respondents.Count))
+    }
 }
 
 @helper RespondentLink(int num, string suffix)
@@ -76,30 +91,21 @@
 
 @helper SelectSubject(int respondent)
 {
-    <div class="det-today">
-        <div class="det-today-day det-answers-color det-questioning">Inquire:</div>
-        <div class="det-today-info">
-            <div class="det-questioning det-answers-color">
-                ask @ProcessView.MemberName(respondent) about
-                @{
-                    var subjects = QuestionSubjects(respondent);
-                    var i = 0;
-                    foreach (var num in subjects)
-                    {
-                        @AskActionLink(respondent, num, MemberNamesDelimiter(i++, subjects.Count))
-                    }
-                }
-            </div>
-        </div>
-    </div>
+    <span>ask @ProcessView.MemberName(respondent) about</span>
+    var subjects = QuestionSubjects(respondent);
+    var i = 0;
+    foreach (var num in subjects)
+    {
+        @AskActionLink(respondent, num, MemberNamesDelimiter(i++, subjects.Count))
+    }
 }
 
 @helper AskActionLink(int respondent, int subject, string suffix)
 {
-    const int actionType = (int)Process.UserAction.ActionType.Ask;
+    const int actionType = (int) Process.UserAction.ActionType.Ask;
     @BuildLink(
         ProcessView.MemberName(subject),
-        Url.Action("ClassicPlay", "Process", new {id = Model.Id, actionType, respondent, subject}),
+        Url.Action("ClassicPlay", "Process", new {id = Model.Id, face = Face, actionType, respondent, subject}),
         suffix
         )
 }
@@ -113,4 +119,22 @@
         suffix);
     var htmlLink = new MvcHtmlString(link);
     @htmlLink
+}
+
+@helper Answers()
+{
+    <div class="det-today-info-answers det-answers-color">
+        @foreach (var a in Model.TodayAnswers())
+        {
+            var answerSelectedFaceClass = AnswerSelectedFaceClass(a.Agent.Number);
+            <div class="det-today-info-answer">
+                <div class="det-today-info-answer-agent @answerSelectedFaceClass">
+                    @a.Agent:
+                </div>
+                <div class="det-today-info-answer-value @answerSelectedFaceClass">
+                    @a.Subject is @a.Value.Verbal()
+                </div>
+            </div>
+        }
+    </div>
 }
