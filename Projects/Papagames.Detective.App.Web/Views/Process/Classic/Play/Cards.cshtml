@@ -1,23 +1,27 @@
-﻿@{
+﻿@model Papagames.Detective.App.Web.Models.ProcessModel
+@{
+    // >> Process > View > Classic > Cards
     @Cards((int) ViewData["First"], (int) ViewData["Last"])
 }
 
 @functions
 {
 
-    private string CurrentCardClass(int num)
+    private string PrimaryCardClass(int num)
     {
-        return ProcessView.MemberIsPrimary(num) ? " det-card-primary" : ProcessView.MemberIsActive(num) ? " det-card-secondary" : "";
+        return
+            ProcessView.MemberIsPrimary(num)
+                ? " det-card-frame-primary"
+                : ProcessView.MemberIsActive(num)
+                    ? " det-card-frame-secondary" : " det-card-frame-invisible";
     }
 
     private string ActiveCardClass(int num)
     {
-        return ProcessView.MemberIsActive(num) ? " det-card-active" : " det-card-inactive";
-    }
-
-    private string ActionPlaceholder(int num)
-    {
-        return ProcessView.MemberIsPrimary(num) ? "ask" : ProcessView.MemberIsActive(num) ? "about" : "";
+        return
+            ProcessView.MemberIsActive(num)
+                ? " det-card-name-active"
+                : " det-card-name-inactive";
     }
 
 }
@@ -39,15 +43,10 @@
 @helper Card(int n)
 {
     <div class="det-card-aligment" align="center">
-        <div class="@("det-card-content" + CurrentCardClass(n) + ActiveCardClass(n))" align="center">
+        <div class="@("det-card-content" + ActiveCardClass(n) + PrimaryCardClass(n))" align="center">
             @if (ProcessView.MemberExists(n))
             {
-                <div class="det-card-content-action-placeholder">
-                    @ActionPlaceholder(n)
-                </div>
-                <div class="det-card-content-name">
-                    @ProcessView.MemberName(n)
-                </div>
+                @ProcessView.MemberName(n)
             }
         </div>
     </div>

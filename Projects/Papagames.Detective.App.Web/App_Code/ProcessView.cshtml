@@ -36,9 +36,9 @@
         return name ?? " ";
     }
 
-    public static bool MemberIsActive(int num)
+    public static bool MemberIsActive(int? num)
     {
-        return Model.ActiveMembers.Any(m => m.Number == num);
+        return MemberExists(num) && Model.ActiveMembers.Any(m => m.Number == num);
     }
 
     public static bool MemberIsPrimary(int num)

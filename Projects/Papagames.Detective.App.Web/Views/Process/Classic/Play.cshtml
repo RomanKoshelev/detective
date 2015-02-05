@@ -1,16 +1,14 @@
-﻿@*
+﻿@{
     // ============================================================================================= []
     // >> Process > View > Classic > Play *
-*@
-@model Papagames.Detective.App.Web.Models.ProcessModel
-
-@{
     ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewData["id"] = Model.Id;
+    @Content()
 }
 
-@Content()
+@model Papagames.Detective.App.Web.Models.ProcessModel
+
 
 @helper Content()
 {

@@ -223,6 +223,8 @@
     <Content Include="Views\Process\Classic\Play\Members.cshtml" />
     <Content Include="Views\Process\Classic\Play\Desktop.cshtml" />
     <Content Include="Views\Process\Classic\Play\Today.cshtml" />
+    <Content Include="Views\Process\Classic\Play\Questioning.cshtml" />
+    <Content Include="Views\Process\Classic\Play\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

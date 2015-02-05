@@ -1,53 +1,38 @@
 ﻿@{
-    // >> Process > View > Classic > Desktop **
+    // >> Process > View > Classic > Desktop *
     @Desktop()
 }
+@using Papagames.Detective.Core.Game
+@model Papagames.Detective.App.Web.Models.ProcessModel
 
 @helper Desktop()
 {
     <div class="det-desktop">
-        @{ ProcessView.RenderPartial("Today"); }
-        @History()
-@*        <div class="det-dev">
-            Result
-        </div>
-        <div class="det-dev">
-            Actions
-            <div class="det-dev">
-                Questioning
-            </div>
-            <div class="det-dev">
-                Arrest
-            </div>
-            <div class="det-dev">
-                Next Day
-            </div>
-            <div class="det-dev">
-                Reveal Details
-            </div>
-        </div>*@
+        @*@History()*@
+        @Today()
+        @Actions()
     </div>
 }
+
+
+@helper Today()
+{
+    ProcessView.RenderPartial("Today");
+}
+
+
+@helper Actions()
+{
+    switch (Model.State)
+    {
+        case State.Questioning:
+            ProcessView.RenderPartial("Questioning");
+            break;
+    }
+}
+
 
 @helper History()
 {
-@*    <div class="det-dev">
-        History
-        @DaySummary("Day 1", "Summary")
-        @DaySummary("Day 2", "Summary")
-    </div>*@
-}
-
-@helper DaySummary(string day, string summary)
-{
-    <div class="det-dev">
-        <div class="det-dev det-raw">
-            <div class="det-dev det-cell det-width-100">
-                @day
-            </div>
-            <div class="det-dev det-cell det-width-auto">
-                @summary
-            </div>
-        </div>
-    </div>
+    ProcessView.RenderPartial("History");
 }

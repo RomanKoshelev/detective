@@ -150,5 +150,10 @@ namespace Papagames.Detective.Core.Game
         {
             get { return Case.WorldName; }
         }
+
+        public IOptions Options
+        {
+            get { return Case; }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using MoreLinq;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
@@ -41,12 +42,14 @@ namespace Papagames.Detective.Core.Game
         // Skip, None, Init
         private void AddInitActions()
         {
-            _userActions.Add(new UserAction { Type = UserAction.ActionType.Start});
+            _userActions.Add(new UserAction {Type = UserAction.ActionType.Start});
         }
+
         private void AddSkipAction()
         {
             _userActions.Add(new UserAction {Type = UserAction.ActionType.Skip});
         }
+
         private void AddNoneAction()
         {
             _userActions.Add(new UserAction {Type = UserAction.ActionType.None});
@@ -81,8 +84,28 @@ namespace Papagames.Detective.Core.Game
         {
             Assert.Equal(State, State.Questioning);
 
-            var respondent = ActiveMembers.Where(CanBeQuestioned).FirstOrDefault();
+            bool needSkipAction = true;
+            GetQuestioningRespondents().ForEach(r =>
+            {
+                if (AddQuestionsForRespondent(r))
+                    needSkipAction = false;
+            });
 
+            if (needSkipAction)
+                AddSkipAction();
+        }
+
+        private IList<Member> GetQuestioningRespondents()
+        {
+            if (Options.QuestioningSelectAnyRespondent)
+            {
+                return ActiveMembers.Where(CanBeQuestioned).ToList();
+            }
+            return new[] {ActiveMembers.Where(CanBeQuestioned).FirstOrDefault()};
+        }
+
+        private bool AddQuestionsForRespondent(Member respondent)
+        {
             if (respondent != null)
             {
                 var subjects = ActiveMembers.Where(s => CanAskAbout(respondent, s)).ToList();
@@ -94,11 +117,10 @@ namespace Papagames.Detective.Core.Game
                         Params = new[] {respondent.Number, subject.Number},
                         Description = string.Format("Ask {0} about {1}", respondent.Name, subject.Name)
                     }));
-                    return;
+                    return true;
                 }
             }
-
-            AddSkipAction();
+            return false;
         }
 
         // ===================================================================================== []
