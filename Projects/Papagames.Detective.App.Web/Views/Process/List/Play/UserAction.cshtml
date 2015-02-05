@@ -9,12 +9,12 @@
         <li>
             @if (a.Params.Count > 0)
             {
-                @Html.ActionLink(a.ToString(), "Play", new {id = ViewData["id"], actionType = (int) a.Type, actionParams = a.Params})
+                @Html.ActionLink(a.ToString(), "Play", new {id = ViewBag.id, actionType = (int) a.Type, actionParams = a.Params})
                 ;
             }
             else
             {
-                @Html.ActionLink(a.ToString(), "Play", new {id = ViewData["id"], actionType = (int) a.Type})
+                @Html.ActionLink(a.ToString(), "Play", new { id = ViewBag.id, actionType = (int)a.Type })
                 ;
             }
         </li>

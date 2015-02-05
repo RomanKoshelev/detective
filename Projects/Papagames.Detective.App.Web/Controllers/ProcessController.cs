@@ -31,18 +31,19 @@ namespace Papagames.Detective.App.Web.Controllers
         }
 
         // >> Precess > Controller > ClassicPlay
-        public ActionResult ClassicPlay(int id, int? primaryMember, int? actionType, params int[] actionParams)
+        public ActionResult ClassicPlay(int id, int? face, int? card, int? action, params int[] args)
         {
             var processId = (Identifiable<int, Process>.Identifier)id;
-            if (actionType != null)
+            if (action != null)
             {
-                Schema.ExecuteProcess(processId, (Process.UserAction.ActionType)actionType, actionParams);
+                Schema.ExecuteProcess(processId, (Process.UserAction.ActionType)action, args);
                 return RedirectToAction("ClassicPlay", "Process", new { id = processId });
             }
-            return View(new ProcessModel(processId)
-            {
-                UIPrimaryMember = primaryMember
-            });
+            
+            ViewBag.Face = face;
+            ViewBag.Card = card;
+
+            return View(new ProcessModel(processId));
         }
     }
 }

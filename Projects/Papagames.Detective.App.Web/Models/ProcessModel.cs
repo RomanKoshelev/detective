@@ -139,10 +139,6 @@ namespace Papagames.Detective.App.Web.Models
         }
 
         // ===================================================================================== []
-        // UI
-        public int? UIPrimaryMember { get; set; }
-
-        // ===================================================================================== []
         // Pivate
         private Process Process { get; set; }
 

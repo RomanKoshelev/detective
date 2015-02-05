@@ -7,7 +7,7 @@
     // >> Process > View > List > Play
     ViewBag.Title = "Play Detective Process [simple view]";
     Layout = "~/Views/Shared/Layouts/Default.cshtml";
-    ViewData["id"] = Model.Id;
+    ViewBag.id = Model.Id;
 }
 
 <h2>@Model.ShortInfo</h2>

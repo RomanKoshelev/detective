@@ -1,17 +1,17 @@
 ﻿@using Papagames.Detective.Core.Game
 @{
     // >> Process > View > Classic > Members
-    @Members((int) ViewData["First"], (int) ViewData["Last"], (bool) ViewData["SideIsTop"])
+    @Members((int)ViewBag.First, (int)ViewBag.Last, (bool)ViewBag.SideIsTop)
 }
 
 @functions
 {
 
-    private string CurrentMemberFaceClass(int num)
+    private string CurrentMemberFaceClass(int num, int? face)
     {
         return
             ProcessView.MemberIsActive(num)
-                ? ProcessView.MemberIsPrimary(num)
+                ? num == face
                     ? " det-member-face-active-primary"
                     : " det-member-face-active-secondary"
                 : ProcessView.Member(num).IsOpenMurderer
@@ -26,9 +26,9 @@
         return ProcessView.MemberIsAlive(num) ? " det-member-face-text-alive det-vertical" : " det-member-face-text-dead";
     }
 
-    private string EmotionMarker(int num)
+    private string EmotionMarker(int num, int? subj)
     {
-        switch (ProcessView.MemberEmotion(num))
+        switch (ProcessView.MemberEmotion(num, subj))
         {
             case Emotion.Happy:
                 return ":)";
@@ -41,11 +41,11 @@
         }
     }
 
-    private MvcHtmlString MemberFace(int num)
+    private MvcHtmlString MemberFace(int num, int? subj)
     {
         return new MvcHtmlString(
             ProcessView.MemberIsAlive(num) ?
-                EmotionMarker(num) :
+                EmotionMarker(num, subj) :
                 "x x<br>__"
             );
     }
@@ -89,10 +89,10 @@
 
 @helper Face(int m)
 {
-    <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m))">
+    <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m, ViewBag.Face))">
         <a class="@("det-no-text-decoration" + MemberFaceEmotionClass(m))"
-           href="@Url.Action("ClassicPlay", "Process", new {id = Model.Id, primaryMember = m})">
-            @MemberFace(m)
+           href="@Url.Action("ClassicPlay", "Process", new {id = Model.Id, face = m})">
+            @MemberFace(m, (int?)ViewBag.Face)
         </a>
     </div>
 }

@@ -3,20 +3,43 @@
 @using Papagames.Detective.App.Web.Models
 @using Papagames.Detective.Core.Game
 @using Papagames.Detective.Utils
+@using WebGrease.Css.Extensions
 
 @functions {
-    private new static HtmlHelper<object> Html { get { return ((WebViewPage)WebPageContext.Current.Page).Html; } }
+
+    private new static HtmlHelper<object> Html
+    {
+        get { return ((WebViewPage) WebPageContext.Current.Page).Html; }
+    }
 
     public static void RenderPartial(string part, object args = null)
     {
-        Html.RenderPartial("~/Views/Process/Classic/Play/" + part + ".cshtml", Model, Html.NewViewData(args ?? new { }));
+        var viewData = Html.NewViewData(args ?? new {});
+        
+        ViewData.ForEach(vd=>viewData.Add(vd));
+               
+        Html.RenderPartial(
+            "~/Views/Process/Classic/Play/" + part + ".cshtml",
+            Model,
+            viewData
+            );
     }
 
     private new static ProcessModel Model
     {
         get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }
     }
+
+    private static dynamic ViewBag
+    {
+        get { return ((WebViewPage)WebPageContext.Current.Page).ViewBag; }
+    }
     
+    private static ViewDataDictionary ViewData
+    {
+        get { return ((WebViewPage)WebPageContext.Current.Page).ViewData; }
+    }
+
     public static bool MemberExists(int? num)
     {
         if (num == null) return false;
@@ -41,23 +64,18 @@
         return MemberExists(num) && Model.ActiveMembers.Any(m => m.Number == num);
     }
 
-    public static bool MemberIsPrimary(int num)
-    {
-        return Model.UIPrimaryMember == num;
-    }
-
-    public static Emotion MemberEmotion(int num)
+    public static Emotion MemberEmotion(int num, int? subj)
     {
         switch (Model.State)
         {
             case State.Questioning:
-                if (MemberIsPrimary(num))
+                if (num == subj)
                 {
                     return Emotion.Indifferent;
                 }
-                if (MemberExists(Model.UIPrimaryMember))
+                if (MemberExists(subj))
                 {
-                    return Member(num).ExpressEmotionOnRelationTo(Member(Model.UIPrimaryMember));
+                    return Member(num).ExpressEmotionOnRelationTo(Member(subj));
                 }
                 break;
         }

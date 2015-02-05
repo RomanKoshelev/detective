@@ -17,7 +17,7 @@ namespace Papagames.Detective.Core.Game
             PrisonerRoleIsOpen = true;
             VictimRoleIsOpen = true;
             EvidencesNumIsOpen = true;
-            QuestioningSelectAnyRespondent = true;
+            SelectAnyRespondentOnQuestioning = true;
 
             InitMembers();
         }
@@ -70,6 +70,6 @@ namespace Papagames.Detective.Core.Game
         public bool VictimRoleIsOpen { get; private set; }
         public bool MurderersNumIsOpen { get; private set; }
         public bool EvidencesNumIsOpen { get; private set; }
-        public bool QuestioningSelectAnyRespondent { get; private set; }
+        public bool SelectAnyRespondentOnQuestioning { get; private set; }
     }
 }

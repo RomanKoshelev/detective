@@ -1,5 +1,5 @@
 ﻿@{
-        // >> Process > View > Classic > Questioning ***
+    // >> Process > View > Classic > Questioning ***
     @Questioning()
 }
 @using Papagames.Detective.Core.Game
@@ -10,14 +10,17 @@
 
     private IEnumerable<int> QuestionRespondents()
     {
-        return Model.UserActions.Where(a=>a.Type==Process.UserAction.ActionType.Ask).Select(a=>a.Params[0]).Distinct();
+        return Model.UserActions
+            .Where(a => a.Type == Process.UserAction.ActionType.Ask)
+            .Select(a => a.Params[0])
+            .Distinct();
     }
 
 }
 
 @helper Questioning()
 {
-    if (Model.UIPrimaryMember == null)
+    if (ViewBag.FaceNumber == null)
     {
         @SelectRespondent()
     }
@@ -27,7 +30,7 @@
 @helper SelectRespondent()
 {
     <div class="det-questioning">
-        Ask: 
+        Ask:
         @foreach (var num in QuestionRespondents())
         {
             @ProcessView.MemberName(num)@:&nbsp;

@@ -3,7 +3,7 @@
     // >> Process > View > Classic > Play *
     ViewBag.Title = "Crime Nuts Case #" + Model.CaseId;
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
-    ViewData["id"] = Model.Id;
+    ViewBag.id = Model.Id;
     @Content()
 }
 

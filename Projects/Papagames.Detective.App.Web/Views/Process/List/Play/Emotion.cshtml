@@ -1,7 +1,7 @@
 ﻿@using Action = Papagames.Detective.Core.Game.Action
 @model Papagames.Detective.App.Web.Models.HistoryModel
 @{
-    var emotionType = (Action) ViewData["EmotionType"];
+    var emotionType = (Action) ViewBag.EmotionType;
 }
 <ul>
     @foreach (var record in Model.EmotionSubjects(emotionType))

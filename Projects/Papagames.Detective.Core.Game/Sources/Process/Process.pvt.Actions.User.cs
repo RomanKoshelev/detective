@@ -97,7 +97,7 @@ namespace Papagames.Detective.Core.Game
 
         private IList<Member> GetQuestioningRespondents()
         {
-            if (Options.QuestioningSelectAnyRespondent)
+            if (Options.SelectAnyRespondentOnQuestioning)
             {
                 return ActiveMembers.Where(CanBeQuestioned).ToList();
             }
