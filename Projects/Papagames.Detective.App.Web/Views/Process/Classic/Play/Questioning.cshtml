@@ -11,6 +11,11 @@
     {
         return num == ViewBag.Face ? " det-answer-highlight" : "";
     }
+
+    private int? Face
+    {
+        get { return ViewBag.Face; }
+    }
 }
 
 @helper Questioning()
@@ -20,6 +25,7 @@
         <div class="det-today-info">
             <div class="det-questioning det-answers-color">
                 @Answers()
+                @Hints()
             </div>
         </div>
     </div>
@@ -41,4 +47,21 @@
             </div>
         }
     </div>
+}
+
+@helper Hints()
+{
+    if (Model.TodayAnswers().Count == 0)
+    {
+        <div class="det-today-info-answers det-answers-color">
+            @if (Face == null)
+            {
+                @:Who do you want to interview?
+            }
+            else
+            {
+                @:Who is the subject to @ProcessView.MemberName((int)Face)'s questioning?
+            }
+        </div>
+    }
 }
