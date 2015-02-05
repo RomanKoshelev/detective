@@ -1,19 +1,21 @@
-﻿@model Papagames.Detective.App.Web.Models.ProcessModel
+﻿@using Papagames.Detective.Core.Game
+@model Papagames.Detective.App.Web.Models.ProcessModel
 @{
-    // >> Process > View > Classic > Cards
+    // >> Process > View > Classic > Cards ***
     @Cards(ViewBag.First, ViewBag.Last)
 }
 
 @functions
 {
 
-    private string PrimaryCardClass(int num, int? face)
+    private string PrimaryCardClass(int num)
     {
         return
-            num == face
-                ? " det-card-frame-primary"
+            num == Face || num == Card
+                ? " det-card-frame-selected"
                 : ProcessView.MemberIsActive(num)
-                    ? " det-card-frame-secondary" : " det-card-frame-invisible";
+                    ? " det-card-frame-visible"
+                    : " det-card-frame-invisible";
     }
 
     private string ActiveCardClass(int num)
@@ -22,6 +24,26 @@
             ProcessView.MemberIsActive(num)
                 ? " det-card-name-active"
                 : " det-card-name-inactive";
+    }
+
+    private bool CardIsLinked(int num)
+    {
+        switch (Model.State)
+        {
+            case State.Questioning:
+                return ProcessView.CanAskAbout(Face, num);
+        }
+        return false;
+    }
+
+    private int? Face
+    {
+        get { return ViewBag.Face; }
+    }
+
+    private int? Card
+    {
+        get { return ViewBag.Card; }
     }
 
 }
@@ -33,21 +55,43 @@
             @for (var i = first; i <= last; i++)
             {
                 <li class="det-card">
-                    @Card(i)
+                    @CardFrame(i)
                 </li>
             }
         </ul>
     </nav>
 }
 
-@helper Card(int n)
+@helper CardFrame(int num)
 {
     <div class="det-card-aligment" align="center">
-        <div class="@("det-card-content" + ActiveCardClass(n) + PrimaryCardClass(n,ViewBag.Face))" align="center">
-            @if (ProcessView.MemberExists(n))
+        <div class="det-card-content + @ActiveCardClass(num) @PrimaryCardClass(num)" align="center">
+            @if (ProcessView.MemberExists(num))
             {
-                @ProcessView.MemberName(n)
+                if (CardIsLinked(num))
+                {
+                    @CardLink(num)
+                }
+                else
+                {
+                    @ProcessView.MemberName(num)
+                }
             }
         </div>
     </div>
+}
+
+@helper CardLink(int num)
+{
+    if (Model.State == State.Questioning)
+    {
+        @CardQuestioningLink(num)
+    }
+}
+
+@helper CardQuestioningLink(int subject)
+{
+    <a class="det-card-link" href="@ProcessView.AskActionUrl((int) Face, subject)">
+        @ProcessView.MemberName(subject)
+    </a>
 }

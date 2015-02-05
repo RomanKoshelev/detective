@@ -44,7 +44,7 @@ namespace Papagames.Detective.App.Web.Controllers
             {
                 Schema.ExecuteProcess(processId, (Process.UserAction.ActionType)actionType,
                     new[] {respondent ?? 0, subject ?? 0});
-                return RedirectToAction("ClassicPlay", "Process", new {id = processId, face=respondent});
+                return RedirectToAction("ClassicPlay", "Process", new {id = processId, face=respondent, card=subject});
             }
 
             ViewBag.Face = face;

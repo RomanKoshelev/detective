@@ -1,17 +1,17 @@
 ﻿@using Papagames.Detective.Core.Game
 @{
     // >> Process > View > Classic > Members
-    @Members((int)ViewBag.First, (int)ViewBag.Last, (bool)ViewBag.SideIsTop)
+    @Members((int) ViewBag.First, (int) ViewBag.Last, (bool) ViewBag.SideIsTop)
 }
 
 @functions
 {
 
-    private string CurrentMemberFaceClass(int num, bool isCurrent)
+    private string CurrentMemberFaceClass(int num)
     {
         return
             ProcessView.MemberIsActive(num)
-                ? isCurrent
+                ? num==Face
                     ? " det-member-face-active-primary"
                     : " det-member-face-active-secondary"
                 : ProcessView.Member(num).IsOpenMurderer
@@ -50,6 +50,16 @@
             );
     }
 
+    private bool FaceIsLinked(int num)
+    {
+        return Face != num;
+    }
+    
+    private int? Face
+    {
+        get { return ViewBag.Face; }
+    }
+
 }
 
 @helper Members(int first, int last, bool sideIsTop)
@@ -75,11 +85,11 @@
                 if (sideIsTop && ProcessView.MemberIsActive(i) || !sideIsTop && !ProcessView.MemberIsActive(i))
                 {
                     @FaceIndent()
-                    @Face(i)
+                    @FaceFrame(i)
                 }
                 else
                 {
-                    @Face(i)
+                    @FaceFrame(i)
                     @FaceIndent()
                 }
             }
@@ -87,13 +97,20 @@
     </div>
 }
 
-@helper Face(int m)
+@helper FaceFrame(int num)
 {
-    <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m, m==ViewBag.Face))">
-        <a class="@("det-no-text-decoration" + MemberFaceEmotionClass(m))"
-           href="@Url.Action("ClassicPlay", "Process", new {id = Model.Id, face = m})">
-            @MemberFace(m, ViewBag.Face)
-        </a>
+    <div class="det-member-cell-content-face @CurrentMemberFaceClass(num)">
+        @if (FaceIsLinked(num))
+        {
+            @FaceLink(num)
+        }
+        else
+        {
+            <span class="@MemberFaceEmotionClass(num) det-member-face-link">
+                @MemberFace(num, ViewBag.Face)
+            </span>
+        }
+
     </div>
 }
 
@@ -101,4 +118,11 @@
 {
     <div class="det-member-cell-content-indent">
     </div>
+}
+@helper FaceLink(int num)
+{
+    <a class="@MemberFaceEmotionClass(num) det-member-face-link"
+       href="@Url.Action("ClassicPlay", "Process", new {id = Model.Id, face = num})">
+        @MemberFace(num, ViewBag.Face)
+    </a>
 }

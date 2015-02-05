@@ -4,9 +4,8 @@
 @using Papagames.Detective.Core.Game
 @using Papagames.Detective.Utils
 @using WebGrease.Css.Extensions
-
 @functions {
-
+// >> App_Code > ProcessView 
     private new static HtmlHelper<object> Html
     {
         get { return ((WebViewPage) WebPageContext.Current.Page).Html; }
@@ -25,16 +24,27 @@
             );
     }
 
+    public static string AskActionUrl(int respondent, int subject)
+    {
+        return Url.Action("ClassicPlay", "Process", new
+        {
+            id = Model.Id, 
+            actionType = (int)Process.UserAction.ActionType.Ask, 
+            respondent, 
+            subject
+        });
+    }
+
     private new static ProcessModel Model
     {
         get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }
     }
 
-    private static dynamic ViewBag
+    private static UrlHelper Url
     {
-        get { return ((WebViewPage)WebPageContext.Current.Page).ViewBag; }
+        get { return ((WebViewPage)WebPageContext.Current.Page).Url; }
     }
-    
+  
     private static ViewDataDictionary ViewData
     {
         get { return ((WebViewPage)WebPageContext.Current.Page).ViewData; }
@@ -85,6 +95,34 @@
     public static bool MemberIsAlive(int num)
     {
         return !Member(num).IsVictim;
+    }
+
+    private static IList<int> QuestioningRespondents()
+    {
+        return Model.UserActions
+            .Where(a => a.Type == Process.UserAction.ActionType.Ask)
+            .Select(a => a.Params[0])
+            .Distinct()
+            .ToList();
+    }
+
+    private static IList<int> QuestioningSubjects(int respondent)
+    {
+        return Model.UserActions
+            .Where(a => a.Type == Process.UserAction.ActionType.Ask && a.Params[0] == respondent)
+            .Select(a => a.Params[1])
+            .Distinct()
+            .ToList();
+    }
+
+    public static bool CanAsk(int? respondent)
+    {
+        return QuestioningRespondents().Any(n => n == respondent);
+    }
+
+    public static bool CanAskAbout(int? respondent, int? subject)
+    {
+        return respondent != null && QuestioningSubjects((int)respondent).Any(n => n == subject);
     }
 
 }

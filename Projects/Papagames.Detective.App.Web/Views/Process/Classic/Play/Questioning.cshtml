@@ -1,5 +1,5 @@
 ﻿@{
-    // >> Process > View > Classic > Questioning ***
+    // >> Process > View > Classic > Questioning *
     @Questioning()
 }
 @using Papagames.Detective.Core.Game
@@ -7,118 +7,22 @@
 
 @functions
 {
-
-    private IList<int> QuestionRespondents()
-    {
-        return Model.UserActions
-            .Where(a => a.Type == Process.UserAction.ActionType.Ask)
-            .Select(a => a.Params[0])
-            .Distinct()
-            .ToList();
-    }
-
-    private IList<int> QuestionSubjects(int respondent)
-    {
-        return Model.UserActions
-            .Where(a => a.Type == Process.UserAction.ActionType.Ask && a.Params[0] == respondent)
-            .Select(a => a.Params[1])
-            .Distinct()
-            .ToList();
-    }
-
-    private static string MemberNamesDelimiter(int i, int n)
-    {
-        return n == 1 ? "" : i == n - 2 ? " or " : i < n - 1 ? ", " : "";
-    }
-
     private string AnswerSelectedFaceClass(int num)
     {
         return num == ViewBag.Face ? " det-answer-highlight" : "";
     }
-
-    private int? Face
-    {
-        get { return ViewBag.Face; }
-    }
-    private int? Card
-    {
-        get { return ViewBag.Card; }
-    }
-
 }
 
 @helper Questioning()
 {
-    ViewBag.Respondent = ViewBag.Respondent ?? ViewBag.Face;
-
     <div class="det-today">
         <div class="det-today-day det-answers-color det-questioning"></div>
         <div class="det-today-info">
             <div class="det-questioning det-answers-color">
                 @Answers()
-                @if (ViewBag.Respondent == null)
-                {
-                    @SelectRespondent()
-                }
-                else
-                {
-                    @SelectSubject(ViewBag.Respondent)
-                }
             </div>
         </div>
     </div>
-}
-
-
-@helper SelectRespondent()
-{
-    var respondents = QuestionRespondents();
-    var i = 0;
-    foreach (var num in respondents)
-    {
-        @RespondentLink(num, MemberNamesDelimiter(i++, respondents.Count))
-    }
-}
-
-@helper RespondentLink(int num, string suffix)
-{
-    @BuildLink(
-        ProcessView.MemberName(num),
-        Url.Action("ClassicPlay", "Process", new {id = Model.Id, respondent = num}),
-        suffix
-        )
-}
-
-@helper SelectSubject(int respondent)
-{
-    <span>ask @ProcessView.MemberName(respondent) about</span>
-    var subjects = QuestionSubjects(respondent);
-    var i = 0;
-    foreach (var num in subjects)
-    {
-        @AskActionLink(respondent, num, MemberNamesDelimiter(i++, subjects.Count))
-    }
-}
-
-@helper AskActionLink(int respondent, int subject, string suffix)
-{
-    const int actionType = (int) Process.UserAction.ActionType.Ask;
-    @BuildLink(
-        ProcessView.MemberName(subject),
-        Url.Action("ClassicPlay", "Process", new {id = Model.Id, face = Face, actionType, respondent, subject}),
-        suffix
-        )
-}
-
-@helper BuildLink(string text, string href, string suffix)
-{
-    var link = string.Format("<a class='{0}' href='{1}'>{2}</a>{3}",
-        "det-questioning det-answers-color",
-        href,
-        text,
-        suffix);
-    var htmlLink = new MvcHtmlString(link);
-    @htmlLink
 }
 
 @helper Answers()

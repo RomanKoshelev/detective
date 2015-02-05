@@ -147,6 +147,22 @@ nav li {
 
 /*
 // ============================================================================================= []
+// Desktop
+*/
+
+.det-gametable { border-radius: 0; }
+
+.det-gametable-color { background-color: #fff5cc; }
+
+.det-desktop {
+    padding: 5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 15px;
+}
+
+/*
+// ============================================================================================= []
 // Pads
 */
 
@@ -210,6 +226,13 @@ nav li {
     margin: 15px;
 }
 
+.det-member-face-link {
+    text-decoration: none;    
+}
+.det-member-face-link:hover {
+    font-weight: bold;
+}
+
 .det-member-face-text-alive {
     text-align: center;
     font-size: 55px;
@@ -249,20 +272,6 @@ nav li {
 
 /*
 // ============================================================================================= []
-// Desktop
-*/
-
-.det-gametable { border-radius: 0; }
-
-.det-gametable-color { background-color: #fff5cc; }
-
-.det-desktop {
-    padding: 10px;
-    font-size: 15px;
-}
-
-/*
-// ============================================================================================= []
 // Cards
 */
 
@@ -291,30 +300,37 @@ nav li {
     color: #9c9974;
 }
 
-.det-card-frame-invisible {
-    border: none;
-    color: #9c9974;
+.det-card-link {
+    color: inherit;
+    text-decoration: underline;
 }
 
+.det-card-link:hover {
+    color: black;
+}
 
-.det-card-frame-primary {
+.det-card-frame-selected {
     color: #6f6b00;
     border: solid 2px #9c9974;
     background-color: #f6f0d4;
 }
 
-.det-card-frame-secondary {
+.det-card-frame-visible {
     color: #858330;
     border: solid 2px #979019;
     background-color: #e9dfb4;
 }
 
+.det-card-frame-invisible {
+    border: none;
+    color: #9c9974;
+}
 /*
 // ============================================================================================= []
 // Today
 */
 
-.det-today { padding: 10px; }
+.det-today { padding: 2px; }
 
 .det-today-day {
     width: 140px;
