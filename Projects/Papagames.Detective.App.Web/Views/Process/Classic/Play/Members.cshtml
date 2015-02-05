@@ -7,11 +7,11 @@
 @functions
 {
 
-    private string CurrentMemberFaceClass(int num, int? face)
+    private string CurrentMemberFaceClass(int num, bool isCurrent)
     {
         return
             ProcessView.MemberIsActive(num)
-                ? num == face
+                ? isCurrent
                     ? " det-member-face-active-primary"
                     : " det-member-face-active-secondary"
                 : ProcessView.Member(num).IsOpenMurderer
@@ -89,10 +89,10 @@
 
 @helper Face(int m)
 {
-    <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m, ViewBag.Face))">
+    <div class="@("det-member-cell-content-face" + CurrentMemberFaceClass(m, m==ViewBag.Face))">
         <a class="@("det-no-text-decoration" + MemberFaceEmotionClass(m))"
            href="@Url.Action("ClassicPlay", "Process", new {id = Model.Id, face = m})">
-            @MemberFace(m, (int?)ViewBag.Face)
+            @MemberFace(m, ViewBag.Face)
         </a>
     </div>
 }
