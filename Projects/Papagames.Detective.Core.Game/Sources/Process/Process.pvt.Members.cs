@@ -46,7 +46,12 @@ namespace Papagames.Detective.Core.Game
 
         private void UpdateMembersLastActiviryDay()
         {
-            ActiveMembers.ForEach(m => m.LastActivityDay = CurrentDay);
+            ActiveMembers.ForEach(m => m.LastActivityDay = Today);
+        }
+
+        private Member DoGetTodayVictim()
+        {
+            return History.Records.First(r => r.Action==Action.Murder && r.Day==Today).Subject;
         }
     }
 }

@@ -68,6 +68,14 @@ nav li {
 }
 
 
+.det-room{
+    height: auto;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: black;
+}
+
+
 /*
 // ============================================================================================= []
 // Menu
@@ -77,9 +85,8 @@ nav li {
     color: #00cc00;
     text-decoration: none;
 }
-.det-menu:hover{ 
-    text-decoration: underline;
-}
+
+.det-menu:hover { text-decoration: underline; }
 
 /*
 // ============================================================================================= []
@@ -121,7 +128,7 @@ nav li {
 
 .det-height-400 { height: 400px; }
 
-.det-no-text-decoration{ text-decoration: none; }
+.det-no-text-decoration { text-decoration: none; }
 
 /*
 // ============================================================================================= []
@@ -137,10 +144,12 @@ nav li {
     vertical-align: middle;
     border: 2px dashed #31ff00;
 }
+
 /*
 // ============================================================================================= []
 // Pads
 */
+
 .det-green-pad {
     color: #00cc00;
     width: 100%;
@@ -246,10 +255,11 @@ nav li {
 .det-gametable { border-radius: 0; }
 
 .det-gametable-color { background-color: #fff5cc; }
+.det-desktop { padding: 10px; }
 
 /*
 // ============================================================================================= []
-// cards
+// Cards
 */
 
 .det-card {
@@ -304,6 +314,41 @@ nav li {
     color: inherit;
     background-color: inherit;
 }
+
+/*
+// ============================================================================================= []
+// Today
+*/
+
+.det-today {
+    padding: 10px;
+}
+
+.det-today-day {
+    width: 90px;
+    color: #560000;
+    display: table-cell;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.det-today-info {
+    width: auto;
+    display: table-cell;
+    vertical-align: top;
+}
+.det-today-info-murder {
+    color: #560000;
+    padding-bottom: 5px;
+}
+
+.det-today-info-evidences{
+    color: #560000;
+    padding-bottom: 5px;
+}
+
+
+
 /*
 // ============================================================================================= []
 // EOF

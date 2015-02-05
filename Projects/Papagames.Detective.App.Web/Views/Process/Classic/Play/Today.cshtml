@@ -1,0 +1,82 @@
+﻿@model Papagames.Detective.App.Web.Models.ProcessModel
+
+@functions {
+    private string Victim()
+    {
+        return Model.TodayVictim.Name;
+    }
+
+    private string MurderNumDescription()
+    {
+        if (Model.MurderersLeft == null)
+            return "a murderer";
+        if(Model.MurderersLeft == 1)
+            return "1 murderer";
+        return string.Format("one of {0} murderers", Model.MurderersLeft);
+    }
+
+    private string InnocentNumDescription()
+    {
+        if (Model.InnocentsLeft == null)
+            return "Guiltness members";
+        if(Model.InnocentsLeft  == 1)
+            return "A guiltness member";
+        return string.Format("Some of {0} guiltless members", Model.InnocentsLeft);
+    }
+
+    private string EvidencesNumDescription()
+    {
+        if (Model.TodayEvidencesNum == null)
+            return "some evidences";
+        if(Model.InnocentsLeft  == 1)
+            return "an evidence";
+        return string.Format("{0} evidences", Model.TodayEvidencesNum);
+    }
+
+}
+@{
+    // >> Process > View > Classic > Today ***
+    @Today()
+}
+
+@helper Today()
+{
+    <div class="det-today">
+        <div class="det-today-day">
+            Day @Model.CurrentDay:
+        </div>
+        <div class="det-today-info">
+            @Murder()
+            @Evidences()
+@*            @Answers()
+            @Arrest()*@
+        </div>
+    </div>
+}
+
+@helper Murder()
+{
+    <div class="det-today-info-murder">
+        @Victim() was killed by @MurderNumDescription() last night
+    </div>
+}
+@helper Evidences()
+{
+    <div class="det-today-info-evidences">
+        @InnocentNumDescription() made @EvidencesNumDescription()
+    </div>
+}
+
+@helper Answers()
+{
+    <div class="det-today-info-murder">
+        @Victim() was killed by @MurderNumDescription()
+    </div>
+}
+
+@helper Arrest()
+{
+    <div class="det-today-info-murder">
+        @Victim() was killed by @MurderNumDescription()
+    </div>
+}

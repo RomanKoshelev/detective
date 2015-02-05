@@ -15,39 +15,31 @@
 @helper Content()
 {
     <div class="det-page-content">
-        <div class="det">
-            <div class="det">
-                @Room()
-            </div>
-            <div class="det-dev det-height-400">
-                Files
-            </div>
-        </div>
+        @Room()
+        @Files()
     </div>
 }
 
 @helper Room()
 {
-    <div class="det">
+    <div class="det-room">
         @{ ProcessView.RenderPartial("Members", new {First = 1, Last = 6, SideIsTop = true}); }
-    </div>
-    <div class="det-gametable det-gametable-color">
         @GameTable()
-    </div>
-    <div class="det">
-        @{ ProcessView.RenderPartial("Members", new { First = 7, Last = 12, SideIsTop = false }); }
+        @{ ProcessView.RenderPartial("Members", new {First = 7, Last = 12, SideIsTop = false}); }
     </div>
 }
 
 @helper GameTable()
 {
-    <div class="det">
-        @{ ProcessView.RenderPartial("Cards", new { First = 1, Last = 6 }); }
-    </div>
-    <div class="det">
+    <div class="det-gametable det-gametable-color">
+        @{ ProcessView.RenderPartial("Cards", new {First = 1, Last = 6}); }
         @{ ProcessView.RenderPartial("Desktop"); }
+        @{ ProcessView.RenderPartial("Cards", new {First = 7, Last = 12}); }
     </div>
-    <div class="det">
-        @{ ProcessView.RenderPartial("Cards", new { First = 7, Last = 12 }); }
+}
+@helper Files()
+{
+    <div class="det-dev det-height-400">
+        Files
     </div>
 }

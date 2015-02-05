@@ -26,7 +26,7 @@
             @if (Model.State != State.Finished)
             {
                 <li>
-                    Last night evidences num: @("Unknown".IfNull(Model.LastNightEvidencesNum))
+                    Last night evidences num: @("Unknown".IfNull(Model.TodayEvidencesNum))
                 </li>
                 <li>
                     Murderers left: @("Unknown".IfNull(Model.MurderersLeft))

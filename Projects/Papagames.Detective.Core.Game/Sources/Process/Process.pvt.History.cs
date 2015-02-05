@@ -15,7 +15,7 @@ namespace Papagames.Detective.Core.Game
             foreach (var member in ActiveMembers)
             {
                 var emotion = member.ExpressEmotionOnMurderOrArrest(victim);
-                History.StoreEmotionOnMurder(CurrentDay, member, victim, emotion);
+                History.StoreEmotionOnMurder(Today, member, victim, emotion);
             }
         }
 
@@ -24,18 +24,18 @@ namespace Papagames.Detective.Core.Game
             foreach (var member in ActiveMembers)
             {
                 var emotion = member.ExpressEmotionOnMurderOrArrest(arrested);
-                History.StoreEmotionOnArrest(CurrentDay, member, arrested, emotion);
+                History.StoreEmotionOnArrest(Today, member, arrested, emotion);
             }
         }
 
         private void HistoryStoreParticipations()
         {
-            ActiveMembers.ForEach(m => History.StoreParticipation(CurrentDay, m));
+            ActiveMembers.ForEach(m => History.StoreParticipation(Today, m));
         }
 
         private bool AlreadyHasAnsweredToday(Member correspondent, Member subject)
         {
-            return History.GetAnswers(correspondent, CurrentDay).Any(r => r.Subject == subject);
+            return History.GetAnswers(correspondent, Today).Any(r => r.Subject == subject);
         }
     }
 }

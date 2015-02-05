@@ -26,7 +26,7 @@ namespace Papagames.Detective.App.Console
             
             WriteHeader("Day {0} Morning", CurrentDay);
 
-            var victim = LastVictim;
+            var victim = TodayVictim;
 
             WriteLine("{0} is dead", victim.Name);
             WriteLine("{0} was {1}", victim.Name, victim.IsMurderer ? "Murderer" : "Innocent");
@@ -67,7 +67,7 @@ namespace Papagames.Detective.App.Console
             if (SilenceMode) return;
 
             WriteHeader("Arrest");
-            WriteLine("{0} was killed last night", LastVictim.Name);
+            WriteLine("{0} was killed last night", TodayVictim.Name);
             WriteLine();
             PrintEmotions();
             WriteLine();

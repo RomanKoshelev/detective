@@ -9,9 +9,9 @@ namespace Papagames.Detective.Core.Game
             return Master.GetActiveMurderersOpenNum(Case, ActiveMurderers.Count);
         }
 
-        private int? DoGetLastNightEvidencesOpenNum()
+        private int? DoGetTodayEvidencesOpenNum()
         {
-            return Master.GetLastNightEvidencesOpenNum(Case, History.Evidences(CurrentDay).Count);
+            return Master.GetTodayEvidencesOpenNum(Case, History.Evidences(Today).Count);
         }
     }
 }

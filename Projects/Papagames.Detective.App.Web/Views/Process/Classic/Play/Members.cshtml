@@ -1,10 +1,11 @@
 ﻿@using Papagames.Detective.Core.Game
 @{
-    @Members((int)ViewData["First"], (int)ViewData["Last"], (bool)ViewData["SideIsTop"])
+    @Members((int) ViewData["First"], (int) ViewData["Last"], (bool) ViewData["SideIsTop"])
 }
 
 @functions
 {
+
     private string CurrentMemberFaceClass(int num)
     {
         return
@@ -47,6 +48,7 @@
                 "x x<br>__"
             );
     }
+
 }
 
 @helper Members(int first, int last, bool sideIsTop)

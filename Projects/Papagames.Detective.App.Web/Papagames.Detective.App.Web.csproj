@@ -222,6 +222,7 @@
     <Content Include="Views\Process\Classic\Play\Cards.cshtml" />
     <Content Include="Views\Process\Classic\Play\Members.cshtml" />
     <Content Include="Views\Process\Classic\Play\Desktop.cshtml" />
+    <Content Include="Views\Process\Classic\Play\Today.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -34,9 +34,9 @@ namespace Papagames.Detective.App.Console
         private IList<Member> Members {get { return _process.Members; }}
         public History History { get { return _process.History; } }
         public IList<Member> ActiveMembers { get { return _process.ActiveMembers; } }
-        private Member LastVictim
+        private Member TodayVictim
         {
-            get { return _process.LastVictim; }
+            get { return _process.TodayVictim; }
         }
         public Member LastArrested
         {
@@ -49,7 +49,7 @@ namespace Papagames.Detective.App.Console
 
         public int CurrentDay
         {
-            get { return _process.CurrentDay; }
+            get { return _process.Today; }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Papagames.Detective.Core.Game
         private Answer DoAsk(Member respondent, Member subject)
         {
             var answer = respondent.Ask(subject);
-            History.StoreAnswer(CurrentDay, respondent, subject, answer);
+            History.StoreAnswer(Today, respondent, subject, answer);
             return answer;
         }
 
@@ -23,7 +23,7 @@ namespace Papagames.Detective.Core.Game
             LastArrested = suspect;
             LastArrested.IsPrisoner = true;
 
-            History.StoreArrest(CurrentDay, Detective, LastArrested);
+            History.StoreArrest(Today, Detective, LastArrested);
             HistoryStoreEmotionalReactionOnArrest(LastArrested);
             
             DoStep();
@@ -57,11 +57,11 @@ namespace Papagames.Detective.Core.Game
         private void DoMurder()
         {
             LastMurderer = ActiveMurderers.RandomElement();
-            LastVictim = LastMurderer.SelectVictim(ActiveInnocents);
-            LastVictim.IsVictim = true;
+            var victim = LastMurderer.SelectVictim(ActiveInnocents);
+            victim.IsVictim = true;
 
-            History.StoreMurder(CurrentDay, LastMurderer, LastVictim);
-            HistoryStoreEmotionalReactionOnMurder(LastVictim);
+            History.StoreMurder(Today, LastMurderer, victim);
+            HistoryStoreEmotionalReactionOnMurder(victim);
         }
         private void DoSkipTo(State state)
         {
@@ -89,12 +89,12 @@ namespace Papagames.Detective.Core.Game
             if (subject.IsMurderer)
             {
                 witness.RememberMurderer(subject);
-                History.StoreMurderEvidence(CurrentDay, witness, subject);
+                History.StoreMurderEvidence(Today, witness, subject);
             }
             else
             {
                 witness.RememberInnocent(subject);
-                History.StoreInnocentEvidence(CurrentDay, witness, subject);
+                History.StoreInnocentEvidence(Today, witness, subject);
             }
         }
     }

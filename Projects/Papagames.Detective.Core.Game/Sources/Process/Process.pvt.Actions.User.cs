@@ -116,7 +116,7 @@ namespace Papagames.Detective.Core.Game
 
         private bool CanBeQuestioned(Member member)
         {
-            return History.GetAnswers(member, CurrentDay).Count == 0;
+            return History.GetAnswers(member, Today).Count == 0;
         }
 
         private static bool CanBeArrested(Member member)

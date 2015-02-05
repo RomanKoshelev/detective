@@ -63,7 +63,7 @@ namespace Papagames.Detective.Core.Game
 
         private void Start(State state)
         {
-            CurrentDay = 1;
+            Today = 1;
             SetState(state);
         }
 
@@ -87,7 +87,7 @@ namespace Papagames.Detective.Core.Game
 
         private void NextDay(State state)
         {
-            CurrentDay++;
+            Today++;
             SetState(state);
         }
 

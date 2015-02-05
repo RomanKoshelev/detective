@@ -58,7 +58,7 @@ namespace Papagames.Detective.Core.Game
             return (int) Math.Floor((membersNum - 1.0)/2.0);
         }
 
-        public static int? GetLastNightEvidencesOpenNum(IOptions options, int num)
+        public static int? GetTodayEvidencesOpenNum(IOptions options, int num)
         {
             return options.EvidencesNumIsOpen? num: (int?)null;
         }

@@ -19,7 +19,7 @@ namespace Papagames.Detective.Core.Game
         // ===================================================================================== []
         // Properties
         public Identifier Id { get; set; }
-        public int CurrentDay { get; private set; }
+        public int Today { get; private set; }
         public History History { get; private set; }
         public Winner Winner { get; private set; }
 
@@ -40,7 +40,12 @@ namespace Papagames.Detective.Core.Game
         // ===================================================================================== []
         // Members
         public IList<Member> Members { get; private set; }
-        public Member LastVictim { get; private set; }
+
+        public Member TodayVictim
+        {
+            get { return DoGetTodayVictim(); }
+        }
+
         public Member LastMurderer { get; private set; }
         public Member LastArrested { get; private set; }
 
@@ -75,9 +80,10 @@ namespace Papagames.Detective.Core.Game
         {
             get { return DoGetActiveMurderersOpenNum(); }
         }
-        public int? LastNightEvidencesOpenNum
+
+        public int? TodayEvidencesOpenNum
         {
-            get { return DoGetLastNightEvidencesOpenNum(); }
+            get { return DoGetTodayEvidencesOpenNum(); }
         }
 
 
@@ -102,6 +108,7 @@ namespace Papagames.Detective.Core.Game
         {
             DoStop();
         }
+
         public void SkipTo(State state)
         {
             DoSkipTo(state);

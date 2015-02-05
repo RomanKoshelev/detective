@@ -38,7 +38,7 @@ namespace Papagames.Detective.App.Web.Models
 
         public int CurrentDay
         {
-            get { return Process.CurrentDay; }
+            get { return Process.Today; }
         }
 
         public Winner Winner
@@ -49,14 +49,18 @@ namespace Papagames.Detective.App.Web.Models
 
         // ===================================================================================== []
         // Statistics
-        public int? LastNightEvidencesNum
+        public int? TodayEvidencesNum
         {
-           get { return Process.LastNightEvidencesOpenNum; }
+           get { return Process.TodayEvidencesOpenNum; }
         }
 
         public int? MurderersLeft
         {
             get { return Process.ActiveMurderersOpenNum; }
+        }
+        public int? InnocentsLeft
+        {
+            get { return DoGetInnocentsLeft(); }
         }
 
         // ===================================================================================== []
@@ -94,6 +98,13 @@ namespace Papagames.Detective.App.Web.Models
         public IList<MemberModel> Members
         {
             get { return MakeMemberModelList(p => p.Members); }
+        }
+
+        // ===================================================================================== []
+        // Today
+        public MemberModel TodayVictim
+        {
+            get { return DoGetTodayVictim(); }
         }
 
         // ===================================================================================== []
@@ -152,6 +163,16 @@ namespace Papagames.Detective.App.Web.Models
         private HistoryModel MakeHistoryModel()
         {
             return new HistoryModel(Process.History);
+        }
+
+        private MemberModel DoGetTodayVictim()
+        {
+            return new MemberModel(Process.TodayVictim);
+        }
+
+        private int? DoGetInnocentsLeft()
+        {
+            return ActiveMembers.Count - Process.ActiveMurderersOpenNum;
         }
 
         // ===================================================================================== []

@@ -1,5 +1,5 @@
 ﻿@{
-    @Cards((int)ViewData["First"], (int)ViewData["Last"])
+    @Cards((int) ViewData["First"], (int) ViewData["Last"])
 }
 
 @functions
@@ -19,6 +19,7 @@
     {
         return ProcessView.MemberIsPrimary(num) ? "ask" : ProcessView.MemberIsActive(num) ? "about" : "";
     }
+
 }
 
 @helper Cards(int first, int last)
