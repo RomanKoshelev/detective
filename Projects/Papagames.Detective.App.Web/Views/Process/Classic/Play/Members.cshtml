@@ -144,7 +144,7 @@
 
 @helper FaceLink(int num)
 {
-    <a class="@FaceTextClass(num)" href="@ProcessView.MemberFaceActionUrl(num)">@MemberFace(num, ViewBag.Face)</a>
+    <a class="@FaceTextClass(num)" href="@ProcessView.MemberFaceUrl(num)">@MemberFace(num, ViewBag.Face)</a>
 }
 
 @helper FaceText(int num)

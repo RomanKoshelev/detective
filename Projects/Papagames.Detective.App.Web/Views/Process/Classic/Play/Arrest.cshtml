@@ -1,9 +1,10 @@
 ﻿@{
-    // >> Process > View > Classic > Arrest ***
+    // >> Process > View > Classic > Arrest  ***  <<
     @Arrest()
 }
+@using Papagames.Detective.App.Web.Models
 @using Papagames.Detective.Core.Game
-@model Papagames.Detective.App.Web.Models.ProcessModel
+@model ProcessModel
 
 @functions
 {
@@ -15,7 +16,7 @@
 
     private bool ArrestIsEnabled()
     {
-        return Model.UserActionIsEnabled(Process.UserAction.ActionType.Arrest);
+        return Model.State == State.Arrest && Model.UserActionIsEnabled(Process.UserAction.ActionType.Arrest);
     }
 
     private bool EarlyArrestIsEnabled()
@@ -32,7 +33,7 @@
         <div class="det-today-info det-arrest-color">
             @ArrestButton()
             @EarlyArrestButton()
-            @Hints()
+            @Hint()
         </div>
     </div>
 }
@@ -42,7 +43,11 @@
     if (ArrestIsEnabled() && Face != null)
     {
         <div class="det-arrest-button">
-            <a class="det-arrest-button-link" href="@ProcessView.ArrestActionUrl((int) Face)">Arrest @ProcessView.MemberName((int) Face)</a>
+            @Shared.Link(
+                "Arrest " + ProcessView.MemberName((int)Face),
+                "det-arrest-button-link",
+                ProcessView.ArrestActionUrl((int)Face)
+                )
         </div>
     }
 }
@@ -52,18 +57,42 @@
     if (EarlyArrestIsEnabled() && Face != null)
     {
         <div class="det-arrest-button">
-            <a class="det-arrest-button-link-lite" href="@ProcessView.EarlyArrestActionUrl((int) Face)">Arrest @ProcessView.MemberName((int) Face)</a>
+            @Shared.Link(
+                "Arrest " + ProcessView.MemberName((int) Face),
+                "det-arrest-button-link-lite",
+                ProcessView.EarlyArrestActionUrl((int) Face)
+                )
         </div>
     }
 }
 
 
-@helper Hints()
+@helper Hint()
 {
-    if (ArrestIsEnabled() && Face == null)
-     {
-         <div class="det-arrest-hint">
-             Who do you want to arrest?
-         </div>
-     }
+    if (ArrestIsEnabled() && !ProcessView.CanArrest(Face))
+    {
+        <div class="det-today-info-answers det-answers-color">
+            @HintSuspect()
+        </div>
+    }
+}
+
+@helper HintSuspect()
+{
+    <div class="det-answer-hint">Arrest:</div>
+    <div class="det-answer-hint-variants">
+        @foreach (var suspect in ProcessView.ArrestSuspects())
+        {
+            @MemberLink(ProcessView.Member(suspect))
+        }
+    </div>
+}
+
+@helper MemberLink(MemberModel member, string subjClass = "", string suffix = " ")
+{
+    @Shared.Link(
+        member.Name,
+        "det-answers-member-link det-answers-color det-no-wrap " + subjClass,
+        ProcessView.MemberFaceUrl(member.Number)
+        )@suffix
 }

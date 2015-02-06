@@ -63,7 +63,7 @@
         });
     }
 
-    public static string MemberFaceActionUrl(int num)
+    public static string MemberFaceUrl(int num)
     {
         return ActionUrl(new {id = Model.Id, face = num});
     }
@@ -155,7 +155,7 @@
 
     public static bool CanAsk(int? respondent)
     {
-        return QuestioningRespondents().Any(n => n == respondent);
+        return QuestioningRespondents().Any(r => r == respondent);
     }
 
     public static string MemberTodayAnswer(int num)
@@ -167,12 +167,24 @@
 
     public static bool CanAskAbout(int? respondent, int? subject)
     {
-        return respondent != null && QuestioningSubjects((int) respondent).Any(n => n == subject);
+        return respondent != null && QuestioningSubjects((int) respondent).Any(s => s == subject);
     }
 
     public static bool IsAsked(int num)
     {
         return MemberIsActive(num) && !CanAsk(num);
     }
-
+    
+    public static IList<int> ArrestSuspects()
+    {
+        return Model.UserActions
+            .Where(a => a.Type == Process.UserAction.ActionType.Arrest)
+            .Select(a => a.Args[0])
+            .Distinct()
+            .ToList();
+    }
+    public static bool CanArrest(int? suspect)
+    {
+        return ArrestSuspects().Any(s => s == suspect);
+    }
 }

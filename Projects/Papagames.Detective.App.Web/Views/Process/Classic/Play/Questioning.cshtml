@@ -1,5 +1,5 @@
 ﻿@{
-    // >> Process > View > Classic > Questioning ****
+    // >> Process > View > Classic > Questioning **
     @Questioning()
 }
 @using Papagames.Detective.App.Web.Models
@@ -57,19 +57,21 @@
 
 @helper Hint()
 {
-    if (Model.TodayAnswers().Count == 0)
+    if (Model.State==State.Questioning)
     {
         <div class="det-today-info-answers det-answers-color">
-            @(Face == null ? HintRespondents() : HintSubjects((int) Face))
+            @( !ProcessView.CanAsk(Face)? HintRespondents() : HintSubjects((int) Face))
         </div>
     }
 }
 
 @helper AutoQuestioning()
 {
-    if (Model.Options.AutoQuestioningIsEnabled && Model.TodayAnswers().Count == 0 && Face == null)
+    if (Model.Options.AutoQuestioningIsEnabled 
+        && ProcessView.QuestioningRespondents().Count >= 2
+        && (Face==null || ProcessView.QuestioningSubjects((int)Face).Count == 0))
     {
-        <span> or @Shared.Link("all together", "det-answers-member-link det-answers-color", ProcessView.AutoAskActionUrl())</span>
+        <span> or @Shared.Link("auto", "det-answers-member-link det-answers-color det-no-wrap", ProcessView.AutoAskActionUrl())</span>
     }
 }
 @helper MemberLink(MemberModel member, string subjClass = "", string suffix = " ")
@@ -77,7 +79,7 @@
     @Shared.Link(
         member.Name,
         "det-answers-member-link det-answers-color det-no-wrap " + subjClass,
-        ProcessView.MemberFaceActionUrl(member.Number)
+        ProcessView.MemberFaceUrl(member.Number)
         )@suffix
 }
 
@@ -97,22 +99,22 @@
 
 @helper HintRespondents()
 {
-    <div class="det-answer-hint">Who would you like to interview:</div>
+    <div class="det-answer-hint">Ask:</div>
     <div class="det-answer-hint-variants">
         @foreach (var respondent in ProcessView.QuestioningRespondents())
         {
             @MemberLink(ProcessView.Member(respondent))
-        }@AutoQuestioning()?
+        }@AutoQuestioning()
     </div>
 }
 
 @helper HintSubjects(int respondent)
 {
-    <div class="det-answer-hint">Who is the subject to @ProcessView.MemberName(respondent)'s questioning:</div>
+    <div class="det-answer-hint">Ask @ProcessView.MemberName(respondent) about:</div>
     <div class="det-answer-hint-variants">
         @foreach (var subject in ProcessView.QuestioningSubjects(respondent))
         {
             @AskActionLink(ProcessView.Member(respondent), ProcessView.Member(subject))
-        }?
+        }
     </div>
 }
