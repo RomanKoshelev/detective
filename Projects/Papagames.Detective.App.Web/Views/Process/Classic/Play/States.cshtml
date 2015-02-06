@@ -1,11 +1,11 @@
 ﻿@{
-    // >> Process > View > Classic > Actions *
-    @Actions()
+    // >> Process > View > Classic > States *
+    @States()
 }
 @using Papagames.Detective.Core.Game
 @model Papagames.Detective.App.Web.Models.ProcessModel
 
-@helper Actions()
+@helper States()
 {
     switch (Model.State)
     {
@@ -20,6 +20,9 @@
             {
                 ProcessView.RenderPartial("Arrest");
             }
+            break;
+        case State.Finished:
+            ProcessView.RenderPartial("Finish");
             break;
     }
 }

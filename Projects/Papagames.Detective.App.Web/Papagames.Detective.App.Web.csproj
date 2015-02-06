@@ -222,11 +222,12 @@
     <Content Include="Views\Process\ClassicPlay.cshtml" />
     <Content Include="Views\Process\Classic\Play\Cards.cshtml" />
     <Content Include="Views\Process\Classic\Play\Members.cshtml" />
-    <Content Include="Views\Process\Classic\Play\Actions.cshtml" />
+    <Content Include="Views\Process\Classic\Play\States.cshtml" />
     <Content Include="Views\Process\Classic\Play\Today.cshtml" />
     <Content Include="Views\Process\Classic\Play\Questioning.cshtml" />
     <Content Include="Views\Process\Classic\Play\History.cshtml" />
     <Content Include="Views\Process\Classic\Play\Arrest.cshtml" />
+    <Content Include="Views\Process\Classic\Play\Finish.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
