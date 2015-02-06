@@ -35,6 +35,16 @@
         });
     }
 
+    public static string AutoAskActionUrl()
+    {
+        return Url.Action("ClassicPlay", "Process", new
+        {
+            id = Model.Id,
+            actionType = (int)Process.UserAction.ActionType.AutoAsk
+        });
+    }
+
+
     private new static ProcessModel Model
     {
         get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }

@@ -12,9 +12,10 @@ namespace Papagames.Detective.Core.Game
                 None,
                 Skip,
                 Ask,
+                AutoAsk,
                 Arrest,
                 Start,
-                Stop
+                Stop,
             }
 
             public ActionType Type = ActionType.None;

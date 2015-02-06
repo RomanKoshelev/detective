@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Utils;
@@ -93,6 +92,12 @@ namespace Papagames.Detective.Core.Game
 
             if (needSkipAction)
                 AddSkipAction();
+            else
+                AddAutoAskAction();
+        }
+        private void AddAutoAskAction()
+        {
+            _userActions.Add(new UserAction { Type = UserAction.ActionType.AutoAsk });
         }
 
         private IList<Member> GetQuestioningRespondents()
@@ -193,6 +198,9 @@ namespace Papagames.Detective.Core.Game
                     break;
                 case UserAction.ActionType.Ask:
                     DoAsk(actionParams[0], actionParams[1]);
+                    break;
+                case UserAction.ActionType.AutoAsk:
+                    DoAutoAsk();
                     break;
                 default:
                     throw new DetectiveException("Unexpected action type {0}", actionType);

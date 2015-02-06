@@ -16,6 +16,7 @@
     {
         get { return ViewBag.Face; }
     }
+
 }
 
 @helper Questioning()
@@ -26,6 +27,7 @@
             <div class="det-questioning det-answers-color">
                 @Answers()
                 @Hints()
+                @AutoQuestioning()
             </div>
         </div>
     </div>
@@ -64,4 +66,11 @@
             }
         </div>
     }
+}
+
+@helper AutoQuestioning()
+{
+    <a class="det-today-info-answers det-answers-color" href="@ProcessView.AutoAskActionUrl()">
+    Auto
+    </a>
 }

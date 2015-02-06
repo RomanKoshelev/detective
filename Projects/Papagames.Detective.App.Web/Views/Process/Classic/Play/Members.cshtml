@@ -7,7 +7,6 @@
 
 @functions
 {
-
     private string CurrentMemberFaceClass(int num)
     {
         return
@@ -92,7 +91,6 @@
             ? SideIsTop? " det-member-face-asked-top" : " det-member-face-asked-bottom"
             : "";
     }
-
 }
 
 @helper Members(int first, int last)
@@ -150,6 +148,7 @@
         @MemberFace(num, ViewBag.Face)
     </a>
 }
+
 @helper FaceText(int num)
 {
     <span class="@FaceTextClass(num)" >

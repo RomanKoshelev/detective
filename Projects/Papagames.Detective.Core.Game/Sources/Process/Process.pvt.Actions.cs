@@ -33,6 +33,10 @@ namespace Papagames.Detective.Core.Game
         {
             DoAsk(FindMember(respondent), FindMember(subject));
         }
+        private void DoAutoAsk()
+        {
+            throw new System.NotImplementedException();
+        }
 
         private void DoArrest(int suspect)
         {
