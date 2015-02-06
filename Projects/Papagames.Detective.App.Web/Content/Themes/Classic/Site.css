@@ -219,19 +219,26 @@ nav li {
     color: #001a00;
 }
 
-.det-member-cell-content-face {
+.det-member-cell-circle-face {
     width: 80px;
     height: 80px;
     border-radius: 40px;
     margin: 15px;
 }
 
-.det-member-face-link {
-    text-decoration: none;    
+.det-member-face-asked-top {
+    position: relative;
+    top: -10px;
 }
-.det-member-face-link:hover {
-    font-weight: bold;
+
+.det-member-face-asked-bottom {
+    position: relative;
+    top: 10px;
 }
+
+.det-member-face-link { text-decoration: none; }
+
+.det-member-face-link:hover { font-weight: bold; }
 
 .det-member-face-text-alive {
     text-align: center;
@@ -305,9 +312,7 @@ nav li {
     text-decoration: underline;
 }
 
-.det-card-link:hover {
-    color: black;
-}
+.det-card-link:hover { color: black; }
 
 .det-card-frame-selected {
     color: #6f6b00;
@@ -325,6 +330,7 @@ nav li {
     border: none;
     color: #9c9974;
 }
+
 /*
 // ============================================================================================= []
 // Today

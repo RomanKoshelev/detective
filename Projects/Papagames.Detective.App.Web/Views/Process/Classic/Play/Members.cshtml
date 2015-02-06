@@ -1,7 +1,8 @@
 ﻿@using Papagames.Detective.Core.Game
+@model Papagames.Detective.App.Web.Models.ProcessModel
 @{
     // >> Process > View > Classic > Members
-    @Members((int) ViewBag.First, (int) ViewBag.Last, (bool) ViewBag.SideIsTop)
+    @Members((int) ViewBag.First, (int) ViewBag.Last)
 }
 
 @functions
@@ -11,7 +12,7 @@
     {
         return
             ProcessView.MemberIsActive(num)
-                ? num==Face
+                ? num == Face
                     ? " det-member-face-active-primary"
                     : " det-member-face-active-secondary"
                 : ProcessView.Member(num).IsOpenMurderer
@@ -25,7 +26,12 @@
     {
         return ProcessView.MemberIsAlive(num) ? " det-member-face-text-alive det-vertical" : " det-member-face-text-dead";
     }
-
+    
+    private string FaceTextClass(int num)
+    {
+        return string.Format("{0} {1}", MemberFaceEmotionClass(num), "det-member-face-link");
+    }
+    
     private string EmotionMarker(int num, int? subj)
     {
         switch (ProcessView.MemberEmotion(num, subj))
@@ -52,37 +58,64 @@
 
     private bool FaceIsLinked(int num)
     {
-        return Face != num;
+        if (Face == num)
+            return false;
+
+        switch (Model.State)
+        {
+            case State.Questioning:
+                return ProcessView.MemberIsActive(num);
+            case State.Arrest:
+                return ProcessView.MemberIsActive(num);
+        }
+        return false;
     }
-    
+
     private int? Face
     {
         get { return ViewBag.Face; }
     }
 
+    private bool SideIsTop
+    {
+        get { return ViewBag.SideIsTop; }
+    }
+    
+    private int? Card
+    {
+        get { return ViewBag.Card; }
+    }
+
+    private string MemberAskedClass(int num)
+    {
+        return ProcessView.IsAsked(num) 
+            ? SideIsTop? " det-member-face-asked-top" : " det-member-face-asked-bottom"
+            : "";
+    }
+
 }
 
-@helper Members(int first, int last, bool sideIsTop)
+@helper Members(int first, int last)
 {
     <nav>
         <ul>
             @for (var i = first; i <= last; i++)
             {
                 <li class="det-member">
-                    @Member(i, sideIsTop)
+                    @Member(i)
                 </li>
             }
         </ul>
     </nav>
 }
 
-@helper Member(int i, bool sideIsTop)
+@helper Member(int i)
 {
     <div class="det-member-cell-aligment" align="center">
         <div class="det-member-cell-content" align="center">
             @if (ProcessView.MemberExists(i))
             {
-                if (sideIsTop && ProcessView.MemberIsActive(i) || !sideIsTop && !ProcessView.MemberIsActive(i))
+                if (SideIsTop && ProcessView.MemberIsActive(i) || !SideIsTop && !ProcessView.MemberIsActive(i))
                 {
                     @FaceIndent()
                     @FaceFrame(i)
@@ -99,18 +132,8 @@
 
 @helper FaceFrame(int num)
 {
-    <div class="det-member-cell-content-face @CurrentMemberFaceClass(num)">
-        @if (FaceIsLinked(num))
-        {
-            @FaceLink(num)
-        }
-        else
-        {
-            <span class="@MemberFaceEmotionClass(num) det-member-face-link">
-                @MemberFace(num, ViewBag.Face)
-            </span>
-        }
-
+    <div class="det-member-cell-circle-face @CurrentMemberFaceClass(num) @MemberAskedClass(num)">
+        @(FaceIsLinked(num) ? FaceLink(num) : FaceText(num))
     </div>
 }
 
@@ -119,10 +142,17 @@
     <div class="det-member-cell-content-indent">
     </div>
 }
+
 @helper FaceLink(int num)
 {
-    <a class="@MemberFaceEmotionClass(num) det-member-face-link"
+    <a class="@FaceTextClass(num)"
        href="@Url.Action("ClassicPlay", "Process", new {id = Model.Id, face = num})">
         @MemberFace(num, ViewBag.Face)
     </a>
+}
+@helper FaceText(int num)
+{
+    <span class="@FaceTextClass(num)" >
+        @MemberFace(num, ViewBag.Face)
+    </span>
 }

@@ -25,6 +25,7 @@
 {
     switch (Model.State)
     {
+        case State.Arrest:
         case State.Questioning:
             ProcessView.RenderPartial("Questioning");
             break;
