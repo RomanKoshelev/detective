@@ -369,19 +369,22 @@ nav li {
 // Questioning
 */
 
-.det-today-info-answers { vertical-align: top; }
+.det-today-info-answers { vertical-align: top;}
 
 .det-answers-color { color: #4800b1 }
 
 .det-today-info-answer {
     padding: 0;
     width: auto;
+    margin-top: 3px
 }
 
 .det-today-info-answer-agent {
     display: table-cell;
-    width: 120px;
+    width: auto;
     text-align: left;
+    padding-left: 0; 
+    padding-right: 0; 
 }
 
 .det-today-info-answer-value {
@@ -390,8 +393,18 @@ nav li {
 }
 
 .det-answer-highlight {
-    background-color: #fcff00;
-    color: #0015ff;
+    background-color: yellow;
+}
+
+.det-answer-highlight-subject {
+    background-color: #fae5d6;
+    background-color: rgba(255, 0, 0, 0.14);
+}
+
+.det-answers-member-link { text-decoration: none; }
+
+.det-answers-member-link:hover {
+    background-color: #9fff89;
 }
 
 /*
@@ -399,9 +412,14 @@ nav li {
 // Arrest
 */
 
-.det-arrest-button { padding-top: 15px; }
+.det-arrest-color { color: #560000; }
 
-.det-arrest-hint { padding-top: 0; }
+.det-arrest-button {
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+.det-arrest-hint { padding-top: 7px; }
 
 .det-arrest-button-link {
     background-color: #004c99;

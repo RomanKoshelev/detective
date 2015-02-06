@@ -7,6 +7,7 @@
 
 @functions
 {
+
     private string CurrentMemberFaceClass(int num)
     {
         return
@@ -25,12 +26,12 @@
     {
         return ProcessView.MemberIsAlive(num) ? " det-member-face-text-alive det-vertical" : " det-member-face-text-dead";
     }
-    
+
     private string FaceTextClass(int num)
     {
         return string.Format("{0} {1}", MemberFaceEmotionClass(num), "det-member-face-link");
     }
-    
+
     private string EmotionMarker(int num, int? subj)
     {
         switch (ProcessView.MemberEmotion(num, subj))
@@ -79,7 +80,7 @@
     {
         get { return ViewBag.SideIsTop; }
     }
-    
+
     private int? Card
     {
         get { return ViewBag.Card; }
@@ -87,8 +88,8 @@
 
     private string MemberAskedClass(int num)
     {
-        return ProcessView.IsAsked(num) 
-            ? SideIsTop? " det-member-face-asked-top" : " det-member-face-asked-bottom"
+        return ProcessView.IsAsked(num)
+            ? SideIsTop ? " det-member-face-asked-top" : " det-member-face-asked-bottom"
             : "";
     }
 }
@@ -143,10 +144,7 @@
 
 @helper FaceLink(int num)
 {
-    <a class="@FaceTextClass(num)"
-       href="@Url.Action("ClassicPlay", "Process", new {id = Model.Id, face = num})">
-        @MemberFace(num, ViewBag.Face)
-    </a>
+    <a class="@FaceTextClass(num)" href="@ProcessView.MemberFaceActionUrl(num)">@MemberFace(num, ViewBag.Face)</a>
 }
 
 @helper FaceText(int num)

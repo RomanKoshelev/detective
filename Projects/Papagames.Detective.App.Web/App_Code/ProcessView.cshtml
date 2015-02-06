@@ -5,7 +5,7 @@
 @using Papagames.Detective.Utils
 @using WebGrease.Css.Extensions
 @functions {
-// >> App_Code > ProcessView 
+    // >> App_Code > ProcessView 
     private new static HtmlHelper<object> Html
     {
         get { return ((WebViewPage) WebPageContext.Current.Page).Html; }
@@ -14,9 +14,9 @@
     public static void RenderPartial(string part, object args = null)
     {
         var viewData = Html.NewViewData(args ?? new {});
-        
-        ViewData.ForEach(vd=>viewData.Add(vd));
-               
+
+        ViewData.ForEach(vd => viewData.Add(vd));
+
         Html.RenderPartial(
             "~/Views/Process/Classic/Play/" + part + ".cshtml",
             Model,
@@ -28,9 +28,9 @@
     {
         return Url.Action("ClassicPlay", "Process", new
         {
-            id = Model.Id, 
-            actionType = (int)Process.UserAction.ActionType.Ask, 
-            respondent, 
+            id = Model.Id,
+            actionType = (int) Process.UserAction.ActionType.Ask,
+            respondent,
             subject
         });
     }
@@ -40,17 +40,17 @@
         return Url.Action("ClassicPlay", "Process", new
         {
             id = Model.Id,
-            actionType = (int)Process.UserAction.ActionType.Arrest,
+            actionType = (int) Process.UserAction.ActionType.Arrest,
             suspect
         });
     }
-    
+
     public static string EarlyArrestActionUrl(int suspect)
     {
         return Url.Action("ClassicPlay", "Process", new
         {
             id = Model.Id,
-            actionType = (int)Process.UserAction.ActionType.EarlyArrest,
+            actionType = (int) Process.UserAction.ActionType.EarlyArrest,
             suspect
         });
     }
@@ -60,10 +60,19 @@
         return Url.Action("ClassicPlay", "Process", new
         {
             id = Model.Id,
-            actionType = (int)Process.UserAction.ActionType.AutoAsk
+            actionType = (int) Process.UserAction.ActionType.AutoAsk
         });
     }
 
+    public static string MemberFaceActionUrl(int num)
+    {
+        return ActionUrl(new {id = Model.Id, face = num});
+    }
+
+    public static string ActionUrl(dynamic args)
+    {
+        return Url.Action("ClassicPlay", "Process", args);
+    }
 
     private new static ProcessModel Model
     {
@@ -72,12 +81,12 @@
 
     private static UrlHelper Url
     {
-        get { return ((WebViewPage)WebPageContext.Current.Page).Url; }
+        get { return ((WebViewPage) WebPageContext.Current.Page).Url; }
     }
-  
+
     private static ViewDataDictionary ViewData
     {
-        get { return ((WebViewPage)WebPageContext.Current.Page).ViewData; }
+        get { return ((WebViewPage) WebPageContext.Current.Page).ViewData; }
     }
 
     public static bool MemberExists(int? num)
@@ -149,21 +158,22 @@
     {
         return QuestioningRespondents().Any(n => n == respondent);
     }
-    
+
     public static string MemberTodayAnswer(int num)
     {
         var answer = Model.TodayAnswers().FirstOrDefault(a => a.Agent.Number == num);
         if (answer == null) return "ERROR";
         return string.Format("{0} is {1}", answer.Subject.Name, answer.Value.Verbal());
     }
-    
+
     public static bool CanAskAbout(int? respondent, int? subject)
     {
-        return respondent != null && QuestioningSubjects((int)respondent).Any(n => n == subject);
+        return respondent != null && QuestioningSubjects((int) respondent).Any(n => n == subject);
     }
 
     public static bool IsAsked(int num)
     {
         return MemberIsActive(num) && !CanAsk(num);
     }
+
 }

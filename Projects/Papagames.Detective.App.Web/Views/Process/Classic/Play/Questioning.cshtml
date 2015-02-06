@@ -1,21 +1,29 @@
 ﻿@{
-    // >> Process > View > Classic > Questioning *
+    // >> Process > View > Classic > Questioning ****
     @Questioning()
 }
+@using Papagames.Detective.App.Web.Models
 @using Papagames.Detective.Core.Game
-@model Papagames.Detective.App.Web.Models.ProcessModel
+@model ProcessModel
 
 @functions
 {
+
     private string AnswerSelectedFaceClass(int num)
     {
-        return num == ViewBag.Face ? " det-answer-highlight" : "";
+        return num == Face ? " det-answer-highlight" : "";
+    }
+    
+    private string MemberSubjectLinkClass(int num)
+    {
+        return num == Face ? " det-answer-highlight-subject" : "";
     }
 
     private int? Face
     {
         get { return ViewBag.Face; }
     }
+
 
 }
 
@@ -39,10 +47,10 @@
             var answerSelectedFaceClass = AnswerSelectedFaceClass(a.Agent.Number);
             <div class="det-today-info-answer">
                 <div class="det-today-info-answer-agent @answerSelectedFaceClass">
-                    @a.Agent:
+                    @MemberLink(a.Agent)
                 </div>
                 <div class="det-today-info-answer-value @answerSelectedFaceClass">
-                    @a.Subject is @a.Value.Verbal()
+                    &nbsp;&mdash; @MemberSubjectLink(a.Subject) is @a.Value.Verbal()
                 </div>
             </div>
         }
@@ -60,7 +68,7 @@
             }
             else
             {
-                @:Who is the subject to @ProcessView.MemberName((int)Face)'s questioning?
+                @:Who is the subject to @ProcessView.MemberName((int) Face)'s questioning?
             }
         </span>
     }
@@ -74,4 +82,12 @@
             auto
         </a>
     }
+}
+@helper MemberLink(MemberModel member, string subjClass="")
+{
+    <a class="det-answers-member-link det-answers-color @subjClass" href="@ProcessView.MemberFaceActionUrl(member.Number)">@member.Name</a>
+}
+@helper MemberSubjectLink(MemberModel subject)
+{
+    @MemberLink(subject, MemberSubjectLinkClass(subject.Number))
 }
