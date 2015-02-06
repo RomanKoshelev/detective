@@ -13,7 +13,7 @@
     {
         return num == Face ? " det-answer-highlight" : "";
     }
-    
+
     private string MemberSubjectLinkClass(int num)
     {
         return num == Face ? " det-answer-highlight-subject" : "";
@@ -24,7 +24,6 @@
         get { return ViewBag.Face; }
     }
 
-
 }
 
 @helper Questioning()
@@ -34,7 +33,6 @@
         <div class="det-today-info">
             @Answers()
             @Hints()
-            @AutoQuestioning()
         </div>
     </div>
 }
@@ -61,16 +59,21 @@
 {
     if (Model.TodayAnswers().Count == 0)
     {
-        <span class="det-today-info-answers det-answers-color">
+        <div class="det-today-info-answers det-answers-color">
             @if (Face == null)
             {
-                @:Who do you want to interview?
+                <div>Who would you like to interview?</div>
+                foreach (var respondent in ProcessView.QuestioningRespondents())
+                {
+                    @MemberLink(ProcessView.Member(respondent))
+                }
+                @AutoQuestioning()@:?
             }
             else
             {
                 @:Who is the subject to @ProcessView.MemberName((int) Face)'s questioning?
             }
-        </span>
+        </div>
     }
 }
 
@@ -78,16 +81,14 @@
 {
     if (Model.Options.AutoQuestioningIsEnabled && Model.TodayAnswers().Count == 0 && Face == null)
     {
-        <a class="det-today-info-answers det-answers-color" href="@ProcessView.AutoAskActionUrl()">
-            auto
-        </a>
+        <span>or
+            <a class="det-answers-member-link det-answers-color" href="@ProcessView.AutoAskActionUrl()">auto</a>
+        </span>
     }
 }
-@helper MemberLink(MemberModel member, string subjClass="")
+@helper MemberLink(MemberModel member, string subjClass = "")
 {
     <a class="det-answers-member-link det-answers-color @subjClass" href="@ProcessView.MemberFaceActionUrl(member.Number)">@member.Name</a>
 }
 @helper MemberSubjectLink(MemberModel subject)
-{
-    @MemberLink(subject, MemberSubjectLinkClass(subject.Number))
-}
+{ @MemberLink(subject, MemberSubjectLinkClass(subject.Number)) }
