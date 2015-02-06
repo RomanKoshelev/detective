@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
 {
@@ -12,7 +13,9 @@ namespace Papagames.Detective.Core.Game
 
         private Member DoSelectVictim(IEnumerable<Member> victims)
         {
-            return victims.OrderBy(MurderFactor).Last();
+            var list = victims as IList<Member> ?? victims.ToList();
+            Trace.Assert(list.Any(),"No victims are available");
+            return list.OrderBy(MurderFactor).Last();
         }
 
         private void InitMurderDecisionModule()

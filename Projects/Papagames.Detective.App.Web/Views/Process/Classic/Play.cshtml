@@ -1,6 +1,6 @@
 ﻿@{
     // ============================================================================================= []
-    // >> Process > View > Classic > Play
+    // >> Process > View > Classic > Play *
     ViewBag.Title = string.Format("Crime Nuts Case #{0}, {1}", Model.CaseId, Model.State);
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewBag.id = Model.Id;
@@ -31,10 +31,15 @@
 {
     <div class="det-gametable det-gametable-color">
         @{ ProcessView.RenderPartial("Cards", new {First = 1, Last = 6}); }
-        @{ ProcessView.RenderPartial("Desktop"); }
+        <div class="det-desktop">
+            @{ ProcessView.RenderPartial("History"); }
+            @{ ProcessView.RenderPartial("Today"); }
+            @{ ProcessView.RenderPartial("Actions"); }
+        </div>
         @{ ProcessView.RenderPartial("Cards", new {First = 7, Last = 12}); }
     </div>
 }
+
 @helper Files()
 {
     <div class="det-dev det-height-400">

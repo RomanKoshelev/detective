@@ -68,6 +68,8 @@ namespace Papagames.Detective.Core.Game
         // Core Actions
         private void DoEvidence()
         {
+            if (ActiveInnocents.Count == 0) return;
+
             for (var w = 0; w < MaxEvidenceNum; w++)
             {
                 SelectWitnessAndEvidence();
@@ -101,6 +103,8 @@ namespace Papagames.Detective.Core.Game
 
         private void SelectWitnessAndEvidence()
         {
+            Assert.IsTrue(ActiveInnocents.Count>0, "No active innocent members!");
+
             var witness = ActiveInnocents.RandomElementUsing(_random);
             var subject = witness.SelectEvidence(ActiveMembers);
 

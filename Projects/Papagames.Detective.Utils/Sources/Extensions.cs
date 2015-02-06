@@ -69,6 +69,7 @@ namespace Papagames.Detective.Utils
         public static T RandomElementUsing<T>(this IEnumerable<T> enumerable, Random random)
         {
             var list = enumerable as IList<T> ?? enumerable.ToList();
+            Assert.IsTrue(list.Any(), "Empty collection");
             var index = random.Next(0, list.Count());
             return list.ElementAt(index);
         }

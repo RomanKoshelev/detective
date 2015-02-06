@@ -3,7 +3,7 @@ using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Utils;
 
-// >> Core > Process > UserActions **
+// >> Core > Process > UserActions
 
 namespace Papagames.Detective.Core.Game
 {
@@ -35,7 +35,6 @@ namespace Papagames.Detective.Core.Game
                     AddNoneAction();
                     break;
                 case State.CheckArrest:
-                    // >> Core > Process > CheckArrest ***** <<
                     AddContinueAction();
                     break;
                 default:

@@ -1,25 +1,9 @@
 ﻿@{
-    // >> Process > View > Classic > Desktop *
-    @Desktop()
+    // >> Process > View > Classic > Actions *
+    @Actions()
 }
 @using Papagames.Detective.Core.Game
 @model Papagames.Detective.App.Web.Models.ProcessModel
-
-@helper Desktop()
-{
-    <div class="det-desktop">
-        @*@History()*@
-        @Today()
-        @Actions()
-    </div>
-}
-
-
-@helper Today()
-{
-    ProcessView.RenderPartial("Today");
-}
-
 
 @helper Actions()
 {
@@ -38,10 +22,4 @@
             }
             break;
     }
-}
-
-
-@helper History()
-{
-    ProcessView.RenderPartial("History");
 }
