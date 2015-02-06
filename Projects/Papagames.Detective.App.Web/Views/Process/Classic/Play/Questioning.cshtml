@@ -55,7 +55,7 @@
 {
     if (Model.TodayAnswers().Count == 0)
     {
-        <div class="det-today-info-answers det-answers-color">
+        <span class="det-today-info-answers det-answers-color">
             @if (Face == null)
             {
                 @:Who do you want to interview?
@@ -64,13 +64,16 @@
             {
                 @:Who is the subject to @ProcessView.MemberName((int)Face)'s questioning?
             }
-        </div>
+        </span>
     }
 }
 
 @helper AutoQuestioning()
 {
-    <a class="det-today-info-answers det-answers-color" href="@ProcessView.AutoAskActionUrl()">
-    Auto
-    </a>
+    if (Model.Case.AutoQuestioningIsEnabled && Model.TodayAnswers().Count == 0 && Face == null)
+    {
+        <a class="det-today-info-answers det-answers-color" href="@ProcessView.AutoAskActionUrl()">
+            auto
+        </a>
+    }
 }

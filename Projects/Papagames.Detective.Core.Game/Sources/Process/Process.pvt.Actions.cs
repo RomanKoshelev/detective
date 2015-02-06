@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using MoreLinq;
 using Papagames.Detective.Utils;
 
 namespace Papagames.Detective.Core.Game
@@ -35,7 +37,11 @@ namespace Papagames.Detective.Core.Game
         }
         private void DoAutoAsk()
         {
-            throw new System.NotImplementedException();
+            GetQuestioningRespondents().Shuffle().ForEach(respondent =>
+            {
+                var subject = ActiveMembers.Where(s => CanAskAbout(respondent, s)).RandomElement();
+                DoAsk(respondent, subject);
+            });
         }
 
         private void DoArrest(int suspect)

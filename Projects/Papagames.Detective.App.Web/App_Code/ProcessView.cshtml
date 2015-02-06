@@ -107,7 +107,7 @@
         return !Member(num).IsVictim;
     }
 
-    private static IList<int> QuestioningRespondents()
+    public static IList<int> QuestioningRespondents()
     {
         return Model.UserActions
             .Where(a => a.Type == Process.UserAction.ActionType.Ask)
@@ -136,8 +136,7 @@
         if (answer == null) return "ERROR";
         return string.Format("{0} is {1}", answer.Subject.Name, answer.Value.Verbal());
     }
-
-
+    
     public static bool CanAskAbout(int? respondent, int? subject)
     {
         return respondent != null && QuestioningSubjects((int)respondent).Any(n => n == subject);

@@ -2,7 +2,6 @@
 using Papagames.Detective.App.Web.Models;
 using Papagames.Detective.Core.Game;
 using Papagames.Detective.Utils;
-using WebGrease.Css.Extensions;
 
 namespace Papagames.Detective.App.Web.Controllers
 {
@@ -37,14 +36,15 @@ namespace Papagames.Detective.App.Web.Controllers
             int? card,
             int? actionType,
             int? respondent,
-            int? subject)
+            int? subject,
+            int? suspected)
         {
             var processId = (Identifiable<int, Process>.Identifier) id;
+
             if (actionType != null)
             {
-                Schema.ExecuteProcess(processId, (Process.UserAction.ActionType)actionType,
-                    new[] {respondent ?? 0, subject ?? 0});
-                return RedirectToAction("ClassicPlay", "Process", new {id = processId, face=respondent, card=subject});
+                ExecuteAction(actionType, respondent, subject, suspected, processId);
+                return RedirectToAction("ClassicPlay", "Process", new {id = processId, face = respondent, card = subject});
             }
 
             ViewBag.Face = face;
@@ -53,6 +53,29 @@ namespace Papagames.Detective.App.Web.Controllers
             ViewBag.Subject = subject;
 
             return View(new ProcessModel(processId));
+        }
+
+        // ===================================================================================== []
+        // Utils
+        private static void ExecuteAction(int? actionType, int? respondent, int? subject, int? suspected, Identifiable<int, Process>.Identifier processId)
+        {
+            var action = (Process.UserAction.ActionType) actionType;
+            var args = new int[] {};
+
+            switch (action)
+            {
+                case Process.UserAction.ActionType.Ask:
+                    args = new[] {respondent ?? 0, subject ?? 0};
+                    break;
+                case Process.UserAction.ActionType.AutoAsk:
+                    args = new int[] {};
+                    break;
+                case Process.UserAction.ActionType.Arrest:
+                    args = new[] {suspected ?? 0};
+                    break;
+            }
+
+            Schema.ExecuteProcess(processId, action, args);
         }
     }
 }

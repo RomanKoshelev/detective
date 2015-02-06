@@ -18,6 +18,7 @@ namespace Papagames.Detective.Core.Game
             VictimRoleIsOpen = true;
             EvidencesNumIsOpen = true;
             SelectAnyRespondentOnQuestioning = true;
+            AutoQuestioningIsEnabled = true;
 
             InitMembers();
         }
@@ -71,5 +72,6 @@ namespace Papagames.Detective.Core.Game
         public bool MurderersNumIsOpen { get; private set; }
         public bool EvidencesNumIsOpen { get; private set; }
         public bool SelectAnyRespondentOnQuestioning { get; private set; }
+        public bool AutoQuestioningIsEnabled { get; private set; }
     }
 }
