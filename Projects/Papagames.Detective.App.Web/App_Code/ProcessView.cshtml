@@ -26,7 +26,7 @@
 
     public static string AskActionUrl(int respondent, int subject)
     {
-        return Url.Action("ClassicPlay", "Process", new
+        return ActionUrl(new
         {
             id = Model.Id,
             actionType = (int) Process.UserAction.ActionType.Ask,
@@ -37,7 +37,7 @@
 
     public static string ArrestActionUrl(int suspect)
     {
-        return Url.Action("ClassicPlay", "Process", new
+        return ActionUrl(new
         {
             id = Model.Id,
             actionType = (int) Process.UserAction.ActionType.Arrest,
@@ -47,20 +47,19 @@
 
     public static string EarlyArrestActionUrl(int suspect)
     {
-        return Url.Action("ClassicPlay", "Process", new
+        return ActionUrl(new
         {
-            id = Model.Id,
-            actionType = (int) Process.UserAction.ActionType.EarlyArrest,
+            id = Model.Id, 
+            actionType = (int)Process.UserAction.ActionType.EarlyArrest, 
             suspect
         });
     }
 
     public static string AutoAskActionUrl()
     {
-        return Url.Action("ClassicPlay", "Process", new
-        {
-            id = Model.Id,
-            actionType = (int) Process.UserAction.ActionType.AutoAsk
+        return ActionUrl(new { 
+            id = Model.Id, 
+            actionType = (int)Process.UserAction.ActionType.AutoAsk 
         });
     }
 
@@ -145,7 +144,7 @@
             .ToList();
     }
 
-    private static IList<int> QuestioningSubjects(int respondent)
+    public static IList<int> QuestioningSubjects(int respondent)
     {
         return Model.UserActions
             .Where(a => a.Type == Process.UserAction.ActionType.Ask && a.Args[0] == respondent)

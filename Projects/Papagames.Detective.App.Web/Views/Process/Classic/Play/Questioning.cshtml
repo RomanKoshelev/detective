@@ -32,7 +32,7 @@
         <div class="det-today-day det-answers-color"></div>
         <div class="det-today-info">
             @Answers()
-            @Hints()
+            @Hint()
         </div>
     </div>
 }
@@ -55,24 +55,12 @@
     </div>
 }
 
-@helper Hints()
+@helper Hint()
 {
     if (Model.TodayAnswers().Count == 0)
     {
         <div class="det-today-info-answers det-answers-color">
-            @if (Face == null)
-            {
-                <div>Who would you like to interview?</div>
-                foreach (var respondent in ProcessView.QuestioningRespondents())
-                {
-                    @MemberLink(ProcessView.Member(respondent))
-                }
-                @AutoQuestioning()@:?
-            }
-            else
-            {
-                @:Who is the subject to @ProcessView.MemberName((int) Face)'s questioning?
-            }
+            @(Face == null ? HintRespondents() : HintSubjects((int) Face))
         </div>
     }
 }
@@ -81,14 +69,50 @@
 {
     if (Model.Options.AutoQuestioningIsEnabled && Model.TodayAnswers().Count == 0 && Face == null)
     {
-        <span>or
-            <a class="det-answers-member-link det-answers-color" href="@ProcessView.AutoAskActionUrl()">auto</a>
-        </span>
+        <span> or @Shared.Link("all together", "det-answers-member-link det-answers-color", ProcessView.AutoAskActionUrl())</span>
     }
 }
-@helper MemberLink(MemberModel member, string subjClass = "")
+@helper MemberLink(MemberModel member, string subjClass = "", string suffix = " ")
 {
-    <a class="det-answers-member-link det-answers-color @subjClass" href="@ProcessView.MemberFaceActionUrl(member.Number)">@member.Name</a>
+    @Shared.Link(
+        member.Name,
+        "det-answers-member-link det-answers-color det-no-wrap " + subjClass,
+        ProcessView.MemberFaceActionUrl(member.Number)
+        )@suffix
 }
+
+@helper AskActionLink(MemberModel respondent, MemberModel subject, string subjClass = "", string suffix = " ")
+{
+    @Shared.Link(
+        subject.Name,
+        "det-answers-member-link det-answers-color det-no-wrap " + subjClass,
+        ProcessView.AskActionUrl(respondent.Number, subject.Number)
+        )@suffix
+}
+
+
 @helper MemberSubjectLink(MemberModel subject)
 { @MemberLink(subject, MemberSubjectLinkClass(subject.Number)) }
+
+
+@helper HintRespondents()
+{
+    <div class="det-answer-hint">Who would you like to interview:</div>
+    <div class="det-answer-hint-variants">
+        @foreach (var respondent in ProcessView.QuestioningRespondents())
+        {
+            @MemberLink(ProcessView.Member(respondent))
+        }@AutoQuestioning()?
+    </div>
+}
+
+@helper HintSubjects(int respondent)
+{
+    <div class="det-answer-hint">Who is the subject to @ProcessView.MemberName(respondent)'s questioning:</div>
+    <div class="det-answer-hint-variants">
+        @foreach (var subject in ProcessView.QuestioningSubjects(respondent))
+        {
+            @AskActionLink(ProcessView.Member(respondent), ProcessView.Member(subject))
+        }?
+    </div>
+}

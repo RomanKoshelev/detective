@@ -189,6 +189,7 @@
     <Content Include="ApplicationInsights.config" />
     <Content Include="App_Code\LayoutView.cshtml" />
     <Content Include="App_Code\ProcessView.cshtml" />
+    <Content Include="App_Code\Shared.cshtml" />
     <None Include="Properties\PublishProfiles\pgs-detective.pubxml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
