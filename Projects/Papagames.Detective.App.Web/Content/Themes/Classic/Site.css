@@ -121,6 +121,8 @@ nav li {
 
 .det-width-auto { width: auto }
 
+.det-height-all { height: 100%; }
+
 .det-height-100 { height: 100px; }
 
 .det-height-200 { height: 200px; }

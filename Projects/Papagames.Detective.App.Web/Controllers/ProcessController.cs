@@ -31,7 +31,7 @@ namespace Papagames.Detective.App.Web.Controllers
             return View(new ProcessModel(processId));
         }
 
-        // >> Precess > Controller > ClassicPlay **
+        // >> Precess > Controller > ClassicPlay *
         public ActionResult ClassicPlay(int id,
             int? face,
             int? card,

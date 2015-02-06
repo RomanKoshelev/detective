@@ -4,45 +4,25 @@
     ViewBag.Title = string.Format("Crime Nuts Case #{0}, {1}", Model.CaseId, Model.State);
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewBag.id = Model.Id;
-    @Content()
 }
 
 @model Papagames.Detective.App.Web.Models.ProcessModel
 
-
-@helper Content()
-{
-    <div class="det-page-content">
-        @Room()
-        @Files()
-    </div>
-}
-
-@helper Room()
-{
+<div class="det-page-content">
     <div class="det-room">
         @{ ProcessView.RenderPartial("Members", new {First = 1, Last = 6, SideIsTop = true}); }
-        @GameTable()
+        <div class="det-gametable det-gametable-color">
+            @{ ProcessView.RenderPartial("Cards", new {First = 1, Last = 6}); }
+            <div class="det-desktop">
+                @{ ProcessView.RenderPartial("History"); }
+                @{ ProcessView.RenderPartial("Today"); }
+                @{ ProcessView.RenderPartial("Actions"); }
+            </div>
+            @{ ProcessView.RenderPartial("Cards", new {First = 7, Last = 12}); }
+        </div>
         @{ ProcessView.RenderPartial("Members", new {First = 7, Last = 12, SideIsTop = false}); }
     </div>
-}
-
-@helper GameTable()
-{
-    <div class="det-gametable det-gametable-color">
-        @{ ProcessView.RenderPartial("Cards", new {First = 1, Last = 6}); }
-        <div class="det-desktop">
-            @{ ProcessView.RenderPartial("History"); }
-            @{ ProcessView.RenderPartial("Today"); }
-            @{ ProcessView.RenderPartial("Actions"); }
-        </div>
-        @{ ProcessView.RenderPartial("Cards", new {First = 7, Last = 12}); }
-    </div>
-}
-
-@helper Files()
-{
     <div class="det-dev det-height-400">
         Files
     </div>
-}
+</div>

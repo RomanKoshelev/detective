@@ -1,16 +1,18 @@
 ﻿@{
-    // >> Process > View > Classic > History
+    // >> Process > View > Classic > History *
     @History()
 }
 @model Papagames.Detective.App.Web.Models.ProcessModel
 
 @helper History()
 {
+@*
     <div class="det-dev">
         History
         @DaySummary("Day 1", "Summary")
         @DaySummary("Day 2", "Summary")
     </div>
+*@
 }
 
 @helper DaySummary(string day, string summary)
