@@ -63,6 +63,16 @@
         });
     }
 
+    public static string ContinueActionUrl()
+    {
+        return ActionUrl(new
+        {
+            id = Model.Id,
+            actionType = (int)Process.UserAction.ActionType.Continue
+        });
+    }
+
+    
     public static string MemberFaceUrl(int num)
     {
         return ActionUrl(new {id = Model.Id, face = num});
@@ -73,6 +83,7 @@
         return Url.Action("ClassicPlay", "Process", args);
     }
 
+    
     private new static ProcessModel Model
     {
         get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }

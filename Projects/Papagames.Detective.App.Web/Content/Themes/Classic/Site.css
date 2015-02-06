@@ -416,45 +416,63 @@ nav li {
 
 /*
 // ============================================================================================= []
+// Button
+*/
+.det-button {
+    border-radius: 4px;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.det-button-panel {
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+/*
+// ============================================================================================= []
 // Arrest
 */
 
 .det-arrest-color { color: #560000; }
 
-.det-arrest-button {
-    padding-top: 20px;
-    padding-bottom: 5px;
-}
-
 .det-arrest-hint { padding-top: 7px; }
 
-.det-arrest-button-link {
+.det-arrest-button {
     background-color: #004c99;
     color: #cce5ff;
-    border-radius: 4px;
-    padding: 10px;
-    text-decoration: none;
 }
 
-.det-arrest-button-link:hover {
-    background-color: #004c99;
+.det-arrest-button:hover {
     color: #ffffff;
 }
 
-.det-arrest-button-link-lite {
+.det-arrest-button-lite {
     background-color: inherit;
     color: #aeced9;
     border: solid 1px #aeced9;
-    border-radius: 4px;
-    padding: 10px;
-    text-decoration: none;
 }
 
-.det-arrest-button-link-lite:hover {
+.det-arrest-button-lite:hover {
     background-color: #004c99;
     color: #cce5ff;
     border: 0;
 }
+
+/*
+// ============================================================================================= []
+// Continue
+*/
+
+.det-continue-button {
+    background-color: #004c99;
+    color: #cce5ff;
+}
+
+.det-continue-button:hover {
+   color: #ffffff;
+}
+
 /*
 // ============================================================================================= []
 // EOF

@@ -16,7 +16,8 @@ namespace Papagames.Detective.Core.Game
                 Arrest,
                 Start,
                 Stop,
-                EarlyArrest
+                EarlyArrest,
+                Continue
             }
 
             public ActionType Type = ActionType.None;

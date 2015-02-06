@@ -34,6 +34,10 @@ namespace Papagames.Detective.Core.Game
                 case State.Error:
                     AddNoneAction();
                     break;
+                case State.CheckArrest:
+                    // >> Core > Process > CheckArrest ***** <<
+                    AddContinueAction();
+                    break;
                 default:
                     AddSkipAction();
                     break;
@@ -41,7 +45,7 @@ namespace Papagames.Detective.Core.Game
         }
 
         // ===================================================================================== []
-        // Skip, None, Init
+        // Skip, None, Init, Continue
         private void AddInitActions()
         {
             AddUserAction(UserAction.ActionType.Start);
@@ -55,6 +59,10 @@ namespace Papagames.Detective.Core.Game
         private void AddNoneAction()
         {
             AddUserAction(UserAction.ActionType.None);
+        }
+        private void AddContinueAction()
+        {
+            AddUserAction(UserAction.ActionType.Continue);
         }
 
         // ===================================================================================== []
@@ -249,6 +257,9 @@ namespace Papagames.Detective.Core.Game
                     DoSkip();
                     break;
                 case UserAction.ActionType.Skip:
+                    DoSkip();
+                    break;
+                case UserAction.ActionType.Continue:
                     DoSkip();
                     break;
                 case UserAction.ActionType.Arrest:

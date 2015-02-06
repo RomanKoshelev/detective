@@ -24,6 +24,11 @@
         return Model.UserActionIsEnabled(Process.UserAction.ActionType.EarlyArrest);
     }
 
+    private bool ContinueIsEnabled()
+    {
+        return Model.UserActionIsEnabled(Process.UserAction.ActionType.Continue);
+    }
+
 }
 
 @helper Arrest()
@@ -31,41 +36,13 @@
     <div class="det-today">
         <div class="det-today-day det-answers-color"></div>
         <div class="det-today-info det-arrest-color">
-            @ArrestButton()
             @EarlyArrestButton()
             @Hint()
+            @ArrestButton()
+            @ContinueButton()
         </div>
     </div>
 }
-
-@helper ArrestButton()
-{
-    if (ArrestIsEnabled() && Face != null)
-    {
-        <div class="det-arrest-button">
-            @Shared.Link(
-                "Arrest " + ProcessView.MemberName((int)Face),
-                "det-arrest-button-link",
-                ProcessView.ArrestActionUrl((int)Face)
-                )
-        </div>
-    }
-}
-
-@helper EarlyArrestButton()
-{
-    if (EarlyArrestIsEnabled() && Face != null)
-    {
-        <div class="det-arrest-button">
-            @Shared.Link(
-                "Arrest " + ProcessView.MemberName((int) Face),
-                "det-arrest-button-link-lite",
-                ProcessView.EarlyArrestActionUrl((int) Face)
-                )
-        </div>
-    }
-}
-
 
 @helper Hint()
 {
@@ -95,4 +72,46 @@
         "det-answers-member-link det-answers-color det-no-wrap " + subjClass,
         ProcessView.MemberFaceUrl(member.Number)
         )@suffix
+}
+
+@helper ArrestButton()
+{
+    if (ArrestIsEnabled() && Face != null)
+    {
+        <div class="det-button-panel">
+            @Shared.Link(
+                "Arrest " + ProcessView.MemberName((int) Face),
+                "det-arrest-button det-button",
+                ProcessView.ArrestActionUrl((int) Face)
+                )
+        </div>
+    }
+}
+
+@helper EarlyArrestButton()
+{
+    if (EarlyArrestIsEnabled() && Face != null)
+    {
+        <div class="det-button-panel">
+            @Shared.Link(
+                "Arrest " + ProcessView.MemberName((int) Face),
+                "det-arrest-button-lite  det-button",
+                ProcessView.EarlyArrestActionUrl((int) Face)
+                )
+        </div>
+    }
+}
+
+@helper ContinueButton()
+{
+    if (Model.State == State.CheckArrest && ContinueIsEnabled())
+    {
+        <div class="det-button-panel">
+            @Shared.Link(
+                "Continue",
+                "det-continue-button  det-button",
+                ProcessView.ContinueActionUrl()
+                )
+        </div>
+    }
 }
