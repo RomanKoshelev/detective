@@ -45,6 +45,10 @@ namespace Papagames.Detective.Core.Game
         {
             get { return DoGetTodayVictim(); }
         }
+        public Member TodayPrisoner
+        {
+            get { return DoGetTodayPrisoner(); }
+        }
 
         public Member LastMurderer { get; private set; }
         public Member LastArrested { get; private set; }

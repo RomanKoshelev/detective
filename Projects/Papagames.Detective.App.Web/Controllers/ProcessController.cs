@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Data.Metadata.Edm;
+using System.Web.Mvc;
 using Papagames.Detective.App.Web.Models;
 using Papagames.Detective.Core.Game;
 using Papagames.Detective.Utils;
@@ -44,7 +45,7 @@ namespace Papagames.Detective.App.Web.Controllers
             if (actionType != null)
             {
                 ExecuteAction(actionType, respondent, subject, suspect, processId);
-                return RedirectToAction("ClassicPlay", "Process", new {id = processId, face = respondent, card = subject});
+                return RedirectToAction("ClassicPlay", "Process", new {id = processId, face, card});
             }
 
             ViewBag.Face = face;

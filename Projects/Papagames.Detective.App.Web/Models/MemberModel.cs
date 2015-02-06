@@ -43,6 +43,10 @@ namespace Papagames.Detective.App.Web.Models
         {
             get { return DoGetNameRole(); }
         }
+        public Role Role
+        {
+            get { return Member.OpenRole; }
+        }
 
         public override string ToString()
         {
@@ -71,11 +75,6 @@ namespace Papagames.Detective.App.Web.Models
         // ===================================================================================== []
         // Pivate
         private Member Member { get; set; }
-
-        private Role Role
-        {
-            get { return Member.OpenRole; }
-        }
 
         private string DoGetNameRole()
         {

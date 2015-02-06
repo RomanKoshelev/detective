@@ -51,7 +51,11 @@ namespace Papagames.Detective.Core.Game
 
         private Member DoGetTodayVictim()
         {
-            return History.Records.First(r => r.Action==Action.Murder && r.Day==Today).Subject;
+            return History.Records.First(r => r.Action == Action.Murder && r.Day == Today).Subject;
+        }
+        private Member DoGetTodayPrisoner()
+        {
+            return History.Records.First(r => r.Action == Action.Arrest && r.Day == Today).Subject;
         }
     }
 }

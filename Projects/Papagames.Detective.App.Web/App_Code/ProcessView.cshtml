@@ -31,7 +31,9 @@
             id = Model.Id,
             actionType = (int) Process.UserAction.ActionType.Ask,
             respondent,
-            subject
+            subject,
+            face = respondent,
+            card = subject
         });
     }
 
@@ -41,7 +43,8 @@
         {
             id = Model.Id,
             actionType = (int) Process.UserAction.ActionType.Arrest,
-            suspect
+            suspect,
+            face = suspect
         });
     }
 
@@ -51,7 +54,8 @@
         {
             id = Model.Id, 
             actionType = (int)Process.UserAction.ActionType.EarlyArrest, 
-            suspect
+            suspect,
+            face = suspect
         });
     }
 

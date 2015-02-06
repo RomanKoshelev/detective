@@ -110,6 +110,10 @@ namespace Papagames.Detective.App.Web.Models
         {
             get { return DoGetTodayVictim(); }
         }
+        public MemberModel TodayPrisoner
+        {
+            get { return DoGetTodayPrisoner(); }
+        }
         public IList<AnswerModel> TodayAnswers()
         {
             return History.Answers(Today);
@@ -172,6 +176,10 @@ namespace Papagames.Detective.App.Web.Models
         private MemberModel DoGetTodayVictim()
         {
             return new MemberModel(Process.TodayVictim);
+        }
+        private MemberModel DoGetTodayPrisoner()
+        {
+            return new MemberModel(Process.TodayPrisoner);
         }
 
         private int? DoGetInnocentsLeft()

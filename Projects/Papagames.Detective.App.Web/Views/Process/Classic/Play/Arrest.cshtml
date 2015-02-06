@@ -39,6 +39,7 @@
             @EarlyArrestButton()
             @Hint()
             @ArrestButton()
+            @Result()
             @ContinueButton()
         </div>
     </div>
@@ -49,20 +50,27 @@
     if (ArrestIsEnabled() && !ProcessView.CanArrest(Face))
     {
         <div class="det-today-info-answers det-answers-color">
-            @HintSuspect()
+            <div class="det-answer-hint">Arrest:</div>
+            <div class="det-answer-hint-variants">
+                @foreach (var suspect in ProcessView.ArrestSuspects())
+                {
+                    @MemberLink(ProcessView.Member(suspect))
+                }
+            </div>
         </div>
     }
 }
 
-@helper HintSuspect()
+@helper Result()
 {
-    <div class="det-answer-hint">Arrest:</div>
-    <div class="det-answer-hint-variants">
-        @foreach (var suspect in ProcessView.ArrestSuspects())
-        {
-            @MemberLink(ProcessView.Member(suspect))
-        }
-    </div>
+    if (Model.State == State.CheckArrest)
+    {
+        <div class="det-today-info-answers det-answers-color">
+            <div class="det-answer-hint">
+                @MemberLink(Model.TodayPrisoner) the @Model.TodayPrisoner.Role was arrested
+            </div>
+        </div>
+    }
 }
 
 @helper MemberLink(MemberModel member, string subjClass = "", string suffix = " ")
