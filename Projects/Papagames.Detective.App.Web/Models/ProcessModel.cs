@@ -180,5 +180,9 @@ namespace Papagames.Detective.App.Web.Models
         }
 
         // ===================================================================================== []
+        public bool UserActionIsEnabled(Process.UserAction.ActionType actionType)
+        {
+            return Process.UserActionIsEnabled(actionType);
+        }
     }
 }

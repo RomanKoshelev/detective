@@ -11,7 +11,7 @@ namespace Papagames.Detective.Core.Game
         bool EvidencesNumIsOpen { get; }
         bool SelectAnyRespondentOnQuestioning { get; }
         bool AutoQuestioningIsEnabled { get; }
-        bool QuickArrestIsEnabled { get; }
+        bool EarlyArrestIsEnabled { get; }
 
     }
 }

@@ -37,13 +37,13 @@ namespace Papagames.Detective.App.Web.Controllers
             int? actionType,
             int? respondent,
             int? subject,
-            int? suspected)
+            int? suspect)
         {
             var processId = (Identifiable<int, Process>.Identifier) id;
 
             if (actionType != null)
             {
-                ExecuteAction(actionType, respondent, subject, suspected, processId);
+                ExecuteAction(actionType, respondent, subject, suspect, processId);
                 return RedirectToAction("ClassicPlay", "Process", new {id = processId, face = respondent, card = subject});
             }
 
@@ -57,7 +57,7 @@ namespace Papagames.Detective.App.Web.Controllers
 
         // ===================================================================================== []
         // Utils
-        private static void ExecuteAction(int? actionType, int? respondent, int? subject, int? suspected, Identifiable<int, Process>.Identifier processId)
+        private static void ExecuteAction(int? actionType, int? respondent, int? subject, int? suspect, Identifiable<int, Process>.Identifier processId)
         {
             var action = (Process.UserAction.ActionType) actionType;
             var args = new int[] {};
@@ -71,7 +71,8 @@ namespace Papagames.Detective.App.Web.Controllers
                     args = new int[] {};
                     break;
                 case Process.UserAction.ActionType.Arrest:
-                    args = new[] {suspected ?? 0};
+                case Process.UserAction.ActionType.EarlyArrest:
+                    args = new[] { suspect ?? 0 };
                     break;
             }
 

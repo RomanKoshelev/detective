@@ -7,9 +7,9 @@
     @foreach (var a in Model)
     {
         <li>
-            @if (a.Params.Count > 0)
+            @if (a.Args.Count > 0)
             {
-                @Html.ActionLink(a.ToString(), "Play", new {id = ViewBag.id, actionType = (int) a.Type, actionParams = a.Params})
+                @Html.ActionLink(a.ToString(), "Play", new {id = ViewBag.id, actionType = (int) a.Type, actionParams = a.Args})
                 ;
             }
             else

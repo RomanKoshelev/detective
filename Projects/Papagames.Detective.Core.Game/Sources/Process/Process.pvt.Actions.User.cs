@@ -3,6 +3,8 @@ using System.Linq;
 using MoreLinq;
 using Papagames.Detective.Utils;
 
+// >> Core > Process > UserActions **
+
 namespace Papagames.Detective.Core.Game
 {
     public partial class Process
@@ -23,6 +25,8 @@ namespace Papagames.Detective.Core.Game
                     break;
                 case State.Questioning:
                     AddQuestioningActions();
+                    AddAutoAskActionIfEnabled();
+                    AddEarlyArrestActionsIfEnabled();
                     break;
                 case State.Arrest:
                     AddArrestActions();
@@ -41,40 +45,60 @@ namespace Papagames.Detective.Core.Game
         // Skip, None, Init
         private void AddInitActions()
         {
-            _userActions.Add(new UserAction {Type = UserAction.ActionType.Start});
+            AddUserAction(UserAction.ActionType.Start);
         }
 
         private void AddSkipAction()
         {
-            _userActions.Add(new UserAction {Type = UserAction.ActionType.Skip});
+            AddUserAction(UserAction.ActionType.Skip);
         }
 
         private void AddNoneAction()
         {
-            _userActions.Add(new UserAction {Type = UserAction.ActionType.None});
+            AddUserAction(UserAction.ActionType.None);
         }
 
         // ===================================================================================== []
         // Arrest
         private void AddArrestActions()
         {
-            Assert.Equal(State, State.Arrest);
+            Assert.IsTrue(State==State.Arrest, "Wrong State {0} for adding ArrestActionn", State);
 
             var suspects = ActiveMembers.Where(CanBeArrested).ToList();
 
             if (suspects.Any())
             {
-                suspects.ForEach(s => _userActions.Add(new UserAction
-                {
-                    Type = UserAction.ActionType.Arrest,
-                    Params = new[] {s.Number},
-                    Description = string.Format("Arrest {0}", s.Name)
-                }));
-
+                suspects.ForEach(s => AddUserAction(
+                    UserAction.ActionType.Arrest,
+                    new[] {s.Number},
+                    string.Format("Arrest {0}", s.Name)
+                    ));
                 return;
             }
-
             AddSkipAction();
+        }
+
+        private void AddEarlyArrestActions()
+        {
+            Assert.IsTrue(State == State.Questioning, "Wrong State {0} for adding EarlyArrestActionn", State);
+
+            var suspects = ActiveMembers.Where(CanBeArrested).ToList();
+
+            if (suspects.Any())
+            {
+                suspects.ForEach(s => AddUserAction(
+                    UserAction.ActionType.EarlyArrest,
+                    new[] { s.Number },
+                    string.Format("Early Arrest {0}", s.Name)
+                    ));
+            }
+        }
+
+
+        private void AddEarlyArrestActionsIfEnabled()
+        {
+            if (Options.EarlyArrestIsEnabled)
+                AddEarlyArrestActions();
         }
 
         // ===================================================================================== []
@@ -92,12 +116,6 @@ namespace Papagames.Detective.Core.Game
 
             if (needSkipAction)
                 AddSkipAction();
-            else
-                AddAutoAskAction();
-        }
-        private void AddAutoAskAction()
-        {
-            _userActions.Add(new UserAction { Type = UserAction.ActionType.AutoAsk });
         }
 
         private IList<Member> GetQuestioningRespondents()
@@ -116,16 +134,29 @@ namespace Papagames.Detective.Core.Game
                 var subjects = ActiveMembers.Where(s => CanAskAbout(respondent, s)).ToList();
                 if (subjects.Any())
                 {
-                    subjects.ForEach(subject => _userActions.Add(new UserAction
-                    {
-                        Type = UserAction.ActionType.Ask,
-                        Params = new[] {respondent.Number, subject.Number},
-                        Description = string.Format("Ask {0} about {1}", respondent.Name, subject.Name)
-                    }));
+                    subjects.ForEach(subject =>
+                        AddUserAction(
+                            UserAction.ActionType.Ask,
+                            new[] {respondent.Number, subject.Number},
+                            string.Format("Ask {0} about {1}", respondent.Name, subject.Name)
+                            ));
                     return true;
                 }
             }
             return false;
+        }
+
+        // ===================================================================================== []
+        // AutoAsk
+        private void AddAutoAskAction()
+        {
+            AddUserAction(UserAction.ActionType.AutoAsk);
+        }
+
+        private void AddAutoAskActionIfEnabled()
+        {
+            if(Options.AutoQuestioningIsEnabled)
+                AddUserAction(UserAction.ActionType.AutoAsk);
         }
 
         // ===================================================================================== []
@@ -150,13 +181,30 @@ namespace Papagames.Detective.Core.Game
         {
             return member.IsActive;
         }
+        private bool IsActionEnabled(UserAction.ActionType actionType)
+        {
+            return _userActions.Any(a=>a.Type==actionType);
+        }
 
         // ===================================================================================== []
-        // Dispatcher
-        private void DoExecuteUserAction(UserAction.ActionType actionType, IList<int> actionParams, bool autoSkip)
+        // Utils
+        private void AddUserAction(UserAction.ActionType type, int[] args = null, string description = "")
         {
-            Assert.NotNull(actionParams, "Action params are null");
-            DispatchExecuteAction(actionType, actionParams);
+            args = args ?? new int[0];
+            _userActions.Add(new UserAction
+            {
+                Type = type,
+                Args = args,
+                Description = description
+            });
+        }
+        
+        // ===================================================================================== []
+        // Dispatcher
+        private void DoExecuteUserAction(UserAction.ActionType actionType, IList<int> args, bool autoSkip)
+        {
+            Assert.NotNull(args, "Action params are null");
+            DispatchExecuteAction(actionType, args);
 
             if (autoSkip)
             {
@@ -177,9 +225,9 @@ namespace Papagames.Detective.Core.Game
             return UserActions.Count == 1 && UserActions[0].Type == UserAction.ActionType.Skip;
         }
 
-        private void DispatchExecuteAction(UserAction.ActionType actionType, IList<int> actionParams)
+        private void DispatchExecuteAction(UserAction.ActionType actionType, IList<int> args)
         {
-            AssertParametersAreValid(actionType, actionParams);
+            AssertParametersAreValid(actionType, args);
             switch (actionType)
             {
                 case UserAction.ActionType.None:
@@ -194,10 +242,13 @@ namespace Papagames.Detective.Core.Game
                     DoSkip();
                     break;
                 case UserAction.ActionType.Arrest:
-                    DoArrest(actionParams[0]);
+                    DoArrest(args[0]);
                     break;
                 case UserAction.ActionType.Ask:
-                    DoAsk(actionParams[0], actionParams[1]);
+                    DoAsk(args[0], args[1]);
+                    break;
+                case UserAction.ActionType.EarlyArrest:
+                    DoEarlyArrest(args[0]);
                     break;
                 case UserAction.ActionType.AutoAsk:
                     DoAutoAsk();
@@ -208,16 +259,24 @@ namespace Papagames.Detective.Core.Game
             UpdateUserActions();
         }
 
-        private void AssertParametersAreValid(UserAction.ActionType actionType, ICollection<int> actionParams)
+        // ===================================================================================== []
+        // Verification
+        private void AssertParametersAreValid(UserAction.ActionType actionType, ICollection<int> args)
         {
-            Assert.NotNull(actionParams,
-                "Parameters for action {0} are null", actionType);
+            Assert.NotNull(args,
+                "Args for action {0} are null", actionType);
 
-            var ok = UserActions.Where(a => a.Type == actionType).Any(a => a.Params.EqualContent(actionParams));
+            Assert.IsTrue(VerifyActionArgs(actionType, args),
+                "Wrong args for action {0}: [{1}]", actionType,
+                args.ToList().FoldToStringBy(i => string.Format("{0}", i)));
+        }
 
-            Assert.IsTrue(ok,
-                "Wrong parameters for action {0}: [{1}]", actionType,
-                actionParams.ToList().FoldToStringBy(i => string.Format("{0}", i)));
+        private bool VerifyActionArgs(UserAction.ActionType actionType, ICollection<int> args)
+        {
+            return 
+                UserActions
+                .Where(a => a.Type == actionType)
+                .Any(a => a.Args.EqualContent(args));
         }
     }
 }

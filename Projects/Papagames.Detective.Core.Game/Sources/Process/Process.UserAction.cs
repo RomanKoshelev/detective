@@ -16,15 +16,16 @@ namespace Papagames.Detective.Core.Game
                 Arrest,
                 Start,
                 Stop,
+                EarlyArrest
             }
 
             public ActionType Type = ActionType.None;
-            public IList<int> Params = new List<int>();
+            public IList<int> Args = new List<int>();
             public string Description;
 
             public override string ToString()
             {
-                return Description?? string.Format("{0} {1}", Type, Params.FoldToStringBy(p => string.Format("{0}", p)));
+                return Description?? string.Format("{0} {1}", Type, Args.FoldToStringBy(p => string.Format("{0}", p)));
             }
         }
     }

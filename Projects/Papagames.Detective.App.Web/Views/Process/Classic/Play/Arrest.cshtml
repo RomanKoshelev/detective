@@ -13,9 +13,13 @@
         get { return ViewBag.Face; }
     }
 
-    private string ButtonClass()
+    private bool ArrestIsEnabled()
     {
-        return Model.State == State.Arrest ? "det-arrest-button-link" : "det-arrest-button-link-lite";
+        return Model.UserActionIsEnabled(Process.UserAction.ActionType.Arrest);
+    }
+    private bool EarlyArrestIsEnabled()
+    {
+        return Model.UserActionIsEnabled(Process.UserAction.ActionType.EarlyArrest);
     }
 
 }
@@ -25,26 +29,38 @@
     <div class="det-today">
         <div class="det-today-day det-answers-color"></div>
         <div class="det-today-info">
-            @Button()
+            @ArrestButton()
+            @EarlyArrestButton()
             @Hints()
         </div>
     </div>
 }
 
-@helper Button()
+@helper ArrestButton()
 {
     <div class="det-arrest-button">
-        @if (Face != null)
+        @if (ArrestIsEnabled() && Face != null)
         {
-            <a class="@ButtonClass()" href="@ProcessView.ArrestActionUrl((int) Face)">Arrest @ProcessView.MemberName((int) Face)</a>
+            <a class="det-arrest-button-link" href="@ProcessView.ArrestActionUrl((int) Face)">Arrest @ProcessView.MemberName((int)Face)</a>
         }
     </div>
 }
 
+@helper EarlyArrestButton()
+{
+    <div class="det-arrest-button">
+        @if (EarlyArrestIsEnabled() && Face != null)
+        {
+            <a class="det-arrest-button-link-lite" href="@ProcessView.EarlyArrestActionUrl((int) Face)">Arrest @ProcessView.MemberName((int)Face)</a>
+        }
+    </div>
+}
+
+
 @helper Hints()
 {
     <div class="det-arrest-hint">
-        @if (Face == null)
+        @if (ArrestIsEnabled() && Face == null)
         {
             @:Who do you want to arrest?
         }

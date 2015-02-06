@@ -139,6 +139,11 @@ namespace Papagames.Detective.Core.Game
             DoExecuteUserAction(actionType, actionParams, autoSkip);
         }
 
+        public bool UserActionIsEnabled(UserAction.ActionType actionType)
+        {
+            return IsActionEnabled(actionType);
+        }
+
         // ===================================================================================== []
         // Utils
         public int MaxEvidenceNum

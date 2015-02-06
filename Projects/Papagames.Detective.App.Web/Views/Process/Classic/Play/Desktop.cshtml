@@ -31,7 +31,7 @@
             break;
         case State.Questioning:
             ProcessView.RenderPartial("Questioning");
-            if (Model.Options.QuickArrestIsEnabled)
+            if (Model.Options.EarlyArrestIsEnabled)
             {
                 ProcessView.RenderPartial("Arrest");
             }

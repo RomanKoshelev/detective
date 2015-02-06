@@ -30,6 +30,12 @@ namespace Papagames.Detective.Core.Game
             
             DoStep();
         }
+        private void DoEarlyArrest(Member suspect)
+        {
+            SetState(State.Arrest);
+            DoArrest(suspect);
+        }
+
 
         private void DoAsk(int respondent, int subject)
         {
@@ -47,6 +53,10 @@ namespace Papagames.Detective.Core.Game
         private void DoArrest(int suspect)
         {
             DoArrest(FindMember(suspect));
+        }
+        private void DoEarlyArrest(int suspect)
+        {
+            DoEarlyArrest(FindMember(suspect));
         }
 
         private void DoStop()
@@ -80,7 +90,7 @@ namespace Papagames.Detective.Core.Game
             {
                 Assert.IsTrue(UserActions.Count == 1, "Can't select action among {0} actions for auto skipping to {1}", UserActions.Count, state);
                 var action = UserActions[0];
-                DoExecuteUserAction(action.Type, action.Params, autoSkip: true);
+                DoExecuteUserAction(action.Type, action.Args, autoSkip: true);
             } while (State != state && State != State.Finished);
             Assert.IsTrue(State==state, "Achived state [{0}] != destinasion [{1}]", State, state);
         }
