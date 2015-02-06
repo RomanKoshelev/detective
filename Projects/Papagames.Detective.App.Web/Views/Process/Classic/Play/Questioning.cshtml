@@ -22,13 +22,11 @@
 @helper Questioning()
 {
     <div class="det-today">
-        <div class="det-today-day det-answers-color det-questioning"></div>
+        <div class="det-today-day det-answers-color"></div>
         <div class="det-today-info">
-            <div class="det-questioning det-answers-color">
-                @Answers()
-                @Hints()
-                @AutoQuestioning()
-            </div>
+            @Answers()
+            @Hints()
+            @AutoQuestioning()
         </div>
     </div>
 }
@@ -70,7 +68,7 @@
 
 @helper AutoQuestioning()
 {
-    if (Model.Case.AutoQuestioningIsEnabled && Model.TodayAnswers().Count == 0 && Face == null)
+    if (Model.Options.AutoQuestioningIsEnabled && Model.TodayAnswers().Count == 0 && Face == null)
     {
         <a class="det-today-info-answers det-answers-color" href="@ProcessView.AutoAskActionUrl()">
             auto

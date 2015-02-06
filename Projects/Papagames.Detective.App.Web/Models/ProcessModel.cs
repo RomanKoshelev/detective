@@ -46,7 +46,10 @@ namespace Papagames.Detective.App.Web.Models
         {
             get { return Process.Winner; }
         }
-
+        public IOptions Options
+        {
+            get { return Process.Options; }
+        }
 
         // ===================================================================================== []
         // Statistics

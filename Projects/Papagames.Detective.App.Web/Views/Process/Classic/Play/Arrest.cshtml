@@ -1,0 +1,52 @@
+﻿@{
+    // >> Process > View > Classic > Arrest ***
+    @Arrest()
+}
+@using Papagames.Detective.Core.Game
+@model Papagames.Detective.App.Web.Models.ProcessModel
+
+@functions
+{
+
+    private int? Face
+    {
+        get { return ViewBag.Face; }
+    }
+
+    private string ButtonClass()
+    {
+        return Model.State == State.Arrest ? "det-arrest-button-link" : "det-arrest-button-link-lite";
+    }
+
+}
+
+@helper Arrest()
+{
+    <div class="det-today">
+        <div class="det-today-day det-answers-color"></div>
+        <div class="det-today-info">
+            @Button()
+            @Hints()
+        </div>
+    </div>
+}
+
+@helper Button()
+{
+    <div class="det-arrest-button">
+        @if (Face != null)
+        {
+            <a class="@ButtonClass()" href="@ProcessView.ArrestActionUrl((int) Face)">Arrest @ProcessView.MemberName((int) Face)</a>
+        }
+    </div>
+}
+
+@helper Hints()
+{
+    <div class="det-arrest-hint">
+        @if (Face == null)
+        {
+            @:Who do you want to arrest?
+        }
+    </div>
+}

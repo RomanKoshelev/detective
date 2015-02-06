@@ -1,5 +1,5 @@
 ﻿@{
-    // >> Process > View > Classic > Desktop *
+    // >> Process > View > Classic > Desktop ***
     @Desktop()
 }
 @using Papagames.Detective.Core.Game
@@ -26,8 +26,15 @@
     switch (Model.State)
     {
         case State.Arrest:
+            ProcessView.RenderPartial("Questioning");
+            ProcessView.RenderPartial("Arrest");
+            break;
         case State.Questioning:
             ProcessView.RenderPartial("Questioning");
+            if (Model.Options.QuickArrestIsEnabled)
+            {
+                ProcessView.RenderPartial("Arrest");
+            }
             break;
     }
 }

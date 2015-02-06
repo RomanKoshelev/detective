@@ -59,14 +59,10 @@ namespace Papagames.Detective.App.Web.Models
             get { return DoGetShortInfo(); }
         }
 
-        public bool AutoQuestioningIsEnabled
-        {
-            get { return Case.AutoQuestioningIsEnabled; }
-        }
-
         // ===================================================================================== []
         // Pivate
         private Case Case { get; set; }
+
         private List<MemberModel> MakeMemberModelList(Func<Case, IList<Member>> membersSelector)
         {
             return membersSelector(Case).Select(m => new MemberModel(m)).ToList();
