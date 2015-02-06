@@ -25,7 +25,8 @@ namespace Papagames.Detective.Core.Game
 
             public override string ToString()
             {
-                return Description?? string.Format("{0} {1}", Type, Args.FoldToStringBy(p => string.Format("{0}", p)));
+                var res = string.Format("{0} {1}", Type, Args.FoldToStringBy(p => string.Format("{0}", p)));
+                return string.IsNullOrEmpty(Description)? res : Description;
             }
         }
     }

@@ -25,8 +25,7 @@ namespace Papagames.Detective.Core.Game
                     break;
                 case State.Questioning:
                     AddQuestioningActions();
-                    AddAutoAskActionIfEnabled();
-                    AddEarlyArrestActionsIfEnabled();
+                    AddExtraQuestioningActions();
                     break;
                 case State.Arrest:
                     AddArrestActions();
@@ -62,7 +61,7 @@ namespace Papagames.Detective.Core.Game
         // Arrest
         private void AddArrestActions()
         {
-            Assert.IsTrue(State==State.Arrest, "Wrong State {0} for adding ArrestActionn", State);
+            Assert.IsTrue(State == State.Arrest, "Wrong State {0} for adding ArrestActionn", State);
 
             var suspects = ActiveMembers.Where(CanBeArrested).ToList();
 
@@ -88,7 +87,7 @@ namespace Papagames.Detective.Core.Game
             {
                 suspects.ForEach(s => AddUserAction(
                     UserAction.ActionType.EarlyArrest,
-                    new[] { s.Number },
+                    new[] {s.Number},
                     string.Format("Early Arrest {0}", s.Name)
                     ));
             }
@@ -117,6 +116,16 @@ namespace Papagames.Detective.Core.Game
             if (needSkipAction)
                 AddSkipAction();
         }
+
+        private void AddExtraQuestioningActions()
+        {
+            if (_userActions.Any(a => a.Type == UserAction.ActionType.Ask))
+            {
+                AddAutoAskActionIfEnabled();
+                AddEarlyArrestActionsIfEnabled();
+            }
+        }
+
 
         private IList<Member> GetQuestioningRespondents()
         {
@@ -155,7 +164,7 @@ namespace Papagames.Detective.Core.Game
 
         private void AddAutoAskActionIfEnabled()
         {
-            if(Options.AutoQuestioningIsEnabled)
+            if (Options.AutoQuestioningIsEnabled)
                 AddUserAction(UserAction.ActionType.AutoAsk);
         }
 
@@ -181,9 +190,10 @@ namespace Papagames.Detective.Core.Game
         {
             return member.IsActive;
         }
+
         private bool IsActionEnabled(UserAction.ActionType actionType)
         {
-            return _userActions.Any(a=>a.Type==actionType);
+            return _userActions.Any(a => a.Type == actionType);
         }
 
         // ===================================================================================== []
@@ -198,7 +208,7 @@ namespace Papagames.Detective.Core.Game
                 Description = description
             });
         }
-        
+
         // ===================================================================================== []
         // Dispatcher
         private void DoExecuteUserAction(UserAction.ActionType actionType, IList<int> args, bool autoSkip)
@@ -273,10 +283,10 @@ namespace Papagames.Detective.Core.Game
 
         private bool VerifyActionArgs(UserAction.ActionType actionType, ICollection<int> args)
         {
-            return 
+            return
                 UserActions
-                .Where(a => a.Type == actionType)
-                .Any(a => a.Args.EqualContent(args));
+                    .Where(a => a.Type == actionType)
+                    .Any(a => a.Args.EqualContent(args));
         }
     }
 }
