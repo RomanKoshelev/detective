@@ -116,7 +116,7 @@
     {
         <div class="det-button-panel">
             @Shared.Link(
-                "Continue",
+                string.Format("Day {0}", Model.Today+1),
                 "det-continue-button  det-button",
                 ProcessView.ContinueActionUrl()
                 )

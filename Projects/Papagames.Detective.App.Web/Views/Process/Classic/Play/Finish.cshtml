@@ -1,6 +1,6 @@
 ﻿@{
-    // >> Process > View > Classic > Arrest
-    @Arrest()
+    // >> Process > View > Classic > Finish ***
+    @Finish()
 }
 @using Papagames.Detective.App.Web.Models
 @using Papagames.Detective.Core.Game
@@ -8,118 +8,17 @@
 
 @functions
 {
-
-    private int? Face
-    {
-        get { return ViewBag.Face; }
-    }
-
-    private bool ArrestIsEnabled()
-    {
-        return Model.State == State.Arrest && Model.UserActionIsEnabled(Process.UserAction.ActionType.Arrest);
-    }
-
-    private bool EarlyArrestIsEnabled()
-    {
-        return Model.UserActionIsEnabled(Process.UserAction.ActionType.EarlyArrest);
-    }
-
-    private bool ContinueIsEnabled()
-    {
-        return Model.UserActionIsEnabled(Process.UserAction.ActionType.Continue);
-    }
-
 }
 
-@helper Arrest()
+@helper Finish()
 {
-    <div class="det-today">
-        <div class="det-today-day det-answers-color"></div>
-        <div class="det-today-info det-arrest-color">
-            @EarlyArrestButton()
-            @Hint()
-            @ArrestButton()
-            @Result()
-            @ContinueButton()
-        </div>
-    </div>
-}
-
-@helper Hint()
-{
-    if (ArrestIsEnabled() && !ProcessView.CanArrest(Face))
+    if (Model.State == State.Finished)
     {
-        <div class="det-today-info-answers det-answers-color">
-            <div class="det-answer-hint">Arrest:</div>
-            <div class="det-answer-hint-variants">
-                @foreach (var suspect in ProcessView.ArrestSuspects())
-                {
-                    @MemberLink(ProcessView.Member(suspect))
-                }
+        <div class="det-today">
+            <div class="det-today-day det-answers-color"></div>
+            <div class="det-today-info det-arrest-color">
+                Finish
             </div>
-        </div>
-    }
-}
-
-@helper Result()
-{
-    if (Model.State == State.CheckArrest)
-    {
-        <div class="det-today-info-answers det-answers-color">
-            <div class="det-answer-hint">
-                @MemberLink(Model.TodayPrisoner) the @Model.TodayPrisoner.Role was arrested
-            </div>
-        </div>
-    }
-}
-
-@helper MemberLink(MemberModel member, string subjClass = "", string suffix = " ")
-{
-    @Shared.Link(
-        member.Name,
-        "det-answers-member-link det-answers-color det-no-wrap " + subjClass,
-        ProcessView.MemberFaceUrl(member.Number)
-        )@suffix
-}
-
-@helper ArrestButton()
-{
-    if (ArrestIsEnabled() && Face != null)
-    {
-        <div class="det-button-panel">
-            @Shared.Link(
-                "Arrest " + ProcessView.MemberName((int) Face),
-                "det-arrest-button det-button",
-                ProcessView.ArrestActionUrl((int) Face)
-                )
-        </div>
-    }
-}
-
-@helper EarlyArrestButton()
-{
-    if (EarlyArrestIsEnabled() && Face != null)
-    {
-        <div class="det-button-panel">
-            @Shared.Link(
-                "Arrest " + ProcessView.MemberName((int) Face),
-                "det-arrest-button-lite  det-button",
-                ProcessView.EarlyArrestActionUrl((int) Face)
-                )
-        </div>
-    }
-}
-
-@helper ContinueButton()
-{
-    if (Model.State == State.CheckArrest && ContinueIsEnabled())
-    {
-        <div class="det-button-panel">
-            @Shared.Link(
-                "Continue",
-                "det-continue-button  det-button",
-                ProcessView.ContinueActionUrl()
-                )
         </div>
     }
 }
