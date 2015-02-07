@@ -21,8 +21,6 @@ html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset {
 }
 
 html, body, .det-body {
-    /*height: 100%;
-    width: 100%*/;
     background: #050222;    
     background: #140538;
     background-image: url("http://upload.wikimedia.org/wikipedia/commons/b/b7/National_Museum_of_Crime_and_Punishmen_-_Charles_Whitman_6mm_Remington_shell_casing_%282868553499%29.jpg");
@@ -33,10 +31,11 @@ html, body, .det-body {
 */
     background-image: url("http://media.timeout.com/images/101587273/750/422/image.jpg");
 
-
-    background-attachment: scroll;
+    background-attachment: fixed;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size:  cover;
+    background-position-x: left;    
+    background-position-y: top;
 }
 
 .det { border: none; }
