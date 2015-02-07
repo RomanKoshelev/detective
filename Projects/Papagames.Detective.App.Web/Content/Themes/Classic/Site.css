@@ -21,9 +21,22 @@ html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset {
 }
 
 html, body, .det-body {
-    height: 100%;
-    width: 100%;
-    background: #050222;
+    /*height: 100%;
+    width: 100%*/;
+    background: #050222;    
+    background: #140538;
+    background-image: url("http://upload.wikimedia.org/wikipedia/commons/b/b7/National_Museum_of_Crime_and_Punishmen_-_Charles_Whitman_6mm_Remington_shell_casing_%282868553499%29.jpg");
+    background-image: url("http://fc02.deviantart.net/fs71/i/2012/086/8/d/sherlock_holmes_table_2_by_morgan__k-d4u3584.jpg");
+/*
+    background-image: url("http://fc09.deviantart.net/fs70/i/2012/086/4/a/sherlock_holmes_table_by_morgan__k-d4u3555.jpg");
+    background-image: url("http://upload.wikimedia.org/wikipedia/commons/e/e9/Sherlock_Holmes_Museum_Study_2.jpg");
+*/
+    background-image: url("http://media.timeout.com/images/101587273/750/422/image.jpg");
+
+
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .det { border: none; }
