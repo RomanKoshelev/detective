@@ -25,16 +25,14 @@ html, body, .det-body {
     background: #140538;
     background-image: url("http://upload.wikimedia.org/wikipedia/commons/b/b7/National_Museum_of_Crime_and_Punishmen_-_Charles_Whitman_6mm_Remington_shell_casing_%282868553499%29.jpg");
     background-image: url("http://fc02.deviantart.net/fs71/i/2012/086/8/d/sherlock_holmes_table_2_by_morgan__k-d4u3584.jpg");
-/*
     background-image: url("http://fc09.deviantart.net/fs70/i/2012/086/4/a/sherlock_holmes_table_by_morgan__k-d4u3555.jpg");
     background-image: url("http://upload.wikimedia.org/wikipedia/commons/e/e9/Sherlock_Holmes_Museum_Study_2.jpg");
-*/
     background-image: url("http://media.timeout.com/images/101587273/750/422/image.jpg");
 
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size:  cover;
-    background-position-x: left;    
+    background-position-x: center;    
     background-position-y: top;
 }
 
@@ -77,7 +75,8 @@ nav li {
     overflow: hidden;
     width: 100%;
     height: auto;
-    background-color: black;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.90);
 }
 
 
@@ -85,7 +84,6 @@ nav li {
     height: auto;
     padding-left: 0;
     padding-right: 0;
-    background-color: black;
 }
 
 
@@ -154,7 +152,7 @@ nav li {
 
 .det-dev {
     color: #00cc00;
-    background-color: #000000;
+/*    background-color: #000000;*/
     padding: 6px;
     margin: 6px;
     text-align: center;
