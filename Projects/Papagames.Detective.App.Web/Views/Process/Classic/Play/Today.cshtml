@@ -7,9 +7,10 @@
 
 @functions
 {
-    private string Victim()
+
+    private int? Face
     {
-        return Model.TodayVictim.Name;
+        get { return ViewBag.Face; }
     }
 
     private string MurderNumDescription()
@@ -55,9 +56,7 @@
 
 
 @helper NightEvents()
-{
-    @BoardView.TodayRecord(MurderAndEvidences(), BoardView.TodayClass)
-}
+{ @BoardView.TodayRecord(MurderAndEvidences(), BoardView.TodayClass) }
 
 @helper MurderAndEvidences()
 {
@@ -67,12 +66,35 @@
 
 @helper Murder()
 {
-    @Shared.Format("{0} was killed by {1} last night", Victim(), @MurderNumDescription())
+    @:@HighlightVictim(@VictimLink())@HighlightVictim("was killed") by @MurderNumDescription() last night
+}
+
+@helper HighlightVictim(HelperResult text)
+{
+    @(Face == Model.TodayVictim.Number
+          ? BoardView.Highlight(text)
+          : text)
+}
+
+@helper HighlightVictim(string text)
+{
+    if (Face == Model.TodayVictim.Number)
+    {
+        @BoardView.Highlight(text)
+    }
+    else
+    {
+        @text
+    }
+}
+
+@helper VictimWasKilled()
+{
+    <span>@VictimLink() was killed</span>
 }
 
 @helper Evidences()
-{
-    @Shared.Format("{0} made {1}", InnocentNumDescription(), @EvidencesNumDescription())
-}
+{ @Shared.Format("{0} made {1}", InnocentNumDescription(), @EvidencesNumDescription()) }
 
-
+@helper VictimLink()
+{ @BoardView.MemberLink(Model.TodayVictim) }

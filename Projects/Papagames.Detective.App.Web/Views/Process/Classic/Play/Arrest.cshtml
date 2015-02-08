@@ -43,7 +43,7 @@
 
 @helper EarlyArrestButton()
 {
-    if (EarlyArrestIsEnabled() && Face != null)
+    if (EarlyArrestIsEnabled() && ProcessView.CanArrest(Face))
     {
         @Record(BoardView.Button(
             "Arrest " + ProcessView.MemberName(Face),
@@ -54,7 +54,7 @@
 
 @helper ArrestButton()
 {
-    if (ArrestIsEnabled() && Face != null)
+    if (ArrestIsEnabled() && ProcessView.CanArrest(Face))
     {
         @BoardView.Record(
             BoardView.Button(
@@ -85,7 +85,7 @@
     {
         @Record(BoardView.HintMemberVariants(
             Shared.Text("Select suspicious member:"),
-            ProcessView.ArrestSuspects()
+            ProcessView.ArrestVariants()
             ))
     }
 }
@@ -99,7 +99,7 @@
             BoardView.RecordInfoSection(ResultSection()),
             BoardView.ArrestClass)
     }
-    if (Model.State == State.Arrest && Face != null)
+    if (Model.State == State.Arrest && ProcessView.CanArrest(Face))
     {
         @BoardView.Record(
             ArrestTitle(),

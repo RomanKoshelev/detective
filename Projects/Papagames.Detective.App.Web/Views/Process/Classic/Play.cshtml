@@ -4,9 +4,24 @@
     ViewBag.Title = string.Format("Crime Nuts Case #{0}, day:{1}, {2}", Model.CaseId, Model.Today, Model.State);
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewBag.id = Model.Id;
+
+    CorretFace();
 }
 
+@using Papagames.Detective.Core.Game
 @model Papagames.Detective.App.Web.Models.ProcessModel
+
+@functions {
+    private void CorretFace()
+    {
+        if (ViewBag.Face == null && Model.State == State.Questioning)
+        {
+            ViewBag.Face = Model.TodayVictim.Number;
+        }
+        
+    }
+
+}
 
 <div class="det-page-content">
     <div class="det-room">

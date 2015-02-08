@@ -52,7 +52,7 @@ namespace Papagames.Detective.App.Web.Controllers
             ViewBag.Card = card;
             ViewBag.Respondent = respondent;
             ViewBag.Subject = subject;
-
+            
             return View(new ProcessModel(processId));
         }
 

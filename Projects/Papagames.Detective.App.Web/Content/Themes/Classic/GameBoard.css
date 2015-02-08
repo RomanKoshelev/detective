@@ -1,0 +1,126 @@
+﻿/*
+// >> CSS > Classic > Game Board ***
+*/
+
+/*
+// ============================================================================================= []
+// Structure
+*/
+
+.det-gamelog-record {
+    padding-top: 0;
+    padding-bottom: 15px;
+    height: auto;
+}
+
+.det-gamelog-record-day {
+    width: 140px;
+    padding-right: 15px;
+    color: #560000;
+    display: table-cell;
+    font-weight: normal;
+    vertical-align: top;
+    text-align: right;
+}
+
+.det-gamelog-record-info {
+    width: auto;
+    display: table-cell;
+    vertical-align: top;
+    padding-top: 0;
+}
+
+.det-gamelog-record-info-section {
+    color: inherit;
+    margin-bottom: 2px;
+}
+
+/*
+// ============================================================================================= []
+// Elements
+*/
+
+.det-gamelog-member-link { 
+    text-decoration: none;
+}
+
+.det-gamelog-member-link:hover { background-color: #9fff89; }
+
+.det-gamelog-subject-highlight {
+    background-color: #fae5d6;
+    background-color: rgba(255, 0, 0, 0.14);
+}
+
+.det-gamelog-highlight { background-color: yellow; }
+
+.det-gamelog-today {
+    color: #990000;
+}
+
+.det-gamelog-detective {
+     color: #4800b1;
+     padding-left: 30px;
+}
+
+/*
+// ============================================================================================= []
+// Hint
+*/
+
+.det-gamelog-hint-title {
+    padding-bottom: 5px
+}
+
+.det-gamelog-hint-variants {
+    line-height: 20px;
+    padding-top: 0;
+    padding-left: 30px;
+    width: 450px;
+}
+
+/*
+// ============================================================================================= []
+// Buttons
+*/
+
+.det-button {
+    border-radius: 4px;
+    padding: 15px;
+    text-decoration: none;
+}
+
+.det-button-panel {
+    padding-top: 15px;
+    padding-bottom: 0;
+}
+
+.det-arrest-button {
+    background-color: #004c99;
+    color: #cce5ff;
+}
+
+.det-arrest-button:hover { color: #ffffff; }
+
+.det-arrest-button-lite {
+    background-color: inherit;
+    color: #aeced9;
+    border: solid 1px #aeced9;
+}
+
+.det-arrest-button-lite:hover {
+    background-color: #004c99;
+    color: #cce5ff;
+    border: 0;
+}
+
+.det-continue-button {
+    background-color: #004c99;
+    color: #cce5ff;
+}
+
+.det-continue-button:hover { color: #ffffff; }
+
+/*
+// ============================================================================================= []
+// EOF
+*/

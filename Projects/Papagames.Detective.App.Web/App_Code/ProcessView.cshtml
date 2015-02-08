@@ -192,17 +192,19 @@
     {
         return MemberIsActive(num) && !CanAsk(num);
     }
-    
-    public static IList<int> ArrestSuspects()
+
+    public static IList<int> ArrestVariants()
     {
         return Model.UserActions
-            .Where(a => a.Type == Process.UserAction.ActionType.Arrest)
+            .Where(a => a.Type == Process.UserAction.ActionType.Arrest || a.Type==Process.UserAction.ActionType.EarlyArrest)
             .Select(a => a.Args[0])
             .Distinct()
             .ToList();
     }
+
     public static bool CanArrest(int? suspect)
     {
-        return ArrestSuspects().Any(s => s == suspect);
+        return ArrestVariants().Any(s => s == suspect);
     }
+
 }
