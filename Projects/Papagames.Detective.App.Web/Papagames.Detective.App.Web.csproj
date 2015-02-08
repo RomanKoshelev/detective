@@ -183,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\DetectiveDesign.1.png" />
+    <Content Include="Content\Themes\Classic\GameBoard.css" />
     <Content Include="Content\Themes\Classic\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Themes\Default\Site.css" />

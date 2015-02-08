@@ -15,3 +15,13 @@
 
 @helper Link(string linkText, string linkClass, string linkUrl)
 { @BuildLink(linkText, linkClass, linkUrl) }
+
+@helper Format(string text, params object[] args)
+{
+    @Text(string.Format(
+        text,
+        args))
+}
+
+@helper Text(string text)
+{ @text }

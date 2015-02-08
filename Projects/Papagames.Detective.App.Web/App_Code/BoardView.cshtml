@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc
 @using Papagames.Detective.App.Web.Models
 @functions{
-    // >> App_Code > GameLog ***
+    // >> App_Code > BoardView ***
 
     private new static ProcessModel Model
     {
@@ -23,20 +23,21 @@
         get { return "det-gamelog-today"; }
     }
 
-
     public static string ButtonArrestClass
     {
         get { return "det-arrest-button"; }
     }
+
     public static string ButtonEarlyArrestClass
     {
         get { return "det-arrest-button-lite"; }
     }
+
     public static string ButtonContinueClass
     {
         get { return "det-continue-button"; }
     }
-    
+
     public static string ArrestClass
     {
         get { return "det-gamelog-today"; }
@@ -62,9 +63,19 @@
         get { return "det-gamelog-subject-highlight"; }
     }
 
+    public static string RespondentLinkClass
+    {
+        get { return "det-gamelog-highlight"; }
+    }
+
     public static string HintVariantsClass
     {
         get { return "det-gamelog-hint-variants"; }
+    }
+
+    public static string HintTitleClass
+    {
+        get { return "det-gamelog-hint-title"; }
     }
 
     public static string SubjectHihglightClass(MemberModel subject)
@@ -72,25 +83,29 @@
         return subject.Number == Face ? SubjectLinkClass : "";
     }
 
+    public static string RespondentHihglightClass(MemberModel respondent)
+    {
+        return respondent.Number == Face ? RespondentLinkClass : "";
+    }
+
 }
 
-@helper Format(string text, params object[] args)
+@helper Highlight(string text)
 {
-    @Text(string.Format(
-        text,
-        args))
+    @Highlight(Shared.Text(text))
 }
 
-@helper Text(string text)
-{ @text }
-
+@helper Highlight(HelperResult text)
+{
+    <span class="@HighlightClass">@text</span>
+}
 
 @helper Button(string text, string bclass, string url)
 {
     <div class="det-button-panel">
         @Shared.Link(text,
-        bclass + "  det-button",
-        url)
+            bclass + "  det-button",
+            url)
     </div>
 }
 
@@ -109,7 +124,7 @@
 @helper Record(HelperResult info, string infoClass = "")
 {
     @Record(
-        Text(""),
+        Shared.Text(""),
         info,
         infoClass)
 }
@@ -117,7 +132,7 @@
 @helper TodayRecord(HelperResult info, string infoClass = "")
 {
     @Record(
-        Format("Day {0}:", Model.Today),
+        Shared.Format("Day {0}:", Model.Today),
         info,
         infoClass)
 }
@@ -140,11 +155,16 @@
     @Shared.Link(subject.Name, MemberLinkClass + " " + SubjectHihglightClass(subject), ProcessView.MemberFaceUrl(subject.Number))@suffix
 }
 
+@helper RespondentLink(MemberModel respondent, string suffix = " ")
+{
+    @Shared.Link(respondent.Name, MemberLinkClass + " " + RespondentHihglightClass(respondent), ProcessView.MemberFaceUrl(respondent.Number))@suffix
+}
+
 
 @helper HintMemberVariants(
-    string text,
+    HelperResult text,
     IList<int> members,
-    Func<MemberModel, string, HelperResult> actionLinkFunc=null,
+    Func<MemberModel, string, HelperResult> actionLinkFunc = null,
     string suffix = " ",
     Func<HelperResult> additionalVariantsFunc = null)
 {
@@ -153,33 +173,35 @@
         actionLinkFunc = MemberLink;
     }
 
-    @text
-    <p/>
-    <span class="@HintVariantsClass">
-            @foreach (var num in members)
-            {
-                @actionLinkFunc(ProcessView.Member(num), suffix)
-            }
-            @if (additionalVariantsFunc != null)
-            {
-                @additionalVariantsFunc()
-            }
-        </span>
+    <div class="@HintTitleClass">
+        @text
+    </div>
+    <div class="@HintVariantsClass">
+        @foreach (var num in members)
+        {
+            @actionLinkFunc(ProcessView.Member(num), suffix)
+        }
+        @if (additionalVariantsFunc != null)
+        {
+            @additionalVariantsFunc()
+        }
+    </div>
 }
 
 @helper HintSubjectVariants(
-    string text,
+    HelperResult text,
     int respondent,
     IList<int> members,
     Func<MemberModel, MemberModel, string, HelperResult> actionLinkFunc,
     string suffix = " ")
 {
-    @text
-    <p/>
-    <span class="@HintVariantsClass">
-            @foreach (var num in members)
-            {
-                @actionLinkFunc(ProcessView.Member(respondent), ProcessView.Member(num), suffix)
-            }
-        </span>
+    <div class="@HintTitleClass">
+        @text
+    </div>
+    <div class="@HintVariantsClass">
+        @foreach (var num in members)
+        {
+            @actionLinkFunc(ProcessView.Member(respondent), ProcessView.Member(num), suffix)
+        }
+    </div>
 }

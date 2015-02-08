@@ -66,7 +66,7 @@
 @helper HintRespondents()
 {
     @BoardView.HintMemberVariants(
-        "Question:",
+        Shared.Text("Question:"),
         ProcessView.QuestioningRespondents(),
         BoardView.MemberLink,
         additionalVariantsFunc: AutoQuestioning
@@ -76,11 +76,16 @@
 @helper HintSubjects(int respondent)
 {
     @BoardView.HintSubjectVariants(
-        string.Format("Question {0} about:", @ProcessView.MemberName(respondent)),
+        HintSubjectTitle(respondent),
         respondent,
         ProcessView.QuestioningSubjects(respondent),
         AskActionLink
         )
+}
+
+@helper HintSubjectTitle(int respondent)
+{
+    @:Question @BoardView.RespondentLink(ProcessView.Member(respondent)) about:
 }
 
 @helper AskActionLink(MemberModel respondent, MemberModel subject, string suffix = " ")
