@@ -12,13 +12,25 @@
 
 @helper Finish()
 {
-    if (Model.State == State.Finished)
+    switch (Model.State)
     {
-        <div class="det-today">
-            <div class="det-today-day det-answers-color"></div>
-            <div class="det-today-info det-arrest-color">
-                Finish
-            </div>
-        </div>
+        case State.Finished:
+            @Result()
+            break;
     }
 }
+
+@helper Result()
+{
+    <div class="det-gamelog-record">
+        <div class="det-gamelog-record-day">
+            Result:
+        </div>
+        <div class="det-gamelog-record-info">
+            <div class="det-today-section-text">
+                result will be here soon
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,35 @@
+﻿@using System.Web.Mvc
+@using Papagames.Detective.App.Web.Models
+@functions{
+    // >> App_Code > GameLog
+
+    private new static ProcessModel Model
+    {
+        get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }
+    }
+
+}
+
+@helper Format(string text, params object[] args)
+{ @Text(string.Format(text, args)) }
+
+@helper Text(string text)
+{ @text }
+
+@helper Record(HelperResult day, HelperResult info)
+{
+    <div class="det-gamelog-record">
+        <div class="det-gamelog-record-day">
+            @day
+        </div>
+        <div class="det-gamelog-record-info">
+            @info
+        </div>
+    </div>
+}
+
+@helper Record(HelperResult info)
+{ @Record(Text(""), info) }
+
+@helper RecordToday(HelperResult info)
+{ @Record(Format("Day {0}:", Model.Today), info) }

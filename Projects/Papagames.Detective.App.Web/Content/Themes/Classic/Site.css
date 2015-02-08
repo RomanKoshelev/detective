@@ -10,9 +10,10 @@ html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset {
     padding: 0;
     padding-left: 0;
     padding-right: 0;
-    vertical-align: middle;
+    vertical-align: top;
 
-    font-size: 1.02em;
+    color: inherit;
+    font-size: inherit;
     font-family: 'Cousine';
 
     -moz-box-sizing: border-box;
@@ -21,18 +22,20 @@ html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset {
 }
 
 html, body, .det-body {
-    background: #050222;    
+    background: #050222;
     background: #140538;
+    /*
     background-image: url("http://upload.wikimedia.org/wikipedia/commons/b/b7/National_Museum_of_Crime_and_Punishmen_-_Charles_Whitman_6mm_Remington_shell_casing_%282868553499%29.jpg");
     background-image: url("http://fc02.deviantart.net/fs71/i/2012/086/8/d/sherlock_holmes_table_2_by_morgan__k-d4u3584.jpg");
     background-image: url("http://fc09.deviantart.net/fs70/i/2012/086/4/a/sherlock_holmes_table_by_morgan__k-d4u3555.jpg");
     background-image: url("http://upload.wikimedia.org/wikipedia/commons/e/e9/Sherlock_Holmes_Museum_Study_2.jpg");
     background-image: url("http://media.timeout.com/images/101587273/750/422/image.jpg");
+*/
 
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-size:  cover;
-    background-position-x: center;    
+    background-size: cover;
+    background-position-x: center;
     background-position-y: top;
 }
 
@@ -62,12 +65,15 @@ nav li {
 // Page (stretch vertically)
 */
 
+html, body { height: 100%; }
+
 .det-page {
     display: table;
     height: 100%;
     width: 100%;
     min-width: 768px;
     max-width: 768px;
+    font-size: 10px;
 }
 
 .det-page-content {
@@ -84,6 +90,7 @@ nav li {
     height: auto;
     padding-left: 0;
     padding-right: 0;
+    font-size: 16px;
 }
 
 
@@ -140,6 +147,8 @@ nav li {
 .det-height-300 { height: 300px; }
 
 .det-height-400 { height: 400px; }
+.det-height-600 { height: 600px; }
+.det-height-800 { height: 800px; }
 
 .det-no-text-decoration { text-decoration: none; }
 
@@ -152,12 +161,11 @@ nav li {
 
 .det-dev {
     color: #00cc00;
-/*    background-color: #000000;*/
     padding: 6px;
     margin: 6px;
     text-align: center;
-    vertical-align: middle;
-    border: 2px dashed #31ff00;
+    border: 1px dashed #31ff00;
+    font-size: 12px;
 }
 
 /*
@@ -173,7 +181,6 @@ nav li {
     padding: 5px;
     padding-top: 20px;
     padding-bottom: 20px;
-    font-size: 15px;
 }
 
 /*
@@ -188,6 +195,7 @@ nav li {
     padding: 10px;
     padding-left: 15px;
     padding-right: 15px;
+    font-size: 18px;
 }
 
 .det-border-bottom-red-4 { border-bottom: solid 4px #990000; }
@@ -348,12 +356,20 @@ nav li {
 
 /*
 // ============================================================================================= []
+// Gamelog
+*/
+
+/*
+// ============================================================================================= []
 // Today
 */
 
-.det-today { padding: 2px; }
+.det-gamelog-record {
+     padding-top: 0;
+     padding-bottom: 15px;
+}
 
-.det-today-day {
+.det-gamelog-record-day {
     width: 140px;
     padding-right: 15px;
     color: #560000;
@@ -361,22 +377,18 @@ nav li {
     font-weight: normal;
     vertical-align: top;
     text-align: right;
+
 }
 
-.det-today-info {
+.det-gamelog-record-info {
     width: auto;
     display: table-cell;
     vertical-align: top;
+    padding-top: 0
 }
 
-.det-today-info-murder {
+.det-today-section-text {
     color: #990000;
-    padding-bottom: 5px;
-}
-
-.det-today-info-evidences {
-    color: #990000;
-    padding-bottom: 5px;
 }
 
 /*
@@ -386,20 +398,17 @@ nav li {
 
 .det-today-info-answers { vertical-align: top; }
 
-.det-answers-color { color: #4800b1 }
+.det-answers-color { color: #4800b1; }
 
 .det-today-info-answer {
-    padding: 0;
+    padding-left: 0px;
     width: auto;
-    margin-top: 3px
+    margin-top: 0
 }
 
 .det-today-info-answer-agent {
     display: table-cell;
     width: auto;
-    text-align: left;
-    padding-left: 0;
-    padding-right: 0;
 }
 
 .det-today-info-answer-value {
@@ -409,7 +418,7 @@ nav li {
 
 .det-answer-highlight { background-color: yellow; }
 
-.det-answer-hint { padding-top: 15px; }
+.det-answer-hint { padding-top: 0; }
 
 .det-answer-hint-variants {
     line-height: 20px;
@@ -439,7 +448,7 @@ nav li {
 }
 
 .det-button-panel {
-    padding-top: 20px;
+    padding-top: 0;
     padding-bottom: 5px;
 }
 

@@ -28,9 +28,9 @@
 
 @helper Questioning()
 {
-    <div class="det-today">
-        <div class="det-today-day det-answers-color"></div>
-        <div class="det-today-info">
+    <div class="det-gamelog-record">
+        <div class="det-gamelog-record-day det-answers-color"></div>
+        <div class="det-gamelog-record-info">
             @Answers()
             @Hint()
         </div>
@@ -39,7 +39,7 @@
 
 @helper Answers()
 {
-    <div class="det-today-info-answers det-answers-color">
+    <div class="det-gamelog-record det-answers-color">
         @foreach (var a in Model.TodayAnswers())
         {
             var answerSelectedFaceClass = AnswerSelectedFaceClass(a.Agent.Number);
@@ -57,19 +57,19 @@
 
 @helper Hint()
 {
-    if (Model.State==State.Questioning)
+    if (Model.State == State.Questioning)
     {
-        <div class="det-today-info-answers det-answers-color">
-            @( !ProcessView.CanAsk(Face)? HintRespondents() : HintSubjects((int) Face))
+        <div class="det-gamelog-record det-answers-color">
+            @( !ProcessView.CanAsk(Face) ? HintRespondents() : HintSubjects((int) Face))
         </div>
     }
 }
 
 @helper AutoQuestioning()
 {
-    if (Model.Options.AutoQuestioningIsEnabled 
+    if (Model.Options.AutoQuestioningIsEnabled
         && ProcessView.QuestioningRespondents().Count >= 2
-        && (Face==null || ProcessView.QuestioningSubjects((int)Face).Count == 0))
+        && (Face == null || ProcessView.QuestioningSubjects((int) Face).Count == 0))
     {
         <span> or @Shared.Link("auto", "det-answers-member-link det-answers-color det-no-wrap", ProcessView.AutoAskActionUrl())</span>
     }
@@ -99,12 +99,14 @@
 
 @helper HintRespondents()
 {
-    <div class="det-answer-hint">Ask:</div>
-    <div class="det-answer-hint-variants">
-        @foreach (var respondent in ProcessView.QuestioningRespondents())
-        {
-            @MemberLink(ProcessView.Member(respondent))
-        }@AutoQuestioning()
+    <div class="det-gamelog-record">
+        Ask:
+        <div class="det-answer-hint-variants">
+            @foreach (var respondent in ProcessView.QuestioningRespondents())
+            {
+                @MemberLink(ProcessView.Member(respondent))
+            }@AutoQuestioning()
+        </div>
     </div>
 }
 

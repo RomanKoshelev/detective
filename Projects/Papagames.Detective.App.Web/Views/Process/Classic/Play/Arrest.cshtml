@@ -1,5 +1,5 @@
 ﻿@{
-    // >> Process > View > Classic > Arrest
+    // >> Process > View > Classic > Arrest *a
     @Arrest()
 }
 @using Papagames.Detective.App.Web.Models
@@ -33,16 +33,14 @@
 
 @helper Arrest()
 {
-    <div class="det-today">
-        <div class="det-today-day det-answers-color"></div>
-        <div class="det-today-info det-arrest-color">
+        <div class="det-gamelog-record-day det-answers-color"></div>
+        <div class="det-gamelog-record-info det-arrest-color">
             @EarlyArrestButton()
             @Hint()
             @ArrestButton()
             @Result()
             @ContinueButton()
         </div>
-    </div>
 }
 
 @helper Hint()
@@ -54,7 +52,7 @@
             <div class="det-answer-hint-variants">
                 @foreach (var suspect in ProcessView.ArrestSuspects())
                 {
-                    @MemberLink(ProcessView.Member(suspect))
+                    @MemberLink(ProcessView.Member(suspect), "det-answers-color")
                 }
             </div>
         </div>
@@ -65,9 +63,12 @@
 {
     if (Model.State == State.CheckArrest)
     {
-        <div class="det-today-info-answers det-answers-color">
-            <div class="det-answer-hint">
-                @MemberLink(Model.TodayPrisoner) the @Model.TodayPrisoner.Role was arrested
+        <div class="det-gamelog-record">
+            <div class="det-today-section-text">
+                You have arrested @MemberLink(Model.TodayPrisoner, "det-today-info-text")
+            </div>
+            <div class="det-today-section-text">
+                @MemberLink(Model.TodayPrisoner, "det-today-info-text") was @Model.TodayPrisoner.Role
             </div>
         </div>
     }
@@ -77,7 +78,7 @@
 {
     @Shared.Link(
         member.Name,
-        "det-answers-member-link det-answers-color det-no-wrap " + subjClass,
+        "det-answers-member-link det-no-wrap " + subjClass,
         ProcessView.MemberFaceUrl(member.Number)
         )@suffix
 }

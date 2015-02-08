@@ -2,6 +2,7 @@
     // >> Process > View > Classic > Today *
     @Today()
 }
+@using Papagames.Detective.Core.Game
 @model Papagames.Detective.App.Web.Models.ProcessModel
 
 @functions
@@ -43,27 +44,27 @@
 
 @helper Today()
 {
-    <div class="det-today">
-        <div class="det-today-day">
-            Day @Model.Today:
-        </div>
-        <div class="det-today-info">
-            @Murder()
-            @Evidences()
-        </div>
-    </div>
+    switch (Model.State)
+    {
+        case State.Questioning:
+        case State.Arrest:
+        case State.CheckArrest:
+            @NightEvents()
+            break;
+    }
 }
 
-@helper Murder()
+@helper MurderAndEvidences()
 {
-    <div class="det-today-info-murder">
+    <div class="det-today-section-text">
         @Victim() was killed by @MurderNumDescription() last night
     </div>
-}
-@helper Evidences()
-{
-    <div class="det-today-info-evidences">
+    <div class="det-today-section-text">
         @InnocentNumDescription() made @EvidencesNumDescription()
     </div>
 }
 
+@helper NightEvents()
+{
+    @GameLog.RecordToday(MurderAndEvidences())
+}
