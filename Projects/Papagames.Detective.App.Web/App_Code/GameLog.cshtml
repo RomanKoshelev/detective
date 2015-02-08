@@ -31,5 +31,13 @@
 @helper Record(HelperResult info)
 { @Record(Text(""), info) }
 
-@helper RecordToday(HelperResult info)
+@helper TodayRecord(HelperResult info)
 { @Record(Format("Day {0}:", Model.Today), info) }
+
+@helper InfoSection(HelperResult infoSection)
+{
+    <div class="det-gamelog-record-info-section">
+        @infoSection
+    </div>
+}
+

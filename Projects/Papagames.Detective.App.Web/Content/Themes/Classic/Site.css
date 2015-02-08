@@ -359,11 +359,6 @@ html, body { height: 100%; }
 // Gamelog
 */
 
-/*
-// ============================================================================================= []
-// Today
-*/
-
 .det-gamelog-record {
      padding-top: 0;
      padding-bottom: 15px;
@@ -387,7 +382,7 @@ html, body { height: 100%; }
     padding-top: 0
 }
 
-.det-today-section-text {
+.det-gamelog-record-info-section {
     color: #990000;
 }
 

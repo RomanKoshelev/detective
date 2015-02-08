@@ -56,15 +56,23 @@
 
 @helper MurderAndEvidences()
 {
-    <div class="det-today-section-text">
-        @Victim() was killed by @MurderNumDescription() last night
-    </div>
-    <div class="det-today-section-text">
-        @InnocentNumDescription() made @EvidencesNumDescription()
-    </div>
+    @GameLog.InfoSection(Murder())
+    @GameLog.InfoSection(Evidences())
 }
 
 @helper NightEvents()
 {
-    @GameLog.RecordToday(MurderAndEvidences())
+    @GameLog.TodayRecord(MurderAndEvidences())
 }
+
+@helper Murder()
+{
+    @GameLog.Format("{0} was killed by {1} last night", Victim(), @MurderNumDescription())
+}
+
+@helper Evidences()
+{
+    @GameLog.Format("{0} made {1}", InnocentNumDescription(), @EvidencesNumDescription())
+}
+
+
