@@ -14,24 +14,19 @@
         get { return ViewBag.Face; }
     }
 
-    private string AnswerSelectedFaceClass(int num)
+    private string SelectedFaceClass(int num)
     {
-        return num == Face ? " det-answer-highlight" : "";
-    }
-
-    public static string QuestioningClass
-    {
-        get { return "det-questioning"; }
+        return num == Face ? BoardView.HighlightClass : "";
     }
 
 }
 
 @helper Questioning()
 {
-    @GameLog.Record(Answers(), QuestioningClass)
+    @BoardView.Record(Answers(), BoardView.DetectiveClass)
     if (Model.State == State.Questioning)
     {
-        @GameLog.Record(Hint(), QuestioningClass)
+        @BoardView.Record(Hint(), BoardView.DetectiveClass)
     }
 }
 
@@ -45,17 +40,17 @@
     {
         foreach (var answer in Model.TodayAnswers())
         {
-            @Answer(answer, AnswerSelectedFaceClass(answer.Agent.Number))
+            @Answer(answer, SelectedFaceClass(answer.Agent.Number))
         }
     }
 }
 
-@helper Answer(AnswerModel answer, string selectedClass)
+@helper Answer(AnswerModel answer, string currentMemberClass)
 {
-    <div class="@selectedClass">
-        @GameLog.MemberLink(answer.Agent)
+    <div class="@currentMemberClass">
+        @BoardView.MemberLink(answer.Agent)
         &mdash;
-        @GameLog.SubjectLink(answer.Subject)
+        @BoardView.SubjectLink(answer.Subject)
         is
         @answer.Value.Verbal()
     </div>
@@ -70,17 +65,17 @@
 
 @helper HintRespondents()
 {
-    @GameLog.HintMemberVariants(
+    @BoardView.HintMemberVariants(
         "Question:",
         ProcessView.QuestioningRespondents(),
-        GameLog.MemberLink,
+        BoardView.MemberLink,
         additionalVariantsFunc: AutoQuestioning
         )
 }
 
 @helper HintSubjects(int respondent)
 {
-    @GameLog.HintSubjectVariants(
+    @BoardView.HintSubjectVariants(
         string.Format("Question {0} about:", @ProcessView.MemberName(respondent)),
         respondent,
         ProcessView.QuestioningSubjects(respondent),
@@ -92,7 +87,7 @@
 {
     @Shared.Link(
         subject.Name,
-        GameLog.MemberLinkClass,
+        BoardView.MemberLinkClass,
         ProcessView.AskActionUrl(respondent.Number, subject.Number)
         )@suffix
 }
@@ -103,6 +98,6 @@
         && ProcessView.QuestioningRespondents().Count >= 2
         && (Face == null || ProcessView.QuestioningSubjects((int) Face).Count == 0))
     {
-           @(" or ") @Shared.Link("auto", GameLog.MemberLinkClass, ProcessView.AutoAskActionUrl())
+           @(" or ") @Shared.Link("auto", BoardView.MemberLinkClass, ProcessView.AutoAskActionUrl())
     }
 }

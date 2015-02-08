@@ -7,7 +7,6 @@
 
 @functions
 {
-
     private string Victim()
     {
         return Model.TodayVictim.Name;
@@ -57,23 +56,23 @@
 
 @helper NightEvents()
 {
-    @GameLog.TodayRecord(MurderAndEvidences(), "det-today")
+    @BoardView.TodayRecord(MurderAndEvidences(), BoardView.TodayClass)
 }
 
 @helper MurderAndEvidences()
 {
-    @GameLog.RecordInfoSection(Murder())
-    @GameLog.RecordInfoSection(Evidences())
+    @BoardView.RecordInfoSection(Murder())
+    @BoardView.RecordInfoSection(Evidences())
 }
 
 @helper Murder()
 {
-    @GameLog.Format("{0} was killed by {1} last night", Victim(), @MurderNumDescription())
+    @BoardView.Format("{0} was killed by {1} last night", Victim(), @MurderNumDescription())
 }
 
 @helper Evidences()
 {
-    @GameLog.Format("{0} made {1}", InnocentNumDescription(), @EvidencesNumDescription())
+    @BoardView.Format("{0} made {1}", InnocentNumDescription(), @EvidencesNumDescription())
 }
 
 

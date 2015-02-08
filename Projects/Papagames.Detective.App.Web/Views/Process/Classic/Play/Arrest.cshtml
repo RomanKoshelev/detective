@@ -1,5 +1,5 @@
 ﻿@{
-    // >> Process > View > Classic > Arrest *a
+    // >> Process > View > Classic > Arrest ***
     @Arrest()
 }
 @using Papagames.Detective.App.Web.Models
@@ -28,86 +28,37 @@
     {
         return Model.UserActionIsEnabled(Process.UserAction.ActionType.Continue);
     }
-
 }
 
 @helper Arrest()
 {
-        <div class="det-gamelog-record-day det-answers-color"></div>
-        <div class="det-gamelog-record-info det-arrest-color">
-            @EarlyArrestButton()
-            @Hint()
-            @ArrestButton()
-            @Result()
-            @ContinueButton()
-        </div>
+    @EarlyArrestButton()
+    @Hint()
+    @ArrestButton()
+    @Result()
+    @ContinueButton()
 }
 
-@helper Hint()
+
+@helper EarlyArrestButton()
 {
-    if (ArrestIsEnabled() && !ProcessView.CanArrest(Face))
+    if (EarlyArrestIsEnabled() && Face != null)
     {
-        <div class="det-today-info-answers det-answers-color">
-            <div class="det-answer-hint">Arrest:</div>
-            <div class="det-answer-hint-variants">
-                @foreach (var suspect in ProcessView.ArrestSuspects())
-                {
-                    @MemberLink(ProcessView.Member(suspect), "det-answers-color")
-                }
-            </div>
-        </div>
+        @Record(BoardView.Button(
+            "Arrest " + ProcessView.MemberName(Face),
+                 BoardView.ButtonEarlyArrestClass,
+            ProcessView.EarlyArrestActionUrl((int) Face)))
     }
-}
-
-@helper Result()
-{
-    if (Model.State == State.CheckArrest)
-    {
-        <div class="det-gamelog-record">
-            <div class="det-gamelog-record-info-section">
-                You have arrested @MemberLink(Model.TodayPrisoner, "det-today-info-text")
-            </div>
-            <div class="det-gamelog-record-info-section">
-                @MemberLink(Model.TodayPrisoner, "det-today-info-text") was @Model.TodayPrisoner.Role
-            </div>
-        </div>
-    }
-}
-
-@helper MemberLink(MemberModel member, string subjClass = "", string suffix = " ")
-{
-    @Shared.Link(
-        member.Name,
-        "det-answers-member-link det-no-wrap " + subjClass,
-        ProcessView.MemberFaceUrl(member.Number)
-        )@suffix
 }
 
 @helper ArrestButton()
 {
     if (ArrestIsEnabled() && Face != null)
     {
-        <div class="det-button-panel">
-            @Shared.Link(
-                "Arrest " + ProcessView.MemberName((int) Face),
-                "det-arrest-button det-button",
-                ProcessView.ArrestActionUrl((int) Face)
-                )
-        </div>
-    }
-}
-
-@helper EarlyArrestButton()
-{
-    if (EarlyArrestIsEnabled() && Face != null)
-    {
-        <div class="det-button-panel">
-            @Shared.Link(
-                "Arrest " + ProcessView.MemberName((int) Face),
-                "det-arrest-button-lite  det-button",
-                ProcessView.EarlyArrestActionUrl((int) Face)
-                )
-        </div>
+        @Record(BoardView.Button(
+            "Arrest " + ProcessView.MemberName(Face),
+            BoardView.ButtonArrestClass,
+            ProcessView.ArrestActionUrl((int) Face)))
     }
 }
 
@@ -115,12 +66,60 @@
 {
     if (Model.State == State.CheckArrest && ContinueIsEnabled())
     {
-        <div class="det-button-panel">
-            @Shared.Link(
+        @BoardView.Record(
+            BoardView.Button(
                 "Continue",
-                "det-continue-button  det-button",
-                ProcessView.ContinueActionUrl()
-                )
-        </div>
+                BoardView.ButtonContinueClass,
+                ProcessView.ContinueActionUrl()),
+            BoardView.ArrestClass)
     }
+}
+
+
+@helper Hint()
+{
+    if (ArrestIsEnabled() && !ProcessView.CanArrest(Face))
+    {
+        @Record(BoardView.HintMemberVariants(
+            "Select suspicious member:",
+            ProcessView.ArrestSuspects()
+            ))
+    }
+}
+
+@helper Result()
+{
+    if (Model.State == State.CheckArrest)
+    {
+        @BoardView.Record(
+            ArrestTitle(),
+            ResultSections(),
+            BoardView.ArrestClass)
+    }
+}
+
+@helper ResultSections()
+{
+    @BoardView.RecordInfoSection(ResultSectionPrisoner())
+    @BoardView.RecordInfoSection(ResultSectionPrisonerRole())
+}
+
+@helper ResultSectionPrisoner()
+{
+    @:You have arrested @BoardView.MemberLink(Model.TodayPrisoner)
+}
+@helper ResultSectionPrisonerRole()
+{
+    @:@BoardView.MemberLink(Model.TodayPrisoner) was @Model.TodayPrisoner.Role
+}
+
+@helper ArrestTitle()
+{ @BoardView.Text(Model.State == State.Arrest || Model.State == State.CheckArrest ? "Arrest:" : "") }
+
+@helper Record(HelperResult rec)
+{
+    @BoardView.Record(
+        ArrestTitle(),
+        rec,
+        BoardView.ArrestClass)
 }
