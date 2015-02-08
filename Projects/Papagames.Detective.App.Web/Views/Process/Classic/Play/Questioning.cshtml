@@ -27,96 +27,96 @@
 }
 
 @helper Questioning()
+{ @GameLog.Record(AnswersAndHint(), "det-questioning") }
+
+@helper AnswersAndHint()
 {
-    <div class="det-gamelog-record">
-        <div class="det-gamelog-record-day det-answers-color"></div>
-        <div class="det-gamelog-record-info">
-            @Answers()
-            @Hint()
-        </div>
-    </div>
+    @GameLog.RecordInfoSection(Answers(), "det-questioning-answers")
+    @GameLog.RecordInfoSection(Hint(), "det-questioning-hint")
 }
+
 
 @helper Answers()
 {
-    <div class="det-gamelog-record det-answers-color">
-        @foreach (var a in Model.TodayAnswers())
-        {
-            var answerSelectedFaceClass = AnswerSelectedFaceClass(a.Agent.Number);
-            <div class="det-today-info-answer">
-                <div class="det-today-info-answer-agent @answerSelectedFaceClass">
-                    @MemberLink(a.Agent)
-                </div>
-                <div class="det-today-info-answer-value @answerSelectedFaceClass">
-                    &nbsp;&mdash; @MemberSubjectLink(a.Subject) is @a.Value.Verbal()
-                </div>
-            </div>
-        }
+    foreach (var answer in Model.TodayAnswers())
+    {
+        @Answer(answer, AnswerSelectedFaceClass(answer.Agent.Number))
+    }
+}
+
+@helper Answer(AnswerModel answer, string answerSelectedFaceClass)
+{
+    <div class="@answerSelectedFaceClass">
+        @MemberLink(answer.Agent) &mdash; @MemberSubjectLink(answer.Subject) is @answer.Value.Verbal()
     </div>
 }
 
-@helper Hint()
-{
-    if (Model.State == State.Questioning)
-    {
-        <div class="det-gamelog-record det-answers-color">
-            @( !ProcessView.CanAsk(Face) ? HintRespondents() : HintSubjects((int) Face))
-        </div>
-    }
-}
 
-@helper AutoQuestioning()
-{
-    if (Model.Options.AutoQuestioningIsEnabled
-        && ProcessView.QuestioningRespondents().Count >= 2
-        && (Face == null || ProcessView.QuestioningSubjects((int) Face).Count == 0))
-    {
-        <span> or @Shared.Link("auto", "det-answers-member-link det-answers-color det-no-wrap", ProcessView.AutoAskActionUrl())</span>
-    }
-}
 @helper MemberLink(MemberModel member, string subjClass = "", string suffix = " ")
-{
-    @Shared.Link(
-        member.Name,
-        "det-answers-member-link det-answers-color det-no-wrap " + subjClass,
-        ProcessView.MemberFaceUrl(member.Number)
-        )@suffix
-}
-
-@helper AskActionLink(MemberModel respondent, MemberModel subject, string subjClass = "", string suffix = " ")
-{
-    @Shared.Link(
-        subject.Name,
-        "det-answers-member-link det-answers-color det-no-wrap " + subjClass,
-        ProcessView.AskActionUrl(respondent.Number, subject.Number)
-        )@suffix
-}
-
+{ @GameLog.MemberLnk(member, "det-answers-member-link " + subjClass, suffix) }
 
 @helper MemberSubjectLink(MemberModel subject)
-{ @MemberLink(subject, MemberSubjectLinkClass(subject.Number)) }
+{ @MemberLink(subject, MemberSubjectLinkClass(subject.Number))}
 
 
-@helper HintRespondents()
-{
-    <div class="det-gamelog-record">
-        Ask:
-        <div class="det-answer-hint-variants">
-            @foreach (var respondent in ProcessView.QuestioningRespondents())
-            {
-                @MemberLink(ProcessView.Member(respondent))
-            }@AutoQuestioning()
-        </div>
-    </div>
-}
+  @*
+    =============================================================
+*@
 
-@helper HintSubjects(int respondent)
-{
-    <div class="det-answer-hint">Ask @ProcessView.MemberName(respondent) about:</div>
-    <div class="det-answer-hint-variants">
-        @foreach (var subject in ProcessView.QuestioningSubjects(respondent))
-        {
-            @AskActionLink(ProcessView.Member(respondent), ProcessView.Member(subject))
-        }
-    </div>
-}
+
+
+
+  @helper Hint()
+  {
+      if (Model.State == State.Questioning)
+      {
+          <div class="det-gamelog-record det-answers-color">
+              @( !ProcessView.CanAsk(Face) ? HintRespondents() : HintSubjects((int) Face))
+          </div>
+      }
+  }
+
+  @helper AutoQuestioning()
+  {
+      if (Model.Options.AutoQuestioningIsEnabled
+          && ProcessView.QuestioningRespondents().Count >= 2
+          && (Face == null || ProcessView.QuestioningSubjects((int) Face).Count == 0))
+      {
+          <span> or @Shared.Link("auto", "det-answers-member-link det-answers-color det-no-wrap", ProcessView.AutoAskActionUrl())</span>
+      }
+  }
+
+
+  @helper AskActionLink(MemberModel respondent, MemberModel subject, string subjClass = "", string suffix = " ")
+  {
+      @Shared.Link(
+          subject.Name,
+          "det-answers-member-link det-answers-color det-no-wrap " + subjClass,
+          ProcessView.AskActionUrl(respondent.Number, subject.Number)
+          )@suffix
+  }
+
+
+  @helper HintRespondents()
+  {
+      <div class="det-gamelog-record">
+          Ask:
+          <div class="det-answer-hint-variants">
+              @foreach (var respondent in ProcessView.QuestioningRespondents())
+              {
+                  @MemberLink(ProcessView.Member(respondent))
+              }@AutoQuestioning()
+          </div>
+      </div>
+  }
+
+  @helper HintSubjects(int respondent)
+  {
+      <div class="det-answer-hint">Ask @ProcessView.MemberName(respondent) about:</div>
+      <div class="det-answer-hint-variants">
+          @foreach (var subject in ProcessView.QuestioningSubjects(respondent))
+          {
+              @AskActionLink(ProcessView.Member(respondent), ProcessView.Member(subject))
+          }
+      </div>
+  }

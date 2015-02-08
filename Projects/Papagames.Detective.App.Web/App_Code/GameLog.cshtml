@@ -1,13 +1,12 @@
 ﻿@using System.Web.Mvc
 @using Papagames.Detective.App.Web.Models
 @functions{
-    // >> App_Code > GameLog
+    // >> App_Code > GameLog ***
 
     private new static ProcessModel Model
     {
         get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }
     }
-
 }
 
 @helper Format(string text, params object[] args)
@@ -16,28 +15,38 @@
 @helper Text(string text)
 { @text }
 
-@helper Record(HelperResult day, HelperResult info)
+@helper Record(HelperResult day, HelperResult info, string infoClass="")
 {
     <div class="det-gamelog-record">
         <div class="det-gamelog-record-day">
             @day
         </div>
-        <div class="det-gamelog-record-info">
+        <div class="det-gamelog-record-info @infoClass">
             @info
         </div>
     </div>
 }
 
-@helper Record(HelperResult info)
-{ @Record(Text(""), info) }
+@helper Record(HelperResult info, string infoClass="")
+{ @Record(Text(""), info, infoClass) }
 
-@helper TodayRecord(HelperResult info)
-{ @Record(Format("Day {0}:", Model.Today), info) }
 
-@helper InfoSection(HelperResult infoSection)
+@helper TodayRecord(HelperResult info, string infoClass = "")
+{ @Record(Format("Day {0}:", Model.Today), info, infoClass) }
+
+@helper RecordInfoSection(HelperResult infoSection, string infoSectionClass = "")
 {
-    <div class="det-gamelog-record-info-section">
+    <div class="det-gamelog-record-info-section @infoSectionClass">
         @infoSection
     </div>
 }
 
+@helper MemberLnk(MemberModel member, string linkClass, string suffix)
+{
+    @Shared.Link(
+          member.Name,
+          linkClass,
+          ProcessView.MemberFaceUrl(member.Number)
+          )
+    @suffix
+}

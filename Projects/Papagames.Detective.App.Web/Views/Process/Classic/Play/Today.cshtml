@@ -54,15 +54,16 @@
     }
 }
 
-@helper MurderAndEvidences()
-{
-    @GameLog.InfoSection(Murder())
-    @GameLog.InfoSection(Evidences())
-}
 
 @helper NightEvents()
 {
-    @GameLog.TodayRecord(MurderAndEvidences())
+    @GameLog.TodayRecord(MurderAndEvidences(), "det-today")
+}
+
+@helper MurderAndEvidences()
+{
+    @GameLog.RecordInfoSection(Murder())
+    @GameLog.RecordInfoSection(Evidences())
 }
 
 @helper Murder()

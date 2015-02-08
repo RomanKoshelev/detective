@@ -5,7 +5,7 @@
 // ============================================================================================= []
 // Common
 */
-html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset {
+html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset, a {
     margin: 0;
     padding: 0;
     padding-left: 0;
@@ -19,6 +19,10 @@ html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+a { 
+    text-decoration: none;
 }
 
 html, body, .det-body {
@@ -372,17 +376,24 @@ html, body { height: 100%; }
     font-weight: normal;
     vertical-align: top;
     text-align: right;
-
 }
 
 .det-gamelog-record-info {
     width: auto;
     display: table-cell;
     vertical-align: top;
-    padding-top: 0
+    padding-top: 0;
 }
 
 .det-gamelog-record-info-section {
+    color: inherit;
+}
+
+/*
+// ============================================================================================= []
+// Today
+*/
+.det-today {
     color: #990000;
 }
 
@@ -391,27 +402,13 @@ html, body { height: 100%; }
 // Questioning
 */
 
-.det-today-info-answers { vertical-align: top; }
-
-.det-answers-color { color: #4800b1; }
-
-.det-today-info-answer {
-    padding-left: 0px;
-    width: auto;
-    margin-top: 0
+.det-questioning {
+     color: #4800b1;
 }
 
-.det-today-info-answer-agent {
-    display: table-cell;
-    width: auto;
+.det-questioning-answers {
+     padding-left: 30px;
 }
-
-.det-today-info-answer-value {
-    display: table-cell;
-    width: auto;
-}
-
-.det-answer-highlight { background-color: yellow; }
 
 .det-answer-hint { padding-top: 0; }
 
@@ -422,12 +419,15 @@ html, body { height: 100%; }
     padding-right: 60px
 }
 
+.det-answer-highlight { background-color: yellow; }
 .det-answer-highlight-subject {
     background-color: #fae5d6;
     background-color: rgba(255, 0, 0, 0.14);
 }
 
-.det-answers-member-link { text-decoration: none; }
+.det-answers-member-link { 
+    text-decoration: none;
+}
 
 .det-answers-member-link:hover { background-color: #9fff89; }
 
