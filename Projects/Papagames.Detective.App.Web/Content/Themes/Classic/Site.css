@@ -389,6 +389,24 @@ html, body { height: 100%; }
     color: inherit;
 }
 
+.det-gamelog-member-link { 
+    text-decoration: none;
+}
+
+.det-gamelog-member-link:hover { background-color: #9fff89; }
+
+.det-gamelog-subject-highlight {
+    background-color: #fae5d6;
+    background-color: rgba(255, 0, 0, 0.14);
+}
+
+.det-gamelog-hint-variants {
+    line-height: 20px;
+    padding-top: 2px;
+    padding-left: 30px;
+    padding-right: 60px;
+}
+
 /*
 // ============================================================================================= []
 // Today
@@ -410,26 +428,10 @@ html, body { height: 100%; }
      padding-left: 30px;
 }
 
-.det-answer-hint { padding-top: 0; }
-
-.det-answer-hint-variants {
-    line-height: 20px;
-    padding-top: 2px;
-    padding-left: 30px;
-    padding-right: 60px
-}
 
 .det-answer-highlight { background-color: yellow; }
-.det-answer-highlight-subject {
-    background-color: #fae5d6;
-    background-color: rgba(255, 0, 0, 0.14);
-}
 
-.det-answers-member-link { 
-    text-decoration: none;
-}
 
-.det-answers-member-link:hover { background-color: #9fff89; }
 
 /*
 // ============================================================================================= []
