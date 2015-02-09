@@ -82,6 +82,10 @@
         get { return "det-gamelog-history"; }
     }
 
+    public static string ResultClass
+    {
+        get { return "det-gamelog-result"; }
+    }
 
 
     public static string SubjectHihglightClass(MemberModel subject)
@@ -93,6 +97,7 @@
     {
         return respondent.Number == Face ? RespondentLinkClass : "";
     }
+
 }
 
 @helper Highlight(string text)
@@ -162,7 +167,14 @@
 
 @helper RespondentLink(MemberModel respondent, string suffix = " ")
 {
-    @Shared.Link(respondent.Name, MemberLinkClass + " " + RespondentHihglightClass(respondent), ProcessView.MemberFaceUrl(respondent.Number))@suffix
+    if (respondent == null)
+    {
+        @Shared.Text("nobody")
+    }
+    else
+    {
+        @Shared.Link(respondent.Name, MemberLinkClass + " " + RespondentHihglightClass(respondent), ProcessView.MemberFaceUrl(respondent.Number))@suffix
+    }
 }
 
 

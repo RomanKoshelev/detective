@@ -13,24 +13,6 @@
         get { return ViewBag.Face; }
     }
 
-    private string MurderNumDescription()
-    {
-        if (Model.MurderersLeft == null)
-            return "a murderer";
-        if (Model.MurderersLeft == 1)
-            return "1 murderer";
-        return string.Format("one of {0} murderers", Model.MurderersLeft);
-    }
-
-    private string InnocentNumDescription()
-    {
-        if (Model.InnocentsLeft == null)
-            return "Guiltness members";
-        if (Model.InnocentsLeft == 1)
-            return "A guiltness member";
-        return string.Format("Some of {0} guiltless members", Model.InnocentsLeft);
-    }
-
     private string EvidencesNumDescription()
     {
         if (Model.TodayEvidencesNum == null)
@@ -56,17 +38,15 @@
 
 
 @helper NightEvents()
-{ @BoardView.TodayRecord(MurderAndEvidences(), BoardView.TodayClass) }
+{
+    @BoardView.TodayRecord(MurderAndEvidences(), BoardView.TodayClass)
+    
+}
 
 @helper MurderAndEvidences()
 {
-    @BoardView.RecordInfoSection(Murder())
-    @BoardView.RecordInfoSection(Evidences())
-}
-
-@helper Murder()
-{
-    @:@HighlightVictim(@VictimLink())@HighlightVictim("was killed") by @MurderNumDescription() last night
+    @:@HighlightVictim(@VictimLink())@HighlightVictim("was killed.")
+    @Shared.Format("Guiltless made {0}.", @EvidencesNumDescription())
 }
 
 @helper HighlightVictim(HelperResult text)
@@ -88,13 +68,6 @@
     }
 }
 
-@helper VictimWasKilled()
-{
-    <span>@VictimLink() was killed</span>
-}
-
-@helper Evidences()
-{ @Shared.Format("{0} made {1}", InnocentNumDescription(), @EvidencesNumDescription()) }
 
 @helper VictimLink()
 { @BoardView.MemberLink(Model.TodayVictim) }

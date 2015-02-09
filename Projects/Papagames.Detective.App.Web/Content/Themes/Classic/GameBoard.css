@@ -1,5 +1,5 @@
 ﻿/*
-// >> CSS > Classic > Game Board ***
+// >> CSS > Classic > BoardView ***
 */
 
 /*
@@ -63,8 +63,18 @@
 }
 
 .det-gamelog-history {
-    color: #6b3434;
+    color: #560000;
 }
+
+.det-gamelog-result{
+    color: #560000;
+}
+
+/*
+// ============================================================================================= []
+// result
+*/
+
 
 
 /*

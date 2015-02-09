@@ -1,5 +1,5 @@
 ﻿@{
-    // >> Process > View > Classic > Finish *
+    // >> Process > View > Classic > Finish ***
     @Finish()
 }
 @using Papagames.Detective.App.Web.Models
@@ -22,15 +22,18 @@
 
 @helper Result()
 {
-    <div class="det-gamelog-record">
-        <div class="det-gamelog-record-day">
-            Result:
-        </div>
-        <div class="det-gamelog-record-info">
-            <div class="det-gamelog-record-info-section">
-                result will be here soon
-            </div>
-        </div>
-    </div>
+    @BoardView.Record(ResultInfo(), BoardView.ResultClass)
+}
+
+@helper ResultInfo()
+{
+    if (Model.Winner == Winner.Detective)
+    {
+        @:You win!
+    }
+    if (Model.Winner == Winner.Murderers)
+    {
+        @:Sorry..
+    }
 }
 
