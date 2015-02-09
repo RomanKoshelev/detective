@@ -10,6 +10,10 @@ namespace Papagames.Detective.App.Web.Models
         {
             Member = member;
         }
+        public MemberModel(MemberModel member)
+            : this(member.Member)
+        {
+        }
 
         public string Name
         {

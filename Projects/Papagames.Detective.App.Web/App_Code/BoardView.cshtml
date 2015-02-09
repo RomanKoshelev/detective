@@ -77,6 +77,12 @@
     {
         get { return "det-gamelog-hint-title"; }
     }
+    public static string HistoryClass
+    {
+        get { return "det-gamelog-history"; }
+    }
+
+
 
     public static string SubjectHihglightClass(MemberModel subject)
     {
@@ -87,7 +93,6 @@
     {
         return respondent.Number == Face ? RespondentLinkClass : "";
     }
-
 }
 
 @helper Highlight(string text)
