@@ -192,6 +192,7 @@
     <Content Include="App_Code\ProcessView.cshtml" />
     <Content Include="App_Code\Shared.cshtml" />
     <Content Include="App_Code\BoardView.cshtml" />
+    <None Include="Properties\PublishProfiles\pgs-detective %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\pgs-detective.pubxml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
