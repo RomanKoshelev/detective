@@ -12,16 +12,6 @@
     {
         get { return ViewBag.Face; }
     }
-
-    private string EvidencesNumDescription()
-    {
-        if (Model.TodayEvidencesNum == null)
-            return "some evidences";
-        if (Model.InnocentsLeft == 1)
-            return "an evidence";
-        return string.Format("{0} evidences", Model.TodayEvidencesNum);
-    }
-
 }
 
 @helper Today()
@@ -39,14 +29,13 @@
 
 @helper NightEvents()
 {
-    @BoardView.TodayRecord(MurderAndEvidences(), BoardView.TodayClass)
+    @BoardView.TodayRecord(Murder(), BoardView.TodayClass)
     
 }
 
-@helper MurderAndEvidences()
+@helper Murder()
 {
     @:@HighlightVictim(@VictimLink())@HighlightVictim("was killed.")
-    @Shared.Format("Guiltless made {0}.", @EvidencesNumDescription())
 }
 
 @helper HighlightVictim(HelperResult text)

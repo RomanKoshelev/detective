@@ -231,6 +231,7 @@
     <Content Include="Views\Process\Classic\Play\History.cshtml" />
     <Content Include="Views\Process\Classic\Play\Arrest.cshtml" />
     <Content Include="Views\Process\Classic\Play\Finish.cshtml" />
+    <Content Include="Views\Process\Classic\Play\Case.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
