@@ -29,6 +29,16 @@ namespace Crimenuts.App.Web.Models
         {
             get { return Member.IsVictim; }
         }
+
+        public bool IsActive
+        {
+            get { return Member.IsActive; }
+        }
+        public bool IsPrisoner
+        {
+            get { return Member.IsPrisoner; }
+        }
+
         public bool IsOpenMurderer
         {
             get { return Member.IsOpenMurderer; }
@@ -74,6 +84,14 @@ namespace Crimenuts.App.Web.Models
         public Emotion ExpressEmotionOnRelationTo(MemberModel subject)
         {
             return Member.ExpressEmotionOnRelationTo(subject.Member);
+        }
+        public Emotion ExpressEmotionOnArrest(MemberModel subject)
+        {
+            return Member.ExpressEmotionOnMurderOrArrest(subject.Member);
+        }
+        public Emotion ExpressEmotionOnMurder(MemberModel subject)
+        {
+            return Member.ExpressEmotionOnMurderOrArrest(subject.Member);
         }
 
         // ===================================================================================== []

@@ -54,8 +54,8 @@
     {
         return ActionUrl(new
         {
-            id = Model.Id, 
-            actionType = (int)Process.UserAction.ActionType.EarlyArrest, 
+            id = Model.Id,
+            actionType = (int) Process.UserAction.ActionType.EarlyArrest,
             suspect,
             face = suspect
         });
@@ -63,9 +63,10 @@
 
     public static string AutoAskActionUrl()
     {
-        return ActionUrl(new { 
-            id = Model.Id, 
-            actionType = (int)Process.UserAction.ActionType.AutoAsk 
+        return ActionUrl(new
+        {
+            id = Model.Id,
+            actionType = (int) Process.UserAction.ActionType.AutoAsk
         });
     }
 
@@ -74,11 +75,11 @@
         return ActionUrl(new
         {
             id = Model.Id,
-            actionType = (int)Process.UserAction.ActionType.Continue
+            actionType = (int) Process.UserAction.ActionType.Continue
         });
     }
 
-    
+
     public static string MemberFaceUrl(int num)
     {
         return ActionUrl(new {id = Model.Id, face = num});
@@ -89,7 +90,7 @@
         return Url.Action("ClassicPlay", "Process", args);
     }
 
-    
+
     private new static ProcessModel Model
     {
         get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }
@@ -130,24 +131,37 @@
         return MemberExists(num) && Model.ActiveMembers.Any(m => m.Number == num);
     }
 
+    // ===================================================================================== []
+    // MemberEmotion
     public static Emotion MemberEmotion(int num, int? subj)
     {
-        switch (Model.State)
+    // >> Process > View > MemberEmotion ***
+        if (subj == num || subj == null)
         {
-            case State.Questioning:
-                if (num == subj)
-                {
-                    return Emotion.Indifferent;
-                }
-                if (MemberExists(subj))
-                {
-                    return Member(num).ExpressEmotionOnRelationTo(Member(subj));
-                }
-                break;
+            return Emotion.Indifferent;
         }
+
+        var member = Member(num);
+        var subject = Member(subj);
+
+        if (subject.IsActive)
+        {
+            return member.ExpressEmotionOnRelationTo(subject);
+        }
+        if (subject.IsPrisoner)
+        {
+            return member.ExpressEmotionOnArrest(subject);
+        }
+        if (subject.IsVictim)
+        {
+            return member.ExpressEmotionOnMurder(subject);
+        }
+
         return Emotion.Indifferent;
     }
 
+    // ===================================================================================== []
+    // 
     public static bool MemberIsAlive(int num)
     {
         return !Member(num).IsVictim;
@@ -196,7 +210,7 @@
     public static IList<int> ArrestVariants()
     {
         return Model.UserActions
-            .Where(a => a.Type == Process.UserAction.ActionType.Arrest || a.Type==Process.UserAction.ActionType.EarlyArrest)
+            .Where(a => a.Type == Process.UserAction.ActionType.Arrest || a.Type == Process.UserAction.ActionType.EarlyArrest)
             .Select(a => a.Args[0])
             .Distinct()
             .ToList();
