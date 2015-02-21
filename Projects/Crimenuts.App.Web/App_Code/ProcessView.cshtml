@@ -136,14 +136,26 @@
     public static Emotion MemberEmotion(int memNum, int? subjNum)
     {
     // >> Process > View > MemberEmotion ***
+        var member = Member(memNum);
+
         if (subjNum == null)
         {
+            if (Model.State == State.Finished)
+            {
+                if (member.IsOpenMurderer)
+                    return Model.Winner == Winner.Murderers ? Emotion.Happy : Emotion.Sad;
+                if (member.IsOpenInnocent)
+                    return Model.Winner == Winner.Detective ? Emotion.Happy : Emotion.Sad;
+            }
             return Emotion.Indifferent;
         }
 
-        var member = Member(memNum);
         var subject = Member(subjNum);
 
+        if (member.IsVictim)
+        {
+            return Emotion.Indifferent;
+        }
         if (subject.IsPrisoner)
         {
             return member.ExpressEmotionOnArrest(subject);

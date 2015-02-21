@@ -10,16 +10,29 @@
 
     private string CurrentMemberFaceClass(int num)
     {
-        return
-            ProcessView.MemberIsActive(num)
-                ? num == Face
-                    ? " det-member-face-active-primary"
-                    : " det-member-face-active-secondary"
-                : ProcessView.Member(num).IsOpenMurderer
-                    ? " det-member-face-inactive-murderer"
-                    : ProcessView.Member(num).IsOpenInnocent
-                        ? " det-member-face-inactive-innocent"
-                        : "";
+        var member = ProcessView.Member(num);
+
+        if (Model.State == State.Finished && member.IsActive)
+        {
+            return member.IsOpenMurderer
+                ? " det-member-face-active-murderer"
+                : member.IsOpenInnocent
+                    ? " det-member-face-active-innocent"
+                    : "";            
+        }
+
+        if (member.IsActive)
+        {
+            return num == Face
+                ? " det-member-face-active-primary"
+                : " det-member-face-active-secondary";
+        }
+
+        return member.IsOpenMurderer
+            ? " det-member-face-inactive-murderer"
+            : member.IsOpenInnocent
+                ? " det-member-face-inactive-innocent"
+                : "";
     }
 
     private string MemberFaceEmotionClass(int num)
@@ -92,6 +105,7 @@
             ? SideIsTop ? " det-member-face-asked-top" : " det-member-face-asked-bottom"
             : "";
     }
+
 }
 
 @helper Members(int first, int last)

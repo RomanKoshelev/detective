@@ -237,12 +237,22 @@ html, body { height: 100%; }
 }
 
 .det-member-face-inactive-murderer {
-    background: #560000;
+    background: #500000;
     color: #240000;
 }
 
 .det-member-face-inactive-innocent {
-    background: #003e00;
+    background: #004000;
+    color: #001a00;
+}
+
+.det-member-face-active-murderer {
+    background: #a40000;
+    color: #240000;
+}
+
+.det-member-face-active-innocent {
+    background: #00a800;
     color: #001a00;
 }
 

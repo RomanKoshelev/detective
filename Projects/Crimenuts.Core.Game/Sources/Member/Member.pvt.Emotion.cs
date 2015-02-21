@@ -7,7 +7,7 @@ namespace Crimenuts.Core.Game
     {
         private Emotion DoExpressEmotionOnMurderOrArrest(Member subj)
         {
-            if (!IsVictim)
+            if (IsVictim)
             {
                 return Emotion.Indifferent;
             }
