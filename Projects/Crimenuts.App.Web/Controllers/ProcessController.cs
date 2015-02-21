@@ -1,5 +1,4 @@
-﻿using System.Data.Metadata.Edm;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Crimenuts.App.Web.Models;
 using Crimenuts.Core.Game;
 using Crimenuts.Utils;
@@ -31,7 +30,7 @@ namespace Crimenuts.App.Web.Controllers
             return View(new ProcessModel(processId));
         }
 
-        // >> Precess > Controller > ClassicPlay *
+        // >> Precess | Controller | ClassicPlay *
         public ActionResult ClassicPlay(int id,
             int? face,
             int? card,

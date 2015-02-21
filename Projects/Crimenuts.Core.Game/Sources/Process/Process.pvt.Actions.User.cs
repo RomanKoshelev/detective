@@ -3,7 +3,7 @@ using System.Linq;
 using Crimenuts.Utils;
 using MoreLinq;
 
-// >> Core > Process > UserActions
+// >> Core | Process | UserActions
 
 namespace Crimenuts.Core.Game
 {

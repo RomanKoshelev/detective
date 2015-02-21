@@ -1,5 +1,5 @@
 ﻿@{
-    // >> Process > View > Classic > Today *
+    // >> Process | View | Classic | Today *
     @Today()
 }
 @using Crimenuts.Core.Game
@@ -12,6 +12,7 @@
     {
         get { return ViewBag.Face; }
     }
+
 }
 
 @helper Today()
@@ -28,13 +29,11 @@
 
 
 @helper NightEvents()
-{
-    @BoardView.TodayRecord(Murder(), BoardView.TodayClass)
-    
-}
+{ @BoardView.TodayRecord(Murder(), BoardView.TodayClass) }
 
 @helper Murder()
 {
+    // >> Localization << 
     @:@HighlightVictim(@VictimLink())@HighlightVictim("was killed")
 }
 

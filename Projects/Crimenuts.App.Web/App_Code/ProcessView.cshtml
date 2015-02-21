@@ -1,5 +1,4 @@
-﻿@using System.Diagnostics
-@using System.Web.Mvc
+﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using Crimenuts.App.Web.Models
 @using Crimenuts.Core.Game
@@ -7,7 +6,7 @@
 @using WebGrease.Css.Extensions
 @using Process = Crimenuts.Core.Game.Process
 @functions {
-    // >> App_Code > ProcessView 
+    // >> App_Code | ProcessView 
     private new static HtmlHelper<object> Html
     {
         get { return ((WebViewPage) WebPageContext.Current.Page).Html; }
@@ -135,7 +134,6 @@
     // MemberEmotion
     public static Emotion MemberEmotion(int memNum, int? subjNum)
     {
-    // >> Process > View > MemberEmotion ***
         var member = Member(memNum);
 
         if (Model.State == State.Finished)
