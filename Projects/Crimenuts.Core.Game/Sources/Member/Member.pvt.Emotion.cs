@@ -7,8 +7,14 @@ namespace Crimenuts.Core.Game
     {
         private Emotion DoExpressEmotionOnMurderOrArrest(Member subj)
         {
-            Trace.Assert(IsActive);
-            Trace.Assert(this != subj);
+            if (!IsVictim)
+            {
+                return Emotion.Indifferent;
+            }
+            if (this == subj)
+            {
+                return Emotion.Sad;
+            }
 
             if (IsMurderer)
             {
