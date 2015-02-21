@@ -250,6 +250,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Localization.cshtml" />
     <None Include="Properties\PublishProfiles\pgs-detective.pubxml" />
   </ItemGroup>
   <PropertyGroup>
