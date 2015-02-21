@@ -133,30 +133,42 @@
 
     // ===================================================================================== []
     // MemberEmotion
-    public static Emotion MemberEmotion(int num, int? subj)
+    public static Emotion MemberEmotion(int memNum, int? subjNum)
     {
     // >> Process > View > MemberEmotion ***
-        if (subj == num || subj == null)
+        if (Model.State==State.Arrest)
         {
+            if (memNum == subjNum)
+            {
+                return Emotion.Sad;
+            }
             return Emotion.Indifferent;
         }
 
-        var member = Member(num);
-        var subject = Member(subj);
+        if (Model.State == State.Questioning)
+        {
+            if (subjNum == memNum || subjNum == null)
+            {
+                return Emotion.Indifferent;
+            }
+            
+            var member = Member(memNum);
+            var subject = Member(subjNum);
 
-        if (subject.IsActive)
-        {
-            return member.ExpressEmotionOnRelationTo(subject);
+            if (subject.IsActive)
+            {
+                return member.ExpressEmotionOnRelationTo(subject);
+            }
+            if (subject.IsPrisoner)
+            {
+                return member.ExpressEmotionOnArrest(subject);
+            }
+            if (subject.IsVictim)
+            {
+                return member.ExpressEmotionOnMurder(subject);
+            }
         }
-        if (subject.IsPrisoner)
-        {
-            return member.ExpressEmotionOnArrest(subject);
-        }
-        if (subject.IsVictim)
-        {
-            return member.ExpressEmotionOnMurder(subject);
-        }
-
+        
         return Emotion.Indifferent;
     }
 
