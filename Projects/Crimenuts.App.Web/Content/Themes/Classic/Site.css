@@ -244,6 +244,17 @@ html, body { height: 100%; }
 .det-member-face-inactive-innocent {
     background: #004000;
     color: #001a00;
+
+}
+
+.det-member-face-inactive-murderer-selected {
+    background: #500000;
+    color: #d84f0a;
+}
+
+.det-member-face-inactive-innocent-selected {
+    background: #004000;
+    color: #a2dc11;
 }
 
 .det-member-face-active-murderer {
@@ -255,6 +266,7 @@ html, body { height: 100%; }
     background: #00a800;
     color: #001a00;
 }
+
 
 .det-member-cell-circle-face {
     width: 80px;

@@ -138,15 +138,19 @@
     // >> Process > View > MemberEmotion ***
         var member = Member(memNum);
 
-        if (subjNum == null)
+        if (Model.State == State.Finished)
         {
-            if (Model.State == State.Finished)
+            if (subjNum == null || subjNum == memNum)
             {
                 if (member.IsOpenMurderer)
                     return Model.Winner == Winner.Murderers ? Emotion.Happy : Emotion.Sad;
                 if (member.IsOpenInnocent)
                     return Model.Winner == Winner.Detective ? Emotion.Happy : Emotion.Sad;
             }
+        }
+
+        if (subjNum == null)
+        {
             return Emotion.Indifferent;
         }
 

@@ -8,7 +8,9 @@
 @functions
 {
 
-    private string CurrentMemberFaceClass(int num)
+    // ===================================================================================== []
+    // MemberFaceClass
+    private string MemberFaceClass(int num)
     {
         var member = ProcessView.Member(num);
 
@@ -28,13 +30,19 @@
                 : " det-member-face-active-secondary";
         }
 
-        return member.IsOpenMurderer
-            ? " det-member-face-inactive-murderer"
-            : member.IsOpenInnocent
-                ? " det-member-face-inactive-innocent"
-                : "";
+        if (member.IsOpenMurderer)
+        {
+            return num == Face ? " det-member-face-inactive-murderer-selected" : " det-member-face-inactive-murderer";
+        }
+        if (member.IsOpenInnocent)
+        {
+            return num == Face ? " det-member-face-inactive-innocent-selected" : " det-member-face-inactive-innocent";
+        }
+        return "";            
     }
 
+    // ===================================================================================== []
+    // MemberFaceEmotionClass
     private string MemberFaceEmotionClass(int num)
     {
         return ProcessView.MemberIsAlive(num) ? " det-member-face-text-alive det-vertical" : " det-member-face-text-dead";
@@ -74,14 +82,14 @@
         if (Face == num)
             return false;
 
-        switch (Model.State)
+/*        switch (Model.State)
         {
             case State.Questioning:
                 return ProcessView.MemberIsActive(num);
             case State.Arrest:
                 return ProcessView.MemberIsActive(num);
-        }
-        return false;
+        }*/
+        return true;
     }
 
     private int? Face
@@ -92,11 +100,6 @@
     private bool SideIsTop
     {
         get { return ViewBag.SideIsTop; }
-    }
-
-    private int? Card
-    {
-        get { return ViewBag.Card; }
     }
 
     private string MemberAskedClass(int num)
@@ -145,7 +148,7 @@
 
 @helper FaceFrame(int num)
 {
-    <div class="det-member-cell-circle-face @CurrentMemberFaceClass(num) @MemberAskedClass(num)">
+    <div class="det-member-cell-circle-face @MemberFaceClass(num) @MemberAskedClass(num)">
         @(FaceIsLinked(num) ? FaceLink(num) : FaceText(num))
     </div>
 }
