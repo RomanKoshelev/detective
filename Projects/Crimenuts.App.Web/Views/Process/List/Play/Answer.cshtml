@@ -1,0 +1,17 @@
+﻿@using Crimenuts.App.Web.Models
+@model HistoryModel
+
+<ul>
+    @foreach (var day in Model.Days)
+    {
+        <li>
+            Day @day:
+            <ul>
+                @foreach (var answer in Model.Answers(day))
+                {
+                    <li>@answer.Agent: @answer.Subject is @answer.Value</li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E0525FC8-42C4-4D63-9605-2A7BF6442424}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{663133DB-31BD-41AA-8E21-FA8571363FE5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{740D2A80-B34C-4750-8813-9EC7E6D93D40}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{1345467D-02F2-4D6B-A0EA-023E102D184E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.Core.Game", "Projects\Crimenuts.Core.Game\Crimenuts.Core.Game.csproj", "{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.App.Console", "Projects\Crimenuts.App.Console\Crimenuts.App.Console.csproj", "{B359A4BA-1B31-44B2-9849-D914ED482C00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.App.Web", "Projects\Crimenuts.App.Web\Crimenuts.App.Web.csproj", "{E299C35A-B010-43A0-9A25-7308680F1610}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.Utils", "Projects\Crimenuts.Utils\Crimenuts.Utils.csproj", "{3B976C8E-645D-436C-80F6-E6E843CD42AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B359A4BA-1B31-44B2-9849-D914ED482C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B359A4BA-1B31-44B2-9849-D914ED482C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B359A4BA-1B31-44B2-9849-D914ED482C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B359A4BA-1B31-44B2-9849-D914ED482C00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E299C35A-B010-43A0-9A25-7308680F1610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E299C35A-B010-43A0-9A25-7308680F1610}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E299C35A-B010-43A0-9A25-7308680F1610}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E299C35A-B010-43A0-9A25-7308680F1610}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B976C8E-645D-436C-80F6-E6E843CD42AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B976C8E-645D-436C-80F6-E6E843CD42AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B976C8E-645D-436C-80F6-E6E843CD42AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B976C8E-645D-436C-80F6-E6E843CD42AC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91} = {740D2A80-B34C-4750-8813-9EC7E6D93D40}
+		{B359A4BA-1B31-44B2-9849-D914ED482C00} = {663133DB-31BD-41AA-8E21-FA8571363FE5}
+		{E299C35A-B010-43A0-9A25-7308680F1610} = {663133DB-31BD-41AA-8E21-FA8571363FE5}
+		{3B976C8E-645D-436C-80F6-E6E843CD42AC} = {1345467D-02F2-4D6B-A0EA-023E102D184E}
+	EndGlobalSection
+EndGlobal

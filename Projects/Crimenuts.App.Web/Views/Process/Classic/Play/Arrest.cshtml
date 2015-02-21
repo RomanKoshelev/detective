@@ -1,0 +1,136 @@
+﻿@{
+    // >> Process > View > Classic > Arrest *
+    @Arrest()
+}
+@using Crimenuts.App.Web.Models
+@using Crimenuts.Core.Game
+@model ProcessModel
+
+@functions
+{
+
+    private int? Face
+    {
+        get { return ViewBag.Face; }
+    }
+
+    private bool ArrestIsEnabled()
+    {
+        return Model.State == State.Arrest && Model.UserActionIsEnabled(Process.UserAction.ActionType.Arrest);
+    }
+
+    private bool EarlyArrestIsEnabled()
+    {
+        return Model.UserActionIsEnabled(Process.UserAction.ActionType.EarlyArrest);
+    }
+
+    private bool ContinueIsEnabled()
+    {
+        return Model.UserActionIsEnabled(Process.UserAction.ActionType.Continue);
+    }
+
+}
+
+@helper Arrest()
+{
+    @Hint()
+    @Result()
+    @EarlyArrestButton()
+    @ArrestButton()
+    @ContinueButton()
+}
+
+
+@helper EarlyArrestButton()
+{
+    if (EarlyArrestIsEnabled() && ProcessView.CanArrest(Face))
+    {
+        @Record(BoardView.Button(
+            "Arrest " + ProcessView.MemberName(Face),
+            BoardView.ButtonEarlyArrestClass,
+            ProcessView.EarlyArrestActionUrl((int) Face)))
+    }
+}
+
+@helper ArrestButton()
+{
+    if (ArrestIsEnabled() && ProcessView.CanArrest(Face))
+    {
+        @BoardView.Record(
+            BoardView.Button(
+                "Arrest " + ProcessView.MemberName(Face),
+                BoardView.ButtonArrestClass,
+                ProcessView.ArrestActionUrl((int) Face)),
+            BoardView.ArrestClass)
+    }
+}
+
+@helper ContinueButton()
+{
+    if (Model.State == State.CheckArrest && ContinueIsEnabled())
+    {
+        @BoardView.Record(
+            BoardView.Button(
+                "Continue",
+                BoardView.ButtonContinueClass,
+                ProcessView.ContinueActionUrl()),
+            BoardView.ArrestClass)
+    }
+}
+
+
+@helper Hint()
+{
+    if (ArrestIsEnabled() && !ProcessView.CanArrest(Face))
+    {
+        @Record(BoardView.HintMemberVariants(
+            Shared.Text("Select suspicious member:"),
+            ProcessView.ArrestVariants()
+            ))
+    }
+}
+
+@helper Result()
+{
+    if (Model.State == State.CheckArrest)
+    {
+        @BoardView.Record(
+            ArrestTitle(),
+            BoardView.RecordInfoSection(ResultSection()),
+            BoardView.ArrestClass)
+    }
+    if (Model.State == State.Arrest && ProcessView.CanArrest(Face))
+    {
+        @BoardView.Record(
+            ArrestTitle(),
+            SuspectSection(),
+            BoardView.ArrestClass)
+    }
+}
+
+@helper ResultSection()
+{
+    @:Arrested @BoardView.RespondentLink(Model.TodayPrisoner) was @BoardView.Highlight(Model.TodayPrisoner.Role.ToString())
+}
+
+@helper SuspectSection()
+{
+    @:You suspect @BoardView.RespondentLink(ProcessView.Member(Face))
+}
+
+
+
+@helper ArrestTitle()
+{
+    @Shared.Text(Model.State == State.Arrest || Model.State == State.CheckArrest
+        ? "Arrest:"
+        : "")
+}
+
+@helper Record(HelperResult rec)
+{
+    @BoardView.Record(
+        ArrestTitle(),
+        rec,
+        BoardView.ArrestClass)
+}

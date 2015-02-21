@@ -1,0 +1,22 @@
+﻿@using Crimenuts.Core.Game
+@model IList<Process.UserAction>
+@{
+        // >> Process > View > List > UserAction
+}
+<ul>
+    @foreach (var a in Model)
+    {
+        <li>
+            @if (a.Args.Count > 0)
+            {
+                @Html.ActionLink(a.ToString(), "Play", new {id = ViewBag.id, actionType = (int) a.Type, actionParams = a.Args})
+                ;
+            }
+            else
+            {
+                @Html.ActionLink(a.ToString(), "Play", new { id = ViewBag.id, actionType = (int)a.Type })
+                ;
+            }
+        </li>
+    }
+</ul>

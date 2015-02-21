@@ -1,0 +1,99 @@
+﻿@using Crimenuts.Core.Game
+@using Crimenuts.Utils
+@using Crimenuts.App.Web.Models
+@using Action = Crimenuts.Core.Game.Action
+@model ProcessModel
+@{
+    // >> Process > View > List > Play
+    ViewBag.Title = "Play Detective Process [simple view]";
+    Layout = "~/Views/Shared/Layouts/Default.cshtml";
+    ViewBag.id = Model.Id;
+}
+
+<h2>@Model.ShortInfo</h2>
+
+<ul>
+    <li>
+        Process Info:
+        <ul>
+            <li>
+                @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new {id = Model.CaseId}, new {target = "_self"})
+                (@Html.ActionLink("Relations", "Relations", "Case", new { id = Model.CaseId }, new { target = "_self" }))
+            </li>
+            <li>
+                State: @Model.State
+            </li>
+            @if (Model.State != State.Finished)
+            {
+                <li>
+                    Last night evidences num: @("Unknown".IfNull(Model.TodayEvidencesNum))
+                </li>
+                <li>
+                    Murderers left: @("Unknown".IfNull(Model.MurderersLeft))
+                </li>
+            }
+        </ul>
+    </li>
+
+    <li>
+        Members:
+        <ul>
+            <li>
+                Active:
+                @{ Html.RenderPartial("~/Views/Process/List/Common/Member.cshtml", Model.ActiveMembers, ViewData); }
+            </li>
+            <li>
+                Prisoners:
+                @{ Html.RenderPartial("~/Views/Process/List/Common/Member.cshtml", Model.Prisoners, ViewData); }
+            </li>
+            <li>
+                Victims:
+                @{ Html.RenderPartial("~/Views/Process/List/Common/Member.cshtml", Model.Victims, ViewData); }
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        Emotions:
+        <ul>
+            <li>
+                On Murder:
+                @{
+                    ViewData["EmotionType"] = Action.MurderEmotion;
+                    Html.RenderPartial("~/Views/Process/List/Play/Emotion.cshtml", Model.History, ViewData);
+                }
+            </li>
+
+            <li>
+                On Arrest:
+                @{
+                    ViewData["EmotionType"] = Action.ArrestEmotion;
+                    Html.RenderPartial("~/Views/Process/List/Play/Emotion.cshtml", Model.History, ViewData);
+                }
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        Answers:
+        @{ Html.RenderPartial("~/Views/Process/List/Play/Answer.cshtml", Model.History, ViewData); }
+    </li>
+
+    @if (Model.State != State.Finished)
+    {
+        <li>
+            Actions:
+            @{ Html.RenderPartial("~/Views/Process/List/Play/UserAction.cshtml", Model.UserActions, ViewData); }
+        </li>
+    }
+    else
+    {
+        <li>
+            <b>Winner: @Model.Winner</b>
+        </li>
+        <li>
+            History:
+            @{ Html.RenderPartial("~/Views/Process/List/Play/History.cshtml", Model.History, ViewData); }
+        </li>
+    }
+</ul>

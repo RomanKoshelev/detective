@@ -1,2 +1,2 @@
-# detective
+# Crimenuts
 Game

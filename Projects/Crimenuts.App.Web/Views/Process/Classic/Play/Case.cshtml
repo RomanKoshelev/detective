@@ -1,0 +1,22 @@
+﻿@{
+    // >> Process > View > Classic > History *
+    @Case()
+}
+@using Crimenuts.App.Web.Models
+@using Crimenuts.Core.Game
+@model ProcessModel
+
+@functions {
+
+
+}
+
+@helper Case()
+{
+    @BoardView.Record(Shared.Format("Case {0}:", Model.Id), Summary(), BoardView.HistoryClass)
+}
+
+@helper Summary()
+{
+    @Shared.Format("{0} members, {1} murderers", Model.Case.Members.Count, Model.Case.MurderersOpenNum)
+}

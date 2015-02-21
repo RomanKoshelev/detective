@@ -1,0 +1,39 @@
+﻿@{
+    // >> Process > View > Classic > Finish ***
+    @Finish()
+}
+@using Crimenuts.App.Web.Models
+@using Crimenuts.Core.Game
+@model ProcessModel
+
+@functions
+{
+}
+
+@helper Finish()
+{
+    switch (Model.State)
+    {
+        case State.Finished:
+            @Result()
+            break;
+    }
+}
+
+@helper Result()
+{
+    @BoardView.Record(ResultInfo(), BoardView.ResultClass)
+}
+
+@helper ResultInfo()
+{
+    if (Model.Winner == Winner.Detective)
+    {
+        @:You win!
+    }
+    if (Model.Winner == Winner.Murderers)
+    {
+        @:Sorry..
+    }
+}
+

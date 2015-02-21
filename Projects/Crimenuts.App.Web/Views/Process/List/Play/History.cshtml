@@ -1,0 +1,24 @@
+﻿@using Crimenuts.App.Web.Models
+@using Crimenuts.Core.Game
+@using Crimenuts.Utils
+@model HistoryModel
+
+<ul>
+    @foreach (var day in Model.Days)
+    {
+        <li>
+            Day @day:
+            <ul>
+                <li>
+                    Active: @Model.Participations(day).FoldToStringBy(r => r.Agent.MemberHistoryName)
+                </li>
+                @foreach (var rec in Model.RealActions(day))
+                {
+                    <li>
+                        @string.Format(rec.Action.VerbalTemplate(), rec.Agent.MemberHistoryName, rec.Subject.MemberHistoryName)
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

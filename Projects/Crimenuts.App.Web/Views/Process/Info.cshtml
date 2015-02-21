@@ -1,0 +1,55 @@
+﻿@using Crimenuts.Core.Game
+@using Crimenuts.Utils
+@using Crimenuts.App.Web.Models
+@model ProcessModel
+@{
+    ViewBag.Title = "Detective Process Info";
+    Layout = "~/Views/Shared/Layouts/Default.cshtml";
+}
+
+<h2>@Model.ShortInfo</h2>
+
+<ul>
+    <li>
+        Process Info:
+        <ul>
+            <li>
+                @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })
+            </li>
+            <li>
+                State: @Model.State
+            </li>
+            @if (Model.State != State.Finished)
+            {
+                <li>
+                    Murderers left: @("Unknown".IfNull(Model.MurderersLeft))
+                </li>
+            }
+            else
+            {
+                <li>
+                    Winner: @Model.Winner
+                </li>
+            }
+        </ul>
+    </li>
+
+    <li>
+        Members:
+        <ul>
+            <li>
+                Active:
+                @{ Html.RenderPartial("~/Views/Process/List/Common/Member.cshtml", Model.ActiveMembers, ViewData); }
+            </li>
+            <li>
+                Prisoners:
+                @{ Html.RenderPartial("~/Views/Process/List/Common/Member.cshtml", Model.Prisoners, ViewData); }
+            </li>
+            <li>
+                Victims:
+                @{ Html.RenderPartial("~/Views/Process/List/Common/Member.cshtml", Model.Victims, ViewData); }
+            </li>
+        </ul>
+    </li>
+    <li>@Html.ActionLink("Take this process", "Play", new { id = Model.Id })</li>
+</ul>

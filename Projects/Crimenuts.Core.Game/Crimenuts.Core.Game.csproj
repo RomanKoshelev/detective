@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Crimenuts.Core.Game</RootNamespace>
+    <AssemblyName>Crimenuts.Core.Game</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MoreLinq, Version=1.1.17511.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\morelinq.1.1.0\lib\net35\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sources\Case\Case.pvt.Members.cs" />
+    <Compile Include="Sources\Enums\Role.cs" />
+    <Compile Include="Sources\Enums\Winner.cs" />
+    <Compile Include="Sources\IOptions\IOptions.cs" />
+    <Compile Include="Sources\Member\Member.pvt.Utils.cs" />
+    <Compile Include="Sources\Pack\Profile\Profile.pvt.Evidence.cs" />
+    <Compile Include="Sources\Pack\Rules\EvidenceRule.cs" />
+    <Compile Include="Sources\Pack\Profile\Profile.dat.Rules.cs" />
+    <Compile Include="Sources\Pack\Rules\MurderRule.cs" />
+    <Compile Include="Sources\Pack\Rules\EmotionRule.cs" />
+    <Compile Include="Sources\Pack\Rules\AnswerRule.cs" />
+    <Compile Include="Sources\Pack\Profile\Profile.pvt.Murder.cs" />
+    <Compile Include="Sources\Pack\Utils\NameGenerator\NameGenerator.cs" />
+    <Compile Include="Sources\Pack\Utils\NameGenerator\NameGenerator.pvt.FirstNames.cs" />
+    <Compile Include="Sources\Pack\Utils\NameGenerator\NameGenerator.pvt.LastNames.cs" />
+    <Compile Include="Sources\Enums\EvidenceSign.cs" />
+    <Compile Include="Sources\Enums\VictimSign.cs" />
+    <Compile Include="Sources\Enums\Relation.cs" />
+    <Compile Include="Sources\Pack\Profile\Profile.pvt.Emotions.cs" />
+    <Compile Include="Sources\Pack\Profile\Profile.pvt.Answers.cs" />
+    <Compile Include="Sources\Pack\Worlds\SimpsonsWorld.cs" />
+    <Compile Include="Sources\Pack\Worlds\RandomWorld.cs" />
+    <Compile Include="Sources\Pack\Worlds\IWorld.cs" />
+    <Compile Include="Sources\Pack\Worlds\BaseWorld.cs" />
+    <Compile Include="Sources\Enums\Emotion.cs" />
+    <Compile Include="Sources\Process\Process.pvt.OpenInfo.cs" />
+    <Compile Include="Sources\Process\Process.UserAction.cs" />
+    <Compile Include="Sources\Process\Process.pvt.Actions.User.cs" />
+    <Compile Include="Sources\Process\Process.pvt.History.cs" />
+    <Compile Include="Sources\Process\Process.pvt.Utils.cs" />
+    <Compile Include="Sources\Process\Process.pvt.Members.cs" />
+    <Compile Include="Sources\Process\Process.pvt.Actions.cs" />
+    <Compile Include="Sources\Process\Process.pvt.StateMachine.cs" />
+    <Compile Include="Sources\Enums\State.cs" />
+    <Compile Include="Sources\Pack\Worlds\WorldExtension.cs" />
+    <Compile Include="Sources\Enums\FactorPriority.cs" />
+    <Compile Include="Sources\Member\Member.pub.Mind.cs" />
+    <Compile Include="Sources\Member\Member.pub.Format.cs" />
+    <Compile Include="Sources\Member\Member.pub.Relation.cs" />
+    <Compile Include="Sources\Member\Member.pvt.Evidence.cs" />
+    <Compile Include="Sources\Member\Member.pvt.Murder.cs" />
+    <Compile Include="Sources\Member\Member.pvt.Emotion.cs" />
+    <Compile Include="Sources\Member\Member.pvt.Answer.cs" />
+    <Compile Include="Sources\Member\Member.pvt.Mind.cs" />
+    <Compile Include="Sources\Enums\Action.cs" />
+    <Compile Include="Sources\Enums\Answer.cs" />
+    <Compile Include="Sources\Person\Person.cs" />
+    <Compile Include="Sources\Pack\Profile\Profile.cs" />
+    <Compile Include="Sources\Enums\ProfileType.cs" />
+    <Compile Include="Sources\Process\Process.cs" />
+    <Compile Include="Sources\History\History.cs" />
+    <Compile Include="Sources\History\History.Record.cs" />
+    <Compile Include="Sources\Case\Case.cs" />
+    <Compile Include="Sources\Master\Master.cs" />
+    <Compile Include="Sources\Schema\Schema.pvt.Master.cs" />
+    <Compile Include="Sources\Schema\Schema.pvt.Members.cs" />
+    <Compile Include="Sources\Schema\Schema.pvt.Pack.cs" />
+    <Compile Include="Sources\Schema\Schema.pvt.Worlds.cs" />
+    <Compile Include="Sources\Schema\Schema.pvt.Cases.cs" />
+    <Compile Include="Sources\Schema\Schema.pvt.Processes.cs" />
+    <Compile Include="Sources\Schema\Schema.cs" />
+    <Compile Include="Sources\Member\Member.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sources\Pack\Pack\Pack.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Properties\packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crimenuts.Utils\Crimenuts.Utils.csproj">
+      <Project>{3b976c8e-645d-436c-80f6-e6e843cd42ac}</Project>
+      <Name>Crimenuts.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

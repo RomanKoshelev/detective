@@ -1,0 +1,62 @@
+﻿@{
+    // >> Process > View > Classic > History *
+    @History()
+}
+@using Crimenuts.App.Web.Models
+@using Crimenuts.Core.Game
+@model ProcessModel
+
+@functions {
+
+    private MemberModel Victim(int day)
+    {
+        return Model.Victims.First(v => v.LastActivityaDay == day);
+    }
+
+    private MemberModel Prisoner(int day)
+    {
+        return Model.Prisoners.FirstOrDefault(v => v.LastActivityaDay == day);
+    }
+
+    private int AnswersCount(int day)
+    {
+        return Model.History.Answers(day).Count;
+    }
+
+    private Func<int, bool> DayPredicate()
+    {
+        return
+            d => d != Model.Today || Model.State == State.Finished;
+    }
+
+}
+
+@helper History()
+{
+    foreach (var d in Model.History.Days.Where(DayPredicate()))
+    {
+        @BoardView.Record(Shared.Format("Day {0}:", d), Summary(d), BoardView.HistoryClass)
+    }
+}
+
+@helper Summary(int day)
+{
+    @Murder(day)
+    @Answers(day)
+    @Arrest(day)
+}
+
+@helper Murder(int day)
+{
+    @BoardView.RespondentLink(Victim(day)) @:died,
+}
+
+@helper Answers(int day)
+{
+    @AnswersCount(day) @:answers,
+}
+
+@helper Arrest(int day)
+{
+    @BoardView.RespondentLink(@Prisoner(day)) @:arrested
+}

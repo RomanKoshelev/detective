@@ -1,0 +1,210 @@
+﻿@using System.Diagnostics
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using Crimenuts.App.Web.Models
+@using Crimenuts.Core.Game
+@using Crimenuts.Utils
+@using WebGrease.Css.Extensions
+@using Process = Crimenuts.Core.Game.Process
+@functions {
+    // >> App_Code > ProcessView 
+    private new static HtmlHelper<object> Html
+    {
+        get { return ((WebViewPage) WebPageContext.Current.Page).Html; }
+    }
+
+    public static void RenderPartial(string part, object args = null)
+    {
+        var viewData = Html.NewViewData(args ?? new {});
+
+        ViewData.ForEach(vd => viewData.Add(vd));
+
+        Html.RenderPartial(
+            "~/Views/Process/Classic/Play/" + part + ".cshtml",
+            Model,
+            viewData
+            );
+    }
+
+    public static string AskActionUrl(int respondent, int subject)
+    {
+        return ActionUrl(new
+        {
+            id = Model.Id,
+            actionType = (int) Process.UserAction.ActionType.Ask,
+            respondent,
+            subject,
+            face = respondent,
+            card = subject
+        });
+    }
+
+    public static string ArrestActionUrl(int suspect)
+    {
+        return ActionUrl(new
+        {
+            id = Model.Id,
+            actionType = (int) Process.UserAction.ActionType.Arrest,
+            suspect,
+            face = suspect
+        });
+    }
+
+    public static string EarlyArrestActionUrl(int suspect)
+    {
+        return ActionUrl(new
+        {
+            id = Model.Id, 
+            actionType = (int)Process.UserAction.ActionType.EarlyArrest, 
+            suspect,
+            face = suspect
+        });
+    }
+
+    public static string AutoAskActionUrl()
+    {
+        return ActionUrl(new { 
+            id = Model.Id, 
+            actionType = (int)Process.UserAction.ActionType.AutoAsk 
+        });
+    }
+
+    public static string ContinueActionUrl()
+    {
+        return ActionUrl(new
+        {
+            id = Model.Id,
+            actionType = (int)Process.UserAction.ActionType.Continue
+        });
+    }
+
+    
+    public static string MemberFaceUrl(int num)
+    {
+        return ActionUrl(new {id = Model.Id, face = num});
+    }
+
+    public static string ActionUrl(dynamic args)
+    {
+        return Url.Action("ClassicPlay", "Process", args);
+    }
+
+    
+    private new static ProcessModel Model
+    {
+        get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }
+    }
+
+    private static UrlHelper Url
+    {
+        get { return ((WebViewPage) WebPageContext.Current.Page).Url; }
+    }
+
+    private static ViewDataDictionary ViewData
+    {
+        get { return ((WebViewPage) WebPageContext.Current.Page).ViewData; }
+    }
+
+    public static bool MemberExists(int? num)
+    {
+        if (num == null) return false;
+        return Model.Members.Any(m => m.Number == num);
+    }
+
+    public static MemberModel Member(int? num)
+    {
+        Assert.IsTrue(MemberExists(num), "Member {0} does't exist", num);
+        return Model.Members.First(m => m.Number == num);
+    }
+
+
+    public static string MemberName(int? num)
+    {
+        if (num == null) return "<?>";
+        var name = Model.Members.Where(m => m.Number == num).Select(m => m.Name).FirstOrDefault();
+        return name ?? " ";
+    }
+
+    public static bool MemberIsActive(int? num)
+    {
+        return MemberExists(num) && Model.ActiveMembers.Any(m => m.Number == num);
+    }
+
+    public static Emotion MemberEmotion(int num, int? subj)
+    {
+        switch (Model.State)
+        {
+            case State.Questioning:
+                if (num == subj)
+                {
+                    return Emotion.Indifferent;
+                }
+                if (MemberExists(subj))
+                {
+                    return Member(num).ExpressEmotionOnRelationTo(Member(subj));
+                }
+                break;
+        }
+        return Emotion.Indifferent;
+    }
+
+    public static bool MemberIsAlive(int num)
+    {
+        return !Member(num).IsVictim;
+    }
+
+    public static IList<int> QuestioningRespondents()
+    {
+        return Model.UserActions
+            .Where(a => a.Type == Process.UserAction.ActionType.Ask)
+            .Select(a => a.Args[0])
+            .Distinct()
+            .ToList();
+    }
+
+    public static IList<int> QuestioningSubjects(int respondent)
+    {
+        return Model.UserActions
+            .Where(a => a.Type == Process.UserAction.ActionType.Ask && a.Args[0] == respondent)
+            .Select(a => a.Args[1])
+            .Distinct()
+            .ToList();
+    }
+
+    public static bool CanAsk(int? respondent)
+    {
+        return QuestioningRespondents().Any(r => r == respondent);
+    }
+
+    public static string MemberTodayAnswer(int num)
+    {
+        var answer = Model.TodayAnswers().FirstOrDefault(a => a.Agent.Number == num);
+        if (answer == null) return "ERROR";
+        return string.Format("{0} is {1}", answer.Subject.Name, answer.Value.Verbal());
+    }
+
+    public static bool CanAskAbout(int? respondent, int? subject)
+    {
+        return respondent != null && QuestioningSubjects((int) respondent).Any(s => s == subject);
+    }
+
+    public static bool IsAsked(int num)
+    {
+        return MemberIsActive(num) && !CanAsk(num);
+    }
+
+    public static IList<int> ArrestVariants()
+    {
+        return Model.UserActions
+            .Where(a => a.Type == Process.UserAction.ActionType.Arrest || a.Type==Process.UserAction.ActionType.EarlyArrest)
+            .Select(a => a.Args[0])
+            .Distinct()
+            .ToList();
+    }
+
+    public static bool CanArrest(int? suspect)
+    {
+        return ArrestVariants().Any(s => s == suspect);
+    }
+
+}
