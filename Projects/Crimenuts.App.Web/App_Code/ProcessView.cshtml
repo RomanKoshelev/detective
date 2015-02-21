@@ -140,7 +140,7 @@
 
         if (Model.State == State.Finished)
         {
-            if (subjNum == null || subjNum == memNum)
+            if (subjNum == null || (subjNum == memNum && member.IsActive))
             {
                 if (member.IsOpenMurderer)
                     return Model.Winner == Winner.Murderers ? Emotion.Happy : Emotion.Sad;
