@@ -10,6 +10,9 @@ namespace Crimenuts.Utils.Tests
         [ClassInitialize()]
         public static void ClassInitialize(TestContext testContext)
         {
+            Localizator.RegisterLanguage(Lang.En);
+            Localizator.RegisterLanguage(Lang.Ru);
+
             Trace.TraceInformation("ClassInitialize");
         }
 
@@ -92,5 +95,19 @@ namespace Crimenuts.Utils.Tests
             Assert.AreEqual("100 убийц", Localizator.NumPlural(100, "murderer", Lang.Ru));
             Assert.AreEqual("101 убийца", Localizator.NumPlural(101, "murderer", Lang.Ru));
         }
+
+        [TestMethod()]
+        public void First_Capital_Letter()
+        {
+            Localizator.Set("day")
+                .Set(Lang.En)
+                .Set(Lang.Ru, "день");
+
+            Assert.AreEqual("день", Localizator.GetTranslation("day", Lang.Ru));
+            Assert.AreEqual("day", Localizator.GetTranslation("day", Lang.En));
+            Assert.AreEqual("День", Localizator.GetTranslation("Day", Lang.Ru));
+            Assert.AreEqual("Day", Localizator.GetTranslation("Day", Lang.En));
+        }
+
     }
 }

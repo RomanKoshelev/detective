@@ -35,7 +35,7 @@
 {
     foreach (var d in Model.History.Days.Where(DayPredicate()))
     {
-        @BoardView.Record(Shared.Format("Day {0}:", d), Summary(d), BoardView.HistoryClass)
+        @BoardView.Record(Shared.Format("{0} {1}:", Localization.Text("Day"),d), Summary(d), BoardView.HistoryClass)
     }
 }
 

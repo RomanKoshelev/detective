@@ -145,7 +145,7 @@
 @helper TodayRecord(HelperResult info, string infoClass = "")
 {
     @Record(
-        Shared.Format("Day {0}:", Model.Today),
+        Shared.Format("{0} {1}:", Localization.Text("Day"), Model.Today),
         info,
         infoClass)
 }

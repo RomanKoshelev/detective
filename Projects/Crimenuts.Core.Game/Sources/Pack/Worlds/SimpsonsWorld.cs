@@ -19,7 +19,6 @@ namespace Crimenuts.Core.Game
         protected override void LoadPersons()
         {
             Persons = new List<Person>();
-            // Now: Localization | Simpsons
 
             // Family
             NormalPerson("Bart").Call(Lang.Ru, "Барт");

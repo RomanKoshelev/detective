@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Text;
+using MoreLinq;
 
 namespace Crimenuts.Utils.Localization
 {
@@ -44,7 +46,30 @@ namespace Crimenuts.Utils.Localization
         // GetItem
         private static Item GetItem(string key)
         {
-            return Items.ContainsKey(key) ? Items[key] : new Item(Unknown + key);
+            if (Items.ContainsKey(key))
+            {
+                return Items[key];
+            }
+            if (LowCaseItemExists(key))
+            {
+                return CreateFirstUppercaseItem(key);
+            }
+            return new Item(Unknown + key);
+        }
+
+        // ===================================================================================== []
+        // Uppercase Item
+        private static bool LowCaseItemExists(string key)
+        {
+            return key[0] >= 'A' && key[0] <= 'Z' && Items.ContainsKey(key.ToLower());
+        }
+
+        private static Item CreateFirstUppercaseItem(string key)
+        {
+            var item = new Item(key.UppercaseFirst());
+            Items[key.UppercaseFirst()] = item;
+            Languages.ForEach(l => { item.SetTranslation(l, Items[key.ToLower()].GetTranslation(l).UppercaseFirst()); });
+            return item;
         }
 
         // ===================================================================================== []

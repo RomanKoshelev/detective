@@ -28,7 +28,13 @@
         Localizator.Set("murderer")
             .Set(Lang.En)
             .Set(Lang.Ru, "убийца")
-                //.Plural(Lang.Ru, "убийц")
+                .Plural(Lang.Ru, 2, "убийцы")
+                .Plural(Lang.Ru, 5, "убийц")
+            ;
+
+        Localizator.Set("day")
+            .Set(Lang.En)
+            .Set(Lang.Ru, "день")
             ;
         
         Localizator.Set("Title:Crime Nuts")
@@ -122,13 +128,18 @@
         return string.Format(format, args);
     }
 
-    public static string NumPlural(string format, int? num, string plural)
+    public static string NumPlural(string format, int? num, string noun)
     {
         return string.Format(
             format,
             num == null ? Text("plural:num:null") : num.ToString(),
-            Text(plural)
+            Plural(num, noun)
             );
+    }
+
+    private static string Plural(int? num, string noun)
+    {
+        return Localizator.Plural(num, noun, CurrentLanguage);
     }
 
 }
