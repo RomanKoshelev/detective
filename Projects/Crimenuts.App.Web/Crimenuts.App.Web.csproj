@@ -254,7 +254,7 @@
   <ItemGroup>
     <Content Include="App_Code\Localization.cshtml" />
     <None Include="Properties\PublishProfiles\pgs-detective.pubxml" />
-    <None Include="Views\Site\Index.cshtml" />
+    <Content Include="Views\Site\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,10 +1,11 @@
-﻿@using System.Web.Mvc
-@using Crimenuts.App.Web.Models
+﻿@using Crimenuts.App.Web.Models
 @using Crimenuts.Utils.Localization
 @functions{
     //  >> App_Code | Localization 
     // Now: Localization | App_Code
-
+    
+    // ===================================================================================== []
+    // Data
     private static void InitLocalizator()
     {
         Localizator.SetTranslation("Menu:Home", Lang.Ru, "Домой");
@@ -17,9 +18,19 @@
         Localizator.SetTranslation("Menu:Processes", Lang.En, "Processes");
     }
 
+    // ===================================================================================== []
+    // Tools
+    private static bool _needInit = true;
+    private static void InitLocalizatorIfNeed()
+    {
+        if (!_needInit) return;
+        InitLocalizator();
+        _needInit = false;
+    }
+
     public static string Text(string key)
     {
-        InitLocalizator();
+        InitLocalizatorIfNeed();
 
         return Localizator.GetTranslation(key, CurrentLanguage);
     }
