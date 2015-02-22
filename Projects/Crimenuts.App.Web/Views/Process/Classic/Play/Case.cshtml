@@ -3,7 +3,6 @@
     @Case()
 }
 @using Crimenuts.App.Web.Models
-@using Crimenuts.Core.Game
 @model ProcessModel
 
 @functions {
@@ -13,10 +12,13 @@
 
 @helper Case()
 {
-    @BoardView.Record(Shared.Format("Case {0}:", Model.Id), Summary(), BoardView.HistoryClass)
+    @BoardView.Record(
+        Shared.Format("{0}{1}:", Localization.Text("Game:Case #"), Model.CaseId), 
+        Summary(), 
+        BoardView.HistoryClass)
 }
 
 @helper Summary()
 {
-    @Shared.Format("{0} members, {1} murderers", Model.Case.Members.Count, Model.Case.MurderersOpenNum)
+    @Localization.NumPlural("{0} {1}", Model.Case.MurderersOpenNum, "murderer")
 }

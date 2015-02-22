@@ -11,6 +11,26 @@
         Localizator.RegisterLanguage(Lang.En);
         Localizator.RegisterLanguage(Lang.Ru);
 
+        Localizator.Set("or")
+            .Set(Lang.En)
+            .Set(Lang.Ru, "или")
+            ;
+        Localizator.Set("plural:num:null")
+            .Set(Lang.En, "unknown number")
+            .Set(Lang.Ru, "неизвестное количество")
+            ;
+
+        Localizator.Set("was killed")
+            .Set(Lang.En)
+            .Set(Lang.Ru, "был убит")
+            ;
+
+        Localizator.Set("murderer")
+            .Set(Lang.En)
+            .Set(Lang.Ru, "убийца")
+                //.Plural(Lang.Ru, "убийц")
+            ;
+        
         Localizator.Set("Title:Crime Nuts")
             .Set(Lang.En, "Crime Nuts")
             .Set(Lang.Ru, "Криминальные Загадки")
@@ -33,7 +53,22 @@
             .Set(Lang.En, "Case #")
             .Set(Lang.Ru, "Дело №")
             ;
-        
+        Localizator.Set("Game:Questioning:Ask")
+            .Set(Lang.En, "Question")
+            .Set(Lang.Ru, "Спросить")
+            ;
+        Localizator.Set("Game:Questioning:About")
+            .Set(Lang.En, "about")
+            .Set(Lang.Ru, "про")
+            ;
+        Localizator.Set("Game:Questioning:Auto")
+            .Set(Lang.En, "auto")
+            .Set(Lang.Ru, "автоматически")
+            ;
+        Localizator.Set("Game:Questioning:No answers yet")
+            .Set(Lang.En, "No answers yet")
+            .Set(Lang.Ru, "Пока нет ответов")
+            ;
        
     }
 
@@ -76,6 +111,24 @@
     public static Lang CurrentLanguage
     {
         get { return GetCookieLang(); }
+    }
+
+    public static string Format(string format, params object[] args)
+    {
+        for (var i = 0; i<args.Count(); i++)
+        {
+            args[i] = Text(args[i].ToString());
+        }
+        return string.Format(format, args);
+    }
+
+    public static string NumPlural(string format, int? num, string plural)
+    {
+        return string.Format(
+            format,
+            num == null ? Text("plural:num:null") : num.ToString(),
+            Text(plural)
+            );
     }
 
 }

@@ -34,7 +34,7 @@
 {
     if (Model.TodayAnswers().Count == 0)
     {
-        @:No answers yet
+        @Localization.Text("Game:Questioning:No answers yet")
     }
     else
     {
@@ -66,7 +66,7 @@
 @helper HintRespondents()
 {
     @BoardView.HintMemberVariants(
-        Shared.Text("Question:"),
+        Shared.Text(Localization.Text("Game:Questioning:Ask")+":"),
         ProcessView.QuestioningRespondents(),
         BoardView.MemberLink,
         additionalVariantsFunc: AutoQuestioning
@@ -85,13 +85,16 @@
 
 @helper HintSubjectTitle(int respondent)
 {
-    @:Question @BoardView.RespondentLink(ProcessView.Member(respondent)) about:
+    @Localization.Text("Game:Questioning:Ask")
+    @:
+    @BoardView.RespondentLink(ProcessView.Member(respondent)) 
+    @Localization.Text("Game:Questioning:About")
 }
 
 @helper AskActionLink(MemberModel respondent, MemberModel subject, string suffix = " ")
 {
     @Shared.Link(
-        subject.Name,
+        Localization.Text(subject.Name),
         BoardView.MemberLinkClass,
         ProcessView.AskActionUrl(respondent.Number, subject.Number)
         )@suffix
@@ -103,6 +106,6 @@
         && ProcessView.QuestioningRespondents().Count >= 2
         && (Face == null || ProcessView.QuestioningSubjects((int) Face).Count == 0))
     {
-           @(" or ") @Shared.Link("auto", BoardView.MemberLinkClass, ProcessView.AutoAskActionUrl())
+           @(Localization.Format(" {0} ", "or")) @Shared.Link(Localization.Text("Game:Questioning:Auto"), BoardView.MemberLinkClass, ProcessView.AutoAskActionUrl())
     }
 }

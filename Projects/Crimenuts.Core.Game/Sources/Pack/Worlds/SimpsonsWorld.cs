@@ -10,7 +10,6 @@ namespace Crimenuts.Core.Game
         {
         }
 
-
         protected override void LoadSettings()
         {
             LoadDefaultSettings();

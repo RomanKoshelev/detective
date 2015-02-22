@@ -7,7 +7,7 @@ namespace Crimenuts.Utils.Localization
     {
         private static readonly Dictionary<string, Item> Items = new Dictionary<string, Item>();
         public static readonly IList<Lang> Languages = new List<Lang>();
-        private const string Unknown="{unknown}";
+        private const string Unknown="unknown:";
 
         // ===================================================================================== []
         // SetTranslation
@@ -52,6 +52,24 @@ namespace Crimenuts.Utils.Localization
         public static string GetTranslation(string key, Lang lang)
         {
             return GetItem(key).GetTranslation(lang);
+        }
+
+        // ===================================================================================== []
+        // Plural
+        public static string Plural(int? num, string noun, Lang lang)
+        {
+            return GetItem(noun).GetPluralForm(lang, num);
+        }
+
+        public static string NumPlural(string format, int? num, string noun, Lang lang)
+        {
+            return string.Format(format, 
+                num==null? "?":num.ToString(), 
+                Plural(num, noun, lang));
+        }
+        public static string NumPlural(int? num, string noun, Lang lang)
+        {
+            return NumPlural("{0} {1}", num, noun, lang);
         }
     }
 }
