@@ -1,5 +1,4 @@
-﻿@using System.Net.Mime
-@using System.Web.Mvc
+﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
 @functions{
     // >> App_Code | LayoutView
@@ -12,7 +11,7 @@
 
 @helper Header(string title, params object[] args)
 {
-    // >> Localization | Menu <<
+    // Now: Localization | Menu
     <div class="det-green-pad det-border-bottom-red-4">
         <nav>
             <ul>
@@ -23,6 +22,7 @@
                     @MenuActionLink(Localization.Text("Menu:Home"), "Home")
                     | @MenuActionLink(Localization.Text("Menu:Cases"), "Case")
                     | @MenuActionLink(Localization.Text("Menu:Processes"), "Process")
+                    | @MenuActionLink(Localization.CurrentLanguage, "Language")
                 </li>
             </ul>
         </nav>
@@ -39,7 +39,7 @@
                 </li>
                 <li class="det-text-align-right">
                     @MenuLink("Loc", "http://localhost/crimenuts/")
-                    | @MenuLink("Pub", "http://www.crimenuts.com")
+                    | @MenuLink("Web", "http://www.crimenuts.com")
                     | @MenuLink("Azure", "https://manage.windowsazure.com/@romakoshgmail.onmicrosoft.com#Workspaces/WebsiteExtension/Website/pgs-detective/deployments")
                     | @MenuLink("Jira", "https://rk-dev.atlassian.net/secure/RapidBoard.jspa?rapidView=1&view=detail")
                     | @MenuLink("Github", "https://github.com/RomanKoshelev/detective")

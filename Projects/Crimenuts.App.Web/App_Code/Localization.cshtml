@@ -1,8 +1,7 @@
 ﻿@using Crimenuts.Utils.Localization
 @functions{
-    // >> App_Code | Text 
-    // >> Localization | App_Code | Text <<
-
+    //  >> App_Code | Localization 
+    // Now: Localization | App_Code
 
     private static void InitLocalizator()
     {
@@ -22,4 +21,11 @@
 
         return Localizator.GetTranslation(key, Lang.Ru);
     }
+
+    public static string CurrentLanguage
+    {
+        get { return CurLang.ToString(); }
+    }
+
+    private static readonly object CurLang=Lang.En;
 }
