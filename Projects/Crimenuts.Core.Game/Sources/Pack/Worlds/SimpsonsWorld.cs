@@ -10,7 +10,6 @@ namespace Crimenuts.Core.Game
         {
         }
 
-
         protected override void LoadSettings()
         {
             LoadDefaultSettings();
@@ -23,24 +22,24 @@ namespace Crimenuts.Core.Game
             // Now: Localization | Simpsons
 
             // Family
-            NormalPerson("Bart").Call(Lang.Ru, "Барт");
-            NormalPerson("Liza").Call(Lang.Ru, "Лиза");
-            NormalPerson("Homer").Call(Lang.Ru, "Гомер");
-            NormalPerson("Marge").Call(Lang.Ru, "Мардж");
-            NormalPerson("Maggie").Call(Lang.Ru, "Мэгги");
+            NormalPerson("Bart").Call(Lang.Ru, @"Барт");
+            NormalPerson("Liza").Call(Lang.Ru, @"Лиза");
+            NormalPerson("Homer").Call(Lang.Ru, @"Гомер");
+            NormalPerson("Marge").Call(Lang.Ru, @"Мардж");
+            NormalPerson("Maggie").Call(Lang.Ru, @"Мэгги");
 
             // Relatives
-            NormalPerson("Abraham").Call(Lang.Ru, "Абрахам");
-            NormalPerson("Selma").Call(Lang.Ru, "Сельма");
-            NormalPerson("Patty").Call(Lang.Ru, "Пэтти");
+            NormalPerson("Abraham").Call(Lang.Ru, @"Абрахам");
+            NormalPerson("Selma").Call(Lang.Ru, @"Сельма");
+            NormalPerson("Patty").Call(Lang.Ru, @"Пэтти");
 
             // School
-            NormalPerson("Milhouse").Call(Lang.Ru, "Милхаус");
-            NormalPerson("Skinner").Call(Lang.Ru, "Скиннер");
-            NormalPerson("Edna").Call(Lang.Ru, "Эдна");
-            NormalPerson("Martin").Call(Lang.Ru, "Мартин");
-            NormalPerson("Ralf").Call(Lang.Ru, "Ральф");
-            NormalPerson("Nelson").Call(Lang.Ru, "Нельсон");
+            NormalPerson("Milhouse").Call(Lang.Ru, @"Милхаус");
+            NormalPerson("Skinner").Call(Lang.Ru, @"Скиннер");
+            NormalPerson("Edna").Call(Lang.Ru, @"Эдна");
+            NormalPerson("Martin").Call(Lang.Ru, @"Мартин");
+            NormalPerson("Ralf").Call(Lang.Ru, @"Ральф");
+            NormalPerson("Nelson").Call(Lang.Ru, @"Нельсон");
 
             // Homer's friends
             NormalPerson("Barney").Call(Lang.Ru, "Барни");
