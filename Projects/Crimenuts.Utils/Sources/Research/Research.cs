@@ -2,7 +2,7 @@
 
 namespace Crimenuts.Utils
 {
-    public class Test
+    public class Research
     {
         public static string HelloWorld()
         {
