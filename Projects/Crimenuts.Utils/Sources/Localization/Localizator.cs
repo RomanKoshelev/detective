@@ -1,16 +1,26 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Crimenuts.Utils.Localization
 {
     public static class Localizator
     {
         private static readonly Dictionary<string, Item> Items = new Dictionary<string, Item>();
+        public static readonly IList<Lang> Languages = new List<Lang>();
 
         // ===================================================================================== []
         // SetTranslation
         public static void SetTranslation(string key, Lang lang, string text)
         {
+            RegisterLanguage(lang);
             SetItem(key).SetTranslation(lang, text);
+        }
+
+        // ===================================================================================== []
+        // RegisterLanguage
+        private static void RegisterLanguage(Lang lang)
+        {
+            if (Languages.NotExists(l => l == lang)) Languages.Add(lang);
         }
 
         // ===================================================================================== []

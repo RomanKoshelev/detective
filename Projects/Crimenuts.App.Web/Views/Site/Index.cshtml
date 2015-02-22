@@ -1,0 +1,16 @@
+﻿@model Crimenuts.App.Web.Models.SiteModel
+@{
+    // Now: Localization | Site | View
+    ViewBag.Title = "Site Options";
+    Layout = "~/Views/Shared/Layouts/Default.cshtml";
+}
+
+<h2>Languages</h2>
+<ul>
+    @foreach (var lang in Model.Languages)
+    {
+        <li>
+            @Html.ActionLink(lang.ToString(), "Language", new { id = (int)lang })
+        </li>
+    }
+</ul>   

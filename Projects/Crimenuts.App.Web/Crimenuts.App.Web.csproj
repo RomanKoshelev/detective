@@ -161,6 +161,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Controllers\CaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProcessController.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Models\HistoryModels\GenericHistoryRecordModel.cs" />
     <Compile Include="Models\HistoryModels\HistoryModel.cs" />
     <Compile Include="Models\HistoryModels\RecordModel.cs" />
+    <Compile Include="Models\SiteModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\MemberModel.cs" />
     <Compile Include="Models\ProcessModel.cs" />
@@ -252,6 +254,7 @@
   <ItemGroup>
     <Content Include="App_Code\Localization.cshtml" />
     <None Include="Properties\PublishProfiles\pgs-detective.pubxml" />
+    <None Include="Views\Site\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
