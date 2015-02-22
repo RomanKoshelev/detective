@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Crimenuts.Utils.Localization;
 
 namespace Crimenuts.App.Web.Models
@@ -10,7 +8,8 @@ namespace Crimenuts.App.Web.Models
     {
         // ===================================================================================== []
         // Public
-        public IList<Lang> Languages
+        public const string LangCookieName = "Site.Language";
+        public static IList<Lang> Languages
         {
             get { return Localizator.Languages; }
         }

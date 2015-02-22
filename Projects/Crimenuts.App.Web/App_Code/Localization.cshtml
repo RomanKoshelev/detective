@@ -1,4 +1,6 @@
-﻿@using Crimenuts.Utils.Localization
+﻿@using System.Web.Mvc
+@using Crimenuts.App.Web.Models
+@using Crimenuts.Utils.Localization
 @functions{
     //  >> App_Code | Localization 
     // Now: Localization | App_Code
@@ -19,13 +21,28 @@
     {
         InitLocalizator();
 
-        return Localizator.GetTranslation(key, Lang.Ru);
+        return Localizator.GetTranslation(key, CurrentLanguage);
     }
 
-    public static string CurrentLanguage
+    private static Lang GetCookieLang()
     {
-        get { return CurLang.ToString(); }
+        var langInCookie = Request.Cookies[SiteModel.LangCookieName];
+        if (langInCookie != null)
+        {
+            try
+            {
+                return (Lang)int.Parse(langInCookie.Value);
+            }
+            catch
+            {
+                return Lang.En;
+            }
+        }
+        return Lang.En;
     }
 
-    private static readonly object CurLang=Lang.En;
+    public static Lang CurrentLanguage
+    {
+        get { return GetCookieLang(); }
+    }
 }

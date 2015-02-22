@@ -1,16 +1,34 @@
-﻿@model Crimenuts.App.Web.Models.SiteModel
+﻿@using Crimenuts.App.Web.Models
+@using Crimenuts.Utils.Localization
+@model SiteModel
 @{
     // Now: Localization | Site | View
     ViewBag.Title = "Site Options";
     Layout = "~/Views/Shared/Layouts/Default.cshtml";
 }
 
+@functions
+{
+    static string LangMenuItem(Lang lang)
+    {
+        var cookieLang = Localization.CurrentLanguage;
+        if (cookieLang == lang)
+        {
+            return string.Format("{0} (current)", lang);
+        }
+        return lang.ToString();
+    }
+}
+
 <h2>Languages</h2>
 <ul>
-    @foreach (var lang in Model.Languages)
+    @foreach (var lang in SiteModel.Languages)
     {
         <li>
-            @Html.ActionLink(lang.ToString(), "Language", new { id = (int)lang })
+            @{
+                var langStr = LangMenuItem(lang);
+            }
+            @Html.ActionLink(langStr, "Language", new { id = (int)lang })
         </li>
     }
 </ul>   
