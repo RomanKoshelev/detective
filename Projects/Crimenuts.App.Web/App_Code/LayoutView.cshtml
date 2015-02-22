@@ -9,14 +9,14 @@
 
 }
 
-@helper Header(string title, params object[] args)
+@helper Header(string title)
 {
     // Now: Localization | Menu
     <div class="det-green-pad det-border-bottom-red-4">
         <nav>
             <ul>
                 <li>
-                    @string.Format(title, args)
+                    @title
                 </li>
                 <li class="det-text-align-right">
                     @MenuActionLink(Localization.Text("Menu:Home"), "Home")

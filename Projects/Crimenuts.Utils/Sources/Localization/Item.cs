@@ -4,7 +4,6 @@ namespace Crimenuts.Utils.Localization
 {
     public class Item
     {
-
         private readonly Dictionary<Lang, string> _texts = new Dictionary<Lang, string>();
         private readonly string _key;
 
@@ -29,10 +28,15 @@ namespace Crimenuts.Utils.Localization
         {
             _texts[lang] = text;
         }
-
+        public Item Set(Lang lang, string text)
+        {
+            SetTranslation(lang, text);
+            return this;
+        }
+        
         // ===================================================================================== []
         // NotFound
-        public string NotFound(Lang lang)
+        private string NotFound(Lang lang)
         {
             return string.Format("#{0}[lang:{1}]", _key, lang);
         }

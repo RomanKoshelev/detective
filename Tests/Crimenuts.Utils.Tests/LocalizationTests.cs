@@ -23,18 +23,13 @@ namespace Crimenuts.Utils.Tests
         [TestCategory("Localization Tests"), TestMethod()]
         public void Test_Set_Get_Translation()
         {
-            Localizator.SetTranslation("Test:Text1", Lang.En, "Text1");
-            Localizator.SetTranslation("Test:Text1", Lang.Ru, "Текст1");
-
+            Localizator.Set("Test:Text1").Set(Lang.En, "Text1").Set(Lang.Ru, "Текст1");
             Localizator.SetTranslation("Test:Text2", Lang.En, "Text2");
-
 
             Assert.AreEqual(Localizator.GetTranslation("Test:Text1", Lang.En), "Text1");
             Assert.AreEqual(Localizator.GetTranslation("Test:Text1", Lang.Ru), "Текст1");
-
             Assert.AreEqual(Localizator.GetTranslation("Test:Text2", Lang.En), "Text2");
             Assert.AreEqual(Localizator.GetTranslation("Test:Text2", Lang.Ru), "#Test:Text2[lang:Ru]");
-
             Assert.AreEqual(Localizator.GetTranslation("new text", Lang.En), "#{unknown}new text[lang:En]");
         }
     }

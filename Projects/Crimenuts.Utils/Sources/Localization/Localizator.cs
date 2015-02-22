@@ -10,23 +10,21 @@ namespace Crimenuts.Utils.Localization
         private const string Unknown="{unknown}";
 
         // ===================================================================================== []
-        // Constructor
-        static Localizator()
-        {
-            RegisterLanguage(Lang.En);
-            RegisterLanguage(Lang.Ru);
-        }
-        // ===================================================================================== []
         // SetTranslation
         public static void SetTranslation(string key, Lang lang, string text)
         {
-            RegisterLanguage(lang);
             SetItem(key).SetTranslation(lang, text);
+        }
+        // ===================================================================================== []
+        // Chain Shortcut
+        public static Item Set(string key)
+        {
+            return SetItem(key);
         }
 
         // ===================================================================================== []
         // RegisterLanguage
-        private static void RegisterLanguage(Lang lang)
+        public static void RegisterLanguage(Lang lang)
         {
             if (Languages.NotExists(l => l == lang)) Languages.Add(lang);
         }

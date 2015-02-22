@@ -3,24 +3,44 @@
 @functions{
     //  >> App_Code | Localization 
     // Now: Localization | App_Code
-    
+
     // ===================================================================================== []
     // Data
     private static void InitLocalizator()
     {
-        Localizator.SetTranslation("Menu:Home", Lang.Ru, "Домой");
-        Localizator.SetTranslation("Menu:Home", Lang.En, "Home");
+        Localizator.RegisterLanguage(Lang.En);
+        Localizator.RegisterLanguage(Lang.Ru);
 
-        Localizator.SetTranslation("Menu:Cases", Lang.Ru, "Дела");
-        Localizator.SetTranslation("Menu:Cases", Lang.En, "Cases");
+        Localizator.Set("Title:Crime Nuts")
+            .Set(Lang.En, "Crime Nuts")
+            .Set(Lang.Ru, "Криминальные Загадки")
+            ;
 
-        Localizator.SetTranslation("Menu:Processes", Lang.Ru, "Процессы");
-        Localizator.SetTranslation("Menu:Processes", Lang.En, "Processes");
+        Localizator.Set("Menu:Home")
+            .Set(Lang.En, "Home")
+            .Set(Lang.Ru, "Домой")
+            ;
+        Localizator.Set("Menu:Cases")
+            .Set(Lang.En, "Cases")
+            .Set(Lang.Ru, "Дела")
+            ;
+        Localizator.Set("Menu:Processes")
+            .Set(Lang.En, "Processes")
+            .Set(Lang.Ru, "Процессы")
+            ;
+
+        Localizator.Set("Game:Case #")
+            .Set(Lang.En, "Case #")
+            .Set(Lang.Ru, "Дело №")
+            ;
+        
+       
     }
 
     // ===================================================================================== []
     // Tools
     private static bool _needInit = true;
+
     private static void InitLocalizatorIfNeed()
     {
         if (!_needInit) return;
@@ -42,7 +62,7 @@
         {
             try
             {
-                return (Lang)int.Parse(langInCookie.Value);
+                return (Lang) int.Parse(langInCookie.Value);
             }
             catch
             {
@@ -56,4 +76,5 @@
     {
         get { return GetCookieLang(); }
     }
+
 }

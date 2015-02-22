@@ -1,7 +1,11 @@
 ﻿@{
     // ============================================================================================= []
     // >> Process | View | Classic | Play *
-    ViewBag.Title = string.Format("Crime Nuts Case #{0}", Model.CaseId);
+    ViewBag.Title = string.Format("{0}, {1}{2}",
+        Localization.Text("Title:Crime Nuts"),
+        Localization.Text("Game:Case #"),
+        Model.CaseId
+        );
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
     ViewBag.id = Model.Id;
 
