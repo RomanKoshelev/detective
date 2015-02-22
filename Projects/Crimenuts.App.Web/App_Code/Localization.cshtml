@@ -1,32 +1,25 @@
-﻿@using Crimenuts.Utils
+﻿@using Crimenuts.Utils.Localization
 @functions{
     // >> App_Code | Text 
     // >> Localization | App_Code | Text <<
 
-    public static string Text(string text)
-    {
-        var translation = new Dictionary<string, string>
-        {
-            {"Cases", "Дела"}, 
-            {"Processes", "Процессы"}
-        };
-        
-        //Localizator.SetString("Menu:Cases", Lang.Ru, "Дела");
-            
-        /*
-             Todo: Translator class in Utils
 
-         * 
-         * Translator.SetString("Menu:Cases", Lang.Ru, "Дела");
-         * Translator.Set("Menu:Cases").In(Lang.En, "Cases").In(Lang.Ru, "Дела");
-         * var text = Translator.Get("Menu:Cases", Lang.Ru);
-         * "Menu:Cases".In(Lang.Ru);
-         * 
-         * Translator.SetLang(Lang.Ru)
-         * "Menu:Cases".InLang();
-         * 
-         */
-        var locText = translation[text];
-        return locText;
+    private static void InitLocalizator()
+    {
+        Localizator.SetTranslation("Menu:Home", Lang.Ru, "Домой");
+        Localizator.SetTranslation("Menu:Home", Lang.En, "Home");
+
+        Localizator.SetTranslation("Menu:Cases", Lang.Ru, "Дела");
+        Localizator.SetTranslation("Menu:Cases", Lang.En, "Cases");
+
+        Localizator.SetTranslation("Menu:Processes", Lang.Ru, "Процессы");
+        Localizator.SetTranslation("Menu:Processes", Lang.En, "Processes");
+    }
+
+    public static string Text(string key)
+    {
+        InitLocalizator();
+
+        return Localizator.GetTranslation(key, Lang.Ru);
     }
 }

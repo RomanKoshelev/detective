@@ -87,14 +87,14 @@ namespace Crimenuts.Core.Game
         }
         private void DoSkipTo(State state)
         {
-            Assert.IsTrue(state >= State, "Destinashion state [{0}] can't be achieved from current [{1}]", state, State);
+            CrimenutsAssert.IsTrue(state >= State, "Destinashion state [{0}] can't be achieved from current [{1}]", state, State);
             do
             {
-                Assert.IsTrue(UserActions.Count == 1, "Can't select action among {0} actions for auto skipping to {1}", UserActions.Count, state);
+                CrimenutsAssert.IsTrue(UserActions.Count == 1, "Can't select action among {0} actions for auto skipping to {1}", UserActions.Count, state);
                 var action = UserActions[0];
                 DoExecuteUserAction(action.Type, action.Args, autoSkip: true);
             } while (State != state && State != State.Finished);
-            Assert.IsTrue(State==state, "Achived state [{0}] != destinasion [{1}]", State, state);
+            CrimenutsAssert.IsTrue(State==state, "Achived state [{0}] != destinasion [{1}]", State, state);
         }
 
         // ===================================================================================== []
@@ -103,7 +103,7 @@ namespace Crimenuts.Core.Game
 
         private void SelectWitnessAndEvidence()
         {
-            Assert.IsTrue(ActiveInnocents.Count>0, "No active innocent members!");
+            CrimenutsAssert.IsTrue(ActiveInnocents.Count>0, "No active innocent members!");
 
             var witness = ActiveInnocents.RandomElementUsing(_random);
             var subject = witness.SelectEvidence(ActiveMembers);

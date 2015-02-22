@@ -52,7 +52,7 @@ namespace Crimenuts.Core.Game
                     return EvidenceSign.IgnoresMe;
             }
 
-            throw new DetectiveException("Wrong EvidenceCode [{0}]", c);
+            throw new CrimenutsException("Wrong EvidenceCode [{0}]", c);
         }
     }
 }

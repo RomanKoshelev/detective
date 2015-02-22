@@ -29,7 +29,7 @@ namespace Crimenuts.Core.Game
 
         private void AssertState(State state)
         {
-            Assert.Equal(State, state, "Wrong state {0}", State);
+            CrimenutsAssert.Equal(State, state, "Wrong state {0}", State);
         }
     }
 }

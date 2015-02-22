@@ -120,7 +120,7 @@ namespace Crimenuts.Core.Game
 
         private void Finished(State state)
         {
-            throw new DetectiveException("State {0} can't be run", state);
+            throw new CrimenutsException("State {0} can't be run", state);
         }
 
         private void DoRunFirstNightUntilQuestioning()

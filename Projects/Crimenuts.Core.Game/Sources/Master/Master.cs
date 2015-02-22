@@ -22,7 +22,7 @@ namespace Crimenuts.Core.Game
             if (member.IsDetective)
                 return member.Role;
 
-            throw new DetectiveException("Can't get Role for {0}", member.Name);
+            throw new CrimenutsException("Can't get Role for {0}", member.Name);
         }
 
         public static int? GetActiveMurderersOpenNum(IOptions options, int num)

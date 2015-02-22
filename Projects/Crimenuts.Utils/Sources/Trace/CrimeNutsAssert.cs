@@ -1,12 +1,12 @@
 namespace Crimenuts.Utils
 {
-    public static class Assert
+    public static class CrimenutsAssert
     {
         public static void NotNull(object obj, string format, params object[] args)
         {
             if (obj == null)
             {
-                throw new DetectiveException(format, args);
+                throw new CrimenutsException(format, args);
             }
         }
 
@@ -14,7 +14,7 @@ namespace Crimenuts.Utils
         {
             if (!condition)
             {
-                throw new DetectiveException(format, args);
+                throw new CrimenutsException(format, args);
             }
         }
 
@@ -22,7 +22,7 @@ namespace Crimenuts.Utils
         {
             if (!o1.Equals(o2))
             {
-                throw new DetectiveException(format, args);
+                throw new CrimenutsException(format, args);
             }
         }
 

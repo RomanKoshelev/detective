@@ -113,7 +113,7 @@
 
     public static MemberModel Member(int? num)
     {
-        Assert.IsTrue(MemberExists(num), "Member {0} does't exist", num);
+        CrimenutsAssert.IsTrue(MemberExists(num), "Member {0} does't exist", num);
         return Model.Members.First(m => m.Number == num);
     }
 

@@ -68,7 +68,7 @@ namespace Crimenuts.Core.Game
         // Arrest
         private void AddArrestActions()
         {
-            Assert.IsTrue(State == State.Arrest, "Wrong State {0} for adding ArrestActionn", State);
+            CrimenutsAssert.IsTrue(State == State.Arrest, "Wrong State {0} for adding ArrestActionn", State);
 
             var suspects = ActiveMembers.Where(CanBeArrested).ToList();
 
@@ -86,7 +86,7 @@ namespace Crimenuts.Core.Game
 
         private void AddEarlyArrestActions()
         {
-            Assert.IsTrue(State == State.Questioning, "Wrong State {0} for adding EarlyArrestActionn", State);
+            CrimenutsAssert.IsTrue(State == State.Questioning, "Wrong State {0} for adding EarlyArrestActionn", State);
 
             var suspects = ActiveMembers.Where(CanBeArrested).ToList();
 
@@ -111,7 +111,7 @@ namespace Crimenuts.Core.Game
         // Ask
         private void AddQuestioningActions()
         {
-            Assert.Equal(State, State.Questioning);
+            CrimenutsAssert.Equal(State, State.Questioning);
 
             bool needSkipAction = true;
             GetQuestioningRespondents().ForEach(r =>
@@ -220,7 +220,7 @@ namespace Crimenuts.Core.Game
         // Dispatcher
         private void DoExecuteUserAction(UserAction.ActionType actionType, IList<int> args, bool autoSkip)
         {
-            Assert.NotNull(args, "Action params are null");
+            CrimenutsAssert.NotNull(args, "Action params are null");
             DispatchExecuteAction(actionType, args);
 
             if (autoSkip)
@@ -274,7 +274,7 @@ namespace Crimenuts.Core.Game
                     DoAutoAsk();
                     break;
                 default:
-                    throw new DetectiveException("Unexpected action type {0}", actionType);
+                    throw new CrimenutsException("Unexpected action type {0}", actionType);
             }
             UpdateUserActions();
         }
@@ -283,10 +283,10 @@ namespace Crimenuts.Core.Game
         // Verification
         private void AssertParametersAreValid(UserAction.ActionType actionType, ICollection<int> args)
         {
-            Assert.NotNull(args,
+            CrimenutsAssert.NotNull(args,
                 "Args for action {0} are null", actionType);
 
-            Assert.IsTrue(VerifyActionArgs(actionType, args),
+            CrimenutsAssert.IsTrue(VerifyActionArgs(actionType, args),
                 "Wrong args for action {0}: [{1}]", actionType,
                 args.ToList().FoldToStringBy(i => string.Format("{0}", i)));
         }

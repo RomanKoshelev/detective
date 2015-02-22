@@ -34,7 +34,7 @@ namespace Crimenuts.Core.Game
         {
             var process = Processes.Find(p => p.Id == processId);
 
-            Assert.NotNull(process, "Can't find process {0}", processId);
+            CrimenutsAssert.NotNull(process, "Can't find process {0}", processId);
 
             return process;
         }

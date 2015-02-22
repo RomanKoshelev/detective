@@ -9,7 +9,7 @@ namespace Crimenuts.Core.Game
 
         private Role DoGetOpenRole()
         {
-            Assert.NotNull(Process,"Process is null");
+            CrimenutsAssert.NotNull(Process,"Process is null");
             return Master.GetOpenRole(Case, this, Process.State);
         }
 

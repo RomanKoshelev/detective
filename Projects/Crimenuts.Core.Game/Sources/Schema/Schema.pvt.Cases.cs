@@ -49,7 +49,7 @@ namespace Crimenuts.Core.Game
             Contract.Requires((int)caseId>0);
             var gcase = Cases.Find(c => c.Id == caseId);
 
-            Assert.NotNull(gcase, "Can't find case {0}", caseId);
+            CrimenutsAssert.NotNull(gcase, "Can't find case {0}", caseId);
             
             return gcase;
         }

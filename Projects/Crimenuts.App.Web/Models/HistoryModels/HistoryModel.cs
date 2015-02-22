@@ -53,7 +53,7 @@ namespace Crimenuts.App.Web.Models
 
         private IList<EmotionModel> Emotions(Action action)
         {
-            Assert.IsTrue(action.IsEmotion(), "Wrong emotion [{0}]", action);
+            CrimenutsAssert.IsTrue(action.IsEmotion(), "Wrong emotion [{0}]", action);
             return
                 History.Records.OrderBy(r => r.Day)
                     .Where(r => r.Action == action)
