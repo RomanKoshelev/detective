@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using MoreLinq;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Localization;
 
 namespace Crimenuts.Core.Game
 {
@@ -58,12 +59,15 @@ namespace Crimenuts.Core.Game
             var profile = Profiles[(int)type];
             return new Person(profile) { Name = name };
         }
-        protected void NormalPerson(string name)
+        protected Person NormalPerson(string name)
         {
             Trace.Assert(Persons.NotExists(p=>p.Name==name), "Person already exists");
 
             var person = CreatePerson(ProfileType.Normal, name);
+            person.Call(Lang.En, person.Name);
+
             Persons.Add(person);
+            return person;
         }
 
         protected void OthersHate(string subNames)

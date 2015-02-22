@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Crimenuts.Utils.Localization;
 
 namespace Crimenuts.Core.Game
 {
@@ -19,55 +20,56 @@ namespace Crimenuts.Core.Game
         protected override void LoadPersons()
         {
             Persons = new List<Person>();
+            // Now: Localization | Simpsons
 
             // Family
-            NormalPerson("Bart");
-            NormalPerson("Liza");
-            NormalPerson("Homer");
-            NormalPerson("Marge");
-            NormalPerson("Maggie");
+            NormalPerson("Bart").Call(Lang.Ru, "Барт");
+            NormalPerson("Liza").Call(Lang.Ru, "Лиза");
+            NormalPerson("Homer").Call(Lang.Ru, "Гомер");
+            NormalPerson("Marge").Call(Lang.Ru, "Мардж");
+            NormalPerson("Maggie").Call(Lang.Ru, "Мэгги");
 
             // Relatives
-            NormalPerson("Abraham");
-            NormalPerson("Selma");
-            NormalPerson("Patty");
+            NormalPerson("Abraham").Call(Lang.Ru, "Абрахам");
+            NormalPerson("Selma").Call(Lang.Ru, "Сельма");
+            NormalPerson("Patty").Call(Lang.Ru, "Пэтти");
 
             // School
-            NormalPerson("Milhouse");
-            NormalPerson("Skinner");
-            NormalPerson("Edna");
-            NormalPerson("Martin");
-            NormalPerson("Ralf");
-            NormalPerson("Nelson");
+            NormalPerson("Milhouse").Call(Lang.Ru, "Милхаус");
+            NormalPerson("Skinner").Call(Lang.Ru, "Скиннер");
+            NormalPerson("Edna").Call(Lang.Ru, "Эдна");
+            NormalPerson("Martin").Call(Lang.Ru, "Мартин");
+            NormalPerson("Ralf").Call(Lang.Ru, "Ральф");
+            NormalPerson("Nelson").Call(Lang.Ru, "Нельсон");
 
             // Homer's friends
-            NormalPerson("Barney");
-            NormalPerson("Moe");
-            NormalPerson("Lenny");
-            NormalPerson("Carl");
+            NormalPerson("Barney").Call(Lang.Ru, "Барни");
+            NormalPerson("Moe").Call(Lang.Ru, "Мо");
+            NormalPerson("Lenny").Call(Lang.Ru, "Ленни");
+            NormalPerson("Carl").Call(Lang.Ru, "Карл");
 
             // Neighbours
-            NormalPerson("Flanders");
-            NormalPerson("Todd");
-            NormalPerson("Rod");
+            NormalPerson("Flanders").Call(Lang.Ru, "Фландерс");
+            NormalPerson("Todd").Call(Lang.Ru, "Тодд");
+            NormalPerson("Rod").Call(Lang.Ru, "Род");
 
             // Citizens
-            NormalPerson("Burns");
-            NormalPerson("Smithers");
-            NormalPerson("Wiggum");
-            NormalPerson("Snake");
-            NormalPerson("Apu");
-            NormalPerson("Fat Tony");
+            NormalPerson("Burns").Call(Lang.Ru, "Бёрнс");
+            NormalPerson("Smithers").Call(Lang.Ru, "Смитерс");
+            NormalPerson("Wiggum").Call(Lang.Ru, "Виггам");
+            NormalPerson("Snake").Call(Lang.Ru, "Змей");
+            NormalPerson("Apu").Call(Lang.Ru, "Апу");
+            NormalPerson("Fat Tony").Call(Lang.Ru, "Жирный Тони");
 
             // Celebrities
-            NormalPerson("Krusty");
-            NormalPerson("Bob");
-            NormalPerson("Itchy");
-            NormalPerson("Scratchy");
+            NormalPerson("Krusty").Call(Lang.Ru, "Красти");
+            NormalPerson("Bob").Call(Lang.Ru, "Боб");
+            NormalPerson("Itchy").Call(Lang.Ru, "Щекотка");
+            NormalPerson("Scratchy").Call(Lang.Ru, "Царапка");
 
             // Other
-            NormalPerson("Kang");
-            NormalPerson("Kodos");
+            NormalPerson("Kang").Call(Lang.Ru, "Канг");
+            NormalPerson("Kodos").Call(Lang.Ru, "Кодос");
         }
 
         protected override void LoadRelations()
@@ -103,7 +105,6 @@ namespace Crimenuts.Core.Game
                 .Hate("Homer");
 
             // School
-
             "Skinner"
                 .Love("Edna", "Patty", "Liza", "Martin")
                 .Hate("Bart", "Nelson", "Burns");

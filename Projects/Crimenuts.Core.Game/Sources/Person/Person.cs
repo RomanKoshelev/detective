@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using Crimenuts.Utils.Localization;
 using MoreLinq;
 
 namespace Crimenuts.Core.Game
@@ -58,6 +58,12 @@ namespace Crimenuts.Core.Game
         {
             Trace.Assert(Ignore(subject), Name+":"+subject.Name);
             _lovePersons.Add(subject);
+        }
+
+        public Person Call(Lang lang, string langName)
+        {
+            Localizator.Set(Name).Set(lang, langName);
+            return this;
         }
     }
 }

@@ -117,12 +117,11 @@
         return Model.Members.First(m => m.Number == num);
     }
 
-
     public static string MemberName(int? num)
     {
         if (num == null) return "<?>";
         var name = Model.Members.Where(m => m.Number == num).Select(m => m.Name).FirstOrDefault();
-        return name ?? " ";
+        return Localization.Text(name);
     }
 
     public static bool MemberIsActive(int? num)

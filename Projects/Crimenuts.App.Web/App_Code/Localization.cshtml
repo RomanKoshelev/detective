@@ -51,7 +51,8 @@
     public static string Text(string key)
     {
         InitLocalizatorIfNeed();
-
+        if (key == null)
+            return "{null}";
         return Localizator.GetTranslation(key, CurrentLanguage);
     }
 

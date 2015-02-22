@@ -91,7 +91,6 @@
         get { return "det-gamelog-result"; }
     }
 
-
     public static string SubjectHihglightClass(MemberModel subject)
     {
         return subject.Number == Face ? SubjectLinkClass : "";
@@ -160,13 +159,13 @@
 
 @helper MemberLink(MemberModel member, string suffix = " ")
 {
-    @Shared.Link(member.Name, MemberLinkClass, ProcessView.MemberFaceUrl(member.Number))@suffix
+    @Shared.Link(Localization.Text(member.Name), MemberLinkClass, ProcessView.MemberFaceUrl(member.Number))@suffix
 }
 
 
 @helper SubjectLink(MemberModel subject, string suffix = " ")
 {
-    @Shared.Link(subject.Name, MemberLinkClass + " " + SubjectHihglightClass(subject), ProcessView.MemberFaceUrl(subject.Number))@suffix
+    @Shared.Link(Localization.Text(subject.Name), MemberLinkClass + " " + SubjectHihglightClass(subject), ProcessView.MemberFaceUrl(subject.Number))@suffix
 }
 
 @helper RespondentLink(MemberModel respondent, string suffix = " ")
@@ -177,7 +176,7 @@
     }
     else
     {
-        @Shared.Link(respondent.Name, MemberLinkClass + " " + RespondentHihglightClass(respondent), ProcessView.MemberFaceUrl(respondent.Number))@suffix
+        @Shared.Link(Localization.Text(respondent.Name), MemberLinkClass + " " + RespondentHihglightClass(respondent), ProcessView.MemberFaceUrl(respondent.Number))@suffix
     }
 }
 
