@@ -51,7 +51,7 @@
         @BoardView.MemberLink(answer.Agent,":")
         @BoardView.SubjectLink(answer.Subject)
         @Localization.Text("Game:Questioning:Answer:is")
-        @Localization.Text(answer.Value.PrefixedString())
+        @Localization.GenderForm(answer.Value.PrefixedString(),answer.Subject.Sex)
     </div>
 }
 

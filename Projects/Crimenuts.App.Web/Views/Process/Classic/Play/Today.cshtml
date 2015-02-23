@@ -33,8 +33,7 @@
 
 @helper Murder()
 {
-    // Now: Localization | Today
-    @:@HighlightVictim(@VictimLink())@HighlightVictim(Localization.Text("was killed"))
+    @:@HighlightVictim(@VictimLink())@HighlightVictim(Localization.GenderForm("was killed",Model.TodayVictim.Sex))
 }
 
 @helper HighlightVictim(HelperResult text)

@@ -1,8 +1,8 @@
-﻿@using System.Web.Mvc
-@using Crimenuts.App.Web.Models
+﻿@using Crimenuts.App.Web.Models
 @using Crimenuts.Core.Game
 @using Crimenuts.Utils
 @using Crimenuts.Utils.Localization
+@using Gender = Crimenuts.Utils.Localization.Gender
 @functions{
     //  >> App_Code | Localization 
     // Now: Localization | App_Code
@@ -19,9 +19,9 @@
             .Set(Lang.Ru, "был")
             ;
 
-        Localizator.Set("innocent")
+        Localizator.Set("innocent").Adjective()
             .Set(Lang.En)
-            .Set(Lang.Ru, "невиновный")
+            .Set(Lang.Ru, "невиновн")
             ;
 
         Localizator.Set(":answer")
@@ -40,9 +40,10 @@
             .Set(Lang.Ru, "неизвестное количество")
             ;
 
-        Localizator.Set("was killed")
+        Localizator.Set("was killed").Verb()
             .Set(Lang.En)
             .Set(Lang.Ru, "был убит")
+            .Gender(Lang.Ru, Gender.Feminine, "была убита")
             ;
 
         Localizator.Set("murderer")
@@ -100,25 +101,25 @@
             .Set(Lang.Ru, "—")
             ;
 
-        Localizator.Set(Answer.Innocent.PrefixedString())
+        Localizator.Set(Answer.Innocent.PrefixedString()).Adjective()
             .Set(Lang.En, "innocent")
-            .Set(Lang.Ru, "невиновный")
+            .Set(Lang.Ru, "невиновн")
             ;
         Localizator.Set(Answer.Murderer.PrefixedString())
             .Set(Lang.En, "murderer")
             .Set(Lang.Ru, "убийца")
             ;
-        Localizator.Set(Answer.Unknown.PrefixedString())
+        Localizator.Set(Answer.Unknown.PrefixedString()).Adjective()
             .Set(Lang.En, "unknown")
-            .Set(Lang.Ru, "неизвестный")
+            .Set(Lang.Ru, "неизвестн")
             ;
-        Localizator.Set(Answer.NotSuspicious.PrefixedString())
+        Localizator.Set(Answer.NotSuspicious.PrefixedString()).Adjective()
             .Set(Lang.En, "not suspicious")
-            .Set(Lang.Ru, "не подозрительный")
+            .Set(Lang.Ru, "не подозрительн")
             ;
-        Localizator.Set(Answer.Suspicious.PrefixedString())
+        Localizator.Set(Answer.Suspicious.PrefixedString()).Adjective()
             .Set(Lang.En, "suspicious")
-            .Set(Lang.Ru, "подозрительный")
+            .Set(Lang.Ru, "подозрительн")
             ;
 
         Localizator.Set("Arrest:Hint:Select:Suspect")
@@ -145,19 +146,15 @@
             .Set(Lang.Ru, "Вы подозреваете: ")
             ;
 
-        Localizator.Set("Arrest:Result:Arrested")
-            .Set(Lang.En, "Arrested ")
-            .Set(Lang.Ru, "Арестованный ")
-            ;
-
-        Localizator.Set("History:Arrested")
+        Localizator.Set("History:Arrested").Verb()
             .Set(Lang.En, "arrested")
             .Set(Lang.Ru, "арестован")
             ;
 
-        Localizator.Set("History:Murder:died")
+        Localizator.Set("History:Murder:died").Verb()
             .Set(Lang.En, "died")
             .Set(Lang.Ru, "погиб")
+            .Gender(Lang.Ru, Gender.Feminine, "погибла")
             ;       
         
         Localizator.Set("Game:Result:Murderers")
@@ -226,7 +223,7 @@
         return string.Format(
             format,
             num == null ? Text("plural:num:null") : num.ToString(),
-            Plural(num, noun)
+            PluralForm(num, noun)
             );
     }
     
@@ -235,15 +232,15 @@
         return NumPlural("{0} {1}", num, noun);
     }
 
-    public static string Plural(int? num, string noun)
+    public static string PluralForm(int? num, string noun)
     {
         return Localizator.Plural(num, noun, CurrentLanguage);
     }
 
-    public static string Gender(string verb, Sex sex)
+    public static string GenderForm(string word, Sex sex)
     {
-        Gender gender = sex.ToGender();
-        return Localizator.Gender(verb, gender, CurrentLanguage);      
+        var gender = sex.ToGender();
+        return Localizator.Gender(word, gender, CurrentLanguage);      
     }
 
 }
