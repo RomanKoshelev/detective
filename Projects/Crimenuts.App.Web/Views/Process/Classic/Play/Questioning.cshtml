@@ -48,11 +48,10 @@
 @helper Answer(AnswerModel answer, string currentMemberClass)
 {
     <div class="@currentMemberClass">
-        @BoardView.MemberLink(answer.Agent)
-        &mdash;
+        @BoardView.MemberLink(answer.Agent,":")
         @BoardView.SubjectLink(answer.Subject)
-        is
-        @answer.Value.Verbal()
+        @Localization.Text("Game:Questioning:Answer:is")
+        @Localization.Text(answer.Value.PrefixedString())
     </div>
 }
 

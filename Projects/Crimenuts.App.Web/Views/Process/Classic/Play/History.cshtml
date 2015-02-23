@@ -41,22 +41,29 @@
 
 @helper Summary(int day)
 {
-    @Murder(day)
-    @Answers(day)
-    @Arrest(day)
+    if (day == Model.Today && Model.Winner == Winner.Murderers)
+    {
+        @Murder(day)
+    }
+    else
+    {
+        @Murder(day)@:,
+        @Answers(day)@:,
+        @Arrest(day)
+    }
 }
 
 @helper Murder(int day)
 {
-    @BoardView.RespondentLink(Victim(day)) @:died,
+    @BoardView.RespondentLink(Victim(day)) @Localization.Text("History:Murder:died")
 }
 
 @helper Answers(int day)
 {
-    @AnswersCount(day) @:answers,
+    @Localization.NumPlural(AnswersCount(day), ":answer")
 }
 
 @helper Arrest(int day)
 {
-    @BoardView.RespondentLink(@Prisoner(day)) @:arrested
+    @BoardView.RespondentLink(@Prisoner(day)) @Localization.Text("History:Arrested")
 }

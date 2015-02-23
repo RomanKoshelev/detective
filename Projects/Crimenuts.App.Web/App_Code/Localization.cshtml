@@ -1,4 +1,6 @@
-﻿@using Crimenuts.App.Web.Models
+﻿@using System.Web.Mvc
+@using Crimenuts.App.Web.Models
+@using Crimenuts.Core.Game
 @using Crimenuts.Utils.Localization
 @functions{
     //  >> App_Code | Localization 
@@ -10,6 +12,23 @@
     {
         Localizator.RegisterLanguage(Lang.En);
         Localizator.RegisterLanguage(Lang.Ru);
+           
+        Localizator.Set("was")
+            .Set(Lang.En)
+            .Set(Lang.Ru, "был")
+            ;
+
+        Localizator.Set("innocent")
+            .Set(Lang.En)
+            .Set(Lang.Ru, "невиновный")
+            ;
+
+        Localizator.Set(":answer")
+            .Set(Lang.En, "answer")
+            .Set(Lang.Ru, "ответ")
+                .Plural(Lang.Ru, 2, "ответа")
+                .Plural(Lang.Ru, 5, "ответов")
+            ;       
 
         Localizator.Set("or")
             .Set(Lang.En)
@@ -57,7 +76,7 @@
 
         Localizator.Set("Game:Case #")
             .Set(Lang.En, "Case #")
-            .Set(Lang.Ru, "Дело №")
+            .Set(Lang.Ru, "Дело № ")
             ;
         Localizator.Set("Game:Questioning:Ask")
             .Set(Lang.En, "Question")
@@ -75,7 +94,72 @@
             .Set(Lang.En, "No answers yet")
             .Set(Lang.Ru, "Пока нет ответов")
             ;
+        Localizator.Set("Game:Questioning:Answer:is")
+            .Set(Lang.En, "is")
+            .Set(Lang.Ru, "—")
+            ;
+
+        Localizator.Set(Answer.Innocent.PrefixedString())
+            .Set(Lang.En, "Innocent")
+            .Set(Lang.Ru, "Невиновный")
+            ;
+        Localizator.Set(Answer.Murderer.PrefixedString())
+            .Set(Lang.En, "Murderer")
+            .Set(Lang.Ru, "Убийца")
+            ;
+        Localizator.Set(Answer.Unknown.PrefixedString())
+            .Set(Lang.En, "unknown")
+            .Set(Lang.Ru, "неизвестный")
+            ;
+        Localizator.Set(Answer.NotSuspicious.PrefixedString())
+            .Set(Lang.En, "not suspicious")
+            .Set(Lang.Ru, "не подозрительный")
+            ;
+        Localizator.Set(Answer.Suspicious.PrefixedString())
+            .Set(Lang.En, "suspicious")
+            .Set(Lang.Ru, "подозрительный")
+            ;
+
+        Localizator.Set("Arrest:Hint:Select:Suspect")
+            .Set(Lang.En, "Select suspicious member:")
+            .Set(Lang.Ru, "Веберете подозрительного участника:")
+            ;   
+        
+        Localizator.Set("Button:Arrest")
+            .Set(Lang.En, "Arrest ")
+            .Set(Lang.Ru, "Арестовать ")
+            ;   
+        
+        Localizator.Set("Button:Continue")
+            .Set(Lang.En, "Continue")
+            .Set(Lang.Ru, "Продолжить")
+            ;   
+        
+        Localizator.Set("Title:State:Arrest")
+            .Set(Lang.En, "Arrest:")
+            .Set(Lang.Ru, "Арест:")
+            ;
+        Localizator.Set("Arrest:You suspect")
+            .Set(Lang.En, "You suspect ")
+            .Set(Lang.Ru, "Вы подозреваете: ")
+            ;
+
+        Localizator.Set("Arrest:Result:Arrested")
+            .Set(Lang.En, "Arrested ")
+            .Set(Lang.Ru, "Арестованный ")
+            ;
+
+        Localizator.Set("History:Arrested")
+            .Set(Lang.En, "arrested")
+            .Set(Lang.Ru, "арестован")
+            ;
+
+        Localizator.Set("History:Murder:died")
+            .Set(Lang.En, "died")
+            .Set(Lang.Ru, "погиб")
+            ;       
        
+            
     }
 
     // ===================================================================================== []
@@ -136,8 +220,13 @@
             Plural(num, noun)
             );
     }
+    
+    public static string NumPlural(int? num, string noun)
+    {
+        return NumPlural("{0} {1}", num, noun);
+    }
 
-    private static string Plural(int? num, string noun)
+    public static string Plural(int? num, string noun)
     {
         return Localizator.Plural(num, noun, CurrentLanguage);
     }

@@ -46,7 +46,7 @@
     if (EarlyArrestIsEnabled() && ProcessView.CanArrest(Face))
     {
         @Record(BoardView.Button(
-            "Arrest " + ProcessView.MemberName(Face),
+            Localization.Text("Button:Arrest") + ProcessView.MemberName(Face),
             BoardView.ButtonEarlyArrestClass,
             ProcessView.EarlyArrestActionUrl((int) Face)))
     }
@@ -58,7 +58,7 @@
     {
         @BoardView.Record(
             BoardView.Button(
-                "Arrest " + ProcessView.MemberName(Face),
+                Localization.Text("Button:Arrest") + ProcessView.MemberName(Face),
                 BoardView.ButtonArrestClass,
                 ProcessView.ArrestActionUrl((int) Face)),
             BoardView.ArrestClass)
@@ -71,7 +71,7 @@
     {
         @BoardView.Record(
             BoardView.Button(
-                "Continue",
+                Localization.Text("Button:Continue"),
                 BoardView.ButtonContinueClass,
                 ProcessView.ContinueActionUrl()),
             BoardView.ArrestClass)
@@ -84,7 +84,7 @@
     if (ArrestIsEnabled() && !ProcessView.CanArrest(Face))
     {
         @Record(BoardView.HintMemberVariants(
-            Shared.Text("Select suspicious member:"),
+            Shared.Text(Localization.Text("Arrest:Hint:Select:Suspect")),
             ProcessView.ArrestVariants()
             ))
     }
@@ -110,12 +110,14 @@
 
 @helper ResultSection()
 {
-    @:Arrested @BoardView.RespondentLink(Model.TodayPrisoner) was @BoardView.Highlight(Model.TodayPrisoner.Role.ToString())
+    @BoardView.RespondentLink(Model.TodayPrisoner) 
+    @Localization.Text("was") 
+    @BoardView.Highlight(Localization.Text(Model.TodayPrisoner.Role.ToString()))
 }
 
 @helper SuspectSection()
 {
-    @:You suspect @BoardView.RespondentLink(ProcessView.Member(Face))
+    @Localization.Text("Arrest:You suspect") @BoardView.RespondentLink(ProcessView.Member(Face))
 }
 
 
@@ -123,7 +125,7 @@
 @helper ArrestTitle()
 {
     @Shared.Text(Model.State == State.Arrest || Model.State == State.CheckArrest
-        ? "Arrest:"
+        ? Localization.Text("Title:State:Arrest")
         : "")
 }
 

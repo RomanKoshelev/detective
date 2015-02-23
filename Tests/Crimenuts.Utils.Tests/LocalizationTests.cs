@@ -64,7 +64,6 @@ namespace Crimenuts.Utils.Tests
 
             Localizator.Set("murderer")
                 .Set(Lang.Ru, "убийца")
-                .Plural(Lang.Ru, 0, "убийц")
                 .Plural(Lang.Ru, 2, "убийцы")
                 .Plural(Lang.Ru, 5, "убийц")
                 ;
@@ -107,6 +106,12 @@ namespace Crimenuts.Utils.Tests
             Assert.AreEqual("day", Localizator.GetTranslation("day", Lang.En));
             Assert.AreEqual("День", Localizator.GetTranslation("Day", Lang.Ru));
             Assert.AreEqual("Day", Localizator.GetTranslation("Day", Lang.En));
+        }
+
+        [TestMethod()]
+        public void Plural_Unknown()
+        {
+            Assert.AreEqual("#unknown:answer[lang:Ru]#", Localizator.Plural(2, "answer", Lang.Ru));
         }
 
     }

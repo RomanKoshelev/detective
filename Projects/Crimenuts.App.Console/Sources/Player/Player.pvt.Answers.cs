@@ -38,7 +38,7 @@ namespace Crimenuts.App.Console
             return string.Format("{0,-11}",
                 rec == null
                     ? member.IsActive ? "   ?" : "   -"
-                    : FormatAnswerSubjectName(rec, isGameOver) + " is " + rec.Answer.Verbal());
+                    : FormatAnswerSubjectName(rec, isGameOver) + " is " + rec.Answer);
         }
 
         private static string FormatAnswerSubjectName(History.Record rec, bool isGameOver)
@@ -108,7 +108,7 @@ namespace Crimenuts.App.Console
             Trace.Assert(subject != respondent, "subject != respondent");
             if (verb == "") verb = "is";
 
-            WriteLine("    {0}:{1} {2} {3}", subject.Number, subject.Name, verb, answer.Verbal());
+            WriteLine("    {0}:{1} {2} {3}", subject.Number, subject.Name, verb, answer);
             WriteLine();
         }
     }

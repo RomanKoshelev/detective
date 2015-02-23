@@ -12,22 +12,9 @@
 
     public static class AswerExtension
     {
-        public static string Verbal(this Answer answer)
+        public static string PrefixedString(this Answer answer)
         {
-            switch (answer)
-            {
-                case Answer.NotSuspicious:
-                    return "not suspicious";
-
-                case Answer.Innocent:
-                case Answer.Murderer:
-                    return answer.ToString();
-                
-                case Answer.Suspicious:
-                case Answer.Unknown:
-                    return answer.ToString().ToLower();
-            }
-            return answer.ToString();
+            return string.Format("Core:Game:Answer:Value:{0}",answer);
         }
     }
 }

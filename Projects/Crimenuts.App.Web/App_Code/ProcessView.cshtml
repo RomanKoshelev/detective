@@ -211,7 +211,7 @@
     {
         var answer = Model.TodayAnswers().FirstOrDefault(a => a.Agent.Number == num);
         if (answer == null) return "ERROR";
-        return string.Format("{0} is {1}", Localization.Text(answer.Subject.Name), answer.Value.Verbal());
+        return string.Format("{0} is {1}", Localization.Text(answer.Subject.Name), answer.Value.PrefixedString());
     }
 
     public static bool CanAskAbout(int? respondent, int? subject)

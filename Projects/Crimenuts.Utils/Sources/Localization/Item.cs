@@ -63,7 +63,7 @@ namespace Crimenuts.Utils.Localization
 
         public string GetPluralForm(Lang lang, int? num)
         {
-            return _forms[lang].GetPlural(num);
+            return _forms.ContainsKey(lang) ? _forms[lang].GetPlural(num) : NotFound(lang);
         }
     }
 }
