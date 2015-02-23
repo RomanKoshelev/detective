@@ -1,4 +1,5 @@
 ﻿using Crimenuts.Core.Game;
+using Crimenuts.Utils;
 
 namespace Crimenuts.App.Web.Models
 {
@@ -61,6 +62,11 @@ namespace Crimenuts.App.Web.Models
         {
             get { return Member.OpenRole; }
         }
+        public Sex Sex
+        {
+            get { return Member.Person.Sex; }
+        }
+
 
         public override string ToString()
         {

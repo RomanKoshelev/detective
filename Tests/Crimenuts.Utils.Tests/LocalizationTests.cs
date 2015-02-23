@@ -114,5 +114,43 @@ namespace Crimenuts.Utils.Tests
             Assert.AreEqual("#unknown:answer[lang:Ru]#", Localizator.Plural(2, "answer", Lang.Ru));
         }
 
+        [TestMethod()]
+        public void Gender_Verb()
+        {
+            Localizator.Set("was").Verb()
+                .Set(Lang.En)
+                .Set(Lang.Ru, "был")
+                .Gender(Lang.Ru, Gender.Feminine, "была")
+                ;
+
+            Assert.AreEqual("была", Localizator.Gender("was", Gender.Feminine, Lang.Ru));
+        }
+
+        [TestMethod()]
+        public void Gender_Adjective()
+        {
+            Localizator.Set("red").Adjective()
+                .Set(Lang.En)
+                .Set(Lang.Ru, "красн")
+                .Gender(Lang.Ru, Gender.Neuter, "красненькое")
+                ;
+
+            Assert.AreEqual("красный", Localizator.Gender("red", Gender.Masculine, Lang.Ru));
+            Assert.AreEqual("красная", Localizator.Gender("red", Gender.Feminine, Lang.Ru));
+            Assert.AreEqual("красненькое", Localizator.Gender("red", Gender.Neuter, Lang.Ru));
+        }
+
+        [TestMethod()]
+        public void Gender_Unknown()
+        {
+            Localizator.Set("arrested")
+                .Set(Lang.En)
+                .Set(Lang.Ru, "арестованный")
+                .Gender(Lang.Ru, Gender.Neuter, "арестованное")
+                ;
+            Assert.AreEqual("арестованный", Localizator.Gender("arrested", Gender.Masculine, Lang.Ru));
+            Assert.AreEqual("арестованный", Localizator.Gender("arrested", Gender.Feminine, Lang.Ru));
+            Assert.AreEqual("арестованное", Localizator.Gender("arrested", Gender.Neuter, Lang.Ru));
+        }
     }
 }

@@ -50,9 +50,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\Localization\Forms.cs" />
     <Compile Include="Sources\Localization\Item.cs" />
+    <Compile Include="Sources\Localization\Gender.cs" />
     <Compile Include="Sources\Localization\Lang.cs" />
     <Compile Include="Sources\Localization\Languages.cs" />
+    <Compile Include="Sources\Localization\PartOfSpeach.cs" />
     <Compile Include="Sources\Mvc\ArrayRoute.cs" />
+    <Compile Include="Sources\Sex.cs" />
     <Compile Include="Sources\Trace\CrimenutsAssert.cs" />
     <Compile Include="Sources\Trace\CrimenutsException.cs" />
     <Compile Include="Sources\Extensions\Extensions.cs" />

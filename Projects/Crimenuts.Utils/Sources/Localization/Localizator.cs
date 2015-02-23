@@ -96,5 +96,12 @@ namespace Crimenuts.Utils.Localization
         {
             return NumPlural("{0} {1}", num, noun, lang);
         }
+
+        // ===================================================================================== []
+        // Gender
+        public static string Gender(string baseForm, Gender gender, Lang lang)
+        {
+            return GetItem(baseForm).GetGenderForm(lang, gender);
+        }
     }
 }

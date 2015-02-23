@@ -28,7 +28,7 @@ namespace Crimenuts.Utils.Localization
         // Set
         public void SetTranslation(Lang lang, string text)
         {
-            _forms[lang] = new Forms(lang) {Standart = text};
+            _forms[lang] = new Forms(lang, _part) {Standart = text};
         }
         public Item Set(Lang lang, string text)
         {
@@ -43,27 +43,56 @@ namespace Crimenuts.Utils.Localization
 
         // ===================================================================================== []
         // Plural
-        public Item Plural(Lang lang, string noun)
+        public Item Plural(Lang lang, string form)
         {
-            return Plural(lang, Forms.AnyNum, noun);
+            return Plural(lang, Forms.AnyNum, form);
         }
-        public Item Plural(Lang lang, int? num, string noun)
+        public Item Plural(Lang lang, int? num, string form)
         {
-            _forms[lang].SetPlural(num, noun);
+            _forms[lang].SetPlural(num, form);
+            return this;
+        }
+        public string GetPluralForm(Lang lang, int? num)
+        {
+            return _forms.ContainsKey(lang) ? _forms[lang].GetPlural(num) : NotFound(lang);
+        }
+
+        // ===================================================================================== []
+        // Gender
+        public Item Gender(Lang lang, Gender gender, string form)
+        {
+            _forms[lang].SetGender(gender, form);
+            return this;
+        }
+        public string GetGenderForm(Lang lang, Gender gender)
+        {
+            return _forms.ContainsKey(lang) ? _forms[lang].GetGender(gender) : NotFound(lang);
+        }
+
+        // ===================================================================================== []
+        // Parts
+        private PartOfSpeach _part = PartOfSpeach.Unknown;
+        public Item Verb()
+        {
+            _part = PartOfSpeach.Verb;
+            return this;
+        }
+        public Item Adjective()
+        {
+            _part = PartOfSpeach.Adjective;
+            return this;
+        }
+        public Item Noun()
+        {
+            _part = PartOfSpeach.Noun;
             return this;
         }
 
-        
         // ===================================================================================== []
         // NotFound
         private string NotFound(Lang lang)
         {
             return string.Format("#{0}[lang:{1}]#", _key, lang);
-        }
-
-        public string GetPluralForm(Lang lang, int? num)
-        {
-            return _forms.ContainsKey(lang) ? _forms[lang].GetPlural(num) : NotFound(lang);
         }
     }
 }

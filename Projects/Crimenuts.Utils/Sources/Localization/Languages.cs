@@ -24,6 +24,7 @@ namespace Crimenuts.Utils.Localization
     {
         string GetPluralForm(string noun);
         int GetMinimalPluralNum(int num);
+        string GetGenderForm(PartOfSpeach part, string baseForm, Gender gender);
     }
 
     // ===================================================================================== []
@@ -38,6 +39,11 @@ namespace Crimenuts.Utils.Localization
         public int GetMinimalPluralNum(int num)
         {
             return 2;
+        }
+
+        public string GetGenderForm(PartOfSpeach part, string baseForm, Gender gender)
+        {
+            return baseForm;
         }
     }
 
@@ -60,6 +66,11 @@ namespace Crimenuts.Utils.Localization
                 num = 2;
 
             return num;
+        }
+
+        public string GetGenderForm(PartOfSpeach part, string baseForm, Gender gender)
+        {
+            return baseForm;
         }
     }
 
@@ -97,6 +108,43 @@ namespace Crimenuts.Utils.Localization
                     return 5;
             }
             return 2;
+        }
+
+        public string GetGenderForm(PartOfSpeach part, string baseForm, Gender gender)
+        {
+            switch (part)
+            {
+                case PartOfSpeach.Verb:
+                    return GetVerbGenderForm(baseForm, gender);
+                case PartOfSpeach.Adjective:
+                    return GetAdjectiveGenderForm(baseForm, gender);
+            }
+            return baseForm;
+        }
+
+        public string GetVerbGenderForm(string baseForm, Gender gender)
+        {
+            switch (gender)
+            {
+                case Gender.Feminine:
+                    return baseForm + "а";
+                case Gender.Neuter:
+                    return baseForm + "о";
+            }
+            return baseForm;
+        }
+        public string GetAdjectiveGenderForm(string baseForm, Gender gender)
+        {
+            switch (gender)
+            {
+                case Gender.Masculine:
+                    return baseForm + "ый";
+                case Gender.Feminine:
+                    return baseForm + "ая";
+                case Gender.Neuter:
+                    return baseForm + "ое";
+            }
+            return baseForm;
         }
     }
 }

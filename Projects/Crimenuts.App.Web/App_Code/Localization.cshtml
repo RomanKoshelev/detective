@@ -1,6 +1,7 @@
 ﻿@using System.Web.Mvc
 @using Crimenuts.App.Web.Models
 @using Crimenuts.Core.Game
+@using Crimenuts.Utils
 @using Crimenuts.Utils.Localization
 @functions{
     //  >> App_Code | Localization 
@@ -13,7 +14,7 @@
         Localizator.RegisterLanguage(Lang.En);
         Localizator.RegisterLanguage(Lang.Ru);
            
-        Localizator.Set("was")
+        Localizator.Set("was").Verb()
             .Set(Lang.En)
             .Set(Lang.Ru, "был")
             ;
@@ -100,12 +101,12 @@
             ;
 
         Localizator.Set(Answer.Innocent.PrefixedString())
-            .Set(Lang.En, "Innocent")
-            .Set(Lang.Ru, "Невиновный")
+            .Set(Lang.En, "innocent")
+            .Set(Lang.Ru, "невиновный")
             ;
         Localizator.Set(Answer.Murderer.PrefixedString())
-            .Set(Lang.En, "Murderer")
-            .Set(Lang.Ru, "Убийца")
+            .Set(Lang.En, "murderer")
+            .Set(Lang.Ru, "убийца")
             ;
         Localizator.Set(Answer.Unknown.PrefixedString())
             .Set(Lang.En, "unknown")
@@ -158,8 +159,16 @@
             .Set(Lang.En, "died")
             .Set(Lang.Ru, "погиб")
             ;       
-       
-            
+        
+        Localizator.Set("Game:Result:Murderers")
+            .Set(Lang.En, "Sorry..")
+            .Set(Lang.Ru, "Сожалею...")
+            ;       
+        Localizator.Set("Game:Result:Detective")
+            .Set(Lang.En, "You win!")
+            .Set(Lang.Ru, "Вы выиграли!")
+            ;       
+        
     }
 
     // ===================================================================================== []
@@ -229,6 +238,12 @@
     public static string Plural(int? num, string noun)
     {
         return Localizator.Plural(num, noun, CurrentLanguage);
+    }
+
+    public static string Gender(string verb, Sex sex)
+    {
+        Gender gender = sex.ToGender();
+        return Localizator.Gender(verb, gender, CurrentLanguage);      
     }
 
 }

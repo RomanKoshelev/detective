@@ -111,8 +111,8 @@
 @helper ResultSection()
 {
     @BoardView.RespondentLink(Model.TodayPrisoner) 
-    @Localization.Text("was") 
-    @BoardView.Highlight(Localization.Text(Model.TodayPrisoner.Role.ToString()))
+    @Localization.Gender("was", Model.TodayPrisoner.Sex) 
+    @BoardView.Highlight(Localization.Text(Model.TodayPrisoner.Role.ToString().ToLower()))
 }
 
 @helper SuspectSection()

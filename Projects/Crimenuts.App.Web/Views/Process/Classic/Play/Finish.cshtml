@@ -29,11 +29,12 @@
 {
     if (Model.Winner == Winner.Detective)
     {
-        @:You win!
+        @Localization.Text("Game:Result:Detective")
     }
     if (Model.Winner == Winner.Murderers)
     {
-        @:Sorry..
+        @Localization.Text("Game:Result:Murderers")
+
     }
 }
 
