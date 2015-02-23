@@ -22,7 +22,6 @@ namespace Crimenuts.Utils.Tests
             Trace.TraceInformation("ClassCleanup");
         }
 
-        // Now: Localization | Tests
         [TestMethod()]
         public void Set_and_Get_Translation()
         {

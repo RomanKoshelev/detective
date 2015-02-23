@@ -5,7 +5,6 @@
 @using Gender = Crimenuts.Utils.Localization.Gender
 @functions{
     //  >> App_Code | Localization 
-    // Now: Localization | App_Code
 
     // ===================================================================================== []
     // Data
@@ -102,12 +101,12 @@
             ;
 
         Localizator.Set(Answer.Innocent.PrefixedString()).Adjective()
-            .Set(Lang.En, "innocent")
-            .Set(Lang.Ru, "невиновн")
+            .Set(Lang.En, "Innocent")
+            .Set(Lang.Ru, "Невиновн")
             ;
         Localizator.Set(Answer.Murderer.PrefixedString())
-            .Set(Lang.En, "murderer")
-            .Set(Lang.Ru, "убийца")
+            .Set(Lang.En, "Murderer")
+            .Set(Lang.Ru, "Убийца")
             ;
         Localizator.Set(Answer.Unknown.PrefixedString()).Adjective()
             .Set(Lang.En, "unknown")
@@ -158,8 +157,8 @@
             ;       
         
         Localizator.Set("Game:Result:Murderers")
-            .Set(Lang.En, "Sorry..")
-            .Set(Lang.Ru, "Сожалею...")
+            .Set(Lang.En, "Sorry, you've lost...")
+            .Set(Lang.Ru, "Сожалею, вы проиграли...")
             ;       
         Localizator.Set("Game:Result:Detective")
             .Set(Lang.En, "You win!")

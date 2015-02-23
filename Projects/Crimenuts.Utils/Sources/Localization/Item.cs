@@ -4,8 +4,6 @@ namespace Crimenuts.Utils.Localization
 {
     public class Item
     {
-        // Now: Localization | Localizator | Item
-
         private readonly Dictionary<Lang, Forms> _forms = new Dictionary<Lang, Forms>();
         private readonly string _key;
 

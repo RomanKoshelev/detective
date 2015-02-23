@@ -5,7 +5,6 @@ using Crimenuts.App.Web.Models;
 
 namespace Crimenuts.App.Web.Controllers
 {
-    // Now: Localization | Site | Controller
     public class SiteController : Controller
     {
         public ActionResult Index()

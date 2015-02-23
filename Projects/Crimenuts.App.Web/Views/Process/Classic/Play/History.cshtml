@@ -45,10 +45,15 @@
     {
         @Murder(day)
     }
+    else if (AnswersCount(day)>=1)
+    {
+        @Murder(day)@:,
+        @Arrest(day)@:,
+        @Answers(day)
+    }
     else
     {
         @Murder(day)@:,
-        @Answers(day)@:,
         @Arrest(day)
     }
 }

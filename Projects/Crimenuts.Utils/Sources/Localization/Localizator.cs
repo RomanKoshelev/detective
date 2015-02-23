@@ -4,7 +4,6 @@ using MoreLinq;
 
 namespace Crimenuts.Utils.Localization
 {
-    // Now: Localization | Localizator
     public static class Localizator
     {
         private static readonly Dictionary<string, Item> Items = new Dictionary<string, Item>();

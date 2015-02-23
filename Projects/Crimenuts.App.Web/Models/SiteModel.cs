@@ -3,7 +3,6 @@ using Crimenuts.Utils.Localization;
 
 namespace Crimenuts.App.Web.Models
 {
-    // Now: Localization | Site | Model
     public class SiteModel
     {
         // ===================================================================================== []
