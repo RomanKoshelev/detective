@@ -1,7 +1,7 @@
-﻿namespace Crimenuts.Utils
+﻿/*namespace Crimenuts.Utils
 {
     // Ref: simplify and use struct instead of class
-    public class GenericIdentifier<TV, TC>
+    public class GenericIdentifier<TС, TV>
     {
         private TV _value;
 
@@ -21,7 +21,7 @@
             _value = default(TV);
         }
 
-        public static implicit operator TV(GenericIdentifier<TV, TC> value)
+        public static implicit operator TV(GenericIdentifier<TС, TV> value)
         {
             return value._value;
         }
@@ -32,17 +32,17 @@
             return ReferenceEquals(null, _value) ? null : _value.ToString();
         }
 
-        public static bool operator ==(GenericIdentifier<TV, TC> a, GenericIdentifier<TV, TC> b)
+        public static bool operator ==(GenericIdentifier<TС, TV> a, GenericIdentifier<TС, TV> b)
         {
             return a.Equals(b);
         }
 
-        public static bool operator !=(GenericIdentifier<TV, TC> a, GenericIdentifier<TV, TC> b)
+        public static bool operator !=(GenericIdentifier<TС, TV> a, GenericIdentifier<TС, TV> b)
         {
             return !a.Equals(b);
         }
 
-        private bool Equals(GenericIdentifier<TV, TC> other)
+        private bool Equals(GenericIdentifier<TС, TV> other)
         {
             if (ReferenceEquals(null, _value))
                 return ReferenceEquals(null, other._value);
@@ -53,7 +53,7 @@
         {
             if (ReferenceEquals(null, obj))
                 return false;
-            return obj is GenericIdentifier<TV, TC> && Equals((GenericIdentifier<TV, TC>)obj);
+            return obj is GenericIdentifier<TС, TV> && Equals((GenericIdentifier<TС, TV>)obj);
         }
 
         public override int GetHashCode()
@@ -62,9 +62,9 @@
         }
     }
 
-    public class Identifiable<TV, TC>
+    public class Identifiable<TС, TV>
     {
-        public class Identifier : GenericIdentifier<TV, TC> 
+        public class Identifier : GenericIdentifier<TС, TV> 
         {
             private Identifier(TV value)
                 : base(value)
@@ -81,4 +81,4 @@
             }
         }
     }
-}
+}*/

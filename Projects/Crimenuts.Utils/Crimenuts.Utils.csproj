@@ -55,7 +55,7 @@
     <Compile Include="Sources\Localization\Languages.cs" />
     <Compile Include="Sources\Localization\PartOfSpeach.cs" />
     <Compile Include="Sources\Mvc\ArrayRoute.cs" />
-    <Compile Include="Sources\Sex.cs" />
+    <Compile Include="Sources\Sex\Sex.cs" />
     <Compile Include="Sources\Trace\CrimenutsAssert.cs" />
     <Compile Include="Sources\Trace\CrimenutsException.cs" />
     <Compile Include="Sources\Extensions\Extensions.cs" />

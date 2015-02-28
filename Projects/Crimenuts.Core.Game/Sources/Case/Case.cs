@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Crimenuts.Utils;
+using Crocodev.Common.Identifier;
 
 namespace Crimenuts.Core.Game
 {
-    public partial class Case : Identifiable<int, Case>, IOptions
+    public partial class Case : Identifiable<Case, int>, IOptions
     {
         public Case(IWorld world, int membersNum, int murderersNum)
         {

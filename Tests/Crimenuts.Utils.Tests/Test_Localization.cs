@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Crimenuts.Utils.Tests
 {
     [TestClass]
-    public class LocalizationTests
+    public class Test_Localization
     {
         [ClassInitialize()]
         public static void ClassInitialize(TestContext testContext)

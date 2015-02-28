@@ -40,11 +40,11 @@ namespace Crimenuts.Core.Game
         {
             var gcase = new Case(WorldMap[worldId], memberNum, murderNum);
             Cases.Add(gcase);
-            gcase.Id = (Identifiable<int, Case>.Identifier) (Cases.Select(c => (int)c.Id).Max() + 1);
+            gcase.Id = (Case.Identifier) (Cases.Select(c => (int)c.Id).Max() + 1);
             return gcase;
         }
 
-        private static Case DoFindCase(Identifiable<int, Case>.Identifier caseId)
+        private static Case DoFindCase(Case.Identifier caseId)
         {
             Contract.Requires((int)caseId>0);
             var gcase = Cases.Find(c => c.Id == caseId);

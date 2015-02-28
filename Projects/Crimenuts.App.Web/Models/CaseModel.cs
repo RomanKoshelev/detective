@@ -10,12 +10,12 @@ namespace Crimenuts.App.Web.Models
     {
         // ===================================================================================== []
         // Public
-        public CaseModel(Identifiable<int, Case>.Identifier id)
+        public CaseModel(Case.Identifier id)
         {
             Case = Schema.FindCase(id);
         }
 
-        public Identifiable<int, Case>.Identifier Id
+        public Case.Identifier Id
         {
             get { return Case.Id; }
         }

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Crimenuts.Utils;
+using Crocodev.Common.Identifier;
 
 namespace Crimenuts.Core.Game
 {
     [DebuggerDisplay("State = {State}")]
-    public partial class Process : Identifiable<int, Process>
+    public partial class Process : Identifiable<Process, int>
     {
         // ===================================================================================== []
         // Constructor

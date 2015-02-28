@@ -14,14 +14,14 @@ namespace Crimenuts.App.Web.Controllers
 
         public ActionResult Info(int id)
         {
-            var processId = (Identifiable<int, Process>.Identifier) id;
+            var processId = (Process.Identifier)id;
 
             return View(new ProcessModel(processId));
         }
 
         public ActionResult Play(int id, int? actionType, params int[] actionParams)
         {
-            var processId = (Identifiable<int, Process>.Identifier) id;
+            var processId = (Process.Identifier)id;
             if (actionType != null)
             {
                 Schema.ExecuteProcess(processId, (Process.UserAction.ActionType) actionType, actionParams);
@@ -39,7 +39,7 @@ namespace Crimenuts.App.Web.Controllers
             int? subject,
             int? suspect)
         {
-            var processId = (Identifiable<int, Process>.Identifier) id;
+            var processId = (Process.Identifier)id;
 
             if (actionType != null)
             {
@@ -57,7 +57,7 @@ namespace Crimenuts.App.Web.Controllers
 
         // ===================================================================================== []
         // Utils
-        private static void ExecuteAction(int? actionType, int? respondent, int? subject, int? suspect, Identifiable<int, Process>.Identifier processId)
+        private static void ExecuteAction(int? actionType, int? respondent, int? subject, int? suspect, Process.Identifier processId)
         {
             var action = (Process.UserAction.ActionType) actionType;
             var args = new int[] {};
