@@ -14,137 +14,195 @@
     font-size: 16px;
 }
 
-.cn-gamelog-record {
-    padding-top: 0;
-    padding-bottom: 15px;
-    height: auto;
+
+/*
+// ============================================================================================= []
+// Desktop
+*/
+
+.cn-gametable { border-radius: 0; }
+
+.cn-gametable-color { background-color: #fff5cc; }
+
+.cn-desktop {
+    padding: 5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
-.cn-gamelog-record-day {
-    width: 140px;
-    padding-right: 15px;
-    color: #560000;
-    display: table-cell;
-    font-weight: normal;
-    vertical-align: top;
-    text-align: right;
+/*
+// ============================================================================================= []
+// Members
+*/
+
+.cn-member {
+    background: inherit;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.cn-gamelog-record-info {
-    width: auto;
-    display: table-cell;
-    vertical-align: top;
-    padding-top: 0;
+.cn-member-cell-aligment { width: 100%; }
+
+.cn-member-cell-content { width: 120px; }
+
+/*
+// ============================================================================================= []
+// Face
+*/
+
+.cn-member-face-active-primary {
+    background: #d7d700;
+    color: #6f6b00;
 }
 
-.cn-gamelog-record-info-section {
+.cn-member-face-active-secondary {
+    background: #827f00;
+    color: #353300;
+}
+
+.cn-member-face-inactive-murderer {
+    background: #500000;
+    color: #240000;
+}
+
+.cn-member-face-inactive-innocent {
+    background: #004000;
+    color: #001a00;
+
+}
+
+.cn-member-face-inactive-murderer-selected {
+    background: #500000;
+    color: #d84f0a;
+}
+
+.cn-member-face-inactive-innocent-selected {
+    background: #004000;
+    color: #a2dc11;
+}
+
+.cn-member-face-active-murderer {
+    background: #a40000;
+    color: #240000;
+}
+
+.cn-member-face-active-innocent {
+    background: #00a800;
+    color: #001a00;
+}
+
+
+.cn-member-cell-circle-face {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    margin: 15px;
+}
+
+.cn-member-face-asked-top {
+    position: relative;
+    top: -10px;
+}
+
+.cn-member-face-asked-bottom {
+    position: relative;
+    top: 10px;
+}
+
+.cn-member-face-link { text-decoration: none; }
+
+.cn-member-face-link:hover { font-weight: bold; }
+
+.cn-member-face-text-alive {
+    text-align: center;
+    font-size: 55px;
+
+    display: block;
+
+    position: relative;
+    left: -10px;
+    
     color: inherit;
-    margin-bottom: 2px;
+    width: inherit;
+    height: inherit;
+    background: none;
+}
+
+.cn-member-face-text-dead {
+    text-align: center;
+    font-size: 20px;
+    font-weight: normal;
+
+    display: block;
+
+    position: relative;
+    top: 15px;
+
+    color: inherit;
+    width: inherit;
+    height: inherit;
+    background: none;
+}
+
+.cn-member-cell-content-indent {
+    width: 10px;
+    height: 55px;
+    background: inherit;
 }
 
 /*
 // ============================================================================================= []
-// Elements
+// Cards
 */
 
-.cn-gamelog-member-link { 
-    text-decoration: none;
+.cn-card { border: solid 0 red; }
+
+.cn-card-aligment {
+    background: inherit;
+    width: 100%;
 }
 
-.cn-gamelog-member-link:hover { background-color: #9fff89; }
+.cn-card-content {
+    background: inherit;
+    width: 120px;
+    height: auto;
 
-.cn-gamelog-subject-highlight {
-    background-color: #fae5d6;
-    background-color: rgba(255, 0, 0, 0.14);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 7px;
+    padding-bottom: 7px;
 }
 
-.cn-gamelog-highlight { background-color: yellow; }
+.cn-card-name-active { border-radius: 4px; }
 
-.cn-gamelog-today {
-    color: #990000;
-}
-
-.cn-gamelog-detective {
-     color: #4800b1;
-     padding-left: 30px;
-}
-
-.cn-gamelog-history {
-    color: #560000;
-}
-
-.cn-gamelog-case {
-    color: #560000;
-}
-
-.cn-gamelog-result{
-    color: #560000;
-}
-
-/*
-// ============================================================================================= []
-// result
-*/
-
-
-
-/*
-// ============================================================================================= []
-// Hint
-*/
-
-.cn-gamelog-hint-title {
-    padding-bottom: 5px
-}
-
-.cn-gamelog-hint-variants {
-    line-height: 20px;
-    padding-top: 0;
-    padding-left: 30px;
-    width: 450px;
-}
-
-/*
-// ============================================================================================= []
-// Buttons
-*/
-
-.cn-button {
+.cn-card-name-inactive {
     border-radius: 4px;
-    padding: 15px;
-    text-decoration: none;
+    color: #9c9974;
 }
 
-.cn-button-panel {
-    padding-top: 15px;
-    padding-bottom: 0;
+.cn-card-link {
+    color: inherit;
+    text-decoration: underline;
 }
 
-.cn-arrest-button {
-    background-color: #004c99;
-    color: #cce5ff;
+.cn-card-link:hover { color: black; }
+
+.cn-card-frame-selected {
+    color: #6f6b00;
+    border: solid 2px #9c9974;
+    background-color: #f6f0d4;
 }
 
-.cn-arrest-button:hover { color: #ffffff; }
-
-.cn-arrest-button-lite {
-    background-color: inherit;
-    color: #aeced9;
-    border: solid 1px #aeced9;
+.cn-card-frame-visible {
+    color: #858330;
+    border: solid 2px #979019;
+    background-color: #e9dfb4;
 }
 
-.cn-arrest-button-lite:hover {
-    background-color: #004c99;
-    color: #cce5ff;
-    border: 0;
+.cn-card-frame-invisible {
+    border: none;
+    color: #9c9974;
 }
-
-.cn-continue-button {
-    background-color: #004c99;
-    color: #cce5ff;
-}
-
-.cn-continue-button:hover { color: #ffffff; }
 
 /*
 // ============================================================================================= []

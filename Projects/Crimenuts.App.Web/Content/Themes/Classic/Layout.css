@@ -8,7 +8,7 @@
 
 html, body { height: 100%; }
 
-.Frame {
+.cn-layout-frame {
     margin: 0;
     padding: 0;
     display: table;
@@ -16,7 +16,7 @@ html, body { height: 100%; }
     background: black;
 }
 
-.Row {
+.cn-layout-row {
     margin: 0;
     padding: 0;
     display: table-row;
@@ -24,27 +24,27 @@ html, body { height: 100%; }
     overflow: hidden;
 }
 
-.Expand { height: 100%; }
+.cn-layout-expand { height: 100%; }
 
-.PageWrapper {
+.cn-layout-body {
     margin: 0 auto;
     position: relative;
     height: 100%;
 }
 
-.cn-page {
+.cn-layout-page {
     display: table;
     width: 100%;
     min-width: 768px;
     max-width: 900px;
     font-size: 10px;
 }
-.cn-page-part {
+.cn-layout-page-part {
     display: table;
     width: 100%;
 }
 
-.cn-page-content {
+.cn-layout-page-content {
     display: table-row;
     overflow: hidden;
     width: 100%;

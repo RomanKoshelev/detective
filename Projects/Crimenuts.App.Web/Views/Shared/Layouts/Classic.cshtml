@@ -19,27 +19,27 @@
 
 <body>
 
-    <div class="PageWrapper" align="center">
-        <div class="Frame cn-page">
-            <div class="Row">
-                <div class="cn-page-part">
-                    <div align="left" class="cn-page-content">
+    <div class="cn-layout-body" align="center">
+        <div class="cn-layout-frame cn-layout-page">
+            <div class="cn-layout-row">
+                <div class="cn-layout-page-part">
+                    <div align="left" class="cn-layout-page-content">
                         @LayoutView.Header(ViewBag.Title)
                     </div>
                 </div>
             </div>
 
-            <div class="Row Expand" align="center">
-                <div class="cn-page-part">
-                    <div align="left" class="cn-page-content">
+            <div class="cn-layout-row cn-layout-expand" align="center">
+                <div class="cn-layout-page-part">
+                    <div align="left" class="cn-layout-page-content">
                         @RenderBody()
                     </div>
                 </div>
             </div>
 
-            <div class="Row" align="center">
-                <div class="cn-page-part">
-                    <div align="left" class="cn-page-content">
+            <div class="cn-layout-row" align="center">
+                <div class="cn-layout-page-part">
+                    <div align="left" class="cn-layout-page-content">
                         @LayoutView.Footer()
                     </div>
                 </div>
