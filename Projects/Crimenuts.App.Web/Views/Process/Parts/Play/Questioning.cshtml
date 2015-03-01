@@ -16,17 +16,17 @@
 
     private string SelectedFaceClass(int num)
     {
-        return num == Face ? BoardView.HighlightClass : "";
+        return num == Face ? RoomView.HighlightClass : "";
     }
 
 }
 
 @helper Questioning()
 {
-    @BoardView.Record(Answers(), BoardView.DetectiveClass)
+    @RoomView.Record(Answers(), RoomView.DetectiveClass)
     if (Model.State == State.Questioning)
     {
-        @BoardView.Record(Hint(), BoardView.DetectiveClass)
+        @RoomView.Record(Hint(), RoomView.DetectiveClass)
     }
 }
 
@@ -48,8 +48,8 @@
 @helper Answer(AnswerModel answer, string currentMemberClass)
 {
     <div class="@currentMemberClass">
-        @BoardView.MemberLink(answer.Agent,":")
-        @BoardView.SubjectLink(answer.Subject)
+        @RoomView.MemberLink(answer.Agent,":")
+        @RoomView.SubjectLink(answer.Subject)
         @Localization.Text("Game:Questioning:Answer:is")
         @Localization.GenderForm(answer.Value.PrefixedString(),answer.Subject.Sex)
     </div>
@@ -64,17 +64,17 @@
 
 @helper HintRespondents()
 {
-    @BoardView.HintMemberVariants(
+    @RoomView.HintMemberVariants(
         Shared.Text(Localization.Text("Game:Questioning:Ask")+":"),
         ProcessView.QuestioningRespondents(),
-        BoardView.MemberLink,
+        RoomView.MemberLink,
         additionalVariantsFunc: AutoQuestioning
         )
 }
 
 @helper HintSubjects(int respondent)
 {
-    @BoardView.HintSubjectVariants(
+    @RoomView.HintSubjectVariants(
         HintSubjectTitle(respondent),
         respondent,
         ProcessView.QuestioningSubjects(respondent),
@@ -86,7 +86,7 @@
 {
     @Localization.Text("Game:Questioning:Ask")
     @:
-    @BoardView.RespondentLink(ProcessView.Member(respondent)) 
+    @RoomView.RespondentLink(ProcessView.Member(respondent)) 
     @Localization.Text("Game:Questioning:About")
 }
 
@@ -94,7 +94,7 @@
 {
     @Shared.Link(
         Localization.Text(subject.Name),
-        BoardView.MemberLinkClass,
+        RoomView.MemberLinkClass,
         ProcessView.AskActionUrl(respondent.Number, subject.Number)
         )@suffix
 }
@@ -105,6 +105,6 @@
         && ProcessView.QuestioningRespondents().Count >= 2
         && (Face == null || ProcessView.QuestioningSubjects((int) Face).Count == 0))
     {
-           @(Localization.Format(" {0} ", "or")) @Shared.Link(Localization.Text("Game:Questioning:Auto"), BoardView.MemberLinkClass, ProcessView.AutoAskActionUrl())
+           @(Localization.Format(" {0} ", "or")) @Shared.Link(Localization.Text("Game:Questioning:Auto"), RoomView.MemberLinkClass, ProcessView.AutoAskActionUrl())
     }
 }

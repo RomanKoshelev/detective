@@ -12,10 +12,10 @@
 
 @helper Case()
 {
-    @BoardView.Record(
+    @RoomView.Record(
         Shared.Format("{0}{1}:", Localization.Text("Game:Case #"), Model.CaseId), 
         Summary(), 
-        BoardView.HistoryClass)
+        RoomView.HistoryClass)
 }
 
 @helper Summary()

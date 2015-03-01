@@ -6,13 +6,40 @@
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
 }
 
+@helper MainMenuItem(string text, string controller, string action = "Index")
+{
+    <div class="cn-home-menu-item">
+        @Shared.ActionLink(text, controller, action, "cn-info-link")
+    </div>
+}
 
-<div class="cn-dev cn-height-200">
-    
-    <br> @Html.ActionLink("Cases", "Index", "Case")
-    <br> @Html.ActionLink("Processes", "Index", "Process")
-    
-</div>
-<div class="cn-dev cn-height-400">
-    Files
+
+@helper LocalizedMainMenuItem(string textId, string controller, string action = "Index")
+{
+    @MainMenuItem(Localization.Text(textId), controller, action)
+}
+
+
+
+
+<div class="cn-home">
+
+    <div class="cn-home-header">
+        Main menu
+    </div>
+
+        @LocalizedMainMenuItem("Menu:Cases", "Case")
+        @LocalizedMainMenuItem("Menu:Processes", "Process")
+
+        @MainMenuItem("Continue", "Home")
+        @MainMenuItem("Profile", "Site")
+        
+        @*
+        @MainMenuItem("Players", "Home")
+        @MainMenuItem("Achievements", "Home")
+        @MainMenuItem("Help", "Home")
+        *@
+
+
+
 </div>

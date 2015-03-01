@@ -1,5 +1,5 @@
 ﻿@{
-    // >> Process | View | Classic | History *
+    // >> Process | View | Classic | History
     @History()
 }
 @using Crimenuts.App.Web.Models
@@ -35,7 +35,7 @@
 {
     foreach (var d in Model.History.Days.Where(DayPredicate()))
     {
-        @BoardView.Record(Shared.Format("{0} {1}:", Localization.Text("Day"),d), Summary(d), BoardView.HistoryClass)
+        @RoomView.Record(Shared.Format("{0} {1}:", Localization.Text("Day"),d), Summary(d), RoomView.HistoryClass)
     }
 }
 
@@ -61,7 +61,7 @@
 @helper Murder(int day)
 {
     var member = Victim(day);
-    @BoardView.RespondentLink(member) @Localization.GenderForm("History:Murder:died", member.Sex)
+    @RoomView.RespondentLink(member) @Localization.GenderForm("History:Murder:died", member.Sex)
 }
 
 @helper Answers(int day)
@@ -72,6 +72,6 @@
 @helper Arrest(int day)
 {
     var member = Prisoner(day);
-    @BoardView.RespondentLink(member) @Localization.GenderForm("History:Arrested", member.Sex)
+    @RoomView.RespondentLink(member) @Localization.GenderForm("History:Arrested", member.Sex)
 }
 

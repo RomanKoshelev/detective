@@ -50,7 +50,14 @@
     </div>
 }
 @helper MenuActionLink(string text, string controller, string action = "Index")
-{ @Html.ActionLink(text, action, controller, null, new {@class = "cn-menu"}) }
+{
+    @Shared.ActionLink(
+        text,
+        controller,
+        action,
+        "cn-menu")
+}
+
 @helper MenuLink(string text, string href)
 {
     <a class="cn-menu" href="@href">@text</a>

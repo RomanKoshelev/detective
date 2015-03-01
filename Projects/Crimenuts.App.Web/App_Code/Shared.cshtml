@@ -1,4 +1,5 @@
 ﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
 @functions{
     // >> App_Code | Shared
     private new static HtmlHelper<object> Html
@@ -22,6 +23,17 @@
         text,
         args))
 }
+
+@helper ActionLink(string text, string controller, string action, string cssClass)
+{
+    @Html.ActionLink(
+        text,
+        action,
+        controller,
+        null,
+        new { @class = cssClass })
+}
+
 
 @helper Text(string text)
 { @text }

@@ -198,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\DetectiveDesign.1.png" />
+    <Content Include="Content\Themes\Classic\Home.css" />
     <Content Include="Content\Themes\Classic\Room.Members.css" />
     <Content Include="Content\Themes\Classic\Room.Board.css" />
     <Content Include="Content\Themes\Classic\Room.css" />
@@ -208,7 +209,7 @@
     <Content Include="App_Code\LayoutView.cshtml" />
     <Content Include="App_Code\ProcessView.cshtml" />
     <Content Include="App_Code\Shared.cshtml" />
-    <Content Include="App_Code\BoardView.cshtml" />
+    <Content Include="App_Code\RoomView.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
