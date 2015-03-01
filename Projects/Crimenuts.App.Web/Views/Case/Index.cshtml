@@ -1,18 +1,29 @@
 ﻿@model Crimenuts.App.Web.Models.SchemaModel
+
 @{
-    ViewBag.Title = "Detective Cases";
-    Layout = "~/Views/Shared/Layouts/Default.cshtml";
+    // >> | View | Case | Index *
+    ViewBag.Title = string.Format("{0}",
+        Localization.Text("Title:Crime Nuts")
+        );
+    Layout = "~/Views/Shared/Layouts/Classic.cshtml";
 }
 
-<h2>Cases</h2>
 
-<ul>
+<div class="cn-info">
+
+    @InfoView.Header("Cases")
+
     @foreach (var c in Model.Cases)
     {
-        <li>
+        <div class="cn-info-menu-item">
             @c.ShortInfo
-            @Html.ActionLink("Details", "Info", new { id = c.Id })
-            @Html.ActionLink("Proceed", "Run", new { id = c.Id })
-        </li>
+            <div style="margin-left: 40px">
+                @Shared.ActionLink("Details", "Case", "Info", c.Id, "cn-info-link cn-info-link-action")
+                @Shared.ActionLink("Proceed", "Case", "Run", c.Id, "cn-info-link cn-info-link-action")
+            </div>
+        </div>
     }
-</ul>   
+
+</div>
+
+<h2>Cases</h2>

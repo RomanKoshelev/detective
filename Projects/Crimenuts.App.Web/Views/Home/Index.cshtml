@@ -16,30 +16,31 @@
 
 @helper LocalizedMainMenuItem(string textId, string controller, string action = "Index")
 {
-    @MainMenuItem(Localization.Text(textId), controller, action)
+    @MainMenuItem(
+        Localization.Text(textId),
+        controller,
+        action
+        )
 }
 
 
+<div class="cn-info">
 
-
-<div class="cn-home">
-
-    <div class="cn-home-header">
+    <div class="cn-info-header">
         Main menu
     </div>
 
-        @LocalizedMainMenuItem("Menu:Cases", "Case")
-        @LocalizedMainMenuItem("Menu:Processes", "Process")
+    @LocalizedMainMenuItem("Menu:Cases", "Case")
+    @LocalizedMainMenuItem("Menu:Processes", "Process")
 
-        @MainMenuItem("Continue", "Home")
-        @MainMenuItem("Profile", "Site")
-        
-        @*
-        @MainMenuItem("Players", "Home")
-        @MainMenuItem("Achievements", "Home")
-        @MainMenuItem("Help", "Home")
-        *@
+    @MainMenuItem("Continue", "Home")
+    @MainMenuItem("Settings", "Site")
 
-
+    @*
+    @MainMenuItem("Players", "Home")
+    @MainMenuItem("Achievements", "Home")
+    @MainMenuItem("Profile", "Home")
+    @MainMenuItem("Help", "Home")
+    *@
 
 </div>

@@ -1,0 +1,70 @@
+﻿/*
+// ============================================================================================= []
+// >> CSS | Info *
+*/
+
+/*
+// ============================================================================================= []
+// Common Info
+*/
+.cn-info {
+    color: #00cc00;
+    margin: 50px;
+}    
+
+.cn-info-header {
+    margin: 20px;
+    font-size: 50px;
+}
+
+.cn-info-link {
+    text-decoration: underline;
+}     
+
+.cn-info-link-action {
+    font-size: 15px;
+}     
+
+.cn-info-link:hover {
+     color: #f5ff00;
+     text-decoration: underline;
+}
+   
+.cn-info-menu-item {
+    margin: 10px;
+    margin-left: 70px;
+    font-size: 20px;
+}
+    
+
+/*
+// ============================================================================================= []
+// Home
+*/
+
+.cn-home-menu-item {
+    margin: 30px;
+    margin-left: 70px;
+    font-size: 30px;
+}
+
+/*
+// ============================================================================================= []
+// Home
+*/
+    
+.cn-info {
+    color: #00cc00;
+    margin: 50px;
+}    
+    
+.cn-home-menu-item {
+    margin: 30px;
+    margin-left: 70px;
+    font-size: 30px;
+}
+
+/*
+// ============================================================================================= []
+// EOF
+*/

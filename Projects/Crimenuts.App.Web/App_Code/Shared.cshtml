@@ -35,5 +35,18 @@
 }
 
 
+@helper ActionLink(string text, string controller, string action, int id, string @class)
+{
+    @Html.ActionLink(
+        text,
+        action,
+        controller,
+        new { id },
+        new { @class })
+}
+
+
+
+
 @helper Text(string text)
 { @text }

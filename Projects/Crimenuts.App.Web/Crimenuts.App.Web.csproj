@@ -198,7 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\DetectiveDesign.1.png" />
-    <Content Include="Content\Themes\Classic\Home.css" />
+    <Content Include="Content\Themes\Classic\Info.css" />
     <Content Include="Content\Themes\Classic\Room.Members.css" />
     <Content Include="Content\Themes\Classic\Room.Board.css" />
     <Content Include="Content\Themes\Classic\Room.css" />
@@ -262,6 +262,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Localization.cshtml" />
+    <Content Include="App_Code\InfoView.cshtml" />
     <None Include="Properties\PublishProfiles\pgs-detective.pubxml" />
     <Content Include="Views\Site\Index.cshtml" />
   </ItemGroup>

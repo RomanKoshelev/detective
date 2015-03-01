@@ -1,0 +1,27 @@
+﻿@{
+    // Now: | App_Code | InfoView
+}
+
+@helper MenuItem(string text, string controller, string action = "Index")
+{
+    <div class="cn-info-menu-item">
+        @Shared.ActionLink(text, controller, action, "cn-info-link")
+    </div>
+}
+
+
+@helper LocalizedMenuItem(string textId, string controller, string action = "Index")
+{
+    @MenuItem(
+        Localization.Text(textId),
+        controller,
+        action
+        )
+}
+
+@helper Header(string text)
+{
+    <div class="cn-info-header">
+        @text
+    </div>
+}

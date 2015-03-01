@@ -4,7 +4,7 @@ namespace Crimenuts.App.Web
 {
     public static class BundleConfig
     {
-        // >> BundleConfig *
+        // >> | BundleConfig *
         public static void RegisterBundles(BundleCollection bundles)
         {
             // CSS
@@ -15,7 +15,7 @@ namespace Crimenuts.App.Web
             bundles.Add(new StyleBundle("~/Content/Themes/Classic/css")
                 .Include("~/Content/Themes/Classic/Common.css")
                 .Include("~/Content/Themes/Classic/Layout.css")
-                .Include("~/Content/Themes/Classic/Home.css")
+                .Include("~/Content/Themes/Classic/Info.css")
                 .Include("~/Content/Themes/Classic/Room.css")
                 .Include("~/Content/Themes/Classic/Room.Members.css")
                 .Include("~/Content/Themes/Classic/Room.Board.css"));
