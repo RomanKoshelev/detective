@@ -202,7 +202,7 @@
     <Content Include="Content\Themes\Classic\Room.Board.css" />
     <Content Include="Content\Themes\Classic\Room.css" />
     <Content Include="Content\Themes\Classic\Layout.css" />
-    <Content Include="Content\Themes\Classic\Site.css" />
+    <Content Include="Content\Themes\Classic\Common.css" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="App_Code\LayoutView.cshtml" />

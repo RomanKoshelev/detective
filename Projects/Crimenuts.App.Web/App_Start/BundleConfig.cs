@@ -13,7 +13,7 @@ namespace Crimenuts.App.Web
 
             // Classic CSS
             bundles.Add(new StyleBundle("~/Content/Themes/Classic/css")
-                .Include("~/Content/Themes/Classic/Site.css")
+                .Include("~/Content/Themes/Classic/Common.css")
                 .Include("~/Content/Themes/Classic/Layout.css")
                 .Include("~/Content/Themes/Classic/Room.css")
                 .Include("~/Content/Themes/Classic/Room.Members.css")
