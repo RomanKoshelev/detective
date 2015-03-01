@@ -1,0 +1,57 @@
+﻿/*
+>> CSS | Classic | Layout *
+*/
+/*
+// ============================================================================================= []
+// Layout
+*/
+
+html, body { height: 100%; }
+
+.Frame {
+    margin: 0;
+    padding: 0;
+    display: table;
+    height: 100%;
+    background: black;
+}
+
+.Row {
+    margin: 0;
+    padding: 0;
+    display: table-row;
+    height: 1px;
+    overflow: hidden;
+}
+
+.Expand { height: 100%; }
+
+.PageWrapper {
+    margin: 0 auto;
+    position: relative;
+    height: 100%;
+}
+
+.cn-page {
+    display: table;
+    width: 100%;
+    min-width: 768px;
+    max-width: 900px;
+    font-size: 10px;
+}
+.cn-page-part {
+    display: table;
+    width: 100%;
+}
+
+.cn-page-content {
+    display: table-row;
+    overflow: hidden;
+    width: 100%;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.90);
+}
+/*
+// ============================================================================================= []
+// EOF
+*/

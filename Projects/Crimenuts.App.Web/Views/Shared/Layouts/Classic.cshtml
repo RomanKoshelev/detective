@@ -11,45 +11,42 @@
     <link href='http://fonts.googleapis.com/css?family=Cousine|Roboto+Slab:400,700|Roboto&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
     <title>@ViewBag.Title</title>
+
     @Styles.Render("~/Content/Themes/Classic/css")
-
-
-    <style type="text/css">
-        .Frame {
-            display: table;
-            width: 100%;
-            height: 100%;
-        }
-
-        .Row {
-            display: table-row;
-            height: 1px;
-            overflow: hidden;
-        }
-
-        .Row.Expand { height: auto; }
-    </style>
-
+    
 </head>
 
 
 <body>
-<div class="Frame">
-    <div class="Row">
-        @LayoutView.Header(ViewBag.Title)
-    </div>
 
-    <div class="Row Expand" align="center">
-        <div class="cn-page">
-            <div align="left" class="cn-page-content">
-                @RenderBody()
+    <div class="PageWrapper" align="center">
+        <div class="Frame cn-page">
+            <div class="Row">
+                <div class="cn-page-part">
+                    <div align="left" class="cn-page-content">
+                        @LayoutView.Header(ViewBag.Title)
+                    </div>
+                </div>
+            </div>
+
+            <div class="Row Expand" align="center">
+                <div class="cn-page-part">
+                    <div align="left" class="cn-page-content">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+
+            <div class="Row" align="center">
+                <div class="cn-page-part">
+                    <div align="left" class="cn-page-content">
+                        @LayoutView.Footer()
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="Row">
-        @LayoutView.Footer()
-    </div>
-</div>
+
 </body>
 </html>

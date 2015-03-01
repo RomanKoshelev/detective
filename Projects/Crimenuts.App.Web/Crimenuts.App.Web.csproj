@@ -198,7 +198,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\DetectiveDesign.1.png" />
-    <Content Include="Content\Themes\Classic\GameBoard.css" />
+    <Content Include="Content\Themes\Classic\Room.css" />
+    <Content Include="Content\Themes\Classic\Layout.css" />
     <Content Include="Content\Themes\Classic\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config" />

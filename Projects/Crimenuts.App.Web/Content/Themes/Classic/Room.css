@@ -7,6 +7,13 @@
 // Structure
 */
 
+.cn-room {
+    height: auto;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 16px;
+}
+
 .cn-gamelog-record {
     padding-top: 0;
     padding-bottom: 15px;
