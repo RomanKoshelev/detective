@@ -1,0 +1,227 @@
+﻿@using System.Web.Mvc
+@using Crimenuts.App.Web.Models
+@functions{
+    // >> App_Code | RoomView *
+
+    private new static ProcessModel Model
+    {
+        get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }
+    }
+
+    private static int? Face
+    {
+        get { return ViewBag.Face; }
+    }
+
+    private static dynamic ViewBag
+    {
+        get { return ((WebViewPage) WebPageContext.Current.Page).ViewBag; }
+    }
+
+    public static string TodayClass
+    {
+        get { return "cn-gamelog-today"; }
+    }
+
+    public static string ButtonArrestClass
+    {
+        get { return "cn-arrest-button"; }
+    }
+
+    public static string ButtonEarlyArrestClass
+    {
+        get { return "cn-arrest-button-lite"; }
+    }
+
+    public static string ButtonContinueClass
+    {
+        get { return "cn-continue-button"; }
+    }
+
+    public static string ArrestClass
+    {
+        get { return "cn-gamelog-today"; }
+    }
+
+    public static string DetectiveClass
+    {
+        get { return "cn-gamelog-detective"; }
+    }
+
+    public static string MemberLinkClass
+    {
+        get { return "cn-gamelog-member-link"; }
+    }
+
+    public static string HighlightClass
+    {
+        get { return "cn-gamelog-highlight"; }
+    }
+
+    public static string SubjectLinkClass
+    {
+        get { return "cn-gamelog-subject-highlight"; }
+    }
+
+    public static string RespondentLinkClass
+    {
+        get { return "cn-gamelog-highlight"; }
+    }
+
+    public static string HintVariantsClass
+    {
+        get { return "cn-gamelog-hint-variants"; }
+    }
+
+    public static string HintTitleClass
+    {
+        get { return "cn-gamelog-hint-title"; }
+    }
+    public static string HistoryClass
+    {
+        get { return "cn-gamelog-history"; }
+    }
+    public static string CaseClass
+    {
+        get { return "cn-gamelog-case"; }
+    }
+
+    public static string ResultClass
+    {
+        get { return "cn-gamelog-result"; }
+    }
+
+    public static string SubjectHihglightClass(MemberModel subject)
+    {
+        return subject.Number == Face ? SubjectLinkClass : "";
+    }
+
+    public static string RespondentHihglightClass(MemberModel respondent)
+    {
+        return respondent.Number == Face ? RespondentLinkClass : "";
+    }
+
+}
+
+@helper Highlight(string text)
+{
+    @Highlight(Shared.Text(text))
+}
+
+@helper Highlight(HelperResult text)
+{
+    <span class="@HighlightClass">@text</span>
+}
+
+@helper Button(string text, string bclass, string url)
+{
+    <div class="cn-button-panel">
+        @Shared.Link(text,
+            bclass + "  cn-button",
+            url)
+    </div>
+}
+
+@helper Record(HelperResult day, HelperResult info, string infoClass = "")
+{
+    <div class="cn-gamelog-record">
+        <div class="cn-gamelog-record-day">
+            @day
+        </div>
+        <div class="cn-gamelog-record-info @infoClass">
+            @info
+        </div>
+    </div>
+}
+
+@helper Record(HelperResult info, string infoClass = "")
+{
+    @Record(
+        Shared.Text(""),
+        info,
+        infoClass)
+}
+
+@helper TodayRecord(HelperResult info, string infoClass = "")
+{
+    @Record(
+        Shared.Format("{0} {1}:", Localization.Text("Day"), Model.Today),
+        info,
+        infoClass)
+}
+
+@helper RecordInfoSection(HelperResult infoSection, string infoSectionClass = "")
+{
+    <div class="cn-gamelog-record-info-section @infoSectionClass">
+        @infoSection
+    </div>
+}
+
+@helper MemberLink(MemberModel member, string suffix = " ")
+{
+    @Shared.Link(Localization.Text(member.Name), MemberLinkClass, ProcessView.MemberFaceUrl(member.Number))@suffix
+}
+
+
+@helper SubjectLink(MemberModel subject, string suffix = " ")
+{
+    @Shared.Link(Localization.Text(subject.Name), MemberLinkClass + " " + SubjectHihglightClass(subject), ProcessView.MemberFaceUrl(subject.Number))@suffix
+}
+
+@helper RespondentLink(MemberModel respondent, string suffix = " ")
+{
+    if (respondent == null)
+    {
+        @Shared.Text("?")
+    }
+    else
+    {
+        @Shared.Link(Localization.Text(respondent.Name), MemberLinkClass + " " + RespondentHihglightClass(respondent), ProcessView.MemberFaceUrl(respondent.Number))@suffix
+    }
+}
+
+
+@helper HintMemberVariants(
+    HelperResult text,
+    IList<int> members,
+    Func<MemberModel, string, HelperResult> actionLinkFunc = null,
+    string suffix = " ",
+    Func<HelperResult> additionalVariantsFunc = null)
+{
+    if (actionLinkFunc == null)
+    {
+        actionLinkFunc = MemberLink;
+    }
+
+    <div class="@HintTitleClass">
+        @text
+    </div>
+    <div class="@HintVariantsClass">
+        @foreach (var num in members)
+        {
+            @actionLinkFunc(ProcessView.Member(num), suffix)
+        }
+        @if (additionalVariantsFunc != null)
+        {
+            @additionalVariantsFunc()
+        }
+    </div>
+}
+
+@helper HintSubjectVariants(
+    HelperResult text,
+    int respondent,
+    IList<int> members,
+    Func<MemberModel, MemberModel, string, HelperResult> actionLinkFunc,
+    string suffix = " ")
+{
+    <div class="@HintTitleClass">
+        @text
+    </div>
+    <div class="@HintVariantsClass">
+        @foreach (var num in members)
+        {
+            @actionLinkFunc(ProcessView.Member(respondent), ProcessView.Member(num), suffix)
+        }
+    </div>
+}

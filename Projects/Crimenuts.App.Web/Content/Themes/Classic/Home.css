@@ -1,0 +1,37 @@
+﻿/*
+// ============================================================================================= []
+// >> CSS | Home *
+*/
+
+    
+.cn-home {
+    color: #00cc00;
+    margin: 50px;
+}    
+    
+.cn-home-menu-item {
+    margin: 30px;
+    margin-left: 70px;
+    font-size: 30px;
+}
+
+.cn-home-header {
+    margin: 20px;
+    font-size: 50px;
+}
+
+.cn-info-link {
+    color: #00cc00;
+    text-decoration: underline;
+
+}     
+
+.cn-info-link:hover {
+     color: #f5ff00;
+     text-decoration: underline;
+}
+
+/*
+// ============================================================================================= []
+// EOF
+*/
