@@ -268,7 +268,6 @@
     <Content Include="Views\Shared\Parts\TopMenu.cshtml" />
     <Content Include="Views\Shared\Parts\BottomLinks.cshtml" />
     <Content Include="Views\Shared\Layouts\Default.cshtml" />
-    <Content Include="Views\Process\ClassicPlay.cshtml" />
     <Content Include="Views\Process\Classic\Play\Cards.cshtml" />
     <Content Include="Views\Process\Classic\Play\Members.cshtml" />
     <Content Include="Views\Process\Classic\Play\States.cshtml" />

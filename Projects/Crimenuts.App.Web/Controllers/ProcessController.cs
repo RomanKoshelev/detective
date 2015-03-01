@@ -19,19 +19,19 @@ namespace Crimenuts.App.Web.Controllers
             return View(new ProcessModel(processId));
         }
 
-        public ActionResult Play(int id, int? actionType, params int[] actionParams)
-        {
-            var processId = (Process.Identifier)id;
-            if (actionType != null)
-            {
-                Schema.ExecuteProcess(processId, (Process.UserAction.ActionType) actionType, actionParams);
-                return RedirectToAction("Play", "Process", new {id = processId});
-            }
-            return View(new ProcessModel(processId));
-        }
+        //public ActionResult Play(int id, int? actionType, params int[] actionParams)
+        //{
+        //    var processId = (Process.Identifier)id;
+        //    if (actionType != null)
+        //    {
+        //        Schema.ExecuteProcess(processId, (Process.UserAction.ActionType) actionType, actionParams);
+        //        return RedirectToAction("Play", "Process", new {id = processId});
+        //    }
+        //    return View(new ProcessModel(processId));
+        //}
 
-        // >> Precess | Controller | ClassicPlay *
-        public ActionResult ClassicPlay(int id,
+        // >> Precess | Controller | Play *
+        public ActionResult Play(int id,
             int? face,
             int? card,
             int? actionType,
@@ -44,7 +44,7 @@ namespace Crimenuts.App.Web.Controllers
             if (actionType != null)
             {
                 ExecuteAction(actionType, respondent, subject, suspect, processId);
-                return RedirectToAction("ClassicPlay", "Process", new {id = processId, face, card});
+                return RedirectToAction("Play", "Process", new {id = processId, face, card});
             }
 
             ViewBag.Face = face;

@@ -10,7 +10,9 @@
     @foreach (var c in Model.Cases)
     {
         <li>
-            @Html.ActionLink(c.ShortInfo, "Info", new { id = c.Id })
+            @c.ShortInfo
+            @Html.ActionLink("Details", "Info", new { id = c.Id })
+            @Html.ActionLink("Proceed", "Run", new { id = c.Id })
         </li>
     }
 </ul>   

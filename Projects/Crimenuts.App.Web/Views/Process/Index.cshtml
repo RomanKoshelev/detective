@@ -9,7 +9,9 @@
     @foreach (var p in Model.Processes)
     {
         <li>
-            @Html.ActionLink(p.ShortInfo, "Info", new { id = p.Id }) @Html.ActionLink("(New Play)", "ClassicPlay", new { id = p.Id })
+            @p.ShortInfo
+            @Html.ActionLink("Details", "Info", new { id = p.Id })
+            @Html.ActionLink("Take", "Play", new { id = p.Id })
         </li>
     }
     @if (Model.Processes.Count == 0)
