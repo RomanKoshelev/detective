@@ -198,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\DetectiveDesign.1.png" />
+    <Content Include="Content\Themes\Classic\Room.Members.css" />
     <Content Include="Content\Themes\Classic\Room.Board.css" />
     <Content Include="Content\Themes\Classic\Room.css" />
     <Content Include="Content\Themes\Classic\Layout.css" />

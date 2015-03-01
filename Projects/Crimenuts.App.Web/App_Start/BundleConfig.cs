@@ -16,6 +16,7 @@ namespace Crimenuts.App.Web
                 .Include("~/Content/Themes/Classic/Site.css")
                 .Include("~/Content/Themes/Classic/Layout.css")
                 .Include("~/Content/Themes/Classic/Room.css")
+                .Include("~/Content/Themes/Classic/Room.Members.css")
                 .Include("~/Content/Themes/Classic/Room.Board.css"));
 
             // Default CSS
