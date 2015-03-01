@@ -1,8 +1,18 @@
 ﻿@{
-    ViewBag.Title = "Detective Home";
-    Layout = "~/Views/Shared/Layouts/Default.cshtml";
+    // Now: | View | Home | Index
+    ViewBag.Title = string.Format("{0}",
+        Localization.Text("Title:Crime Nuts")
+        );
+    Layout = "~/Views/Shared/Layouts/Classic.cshtml";
 }
-<h2>Detective Home</h2>
-<ul>
-    <li>@Html.ActionLink("Schema", "Index", "Schema")</li>
-</ul>
+
+
+<div class="cn-dev cn-height-200">
+    
+    <br> @Html.ActionLink("Cases", "Index", "Case")
+    <br> @Html.ActionLink("Processes", "Index", "Process")
+    
+</div>
+<div class="cn-dev cn-height-400">
+    Files
+</div>

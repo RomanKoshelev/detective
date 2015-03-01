@@ -1,17 +1,20 @@
 ﻿using System.Web.Mvc;
 using Crimenuts.App.Web.Models;
 using Crimenuts.Core.Game;
-using Crimenuts.Utils;
 
 namespace Crimenuts.App.Web.Controllers
 {
     public class ProcessController : Controller
     {
+        // ===================================================================================== []
+        // Index
         public ActionResult Index()
         {
             return View(new SchemaModel());
         }
 
+        // ===================================================================================== []
+        // Info
         public ActionResult Info(int id)
         {
             var processId = (Process.Identifier)id;
@@ -19,18 +22,8 @@ namespace Crimenuts.App.Web.Controllers
             return View(new ProcessModel(processId));
         }
 
-        //public ActionResult Play(int id, int? actionType, params int[] actionParams)
-        //{
-        //    var processId = (Process.Identifier)id;
-        //    if (actionType != null)
-        //    {
-        //        Schema.ExecuteProcess(processId, (Process.UserAction.ActionType) actionType, actionParams);
-        //        return RedirectToAction("Play", "Process", new {id = processId});
-        //    }
-        //    return View(new ProcessModel(processId));
-        //}
-
-        // >> Precess | Controller | Play *
+        // ===================================================================================== []
+        // Play
         public ActionResult Play(int id,
             int? face,
             int? card,
@@ -39,6 +32,7 @@ namespace Crimenuts.App.Web.Controllers
             int? subject,
             int? suspect)
         {
+            // >> Precess | Controller | Play
             var processId = (Process.Identifier)id;
 
             if (actionType != null)

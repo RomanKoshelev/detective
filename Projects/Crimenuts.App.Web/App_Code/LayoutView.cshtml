@@ -11,13 +11,13 @@
 
 @helper Header(string title)
 {
-    <div class="det-green-pad det-border-bottom-red-4">
+    <div class="cn-green-pad cn-border-bottom-red-4">
         <nav>
             <ul>
                 <li>
                     @title
                 </li>
-                <li class="det-text-align-right">
+                <li class="cn-text-align-right">
                     @MenuActionLink(Localization.Text("Menu:Home"), "Home")
                     | @MenuActionLink(Localization.Text("Menu:Cases"), "Case")
                     | @MenuActionLink(Localization.Text("Menu:Processes"), "Process")
@@ -30,13 +30,13 @@
 
 @helper Footer()
 {
-    <div class="det-green-pad det-border-top-red-4">
+    <div class="cn-green-pad cn-border-top-red-4">
         <nav>
             <ul>
                 <li>
                     Crime Nuts (c) @MenuLink("RKDev", "http://romankoshelev.info") 2015
                 </li>
-                <li class="det-text-align-right">
+                <li class="cn-text-align-right">
                     @MenuLink("Loc", "http://localhost/crimenuts/")
                     | @MenuLink("Web", "http://www.crimenuts.com")
                     | @MenuLink("Azure", "https://manage.windowsazure.com/@romakoshgmail.onmicrosoft.com#Workspaces/WebsiteExtension/Website/pgs-detective/deployments")
@@ -50,8 +50,8 @@
     </div>
 }
 @helper MenuActionLink(string text, string controller, string action = "Index")
-{ @Html.ActionLink(text, action, controller, null, new {@class = "det-menu"}) }
+{ @Html.ActionLink(text, action, controller, null, new {@class = "cn-menu"}) }
 @helper MenuLink(string text, string href)
 {
-    <a class="det-menu" href="@href">@text</a>
+    <a class="cn-menu" href="@href">@text</a>
 }

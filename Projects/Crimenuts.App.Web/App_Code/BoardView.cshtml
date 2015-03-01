@@ -20,75 +20,75 @@
 
     public static string TodayClass
     {
-        get { return "det-gamelog-today"; }
+        get { return "cn-gamelog-today"; }
     }
 
     public static string ButtonArrestClass
     {
-        get { return "det-arrest-button"; }
+        get { return "cn-arrest-button"; }
     }
 
     public static string ButtonEarlyArrestClass
     {
-        get { return "det-arrest-button-lite"; }
+        get { return "cn-arrest-button-lite"; }
     }
 
     public static string ButtonContinueClass
     {
-        get { return "det-continue-button"; }
+        get { return "cn-continue-button"; }
     }
 
     public static string ArrestClass
     {
-        get { return "det-gamelog-today"; }
+        get { return "cn-gamelog-today"; }
     }
 
     public static string DetectiveClass
     {
-        get { return "det-gamelog-detective"; }
+        get { return "cn-gamelog-detective"; }
     }
 
     public static string MemberLinkClass
     {
-        get { return "det-gamelog-member-link"; }
+        get { return "cn-gamelog-member-link"; }
     }
 
     public static string HighlightClass
     {
-        get { return "det-gamelog-highlight"; }
+        get { return "cn-gamelog-highlight"; }
     }
 
     public static string SubjectLinkClass
     {
-        get { return "det-gamelog-subject-highlight"; }
+        get { return "cn-gamelog-subject-highlight"; }
     }
 
     public static string RespondentLinkClass
     {
-        get { return "det-gamelog-highlight"; }
+        get { return "cn-gamelog-highlight"; }
     }
 
     public static string HintVariantsClass
     {
-        get { return "det-gamelog-hint-variants"; }
+        get { return "cn-gamelog-hint-variants"; }
     }
 
     public static string HintTitleClass
     {
-        get { return "det-gamelog-hint-title"; }
+        get { return "cn-gamelog-hint-title"; }
     }
     public static string HistoryClass
     {
-        get { return "det-gamelog-history"; }
+        get { return "cn-gamelog-history"; }
     }
     public static string CaseClass
     {
-        get { return "det-gamelog-case"; }
+        get { return "cn-gamelog-case"; }
     }
 
     public static string ResultClass
     {
-        get { return "det-gamelog-result"; }
+        get { return "cn-gamelog-result"; }
     }
 
     public static string SubjectHihglightClass(MemberModel subject)
@@ -115,20 +115,20 @@
 
 @helper Button(string text, string bclass, string url)
 {
-    <div class="det-button-panel">
+    <div class="cn-button-panel">
         @Shared.Link(text,
-            bclass + "  det-button",
+            bclass + "  cn-button",
             url)
     </div>
 }
 
 @helper Record(HelperResult day, HelperResult info, string infoClass = "")
 {
-    <div class="det-gamelog-record">
-        <div class="det-gamelog-record-day">
+    <div class="cn-gamelog-record">
+        <div class="cn-gamelog-record-day">
             @day
         </div>
-        <div class="det-gamelog-record-info @infoClass">
+        <div class="cn-gamelog-record-info @infoClass">
             @info
         </div>
     </div>
@@ -152,7 +152,7 @@
 
 @helper RecordInfoSection(HelperResult infoSection, string infoSectionClass = "")
 {
-    <div class="det-gamelog-record-info-section @infoSectionClass">
+    <div class="cn-gamelog-record-info-section @infoSectionClass">
         @infoSection
     </div>
 }

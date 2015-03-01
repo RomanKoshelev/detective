@@ -59,7 +59,6 @@
     <Compile Include="Sources\Trace\CrimenutsAssert.cs" />
     <Compile Include="Sources\Trace\CrimenutsException.cs" />
     <Compile Include="Sources\Extensions\Extensions.cs" />
-    <Compile Include="Sources\Identifier\Identifier.cs" />
     <Compile Include="Sources\Localization\Localizator.cs" />
     <Compile Include="Sources\Research\Research.cs" />
     <Compile Include="Sources\Extensions\WebExtensions.cs" />

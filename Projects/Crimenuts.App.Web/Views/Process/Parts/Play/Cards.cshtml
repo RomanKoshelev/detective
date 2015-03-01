@@ -11,18 +11,18 @@
     {
         return
             num == Face || num == Card
-                ? " det-card-frame-selected"
+                ? " cn-card-frame-selected"
                 : ProcessView.MemberIsActive(num)
-                    ? " det-card-frame-visible"
-                    : " det-card-frame-invisible";
+                    ? " cn-card-frame-visible"
+                    : " cn-card-frame-invisible";
     }
 
     private string ActiveCardClass(int num)
     {
         return
             ProcessView.MemberIsActive(num)
-                ? " det-card-name-active"
-                : " det-card-name-inactive";
+                ? " cn-card-name-active"
+                : " cn-card-name-inactive";
     }
 
     private bool CardIsLinked(int num)
@@ -49,11 +49,11 @@
 
 @helper Cards(int first, int last)
 {
-    <nav class="det-gametable-color">
+    <nav class="cn-gametable-color">
         <ul>
             @for (var i = first; i <= last; i++)
             {
-                <li class="det-card">
+                <li class="cn-card">
                     @CardFrame(i)
                 </li>
             }
@@ -63,8 +63,8 @@
 
 @helper CardFrame(int num)
 {
-    <div class="det-card-aligment" align="center">
-        <div class="det-card-content + @ActiveCardClass(num) @PrimaryCardClass(num)" align="center">
+    <div class="cn-card-aligment" align="center">
+        <div class="cn-card-content + @ActiveCardClass(num) @PrimaryCardClass(num)" align="center">
             @if (ProcessView.MemberExists(num))
             {
                 if (CardIsLinked(num))
@@ -90,7 +90,7 @@
 
 @helper CardQuestioningLink(int subject)
 {
-    <a class="det-card-link" href="@ProcessView.AskActionUrl((int) Face, subject)">
+    <a class="cn-card-link" href="@ProcessView.AskActionUrl((int) Face, subject)">
         @ProcessView.MemberName(subject)
     </a>
 }

@@ -7,13 +7,13 @@
 // Structure
 */
 
-.det-gamelog-record {
+.cn-gamelog-record {
     padding-top: 0;
     padding-bottom: 15px;
     height: auto;
 }
 
-.det-gamelog-record-day {
+.cn-gamelog-record-day {
     width: 140px;
     padding-right: 15px;
     color: #560000;
@@ -23,14 +23,14 @@
     text-align: right;
 }
 
-.det-gamelog-record-info {
+.cn-gamelog-record-info {
     width: auto;
     display: table-cell;
     vertical-align: top;
     padding-top: 0;
 }
 
-.det-gamelog-record-info-section {
+.cn-gamelog-record-info-section {
     color: inherit;
     margin-bottom: 2px;
 }
@@ -40,37 +40,37 @@
 // Elements
 */
 
-.det-gamelog-member-link { 
+.cn-gamelog-member-link { 
     text-decoration: none;
 }
 
-.det-gamelog-member-link:hover { background-color: #9fff89; }
+.cn-gamelog-member-link:hover { background-color: #9fff89; }
 
-.det-gamelog-subject-highlight {
+.cn-gamelog-subject-highlight {
     background-color: #fae5d6;
     background-color: rgba(255, 0, 0, 0.14);
 }
 
-.det-gamelog-highlight { background-color: yellow; }
+.cn-gamelog-highlight { background-color: yellow; }
 
-.det-gamelog-today {
+.cn-gamelog-today {
     color: #990000;
 }
 
-.det-gamelog-detective {
+.cn-gamelog-detective {
      color: #4800b1;
      padding-left: 30px;
 }
 
-.det-gamelog-history {
+.cn-gamelog-history {
     color: #560000;
 }
 
-.det-gamelog-case {
+.cn-gamelog-case {
     color: #560000;
 }
 
-.det-gamelog-result{
+.cn-gamelog-result{
     color: #560000;
 }
 
@@ -86,11 +86,11 @@
 // Hint
 */
 
-.det-gamelog-hint-title {
+.cn-gamelog-hint-title {
     padding-bottom: 5px
 }
 
-.det-gamelog-hint-variants {
+.cn-gamelog-hint-variants {
     line-height: 20px;
     padding-top: 0;
     padding-left: 30px;
@@ -102,42 +102,42 @@
 // Buttons
 */
 
-.det-button {
+.cn-button {
     border-radius: 4px;
     padding: 15px;
     text-decoration: none;
 }
 
-.det-button-panel {
+.cn-button-panel {
     padding-top: 15px;
     padding-bottom: 0;
 }
 
-.det-arrest-button {
+.cn-arrest-button {
     background-color: #004c99;
     color: #cce5ff;
 }
 
-.det-arrest-button:hover { color: #ffffff; }
+.cn-arrest-button:hover { color: #ffffff; }
 
-.det-arrest-button-lite {
+.cn-arrest-button-lite {
     background-color: inherit;
     color: #aeced9;
     border: solid 1px #aeced9;
 }
 
-.det-arrest-button-lite:hover {
+.cn-arrest-button-lite:hover {
     background-color: #004c99;
     color: #cce5ff;
     border: 0;
 }
 
-.det-continue-button {
+.cn-continue-button {
     background-color: #004c99;
     color: #cce5ff;
 }
 
-.det-continue-button:hover { color: #ffffff; }
+.cn-continue-button:hover { color: #ffffff; }
 
 /*
 // ============================================================================================= []

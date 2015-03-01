@@ -2,7 +2,7 @@
 <html>
 
 @{
-    // >> Layouts | Classic
+    // Now: | View | Shared | Layout | Classic
 }
 
 <head>
@@ -13,16 +13,43 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/Themes/Classic/css")
 
+
+    <style type="text/css">
+        .Frame {
+            display: table;
+            width: 100%;
+            height: 100%;
+        }
+
+        .Row {
+            display: table-row;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        .Row.Expand { height: auto; }
+    </style>
+
 </head>
 
+
 <body>
-    <div align="center" class="det-body">
-        <div align="left" class="det-page">
-            @LayoutView.Header(ViewBag.Title)
-            @RenderBody()
-            @LayoutView.Footer()
+<div class="Frame">
+    <div class="Row">
+        @LayoutView.Header(ViewBag.Title)
+    </div>
+
+    <div class="Row Expand" align="center">
+        <div class="cn-page">
+            <div align="left" class="cn-page-content">
+                @RenderBody()
+            </div>
         </div>
     </div>
-</body>
 
+    <div class="Row">
+        @LayoutView.Footer()
+    </div>
+</div>
+</body>
 </html>

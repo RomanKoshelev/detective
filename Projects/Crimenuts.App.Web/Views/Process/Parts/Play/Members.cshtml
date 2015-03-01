@@ -17,26 +17,26 @@
         if (Model.State == State.Finished && member.IsActive)
         {
             return member.IsOpenMurderer
-                ? " det-member-face-active-murderer"
+                ? " cn-member-face-active-murderer"
                 : member.IsOpenInnocent
-                    ? " det-member-face-active-innocent"
+                    ? " cn-member-face-active-innocent"
                     : "";            
         }
 
         if (member.IsActive)
         {
             return num == Face
-                ? " det-member-face-active-primary"
-                : " det-member-face-active-secondary";
+                ? " cn-member-face-active-primary"
+                : " cn-member-face-active-secondary";
         }
 
         if (member.IsOpenMurderer)
         {
-            return num == Face ? " det-member-face-inactive-murderer-selected" : " det-member-face-inactive-murderer";
+            return num == Face ? " cn-member-face-inactive-murderer-selected" : " cn-member-face-inactive-murderer";
         }
         if (member.IsOpenInnocent)
         {
-            return num == Face ? " det-member-face-inactive-innocent-selected" : " det-member-face-inactive-innocent";
+            return num == Face ? " cn-member-face-inactive-innocent-selected" : " cn-member-face-inactive-innocent";
         }
         return "";            
     }
@@ -45,12 +45,12 @@
     // MemberFaceEmotionClass
     private string MemberFaceEmotionClass(int num)
     {
-        return ProcessView.MemberIsAlive(num) ? " det-member-face-text-alive det-vertical" : " det-member-face-text-dead";
+        return ProcessView.MemberIsAlive(num) ? " cn-member-face-text-alive cn-vertical" : " cn-member-face-text-dead";
     }
 
     private string FaceTextClass(int num)
     {
-        return string.Format("{0} {1}", MemberFaceEmotionClass(num), "det-member-face-link");
+        return string.Format("{0} {1}", MemberFaceEmotionClass(num), "cn-member-face-link");
     }
 
     private string EmotionMarker(int num, int? subj)
@@ -97,7 +97,7 @@
     private string MemberAskedClass(int num)
     {
         return ProcessView.IsAsked(num)
-            ? SideIsTop ? " det-member-face-asked-top" : " det-member-face-asked-bottom"
+            ? SideIsTop ? " cn-member-face-asked-top" : " cn-member-face-asked-bottom"
             : "";
     }
 
@@ -109,7 +109,7 @@
         <ul>
             @for (var i = first; i <= last; i++)
             {
-                <li class="det-member">
+                <li class="cn-member">
                     @Member(i)
                 </li>
             }
@@ -119,8 +119,8 @@
 
 @helper Member(int i)
 {
-    <div class="det-member-cell-aligment" align="center">
-        <div class="det-member-cell-content" align="center">
+    <div class="cn-member-cell-aligment" align="center">
+        <div class="cn-member-cell-content" align="center">
             @if (ProcessView.MemberExists(i))
             {
                 if (SideIsTop && ProcessView.MemberIsActive(i) || !SideIsTop && !ProcessView.MemberIsActive(i))
@@ -140,14 +140,14 @@
 
 @helper FaceFrame(int num)
 {
-    <div class="det-member-cell-circle-face @MemberFaceClass(num) @MemberAskedClass(num)">
+    <div class="cn-member-cell-circle-face @MemberFaceClass(num) @MemberAskedClass(num)">
         @(FaceIsLinked(num) ? FaceLink(num) : FaceText(num))
     </div>
 }
 
 @helper FaceIndent()
 {
-    <div class="det-member-cell-content-indent">
+    <div class="cn-member-cell-content-indent">
     </div>
 }
 
