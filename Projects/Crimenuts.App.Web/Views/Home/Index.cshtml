@@ -1,5 +1,5 @@
 ﻿@{
-    // Code: | View | Home | Index
+    // >> | View | Home | Index
     ViewBag.Title = string.Format("{0}",
         Localization.Text("Title:Crime Nuts")
         );
@@ -29,6 +29,11 @@
     <div class="cn-info-header">
         Main menu
     </div>
+@*
+    // Code: Show World Image
+*@
+
+    <img width="600" src="~/Image/World/0/"/>
 
     @LocalizedMainMenuItem("Menu:Cases", "Case")
     @LocalizedMainMenuItem("Menu:Processes", "Process")
@@ -37,10 +42,10 @@
     @MainMenuItem("Settings", "Site")
 
     @*
-    @MainMenuItem("Players", "Home")
-    @MainMenuItem("Achievements", "Home")
-    @MainMenuItem("Profile", "Home")
-    @MainMenuItem("Help", "Home")
+        @MainMenuItem("Players", "Home")
+        @MainMenuItem("Achievements", "Home")
+        @MainMenuItem("Profile", "Home")
+        @MainMenuItem("Help", "Home")
     *@
 
 </div>
