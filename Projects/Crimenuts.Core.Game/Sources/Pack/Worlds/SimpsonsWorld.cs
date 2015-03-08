@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using Crimenuts.Utils.Localization;
 
 namespace Crimenuts.Core.Game
 {
@@ -17,6 +15,7 @@ namespace Crimenuts.Core.Game
             EvidenceRate = 0.4;
         }
 
+        // >> | World | Simpsons **
         protected override void LoadPersons()
         {
             Persons = new List<Person>();
@@ -38,7 +37,7 @@ namespace Crimenuts.Core.Game
             NormalPerson("Skinner").Russian("Скиннер");
             NormalPerson("Edna").Russian("Эдна").Female();
             NormalPerson("Martin").Russian("Мартин");
-            NormalPerson("Ralf").Russian("Ральф");
+            NormalPerson("Ralph").Russian("Ральф");
             NormalPerson("Nelson").Russian("Нельсон");
 
             // Homer's friends
@@ -58,7 +57,7 @@ namespace Crimenuts.Core.Game
             NormalPerson("Wiggum").Russian("Виггам");
             NormalPerson("Snake").Russian("Змей");
             NormalPerson("Apu").Russian("Апу");
-            NormalPerson("Fat Tony").Russian("Жирный Тони");
+            NormalPerson("FatTony").Russian("Жирный Тони");
 
             // Celebrities
             NormalPerson("Krusty").Russian("Красти");
@@ -81,10 +80,10 @@ namespace Crimenuts.Core.Game
                 .Hate("Selma", "Patty", "Burns", "Flanders", "Todd", "Rod");
             "Marge"
                 .Love("Bart", "Liza", "Homer", "Maggie", "Selma", "Patty", "Nelson", "Snake", "Apu")
-                .Hate("Moe", "Burns", "Barney", "Lenny", "Carl", "Fat Tony", "Krusty", "Itchy", "Scratchy");
+                .Hate("Moe", "Burns", "Barney", "Lenny", "Carl", "FatTony", "Krusty", "Itchy", "Scratchy");
             "Bart"
-                .Love("Marge", "Homer", "Liza", "Maggie", "Krusty", "Milhouse", "Itchy", "Scratchy", "Fat Tony")
-                .Hate("Skinner", "Edna", "Selma", "Patty", "Bob", "Nelson", "Martin", "Ralf", "Todd", "Rod");
+                .Love("Marge", "Homer", "Liza", "Maggie", "Krusty", "Milhouse", "Itchy", "Scratchy", "FatTony")
+                .Hate("Skinner", "Edna", "Selma", "Patty", "Bob", "Nelson", "Martin", "Ralph", "Todd", "Rod");
             "Liza"
                 .Love("Marge", "Homer", "Bart", "Maggie", "Abraham", "Krusty", "Itchy", "Scratchy", "Nelson", "Edna",
                     "Skinner")
@@ -117,12 +116,12 @@ namespace Crimenuts.Core.Game
             "Martin"
                 .Love("Skinner", "Liza", "Edna", "Krusty", "Itchy", "Scratchy")
                 .Hate("Bart", "Nelson");
-            "Ralf"
+            "Ralph"
                 .Love("Wiggum", "Skinner", "Liza", "Edna", "Krusty", "Itchy", "Scratchy")
                 .Hate("Nelson");
             "Nelson"
-                .Love("Itchy", "Scratchy", "Marge", "Krusty", "Liza", "Snake", "Fat Tony")
-                .Hate("Skinner", "Edna", "Bart", "Wiggum", "Milhouse", "Martin", "Ralf", "Todd", "Rod");
+                .Love("Itchy", "Scratchy", "Marge", "Krusty", "Liza", "Snake", "FatTony")
+                .Hate("Skinner", "Edna", "Bart", "Wiggum", "Milhouse", "Martin", "Ralph", "Todd", "Rod");
 
             // Homer's friends
             "Barney"
@@ -130,7 +129,7 @@ namespace Crimenuts.Core.Game
                 .Hate();
             "Moe"
                 .Love("Homer", "Barney", "Carl", "Lenny", "Marge")
-                .Hate("Bart", "Burns", "Fat Tony", "Snake");
+                .Hate("Bart", "Burns", "FatTony", "Snake");
             "Lenny"
                 .Love("Homer", "Barney", "Moe", "Carl")
                 .Hate("Burns");
@@ -157,21 +156,21 @@ namespace Crimenuts.Core.Game
                 .Love("Burns")
                 .Hate();
             "Wiggum"
-                .Love("Ralf")
-                .Hate("Snake", "Fat Tony", "Bob");
+                .Love("Ralph")
+                .Hate("Snake", "FatTony", "Bob");
             "Apu"
                 .Love("Homer", "Marge", "Liza")
-                .Hate("Snake", "Fat Tony");
+                .Hate("Snake", "FatTony");
             "Snake"
-                .Love("Marge", "Bart", "Fat Tony")
+                .Love("Marge", "Bart", "FatTony")
                 .Hate("Wiggum", "Apu", "Moe", "Burns");
-            "Fat Tony"
+            "FatTony"
                 .Love("Bart", "Krusty", "Snake")
                 .Hate("Wiggum", "Apu", "Moe", "Burns");
 
             // Celebrities
             "Krusty"
-                .Love("Liza", "Bart", "Itchy", "Scratchy", "Fat Tony")
+                .Love("Liza", "Bart", "Itchy", "Scratchy", "FatTony")
                 .Hate("Bob");
             "Bob"
                 .Love("Selma")
