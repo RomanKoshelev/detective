@@ -15,7 +15,7 @@ namespace Crimenuts.Core.Game
             EvidenceRate = 0.4;
         }
 
-        // >> | World | Simpsons *
+        // >> Core | World | Simpsons *
         protected override void LoadPersons()
         {
             Persons = new List<Person>();

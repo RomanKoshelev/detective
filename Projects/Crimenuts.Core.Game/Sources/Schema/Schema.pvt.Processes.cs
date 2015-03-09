@@ -10,7 +10,7 @@ namespace Crimenuts.Core.Game
         {
             Processes = new List<Process>();
 
-            //Cases.ForEach(CreateStartProcesses);
+            Cases.ForEach(CreateStartProcesses);
         }
 
         private static void CreateStartProcesses(Case c)

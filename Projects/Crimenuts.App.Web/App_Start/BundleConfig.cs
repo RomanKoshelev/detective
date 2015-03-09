@@ -4,7 +4,7 @@ namespace Crimenuts.App.Web
 {
     public static class BundleConfig
     {
-        // >> | BundleConfig *
+        // >> App_Start | BundleConfig
         public static void RegisterBundles(BundleCollection bundles)
         {
             // CSS

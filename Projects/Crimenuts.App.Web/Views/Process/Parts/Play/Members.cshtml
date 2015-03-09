@@ -1,7 +1,7 @@
 ﻿@using Crimenuts.Core.Game
 @model Crimenuts.App.Web.Models.ProcessModel
 @{
-    // >> Process | View | Classic | Members
+    // >> View | Process | Members * 
     @Members((int) ViewBag.First, (int) ViewBag.Last)
 }
 
@@ -20,9 +20,8 @@
                 ? " cn-member-face-active-murderer"
                 : member.IsOpenInnocent
                     ? " cn-member-face-active-innocent"
-                    : "";            
+                    : "";
         }
-
         if (member.IsActive)
         {
             return num == Face
@@ -38,7 +37,7 @@
         {
             return num == Face ? " cn-member-face-inactive-innocent-selected" : " cn-member-face-inactive-innocent";
         }
-        return "";            
+        return "";
     }
 
     // ===================================================================================== []
@@ -48,11 +47,13 @@
         return ProcessView.MemberIsAlive(num) ? " cn-member-face-text-alive cn-vertical" : " cn-member-face-text-dead";
     }
 
+    // --------------------------------------------------------[]
     private string FaceTextClass(int num)
     {
         return string.Format("{0} {1}", MemberFaceEmotionClass(num), "cn-member-face-link");
     }
 
+    // --------------------------------------------------------[]
     private string EmotionMarker(int num, int? subj)
     {
         switch (ProcessView.MemberEmotion(num, subj))
@@ -138,27 +139,53 @@
     </div>
 }
 
+@*
+// ===================================================================================== []
+// Face
+*@
 @helper FaceFrame(int num)
 {
+    // Code: View.FaceFrame
+
+    // Todo: world = Model.Case.WorldName => member.WorldName
+
+    var member = ProcessView.Member(num);
+
     <div class="cn-member-cell-circle-face @MemberFaceClass(num) @MemberAskedClass(num)">
         @(FaceIsLinked(num) ? FaceLink(num) : FaceText(num))
+
+
+        @Shared.ImageHeight("Person", new {world = Model.Case.WorldName, name = member.Name},150)
+
+
     </div>
 }
-
+@*
+// --------------------------------------------------------[]
+*@
 @helper FaceIndent()
 {
     <div class="cn-member-cell-content-indent">
     </div>
 }
-
+@*
+// --------------------------------------------------------[]
+*@
 @helper FaceLink(int num)
 {
     <a class="@FaceTextClass(num)" href="@ProcessView.MemberFaceUrl(num)">@MemberFace(num, ViewBag.Face)</a>
 }
-
+@*
+// --------------------------------------------------------[]
+*@
 @helper FaceText(int num)
 {
     <span class="@FaceTextClass(num)" >
         @MemberFace(num, ViewBag.Face)
     </span>
 }
+
+@*
+// ===================================================================================== []
+// EOF
+*@

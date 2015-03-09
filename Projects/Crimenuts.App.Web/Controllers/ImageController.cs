@@ -20,6 +20,16 @@ namespace Crimenuts.App.Web.Controllers
 
             return ImageActionResult(filePath, fileName);
         }
+        // ===================================================================================== []
+        // Person
+        [OutputCache(Duration = CacheDuration, VaryByParam = "world;name")]
+        public ActionResult Person(string world, string name)
+        {
+            var filePath = string.Format(@"Worlds\{0}\Persons\{1}\person.picture.png", world, name);
+            var fileName = string.Format("{0}-{1}-Picture.png", world, name);
+
+            return ImageActionResult(filePath, fileName);
+        }
 
         // ===================================================================================== []
         // Utils
