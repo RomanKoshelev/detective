@@ -46,9 +46,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Crocodev.Common, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Crocodev.Common, Version=1.0.1.36194, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\crocodev.common.1.0.0.5\lib\net451\Crocodev.Common.dll</HintPath>
+      <HintPath>..\..\packages\crocodev.common.1.0.1.36194\lib\net451\Crocodev.Common.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -198,64 +198,45 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Worlds\Simpsons\Images\los_simpsons_png_1_by_florchu1-d5m0vop.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Images\simpsons.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Images\world.picture.png" />
     <Content Include="App_Data\Worlds\Simpsons\Persons\.other\Dr_Nick.png" />
     <Content Include="App_Data\Worlds\Simpsons\Persons\.other\Groundskeeper_Willie.png" />
     <Content Include="App_Data\Worlds\Simpsons\Persons\.other\Nick_Riviera.png" />
     <Content Include="App_Data\Worlds\Simpsons\Persons\.other\Tapped_Out_Unlock_Willie.png" />
     <Content Include="App_Data\Worlds\Simpsons\Persons\.other\THOH_Kang_and_Kodos.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Abraham\Abe_Simpson.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Apu\Apu_Nahasapeemapetilon.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Apu\Apu_Nahasapeemapetilon_%28The_Simpsons%29.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Barney\222px-Barney_Gumble.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Barney\Tapped_Out_Unlock_Barney.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Bart\Bart_Simpson.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Bart\Bart_Simpson_200px %281%29.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Bart\Bart_Simpson_200px.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Bob\C-bob.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Burns\montgomery_burns.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Burns\Mr_Burns.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Carl\Carl_Carlson.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Edna\Edna_Krabappel.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\FatTony\FatTony.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Flanders\Ned_Flanders.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Homer\Homer_Simpson_2006.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Itchy\Itchy.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Itchy\Itchy_mouse.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Kang\kang-and-kodos-exchange-long-protein-strings.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Kodos\Kang_e_Kodos.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Kodos\Tapped_Out_Kodos %281%29.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Kodos\Tapped_Out_Kodos.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Kodos\Tapped_Out_Unlock_Kang.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Krusty\220px-Krustytheclown.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Lenny\Lenny_Leonard.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Liza\200px-Lisa_Simpson.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Liza\Eliza_Simpson_Detective.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Maggie\Maggie_Simpson.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Marge\Marge_Simpson %281%29.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Marge\Marge_Simpson.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Martin\Martin_Prince.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Milhouse\222px-Milhouse.PNG" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Milhouse\Tapped_Out_Unlock_Milhouse.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Moe\Moe_Szyslak.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Nelson\Nelson_Muntz-795440.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Patty\Patty_Bouvier.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Patty\Patty_Original_Hair.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Ralph\Ralph_Wiggum.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Rod\Rod_Flanders.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Scratchy\Scratchy %281%29.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Scratchy\Scratchy.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Scratchy\Scratchy_Cat.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Selma\Selma_Bouvier %281%29.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Selma\Selma_Bouvier.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Skinner\Seymour_Skinner.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Smithers\Waylon_Smithers_1.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Snake\SimpSnake_f.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Todd\Todd_Flanders %281%29.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Todd\Todd_Flanders.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Wiggum\220px-Chief_Wiggum.png" />
-    <Content Include="App_Data\Worlds\Simpsons\Persons\Wiggum\245px-Clancy_Wiggum.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Abraham\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Apu\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Barney\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Bart\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Bob\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Burns\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Carl\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Edna\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\FatTony\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Flanders\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Homer\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Itchy\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Kang\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Kodos\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Krusty\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Lenny\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Liza\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Maggie\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Marge\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Martin\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Milhouse\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Moe\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Nelson\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Patty\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Ralph\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Rod\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Scratchy\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Selma\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Skinner\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Smithers\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Snake\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Todd\person.picture.png" />
+    <Content Include="App_Data\Worlds\Simpsons\Persons\Wiggum\person.picture.png" />
     <Content Include="Content\Images\DetectiveDesign.1.png" />
     <Content Include="Content\Themes\Classic\Info.css" />
     <Content Include="Content\Themes\Classic\Room.Members.css" />

@@ -6,7 +6,12 @@
     {
         get { return ((WebViewPage) WebPageContext.Current.Page).Html; }
     }
-    
+
+    private static UrlHelper Url
+    {
+        get { return ((WebViewPage) WebPageContext.Current.Page).Url; }
+    }
+
     public static MvcHtmlString BuildLink(string linkText, string linkClass, string linkUrl)
     {
         return new MvcHtmlString(string.Format("<a class='{0}' href='{1}'>{2}</a>", linkClass, linkUrl, linkText));
@@ -14,9 +19,13 @@
 
 }
 
-@helper Link(string linkText, string linkClass, string linkUrl)
-{ @BuildLink(linkText, linkClass, linkUrl) }
 
+@*
+// ===================================================================================== []
+// Format
+*@
+@helper Text(string text)
+{ @text }
 @helper Format(string text, params object[] args)
 {
     @Text(string.Format(
@@ -24,6 +33,21 @@
         args))
 }
 
+
+@*
+// ===================================================================================== []
+// Link
+*@
+@helper Link(string linkText, string linkClass, string linkUrl)
+{
+    @BuildLink(
+        linkText,
+        linkClass,
+        linkUrl)
+}
+@*
+// --------------------------------------------------------[]
+*@
 @helper ActionLink(string text, string controller, string action, string cssClass)
 {
     @Html.ActionLink(
@@ -31,22 +55,40 @@
         action,
         controller,
         null,
-        new { @class = cssClass })
+        new {@class = cssClass})
 }
-
-
+@*
+// --------------------------------------------------------[]
+*@
 @helper ActionLink(string text, string controller, string action, int id, string @class)
 {
     @Html.ActionLink(
         text,
         action,
         controller,
-        new { id },
-        new { @class })
+        new {id},
+        new {@class})
 }
 
-
-
-
-@helper Text(string text)
-{ @text }
+@*
+// ===================================================================================== []
+// Image
+*@
+@helper Image(string action, object args = null, string imgClass = "")
+{
+    <img src='@Url.Action(action, "Image", args)' class="@imgClass"/>
+}
+@*
+// --------------------------------------------------------[]
+*@
+@helper ImageWidth(string action, object args, int width)
+{
+    <img width="@width" src='@Url.Action(action, "Image", args)'/>
+}
+@*
+// --------------------------------------------------------[]
+*@
+@helper ImageHeight(string action, object args, int height)
+{
+    <img height="@height" src='@Url.Action(action, "Image", args)'/>
+}

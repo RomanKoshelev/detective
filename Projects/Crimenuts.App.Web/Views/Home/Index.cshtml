@@ -13,7 +13,6 @@
     </div>
 }
 
-
 @helper LocalizedMainMenuItem(string textId, string controller, string action = "Index")
 {
     @MainMenuItem(
@@ -23,17 +22,13 @@
         )
 }
 
-
 <div class="cn-info">
 
     <div class="cn-info-header">
         Main menu
     </div>
-@*
-    // Code: Show World Image
-*@
 
-    <img width="600" src="~/Image/World/0/"/>
+    @Shared.ImageWidth("World", new {name = "Simpsons"}, 700)
 
     @LocalizedMainMenuItem("Menu:Cases", "Case")
     @LocalizedMainMenuItem("Menu:Processes", "Process")

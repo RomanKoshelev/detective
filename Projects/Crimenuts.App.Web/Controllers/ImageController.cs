@@ -10,14 +10,26 @@ namespace Crimenuts.App.Web.Controllers
     {
         private const int CacheDuration = 86400;
 
-        [OutputCache(Duration = CacheDuration, VaryByParam = "id")]
-        public ActionResult World(int id)
+        // ===================================================================================== []
+        // World
+        [OutputCache(Duration = CacheDuration, VaryByParam = "name")]
+        public ActionResult World(string name)
         {
-            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", @"Worlds\Simpsons\Images\simpsons.png");
+            var filePath = string.Format(@"Worlds\{0}\Images\world.picture.png", name);
+            var fileName = string.Format("World-{0}-Picture.png", name);
+
+            return ImageActionResult(filePath, fileName);
+        }
+
+        // ===================================================================================== []
+        // Utils
+        private static ActionResult ImageActionResult(string filePath, string fileName)
+        {
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", filePath);
             var stream = new FileStream(path, FileMode.Open);
             return new FileStreamResult(stream, "image/png")
             {
-                FileDownloadName = "world.simpsons.png"
+                FileDownloadName = fileName
             };
         }
     }
