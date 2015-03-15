@@ -237,7 +237,8 @@
     <Content Include="App_Data\Worlds\Simpsons\Persons\Snake\person.picture.png" />
     <Content Include="App_Data\Worlds\Simpsons\Persons\Todd\person.picture.png" />
     <Content Include="App_Data\Worlds\Simpsons\Persons\Wiggum\person.picture.png" />
-    <Content Include="Content\Images\DetectiveDesign.1.png" />
+    <Content Include="Content\Images\Lock.png" />
+    <Content Include="Content\Images\Skull.png" />
     <Content Include="Content\Themes\Classic\Info.css" />
     <Content Include="Content\Themes\Classic\Room.Members.css" />
     <Content Include="Content\Themes\Classic\Room.Board.css" />
