@@ -115,7 +115,6 @@
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
-    <None Include="Properties\packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Crimenuts.Utils\Crimenuts.Utils.csproj">
