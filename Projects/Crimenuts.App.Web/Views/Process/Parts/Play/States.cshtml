@@ -3,26 +3,24 @@
     @States()
 }
 @using Crimenuts.Core.Game
-@model Crimenuts.App.Web.Models.ProcessModel
+@model Crimenuts.App.Web.Models.ProcessModel 
 
 @helper States()
 {
-    switch (Model.State)
-    {
-        case State.Arrest:
-        case State.CheckArrest:
-            ProcessView.RenderPartial("Questioning");
-            ProcessView.RenderPartial("Arrest");
+    switch( Model.State ) {
+        case State.Arrest :
+        case State.CheckArrest :
+            ProcessView.RenderPartial( "Questioning" );
+            ProcessView.RenderPartial( "Arrest" );
             break;
-        case State.Questioning:
-            ProcessView.RenderPartial("Questioning");
-            if (Model.Options.EarlyArrestIsEnabled)
-            {
-                ProcessView.RenderPartial("Arrest");
+        case State.Questioning :
+            ProcessView.RenderPartial( "Questioning" );
+            if( Model.Options.EarlyArrestIsEnabled ) {
+                ProcessView.RenderPartial( "Arrest" );
             }
             break;
-        case State.Finished:
-            ProcessView.RenderPartial("Finish");
+        case State.Finished :
+            ProcessView.RenderPartial( "Finish" );
             break;
     }
 }

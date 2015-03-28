@@ -1,8 +1,13 @@
-﻿namespace Crimenuts.Core.Game
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Member.cs
+// Roman, 2015-03-29 12:57 AM
+
+namespace Crimenuts.Core.Game
 {
     public partial class Member
     {
-        public Member(Case gcase, int number, Person person)
+        public Member( Case gcase, int number, Person person )
         {
             Case = gcase;
             Person = person;
@@ -13,8 +18,8 @@
             InitDecisionModules();
         }
 
-        public Member(Member member)
-            : this(member.Case, member.Number, member.Person)
+        public Member( Member member )
+            : this( member.Case, member.Number, member.Person )
         {
             IsMurderer = member.IsMurderer;
         }
@@ -73,10 +78,9 @@
             get { return OpenRole == Role.Innocent; }
         }
 
-        public void SetProcess(Process process)
+        public void SetProcess( Process process )
         {
             Process = process;
         }
     }
-
 }

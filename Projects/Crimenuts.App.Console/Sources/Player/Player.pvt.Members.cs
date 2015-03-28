@@ -1,74 +1,90 @@
-﻿using System;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.App.Console
+// Player.pvt.Members.cs
+// Roman, 2015-03-29 12:55 AM
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Crimenuts.Core.Game;
-using MoreLinq;
 using Crimenuts.Utils;
+using MoreLinq;
 
 namespace Crimenuts.App.Console
 {
     internal partial class Player
     {
-        private void PrintAllMembers(bool printAll = false)
+        private void PrintAllMembers( bool printAll = false )
         {
-            if (SilenceMode) return;
+            if( SilenceMode ) {
+                return;
+            }
 
-            PrintActiveMembers(printAll);
+            PrintActiveMembers( printAll );
             WriteLine();
-            PrintInactiveMembers(printAll);
+            PrintInactiveMembers( printAll );
         }
 
-        private void PrintActiveMembers(bool showAll = false)
+        private void PrintActiveMembers( bool showAll = false )
         {
-            if (SilenceMode) return;
+            if( SilenceMode ) {
+                return;
+            }
 
-            var murdersCount = Members.Count(m => m.IsActiveMurderer);
-            WriteLine("Active Members ({0} {1})", murdersCount, "murder".Plural(murdersCount));
-            PrintMembers(m => m.IsActive, showAll);
+            var murdersCount = Members.Count( m => m.IsActiveMurderer );
+            WriteLine( "Active Members ({0} {1})", murdersCount, "murder".Plural( murdersCount ) );
+            PrintMembers( m => m.IsActive, showAll );
         }
 
-        private void PrintInactiveMembers(bool showAll = false)
+        private void PrintInactiveMembers( bool showAll = false )
         {
-            WriteLine("Inactive Members");
-            PrintMembers(m => !m.IsActive, showAll);
+            WriteLine( "Inactive Members" );
+            PrintMembers( m => !m.IsActive, showAll );
         }
 
-        private void PrintMembers(Func<Member, bool> predicate, bool showAll)
+        private void PrintMembers( Func< Member, bool > predicate, bool showAll )
         {
-            if (SilenceMode) return;
-            Members.Where(predicate)
+            if( SilenceMode ) {
+                return;
+            }
+            Members.Where( predicate )
                 .ForEach(
                     m =>
-                        WriteLine("  {0}{1,-10} {2,-7}{3,-48} {4}",
+                        WriteLine( "  {0}{1,-10} {2,-7}{3,-48} {4}",
                             showAll
-                                ? (MemberStatus(m) + "  ")
-                                : MemberOpenStatus(m), m.Name, m.Person.Profile.Type,
-                            MemberRelationships(m, Members), showAll ? BuildMemberHistory(m, History) : ""));
+                                ? ( MemberStatus( m ) + "  " )
+                                : MemberOpenStatus( m ),
+                            m.Name,
+                            m.Person.Profile.Type,
+                            MemberRelationships( m, Members ),
+                            showAll ? BuildMemberHistory( m, History ) : "" ) );
         }
 
-        private static string MemberRelationships(Member member, IList<Member> members)
+        private static string MemberRelationships( Member member, IList< Member > members )
         {
             return
-                AggregateRelationshipNames(members, m => member.Person.Love(m.Person), "+") +
-                AggregateRelationshipNames(members, m => member.Person.Ignore(m.Person), " ") +
-                AggregateRelationshipNames(members, m => member.Person.Hate(m.Person), "-");
+                AggregateRelationshipNames( members, m => member.Person.Love( m.Person ), "+" ) +
+                    AggregateRelationshipNames( members, m => member.Person.Ignore( m.Person ), " " ) +
+                    AggregateRelationshipNames( members, m => member.Person.Hate( m.Person ), "-" );
         }
 
-        private static string AggregateRelationshipNames(IEnumerable<Member> members, Func<Member, bool> predicate,
-            string sign)
+        private static string AggregateRelationshipNames(
+            IEnumerable< Member > members,
+            Func< Member, bool > predicate,
+            string sign )
         {
-            return members.Where(predicate)
-                .Select(m => string.Format("{2} {1,-4} {0}", sign, m.ShortName(4), m.IsVictim ? "x" : " "))
-                .Aggregate("", (res, next) => string.Format("{0} {1,-9}", res, next));
+            return members.Where( predicate )
+                .Select( m => string.Format( "{2} {1,-4} {0}", sign, m.ShortName( 4 ), m.IsVictim ? "x" : " " ) )
+                .Aggregate( "", ( res, next ) => string.Format( "{0} {1,-9}", res, next ) );
         }
 
         // ReSharper disable once UnusedMember.Local
-        private static string MemberInactiveSign(Member member)
+        private static string MemberInactiveSign( Member member )
         {
             return member.IsActive ? " " : member.IsPrisoner ? "#" : "x";
         }
 
-        private static string MemberStatus(Member m)
+        private static string MemberStatus( Member m )
         {
             var role = m.IsMurderer ? "MM" : m.IsWitnessMurderer ? "Wm" : m.IsWitnessInnocent ? "Wa" : "I ";
             var state = m.IsMurderer && m.IsActive
@@ -78,26 +94,27 @@ namespace Crimenuts.App.Console
             return role + " " + state;
         }
 
-        private static string MemberOpenStatus(Member m)
+        private static string MemberOpenStatus( Member m )
         {
             var role = m.IsActive ? "" : m.IsMurderer ? "M" : "I";
             var state = m.IsActive
-                ? string.Format("{0,-3}", m.Number)
+                ? string.Format( "{0,-3}", m.Number )
                 : m.IsPrisoner ? "# " : m.IsVictim ? "x " : "ERROR ";
             return role + state;
         }
 
-        private static string BuildMemberHistory(Member member, History history)
+        private static string BuildMemberHistory( Member member, History history )
         {
-            if (history == null) return "";
+            if( history == null ) {
+                return "";
+            }
 
             var log = "";
-            foreach (
+            foreach(
                 var rec in
-                    history.Records.Where(rec => rec.Agent == member && RecordIsRealAction(rec)))
-            {
-                log += string.Format("d{0}:", rec.Day);
-                log += FormatActiveMemberHistoryRecord(rec);
+                    history.Records.Where( rec => rec.Agent == member && RecordIsRealAction( rec ) ) ) {
+                log += string.Format( "d{0}:", rec.Day );
+                log += FormatActiveMemberHistoryRecord( rec );
             }
             return log;
         }

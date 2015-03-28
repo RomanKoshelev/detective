@@ -1,7 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Case.pvt.Members.cs
+// Roman, 2015-03-29 12:57 AM
+
+using System.Collections.Generic;
 using System.Linq;
-using MoreLinq;
 using Crimenuts.Utils;
+using MoreLinq;
 
 namespace Crimenuts.Core.Game
 {
@@ -20,40 +25,40 @@ namespace Crimenuts.Core.Game
 
             Detective = new Member(
                 this,
-                detectiveNumber, 
-                new Person(new Profile(ProfileType.Detective)) {Name = "Detective"}
+                detectiveNumber,
+                new Person( new Profile( ProfileType.Detective ) ) { Name = "Detective" }
                 );
         }
 
         private void AssignMurderers()
         {
-            Members.SelectRandomList(MurderersNum).ForEach(m => m.IsMurderer = true);
+            Members.SelectRandomList( MurderersNum ).ForEach( m => m.IsMurderer = true );
         }
 
         private void CreateMembers()
         {
-            Members = new List<Member>();
-            World.SelectRandomPersons(MembersNum)
+            Members = new List< Member >();
+            World.SelectRandomPersons( MembersNum )
                 .Index()
-                .ForEach(numPerson => Members.Add(new Member(this, numPerson.Key + 1, numPerson.Value)));
+                .ForEach( numPerson => Members.Add( new Member( this, numPerson.Key + 1, numPerson.Value ) ) );
         }
 
-        public IList<Member> CloneMembersForProcess()
+        public IList< Member > CloneMembersForProcess()
         {
-            var clones = new List<Member>();
-            
-            Members.ForEach(m => clones.Add(new Member(m)));
+            var clones = new List< Member >();
+
+            Members.ForEach( m => clones.Add( new Member( m ) ) );
             return clones;
         }
 
-        private Member DoFindMember(int number)
+        private Member DoFindMember( int number )
         {
-            return Members.First(m=>m.Number == number);
+            return Members.First( m => m.Number == number );
         }
 
         private int? DoGetMurderersOpenNum()
         {
-            return Master.GetMurderersOpenNum(this, Murderers.Count);
+            return Master.GetMurderersOpenNum( this, Murderers.Count );
         }
     }
 }

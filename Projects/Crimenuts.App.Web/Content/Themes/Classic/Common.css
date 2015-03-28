@@ -5,25 +5,23 @@
 // ============================================================================================= []
 // Common
 */
-html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset, a, span{
+html, body, p, div, h1, h2, h3, h4, h5, h6, img, pre, form, fieldset, a, span {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: inherit;
+    font-family: 'Cousine';
+
+    font-size: inherit;
     margin: 0;
     padding: 0;
+
     padding-left: 0;
     padding-right: 0;
     vertical-align: top;
-
-    color: inherit;
-    font-size: inherit;
-    font-family: 'Cousine';
-
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
 }
 
-a { 
-    text-decoration: none;
-}
+a { text-decoration: none; }
 
 html, body, .cn-body {
     background: #050222;
@@ -37,10 +35,10 @@ html, body, .cn-body {
 */
 
     background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
     background-position-x: center;
     background-position-y: top;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .det { border: none; }
@@ -51,10 +49,10 @@ html, body, .cn-body {
 */
 
 nav {
+    border: none;
+    border-collapse: collapse;
     display: table;
     width: 100%;
-    border-collapse: collapse;
-    border: none;
 }
 
 nav ul { display: table-row; }
@@ -83,10 +81,10 @@ nav li {
 */
 
 .cn-vertical {
-    -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
 }
 
 .cn-table { display: table; }
@@ -118,7 +116,9 @@ nav li {
 .cn-height-300 { height: 300px; }
 
 .cn-height-400 { height: 400px; }
+
 .cn-height-600 { height: 600px; }
+
 .cn-height-800 { height: 800px; }
 
 .cn-no-text-decoration { text-decoration: none; }
@@ -131,12 +131,12 @@ nav li {
 */
 
 .cn-dev {
-    color: #00cc00;
-    padding: 6px;
-    margin: 6px;
-    text-align: center;
     border: 1px dashed #31ff00;
+    color: #00cc00;
     font-size: 12px;
+    margin: 6px;
+    padding: 6px;
+    text-align: center;
 }
 
 
@@ -146,13 +146,13 @@ nav li {
 */
 
 .cn-green-pad {
-    color: #00cc00;
-    width: 100%;
     background: #003e00;
+    color: #00cc00;
+    font-size: 18px;
     padding: 10px;
     padding-left: 15px;
     padding-right: 15px;
-    font-size: 18px;
+    width: 100%;
 }
 
 .cn-border-bottom-red-4 { border-bottom: solid 4px #990000; }

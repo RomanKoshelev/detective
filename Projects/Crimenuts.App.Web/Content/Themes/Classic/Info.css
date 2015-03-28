@@ -10,30 +10,26 @@
 .cn-info {
     color: #00cc00;
     margin: 50px;
-}    
+}
 
 .cn-info-header {
-    margin: 20px;
     font-size: 50px;
+    margin: 20px;
 }
 
-.cn-info-link {
-    text-decoration: underline;
-}     
+.cn-info-link { text-decoration: underline; }
 
-.cn-info-link-action {
-    font-size: 15px;
-}     
+.cn-info-link-action { font-size: 15px; }
 
 .cn-info-link:hover {
-     color: #f5ff00;
-     text-decoration: underline;
+    color: #f5ff00;
+    text-decoration: underline;
 }
-   
+
 .cn-info-menu-item {
+    font-size: 20px;
     margin: 10px;
     margin-left: 70px;
-    font-size: 20px;
 }
     
 
@@ -43,25 +39,25 @@
 */
 
 .cn-home-menu-item {
+    font-size: 30px;
     margin: 30px;
     margin-left: 70px;
-    font-size: 30px;
 }
 
 /*
 // ============================================================================================= []
 // Home
 */
-    
+
 .cn-info {
     color: #00cc00;
     margin: 50px;
-}    
-    
+}
+
 .cn-home-menu-item {
+    font-size: 30px;
     margin: 30px;
     margin-left: 70px;
-    font-size: 30px;
 }
 
 /*

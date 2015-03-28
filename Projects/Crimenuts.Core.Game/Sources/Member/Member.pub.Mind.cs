@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Member.pub.Mind.cs
+// Roman, 2015-03-29 12:57 AM
+
+using System.Collections.Generic;
 using System.Linq;
-using Crimenuts.Utils;
 
 namespace Crimenuts.Core.Game
 {
@@ -22,22 +25,24 @@ namespace Crimenuts.Core.Game
 
         public bool IsWitnessInnocent
         {
-            get { return _innocents.Any(m => m.IsActive); }
+            get { return _innocents.Any( m => m.IsActive ); }
         }
 
         public bool IsWitnessMurderer
         {
-            get { return _murderers.Any(m => m.IsActive); }
+            get { return _murderers.Any( m => m.IsActive ); }
         }
 
         public int ActiveMurderEvidenceCount
         {
-            get { return _murderers.Count(m => m.IsActive); }
+            get { return _murderers.Count( m => m.IsActive ); }
         }
+
         public bool WasWitness
         {
             get { return WasWitnessMurderer || WasWitnessInnocent; }
         }
+
         public bool WasWitnessMurderer
         {
             get { return _murderers.Any(); }
@@ -53,52 +58,52 @@ namespace Crimenuts.Core.Game
             get { return !WasWitness && !IsMurderer; }
         }
 
-        public void RememberMurderer(Member murderer)
+        public void RememberMurderer( Member murderer )
         {
-            DoRememberMurderer(murderer);
+            DoRememberMurderer( murderer );
         }
 
-        public void RememberInnocent(Member innocent)
+        public void RememberInnocent( Member innocent )
         {
-            DoRememberInnocent(innocent);
+            DoRememberInnocent( innocent );
         }
 
-        public Answer Ask(Member subj)
+        public Answer Ask( Member subj )
         {
-            return DoAsk(subj);
+            return DoAsk( subj );
         }
 
-        public Emotion ExpressEmotionOnMurderOrArrest(Member subj)
+        public Emotion ExpressEmotionOnMurderOrArrest( Member subj )
         {
-            return DoExpressEmotionOnMurderOrArrest(subj);
+            return DoExpressEmotionOnMurderOrArrest( subj );
         }
 
-        public Emotion ExpressEmotionOnRelationTo(Member subj)
+        public Emotion ExpressEmotionOnRelationTo( Member subj )
         {
-            return DoExpressEmotionOnRelationTo(subj);
+            return DoExpressEmotionOnRelationTo( subj );
         }
 
-        public Member SelectVictim(IList<Member> victims)
+        public Member SelectVictim( IList< Member > victims )
         {
-            return DoSelectVictim(victims);
+            return DoSelectVictim( victims );
         }
 
-        public Member SelectEvidence(IList<Member> members)
+        public Member SelectEvidence( IList< Member > members )
         {
-            return DoSelectEvidence(members);
+            return DoSelectEvidence( members );
         }
 
-        public bool KnowsAsMurderer(Member subj)
+        public bool KnowsAsMurderer( Member subj )
         {
-            return _murderers.Exists(m => m == subj);
+            return _murderers.Exists( m => m == subj );
         }
 
-        public bool KnowsAsInnocent(Member subj)
+        public bool KnowsAsInnocent( Member subj )
         {
-            return _innocents.Exists(m => m == subj);
+            return _innocents.Exists( m => m == subj );
         }
 
-        public void UpdateKnownCounts(int membersCount, int murderersCount)
+        public void UpdateKnownCounts( int membersCount, int murderersCount )
         {
             ActualMurderersCount = murderersCount;
             ActualMembersCount = membersCount;

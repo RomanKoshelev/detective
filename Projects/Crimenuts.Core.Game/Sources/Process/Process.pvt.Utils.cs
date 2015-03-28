@@ -1,4 +1,9 @@
-﻿using System;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Process.pvt.Utils.cs
+// Roman, 2015-03-29 12:57 AM
+
+using System;
 using Crimenuts.Utils;
 using MoreLinq;
 
@@ -8,28 +13,28 @@ namespace Crimenuts.Core.Game
     {
         private void UpdateMembersKnownCounts()
         {
-            ActiveMembers.ForEach(m => m.UpdateKnownCounts(ActiveMembers.Count, ActiveMurderers.Count));
+            ActiveMembers.ForEach( m => m.UpdateKnownCounts( ActiveMembers.Count, ActiveMurderers.Count ) );
         }
-        
+
         private void DoInit()
         {
             Winner = Winner.Unknown;
-            SetState(State.Initial);
+            SetState( State.Initial );
             InitMembers();
             InitHistory();
         }
 
         private int CalcMaxEvidenceNum()
         {
-            var n = (int)Math.Ceiling(ActiveMembers.Count * Case.World.EvidenceRate);
-            n = Math.Max(n, 0);
-            n = Math.Min(n, ActiveMembers.Count * (ActiveMembers.Count - 1));
+            var n = ( int ) Math.Ceiling( ActiveMembers.Count*Case.World.EvidenceRate );
+            n = Math.Max( n, 0 );
+            n = Math.Min( n, ActiveMembers.Count*( ActiveMembers.Count - 1 ) );
             return n;
         }
 
-        private void AssertState(State state)
+        private void AssertState( State state )
         {
-            CrimenutsAssert.Equal(State, state, "Wrong state {0}", State);
+            CrimenutsAssert.Equal( State, state, "Wrong state {0}", State );
         }
     }
 }

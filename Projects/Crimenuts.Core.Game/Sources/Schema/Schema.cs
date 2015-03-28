@@ -1,5 +1,10 @@
+// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Schema.cs
+// Roman, 2015-03-29 12:57 AM
+
 using System.Collections.Generic;
-using Crimenuts.Utils;
+using Crocodev.Common.Identifier;
 
 namespace Crimenuts.Core.Game
 {
@@ -29,53 +34,56 @@ namespace Crimenuts.Core.Game
 
         // ===================================================================================== []
         // Cases
-        public static List<Case> Cases { get; private set; }
+        public static List< Case > Cases { get; private set; }
 
-        public static Case FindCase(Case.Identifier caseId)
+        public static Case FindCase( Identifiable< Case, int >.Identifier caseId )
         {
-            return DoFindCase(caseId);
+            return DoFindCase( caseId );
         }
 
-        public static Case NewCase(WorldId worldId, int memberNum, int murderNum)
+        public static Case NewCase( WorldId worldId, int memberNum, int murderNum )
         {
-            return DoNewCase(worldId, memberNum, murderNum);
+            return DoNewCase( worldId, memberNum, murderNum );
         }
 
         // ===================================================================================== []
         // Processes
-        public static List<Process> Processes { get; private set; }
+        public static List< Process > Processes { get; private set; }
 
-        public static Process NewProcess(Case gcase)
+        public static Process NewProcess( Case gcase )
         {
-            return DoNewProcess(gcase);
+            return DoNewProcess( gcase );
         }
 
-        public static Process.Identifier NewProcess(Case.Identifier caseId)
+        public static Identifiable< Process, int >.Identifier NewProcess( Identifiable< Case, int >.Identifier caseId )
         {
-            return NewProcess(DoFindCase(caseId)).Id;
+            return NewProcess( DoFindCase( caseId ) ).Id;
         }
 
-        public static Process FindProcess(Process.Identifier processId)
+        public static Process FindProcess( Identifiable< Process, int >.Identifier processId )
         {
-            return DoFindProcess(processId);
-        }
-        public static void ExecuteProcess(Process.Identifier processId, Process.UserAction.ActionType actionType,
-            int[] actionParams, bool autoSkip = true)
-        {
-            DoExecuteProcess(processId, actionType, actionParams, autoSkip);
+            return DoFindProcess( processId );
         }
 
-        public static void SkipProcessTo(Process.Identifier procId, State state)
+        public static void ExecuteProcess(
+            Identifiable< Process, int >.Identifier processId,
+            Process.UserAction.ActionType actionType,
+            int[] actionParams,
+            bool autoSkip = true )
         {
-            DoSkipProcessTo(procId, state);
+            DoExecuteProcess( processId, actionType, actionParams, autoSkip );
         }
 
+        public static void SkipProcessTo( Identifiable< Process, int >.Identifier procId, State state )
+        {
+            DoSkipProcessTo( procId, state );
+        }
 
         // ===================================================================================== []
         // Members
-        public static Member FindMember(Case.Identifier caseId, int memberId)
+        public static Member FindMember( Identifiable< Case, int >.Identifier caseId, int memberId )
         {
-            return DoFindMember(caseId, memberId);
+            return DoFindMember( caseId, memberId );
         }
     }
 }

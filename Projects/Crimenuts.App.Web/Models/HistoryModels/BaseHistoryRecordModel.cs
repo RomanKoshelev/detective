@@ -1,13 +1,18 @@
+// Crimenuts (c) 2015 Crocodev
+// Crimenuts.App.Web
+// BaseHistoryRecordModel.cs
+// Roman, 2015-03-29 12:56 AM
+
 using Crimenuts.Core.Game;
 
 namespace Crimenuts.App.Web.Models
 {
     public class BaseHistoryRecordModel
     {
-        protected BaseHistoryRecordModel(History.Record record)
+        protected BaseHistoryRecordModel( History.Record record )
         {
-            Agent = new MemberModel(record.Agent);
-            Subject = new MemberModel(record.Subject);
+            Agent = new MemberModel( record.Agent );
+            Subject = new MemberModel( record.Subject );
             Action = record.Action;
         }
 

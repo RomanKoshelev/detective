@@ -1,7 +1,11 @@
-﻿using System.Linq;
-using MoreLinq;
-using Crimenuts.Core.Game;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.App.Console
+// Player.pvt.Actions.cs
+// Roman, 2015-03-29 12:55 AM
+
+using System.Linq;
 using Crimenuts.Utils;
+using MoreLinq;
 
 namespace Crimenuts.App.Console
 {
@@ -9,118 +13,136 @@ namespace Crimenuts.App.Console
     {
         private void Start()
         {
-            if (SilenceMode) return;
+            if( SilenceMode ) {
+                return;
+            }
 
-            WriteHeader("Game Started\nWelcome to criminal {0} world", _process.Case.World.Name);
+            WriteHeader( "Game Started\nWelcome to criminal {0} world", _process.Case.World.Name );
             var memberNum = Members.Count;
-            var murderNum = Members.Count(m => m.IsMurderer);
+            var murderNum = Members.Count( m => m.IsMurderer );
 
-            WriteLine("There {0} {1} Murderer{2} within {3} participants", murderNum > 1 ? "are" : "is", murderNum, murderNum > 1 ? "s" : "", memberNum);
-            WriteLine("Every night one of the Murderers selects a victim");
-            WriteLine("And every night peaceful witnesses can take up to {0} evidence{1}", _process.MaxEvidenceNum, _process.MaxEvidenceNum > 1 ? "s" : "");
+            WriteLine( "There {0} {1} Murderer{2} within {3} participants",
+                murderNum > 1 ? "are" : "is",
+                murderNum,
+                murderNum > 1 ? "s" : "",
+                memberNum );
+            WriteLine( "Every night one of the Murderers selects a victim" );
+            WriteLine( "And every night peaceful witnesses can take up to {0} evidence{1}",
+                _process.MaxEvidenceNum,
+                _process.MaxEvidenceNum > 1 ? "s" : "" );
         }
 
         private void Morning()
         {
-            if (SilenceMode) return;
-            
-            WriteHeader("Day {0} Morning", CurrentDay);
+            if( SilenceMode ) {
+                return;
+            }
+
+            WriteHeader( "Day {0} Morning", CurrentDay );
 
             var victim = TodayVictim;
 
-            WriteLine("{0} is dead", victim.Name);
-            WriteLine("{0} was {1}", victim.Name, victim.IsMurderer ? "Murderer" : "Innocent");
+            WriteLine( "{0} is dead", victim.Name );
+            WriteLine( "{0} was {1}", victim.Name, victim.IsMurderer ? "Murderer" : "Innocent" );
 
             WriteLine();
             PrintEmotions();
 
-            var murderNum = Members.Count(m => m.IsActiveMurderer);
+            var murderNum = Members.Count( m => m.IsActiveMurderer );
             WriteLine();
-            WriteLine("There {0} {1} {2}",
+            WriteLine( "There {0} {1} {2}",
                 murderNum > 1 ? "are" : "is",
                 murderNum,
-                "murderer".Plural(murderNum)
+                "murderer".Plural( murderNum )
                 );
         }
 
         private void Questioning()
         {
-            if (SilenceMode) return;
+            if( SilenceMode ) {
+                return;
+            }
 
-            WriteHeader("Questioning");
+            WriteHeader( "Questioning" );
             PrintAnswers();
             WriteLine();
 
-            ActiveMembers.ForEach(respondent =>
-            {
-                var subjNum = GetQuestionSubjectForAsking(respondent, ActiveMembers.Where(s=>s!=respondent));
-                var subject = Members.First(m => m.Number == subjNum);
-                var answer = _process.Ask(respondent, subject);
-                PrintAnswerWithAdverb(respondent, subject, answer);
-            });
-            
+            ActiveMembers.ForEach( respondent => {
+                var subjNum = GetQuestionSubjectForAsking( respondent, ActiveMembers.Where( s => s != respondent ) );
+                var subject = Members.First( m => m.Number == subjNum );
+                var answer = _process.Ask( respondent, subject );
+                PrintAnswerWithAdverb( respondent, subject, answer );
+            } );
+
             PressEnterToContinue();
         }
 
         private void Arrest()
         {
-            if (SilenceMode) return;
+            if( SilenceMode ) {
+                return;
+            }
 
-            WriteHeader("Arrest");
-            WriteLine("{0} was killed last night", TodayVictim.Name);
+            WriteHeader( "Arrest" );
+            WriteLine( "{0} was killed last night", TodayVictim.Name );
             WriteLine();
             PrintEmotions();
             WriteLine();
             PrintAnswers();
             WriteLine();
 
-            var suspNum = GetSuspectNumberForArrest(ActiveMembers);
-            var suspect = Members.First(m => m.Number == suspNum);
-            _process.Arrest(suspect);
+            var suspNum = GetSuspectNumberForArrest( ActiveMembers );
+            var suspect = Members.First( m => m.Number == suspNum );
+            _process.Arrest( suspect );
 
             WriteLine();
-            WriteLine("{0,2}:{1} is arrested", LastArrested.Number, LastArrested.Name);
-            WriteLine("   {0} was {1}", LastArrested.Name, LastArrested.IsMurderer ? "Murderer" : "Innocent");
+            WriteLine( "{0,2}:{1} is arrested", LastArrested.Number, LastArrested.Name );
+            WriteLine( "   {0} was {1}", LastArrested.Name, LastArrested.IsMurderer ? "Murderer" : "Innocent" );
 
             WriteLine();
             PrintEmotions();
             WriteLine();
-            PressEnterToContinue("Press Enter to run next day...");
+            PressEnterToContinue( "Press Enter to run next day..." );
         }
 
         private void DetectiveWin()
         {
-            if (SilenceMode) return;
+            if( SilenceMode ) {
+                return;
+            }
 
-            WriteHeader("Detective Win");
-            WriteLine("*********************");
-            WriteLine("*                   *");
-            WriteLine("*   You win!  :)    *");
-            WriteLine("*                   *");
-            WriteLine("*********************");
+            WriteHeader( "Detective Win" );
+            WriteLine( "*********************" );
+            WriteLine( "*                   *" );
+            WriteLine( "*   You win!  :)    *" );
+            WriteLine( "*                   *" );
+            WriteLine( "*********************" );
             WaitAndPrintGameAnalize();
         }
 
         private void MurdererWin()
         {
-            if (SilenceMode) return;
+            if( SilenceMode ) {
+                return;
+            }
 
-            WriteHeader("Murderers Win");
-            WriteLine("x x x x x x x x x x");
-            WriteLine("x                 x");
-            WriteLine("x      Fail       x");
-            WriteLine("x                 x");
-            WriteLine("x x x x x x x x x x");
+            WriteHeader( "Murderers Win" );
+            WriteLine( "x x x x x x x x x x" );
+            WriteLine( "x                 x" );
+            WriteLine( "x      Fail       x" );
+            WriteLine( "x                 x" );
+            WriteLine( "x x x x x x x x x x" );
             WaitAndPrintGameAnalize();
         }
 
         private void End()
         {
-            WriteHeader("Game End");
+            WriteHeader( "Game End" );
         }
+
         private void Error()
         {
-            WriteLine("[Error]");
+            WriteLine( "[Error]" );
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Process.pvt.OpenInfo.cs
+// Roman, 2015-03-29 12:57 AM
 
 namespace Crimenuts.Core.Game
 {
@@ -6,12 +9,12 @@ namespace Crimenuts.Core.Game
     {
         private int? DoGetActiveMurderersOpenNum()
         {
-            return Master.GetActiveMurderersOpenNum(Case, ActiveMurderers.Count);
+            return Master.GetActiveMurderersOpenNum( Case, ActiveMurderers.Count );
         }
 
         private int? DoGetTodayEvidencesOpenNum()
         {
-            return Master.GetTodayEvidencesOpenNum(Case, History.Evidences(Today).Count);
+            return Master.GetTodayEvidencesOpenNum( Case, History.Evidences( Today ).Count );
         }
     }
 }

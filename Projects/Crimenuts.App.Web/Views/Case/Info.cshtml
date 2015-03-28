@@ -1,6 +1,5 @@
-﻿@using Crimenuts.App.Web.Models
-@using Crimenuts.Utils
-@model CaseModel
+﻿@using Crimenuts.Utils
+@model  Crimenuts.App.Web.Models.CaseModel 
 @{
     ViewBag.Title = "Detective Case";
     Layout = "~/Views/Shared/Layouts/Default.cshtml";
@@ -9,12 +8,11 @@
 <h2>@Model.ShortInfo</h2>
 
 <ul>
-    <li>@Model.WorldName world (@Html.ActionLink("Relations", "Relations", new {id = Model.Id}))</li>
+    <li>@Model.WorldName world (@Html.ActionLink( "Relations", "Relations", new { id = Model.Id } ))</li>
     <li>
         Active members:
         <ul>
-            @foreach (var m in Model.ActiveMembers)
-            {
+            @foreach( var m in Model.ActiveMembers ) {
                 <li>@m.Name</li>
             }
         </ul>
@@ -22,14 +20,13 @@
     <li>
         Victims:
         <ul>
-            @foreach (var m in Model.Victims)
-            {
+            @foreach( var m in Model.Victims ) {
                 <li>@m.Name</li>
             }
         </ul>
     </li>
     <li>
-        Murderers: @("Unknown".IfNull(Model.MurderersOpenNum))
+        Murderers: @("Unknown".IfNull( Model.MurderersOpenNum ))
     </li>
-    <li>@Html.ActionLink("Proceed to this case", "Run", new {id = Model.Id})</li>
+    <li>@Html.ActionLink( "Proceed to this case", "Run", new { id = Model.Id } )</li>
 </ul>

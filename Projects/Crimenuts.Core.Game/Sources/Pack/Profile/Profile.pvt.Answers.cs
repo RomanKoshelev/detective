@@ -1,3 +1,8 @@
+// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Profile.pvt.Answers.cs
+// Roman, 2015-03-29 12:57 AM
+
 using System;
 using Crimenuts.Utils;
 
@@ -46,28 +51,27 @@ namespace Crimenuts.Core.Game
 
         private Answer AnswerDecodeNext()
         {
-            var startIndex = (int) Type*AnswerRulesPerProfile;
+            var startIndex = ( int ) Type*AnswerRulesPerProfile;
 
-            return DecodeAnswer(_answerPack[startIndex + _answerDecodeIndex++]);
+            return DecodeAnswer( _answerPack[ startIndex + _answerDecodeIndex++ ] );
         }
 
-        private static Answer DecodeAnswer(char c)
+        private static Answer DecodeAnswer( char c )
         {
-            switch (c)
-            {
-                case 'u':
+            switch( c ) {
+                case 'u' :
                     return Answer.Unknown;
-                case 'i':
+                case 'i' :
                     return Answer.Innocent;
-                case 'm':
+                case 'm' :
                     return Answer.Murderer;
-                case 's':
+                case 's' :
                     return Answer.Suspicious;
-                case 'n':
+                case 'n' :
                     return Answer.NotSuspicious;
             }
 
-            throw new Exception(string.Format("Wrong AnswerCode [{0}]", c));
+            throw new Exception( string.Format( "Wrong AnswerCode [{0}]", c ) );
         }
     }
 }

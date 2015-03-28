@@ -1,10 +1,9 @@
 ﻿@{
-        // >> View | Process | Finish 
+    // >> View | Process | Finish 
     @Finish()
 }
-@using Crimenuts.App.Web.Models
 @using Crimenuts.Core.Game
-@model ProcessModel
+@model Crimenuts.App.Web.Models.ProcessModel 
 
 @functions
 {
@@ -12,29 +11,22 @@
 
 @helper Finish()
 {
-    switch (Model.State)
-    {
-        case State.Finished:
+    switch( Model.State ) {
+        case State.Finished :
             @Result()
             break;
     }
 }
 
 @helper Result()
-{
-    @RoomView.Record(ResultInfo(), RoomView.ResultClass)
-}
+{ @RoomView.Record( ResultInfo(), RoomView.ResultClass ) }
 
 @helper ResultInfo()
 {
-    if (Model.Winner == Winner.Detective)
-    {
-        @Localization.Text("Game:Result:Detective")
+    if( Model.Winner == Winner.Detective ) {
+        @Localization.Text( "Game:Result:Detective" )
     }
-    if (Model.Winner == Winner.Murderers)
-    {
-        @Localization.Text("Game:Result:Murderers")
-
+    if( Model.Winner == Winner.Murderers ) {
+        @Localization.Text( "Game:Result:Murderers" )
     }
 }
-

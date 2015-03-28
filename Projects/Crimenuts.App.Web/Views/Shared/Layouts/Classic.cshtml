@@ -8,44 +8,44 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width"/>
-    <link href='http://fonts.googleapis.com/css?family=Cousine|Roboto+Slab:400,700|Roboto&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Cousine|Roboto+Slab:400,700|Roboto&subset=latin,cyrillic" rel="stylesheet" type="text/css">
 
     <title>@ViewBag.Title</title>
 
-    @Styles.Render("~/Content/Themes/Classic/css")
-    
+    @Styles.Render( "~/Content/Themes/Classic/css" )
+
 </head>
 
 
 <body>
 
-    <div class="cn-layout-body" align="center">
-        <div class="cn-layout-frame cn-layout-page">
-            <div class="cn-layout-row">
-                <div class="cn-layout-page-part">
-                    <div align="left" class="cn-layout-page-content">
-                        @LayoutView.Header(ViewBag.Title)
-                    </div>
+<div class="cn-layout-body" align="center">
+    <div class="cn-layout-frame cn-layout-page">
+        <div class="cn-layout-row">
+            <div class="cn-layout-page-part">
+                <div align="left" class="cn-layout-page-content">
+                    @LayoutView.Header( ViewBag.Title )
                 </div>
             </div>
+        </div>
 
-            <div class="cn-layout-row cn-layout-expand" align="center">
-                <div class="cn-layout-page-part">
-                    <div align="left" class="cn-layout-page-content">
-                        @RenderBody()
-                    </div>
+        <div class="cn-layout-row cn-layout-expand" align="center">
+            <div class="cn-layout-page-part">
+                <div align="left" class="cn-layout-page-content">
+                    @RenderBody()
                 </div>
             </div>
+        </div>
 
-            <div class="cn-layout-row" align="center">
-                <div class="cn-layout-page-part">
-                    <div align="left" class="cn-layout-page-content">
-                        @LayoutView.Footer()
-                    </div>
+        <div class="cn-layout-row" align="center">
+            <div class="cn-layout-page-part">
+                <div align="left" class="cn-layout-page-content">
+                    @LayoutView.Footer()
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 </body>

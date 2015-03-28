@@ -1,8 +1,14 @@
-﻿using System;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.App.Web
+// CaseModel.cs
+// Roman, 2015-03-29 12:56 AM
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Crimenuts.Core.Game;
 using Crimenuts.Utils;
+using Crocodev.Common.Identifier;
 
 namespace Crimenuts.App.Web.Models
 {
@@ -10,12 +16,12 @@ namespace Crimenuts.App.Web.Models
     {
         // ===================================================================================== []
         // Public
-        public CaseModel(Case.Identifier id)
+        public CaseModel( Identifiable< Case, int >.Identifier id )
         {
-            Case = Schema.FindCase(id);
+            Case = Schema.FindCase( id );
         }
 
-        public Case.Identifier Id
+        public Identifiable< Case, int >.Identifier Id
         {
             get { return Case.Id; }
         }
@@ -30,28 +36,29 @@ namespace Crimenuts.App.Web.Models
             get { return Case.MurderersOpenNum; }
         }
 
-        public IList<MemberModel> Members
+        public IList< MemberModel > Members
         {
-            get { return MakeMemberModelList(c => c.Members); }
+            get { return MakeMemberModelList( c => c.Members ); }
         }
 
-        public IList<MemberModel> ActiveMembers
+        public IList< MemberModel > ActiveMembers
         {
-            get { return MakeMemberModelList(c => c.ActiveMembers); }
+            get { return MakeMemberModelList( c => c.ActiveMembers ); }
         }
 
-        public IList<MemberModel> Murderers
+        public IList< MemberModel > Murderers
         {
-            get { return MakeMemberModelList(c => c.Murderers); }
+            get { return MakeMemberModelList( c => c.Murderers ); }
         }
 
-        public IList<MemberModel> Prisoners
+        public IList< MemberModel > Prisoners
         {
-            get { return MakeMemberModelList(c => c.Prisoners); }
+            get { return MakeMemberModelList( c => c.Prisoners ); }
         }
-        public IList<MemberModel> Victims
+
+        public IList< MemberModel > Victims
         {
-            get { return MakeMemberModelList(c => c.Victims); }
+            get { return MakeMemberModelList( c => c.Victims ); }
         }
 
         public string ShortInfo
@@ -63,20 +70,20 @@ namespace Crimenuts.App.Web.Models
         // Pivate
         private Case Case { get; set; }
 
-        private List<MemberModel> MakeMemberModelList(Func<Case, IList<Member>> membersSelector)
+        private List< MemberModel > MakeMemberModelList( Func< Case, IList< Member > > membersSelector )
         {
-            return membersSelector(Case).Select(m => new MemberModel(m)).ToList();
+            return membersSelector( Case ).Select( m => new MemberModel( m ) ).ToList();
         }
 
         private string DoGetShortInfo()
         {
-            return string.Format("Case {0}: {1} {2}/{4}-{3} {5}", 
-                Id, 
-                WorldName, 
-                ActiveMembers.Count, 
+            return string.Format( "Case {0}: {1} {2}/{4}-{3} {5}",
+                Id,
+                WorldName,
+                ActiveMembers.Count,
                 Victims.Count,
-                "?".IfNull(MurderersOpenNum),
-                Victims.FoldToStringBy(v => v.Name));
+                "?".IfNull( MurderersOpenNum ),
+                Victims.FoldToStringBy( v => v.Name ) );
         }
     }
 }

@@ -1,3 +1,8 @@
+// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Profile.pvt.Emotions.cs
+// Roman, 2015-03-29 12:57 AM
+
 using System;
 using Crimenuts.Utils;
 
@@ -46,23 +51,22 @@ namespace Crimenuts.Core.Game
 
         private Emotion EmotionDecodeNext()
         {
-            var startIndex = (int) Type*EmotionRulesPerProfile;
+            var startIndex = ( int ) Type*EmotionRulesPerProfile;
 
-            return DecodeEmotion(_emotionPack[startIndex + _emotionDecodeIndex++]);
+            return DecodeEmotion( _emotionPack[ startIndex + _emotionDecodeIndex++ ] );
         }
 
-        private static Emotion DecodeEmotion(char c)
+        private static Emotion DecodeEmotion( char c )
         {
-            switch (c)
-            {
-                case 'i':
+            switch( c ) {
+                case 'i' :
                     return Emotion.Indifferent;
-                case 'h':
+                case 'h' :
                     return Emotion.Happy;
-                case 's':
+                case 's' :
                     return Emotion.Sad;
             }
-            throw new Exception(string.Format("Wrong EmotionCode [{0}]", c));
+            throw new Exception( string.Format( "Wrong EmotionCode [{0}]", c ) );
         }
     }
 }

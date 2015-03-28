@@ -1,3 +1,8 @@
+// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// IOptions.cs
+// Roman, 2015-03-29 12:57 AM
+
 namespace Crimenuts.Core.Game
 {
     public interface IOptions
@@ -12,6 +17,5 @@ namespace Crimenuts.Core.Game
         bool SelectAnyRespondentOnQuestioning { get; }
         bool AutoQuestioningIsEnabled { get; }
         bool EarlyArrestIsEnabled { get; }
-
     }
 }

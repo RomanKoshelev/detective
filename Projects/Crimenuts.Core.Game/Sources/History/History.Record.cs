@@ -1,4 +1,9 @@
-﻿using MoreLinq;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// History.Record.cs
+// Roman, 2015-03-29 12:57 AM
+
+using MoreLinq;
 
 namespace Crimenuts.Core.Game
 {
@@ -6,7 +11,7 @@ namespace Crimenuts.Core.Game
     {
         public class Record
         {
-            public Record(int currentDay, Action action, Member agent, Member subject=null)
+            public Record( int currentDay, Action action, Member agent, Member subject = null )
             {
                 Day = currentDay;
                 Action = action;
@@ -16,14 +21,14 @@ namespace Crimenuts.Core.Game
                 Answer = Answer.Error;
             }
 
-            public Record(int currentDay, Action action, Member agent, Member subject, Answer answer)
-                : this(currentDay, action, agent, subject)
+            public Record( int currentDay, Action action, Member agent, Member subject, Answer answer )
+                : this( currentDay, action, agent, subject )
             {
                 Answer = answer;
             }
 
-            public Record(int currentDay, Action action, Member agent, Member subject, Emotion emotion)
-                : this(currentDay, action, agent, subject)
+            public Record( int currentDay, Action action, Member agent, Member subject, Emotion emotion )
+                : this( currentDay, action, agent, subject )
             {
                 Emotion = emotion;
             }
@@ -38,7 +43,7 @@ namespace Crimenuts.Core.Game
 
         private int LastDay
         {
-            get { return Records.Count > 0 ? Records.MaxBy(i => i.Day).Day : FirstDay; }
+            get { return Records.Count > 0 ? Records.MaxBy( i => i.Day ).Day : FirstDay; }
         }
 
         private int FirstDay

@@ -1,7 +1,6 @@
 ﻿@using Crimenuts.Core.Game
 @using Crimenuts.Utils
-@using Crimenuts.App.Web.Models
-@model ProcessModel
+@model  Crimenuts.App.Web.Models.ProcessModel 
 @{
     ViewBag.Title = "Detective Process Info";
     Layout = "~/Views/Shared/Layouts/Default.cshtml";
@@ -14,19 +13,16 @@
         Process Info:
         <ul>
             <li>
-                @Html.ActionLink(Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" })
+                @Html.ActionLink( Model.Case.ShortInfo, "Info", "Case", new { id = Model.CaseId }, new { name = "case" } )
             </li>
             <li>
                 State: @Model.State
             </li>
-            @if (Model.State != State.Finished)
-            {
+            @if( Model.State != State.Finished ) {
                 <li>
-                    Murderers left: @("Unknown".IfNull(Model.MurderersLeft))
+                    Murderers left: @("Unknown".IfNull( Model.MurderersLeft ))
                 </li>
-            }
-            else
-            {
+            } else {
                 <li>
                     Winner: @Model.Winner
                 </li>
@@ -39,17 +35,17 @@
         <ul>
             <li>
                 Active:
-                @{ Html.RenderPartial("~/Views/Process/Parts/Info/Member.cshtml", Model.ActiveMembers, ViewData); }
+                @{ Html.RenderPartial( "~/Views/Process/Parts/Info/Member.cshtml", Model.ActiveMembers, ViewData ); }
             </li>
             <li>
                 Prisoners:
-                @{ Html.RenderPartial("~/Views/Process/Parts/Info/Member.cshtml", Model.Prisoners, ViewData); }
+                @{ Html.RenderPartial( "~/Views/Process/Parts/Info/Member.cshtml", Model.Prisoners, ViewData ); }
             </li>
             <li>
                 Victims:
-                @{ Html.RenderPartial("~/Views/Process/Parts/Info/Member.cshtml", Model.Victims, ViewData); }
+                @{ Html.RenderPartial( "~/Views/Process/Parts/Info/Member.cshtml", Model.Victims, ViewData ); }
             </li>
         </ul>
     </li>
-    <li>@Html.ActionLink("Take this process", "Play", new { id = Model.Id })</li>
+    <li>@Html.ActionLink( "Take this process", "Play", new { id = Model.Id } )</li>
 </ul>

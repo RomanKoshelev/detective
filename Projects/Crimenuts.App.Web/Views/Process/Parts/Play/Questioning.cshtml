@@ -4,7 +4,7 @@
 }
 @using Crimenuts.App.Web.Models
 @using Crimenuts.Core.Game
-@model ProcessModel
+@model Crimenuts.App.Web.Models.ProcessModel 
 
 @functions
 {
@@ -14,7 +14,7 @@
         get { return ViewBag.Face; }
     }
 
-    private string SelectedFaceClass(int num)
+    private string SelectedFaceClass( int num )
     {
         return num == Face ? RoomView.HighlightClass : "";
     }
@@ -23,88 +23,82 @@
 
 @helper Questioning()
 {
-    @RoomView.Record(Answers(), RoomView.DetectiveClass)
-    if (Model.State == State.Questioning)
-    {
-        @RoomView.Record(Hint(), RoomView.DetectiveClass)
+    @RoomView.Record( Answers(), RoomView.DetectiveClass )
+    if( Model.State == State.Questioning ) {
+        @RoomView.Record( Hint(), RoomView.DetectiveClass )
     }
 }
 
 @helper Answers()
 {
-    if (Model.TodayAnswers().Count == 0)
-    {
-        @Localization.Text("Game:Questioning:No answers yet")
-    }
-    else
-    {
-        foreach (var answer in Model.TodayAnswers())
-        {
-            @Answer(answer, SelectedFaceClass(answer.Agent.Number))
+    if( Model.TodayAnswers().Count == 0 ) {
+        @Localization.Text( "Game:Questioning:No answers yet" )
+    } else {
+        foreach( var answer in Model.TodayAnswers() ) {
+            @Answer( answer, SelectedFaceClass( answer.Agent.Number ) )
         }
     }
 }
 
-@helper Answer(AnswerModel answer, string currentMemberClass)
+@helper Answer( AnswerModel answer, string currentMemberClass )
 {
     <div class="@currentMemberClass">
-        @RoomView.MemberLink(answer.Agent,":")
-        @RoomView.SubjectLink(answer.Subject)
-        @Localization.Text("Game:Questioning:Answer:is")
-        @Localization.GenderForm(answer.Value.PrefixedString(),answer.Subject.Sex)
+        @RoomView.MemberLink( answer.Agent, ":" )
+        @RoomView.SubjectLink( answer.Subject )
+        @Localization.Text( "Game:Questioning:Answer:is" )
+        @Localization.GenderForm( answer.Value.PrefixedString(), answer.Subject.Sex )
     </div>
 }
 
 @helper Hint()
 {
-    @( !ProcessView.CanAsk(Face)
+    @( !ProcessView.CanAsk( Face )
            ? HintRespondents()
-           : HintSubjects((int) Face))
+           : HintSubjects( ( int ) Face ))
 }
 
 @helper HintRespondents()
 {
     @RoomView.HintMemberVariants(
-        Shared.Text(Localization.Text("Game:Questioning:Ask")+":"),
+        Shared.Text( Localization.Text( "Game:Questioning:Ask" ) + ":" ),
         ProcessView.QuestioningRespondents(),
         RoomView.MemberLink,
-        additionalVariantsFunc: AutoQuestioning
+        additionalVariantsFunc : AutoQuestioning
         )
 }
 
-@helper HintSubjects(int respondent)
+@helper HintSubjects( int respondent )
 {
     @RoomView.HintSubjectVariants(
-        HintSubjectTitle(respondent),
+        HintSubjectTitle( respondent ),
         respondent,
-        ProcessView.QuestioningSubjects(respondent),
+        ProcessView.QuestioningSubjects( respondent ),
         AskActionLink
         )
 }
 
-@helper HintSubjectTitle(int respondent)
+@helper HintSubjectTitle( int respondent )
 {
-    @Localization.Text("Game:Questioning:Ask")
-    @:
-    @RoomView.RespondentLink(ProcessView.Member(respondent)) 
-    @Localization.Text("Game:Questioning:About")
+    @Localization.Text( "Game:Questioning:Ask" )@:
+    @RoomView.RespondentLink( ProcessView.Member( respondent ) )
+    @Localization.Text( "Game:Questioning:About" )
 }
 
-@helper AskActionLink(MemberModel respondent, MemberModel subject, string suffix = " ")
+@helper AskActionLink( MemberModel respondent, MemberModel subject, string suffix = " " )
 {
     @Shared.Link(
-        Localization.Text(subject.Name),
+        Localization.Text( subject.Name ),
         RoomView.MemberLinkClass,
-        ProcessView.AskActionUrl(respondent.Number, subject.Number)
+        ProcessView.AskActionUrl( respondent.Number, subject.Number )
         )@suffix
 }
 
 @helper AutoQuestioning()
 {
-    if (Model.Options.AutoQuestioningIsEnabled
+    if( Model.Options.AutoQuestioningIsEnabled
         && ProcessView.QuestioningRespondents().Count >= 2
-        && (Face == null || ProcessView.QuestioningSubjects((int) Face).Count == 0))
-    {
-           @(Localization.Format(" {0} ", "or")) @Shared.Link(Localization.Text("Game:Questioning:Auto"), RoomView.MemberLinkClass, ProcessView.AutoAskActionUrl())
+        && ( Face == null || ProcessView.QuestioningSubjects( ( int ) Face ).Count == 0 ) ) {
+        @(Localization.Format( " {0} ", "or" ))
+        @Shared.Link( Localization.Text( "Game:Questioning:Auto" ), RoomView.MemberLinkClass, ProcessView.AutoAskActionUrl() )
     }
 }

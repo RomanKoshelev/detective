@@ -1,22 +1,22 @@
 ﻿@{
     // >> View | Home | Index
-    ViewBag.Title = string.Format("{0}",
-        Localization.Text("Title:Crime Nuts")
+    ViewBag.Title = string.Format( "{0}",
+        Localization.Text( "Title:Crime Nuts" )
         );
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
 }
 
-@helper MainMenuItem(string text, string controller, string action = "Index")
+@helper MainMenuItem( string text, string controller, string action = "Index" )
 {
     <div class="cn-home-menu-item">
-        @Shared.ActionLink(text, controller, action, "cn-info-link")
+        @Shared.ActionLink( text, controller, action, "cn-info-link" )
     </div>
 }
 
-@helper LocalizedMainMenuItem(string textId, string controller, string action = "Index")
+@helper LocalizedMainMenuItem( string textId, string controller, string action = "Index" )
 {
     @MainMenuItem(
-        Localization.Text(textId),
+        Localization.Text( textId ),
         controller,
         action
         )
@@ -28,13 +28,13 @@
         Main menu
     </div>
 
-    @Shared.ImageWidth("World", new { name = "Simpsons" }, 700)
+    @Shared.ImageWidth( "World", new { name = "Simpsons" }, 700 )
 
-    @LocalizedMainMenuItem("Menu:Cases", "Case")
-    @LocalizedMainMenuItem("Menu:Processes", "Process")
+    @LocalizedMainMenuItem( "Menu:Cases", "Case" )
+    @LocalizedMainMenuItem( "Menu:Processes", "Process" )
 
-    @MainMenuItem("Continue", "Home")
-    @MainMenuItem("Settings", "Site")
+    @MainMenuItem( "Continue", "Home" )
+    @MainMenuItem( "Settings", "Site" )
 
     @*
         @MainMenuItem("Players", "Home")

@@ -1,4 +1,9 @@
-﻿namespace Crimenuts.Core.Game
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Action.cs
+// Roman, 2015-03-29 12:57 AM
+
+namespace Crimenuts.Core.Game
 {
     public enum Action
     {
@@ -16,35 +21,34 @@
 
     public static class ActionExtension
     {
-        public static bool IsEvidence(this Action action)
+        public static bool IsEvidence( this Action action )
         {
             return action == Action.MurdererEvidence || action == Action.InnocentEvidence;
         }
 
-        public static bool IsEmotion(this Action action)
+        public static bool IsEmotion( this Action action )
         {
             return action == Action.MurderEmotion || action == Action.ArrestEmotion;
         }
 
-        public static bool IsRealAction(this Action action)
+        public static bool IsRealAction( this Action action )
         {
-            return (action == Action.Murder ||
-                    action == Action.Arrest ||
-                    action == Action.InnocentEvidence ||
-                    action == Action.MurdererEvidence);
+            return ( action == Action.Murder ||
+                action == Action.Arrest ||
+                action == Action.InnocentEvidence ||
+                action == Action.MurdererEvidence );
         }
-        
-        public static string VerbalTemplate(this Action action)
+
+        public static string VerbalTemplate( this Action action )
         {
-            switch (action)
-            {
-                case Action.Murder:
+            switch( action ) {
+                case Action.Murder :
                     return "x {0} murdered {1}";
-                case Action.Arrest:
+                case Action.Arrest :
                     return "# {0} arrested {1}";
-                case Action.InnocentEvidence:
+                case Action.InnocentEvidence :
                     return "+ {0} knew that {1} is innocent";
-                case Action.MurdererEvidence:
+                case Action.MurdererEvidence :
                     return "- {0} knew that {1} is murderer";
             }
             return action + "({0},{1})";

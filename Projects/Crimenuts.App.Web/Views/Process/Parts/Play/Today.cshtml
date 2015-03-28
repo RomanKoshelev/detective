@@ -3,7 +3,7 @@
     @Today()
 }
 @using Crimenuts.Core.Game
-@model Crimenuts.App.Web.Models.ProcessModel
+@model Crimenuts.App.Web.Models.ProcessModel 
 
 @functions
 {
@@ -17,11 +17,10 @@
 
 @helper Today()
 {
-    switch (Model.State)
-    {
-        case State.Questioning:
-        case State.Arrest:
-        case State.CheckArrest:
+    switch( Model.State ) {
+        case State.Questioning :
+        case State.Arrest :
+        case State.CheckArrest :
             @NightEvents()
             break;
     }
@@ -29,32 +28,29 @@
 
 
 @helper NightEvents()
-{ @RoomView.TodayRecord(Murder(), RoomView.TodayClass) }
+{ @RoomView.TodayRecord( Murder(), RoomView.TodayClass ) }
 
 @helper Murder()
 {
-    @:@HighlightVictim(@VictimLink())@HighlightVictim(Localization.GenderForm("was killed",Model.TodayVictim.Sex))
+    @:@HighlightVictim( @VictimLink() )@HighlightVictim( Localization.GenderForm( "was killed", Model.TodayVictim.Sex ) )
 }
 
-@helper HighlightVictim(HelperResult text)
+@helper HighlightVictim( HelperResult text )
 {
     @(Face == Model.TodayVictim.Number
-          ? RoomView.Highlight(text)
+          ? RoomView.Highlight( text )
           : text)
 }
 
-@helper HighlightVictim(string text)
+@helper HighlightVictim( string text )
 {
-    if (Face == Model.TodayVictim.Number)
-    {
-        @RoomView.Highlight(text)
-    }
-    else
-    {
+    if( Face == Model.TodayVictim.Number ) {
+        @RoomView.Highlight( text )
+    } else {
         @text
     }
 }
 
 
 @helper VictimLink()
-{ @RoomView.MemberLink(Model.TodayVictim) }
+{ @RoomView.MemberLink( Model.TodayVictim ) }

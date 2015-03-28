@@ -2,7 +2,6 @@
 @using Crimenuts.Core.Game
 @using Crimenuts.Utils
 @using Crimenuts.Utils.Localization
-@using Gender = Crimenuts.Utils.Localization.Gender
 @functions{
     //  >> App_Code | Localization *
 
@@ -10,161 +9,160 @@
     // Data
     private static void InitLocalizator()
     {
-        Localizator.RegisterLanguage(Lang.En);
-        Localizator.RegisterLanguage(Lang.Ru);
-           
-        Localizator.Set("was").Verb()
-            .Set(Lang.En)
-            .Set(Lang.Ru, "был")
+        Localizator.RegisterLanguage( Lang.En );
+        Localizator.RegisterLanguage( Lang.Ru );
+
+        Localizator.Set( "was" ).Verb()
+            .Set( Lang.En )
+            .Set( Lang.Ru, "был" )
             ;
 
-        Localizator.Set("innocent").Adjective()
-            .Set(Lang.En)
-            .Set(Lang.Ru, "невиновн")
+        Localizator.Set( "innocent" ).Adjective()
+            .Set( Lang.En )
+            .Set( Lang.Ru, "невиновн" )
             ;
 
-        Localizator.Set(":answer")
-            .Set(Lang.En, "answer")
-            .Set(Lang.Ru, "ответ")
-                .Plural(Lang.Ru, 2, "ответа")
-                .Plural(Lang.Ru, 5, "ответов")
-            ;       
-
-        Localizator.Set("or")
-            .Set(Lang.En)
-            .Set(Lang.Ru, "или")
-            ;
-        Localizator.Set("plural:num:null")
-            .Set(Lang.En, "unknown number")
-            .Set(Lang.Ru, "неизвестное количество")
+        Localizator.Set( ":answer" )
+            .Set( Lang.En, "answer" )
+            .Set( Lang.Ru, "ответ" )
+            .Plural( Lang.Ru, 2, "ответа" )
+            .Plural( Lang.Ru, 5, "ответов" )
             ;
 
-        Localizator.Set("was killed").Verb()
-            .Set(Lang.En)
-            .Set(Lang.Ru, "был убит")
-            .Gender(Lang.Ru, Gender.Feminine, "была убита")
+        Localizator.Set( "or" )
+            .Set( Lang.En )
+            .Set( Lang.Ru, "или" )
+            ;
+        Localizator.Set( "plural:num:null" )
+            .Set( Lang.En, "unknown number" )
+            .Set( Lang.Ru, "неизвестное количество" )
             ;
 
-        Localizator.Set("murderer")
-            .Set(Lang.En)
-            .Set(Lang.Ru, "убийца")
-                .Plural(Lang.Ru, 2, "убийцы")
-                .Plural(Lang.Ru, 5, "убийц")
+        Localizator.Set( "was killed" ).Verb()
+            .Set( Lang.En )
+            .Set( Lang.Ru, "был убит" )
+            .Gender( Lang.Ru, Gender.Feminine, "была убита" )
             ;
 
-        Localizator.Set("day")
-            .Set(Lang.En)
-            .Set(Lang.Ru, "день")
-            ;
-        
-        Localizator.Set("Title:Crime Nuts")
-            .Set(Lang.En, "Crime Nuts")
-            .Set(Lang.Ru, "Крайм Натс")
+        Localizator.Set( "murderer" )
+            .Set( Lang.En )
+            .Set( Lang.Ru, "убийца" )
+            .Plural( Lang.Ru, 2, "убийцы" )
+            .Plural( Lang.Ru, 5, "убийц" )
             ;
 
-        Localizator.Set("Menu:Home")
-            .Set(Lang.En, "Home")
-            .Set(Lang.Ru, "Домой")
-            ;
-        Localizator.Set("Menu:Cases")
-            .Set(Lang.En, "Cases")
-            .Set(Lang.Ru, "Дела")
-            ;
-        Localizator.Set("Menu:Processes")
-            .Set(Lang.En, "Processes")
-            .Set(Lang.Ru, "Процессы")
+        Localizator.Set( "day" )
+            .Set( Lang.En )
+            .Set( Lang.Ru, "день" )
             ;
 
-        Localizator.Set("Game:Case #")
-            .Set(Lang.En, "Case #")
-            .Set(Lang.Ru, "Дело № ")
-            ;
-        Localizator.Set("Game:Questioning:Ask")
-            .Set(Lang.En, "Question")
-            .Set(Lang.Ru, "Спросить")
-            ;
-        Localizator.Set("Game:Questioning:About")
-            .Set(Lang.En, "about")
-            .Set(Lang.Ru, "про")
-            ;
-        Localizator.Set("Game:Questioning:Auto")
-            .Set(Lang.En, "auto")
-            .Set(Lang.Ru, "автоматически")
-            ;
-        Localizator.Set("Game:Questioning:No answers yet")
-            .Set(Lang.En, "No answers yet")
-            .Set(Lang.Ru, "Пока нет ответов")
-            ;
-        Localizator.Set("Game:Questioning:Answer:is")
-            .Set(Lang.En, "is")
-            .Set(Lang.Ru, "—")
+        Localizator.Set( "Title:Crime Nuts" )
+            .Set( Lang.En, "Crime Nuts" )
+            .Set( Lang.Ru, "Крайм Натс" )
             ;
 
-        Localizator.Set(Answer.Innocent.PrefixedString()).Adjective()
-            .Set(Lang.En, "Innocent")
-            .Set(Lang.Ru, "Невиновн")
+        Localizator.Set( "Menu:Home" )
+            .Set( Lang.En, "Home" )
+            .Set( Lang.Ru, "Домой" )
             ;
-        Localizator.Set(Answer.Murderer.PrefixedString())
-            .Set(Lang.En, "Murderer")
-            .Set(Lang.Ru, "Убийца")
+        Localizator.Set( "Menu:Cases" )
+            .Set( Lang.En, "Cases" )
+            .Set( Lang.Ru, "Дела" )
             ;
-        Localizator.Set(Answer.Unknown.PrefixedString()).Adjective()
-            .Set(Lang.En, "unknown")
-            .Set(Lang.Ru, "неизвестн")
-            ;
-        Localizator.Set(Answer.NotSuspicious.PrefixedString()).Adjective()
-            .Set(Lang.En, "not suspicious")
-            .Set(Lang.Ru, "не подозрительн")
-            ;
-        Localizator.Set(Answer.Suspicious.PrefixedString()).Adjective()
-            .Set(Lang.En, "suspicious")
-            .Set(Lang.Ru, "подозрительн")
+        Localizator.Set( "Menu:Processes" )
+            .Set( Lang.En, "Processes" )
+            .Set( Lang.Ru, "Процессы" )
             ;
 
-        Localizator.Set("Arrest:Hint:Select:Suspect")
-            .Set(Lang.En, "Select suspicious member:")
-            .Set(Lang.Ru, "Веберете подозрительного участника:")
-            ;   
-        
-        Localizator.Set("Button:Arrest")
-            .Set(Lang.En, "Arrest ")
-            .Set(Lang.Ru, "Арестовать ")
-            ;   
-        
-        Localizator.Set("Button:Continue")
-            .Set(Lang.En, "Continue")
-            .Set(Lang.Ru, "Продолжить")
-            ;   
-        
-        Localizator.Set("Title:State:Arrest")
-            .Set(Lang.En, "Arrest:")
-            .Set(Lang.Ru, "Арест:")
+        Localizator.Set( "Game:Case #" )
+            .Set( Lang.En, "Case #" )
+            .Set( Lang.Ru, "Дело № " )
             ;
-        Localizator.Set("Arrest:You suspect")
-            .Set(Lang.En, "You suspect ")
-            .Set(Lang.Ru, "Вы подозреваете: ")
+        Localizator.Set( "Game:Questioning:Ask" )
+            .Set( Lang.En, "Question" )
+            .Set( Lang.Ru, "Спросить" )
             ;
-
-        Localizator.Set("History:Arrested").Verb()
-            .Set(Lang.En, "arrested")
-            .Set(Lang.Ru, "арестован")
+        Localizator.Set( "Game:Questioning:About" )
+            .Set( Lang.En, "about" )
+            .Set( Lang.Ru, "про" )
+            ;
+        Localizator.Set( "Game:Questioning:Auto" )
+            .Set( Lang.En, "auto" )
+            .Set( Lang.Ru, "автоматически" )
+            ;
+        Localizator.Set( "Game:Questioning:No answers yet" )
+            .Set( Lang.En, "No answers yet" )
+            .Set( Lang.Ru, "Пока нет ответов" )
+            ;
+        Localizator.Set( "Game:Questioning:Answer:is" )
+            .Set( Lang.En, "is" )
+            .Set( Lang.Ru, "—" )
             ;
 
-        Localizator.Set("History:Murder:died").Verb()
-            .Set(Lang.En, "died")
-            .Set(Lang.Ru, "погиб")
-            .Gender(Lang.Ru, Gender.Feminine, "погибла")
-            ;       
-        
-        Localizator.Set("Game:Result:Murderers")
-            .Set(Lang.En, "Sorry, you've lost...")
-            .Set(Lang.Ru, "Сожалею, вы проиграли...")
-            ;       
-        Localizator.Set("Game:Result:Detective")
-            .Set(Lang.En, "You win!")
-            .Set(Lang.Ru, "Вы выиграли!")
-            ;       
-        
+        Localizator.Set( Answer.Innocent.PrefixedString() ).Adjective()
+            .Set( Lang.En, "Innocent" )
+            .Set( Lang.Ru, "Невиновн" )
+            ;
+        Localizator.Set( Answer.Murderer.PrefixedString() )
+            .Set( Lang.En, "Murderer" )
+            .Set( Lang.Ru, "Убийца" )
+            ;
+        Localizator.Set( Answer.Unknown.PrefixedString() ).Adjective()
+            .Set( Lang.En, "unknown" )
+            .Set( Lang.Ru, "неизвестн" )
+            ;
+        Localizator.Set( Answer.NotSuspicious.PrefixedString() ).Adjective()
+            .Set( Lang.En, "not suspicious" )
+            .Set( Lang.Ru, "не подозрительн" )
+            ;
+        Localizator.Set( Answer.Suspicious.PrefixedString() ).Adjective()
+            .Set( Lang.En, "suspicious" )
+            .Set( Lang.Ru, "подозрительн" )
+            ;
+
+        Localizator.Set( "Arrest:Hint:Select:Suspect" )
+            .Set( Lang.En, "Select suspicious member:" )
+            .Set( Lang.Ru, "Веберете подозрительного участника:" )
+            ;
+
+        Localizator.Set( "Button:Arrest" )
+            .Set( Lang.En, "Arrest " )
+            .Set( Lang.Ru, "Арестовать " )
+            ;
+
+        Localizator.Set( "Button:Continue" )
+            .Set( Lang.En, "Continue" )
+            .Set( Lang.Ru, "Продолжить" )
+            ;
+
+        Localizator.Set( "Title:State:Arrest" )
+            .Set( Lang.En, "Arrest:" )
+            .Set( Lang.Ru, "Арест:" )
+            ;
+        Localizator.Set( "Arrest:You suspect" )
+            .Set( Lang.En, "You suspect " )
+            .Set( Lang.Ru, "Вы подозреваете: " )
+            ;
+
+        Localizator.Set( "History:Arrested" ).Verb()
+            .Set( Lang.En, "arrested" )
+            .Set( Lang.Ru, "арестован" )
+            ;
+
+        Localizator.Set( "History:Murder:died" ).Verb()
+            .Set( Lang.En, "died" )
+            .Set( Lang.Ru, "погиб" )
+            .Gender( Lang.Ru, Gender.Feminine, "погибла" )
+            ;
+
+        Localizator.Set( "Game:Result:Murderers" )
+            .Set( Lang.En, "Sorry, you've lost..." )
+            .Set( Lang.Ru, "Сожалею, вы проиграли..." )
+            ;
+        Localizator.Set( "Game:Result:Detective" )
+            .Set( Lang.En, "You win!" )
+            .Set( Lang.Ru, "Вы выиграли!" )
+            ;
     }
 
     // ===================================================================================== []
@@ -173,30 +171,30 @@
 
     private static void InitLocalizatorIfNeed()
     {
-        if (!_needInit) return;
+        if( !_needInit ) {
+            return;
+        }
         InitLocalizator();
         _needInit = false;
     }
 
-    public static string Text(string key)
+    public static string Text( string key )
     {
         InitLocalizatorIfNeed();
-        if (key == null)
+        if( key == null ) {
             return "{null}";
-        return Localizator.GetTranslation(key, CurrentLanguage);
+        }
+        return Localizator.GetTranslation( key, CurrentLanguage );
     }
 
     private static Lang GetCookieLang()
     {
-        var langInCookie = Request.Cookies[SiteModel.LangCookieName];
-        if (langInCookie != null)
-        {
-            try
-            {
-                return (Lang) int.Parse(langInCookie.Value);
+        var langInCookie = Request.Cookies[ SiteModel.LangCookieName ];
+        if( langInCookie != null ) {
+            try {
+                return ( Lang ) int.Parse( langInCookie.Value );
             }
-            catch
-            {
+            catch {
                 return Lang.En;
             }
         }
@@ -208,38 +206,37 @@
         get { return GetCookieLang(); }
     }
 
-    public static string Format(string format, params object[] args)
+    public static string Format( string format, params object[] args )
     {
-        for (var i = 0; i<args.Count(); i++)
-        {
-            args[i] = Text(args[i].ToString());
+        for( var i = 0; i < args.Count(); i++ ) {
+            args[ i ] = Text( args[ i ].ToString() );
         }
-        return string.Format(format, args);
+        return string.Format( format, args );
     }
 
-    public static string NumPlural(string format, int? num, string noun)
+    public static string NumPlural( string format, int? num, string noun )
     {
         return string.Format(
             format,
-            num == null ? Text("plural:num:null") : num.ToString(),
-            PluralForm(num, noun)
+            num == null ? Text( "plural:num:null" ) : num.ToString(),
+            PluralForm( num, noun )
             );
     }
-    
-    public static string NumPlural(int? num, string noun)
+
+    public static string NumPlural( int? num, string noun )
     {
-        return NumPlural("{0} {1}", num, noun);
+        return NumPlural( "{0} {1}", num, noun );
     }
 
-    public static string PluralForm(int? num, string noun)
+    public static string PluralForm( int? num, string noun )
     {
-        return Localizator.Plural(num, noun, CurrentLanguage);
+        return Localizator.Plural( num, noun, CurrentLanguage );
     }
 
-    public static string GenderForm(string word, Sex sex)
+    public static string GenderForm( string word, Sex sex )
     {
         var gender = sex.ToGender();
-        return Localizator.Gender(word, gender, CurrentLanguage);      
+        return Localizator.Gender( word, gender, CurrentLanguage );
     }
 
 }

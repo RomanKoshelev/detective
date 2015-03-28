@@ -1,3 +1,8 @@
+// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// AnswerRule.cs
+// Roman, 2015-03-29 12:57 AM
+
 namespace Crimenuts.Core.Game
 {
     public class AnswerRule
@@ -11,6 +16,7 @@ namespace Crimenuts.Core.Game
                 public Answer Uninformed = Answer.Error;
                 public Answer WitnessMurderer = Answer.Error;
             }
+
             public Attitude Love = new Attitude();
             public Attitude Ignore = new Attitude();
             public Attitude Hate = new Attitude();

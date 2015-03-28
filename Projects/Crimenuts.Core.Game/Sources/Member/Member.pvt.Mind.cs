@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Member.pvt.Mind.cs
+// Roman, 2015-03-29 12:57 AM
+
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Crimenuts.Utils;
@@ -7,64 +12,72 @@ namespace Crimenuts.Core.Game
 {
     public partial class Member
     {
-        private readonly List<Member> _murderers = new List<Member>();
-        private readonly List<Member> _innocents = new List<Member>();
+        private readonly List< Member > _murderers = new List< Member >();
+        private readonly List< Member > _innocents = new List< Member >();
 
-        private bool HasEvidenceOn(Member subj)
+        private bool HasEvidenceOn( Member subj )
         {
-            return KnowsAsInnocent(subj) || KnowsAsMurderer(subj);
+            return KnowsAsInnocent( subj ) || KnowsAsMurderer( subj );
         }
 
-        private bool ThinkIsMurderer(Member subj)
+        private bool ThinkIsMurderer( Member subj )
         {
-            Trace.Assert(ActualMembersCount > 0, "ActualMembersCount");
-            Trace.Assert(ActualMurderersCount > 0, "ActualMurderersCount");
-            Trace.Assert(ActualMurderersCount <= ActualMembersCount, "ActualMurderersCount <= ActualMembersCount");
+            Trace.Assert( ActualMembersCount > 0, "ActualMembersCount" );
+            Trace.Assert( ActualMurderersCount > 0, "ActualMurderersCount" );
+            Trace.Assert( ActualMurderersCount <= ActualMembersCount, "ActualMurderersCount <= ActualMembersCount" );
 
-            if (_murderers.Exists(m => m == subj))
+            if( _murderers.Exists( m => m == subj ) ) {
                 return true;
+            }
 
-            var allInnocentsAreKnown = (1 + _innocents.Count(m => m.IsActive)) ==
-                                       (ActualMembersCount - ActualMurderersCount);
+            var allInnocentsAreKnown = ( 1 + _innocents.Count( m => m.IsActive ) ) ==
+                ( ActualMembersCount - ActualMurderersCount );
 
-            if (allInnocentsAreKnown && !KnowsAsInnocent(subj))
+            if( allInnocentsAreKnown && !KnowsAsInnocent( subj ) ) {
                 return true;
+            }
 
             return false;
         }
 
-        private bool ThinkIsInnocent(Member subj)
+        private bool ThinkIsInnocent( Member subj )
         {
-            Trace.Assert(ActualMembersCount > 0, "ActualMembersCount");
-            Trace.Assert(ActualMurderersCount > 0, "ActualMurderersCount");
-            Trace.Assert(ActualMurderersCount <= ActualMembersCount, "ActualMurderersCount <= ActualMembersCount");
+            Trace.Assert( ActualMembersCount > 0, "ActualMembersCount" );
+            Trace.Assert( ActualMurderersCount > 0, "ActualMurderersCount" );
+            Trace.Assert( ActualMurderersCount <= ActualMembersCount, "ActualMurderersCount <= ActualMembersCount" );
 
-            if (_innocents.Exists(m => m == subj))
+            if( _innocents.Exists( m => m == subj ) ) {
                 return true;
+            }
 
-            var allMurderersAreKnown = _murderers.Count(m => m.IsActive) == ActualMurderersCount;
+            var allMurderersAreKnown = _murderers.Count( m => m.IsActive ) == ActualMurderersCount;
 
-            if (allMurderersAreKnown && !KnowsAsMurderer(subj))
+            if( allMurderersAreKnown && !KnowsAsMurderer( subj ) ) {
                 return true;
+            }
 
             return false;
         }
 
-        private void DoRememberMurderer(Member murderer)
+        private void DoRememberMurderer( Member murderer )
         {
-            if (_murderers.NotExists(m => m == murderer))
-                _murderers.Add(murderer);
+            if( _murderers.NotExists( m => m == murderer ) ) {
+                _murderers.Add( murderer );
+            }
         }
 
-        private void DoRememberInnocent(Member innocent)
+        private void DoRememberInnocent( Member innocent )
         {
-            if (_innocents.NotExists(m => m == innocent))
-                _innocents.Add(innocent);
+            if( _innocents.NotExists( m => m == innocent ) ) {
+                _innocents.Add( innocent );
+            }
         }
 
         private void InitDecisionModules()
         {
-            if (IsDetective) return;
+            if( IsDetective ) {
+                return;
+            }
             InitMurderDecisionModule();
             InitEvidenceDecisionModule();
         }

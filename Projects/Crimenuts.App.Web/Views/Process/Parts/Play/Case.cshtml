@@ -2,23 +2,18 @@
     // >> View | Process | Case
     @Case()
 }
-@using Crimenuts.App.Web.Models
-@model ProcessModel
+@model Crimenuts.App.Web.Models.ProcessModel 
 
 @functions {
-
-
 }
 
 @helper Case()
 {
     @RoomView.Record(
-        Shared.Format("{0}{1}:", Localization.Text("Game:Case #"), Model.CaseId), 
-        Summary(), 
-        RoomView.HistoryClass)
+        Shared.Format( "{0}{1}:", Localization.Text( "Game:Case #" ), Model.CaseId ),
+        Summary(),
+        RoomView.HistoryClass )
 }
 
 @helper Summary()
-{
-    @Localization.NumPlural("{0} {1}", Model.Case.MurderersOpenNum, "murderer")
-}
+{ @Localization.NumPlural( "{0} {1}", Model.Case.MurderersOpenNum, "murderer" ) }

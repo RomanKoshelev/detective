@@ -1,3 +1,8 @@
+// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Profile.pvt.Murder.cs
+// Roman, 2015-03-29 12:57 AM
+
 using System;
 using Crimenuts.Utils;
 
@@ -12,17 +17,15 @@ namespace Crimenuts.Core.Game
 
         private void CreateMurderRules()
         {
-            MurderRule.Init(MajorMurderRulesNum, MinorMurderRulesNum);
+            MurderRule.Init( MajorMurderRulesNum, MinorMurderRulesNum );
 
             MurderDecodeStart();
 
-            for (var i = MajorMurderRulesNum - 1; i >= 0; i--)
-            {
-                MurderRule.VictimSigns[(int) FactorPriority.Major][i] = MurderDecodeNext();
+            for( var i = MajorMurderRulesNum - 1; i >= 0; i-- ) {
+                MurderRule.VictimSigns[ ( int ) FactorPriority.Major ][ i ] = MurderDecodeNext();
             }
-            for (var i = MinorMurderRulesNum - 1; i >= 0; i--)
-            {
-                MurderRule.VictimSigns[(int) FactorPriority.Minor][i] = MurderDecodeNext();
+            for( var i = MinorMurderRulesNum - 1; i >= 0; i-- ) {
+                MurderRule.VictimSigns[ ( int ) FactorPriority.Minor ][ i ] = MurderDecodeNext();
             }
         }
 
@@ -35,30 +38,29 @@ namespace Crimenuts.Core.Game
 
         private VictimSign MurderDecodeNext()
         {
-            var startIndex = (int) Type*MurderRulesPerProfile;
+            var startIndex = ( int ) Type*MurderRulesPerProfile;
 
-            return DecodeMurder(_murderPack[startIndex + _murderDecodeIndex++]);
+            return DecodeMurder( _murderPack[ startIndex + _murderDecodeIndex++ ] );
         }
 
-        private static VictimSign DecodeMurder(char c)
+        private static VictimSign DecodeMurder( char c )
         {
-            switch (c)
-            {
-                case 'w':
+            switch( c ) {
+                case 'w' :
                     return VictimSign.KnowActiveMurderers;
-                case 'm':
+                case 'm' :
                     return VictimSign.KnowIamMurderer;
-                case 'u':
+                case 'u' :
                     return VictimSign.InnocentDontKnowActiveMurderers;
-                case 'l':
+                case 'l' :
                     return VictimSign.IsLoved;
-                case 'h':
+                case 'h' :
                     return VictimSign.IsHated;
-                case 'i':
+                case 'i' :
                     return VictimSign.IsIgnored;
             }
 
-            throw new Exception(string.Format("Wrong MurderCode [{0}]", c));
+            throw new Exception( string.Format( "Wrong MurderCode [{0}]", c ) );
         }
     }
 }

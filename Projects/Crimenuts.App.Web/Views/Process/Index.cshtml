@@ -1,4 +1,4 @@
-﻿@model Crimenuts.App.Web.Models.SchemaModel
+﻿@model  Crimenuts.App.Web.Models.SchemaModel 
 @{
     ViewBag.Title = "Detective Process";
     Layout = "~/Views/Shared/Layouts/Default.cshtml";
@@ -6,17 +6,15 @@
 
 <h2>Processes</h2>
 <ul>
-    @foreach (var p in Model.Processes)
-    {
+    @foreach( var p in Model.Processes ) {
         <li>
             @p.ShortInfo
-            @Html.ActionLink("Details", "Info", new { id = p.Id })
-            @Html.ActionLink("Take", "Play", new { id = p.Id })
+            @Html.ActionLink( "Details", "Info", new { id = p.Id } )
+            @Html.ActionLink( "Take", "Play", new { id = p.Id } )
         </li>
     }
 
-    @if (Model.Processes.Count == 0)
-    {
+    @if( Model.Processes.Count == 0 ) {
         @:No processes found
     }
 </ul>

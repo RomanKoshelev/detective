@@ -1,14 +1,19 @@
-﻿using System.Collections.Generic;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Case.cs
+// Roman, 2015-03-29 12:57 AM
+
+using System.Collections.Generic;
 using System.Linq;
 using Crocodev.Common.Identifier;
 
 namespace Crimenuts.Core.Game
 {
-    public partial class Case : Identifiable<Case, int>, IOptions
+    public partial class Case : Identifiable< Case, int >, IOptions
     {
-        public Case(IWorld world, int membersNum, int murderersNum)
+        public Case( IWorld world, int membersNum, int murderersNum )
         {
-            Id = (Identifier) 0;
+            Id = ( Identifier ) 0;
 
             World = world;
             MembersNum = membersNum;
@@ -25,7 +30,7 @@ namespace Crimenuts.Core.Game
         }
 
         public Identifier Id { get; set; }
-        public IList<Member> Members { get; private set; }
+        public IList< Member > Members { get; private set; }
         public Member Detective { get; private set; }
 
         public string WorldName
@@ -33,29 +38,29 @@ namespace Crimenuts.Core.Game
             get { return World.Name; }
         }
 
-        public IList<Member> ActiveMembers
+        public IList< Member > ActiveMembers
         {
-            get { return Members.Where(m => m.IsActive).ToList(); }
+            get { return Members.Where( m => m.IsActive ).ToList(); }
         }
 
-        public IList<Member> Murderers
+        public IList< Member > Murderers
         {
-            get { return Members.Where(m => m.IsMurderer).ToList(); }
+            get { return Members.Where( m => m.IsMurderer ).ToList(); }
         }
 
-        public IList<Member> Prisoners
+        public IList< Member > Prisoners
         {
-            get { return Members.Where(m => m.IsPrisoner).ToList(); }
+            get { return Members.Where( m => m.IsPrisoner ).ToList(); }
         }
 
-        public IList<Member> Victims
+        public IList< Member > Victims
         {
-            get { return Members.Where(m => m.IsVictim).ToList(); }
+            get { return Members.Where( m => m.IsVictim ).ToList(); }
         }
 
-        public Member FindMember(int number)
+        public Member FindMember( int number )
         {
-            return DoFindMember(number);
+            return DoFindMember( number );
         }
 
         public int? MurderersOpenNum

@@ -1,9 +1,14 @@
-﻿namespace Crimenuts.Core.Game
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Emotion.cs
+// Roman, 2015-03-29 12:57 AM
+
+namespace Crimenuts.Core.Game
 {
     public enum Emotion
     {
-        Error=-1,
-        Indifferent=0,
+        Error = -1,
+        Indifferent = 0,
         Happy,
         Sad
     }

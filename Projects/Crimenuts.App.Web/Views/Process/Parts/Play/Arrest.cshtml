@@ -2,9 +2,8 @@
     // >> View | Process | Arrest
     @Arrest()
 }
-@using Crimenuts.App.Web.Models
 @using Crimenuts.Core.Game
-@model ProcessModel
+@model Crimenuts.App.Web.Models.ProcessModel 
 
 @functions
 {
@@ -16,17 +15,17 @@
 
     private bool ArrestIsEnabled()
     {
-        return Model.State == State.Arrest && Model.UserActionIsEnabled(Process.UserAction.ActionType.Arrest);
+        return Model.State == State.Arrest && Model.UserActionIsEnabled( Process.UserAction.ActionType.Arrest );
     }
 
     private bool EarlyArrestIsEnabled()
     {
-        return Model.UserActionIsEnabled(Process.UserAction.ActionType.EarlyArrest);
+        return Model.UserActionIsEnabled( Process.UserAction.ActionType.EarlyArrest );
     }
 
     private bool ContinueIsEnabled()
     {
-        return Model.UserActionIsEnabled(Process.UserAction.ActionType.Continue);
+        return Model.UserActionIsEnabled( Process.UserAction.ActionType.Continue );
     }
 
 }
@@ -43,96 +42,91 @@
 
 @helper EarlyArrestButton()
 {
-    if (EarlyArrestIsEnabled() && ProcessView.CanArrest(Face))
-    {
-        @Record(RoomView.Button(
-            Localization.Text("Button:Arrest") + ProcessView.MemberName(Face),
+    if( EarlyArrestIsEnabled() && ProcessView.CanArrest( Face ) ) {
+        @Record( RoomView.Button(
+            Localization.Text( "Button:Arrest" ) + ProcessView.MemberName( Face ),
             RoomView.ButtonEarlyArrestClass,
-            ProcessView.EarlyArrestActionUrl((int) Face)))
+            ProcessView.EarlyArrestActionUrl( ( int ) Face ) ) )
     }
 }
 
 @helper ArrestButton()
 {
-    if (ArrestIsEnabled() && ProcessView.CanArrest(Face))
-    {
+    if( ArrestIsEnabled() && ProcessView.CanArrest( Face ) ) {
         @RoomView.Record(
             RoomView.Button(
-                Localization.Text("Button:Arrest") + ProcessView.MemberName(Face),
+                Localization.Text( "Button:Arrest" ) + ProcessView.MemberName( Face ),
                 RoomView.ButtonArrestClass,
-                ProcessView.ArrestActionUrl((int) Face)),
-            RoomView.ArrestClass)
+                ProcessView.ArrestActionUrl( ( int ) Face ) ),
+            RoomView.ArrestClass )
     }
 }
 
 @helper ContinueButton()
 {
-    if (Model.State == State.CheckArrest && ContinueIsEnabled())
-    {
+    if( Model.State == State.CheckArrest && ContinueIsEnabled() ) {
         @RoomView.Record(
             RoomView.Button(
-                Localization.Text("Button:Continue"),
+                Localization.Text( "Button:Continue" ),
                 RoomView.ButtonContinueClass,
-                ProcessView.ContinueActionUrl()),
-            RoomView.ArrestClass)
+                ProcessView.ContinueActionUrl() ),
+            RoomView.ArrestClass )
     }
 }
 
 
 @helper Hint()
 {
-    if (ArrestIsEnabled() && !ProcessView.CanArrest(Face))
-    {
-        @Record(RoomView.HintMemberVariants(
-            Shared.Text(Localization.Text("Arrest:Hint:Select:Suspect")),
+    if( ArrestIsEnabled() && !ProcessView.CanArrest( Face ) ) {
+        @Record( RoomView.HintMemberVariants(
+            Shared.Text( Localization.Text( "Arrest:Hint:Select:Suspect" ) ),
             ProcessView.ArrestVariants()
-            ))
+            ) )
     }
 }
 
 @helper Result()
 {
-    if (Model.State == State.CheckArrest)
-    {
+    if( Model.State == State.CheckArrest ) {
         @RoomView.Record(
             ArrestTitle(),
-            RoomView.RecordInfoSection(ResultSection()),
-            RoomView.ArrestClass)
+            RoomView.RecordInfoSection( ResultSection() ),
+            RoomView.ArrestClass )
     }
-    if (Model.State == State.Arrest && ProcessView.CanArrest(Face))
-    {
+    if( Model.State == State.Arrest && ProcessView.CanArrest( Face ) ) {
         @RoomView.Record(
             ArrestTitle(),
             SuspectSection(),
-            RoomView.ArrestClass)
+            RoomView.ArrestClass )
     }
 }
 
 @helper ResultSection()
 {
-    @RoomView.RespondentLink(Model.TodayPrisoner) 
-    @Localization.GenderForm("was", Model.TodayPrisoner.Sex) 
-    @RoomView.Highlight(Localization.GenderForm(Model.TodayPrisoner.Role.ToString().ToLower(), Model.TodayPrisoner.Sex))
+    @RoomView.RespondentLink( Model.TodayPrisoner )
+    @Localization.GenderForm( "was", Model.TodayPrisoner.Sex )
+    @RoomView.Highlight( Localization.GenderForm( Model.TodayPrisoner.Role.ToString().ToLower(), Model.TodayPrisoner.Sex ) )
 }
 
 @helper SuspectSection()
 {
-    @Localization.Text("Arrest:You suspect") @RoomView.RespondentLink(ProcessView.Member(Face))
+    @Localization.Text( "Arrest:You suspect" )
+    @RoomView.RespondentLink( ProcessView.Member( Face ) )
 }
 
 
 
 @helper ArrestTitle()
 {
-    @Shared.Text(Model.State == State.Arrest || Model.State == State.CheckArrest
-        ? Localization.Text("Title:State:Arrest")
-        : "")
+    @Shared.Text( Model.State == State.Arrest || Model.State == State.CheckArrest
+        ? Localization.Text( "Title:State:Arrest" )
+        : "" )
 }
 
-@helper Record(HelperResult rec)
+@helper Record( HelperResult rec )
 {
     @RoomView.Record(
         ArrestTitle(),
         rec,
-        RoomView.ArrestClass)
+        RoomView.ArrestClass )
 }

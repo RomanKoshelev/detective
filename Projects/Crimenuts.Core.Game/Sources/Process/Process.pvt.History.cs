@@ -1,4 +1,9 @@
-﻿using System.Linq;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Process.pvt.History.cs
+// Roman, 2015-03-29 12:57 AM
+
+using System.Linq;
 using MoreLinq;
 
 namespace Crimenuts.Core.Game
@@ -10,32 +15,30 @@ namespace Crimenuts.Core.Game
             History = new History();
         }
 
-        private void HistoryStoreEmotionalReactionOnMurder(Member victim)
+        private void HistoryStoreEmotionalReactionOnMurder( Member victim )
         {
-            foreach (var member in ActiveMembers)
-            {
-                var emotion = member.ExpressEmotionOnMurderOrArrest(victim);
-                History.StoreEmotionOnMurder(Today, member, victim, emotion);
+            foreach( var member in ActiveMembers ) {
+                var emotion = member.ExpressEmotionOnMurderOrArrest( victim );
+                History.StoreEmotionOnMurder( Today, member, victim, emotion );
             }
         }
 
-        private void HistoryStoreEmotionalReactionOnArrest(Member arrested)
+        private void HistoryStoreEmotionalReactionOnArrest( Member arrested )
         {
-            foreach (var member in ActiveMembers)
-            {
-                var emotion = member.ExpressEmotionOnMurderOrArrest(arrested);
-                History.StoreEmotionOnArrest(Today, member, arrested, emotion);
+            foreach( var member in ActiveMembers ) {
+                var emotion = member.ExpressEmotionOnMurderOrArrest( arrested );
+                History.StoreEmotionOnArrest( Today, member, arrested, emotion );
             }
         }
 
         private void HistoryStoreParticipations()
         {
-            ActiveMembers.ForEach(m => History.StoreParticipation(Today, m));
+            ActiveMembers.ForEach( m => History.StoreParticipation( Today, m ) );
         }
 
-        private bool AlreadyHasAnsweredToday(Member correspondent, Member subject)
+        private bool AlreadyHasAnsweredToday( Member correspondent, Member subject )
         {
-            return History.GetAnswers(correspondent, Today).Any(r => r.Subject == subject);
+            return History.GetAnswers( correspondent, Today ).Any( r => r.Subject == subject );
         }
     }
 }

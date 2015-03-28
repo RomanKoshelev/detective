@@ -4,26 +4,26 @@
 }
 @using Crimenuts.App.Web.Models
 @using Crimenuts.Core.Game
-@model ProcessModel
+@model Crimenuts.App.Web.Models.ProcessModel 
 
 @functions {
 
-    private MemberModel Victim(int day)
+    private MemberModel Victim( int day )
     {
-        return Model.Victims.First(v => v.LastActivityaDay == day);
+        return Model.Victims.First( v => v.LastActivityaDay == day );
     }
 
-    private MemberModel Prisoner(int day)
+    private MemberModel Prisoner( int day )
     {
-        return Model.Prisoners.FirstOrDefault(v => v.LastActivityaDay == day);
+        return Model.Prisoners.FirstOrDefault( v => v.LastActivityaDay == day );
     }
 
-    private int AnswersCount(int day)
+    private int AnswersCount( int day )
     {
-        return Model.History.Answers(day).Count;
+        return Model.History.Answers( day ).Count;
     }
 
-    private Func<int, bool> DayPredicate()
+    private Func< int, bool > DayPredicate()
     {
         return
             d => d != Model.Today || Model.State == State.Finished;
@@ -33,45 +33,38 @@
 
 @helper History()
 {
-    foreach (var d in Model.History.Days.Where(DayPredicate()))
-    {
-        @RoomView.Record(Shared.Format("{0} {1}:", Localization.Text("Day"),d), Summary(d), RoomView.HistoryClass)
+    foreach( var d in Model.History.Days.Where( DayPredicate() ) ) {
+        @RoomView.Record( Shared.Format( "{0} {1}:", Localization.Text( "Day" ), d ), Summary( d ), RoomView.HistoryClass )
     }
 }
 
-@helper Summary(int day)
+@helper Summary( int day )
 {
-    if (day == Model.Today && Model.Winner == Winner.Murderers)
-    {
-        @Murder(day)
-    }
-    else if (AnswersCount(day)>=1)
-    {
-        @Murder(day)@:,
-        @Arrest(day)@:,
-        @Answers(day)
-    }
-    else
-    {
-        @Murder(day)@:,
-        @Arrest(day)
+    if( day == Model.Today && Model.Winner == Winner.Murderers ) {
+        @Murder( day )
+    } else if( AnswersCount( day ) >= 1 ) {
+        @Murder( day )@:,
+        @Arrest( day )@:,
+        @Answers( day )
+    } else {
+        @Murder( day )@:,
+        @Arrest( day )
     }
 }
 
-@helper Murder(int day)
+@helper Murder( int day )
 {
-    var member = Victim(day);
-    @RoomView.RespondentLink(member) @Localization.GenderForm("History:Murder:died", member.Sex)
+    var member = Victim( day );
+    @RoomView.RespondentLink( member )
+    @Localization.GenderForm( "History:Murder:died", member.Sex )
 }
 
-@helper Answers(int day)
-{
-    @Localization.NumPlural(AnswersCount(day), ":answer")
-}
+@helper Answers( int day )
+{ @Localization.NumPlural( AnswersCount( day ), ":answer" ) }
 
-@helper Arrest(int day)
+@helper Arrest( int day )
 {
-    var member = Prisoner(day);
-    @RoomView.RespondentLink(member) @Localization.GenderForm("History:Arrested", member.Sex)
+    var member = Prisoner( day );
+    @RoomView.RespondentLink( member )
+    @Localization.GenderForm( "History:Arrested", member.Sex )
 }
-

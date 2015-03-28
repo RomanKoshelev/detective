@@ -4,19 +4,18 @@
 @using Crimenuts.Core.Game
 @using Crimenuts.Utils
 @using WebGrease.Css.Extensions
-@using Process = Crimenuts.Core.Game.Process
 @functions {
     // >> App_Code | ProcessView 
-    private new static HtmlHelper<object> Html
+    private new static HtmlHelper< object > Html
     {
-        get { return ((WebViewPage) WebPageContext.Current.Page).Html; }
+        get { return ( ( WebViewPage ) WebPageContext.Current.Page ).Html; }
     }
 
-    public static void RenderPartial(string part, object args = null)
+    public static void RenderPartial( string part, object args = null )
     {
-        var viewData = Html.NewViewData(args ?? new {});
+        var viewData = Html.NewViewData( args ?? new { } );
 
-        ViewData.ForEach(vd => viewData.Add(vd));
+        ViewData.ForEach( vd => viewData.Add( vd ) );
 
         Html.RenderPartial(
             "~/Views/Process/Parts/Play/" + part + ".cshtml",
@@ -25,153 +24,145 @@
             );
     }
 
-    public static string AskActionUrl(int respondent, int subject)
+    public static string AskActionUrl( int respondent, int subject )
     {
-        return ActionUrl(new
-        {
+        return ActionUrl( new {
             id = Model.Id,
-            actionType = (int) Process.UserAction.ActionType.Ask,
+            actionType = ( int ) Process.UserAction.ActionType.Ask,
             respondent,
             subject,
             face = respondent,
             card = subject
-        });
+        } );
     }
 
-    public static string ArrestActionUrl(int suspect)
+    public static string ArrestActionUrl( int suspect )
     {
-        return ActionUrl(new
-        {
+        return ActionUrl( new {
             id = Model.Id,
-            actionType = (int) Process.UserAction.ActionType.Arrest,
+            actionType = ( int ) Process.UserAction.ActionType.Arrest,
             suspect,
             face = suspect
-        });
+        } );
     }
 
-    public static string EarlyArrestActionUrl(int suspect)
+    public static string EarlyArrestActionUrl( int suspect )
     {
-        return ActionUrl(new
-        {
+        return ActionUrl( new {
             id = Model.Id,
-            actionType = (int) Process.UserAction.ActionType.EarlyArrest,
+            actionType = ( int ) Process.UserAction.ActionType.EarlyArrest,
             suspect,
             face = suspect
-        });
+        } );
     }
 
     public static string AutoAskActionUrl()
     {
-        return ActionUrl(new
-        {
+        return ActionUrl( new {
             id = Model.Id,
-            actionType = (int) Process.UserAction.ActionType.AutoAsk
-        });
+            actionType = ( int ) Process.UserAction.ActionType.AutoAsk
+        } );
     }
 
     public static string ContinueActionUrl()
     {
-        return ActionUrl(new
-        {
+        return ActionUrl( new {
             id = Model.Id,
-            actionType = (int) Process.UserAction.ActionType.Continue
-        });
+            actionType = ( int ) Process.UserAction.ActionType.Continue
+        } );
     }
 
-
-    public static string MemberFaceUrl(int num)
+    public static string MemberFaceUrl( int num )
     {
-        return ActionUrl(new {id = Model.Id, face = num});
+        return ActionUrl( new { id = Model.Id, face = num } );
     }
 
-    public static string ActionUrl(dynamic args)
+    public static string ActionUrl( dynamic args )
     {
-        return Url.Action("Play", "Process", args);
+        return Url.Action( "Play", "Process", args );
     }
-
 
     private new static ProcessModel Model
     {
-        get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }
+        get { return ( ProcessModel ) ( ( WebViewPage ) WebPageContext.Current.Page ).Model; }
     }
 
     private static UrlHelper Url
     {
-        get { return ((WebViewPage) WebPageContext.Current.Page).Url; }
+        get { return ( ( WebViewPage ) WebPageContext.Current.Page ).Url; }
     }
 
     private static ViewDataDictionary ViewData
     {
-        get { return ((WebViewPage) WebPageContext.Current.Page).ViewData; }
+        get { return ( ( WebViewPage ) WebPageContext.Current.Page ).ViewData; }
     }
 
-    public static bool MemberExists(int? num)
+    public static bool MemberExists( int? num )
     {
-        if (num == null) return false;
-        return Model.Members.Any(m => m.Number == num);
+        if( num == null ) {
+            return false;
+        }
+        return Model.Members.Any( m => m.Number == num );
     }
 
-    public static MemberModel Member(int? num)
+    public static MemberModel Member( int? num )
     {
-        CrimenutsAssert.IsTrue(MemberExists(num), "Member {0} does't exist", num);
-        return Model.Members.First(m => m.Number == num);
+        CrimenutsAssert.IsTrue( MemberExists( num ), "Member {0} does't exist", num );
+        return Model.Members.First( m => m.Number == num );
     }
 
-    public static string MemberName(int? num)
+    public static string MemberName( int? num )
     {
-        if (num == null) return "<?>";
-        var name = Model.Members.Where(m => m.Number == num).Select(m => m.Name).FirstOrDefault();
-        return Localization.Text(name);
+        if( num == null ) {
+            return "<?>";
+        }
+        var name = Model.Members.Where( m => m.Number == num ).Select( m => m.Name ).FirstOrDefault();
+        return Localization.Text( name );
     }
 
-    public static bool MemberIsActive(int? num)
+    public static bool MemberIsActive( int? num )
     {
-        return MemberExists(num) && Model.ActiveMembers.Any(m => m.Number == num);
+        return MemberExists( num ) && Model.ActiveMembers.Any( m => m.Number == num );
     }
 
     // ===================================================================================== []
     // MemberEmotion
-    public static Emotion MemberEmotion(int memNum, int? subjNum)
+    public static Emotion MemberEmotion( int memNum, int? subjNum )
     {
-        var member = Member(memNum);
+        var member = Member( memNum );
 
-        if (Model.State == State.Finished)
-        {
-            if (subjNum == null || (subjNum == memNum && member.IsActive))
-            {
-                if (member.IsOpenMurderer)
+        if( Model.State == State.Finished ) {
+            if( subjNum == null || ( subjNum == memNum && member.IsActive ) ) {
+                if( member.IsOpenMurderer ) {
                     return Model.Winner == Winner.Murderers ? Emotion.Happy : Emotion.Sad;
-                if (member.IsOpenInnocent)
+                }
+                if( member.IsOpenInnocent ) {
                     return Model.Winner == Winner.Detective ? Emotion.Happy : Emotion.Sad;
+                }
             }
         }
 
-        if (subjNum == null)
-        {
+        if( subjNum == null ) {
             return Emotion.Indifferent;
         }
 
-        var subject = Member(subjNum);
+        var subject = Member( subjNum );
 
-        if (member.IsVictim)
-        {
+        if( member.IsVictim ) {
             return Emotion.Indifferent;
         }
-        if (subject.IsPrisoner)
-        {
-            return member.ExpressEmotionOnArrest(subject);
+        if( subject.IsPrisoner ) {
+            return member.ExpressEmotionOnArrest( subject );
         }
-        if (subject.IsVictim)
-        {
-            return member.ExpressEmotionOnMurder(subject);
+        if( subject.IsVictim ) {
+            return member.ExpressEmotionOnMurder( subject );
         }
 
-        switch (Model.State)
-        {
-            case State.Arrest:
+        switch( Model.State ) {
+            case State.Arrest :
                 return memNum == subjNum ? Emotion.Sad : Emotion.Indifferent;
-            case State.Questioning:
-                return memNum == subjNum ? Emotion.Indifferent : member.ExpressEmotionOnRelationTo(subject);
+            case State.Questioning :
+                return memNum == subjNum ? Emotion.Indifferent : member.ExpressEmotionOnRelationTo( subject );
         }
 
         return Emotion.Indifferent;
@@ -179,63 +170,65 @@
 
     // ===================================================================================== []
     // 
-    public static bool MemberIsAlive(int num)
+    public static bool MemberIsAlive( int num )
     {
-        return !Member(num).IsVictim;
+        return !Member( num ).IsVictim;
     }
 
-    public static IList<int> QuestioningRespondents()
+    public static IList< int > QuestioningRespondents()
     {
         return Model.UserActions
-            .Where(a => a.Type == Process.UserAction.ActionType.Ask)
-            .Select(a => a.Args[0])
+            .Where( a => a.Type == Process.UserAction.ActionType.Ask )
+            .Select( a => a.Args[ 0 ] )
             .Distinct()
             .ToList();
     }
 
-    public static IList<int> QuestioningSubjects(int respondent)
+    public static IList< int > QuestioningSubjects( int respondent )
     {
         return Model.UserActions
-            .Where(a => a.Type == Process.UserAction.ActionType.Ask && a.Args[0] == respondent)
-            .Select(a => a.Args[1])
+            .Where( a => a.Type == Process.UserAction.ActionType.Ask && a.Args[ 0 ] == respondent )
+            .Select( a => a.Args[ 1 ] )
             .Distinct()
             .ToList();
     }
 
-    public static bool CanAsk(int? respondent)
+    public static bool CanAsk( int? respondent )
     {
-        return QuestioningRespondents().Any(r => r == respondent);
+        return QuestioningRespondents().Any( r => r == respondent );
     }
 
-    public static string MemberTodayAnswer(int num)
+    public static string MemberTodayAnswer( int num )
     {
-        var answer = Model.TodayAnswers().FirstOrDefault(a => a.Agent.Number == num);
-        if (answer == null) return "ERROR";
-        return string.Format("{0} is {1}", Localization.Text(answer.Subject.Name), answer.Value.PrefixedString());
+        var answer = Model.TodayAnswers().FirstOrDefault( a => a.Agent.Number == num );
+        if( answer == null ) {
+            return "ERROR";
+        }
+        return string.Format( "{0} is {1}", Localization.Text( answer.Subject.Name ), answer.Value.PrefixedString() );
     }
 
-    public static bool CanAskAbout(int? respondent, int? subject)
+    public static bool CanAskAbout( int? respondent, int? subject )
     {
-        return respondent != null && QuestioningSubjects((int) respondent).Any(s => s == subject);
+        return respondent != null && QuestioningSubjects( ( int ) respondent ).Any( s => s == subject );
     }
 
-    public static bool IsAsked(int num)
+    public static bool IsAsked( int num )
     {
-        return MemberIsActive(num) && !CanAsk(num);
+        return MemberIsActive( num ) && !CanAsk( num );
     }
 
-    public static IList<int> ArrestVariants()
+    public static IList< int > ArrestVariants()
     {
         return Model.UserActions
-            .Where(a => a.Type == Process.UserAction.ActionType.Arrest || a.Type == Process.UserAction.ActionType.EarlyArrest)
-            .Select(a => a.Args[0])
+            .Where( a => a.Type == Process.UserAction.ActionType.Arrest || a.Type == Process.UserAction.ActionType.EarlyArrest )
+            .Select( a => a.Args[ 0 ] )
             .Distinct()
             .ToList();
     }
 
-    public static bool CanArrest(int? suspect)
+    public static bool CanArrest( int? suspect )
     {
-        return ArrestVariants().Any(s => s == suspect);
+        return ArrestVariants().Any( s => s == suspect );
     }
 
 }

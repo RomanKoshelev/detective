@@ -1,3 +1,8 @@
+// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Pack.cs
+// Roman, 2015-03-29 12:57 AM
+
 namespace Crimenuts.Core.Game
 {
     public class Pack
@@ -12,12 +17,13 @@ namespace Crimenuts.Core.Game
         {
             LoadWorlds();
         }
+
         private void LoadWorlds()
         {
             var profiles = Profile.LoadAll();
 
-            RandomWorld = new RandomWorld(profiles);
-            SimpsonsWorld = new SimpsonsWorld(profiles);
+            RandomWorld = new RandomWorld( profiles );
+            SimpsonsWorld = new SimpsonsWorld( profiles );
         }
     }
 }

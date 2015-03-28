@@ -1,4 +1,9 @@
-﻿using Crimenuts.Core.Game;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.App.Web
+// MemberModel.cs
+// Roman, 2015-03-29 12:56 AM
+
+using Crimenuts.Core.Game;
 using Crimenuts.Utils;
 
 namespace Crimenuts.App.Web.Models
@@ -7,14 +12,13 @@ namespace Crimenuts.App.Web.Models
     {
         // ===================================================================================== []
         // Public
-        public MemberModel(Member member)
+        public MemberModel( Member member )
         {
             Member = member;
         }
-        public MemberModel(MemberModel member)
-            : this(member.Member)
-        {
-        }
+
+        public MemberModel( MemberModel member )
+            : this( member.Member ) {}
 
         public string Name
         {
@@ -35,6 +39,7 @@ namespace Crimenuts.App.Web.Models
         {
             get { return Member.IsActive; }
         }
+
         public bool IsPrisoner
         {
             get { return Member.IsPrisoner; }
@@ -44,6 +49,7 @@ namespace Crimenuts.App.Web.Models
         {
             get { return Member.IsOpenMurderer; }
         }
+
         public bool IsOpenInnocent
         {
             get { return Member.IsOpenInnocent; }
@@ -51,22 +57,23 @@ namespace Crimenuts.App.Web.Models
 
         public string MemberHistoryName
         {
-            get { return (Member.IsMurderer? "*":"") + Name; }
+            get { return ( Member.IsMurderer ? "*" : "" ) + Name; }
         }
 
         public string NameRole
         {
             get { return DoGetNameRole(); }
         }
+
         public Role Role
         {
             get { return Member.OpenRole; }
         }
+
         public Sex Sex
         {
             get { return Member.Person.Sex; }
         }
-
 
         public override string ToString()
         {
@@ -78,26 +85,29 @@ namespace Crimenuts.App.Web.Models
             get { return Member.LastActivityDay; }
         }
 
-        public bool Loves(MemberModel subject)
+        public bool Loves( MemberModel subject )
         {
-            return Member.Loves(subject.Member);
-        }
-        public bool Hates(MemberModel subject)
-        {
-            return Member.Hates(subject.Member);
+            return Member.Loves( subject.Member );
         }
 
-        public Emotion ExpressEmotionOnRelationTo(MemberModel subject)
+        public bool Hates( MemberModel subject )
         {
-            return Member.ExpressEmotionOnRelationTo(subject.Member);
+            return Member.Hates( subject.Member );
         }
-        public Emotion ExpressEmotionOnArrest(MemberModel subject)
+
+        public Emotion ExpressEmotionOnRelationTo( MemberModel subject )
         {
-            return Member.ExpressEmotionOnMurderOrArrest(subject.Member);
+            return Member.ExpressEmotionOnRelationTo( subject.Member );
         }
-        public Emotion ExpressEmotionOnMurder(MemberModel subject)
+
+        public Emotion ExpressEmotionOnArrest( MemberModel subject )
         {
-            return Member.ExpressEmotionOnMurderOrArrest(subject.Member);
+            return Member.ExpressEmotionOnMurderOrArrest( subject.Member );
+        }
+
+        public Emotion ExpressEmotionOnMurder( MemberModel subject )
+        {
+            return Member.ExpressEmotionOnMurderOrArrest( subject.Member );
         }
 
         // ===================================================================================== []
@@ -106,9 +116,10 @@ namespace Crimenuts.App.Web.Models
 
         private string DoGetNameRole()
         {
-            if (Role == Role.Unknown)
+            if( Role == Role.Unknown ) {
                 return Name;
-            return string.Format("{0} [{1}]", Name, Role);
+            }
+            return string.Format( "{0} [{1}]", Name, Role );
         }
     }
 }

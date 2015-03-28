@@ -1,26 +1,33 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Utils
+// AssemblyInfo.cs
+// Roman, 2015-03-29 12:57 AM
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Crimenuts.Utils")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Crimenuts.Utils")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+
+[assembly : AssemblyTitle( "Crimenuts.Utils" )]
+[assembly : AssemblyDescription( "" )]
+[assembly : AssemblyConfiguration( "" )]
+[assembly : AssemblyCompany( "" )]
+[assembly : AssemblyProduct( "Crimenuts.Utils" )]
+[assembly : AssemblyCopyright( "Copyright ©  2015" )]
+[assembly : AssemblyTrademark( "" )]
+[assembly : AssemblyCulture( "" )]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
+
+[assembly : ComVisible( false )]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6492446a-3afd-418a-964e-96f6e01aa0a2")]
+
+[assembly : Guid( "6492446a-3afd-418a-964e-96f6e01aa0a2" )]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +39,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+
+[assembly : AssemblyVersion( "1.0.0.0" )]
+[assembly : AssemblyFileVersion( "1.0.0.0" )]

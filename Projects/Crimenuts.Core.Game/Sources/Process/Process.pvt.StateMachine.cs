@@ -1,4 +1,9 @@
-﻿using Crimenuts.Utils;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Process.pvt.StateMachine.cs
+// Roman, 2015-03-29 12:57 AM
+
+using Crimenuts.Utils;
 
 namespace Crimenuts.Core.Game
 {
@@ -9,66 +14,65 @@ namespace Crimenuts.Core.Game
         // >> Core | Process | StateMachine
         private void DoStep()
         {
-            switch (State)
-            {
-                case State.Initial:
-                    SetState(State.Start);
+            switch( State ) {
+                case State.Initial :
+                    SetState( State.Start );
                     break;
-                case State.Start:
-                    Start(State.Night);
+                case State.Start :
+                    Start( State.Night );
                     break;
-                case State.Night:
-                    Night(State.CheckNight);
+                case State.Night :
+                    Night( State.CheckNight );
                     break;
-                case State.CheckNight:
-                    CheckAndSet(State.Morning, State.DetectiveWin, State.MurderersWin);
+                case State.CheckNight :
+                    CheckAndSet( State.Morning, State.DetectiveWin, State.MurderersWin );
                     break;
-                case State.Morning:
-                    Morning(State.Questioning);
+                case State.Morning :
+                    Morning( State.Questioning );
                     break;
-                case State.Questioning:
-                    SetState(State.Arrest);
+                case State.Questioning :
+                    SetState( State.Arrest );
                     break;
-                case State.Arrest:
-                    SetState(State.CheckArrest);
+                case State.Arrest :
+                    SetState( State.CheckArrest );
                     break;
-                case State.CheckArrest:
-                    CheckAndSet(State.NextDay, State.DetectiveWin, State.MurderersWin);
+                case State.CheckArrest :
+                    CheckAndSet( State.NextDay, State.DetectiveWin, State.MurderersWin );
                     break;
-                case State.NextDay:
-                    NextDay(State.Night);
+                case State.NextDay :
+                    NextDay( State.Night );
                     break;
-                case State.DetectiveWin:
-                    DetectiveWin(State.End);
+                case State.DetectiveWin :
+                    DetectiveWin( State.End );
                     break;
-                case State.MurderersWin:
-                    MurderersWin(State.End);
+                case State.MurderersWin :
+                    MurderersWin( State.End );
                     break;
-                case State.Stop:
-                    Stop(State.End);
+                case State.Stop :
+                    Stop( State.End );
                     break;
-                case State.End:
-                    SetState(State.Finished);
+                case State.End :
+                    SetState( State.Finished );
                     break;
-                case State.Finished:
-                    Finished(State.Error);
+                case State.Finished :
+                    Finished( State.Error );
                     break;
             }
         }
 
-        private void SetState(State state)
+        private void SetState( State state )
         {
             _state = state;
             UpdateUserActions();
         }
 
-        private void Start(State state)
+        private void Start( State state )
         {
             Today = 1;
-            SetState(state);
+            SetState( state );
         }
 
-        private void Night(State state)
+        private void Night( State state )
         {
             UpdateMembersLastActiviryDay();
             HistoryStoreParticipations();
@@ -76,56 +80,57 @@ namespace Crimenuts.Core.Game
             DoMurder();
             DoEvidence();
 
-            SetState(state);
+            SetState( state );
         }
 
-        private void Morning(State state)
+        private void Morning( State state )
         {
             UpdateMembersKnownCounts();
 
-            SetState(state);
+            SetState( state );
         }
 
-        private void NextDay(State state)
+        private void NextDay( State state )
         {
             Today++;
-            SetState(state);
+            SetState( state );
         }
 
-        private void CheckAndSet(State stateNext, State stateWin, State stateFail)
+        private void CheckAndSet( State stateNext, State stateWin, State stateFail )
         {
-            SetState(ActiveMembers.NotExists(m => m.IsMurderer)
+            SetState( ActiveMembers.NotExists( m => m.IsMurderer )
                 ? stateWin
-                : ActiveMembers.NotExists(m => m.IsInnocent)
+                : ActiveMembers.NotExists( m => m.IsInnocent )
                     ? stateFail
-                    : stateNext);
+                    : stateNext );
         }
 
-        private void DetectiveWin(State state)
+        private void DetectiveWin( State state )
         {
             Winner = Winner.Detective;
-            SetState(state);
+            SetState( state );
         }
-        private void MurderersWin(State state)
+
+        private void MurderersWin( State state )
         {
             Winner = Winner.Murderers;
-            SetState(state);
+            SetState( state );
         }
 
-        private void Stop(State state)
+        private void Stop( State state )
         {
             Winner = Winner.Nobody;
-            SetState(state);
+            SetState( state );
         }
 
-        private void Finished(State state)
+        private void Finished( State state )
         {
-            throw new CrimenutsException("State {0} can't be run", state);
+            throw new CrimenutsException( "State {0} can't be run", state );
         }
 
         private void DoRunFirstNightUntilQuestioning()
         {
-            do DoStep(); while (State != State.Questioning);
+            do DoStep(); while( State != State.Questioning );
         }
     }
 }

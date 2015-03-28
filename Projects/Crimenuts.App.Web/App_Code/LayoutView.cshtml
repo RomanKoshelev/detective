@@ -1,15 +1,14 @@
 ﻿@using System.Web.Mvc
-@using System.Web.Mvc.Html
 @functions{
     // >> App_Code | LayoutView
-    private new static HtmlHelper<object> Html
+    private new static HtmlHelper< object > Html
     {
-        get { return ((WebViewPage) WebPageContext.Current.Page).Html; }
+        get { return ( ( WebViewPage ) WebPageContext.Current.Page ).Html; }
     }
 
 }
 
-@helper Header(string title)
+@helper Header( string title )
 {
     <div class="cn-green-pad cn-border-bottom-red-4">
         <nav>
@@ -18,10 +17,10 @@
                     @title
                 </li>
                 <li class="cn-text-align-right">
-                    @MenuActionLink(Localization.Text("Menu:Home"), "Home")
-                    | @MenuActionLink(Localization.Text("Menu:Cases"), "Case")
-                    | @MenuActionLink(Localization.Text("Menu:Processes"), "Process")
-                    | @MenuActionLink(Localization.CurrentLanguage.ToString(), "Site")
+                    @MenuActionLink( Localization.Text( "Menu:Home" ), "Home" )
+                    | @MenuActionLink( Localization.Text( "Menu:Cases" ), "Case" )
+                    | @MenuActionLink( Localization.Text( "Menu:Processes" ), "Process" )
+                    | @MenuActionLink( Localization.CurrentLanguage.ToString(), "Site" )
                 </li>
             </ul>
         </nav>
@@ -34,32 +33,32 @@
         <nav>
             <ul>
                 <li>
-                    Crime Nuts (c) @MenuLink("RKDev", "http://romankoshelev.info") 2015
+                    Crime Nuts (c) @MenuLink( "RKDev", "http://romankoshelev.info" ) 2015
                 </li>
                 <li class="cn-text-align-right">
-                    @MenuLink("Blog", "http://romankoshelev.info/tag/crimenuts/")
-                    | @MenuLink("Loc", "http://localhost/crimenuts/")
-                    | @MenuLink("Web", "http://www.crimenuts.com")
-                    | @MenuLink("Azure", "https://manage.windowsazure.com/@romakoshgmail.onmicrosoft.com#Workspaces/WebsiteExtension/Website/pgs-detective/deployments")
-                    | @MenuLink("Jira", "https://rk-dev.atlassian.net/secure/RapidBoard.jspa?rapidView=1&view=detail")
-                    | @MenuLink("Github", "https://github.com/RomanKoshelev/detective")
-                    | @MenuLink("Docs", "https://docs.google.com/document/d/1lIjCzt6j9BzGUCRqlUc_kvBMFaaieHP4n5MG_BvKoDs/")
+                    @MenuLink( "Blog", "http://romankoshelev.info/tag/crimenuts/" )
+                    | @MenuLink( "Loc", "http://localhost/crimenuts/" )
+                    | @MenuLink( "Web", "http://www.crimenuts.com" )
+                    | @MenuLink( "Azure", "https://manage.windowsazure.com/@romakoshgmail.onmicrosoft.com#Workspaces/WebsiteExtension/Website/pgs-detective/deployments" )
+                    | @MenuLink( "Jira", "https://rk-dev.atlassian.net/secure/RapidBoard.jspa?rapidView=1&view=detail" )
+                    | @MenuLink( "Github", "https://github.com/RomanKoshelev/detective" )
+                    | @MenuLink( "Docs", "https://docs.google.com/document/d/1lIjCzt6j9BzGUCRqlUc_kvBMFaaieHP4n5MG_BvKoDs/" )
 
                 </li>
             </ul>
         </nav>
     </div>
 }
-@helper MenuActionLink(string text, string controller, string action = "Index")
+@helper MenuActionLink( string text, string controller, string action = "Index" )
 {
     @Shared.ActionLink(
         text,
         controller,
         action,
-        "cn-menu")
+        "cn-menu" )
 }
 
-@helper MenuLink(string text, string href)
+@helper MenuLink( string text, string href )
 {
     <a class="cn-menu" href="@href">@text</a>
 }

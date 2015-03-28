@@ -1,36 +1,35 @@
 ﻿@using Crimenuts.Core.Game
-@model Crimenuts.App.Web.Models.ProcessModel
+@model  Crimenuts.App.Web.Models.ProcessModel 
 @{
-    @Cards(ViewBag.First, ViewBag.Last)
+    @Cards( ViewBag.First, ViewBag.Last )
 }
 
 @functions
 {
 
-    private string PrimaryCardClass(int num)
+    private string PrimaryCardClass( int num )
     {
         return
             num == Face || num == Card
                 ? " cn-card-frame-selected"
-                : ProcessView.MemberIsActive(num)
+                : ProcessView.MemberIsActive( num )
                     ? " cn-card-frame-visible"
                     : " cn-card-frame-invisible";
     }
 
-    private string ActiveCardClass(int num)
+    private string ActiveCardClass( int num )
     {
         return
-            ProcessView.MemberIsActive(num)
+            ProcessView.MemberIsActive( num )
                 ? " cn-card-name-active"
                 : " cn-card-name-inactive";
     }
 
-    private bool CardIsLinked(int num)
+    private bool CardIsLinked( int num )
     {
-        switch (Model.State)
-        {
-            case State.Questioning:
-                return ProcessView.CanAskAbout(Face, num);
+        switch( Model.State ) {
+            case State.Questioning :
+                return ProcessView.CanAskAbout( Face, num );
         }
         return false;
     }
@@ -47,50 +46,44 @@
 
 }
 
-@helper Cards(int first, int last)
+@helper Cards( int first, int last )
 {
     <nav class="cn-gametable-color">
         <ul>
-            @for (var i = first; i <= last; i++)
-            {
+            @for( var i = first; i <= last; i++ ) {
                 <li class="cn-card">
-                    @CardFrame(i)
+                    @CardFrame( i )
                 </li>
             }
         </ul>
     </nav>
 }
 
-@helper CardFrame(int num)
+@helper CardFrame( int num )
 {
     <div class="cn-card-aligment" align="center">
-        <div class="cn-card-content + @ActiveCardClass(num) @PrimaryCardClass(num)" align="center">
-            @if (ProcessView.MemberExists(num))
-            {
-                if (CardIsLinked(num))
-                {
-                    @CardLink(num)
-                }
-                else
-                {
-                    @ProcessView.MemberName(num)
+        <div class="cn-card-content + @ActiveCardClass( num ) @PrimaryCardClass( num )" align="center">
+            @if( ProcessView.MemberExists( num ) ) {
+                if( CardIsLinked( num ) ) {
+                    @CardLink( num )
+                } else {
+                    @ProcessView.MemberName( num )
                 }
             }
         </div>
     </div>
 }
 
-@helper CardLink(int num)
+@helper CardLink( int num )
 {
-    if (Model.State == State.Questioning)
-    {
-        @CardQuestioningLink(num)
+    if( Model.State == State.Questioning ) {
+        @CardQuestioningLink( num )
     }
 }
 
-@helper CardQuestioningLink(int subject)
+@helper CardQuestioningLink( int subject )
 {
-    <a class="cn-card-link" href="@ProcessView.AskActionUrl((int) Face, subject)">
-        @ProcessView.MemberName(subject)
+    <a class="cn-card-link" href="@ProcessView.AskActionUrl( ( int ) Face, subject )">
+        @ProcessView.MemberName( subject )
     </a>
 }

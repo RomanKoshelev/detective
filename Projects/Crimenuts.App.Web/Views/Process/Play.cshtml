@@ -1,8 +1,8 @@
 ﻿@{
     // >> View | Process | Play 
-    ViewBag.Title = string.Format("{0}, {1}{2}",
-        Localization.Text("Title:Crime Nuts"),
-        Localization.Text("Game:Case #"),
+    ViewBag.Title = string.Format( "{0}, {1}{2}",
+        Localization.Text( "Title:Crime Nuts" ),
+        Localization.Text( "Game:Case #" ),
         Model.CaseId
         );
     Layout = "~/Views/Shared/Layouts/Classic.cshtml";
@@ -10,16 +10,14 @@
 
     CorretFace();
 }
-
 @using Crimenuts.Core.Game
-@model Crimenuts.App.Web.Models.ProcessModel
+@model Crimenuts.App.Web.Models.ProcessModel 
 
 @functions {
 
     private void CorretFace()
     {
-        if (ViewBag.Face == null && Model.State == State.Questioning)
-        {
+        if( ViewBag.Face == null && Model.State == State.Questioning ) {
             ViewBag.Face = Model.TodayVictim.Number;
         }
     }
@@ -27,18 +25,18 @@
 }
 
 <div class="cn-room">
-    @{ ProcessView.RenderPartial("Members", new {First = 1, Last = 6, SideIsTop = true}); }
+    @{ ProcessView.RenderPartial( "Members", new { First = 1, Last = 6, SideIsTop = true } ); }
     <div class="cn-gametable cn-gametable-color">
-        @{ ProcessView.RenderPartial("Cards", new {First = 1, Last = 6}); }
+        @{ ProcessView.RenderPartial( "Cards", new { First = 1, Last = 6 } ); }
         <div class="cn-desktop">
-            @{ ProcessView.RenderPartial("Case"); }
-            @{ ProcessView.RenderPartial("History"); }
-            @{ ProcessView.RenderPartial("Today"); }
-            @{ ProcessView.RenderPartial("States"); }
+            @{ ProcessView.RenderPartial( "Case" ); }
+            @{ ProcessView.RenderPartial( "History" ); }
+            @{ ProcessView.RenderPartial( "Today" ); }
+            @{ ProcessView.RenderPartial( "States" ); }
         </div>
-        @{ ProcessView.RenderPartial("Cards", new {First = 7, Last = 12}); }
+        @{ ProcessView.RenderPartial( "Cards", new { First = 7, Last = 12 } ); }
     </div>
-    @{ ProcessView.RenderPartial("Members", new {First = 7, Last = 12, SideIsTop = false}); }
+    @{ ProcessView.RenderPartial( "Members", new { First = 7, Last = 12, SideIsTop = false } ); }
 </div>
 
 <div class="cn-dev cn-height-400">

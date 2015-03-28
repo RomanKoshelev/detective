@@ -1,7 +1,11 @@
-﻿using System;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Process.pvt.Actions.cs
+// Roman, 2015-03-29 12:57 AM
+
+using System;
 using System.Linq;
 using Crimenuts.Utils;
-using MoreLinq;
 
 namespace Crimenuts.Core.Game
 {
@@ -13,65 +17,68 @@ namespace Crimenuts.Core.Game
         {
             DoStep();
         }
-        private Answer DoAsk(Member respondent, Member subject)
+
+        private Answer DoAsk( Member respondent, Member subject )
         {
-            var answer = respondent.Ask(subject);
-            History.StoreAnswer(Today, respondent, subject, answer);
+            var answer = respondent.Ask( subject );
+            History.StoreAnswer( Today, respondent, subject, answer );
             return answer;
         }
 
-        private void DoArrest(Member suspect)
+        private void DoArrest( Member suspect )
         {
             LastArrested = suspect;
             LastArrested.IsPrisoner = true;
 
-            History.StoreArrest(Today, Detective, LastArrested);
-            HistoryStoreEmotionalReactionOnArrest(LastArrested);
-            
+            History.StoreArrest( Today, Detective, LastArrested );
+            HistoryStoreEmotionalReactionOnArrest( LastArrested );
+
             DoStep();
         }
-        private void DoEarlyArrest(Member suspect)
+
+        private void DoEarlyArrest( Member suspect )
         {
-            SetState(State.Arrest);
-            DoArrest(suspect);
+            SetState( State.Arrest );
+            DoArrest( suspect );
         }
 
-
-        private void DoAsk(int respondent, int subject)
+        private void DoAsk( int respondent, int subject )
         {
-            DoAsk(FindMember(respondent), FindMember(subject));
+            DoAsk( FindMember( respondent ), FindMember( subject ) );
         }
+
         private void DoAutoAsk()
         {
-            GetQuestioningRespondents().Shuffle().ForEach(respondent =>
-            {
-                var subject = ActiveMembers.Where(s => CanAskAbout(respondent, s)).RandomElement();
-                DoAsk(respondent, subject);
-            });
+            GetQuestioningRespondents().Shuffle().ForEach( respondent => {
+                var subject = ActiveMembers.Where( s => CanAskAbout( respondent, s ) ).RandomElement();
+                DoAsk( respondent, subject );
+            } );
         }
 
-        private void DoArrest(int suspect)
+        private void DoArrest( int suspect )
         {
-            DoArrest(FindMember(suspect));
+            DoArrest( FindMember( suspect ) );
         }
-        private void DoEarlyArrest(int suspect)
+
+        private void DoEarlyArrest( int suspect )
         {
-            DoEarlyArrest(FindMember(suspect));
+            DoEarlyArrest( FindMember( suspect ) );
         }
 
         private void DoStop()
         {
-            SetState(State.Stop);
+            SetState( State.Stop );
         }
 
         // ===================================================================================== []
         // Core Actions
         private void DoEvidence()
         {
-            if (ActiveInnocents.Count == 0) return;
+            if( ActiveInnocents.Count == 0 ) {
+                return;
+            }
 
-            for (var w = 0; w < MaxEvidenceNum; w++)
-            {
+            for( var w = 0; w < MaxEvidenceNum; w++ ) {
                 SelectWitnessAndEvidence();
             }
         }
@@ -79,46 +86,51 @@ namespace Crimenuts.Core.Game
         private void DoMurder()
         {
             LastMurderer = ActiveMurderers.RandomElement();
-            var victim = LastMurderer.SelectVictim(ActiveInnocents);
+            var victim = LastMurderer.SelectVictim( ActiveInnocents );
             victim.IsVictim = true;
 
-            History.StoreMurder(Today, LastMurderer, victim);
-            HistoryStoreEmotionalReactionOnMurder(victim);
+            History.StoreMurder( Today, LastMurderer, victim );
+            HistoryStoreEmotionalReactionOnMurder( victim );
         }
-        private void DoSkipTo(State state)
+
+        private void DoSkipTo( State state )
         {
-            CrimenutsAssert.IsTrue(state >= State, "Destinashion state [{0}] can't be achieved from current [{1}]", state, State);
-            do
-            {
-                CrimenutsAssert.IsTrue(UserActions.Count == 1, "Can't select action among {0} actions for auto skipping to {1}", UserActions.Count, state);
-                var action = UserActions[0];
-                DoExecuteUserAction(action.Type, action.Args, autoSkip: true);
-            } while (State != state && State != State.Finished);
-            CrimenutsAssert.IsTrue(State==state, "Achived state [{0}] != destinasion [{1}]", State, state);
+            CrimenutsAssert.IsTrue( state >= State,
+                "Destinashion state [{0}] can't be achieved from current [{1}]",
+                state,
+                State );
+            do {
+                CrimenutsAssert.IsTrue( UserActions.Count == 1,
+                    "Can't select action among {0} actions for auto skipping to {1}",
+                    UserActions.Count,
+                    state );
+                var action = UserActions[ 0 ];
+                DoExecuteUserAction( action.Type, action.Args, autoSkip : true );
+            } while( State != state && State != State.Finished );
+            CrimenutsAssert.IsTrue( State == state, "Achived state [{0}] != destinasion [{1}]", State, state );
         }
 
         // ===================================================================================== []
         // Utils
-        private readonly Random _random = new Random(333);
+        private readonly Random _random = new Random( 333 );
 
         private void SelectWitnessAndEvidence()
         {
-            CrimenutsAssert.IsTrue(ActiveInnocents.Count>0, "No active innocent members!");
+            CrimenutsAssert.IsTrue( ActiveInnocents.Count > 0, "No active innocent members!" );
 
-            var witness = ActiveInnocents.RandomElementUsing(_random);
-            var subject = witness.SelectEvidence(ActiveMembers);
+            var witness = ActiveInnocents.RandomElementUsing( _random );
+            var subject = witness.SelectEvidence( ActiveMembers );
 
-            if (subject == null) return;
-
-            if (subject.IsMurderer)
-            {
-                witness.RememberMurderer(subject);
-                History.StoreMurderEvidence(Today, witness, subject);
+            if( subject == null ) {
+                return;
             }
-            else
-            {
-                witness.RememberInnocent(subject);
-                History.StoreInnocentEvidence(Today, witness, subject);
+
+            if( subject.IsMurderer ) {
+                witness.RememberMurderer( subject );
+                History.StoreMurderEvidence( Today, witness, subject );
+            } else {
+                witness.RememberInnocent( subject );
+                History.StoreInnocentEvidence( Today, witness, subject );
             }
         }
     }

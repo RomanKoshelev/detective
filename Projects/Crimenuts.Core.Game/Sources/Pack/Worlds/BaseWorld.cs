@@ -1,9 +1,14 @@
+// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// BaseWorld.cs
+// Roman, 2015-03-29 12:57 AM
+
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using MoreLinq;
 using Crimenuts.Utils;
 using Crimenuts.Utils.Localization;
+using MoreLinq;
 
 namespace Crimenuts.Core.Game
 {
@@ -12,79 +17,87 @@ namespace Crimenuts.Core.Game
         #region Implementation
 
         // ===================================================================================== []
-        public List<Person> Persons { get; set; }
+        public List< Person > Persons { get; set; }
         public string Name { get; set; }
         public virtual double MurdererRate { get; set; }
         public virtual double EvidenceRate { get; set; }
 
-        public IList<Person> SelectRandomPersons(int personNum)
+        public IList< Person > SelectRandomPersons( int personNum )
         {
-            Trace.Assert(personNum <= Persons.Count, "Insufficient person number");
-            return Persons.SelectRandomList(personNum);
+            Trace.Assert( personNum <= Persons.Count, "Insufficient person number" );
+            return Persons.SelectRandomList( personNum );
         }
-        public Person FindPerson(string name)
+
+        public Person FindPerson( string name )
         {
-            var person = Persons.Find(p => p.Name == name);
-            Trace.Assert(person != null, string.Format("Unknown person [{0}]", name));
+            var person = Persons.Find( p => p.Name == name );
+            Trace.Assert( person != null, string.Format( "Unknown person [{0}]", name ) );
             return person;
         }
+
         // ===================================================================================== []
 
         #endregion
 
+
         #region Tools
 
         // ===================================================================================== []
-        protected IList<Profile> Profiles;
+        protected IList< Profile > Profiles;
 
-        protected BaseWorld(string name, IList<Profile> profiles)
+        protected BaseWorld( string name, IList< Profile > profiles )
         {
             Name = name;
             Profiles = profiles;
             LoadContent();
         }
+
         protected void LoadContent()
         {
             LoadPersons();
             LoadSettings();
             LoadRelations();
         }
+
         protected void LoadDefaultSettings()
         {
             EvidenceRate = Pack.EvidenceRate;
             MurdererRate = Pack.MurdererRate;
         }
-        protected Person CreatePerson(ProfileType type, string name)
+
+        protected Person CreatePerson( ProfileType type, string name )
         {
-            var profile = Profiles[(int)type];
-            return new Person(profile) { Name = name };
+            var profile = Profiles[ ( int ) type ];
+            return new Person( profile ) { Name = name };
         }
-        protected Person NormalPerson(string name)
+
+        protected Person NormalPerson( string name )
         {
-            Trace.Assert(Persons.NotExists(p=>p.Name==name), "Person already exists");
+            Trace.Assert( Persons.NotExists( p => p.Name == name ), "Person already exists" );
 
-            var person = CreatePerson(ProfileType.Normal, name);
-            person.Call(Lang.En, person.Name);
+            var person = CreatePerson( ProfileType.Normal, name );
+            person.Call( Lang.En, person.Name );
 
-            Persons.Add(person);
+            Persons.Add( person );
             return person;
         }
 
-        protected void OthersHate(string subNames)
+        protected void OthersHate( string subNames )
         {
-            var subject = FindPerson(subNames);
-            Persons.Where(p => p.Ignore(subject)).ForEach(p => p.WouldHate(subject));
+            var subject = FindPerson( subNames );
+            Persons.Where( p => p.Ignore( subject ) ).ForEach( p => p.WouldHate( subject ) );
         }
 
-        protected void OthersLove(string subNames)
+        protected void OthersLove( string subNames )
         {
-            var subject = FindPerson(subNames);
-            Persons.Where(p => p.Ignore(subject)).ForEach(p => p.WouldLove(subject));
+            var subject = FindPerson( subNames );
+            Persons.Where( p => p.Ignore( subject ) ).ForEach( p => p.WouldLove( subject ) );
         }
 
         // ===================================================================================== []
 
         #endregion
+
 
         #region Overrides
 

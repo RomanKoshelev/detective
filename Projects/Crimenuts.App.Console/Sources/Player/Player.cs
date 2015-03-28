@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.App.Console
+// Player.cs
+// Roman, 2015-03-29 12:55 AM
+
+using System.Collections.Generic;
 using System.Linq;
 using Crimenuts.Core.Game;
 using Crimenuts.Utils;
@@ -17,26 +22,26 @@ namespace Crimenuts.App.Console
             InitStateHandlers();
         }
 
-        private int GetSuspectNumberForArrest(IList<Member> members)
+        private int GetSuspectNumberForArrest( IList< Member > members )
         {
-            var values = members.Select(m => m.Number).ToList();
+            var values = members.Select( m => m.Number ).ToList();
             const string strValues = "";
-            var memberNum = members.Count(m => m.IsActive);
-            var murderNum = members.Count(m => m.IsActiveMurderer);
-            WriteLine("You have {0} {1} and {2} suspects",
+            var memberNum = members.Count( m => m.IsActive );
+            var murderNum = members.Count( m => m.IsActiveMurderer );
+            WriteLine( "You have {0} {1} and {2} suspects",
                 murderNum,
-                "murderer".Plural(murderNum),
+                "murderer".Plural( murderNum ),
                 memberNum
-            );
+                );
             WriteLine();
-            
-            var prompt = string.Format("{0}{1}", "Arrest", strValues);
-            return PromptInt(prompt, values, values.RandomElement());
+
+            var prompt = string.Format( "{0}{1}", "Arrest", strValues );
+            return PromptInt( prompt, values, values.RandomElement() );
         }
 
-        public void Run(Process process)
+        public void Run( Process process )
         {
-            DoRun(process);
+            DoRun( process );
         }
     }
 }

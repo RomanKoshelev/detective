@@ -8,26 +8,26 @@
 */
 
 .cn-gamelog-record {
-    padding-top: 0;
-    padding-bottom: 15px;
     height: auto;
+    padding-bottom: 15px;
+    padding-top: 0;
 }
 
 .cn-gamelog-record-day {
-    width: 140px;
-    padding-right: 15px;
     color: #560000;
     display: table-cell;
     font-weight: normal;
-    vertical-align: top;
+    padding-right: 15px;
     text-align: right;
+    vertical-align: top;
+    width: 140px;
 }
 
 .cn-gamelog-record-info {
-    width: auto;
     display: table-cell;
-    vertical-align: top;
     padding-top: 0;
+    vertical-align: top;
+    width: auto;
 }
 
 .cn-gamelog-record-info-section {
@@ -40,9 +40,7 @@
 // Elements
 */
 
-.cn-gamelog-member-link { 
-    text-decoration: none;
-}
+.cn-gamelog-member-link { text-decoration: none; }
 
 .cn-gamelog-member-link:hover { background-color: #9fff89; }
 
@@ -53,26 +51,18 @@
 
 .cn-gamelog-highlight { background-color: yellow; }
 
-.cn-gamelog-today {
-    color: #990000;
-}
+.cn-gamelog-today { color: #990000; }
 
 .cn-gamelog-detective {
-     color: #4800b1;
-     padding-left: 30px;
+    color: #4800b1;
+    padding-left: 30px;
 }
 
-.cn-gamelog-history {
-    color: #560000;
-}
+.cn-gamelog-history { color: #560000; }
 
-.cn-gamelog-case {
-    color: #560000;
-}
+.cn-gamelog-case { color: #560000; }
 
-.cn-gamelog-result{
-    color: #560000;
-}
+.cn-gamelog-result { color: #560000; }
 
 /*
 // ============================================================================================= []
@@ -86,14 +76,12 @@
 // Hint
 */
 
-.cn-gamelog-hint-title {
-    padding-bottom: 5px
-}
+.cn-gamelog-hint-title { padding-bottom: 5px }
 
 .cn-gamelog-hint-variants {
     line-height: 20px;
-    padding-top: 0;
     padding-left: 30px;
+    padding-top: 0;
     width: 450px;
 }
 
@@ -109,8 +97,8 @@
 }
 
 .cn-button-panel {
-    padding-top: 15px;
     padding-bottom: 0;
+    padding-top: 15px;
 }
 
 .cn-arrest-button {
@@ -122,14 +110,14 @@
 
 .cn-arrest-button-lite {
     background-color: inherit;
-    color: #aeced9;
     border: solid 1px #aeced9;
+    color: #aeced9;
 }
 
 .cn-arrest-button-lite:hover {
     background-color: #004c99;
-    color: #cce5ff;
     border: 0;
+    color: #cce5ff;
 }
 
 .cn-continue-button {

@@ -1,3 +1,8 @@
+// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Master.cs
+// Roman, 2015-03-29 12:57 AM
+
 using System;
 using Crimenuts.Utils;
 
@@ -5,37 +10,42 @@ namespace Crimenuts.Core.Game
 {
     public class Master
     {
-        public static Role GetOpenRole(IOptions options, Member member, State state)
+        public static Role GetOpenRole( IOptions options, Member member, State state )
         {
-            if (state == State.Finished)
+            if( state == State.Finished ) {
                 return member.Role;
+            }
 
-            if (member.IsActive)
+            if( member.IsActive ) {
                 return Role.Unknown;
+            }
 
-            if (member.IsPrisoner && options.PrisonerRoleIsOpen)
+            if( member.IsPrisoner && options.PrisonerRoleIsOpen ) {
                 return member.Role;
+            }
 
-            if (member.IsVictim && options.VictimRoleIsOpen)
+            if( member.IsVictim && options.VictimRoleIsOpen ) {
                 return member.Role;
+            }
 
-            if (member.IsDetective)
+            if( member.IsDetective ) {
                 return member.Role;
+            }
 
-            throw new CrimenutsException("Can't get Role for {0}", member.Name);
+            throw new CrimenutsException( "Can't get Role for {0}", member.Name );
         }
 
-        public static int? GetActiveMurderersOpenNum(IOptions options, int num)
+        public static int? GetActiveMurderersOpenNum( IOptions options, int num )
         {
             return
                 options.MurderersNumIsOpen && options.VictimRoleIsOpen && options.PrisonerRoleIsOpen
                     ? num
-                    : (int?) null;
+                    : ( int? ) null;
         }
 
-        public static int? GetMurderersOpenNum(IOptions options, int num)
+        public static int? GetMurderersOpenNum( IOptions options, int num )
         {
-            return options.MurderersNumIsOpen? num : (int?) null;
+            return options.MurderersNumIsOpen ? num : ( int? ) null;
         }
 
         public static int MinMembersNum
@@ -53,14 +63,14 @@ namespace Crimenuts.Core.Game
             get { return 1; }
         }
 
-        public static int MaxMurderersNum(int membersNum)
+        public static int MaxMurderersNum( int membersNum )
         {
-            return (int) Math.Floor((membersNum - 1.0)/2.0);
+            return ( int ) Math.Floor( ( membersNum - 1.0 )/2.0 );
         }
 
-        public static int? GetTodayEvidencesOpenNum(IOptions options, int num)
+        public static int? GetTodayEvidencesOpenNum( IOptions options, int num )
         {
-            return options.EvidencesNumIsOpen? num: (int?)null;
+            return options.EvidencesNumIsOpen ? num : ( int? ) null;
         }
     }
 }

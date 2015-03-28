@@ -1,4 +1,9 @@
-﻿using System;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Member.pvt.Evidence.cs
+// Roman, 2015-03-29 12:57 AM
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,21 +12,21 @@ namespace Crimenuts.Core.Game
 {
     public partial class Member
     {
-        private IList<Func<Member, int>> _evidenceFactors;
+        private IList< Func< Member, int > > _evidenceFactors;
 
-        private Member DoSelectEvidence(IEnumerable<Member> members)
+        private Member DoSelectEvidence( IEnumerable< Member > members )
         {
-            return members.Where(m=>m!=this && !HasEvidenceOn(m)).OrderBy(EvidenceFactor).LastOrDefault();
+            return members.Where( m => m != this && !HasEvidenceOn( m ) ).OrderBy( EvidenceFactor ).LastOrDefault();
         }
 
-        private int EvidenceFactor(Member subj)
+        private int EvidenceFactor( Member subj )
         {
-            Trace.Assert(subj != this);
-            Trace.Assert(subj.IsActive);
+            Trace.Assert( subj != this );
+            Trace.Assert( subj.IsActive );
 
-            var factorValue = CalcEvidenceFactor(subj);
+            var factorValue = CalcEvidenceFactor( subj );
 
-//            Console.WriteLine("{0,8}", factorValue);
+            //            Console.WriteLine("{0,8}", factorValue);
 
             return factorValue;
         }
@@ -30,16 +35,14 @@ namespace Crimenuts.Core.Game
         {
             InitInterestFactors();
 
-            for (var i = 0; i < Person.Profile.GetEvidenceRulesNum(); i++)
-            {
-                AddEvidenceFactor(GetEvidenceRulePredicate(i+1), i+1);
+            for( var i = 0; i < Person.Profile.GetEvidenceRulesNum(); i++ ) {
+                AddEvidenceFactor( GetEvidenceRulePredicate( i + 1 ), i + 1 );
             }
-
         }
 
         private void InitInterestFactors()
         {
-            _evidenceFactors = new List<Func<Member, int>>();
+            _evidenceFactors = new List< Func< Member, int > >();
         }
 
         private EvidenceRule EvidenceRule
@@ -47,48 +50,49 @@ namespace Crimenuts.Core.Game
             get { return Person.Profile.EvidenceRule; }
         }
 
-        private Predicate<Member> GetEvidenceRulePredicate(int order)
+        private Predicate< Member > GetEvidenceRulePredicate( int order )
         {
-            switch (EvidenceRule.GetEvidenceSign(order))
-            {
-                case EvidenceSign.IsHated:
+            switch( EvidenceRule.GetEvidenceSign( order ) ) {
+                case EvidenceSign.IsHated :
                     return Hates;
-                case EvidenceSign.IsLoved:
+                case EvidenceSign.IsLoved :
                     return Loves;
-                case EvidenceSign.IsIgnored:
+                case EvidenceSign.IsIgnored :
                     return Ignores;
 
-                case EvidenceSign.LovesMe:
+                case EvidenceSign.LovesMe :
                     return LovesMe;
-                case EvidenceSign.HatesMe:
+                case EvidenceSign.HatesMe :
                     return HatesMe;
-                case EvidenceSign.IgnoresMe:
+                case EvidenceSign.IgnoresMe :
                     return IgnoresMe;
             }
-            throw new Exception("Unknown Evidence sign");
+            throw new Exception( "Unknown Evidence sign" );
         }
 
-        private bool HatesMe(Member member)
+        private bool HatesMe( Member member )
         {
-            return member.Hates(this);
-        }
-        private bool LovesMe(Member member)
-        {
-            return member.Loves(this);
-        }
-        private bool IgnoresMe(Member member)
-        {
-            return member.Ignores(this);
+            return member.Hates( this );
         }
 
-        private void AddEvidenceFactor(Predicate<Member> predicat, int value)
+        private bool LovesMe( Member member )
         {
-            _evidenceFactors.Add(m => predicat(m) ? value : 0);
+            return member.Loves( this );
         }
-        
-        private int CalcEvidenceFactor(Member subj)
+
+        private bool IgnoresMe( Member member )
         {
-            return _evidenceFactors.Select(factor => factor(subj)).Max();
+            return member.Ignores( this );
+        }
+
+        private void AddEvidenceFactor( Predicate< Member > predicat, int value )
+        {
+            _evidenceFactors.Add( m => predicat( m ) ? value : 0 );
+        }
+
+        private int CalcEvidenceFactor( Member subj )
+        {
+            return _evidenceFactors.Select( factor => factor( subj ) ).Max();
         }
     }
 }

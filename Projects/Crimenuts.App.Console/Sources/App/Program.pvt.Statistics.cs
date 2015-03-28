@@ -1,12 +1,14 @@
-﻿using System;
-using Crimenuts.Core.Game;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.App.Console
+// Program.pvt.Statistics.cs
+// Roman, 2015-03-29 12:55 AM
 
 namespace Crimenuts.App.Console
 {
     internal partial class Program
     {
         // ReSharper disable once UnusedMember.Local
-/*        private static void RunStatistics(Process process)
+        /*        private static void RunStatistics(Process process)
         {
             Player.AutoMode = true;
             Player.SilenceMode = true;
@@ -28,7 +30,7 @@ namespace Crimenuts.App.Console
             }
             System.Console.WriteLine("\nDone.\n");
         }*/
-/*
+        /*
         private static Tuple<double, double, double> CalcGameSuccessRate(int count, Process process, int n, int m)
         {
             var success = 0.0;
@@ -53,4 +55,3 @@ namespace Crimenuts.App.Console
         }*/
     }
 }
-

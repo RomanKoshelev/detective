@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Process.pvt.Members.cs
+// Roman, 2015-03-29 12:57 AM
+
+using System.Collections.Generic;
 using System.Linq;
 using MoreLinq;
 
@@ -6,28 +11,31 @@ namespace Crimenuts.Core.Game
 {
     public partial class Process
     {
-        private List<Member> DoGetActiveMembers()
+        private List< Member > DoGetActiveMembers()
         {
-            return Members.Where(m => m.IsActive).ToList();
+            return Members.Where( m => m.IsActive ).ToList();
         }
 
-        private List<Member> DoGetActiveMurderers()
+        private List< Member > DoGetActiveMurderers()
         {
-            return ActiveMembers.Where(m => m.IsMurderer).ToList();
+            return ActiveMembers.Where( m => m.IsMurderer ).ToList();
         }
 
-        private List<Member> DoGetActiveInnocents()
+        private List< Member > DoGetActiveInnocents()
         {
-            return ActiveMembers.Where(m => !m.IsMurderer).ToList();
+            return ActiveMembers.Where( m => !m.IsMurderer ).ToList();
         }
-        private IList<Member> DoGetVictims()
+
+        private IList< Member > DoGetVictims()
         {
-            return Members.Where(m => m.IsVictim).ToList();
+            return Members.Where( m => m.IsVictim ).ToList();
         }
-        private IList<Member> DoGetPrisoners()
+
+        private IList< Member > DoGetPrisoners()
         {
-            return Members.Where(m => m.IsPrisoner).ToList();
+            return Members.Where( m => m.IsPrisoner ).ToList();
         }
+
         private Member Detective
         {
             get { return Case.Detective; }
@@ -36,26 +44,27 @@ namespace Crimenuts.Core.Game
         private void InitMembers()
         {
             Members = Case.CloneMembersForProcess();
-            Members.ForEach(m=>m.SetProcess(this));
+            Members.ForEach( m => m.SetProcess( this ) );
         }
 
-        private Member FindMember(int number)
+        private Member FindMember( int number )
         {
-            return Members.First(m => m.Number == number);
+            return Members.First( m => m.Number == number );
         }
 
         private void UpdateMembersLastActiviryDay()
         {
-            ActiveMembers.ForEach(m => m.LastActivityDay = Today);
+            ActiveMembers.ForEach( m => m.LastActivityDay = Today );
         }
 
         private Member DoGetTodayVictim()
         {
-            return History.Records.First(r => r.Action == Action.Murder && r.Day == Today).Subject;
+            return History.Records.First( r => r.Action == Action.Murder && r.Day == Today ).Subject;
         }
+
         private Member DoGetTodayPrisoner()
         {
-            return History.Records.First(r => r.Action == Action.Arrest && r.Day == Today).Subject;
+            return History.Records.First( r => r.Action == Action.Arrest && r.Day == Today ).Subject;
         }
     }
 }

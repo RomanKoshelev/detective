@@ -1,7 +1,7 @@
-﻿@using Crimenuts.Utils
+﻿@*// ================================================================================== []*@
 @using Crimenuts.App.Web.Models
-@*// ================================================================================== []*@
-@model CaseModel
+@using Crimenuts.Utils
+@model Crimenuts.App.Web.Models.CaseModel 
 @{
     ViewBag.Title = "Members Relations";
     Layout = "~/Views/Shared/Layouts/Default.cshtml";
@@ -10,17 +10,17 @@
 @functions
 {
 
-    private string RelationsList(Func<MemberModel, bool> predicate)
+    private string RelationsList( Func< MemberModel, bool > predicate )
     {
-        return Model.Members.Where(predicate).FoldToStringBy(s => s.Name, ", ", "-");
+        return Model.Members.Where( predicate ).FoldToStringBy( s => s.Name, ", ", "-" );
     }
 
 }
-@helper Relations(string title, Func<MemberModel, bool> predicate)
+@helper Relations( string title, Func< MemberModel, bool > predicate )
 {
     <li>
         @title:
-        @RelationsList(predicate)
+        @RelationsList( predicate )
     </li>
 }
 @*// ================================================================================== []*@
@@ -32,13 +32,12 @@
 <h2>@Model.ShortInfo</h2>
 <ul>
     @{
-        foreach (var member in Model.Members)
-        {
+        foreach( var member in Model.Members ) {
             <li>
                 @member.Name
                 <ul>
-                    @Relations("Loves", s => member.Loves(s))
-                    @Relations("Hates", s => member.Hates(s))
+                    @Relations( "Loves", s => member.Loves( s ) )
+                    @Relations( "Hates", s => member.Hates( s ) )
                 </ul>
             </li>
         }

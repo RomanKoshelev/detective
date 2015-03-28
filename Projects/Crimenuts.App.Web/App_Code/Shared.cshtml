@@ -2,19 +2,19 @@
 @using System.Web.Mvc.Html
 @functions{
     // >> App_Code | Shared
-    private new static HtmlHelper<object> Html
+    private new static HtmlHelper< object > Html
     {
-        get { return ((WebViewPage) WebPageContext.Current.Page).Html; }
+        get { return ( ( WebViewPage ) WebPageContext.Current.Page ).Html; }
     }
 
     private static UrlHelper Url
     {
-        get { return ((WebViewPage) WebPageContext.Current.Page).Url; }
+        get { return ( ( WebViewPage ) WebPageContext.Current.Page ).Url; }
     }
 
-    public static MvcHtmlString BuildLink(string linkText, string linkClass, string linkUrl)
+    public static MvcHtmlString BuildLink( string linkText, string linkClass, string linkUrl )
     {
-        return new MvcHtmlString(string.Format("<a class='{0}' href='{1}'>{2}</a>", linkClass, linkUrl, linkText));
+        return new MvcHtmlString( string.Format( "<a class='{0}' href='{1}'>{2}</a>", linkClass, linkUrl, linkText ) );
     }
 
 }
@@ -24,13 +24,13 @@
 // ===================================================================================== []
 // Format
 *@
-@helper Text(string text)
+@helper Text( string text )
 { @text }
-@helper Format(string text, params object[] args)
+@helper Format( string text, params object[] args )
 {
-    @Text(string.Format(
+    @Text( string.Format(
         text,
-        args))
+        args ) )
 }
 
 
@@ -38,57 +38,57 @@
 // ===================================================================================== []
 // Link
 *@
-@helper Link(string linkText, string linkClass, string linkUrl)
+@helper Link( string linkText, string linkClass, string linkUrl )
 {
     @BuildLink(
         linkText,
         linkClass,
-        linkUrl)
+        linkUrl )
 }
 @*
 // --------------------------------------------------------[]
 *@
-@helper ActionLink(string text, string controller, string action, string cssClass)
+@helper ActionLink( string text, string controller, string action, string cssClass )
 {
     @Html.ActionLink(
         text,
         action,
         controller,
         null,
-        new {@class = cssClass})
+        new { @class = cssClass } )
 }
 @*
 // --------------------------------------------------------[]
 *@
-@helper ActionLink(string text, string controller, string action, int id, string @class)
+@helper ActionLink( string text, string controller, string action, int id, string @class )
 {
     @Html.ActionLink(
         text,
         action,
         controller,
-        new {id},
-        new {@class})
+        new { id },
+        new { @class } )
 }
 
 @*
 // ===================================================================================== []
 // Image
 *@
-@helper Image(string action, object args = null, string imgClass = "")
+@helper Image( string action, object args = null, string imgClass = "" )
 {
-    <img src='@Url.Action(action, "Image", args)' class="@imgClass"/>
+    <img src='@Url.Action( action, "Image", args )' class="@imgClass"/>
 }
 @*
 // --------------------------------------------------------[]
 *@
-@helper ImageWidth(string action, object args, int width)
+@helper ImageWidth( string action, object args, int width )
 {
-    <img width="@width" src='@Url.Action(action, "Image", args)'/>
+    <img width="@width" src='@Url.Action( action, "Image", args )'/>
 }
 @*
 // --------------------------------------------------------[]
 *@
-@helper ImageHeight(string action, object args, int height)
+@helper ImageHeight( string action, object args, int height )
 {
-    <img height="@height" src='@Url.Action(action, "Image", args)'/>
+    <img height="@height" src='@Url.Action( action, "Image", args )'/>
 }

@@ -1,18 +1,23 @@
-﻿using System.Collections.Generic;
+﻿// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Process.cs
+// Roman, 2015-03-29 12:57 AM
+
+using System.Collections.Generic;
 using System.Diagnostics;
 using Crocodev.Common.Identifier;
 
 namespace Crimenuts.Core.Game
 {
-    [DebuggerDisplay("State = {State}")]
-    public partial class Process : Identifiable<Process, int>
+    [DebuggerDisplay( "State = {State}" )]
+    public partial class Process : Identifiable< Process, int >
     {
         // ===================================================================================== []
         // Constructor
-        public Process(Case gcase)
+        public Process( Case gcase )
         {
             Case = gcase;
-            Id = (Identifier) 0;
+            Id = ( Identifier ) 0;
             DoInit();
         }
 
@@ -32,19 +37,20 @@ namespace Crimenuts.Core.Game
         // Case
         public Case Case { get; private set; }
 
-        public Case.Identifier CaseId
+        public Identifiable< Case, int >.Identifier CaseId
         {
             get { return Case.Id; }
         }
 
         // ===================================================================================== []
         // Members
-        public IList<Member> Members { get; private set; }
+        public IList< Member > Members { get; private set; }
 
         public Member TodayVictim
         {
             get { return DoGetTodayVictim(); }
         }
+
         public Member TodayPrisoner
         {
             get { return DoGetTodayPrisoner(); }
@@ -53,27 +59,27 @@ namespace Crimenuts.Core.Game
         public Member LastMurderer { get; private set; }
         public Member LastArrested { get; private set; }
 
-        public IList<Member> ActiveMembers
+        public IList< Member > ActiveMembers
         {
             get { return DoGetActiveMembers(); }
         }
 
-        public IList<Member> ActiveInnocents
+        public IList< Member > ActiveInnocents
         {
             get { return DoGetActiveInnocents(); }
         }
 
-        public IList<Member> ActiveMurderers
+        public IList< Member > ActiveMurderers
         {
             get { return DoGetActiveMurderers(); }
         }
 
-        public IList<Member> Victims
+        public IList< Member > Victims
         {
             get { return DoGetVictims(); }
         }
 
-        public IList<Member> Prisoners
+        public IList< Member > Prisoners
         {
             get { return DoGetPrisoners(); }
         }
@@ -90,17 +96,16 @@ namespace Crimenuts.Core.Game
             get { return DoGetTodayEvidencesOpenNum(); }
         }
 
-
         // ===================================================================================== []
         // User Actions
-        public Answer Ask(Member respondent, Member subject)
+        public Answer Ask( Member respondent, Member subject )
         {
-            return DoAsk(respondent, subject);
+            return DoAsk( respondent, subject );
         }
 
-        public void Arrest(Member suspect)
+        public void Arrest( Member suspect )
         {
-            DoArrest(suspect);
+            DoArrest( suspect );
         }
 
         public void Skip()
@@ -113,9 +118,9 @@ namespace Crimenuts.Core.Game
             DoStop();
         }
 
-        public void SkipTo(State state)
+        public void SkipTo( State state )
         {
-            DoSkipTo(state);
+            DoSkipTo( state );
         }
 
         // ===================================================================================== []
@@ -132,20 +137,20 @@ namespace Crimenuts.Core.Game
 
         // ===================================================================================== []
         // User Action Menu
-        public IList<UserAction> UserActions
+        public IList< UserAction > UserActions
         {
             get { return _userActions; }
         }
 
-        public void ExecuteUserAction(UserAction.ActionType actionType, int[] actionParams, bool autoSkip = true)
+        public void ExecuteUserAction( UserAction.ActionType actionType, int[] actionParams, bool autoSkip = true )
         {
             actionParams = actionParams ?? new int[0];
-            DoExecuteUserAction(actionType, actionParams, autoSkip);
+            DoExecuteUserAction( actionType, actionParams, autoSkip );
         }
 
-        public bool UserActionIsEnabled(UserAction.ActionType actionType)
+        public bool UserActionIsEnabled( UserAction.ActionType actionType )
         {
-            return IsActionEnabled(actionType);
+            return IsActionEnabled( actionType );
         }
 
         // ===================================================================================== []

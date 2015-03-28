@@ -41,7 +41,6 @@
 .cn-member-face-inactive-innocent {
     background: #004000;
     color: #001a00;
-
 }
 
 .cn-member-face-inactive-murderer-selected {
@@ -66,10 +65,10 @@
 
 
 .cn-member-cell-circle-face {
-    width: 80px;
-    height: 80px;
     border-radius: 40px;
+    height: 80px;
     margin: 15px;
+    width: 80px;
 }
 
 .cn-member-face-asked-top {
@@ -87,40 +86,40 @@
 .cn-member-face-link:hover { font-weight: bold; }
 
 .cn-member-face-text-alive {
-    text-align: center;
-    font-size: 55px;
+    background: none;
+    color: inherit;
 
     display: block;
 
-    position: relative;
-    left: -10px;
-    
-    color: inherit;
-    width: inherit;
+    font-size: 55px;
     height: inherit;
-    background: none;
+    
+    left: -10px;
+    position: relative;
+    text-align: center;
+    width: inherit;
 }
 
 .cn-member-face-text-dead {
-    text-align: center;
-    font-size: 20px;
-    font-weight: normal;
-
+    background: none;
+    color: inherit;
     display: block;
 
-    position: relative;
-    top: 15px;
+    font-size: 20px;
 
-    color: inherit;
-    width: inherit;
+    font-weight: normal;
     height: inherit;
-    background: none;
+
+    position: relative;
+    text-align: center;
+    top: 15px;
+    width: inherit;
 }
 
 .cn-member-cell-content-indent {
-    width: 10px;
-    height: 55px;
     background: inherit;
+    height: 55px;
+    width: 10px;
 }
 
 /*
@@ -137,13 +136,13 @@
 
 .cn-card-content {
     background: inherit;
-    width: 120px;
     height: auto;
+    margin-bottom: 5px;
 
     margin-top: 5px;
-    margin-bottom: 5px;
-    padding-top: 7px;
     padding-bottom: 7px;
+    padding-top: 7px;
+    width: 120px;
 }
 
 .cn-card-name-active { border-radius: 4px; }
@@ -161,15 +160,15 @@
 .cn-card-link:hover { color: black; }
 
 .cn-card-frame-selected {
-    color: #6f6b00;
-    border: solid 2px #9c9974;
     background-color: #f6f0d4;
+    border: solid 2px #9c9974;
+    color: #6f6b00;
 }
 
 .cn-card-frame-visible {
-    color: #858330;
-    border: solid 2px #979019;
     background-color: #e9dfb4;
+    border: solid 2px #979019;
+    color: #858330;
 }
 
 .cn-card-frame-invisible {

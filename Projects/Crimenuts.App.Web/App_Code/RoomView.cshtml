@@ -5,7 +5,7 @@
 
     private new static ProcessModel Model
     {
-        get { return (ProcessModel) ((WebViewPage) WebPageContext.Current.Page).Model; }
+        get { return ( ProcessModel ) ( ( WebViewPage ) WebPageContext.Current.Page ).Model; }
     }
 
     private static int? Face
@@ -15,7 +15,7 @@
 
     private static dynamic ViewBag
     {
-        get { return ((WebViewPage) WebPageContext.Current.Page).ViewBag; }
+        get { return ( ( WebViewPage ) WebPageContext.Current.Page ).ViewBag; }
     }
 
     public static string TodayClass
@@ -77,10 +77,12 @@
     {
         get { return "cn-gamelog-hint-title"; }
     }
+
     public static string HistoryClass
     {
         get { return "cn-gamelog-history"; }
     }
+
     public static string CaseClass
     {
         get { return "cn-gamelog-case"; }
@@ -91,38 +93,36 @@
         get { return "cn-gamelog-result"; }
     }
 
-    public static string SubjectHihglightClass(MemberModel subject)
+    public static string SubjectHihglightClass( MemberModel subject )
     {
         return subject.Number == Face ? SubjectLinkClass : "";
     }
 
-    public static string RespondentHihglightClass(MemberModel respondent)
+    public static string RespondentHihglightClass( MemberModel respondent )
     {
         return respondent.Number == Face ? RespondentLinkClass : "";
     }
 
 }
 
-@helper Highlight(string text)
-{
-    @Highlight(Shared.Text(text))
-}
+@helper Highlight( string text )
+{ @Highlight( Shared.Text( text ) ) }
 
-@helper Highlight(HelperResult text)
+@helper Highlight( HelperResult text )
 {
     <span class="@HighlightClass">@text</span>
 }
 
-@helper Button(string text, string bclass, string url)
+@helper Button( string text, string bclass, string url )
 {
     <div class="cn-button-panel">
-        @Shared.Link(text,
+        @Shared.Link( text,
             bclass + "  cn-button",
-            url)
+            url )
     </div>
 }
 
-@helper Record(HelperResult day, HelperResult info, string infoClass = "")
+@helper Record( HelperResult day, HelperResult info, string infoClass = "" )
 {
     <div class="cn-gamelog-record">
         <div class="cn-gamelog-record-day">
@@ -134,62 +134,58 @@
     </div>
 }
 
-@helper Record(HelperResult info, string infoClass = "")
+@helper Record( HelperResult info, string infoClass = "" )
 {
     @Record(
-        Shared.Text(""),
+        Shared.Text( "" ),
         info,
-        infoClass)
+        infoClass )
 }
 
-@helper TodayRecord(HelperResult info, string infoClass = "")
+@helper TodayRecord( HelperResult info, string infoClass = "" )
 {
     @Record(
-        Shared.Format("{0} {1}:", Localization.Text("Day"), Model.Today),
+        Shared.Format( "{0} {1}:", Localization.Text( "Day" ), Model.Today ),
         info,
-        infoClass)
+        infoClass )
 }
 
-@helper RecordInfoSection(HelperResult infoSection, string infoSectionClass = "")
+@helper RecordInfoSection( HelperResult infoSection, string infoSectionClass = "" )
 {
     <div class="cn-gamelog-record-info-section @infoSectionClass">
         @infoSection
     </div>
 }
 
-@helper MemberLink(MemberModel member, string suffix = " ")
+@helper MemberLink( MemberModel member, string suffix = " " )
 {
-    @Shared.Link(Localization.Text(member.Name), MemberLinkClass, ProcessView.MemberFaceUrl(member.Number))@suffix
+    @Shared.Link( Localization.Text( member.Name ), MemberLinkClass, ProcessView.MemberFaceUrl( member.Number ) )@suffix
 }
 
 
-@helper SubjectLink(MemberModel subject, string suffix = " ")
+@helper SubjectLink( MemberModel subject, string suffix = " " )
 {
-    @Shared.Link(Localization.Text(subject.Name), MemberLinkClass + " " + SubjectHihglightClass(subject), ProcessView.MemberFaceUrl(subject.Number))@suffix
+    @Shared.Link( Localization.Text( subject.Name ), MemberLinkClass + " " + SubjectHihglightClass( subject ), ProcessView.MemberFaceUrl( subject.Number ) )@suffix
 }
 
-@helper RespondentLink(MemberModel respondent, string suffix = " ")
+@helper RespondentLink( MemberModel respondent, string suffix = " " )
 {
-    if (respondent == null)
-    {
-        @Shared.Text("?")
-    }
-    else
-    {
-        @Shared.Link(Localization.Text(respondent.Name), MemberLinkClass + " " + RespondentHihglightClass(respondent), ProcessView.MemberFaceUrl(respondent.Number))@suffix
+    if( respondent == null ) {
+        @Shared.Text( "?" )
+    } else {
+        @Shared.Link( Localization.Text( respondent.Name ), MemberLinkClass + " " + RespondentHihglightClass( respondent ), ProcessView.MemberFaceUrl( respondent.Number ) )@suffix
     }
 }
 
 
 @helper HintMemberVariants(
     HelperResult text,
-    IList<int> members,
-    Func<MemberModel, string, HelperResult> actionLinkFunc = null,
+    IList< int > members,
+    Func< MemberModel, string, HelperResult > actionLinkFunc = null,
     string suffix = " ",
-    Func<HelperResult> additionalVariantsFunc = null)
+    Func< HelperResult > additionalVariantsFunc = null )
 {
-    if (actionLinkFunc == null)
-    {
+    if( actionLinkFunc == null ) {
         actionLinkFunc = MemberLink;
     }
 
@@ -197,12 +193,10 @@
         @text
     </div>
     <div class="@HintVariantsClass">
-        @foreach (var num in members)
-        {
-            @actionLinkFunc(ProcessView.Member(num), suffix)
+        @foreach( var num in members ) {
+            @actionLinkFunc( ProcessView.Member( num ), suffix )
         }
-        @if (additionalVariantsFunc != null)
-        {
+        @if( additionalVariantsFunc != null ) {
             @additionalVariantsFunc()
         }
     </div>
@@ -211,17 +205,16 @@
 @helper HintSubjectVariants(
     HelperResult text,
     int respondent,
-    IList<int> members,
-    Func<MemberModel, MemberModel, string, HelperResult> actionLinkFunc,
-    string suffix = " ")
+    IList< int > members,
+    Func< MemberModel, MemberModel, string, HelperResult > actionLinkFunc,
+    string suffix = " " )
 {
     <div class="@HintTitleClass">
         @text
     </div>
     <div class="@HintVariantsClass">
-        @foreach (var num in members)
-        {
-            @actionLinkFunc(ProcessView.Member(respondent), ProcessView.Member(num), suffix)
+        @foreach( var num in members ) {
+            @actionLinkFunc( ProcessView.Member( respondent ), ProcessView.Member( num ), suffix )
         }
     </div>
 }

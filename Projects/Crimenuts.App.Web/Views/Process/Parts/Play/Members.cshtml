@@ -1,8 +1,8 @@
 ﻿@using Crimenuts.Core.Game
-@model Crimenuts.App.Web.Models.ProcessModel
+@model  Crimenuts.App.Web.Models.ProcessModel 
 @{
     // >> View | Process | Members * 
-    @Members((int) ViewBag.First, (int) ViewBag.Last)
+    @Members( ( int ) ViewBag.First, ( int ) ViewBag.Last )
 }
 
 @functions
@@ -10,31 +10,27 @@
 
     // ===================================================================================== []
     // MemberFaceClass
-    private string MemberFaceClass(int num)
+    private string MemberFaceClass( int num )
     {
-        var member = ProcessView.Member(num);
+        var member = ProcessView.Member( num );
 
-        if (Model.State == State.Finished && member.IsActive)
-        {
+        if( Model.State == State.Finished && member.IsActive ) {
             return member.IsOpenMurderer
                 ? " cn-member-face-active-murderer"
                 : member.IsOpenInnocent
                     ? " cn-member-face-active-innocent"
                     : "";
         }
-        if (member.IsActive)
-        {
+        if( member.IsActive ) {
             return num == Face
                 ? " cn-member-face-active-primary"
                 : " cn-member-face-active-secondary";
         }
 
-        if (member.IsOpenMurderer)
-        {
+        if( member.IsOpenMurderer ) {
             return num == Face ? " cn-member-face-inactive-murderer-selected" : " cn-member-face-inactive-murderer";
         }
-        if (member.IsOpenInnocent)
-        {
+        if( member.IsOpenInnocent ) {
             return num == Face ? " cn-member-face-inactive-innocent-selected" : " cn-member-face-inactive-innocent";
         }
         return "";
@@ -42,46 +38,46 @@
 
     // ===================================================================================== []
     // MemberFaceEmotionClass
-    private string MemberFaceEmotionClass(int num)
+    private string MemberFaceEmotionClass( int num )
     {
-        return ProcessView.MemberIsAlive(num) ? " cn-member-face-text-alive cn-vertical" : " cn-member-face-text-dead";
+        return ProcessView.MemberIsAlive( num ) ? " cn-member-face-text-alive cn-vertical" : " cn-member-face-text-dead";
     }
 
     // --------------------------------------------------------[]
-    private string FaceTextClass(int num)
+    private string FaceTextClass( int num )
     {
-        return string.Format("{0} {1}", MemberFaceEmotionClass(num), "cn-member-face-link");
+        return string.Format( "{0} {1}", MemberFaceEmotionClass( num ), "cn-member-face-link" );
     }
 
     // --------------------------------------------------------[]
-    private string EmotionMarker(int num, int? subj)
+    private string EmotionMarker( int num, int? subj )
     {
-        switch (ProcessView.MemberEmotion(num, subj))
-        {
-            case Emotion.Happy:
+        switch( ProcessView.MemberEmotion( num, subj ) ) {
+            case Emotion.Happy :
                 return ":)";
-            case Emotion.Sad:
+            case Emotion.Sad :
                 return ":(";
-            case Emotion.Indifferent:
+            case Emotion.Indifferent :
                 return ":|";
-            default:
+            default :
                 return "ERROR";
         }
     }
 
-    private MvcHtmlString MemberFace(int num, int? subj)
+    private MvcHtmlString MemberFace( int num, int? subj )
     {
         return new MvcHtmlString(
-            ProcessView.MemberIsAlive(num) ?
-                EmotionMarker(num, subj) :
+            ProcessView.MemberIsAlive( num ) ?
+                EmotionMarker( num, subj ) :
                 "x x<br>__"
             );
     }
 
-    private bool FaceIsLinked(int num)
+    private bool FaceIsLinked( int num )
     {
-        if (Face == num)
+        if( Face == num ) {
             return false;
+        }
         return true;
     }
 
@@ -95,43 +91,38 @@
         get { return ViewBag.SideIsTop; }
     }
 
-    private string MemberAskedClass(int num)
+    private string MemberAskedClass( int num )
     {
-        return ProcessView.IsAsked(num)
+        return ProcessView.IsAsked( num )
             ? SideIsTop ? " cn-member-face-asked-top" : " cn-member-face-asked-bottom"
             : "";
     }
 
 }
 
-@helper Members(int first, int last)
+@helper Members( int first, int last )
 {
     <nav>
         <ul>
-            @for (var i = first; i <= last; i++)
-            {
+            @for( var i = first; i <= last; i++ ) {
                 <li class="cn-member">
-                    @Member(i)
+                    @Member( i )
                 </li>
             }
         </ul>
     </nav>
 }
 
-@helper Member(int i)
+@helper Member( int i )
 {
     <div class="cn-member-cell-aligment" align="center">
         <div class="cn-member-cell-content" align="center">
-            @if (ProcessView.MemberExists(i))
-            {
-                if (SideIsTop && ProcessView.MemberIsActive(i) || !SideIsTop && !ProcessView.MemberIsActive(i))
-                {
+            @if( ProcessView.MemberExists( i ) ) {
+                if( SideIsTop && ProcessView.MemberIsActive( i ) || !SideIsTop && !ProcessView.MemberIsActive( i ) ) {
                     @FaceIndent()
-                    @FaceFrame(i)
-                }
-                else
-                {
-                    @FaceFrame(i)
+                    @FaceFrame( i )
+                } else {
+                    @FaceFrame( i )
                     @FaceIndent()
                 }
             }
@@ -143,19 +134,19 @@
 // ===================================================================================== []
 // Face
 *@
-@helper FaceFrame(int num)
+@helper FaceFrame( int num )
 {
     // Code: View.FaceFrame
 
     // Todo: world = Model.Case.WorldName => member.WorldName
 
-    var member = ProcessView.Member(num);
+    var member = ProcessView.Member( num );
 
-    <div class="cn-member-cell-circle-face @MemberFaceClass(num) @MemberAskedClass(num)">
-        @(FaceIsLinked(num) ? FaceLink(num) : FaceText(num))
+    <div class="cn-member-cell-circle-face @MemberFaceClass( num ) @MemberAskedClass( num )">
+        @(FaceIsLinked( num ) ? FaceLink( num ) : FaceText( num ))
 
 
-@*
+        @*
         @Shared.ImageHeight("Person", new {world = Model.Case.WorldName, name = member.Name},150)
 *@
 
@@ -172,17 +163,17 @@
 @*
 // --------------------------------------------------------[]
 *@
-@helper FaceLink(int num)
+@helper FaceLink( int num )
 {
-    <a class="@FaceTextClass(num)" href="@ProcessView.MemberFaceUrl(num)">@MemberFace(num, ViewBag.Face)</a>
+    <a class="@FaceTextClass( num )" href="@ProcessView.MemberFaceUrl( num )">@MemberFace( num, ViewBag.Face )</a>
 }
 @*
 // --------------------------------------------------------[]
 *@
-@helper FaceText(int num)
+@helper FaceText( int num )
 {
-    <span class="@FaceTextClass(num)" >
-        @MemberFace(num, ViewBag.Face)
+    <span class="@FaceTextClass( num )" >
+        @MemberFace( num, ViewBag.Face )
     </span>
 }
 

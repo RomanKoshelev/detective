@@ -1,3 +1,8 @@
+// Crimenuts (c) 2015 Crocodev
+// Crimenuts.Core.Game
+// Profile.cs
+// Roman, 2015-03-29 12:57 AM
+
 using System.Collections.Generic;
 
 namespace Crimenuts.Core.Game
@@ -10,31 +15,35 @@ namespace Crimenuts.Core.Game
         public MurderRule MurderRule = new MurderRule();
         public EvidenceRule EvidenceRule = new EvidenceRule();
 
-        public Profile(ProfileType type)
+        public Profile( ProfileType type )
         {
             Type = type;
-         
-            if (IsDetective) return;
-            
+
+            if( IsDetective ) {
+                return;
+            }
+
             CreateAnswerRule();
             CreateEmotionRule();
             CreateMurderRules();
             CreateEvidenceRules();
         }
 
-        public bool IsDetective { get { return Type == ProfileType.Detective; }}
-
-        public static IList<Profile> LoadAll()
+        public bool IsDetective
         {
-            var profiles = new List<Profile>();
-            for (var type = ProfileType.Normal; type <= ProfileType.Enemy; type++)
-            {
-                profiles.Add(new Profile(type));
+            get { return Type == ProfileType.Detective; }
+        }
+
+        public static IList< Profile > LoadAll()
+        {
+            var profiles = new List< Profile >();
+            for( var type = ProfileType.Normal; type <= ProfileType.Enemy; type++ ) {
+                profiles.Add( new Profile( type ) );
             }
             return profiles;
         }
 
-        public int GetMurderRulesNum(FactorPriority pr)
+        public int GetMurderRulesNum( FactorPriority pr )
         {
             return pr == FactorPriority.Major ? MajorMurderRulesNum : MinorMurderRulesNum;
         }
