@@ -152,25 +152,4 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
-# Mac crap
-.DS_Store
 /packages
-/SDK/packages
-/SDK/Setup/VirtoCommerce.Bootstrapper/distr
-/SDK/Setup/VirtoCommerce.ConfigurationUtility.Application/bin/Resources
-/SDK/Setup/VirtoCommerce.ElasticSearch/Distro/data/elasticsearch/nodes/0
-/SDK/Setup/VirtoCommerce.ElasticSearch/Distro/logs
-/src/Presentation/FrontEnd/StoreWebApp/App_Data/Virto/search
-/src/Presentation/FrontEnd/StoreWebApp/App_Data/Virto/Storage
-/src/Presentation/FrontEnd/StoreWebApp/bin
-#/Tools/ElasticSearch
-/VirtoCommerce.sln.GhostDoc.xml
-/Projects/Initial/src/Presentation/CarombaWebApp/bin
-/Projects/Initial/packages
-/Projects/Initial/src/Presentation/InitialWebApp/bin
-/src/Presentation/WebAdmin/VirtoCommerce.Platform.Web/App_Data/Modules
-/src/Presentation/WebAdmin/VirtoCommerce.Platform.Web/bin
-/src/Presentation/WebAdmin/VirtoCommerce.Platform.Web/Content/Uploads
-
-# VirtoCommerce.PaymentGateways.dll
-Shared/VirtoCommerce/VirtoCommerce.PaymentGateways.dll
