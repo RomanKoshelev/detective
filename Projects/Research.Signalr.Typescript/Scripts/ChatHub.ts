@@ -2,18 +2,6 @@
 /// <reference path="typings/signalr/signalr.d.ts"/>
 
 
-interface SignalR {
-    chatHub: {
-        client: {
-            addNewMessageToPage(name: string, message: string);
-        }
-        server: {
-            send(name: string, message: string);
-        }
-    };
-}
-
-
 $(function () {
     var chat = $.connection.chatHub;
     chat.client.addNewMessageToPage = function (name, message) {
