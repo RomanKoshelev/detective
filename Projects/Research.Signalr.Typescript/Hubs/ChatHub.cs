@@ -15,4 +15,9 @@ namespace Research.Signalr.Typescript.Hubs
             Clients.All.addNewMessageToPage( name, message );
         }
     }
+
+    public interface IChatHubClient
+    {
+        void addNewMessageToPage(string name, string message);
+    }
 }

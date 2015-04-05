@@ -37,7 +37,7 @@ interface ChatHub {
     /**
       * The functions on this property should be replaced if you want to receive messages from the ChatHub hub.
       */
-    client : any;
+    client : ChatHubClient;
 }
  
 interface ChatHubServer {
@@ -50,6 +50,19 @@ interface ChatHubServer {
       * @return {JQueryPromise of void}
       */
     send(name : string, message : string) : JQueryPromise<void>;
+}
+ 
+interface ChatHubClient
+{
+ 
+    /**
+      * Set this function with a "function(name : string, message : string){}" to receive the "addNewMessageToPage" message from the ChatHub hub.
+      * Contract Documentation: ---
+      * @param name {string} 
+      * @param message {string} 
+      * @return {void}
+      */
+    addNewMessageToPage : (name : string, message : string) => void;
 }
  
 //#endregion ChatHub hub
