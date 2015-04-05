@@ -11,7 +11,6 @@ namespace Crimenuts.Core.Game
     {
         private State _state;
 
-        // >> Core | Process | StateMachine
         private void DoStep()
         {
             switch( State ) {

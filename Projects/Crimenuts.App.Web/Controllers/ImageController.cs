@@ -9,8 +9,6 @@ using System.Web.Mvc;
 
 namespace Crimenuts.App.Web.Controllers
 {
-    // Code: ImageController
-
     public class ImageController : Controller
     {
         private const int CacheDuration = 86400;

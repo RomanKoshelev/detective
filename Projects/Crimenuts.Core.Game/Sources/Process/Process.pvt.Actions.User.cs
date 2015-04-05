@@ -8,8 +8,6 @@ using System.Linq;
 using Crimenuts.Utils;
 using MoreLinq;
 
-// >> Core | Process | UserActions
-
 namespace Crimenuts.Core.Game
 {
     public partial class Process

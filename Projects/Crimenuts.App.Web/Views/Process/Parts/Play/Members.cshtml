@@ -1,7 +1,6 @@
 ﻿@using Crimenuts.Core.Game
 @model  Crimenuts.App.Web.Models.ProcessModel 
 @{
-    // >> View | Process | Members * 
     @Members( ( int ) ViewBag.First, ( int ) ViewBag.Last )
 }
 
@@ -136,10 +135,6 @@
 *@
 @helper FaceFrame( int num )
 {
-    // Code: View.FaceFrame
-
-    // Todo: world = Model.Case.WorldName => member.WorldName
-
     var member = ProcessView.Member( num );
 
     <div class="cn-member-cell-circle-face @MemberFaceClass( num ) @MemberAskedClass( num )">
