@@ -1,4 +1,12 @@
-﻿////////////////////
+﻿
+
+
+
+
+
+// Get signalr.d.ts.ts from https://github.com/borisyankov/DefinitelyTyped (or delete the reference)
+ 
+////////////////////
 // available hubs //
 ////////////////////
 //#region available hubs

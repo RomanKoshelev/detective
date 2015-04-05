@@ -8,12 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E0525F
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{663133DB-31BD-41AA-8E21-FA8571363FE5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{740D2A80-B34C-4750-8813-9EC7E6D93D40}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{1345467D-02F2-4D6B-A0EA-023E102D184E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.Core.Game", "Projects\Crimenuts.Core.Game\Crimenuts.Core.Game.csproj", "{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.App.Console", "Projects\Crimenuts.App.Console\Crimenuts.App.Console.csproj", "{B359A4BA-1B31-44B2-9849-D914ED482C00}"
@@ -22,11 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.App.Web", "Projec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.Utils", "Projects\Crimenuts.Utils\Crimenuts.Utils.csproj", "{3B976C8E-645D-436C-80F6-E6E843CD42AC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8C006B3C-6772-4620-9741-73C6C8DD171A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.Utils.Tests", "Projects\Crimenuts.Utils.Tests\Crimenuts.Utils.Tests.csproj", "{2953AE32-84AD-42D9-BCB9-036F23CCC84A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Research", "Research", "{B066110C-CD64-4A11-81C4-C6F241CAE41F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Research.Signalr.Typescript", "projects\Research.Signalr.Typescript\Research.Signalr.Typescript.csproj", "{6FF15764-87AC-4B6B-AAF1-EC6393066BED}"
 EndProject
@@ -63,13 +53,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{B359A4BA-1B31-44B2-9849-D914ED482C00} = {663133DB-31BD-41AA-8E21-FA8571363FE5}
-		{E299C35A-B010-43A0-9A25-7308680F1610} = {663133DB-31BD-41AA-8E21-FA8571363FE5}
-		{476E8372-03A5-4BCA-9E1C-2C51CFE3EB91} = {740D2A80-B34C-4750-8813-9EC7E6D93D40}
-		{3B976C8E-645D-436C-80F6-E6E843CD42AC} = {1345467D-02F2-4D6B-A0EA-023E102D184E}
-		{2953AE32-84AD-42D9-BCB9-036F23CCC84A} = {8C006B3C-6772-4620-9741-73C6C8DD171A}
-		{6FF15764-87AC-4B6B-AAF1-EC6393066BED} = {B066110C-CD64-4A11-81C4-C6F241CAE41F}
 	EndGlobalSection
 EndGlobal
