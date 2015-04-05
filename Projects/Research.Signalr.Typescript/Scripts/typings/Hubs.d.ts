@@ -45,24 +45,22 @@ interface ChatHubServer {
     /** 
       * Sends a "send" message to the ChatHub hub.
       * Contract Documentation: ---
-      * @param name {string} 
-      * @param message {string} 
+      * @param msg {ChatMessage} 
       * @return {JQueryPromise of void}
       */
-    send(name : string, message : string) : JQueryPromise<void>;
+    send(msg : ChatMessage) : JQueryPromise<void>;
 }
  
 interface ChatHubClient
 {
  
     /**
-      * Set this function with a "function(name : string, message : string){}" to receive the "addNewMessageToPage" message from the ChatHub hub.
+      * Set this function with a "function(msg : ChatMessage){}" to receive the "addNewMessageToPage" message from the ChatHub hub.
       * Contract Documentation: ---
-      * @param name {string} 
-      * @param message {string} 
+      * @param msg {ChatMessage} 
       * @return {void}
       */
-    addNewMessageToPage : (name : string, message : string) => void;
+    addNewMessageToPage : (msg : ChatMessage) => void;
 }
  
 //#endregion ChatHub hub
@@ -75,6 +73,15 @@ interface ChatHubClient
 // Data Contracts //
 ////////////////////
 //#region data contracts
+ 
+ 
+/**
+  * Data contract for Research.Signalr.Typescript.Hubs.ChatMessage
+  */
+interface ChatMessage {
+    Name : string;
+    Message : string;
+}
  
 //#endregion data contracts
  
