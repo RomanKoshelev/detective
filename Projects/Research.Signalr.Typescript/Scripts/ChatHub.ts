@@ -49,37 +49,15 @@ module App {
             return $( "<div />" ).text( value ).html();
         }
     }
+
+    var chatView: ChatView;
+
+    export function init( ) {
+        chatView = new ChatView();
+    }
 }
 
 
 $( () => {
-    var chatView = new App.ChatView();
+    App.init();
 } );
-
-
-
-/*
-$(() => {
-    var chat = $.connection.chatHub;
-    chat.client.addNewMessageToPage = function (message: ChatMessage) {
-        $('#discussion').append('<li><strong>' + htmlEncode(message.Name)
-            + '</strong>: ' + htmlEncode(message.Message) + '</li>');
-    };
-    $('#displayname').val(prompt('Enter your name:', ''));
-    $('#message').focus();
-    $.connection.hub.start().done(function () {
-        $('#sendmessage').click(function () {
-            chat.server.send({
-                Name: $('#displayname').val(),
-                Message: $('#message').val()
-            });
-            $('#message').val('').focus();
-        });
-    });
-});
-
-function htmlEncode(value) {
-    var encodedValue = $('<div />').text(value).html();
-    return encodedValue;
-}
-*/
