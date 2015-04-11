@@ -16,9 +16,6 @@ module App {
         private init(): void {
             this.askName();
             this.chatHub.client.addNewMessageToPage = ( msg: ChatMessage ) => { this.addNewMessageToPage( msg ); };
-            this.chatHub.client.serverTick = ( time: string ) => {
-                this.onServerTick( time );
-            }
             $.connection.hub.start().done( () => this.onChatHubStarted() );
         }
 
@@ -52,7 +49,12 @@ module App {
             return $( "<div />" ).text( value ).html();
         }
 
-        onServerTick( time: string ) { this.addNewMessageToPage( { Name: "Server", Message: time } ); }
+        onServerMessage( msg: string ) {
+            this.addNewMessageToPage( {
+                Name: "Server",
+                Message: msg
+            } );
+        }
     }
 
     var chatView: ChatView;
