@@ -61,6 +61,14 @@ interface ChatHubClient
       * @return {void}
       */
     addNewMessageToPage : (msg : ChatMessage) => void;
+ 
+    /**
+      * Set this function with a "function(time : string){}" to receive the "serverTick" message from the ChatHub hub.
+      * Contract Documentation: ---
+      * @param time {string} 
+      * @return {void}
+      */
+    serverTick : (time : string) => void;
 }
  
 //#endregion ChatHub hub

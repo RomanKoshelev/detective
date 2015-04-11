@@ -17,6 +17,9 @@ var App;
             this.chatHub.client.addNewMessageToPage = function (msg) {
                 _this.addNewMessageToPage(msg);
             };
+            this.chatHub.client.serverTick = function (time) {
+                _this.onServerTick(time);
+            };
             $.connection.hub.start().done(function () { return _this.onChatHubStarted(); });
         };
         ChatView.prototype.onChatHubStarted = function () {
@@ -41,6 +44,9 @@ var App;
         };
         ChatView.prototype.htmlEncode = function (value) {
             return $("<div />").text(value).html();
+        };
+        ChatView.prototype.onServerTick = function (time) {
+            this.addNewMessageToPage({ Name: "Server", Message: time });
         };
         return ChatView;
     })();

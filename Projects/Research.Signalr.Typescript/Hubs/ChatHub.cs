@@ -3,6 +3,7 @@
 // ChatHub.cs
 // Roman, 2015-04-05 9:13 PM
 
+using System;
 using Microsoft.AspNet.SignalR;
 
 namespace Research.Signalr.Typescript.Hubs
@@ -19,11 +20,13 @@ namespace Research.Signalr.Typescript.Hubs
         {
             // Call the addNewMessageToPage method to update clients.
             Clients.All.addNewMessageToPage( msg );
+            Clients.All.serverTick( DateTime.Now );
         }
     }
 
     public interface IChatHubClient
     {
         void addNewMessageToPage( ChatMessage msg );
+        void serverTick( DateTime time);
     }
 }
