@@ -4,36 +4,33 @@
 
 using System;
 using System.Globalization;
-using System.Threading;
 using Microsoft.AspNet.SignalR;
+using NLog;
 
 namespace Research.Signalr.Typescript.Hubs
 {
     public partial class ChatHub : Hub
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public ChatHub()
         {
+            Logger.Trace( "ChatHub ctor" );
             StartTimer();
-        }
-
-        private Timer Timer { get; set; }
-
-        private void StartTimer()
-        {
-            var delayTime = new TimeSpan( 0, 0, 2 );
-            var intervalTime = new TimeSpan( 0, 0, 1 );
-
-            Timer = new Timer( onTimer, null, delayTime, intervalTime );
         }
 
         private void onTimer( object stateInfo )
         {
-            var message = DateTime.Now.ToString( CultureInfo.InvariantCulture );
-            Send( new ChatMessage{Name = "Server", Message = message});
+            var message = string.Format("{0} {1}", _connectionId, DateTime.Now);
+            var msg = new ChatMessage { Name = "Server", Message = message };
+
+            Logger.Trace( "OnTimer [{0}]", _connectionId );
+            Clients.Client( _connectionId ).addNewMessageToPage( msg  );
         }
 
         public void Send( ChatMessage msg )
         {
+            Logger.Trace( "Send()" );
             Clients.All.addNewMessageToPage( msg );
         }
     }
