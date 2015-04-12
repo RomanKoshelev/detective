@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.Utils.Tests", "Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Research.Signalr.Typescript", "projects\Research.Signalr.Typescript\Research.Signalr.Typescript.csproj", "{6FF15764-87AC-4B6B-AAF1-EC6393066BED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Research.Phaser.Typescript", "projects\Research.Phaser.Typescript\Research.Phaser.Typescript.csproj", "{058E363F-6294-402F-AFF5-E53B86D775F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "`", "projects\Research.Phaser.Typescript\`.csproj", "{058E363F-6294-402F-AFF5-E53B86D775F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
