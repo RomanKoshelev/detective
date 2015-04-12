@@ -12,8 +12,6 @@ namespace Research.Signalr.Typescript.Hubs
 
         public override Task OnConnected()
         {
-            var name = Context.User.Identity.Name;
-
             _connectionId = Context.ConnectionId;
             Logger.Trace( string.Format( "OnConnected [{0}]", Context.ConnectionId ) );
 
@@ -22,8 +20,6 @@ namespace Research.Signalr.Typescript.Hubs
 
         public override Task OnDisconnected( bool stopCalled )
         {
-            var name = Context.User.Identity.Name;
-
             _connectionId = "";
 
             Logger.Trace( string.Format( "OnDisconnected [{0}]", _connectionId ) );
@@ -33,8 +29,6 @@ namespace Research.Signalr.Typescript.Hubs
 
         public override Task OnReconnected()
         {
-            var name = Context.User.Identity.Name;
-
             _connectionId = Context.ConnectionId;
             Logger.Trace( string.Format( "OnReconnected [{0}]", _connectionId ) );
 

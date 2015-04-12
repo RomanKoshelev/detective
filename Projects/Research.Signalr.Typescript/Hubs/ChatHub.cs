@@ -16,22 +16,13 @@ namespace Research.Signalr.Typescript.Hubs
         public ChatHub()
         {
             Logger.Trace( "ChatHub ctor" );
-            StartTimer();
-        }
-
-        private void onTimer( object stateInfo )
-        {
-            var message = string.Format("{0} {1}", _connectionId, DateTime.Now);
-            var msg = new ChatMessage { Name = "Server", Message = message };
-
-            Logger.Trace( "OnTimer [{0}]", _connectionId );
-            Clients.Client( _connectionId ).addNewMessageToPage( msg  );
         }
 
         public void Send( ChatMessage msg )
         {
-            Logger.Trace( "Send()" );
+            Logger.Trace( "Send( {0} )", msg.Message );
             Clients.All.addNewMessageToPage( msg );
         }
+
     }
 }
