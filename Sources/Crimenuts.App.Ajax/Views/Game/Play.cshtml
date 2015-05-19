@@ -1,0 +1,15 @@
+﻿@{
+    // Code: Here: View | Play.cshtml
+    ViewBag.Title = "Game";
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/Scripts/phaser.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/celler.js"></script>
+}
+
+<br/>
+<div id="celler-playground"></div>
+<a href="#" id="celler-reset-session">Reset game session</a>

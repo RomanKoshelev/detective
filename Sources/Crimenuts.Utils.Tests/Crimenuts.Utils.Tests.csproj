@@ -54,7 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Projects\Crimenuts.Utils\Crimenuts.Utils.csproj">
+    <ProjectReference Include="..\Crimenuts.Utils\Crimenuts.Utils.csproj">
       <Project>{3B976C8E-645D-436C-80F6-E6E843CD42AC}</Project>
       <Name>Crimenuts.Utils</Name>
     </ProjectReference>
