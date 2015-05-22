@@ -1,3 +1,18 @@
+declare module Crimenuts {
+    class App {
+        game: Phaser.Game;
+        server: ServerAdapter;
+        tickCount: Number;
+        constructor();
+        create(): void;
+        private init();
+        private createGame(width, height);
+        private onTickCountUpdated(count);
+        getGameScreenSize(): Size;
+    }
+    var app: App;
+    function initApp(): void;
+}
 declare module Crimenuts.Assets {
     enum Type {
         CellBody = 0,
@@ -14,9 +29,23 @@ declare module Crimenuts.Assets {
     }
 }
 declare module Crimenuts {
-    class Size {
-        width: number;
-        height: number;
+    class Cell extends Phaser.Group {
+        id: string;
+        homeId: string;
+        sightId: string;
+        suit: Suit;
+        sightPoint: Phaser.Point;
+        constructor(game: Phaser.Game, model: CellModel);
+        update(): void;
+        private body;
+        private eye;
+        private eyeRate;
+        private init(model);
+        private onCellMoved(id, position);
+        private onSightPositionHinted(sightId, position);
+        private lookAtSigtPoint();
+        private calcEyeRate();
+        private updateEyeSize();
     }
 }
 declare module Crimenuts {
@@ -33,33 +62,6 @@ declare module Crimenuts {
         constructor(game: Phaser.Game, model: FoodModel);
         update(): void;
         setSize(size: number, foodUpdateInterval: number): void;
-    }
-}
-declare module Crimenuts {
-    class SessionManager {
-        game: Phaser.Game;
-        id: string;
-        uiLevel: Phaser.Group;
-        constructor(game: Phaser.Game);
-        private serverUpdateInterval;
-        private createLevels();
-        private destroyLevels();
-        private fromModel(model);
-        private onSessionUpdated(model);
-        private destroyAll();
-        createUi(): void;
-    }
-}
-declare module Crimenuts {
-    class ProcessState extends Phaser.State {
-        static background: string;
-        session: SessionManager;
-        constructor();
-        init(): void;
-        preload(): void;
-        create(): void;
-        update(): void;
-        private preloadSprites(suit);
     }
 }
 declare module Crimenuts {
@@ -89,42 +91,19 @@ declare module Crimenuts {
     function toSuit(str: string): Suit;
 }
 declare module Crimenuts {
-    class Cell extends Phaser.Group {
-        id: string;
-        homeId: string;
-        sightId: string;
-        suit: Suit;
-        sightPoint: Phaser.Point;
-        constructor(game: Phaser.Game, model: CellModel);
-        update(): void;
-        private body;
-        private eye;
-        private eyeRate;
-        private init(model);
-        private onCellMoved(id, position);
-        private onSightPositionHinted(sightId, position);
-        private lookAtSigtPoint();
-        private calcEyeRate();
-        private updateEyeSize();
-    }
-}
-declare module Crimenuts {
-    function modelToPoint(model: PointModel): Phaser.Point;
-}
-declare module Crimenuts {
-    class App {
+    class SessionManager {
         game: Phaser.Game;
-        server: ServerAdapter;
-        tickCount: Number;
-        constructor();
-        create(): void;
-        private init();
-        private createGame(width, height);
-        private onTickCountUpdated(count);
-        getGameScreenSize(): Size;
+        id: string;
+        uiLevel: Phaser.Group;
+        constructor(game: Phaser.Game);
+        private serverUpdateInterval;
+        private createLevels();
+        private destroyLevels();
+        private fromModel(model);
+        private onSessionUpdated(model);
+        private destroyAll();
+        createUi(): void;
     }
-    var app: App;
-    function initApp(): void;
 }
 declare module Crimenuts {
     class ServerAdapter implements GameHubServer, GameHubClient {
@@ -162,4 +141,25 @@ declare module Crimenuts {
         homesUpdated(models: HomeModel[]): void;
         sessionUpdated(model: SessionModel): void;
     }
+}
+declare module Crimenuts {
+    class ProcessState extends Phaser.State {
+        static background: string;
+        session: SessionManager;
+        constructor();
+        init(): void;
+        preload(): void;
+        create(): void;
+        update(): void;
+        private preloadSprites(suit);
+    }
+}
+declare module Crimenuts {
+    class Size {
+        width: number;
+        height: number;
+    }
+}
+declare module Crimenuts {
+    function modelToPoint(model: PointModel): Phaser.Point;
 }
