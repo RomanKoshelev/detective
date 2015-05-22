@@ -263,7 +263,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\typescript.all.js" />
+    <Content Include="Scripts\typescript.output.js" />
     <Content Include="Scripts\phaser.js" />
     <Content Include="Scripts\phaser.min.js" />
     <Content Include="Game\Client\Server\Hubs.tt">
@@ -343,7 +343,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TypeScriptOutFile>$(ProjectDir)\Scripts\typescript.all.js</TypeScriptOutFile>
+    <TypeScriptOutFile>$(ProjectDir)\Scripts\typescript.output.js</TypeScriptOutFile>
     <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
     <TypeScriptModuleKind>none</TypeScriptModuleKind>
     <TypeScriptTarget>ES5</TypeScriptTarget>
