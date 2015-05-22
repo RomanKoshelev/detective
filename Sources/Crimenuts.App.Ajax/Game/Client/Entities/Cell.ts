@@ -1,4 +1,4 @@
-﻿module Celler {
+﻿module Crimenuts {
     export class Cell extends Phaser.Group {
 
         id: string;

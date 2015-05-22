@@ -1,4 +1,4 @@
-declare module Celler.Assets {
+declare module Crimenuts.Assets {
     enum Type {
         CellBody = 0,
         CellEye = 1,
@@ -13,14 +13,20 @@ declare module Celler.Assets {
         static load(suit: Suit, assetType: Assets.Type): void;
     }
 }
-declare module Celler {
+declare module Crimenuts {
+    class Size {
+        width: number;
+        height: number;
+    }
+}
+declare module Crimenuts {
     class SuitSprite extends Phaser.Sprite {
         suit: Suit;
         constructor(game: Phaser.Game, suit: Suit, assetType: Assets.Type, size?: number);
         resize(size: number): void;
     }
 }
-declare module Celler {
+declare module Crimenuts {
     class Food extends SuitSprite {
         id: string;
         size: number;
@@ -29,43 +35,23 @@ declare module Celler {
         setSize(size: number, foodUpdateInterval: number): void;
     }
 }
-declare module Celler {
+declare module Crimenuts {
     class SessionManager {
         game: Phaser.Game;
         id: string;
-        foodLevel: Phaser.Group;
-        homeLevel: Phaser.Group;
-        cellLevel: Phaser.Group;
-        sightLevel: Phaser.Group;
+        uiLevel: Phaser.Group;
         constructor(game: Phaser.Game);
         private serverUpdateInterval;
-        private cells;
-        private sights;
-        private foods;
-        private homes;
         private createLevels();
         private destroyLevels();
         private fromModel(model);
         private onSessionUpdated(model);
         private destroyAll();
-        private onFoodAdded(model);
-        private onFoodRemoved(id);
-        private onFoodsUpdated(models);
-        private updateFood(food, model);
-        private onHomesUpdated(models);
-        private updateHome(home, model);
-        private createHomes(arr);
-        private createCells(arr);
-        private createSights(arr);
-        private createFoods(arr);
-        private addHome(model);
-        private addFood(model);
-        private addSight(model);
-        private addCell(model);
+        createUi(): void;
     }
 }
-declare module Celler {
-    class PlayState extends Phaser.State {
+declare module Crimenuts {
+    class ProcessState extends Phaser.State {
         static background: string;
         session: SessionManager;
         constructor();
@@ -76,7 +62,7 @@ declare module Celler {
         private preloadSprites(suit);
     }
 }
-declare module Celler {
+declare module Crimenuts {
     class Home extends Phaser.Group {
         id: string;
         suit: Suit;
@@ -95,14 +81,14 @@ declare module Celler {
         setLoot(volume: number): void;
     }
 }
-declare module Celler {
+declare module Crimenuts {
     enum Suit {
         Blue = 0,
         Red = 1,
     }
     function toSuit(str: string): Suit;
 }
-declare module Celler {
+declare module Crimenuts {
     class Cell extends Phaser.Group {
         id: string;
         homeId: string;
@@ -122,49 +108,25 @@ declare module Celler {
         private updateEyeSize();
     }
 }
-declare module Celler {
-    class Sight extends SuitSprite {
-        id: string;
-        cellId: string;
-        static minHintIntgerval: number;
-        static minHintDistance: number;
-        static shiftPerKeypoardClick: number;
-        constructor(game: Phaser.Game, model: SightModel);
-        update(): void;
-        procKeyboard(): void;
-        private onDragStop();
-        private inTweening;
-        private tween;
-        private onSightMoved(id, position);
-        private stopAnimation();
-        private onAnimationCompleete();
-        private toPointModel();
-        prevHintTime: number;
-        prevHintPosition: Phaser.Point;
-        private serverHintSightPosition();
-        private doProcKeyboard();
-    }
-}
-declare module Celler {
+declare module Crimenuts {
     function modelToPoint(model: PointModel): Phaser.Point;
 }
-declare module Celler {
+declare module Crimenuts {
     class App {
         game: Phaser.Game;
         server: ServerAdapter;
-        playerId: string;
-        playerSuit: Suit;
         tickCount: Number;
         constructor();
         create(): void;
         private init();
         private createGame(width, height);
         private onTickCountUpdated(count);
+        getGameScreenSize(): Size;
     }
     var app: App;
     function initApp(): void;
 }
-declare module Celler {
+declare module Crimenuts {
     class ServerAdapter implements GameHubServer, GameHubClient {
         constructor();
         private server;

@@ -1,5 +1,5 @@
 ﻿/// <reference path="SuitSprite.ts" />
-module Celler {
+module Crimenuts {
     export class Food extends SuitSprite {
 
         id: string;

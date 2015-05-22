@@ -1,11 +1,8 @@
-﻿module Celler {
-
+﻿module Crimenuts {
     export class App {
 
         game: Phaser.Game;
         server: ServerAdapter;
-        playerId = "";
-        playerSuit = Suit.Blue;
         tickCount: Number;
 
         constructor() {
@@ -15,29 +12,27 @@
         }
 
         create() {
-            this.game.state.add( "Room", PlayState, true );
+            this.game.state.add( "Process", ProcessState, true );
         }
 
         private init() {
-            this.server.getPlayerId().done( ( id: string ) => {
-                this.playerId = id;
-            } );
-
-            this.server.getWorldBounds().done( ( bounds: SizeModel ) => {
-                this.createGame( bounds.Width, bounds.Height );
-            } );
-
-            document.getElementById( "celler-reset-session" ).onclick = () => {
-                this.server.resetSession();
-            }
+            var size = this.getGameScreenSize();
+            this.createGame( size.width, size.height );
         }
 
         private createGame( width: number, height: number ) {
-            this.game = new Phaser.Game( width, height, Phaser.AUTO, "celler-playground", { create: this.create } );
+            this.game = new Phaser.Game( width, height, Phaser.AUTO, "crimenuts-playground", { create: this.create } );
         }
 
         private onTickCountUpdated( count: Number ) {
             this.tickCount = count;
+        }
+
+        getGameScreenSize() : Size {
+            return {
+                width: 720,
+                height: 820
+            };
         }
     }
 
@@ -49,5 +44,5 @@
 }
 
 window.onload = () => {
-    Celler.initApp();
+    Crimenuts.initApp();
 };

@@ -1,4 +1,4 @@
-module Celler {
+module Crimenuts {
     export enum Suit {
         Blue,
         Red

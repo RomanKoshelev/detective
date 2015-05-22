@@ -1,4 +1,4 @@
-﻿module Celler.Assets {
+﻿module Crimenuts.Assets {
 
     export enum Type {
         CellBody,

@@ -1,4 +1,4 @@
-module Celler {
+module Crimenuts {
     export class SuitSprite extends Phaser.Sprite {
         suit: Suit;
 

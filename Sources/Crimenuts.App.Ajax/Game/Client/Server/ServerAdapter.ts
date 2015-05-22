@@ -1,4 +1,4 @@
-﻿module Celler {
+﻿module Crimenuts {
 
     export class ServerAdapter implements GameHubServer, GameHubClient {
 

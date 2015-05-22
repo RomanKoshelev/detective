@@ -306,14 +306,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
+    <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
     <TypeScriptCompile Include="Game\Client\Entities\Food.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\SessionManager.ts" />
-    <TypeScriptCompile Include="Game\Client\States\PlayState.ts" />
+    <TypeScriptCompile Include="Game\Client\States\ProcessState.ts" />
     <TypeScriptCompile Include="Game\Client\Entities\SuitSprite.ts" />
     <TypeScriptCompile Include="Game\Client\Entities\Home.ts" />
     <TypeScriptCompile Include="Game\Client\Entities\Suit.ts" />
     <TypeScriptCompile Include="Game\Client\Entities\Cell.ts" />
-    <TypeScriptCompile Include="Game\Client\Entities\Sight.ts" />
     <TypeScriptCompile Include="Game\Client\Utils\Convertors.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\p2.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\phaser.d.ts" />
