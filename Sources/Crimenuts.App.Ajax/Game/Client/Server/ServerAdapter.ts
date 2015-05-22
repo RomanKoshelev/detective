@@ -39,7 +39,7 @@
         }
 
         resetSession(): JQueryPromise<void> {
-             return this.server.resetSession();
+            return this.server.resetSession();
         }
 
         // --------------------------------------------------------[]

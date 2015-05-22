@@ -1,12 +1,12 @@
-﻿// Celler (c) 2015 Krokodev
-// Celler.App.Web
+﻿// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // GameController.cs
 
 using System.Web.Mvc;
 
 // Here: Controller | Game
 
-namespace Celler.App.Web.Controllers
+namespace Crimenuts.App.Ajax.Controllers
 {
     public class GameController : Controller
     {

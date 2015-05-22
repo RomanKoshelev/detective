@@ -4,8 +4,8 @@ module Celler {
 
         id: string;
         suit: Suit;
-        lootVolume : number;
-        lootMaxVolume : number;
+        lootVolume: number;
+        lootMaxVolume: number;
         size: number;
 
         constructor( game: Phaser.Game, model: HomeModel ) {

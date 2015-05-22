@@ -1,21 +1,21 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // SessionManager.cs
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Celler.App.Web.Game.Server.Clients;
-using Celler.App.Web.Game.Server.Entities.Abstract;
-using Celler.App.Web.Game.Server.Entities.Enums;
-using Celler.App.Web.Game.Server.Entities.GameObjects;
-using Celler.App.Web.Game.Server.Entities.Interfaces;
-using Celler.App.Web.Game.Server.Entities.Structs;
-using Celler.App.Web.Game.Server.Logic;
-using Celler.App.Web.Game.Server.Models;
+using Crimenuts.App.Ajax.Game.Server.Clients;
+using Crimenuts.App.Ajax.Game.Server.Entities.Abstract;
+using Crimenuts.App.Ajax.Game.Server.Entities.Enums;
+using Crimenuts.App.Ajax.Game.Server.Entities.GameObjects;
+using Crimenuts.App.Ajax.Game.Server.Entities.Interfaces;
+using Crimenuts.App.Ajax.Game.Server.Entities.Structs;
+using Crimenuts.App.Ajax.Game.Server.Logic;
+using Crimenuts.App.Ajax.Game.Server.Models;
 using MoreLinq;
 
-namespace Celler.App.Web.Game.Server.Managers
+namespace Crimenuts.App.Ajax.Game.Server.Managers
 {
     public class SessionManager : Entity< SessionModel >,
         IFoodManager, IBodyManager, ICellManager, IHomeManager, ISightManager, ISession

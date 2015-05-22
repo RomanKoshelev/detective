@@ -1,14 +1,14 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // GameApplication.cs
 
 using System.Threading;
 using System.Web.Hosting;
-using Celler.App.Web.Game.Server.Clients;
-using Celler.App.Web.Game.Server.Logic;
+using Crimenuts.App.Ajax.Game.Server.Clients;
+using Crimenuts.App.Ajax.Game.Server.Logic;
 using NLog;
 
-namespace Celler.App.Web.Game.Server.App
+namespace Crimenuts.App.Ajax.Game.Server.App
 {
     public class GameApplication : IRegisteredObject
     {

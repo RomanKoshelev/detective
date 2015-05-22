@@ -1,8 +1,8 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // IAuxLogic.cs
 
-namespace Celler.App.Web.Game.Server.Logic
+namespace Crimenuts.App.Ajax.Game.Server.Logic
 {
     internal interface IAuxLogic
     {

@@ -1,7 +1,11 @@
-using System;
-using Celler.App.Web.Game.Server.Models;
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
+// ModelToos.cs
 
-namespace Celler.App.Web.Game.Server.Utils
+using System;
+using Crimenuts.App.Ajax.Game.Server.Models;
+
+namespace Crimenuts.App.Ajax.Game.Server.Utils
 {
     public static class ModelToos
     {

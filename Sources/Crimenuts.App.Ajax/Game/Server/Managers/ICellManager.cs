@@ -1,13 +1,12 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // ICellManager.cs
 
-using Celler.App.Web.Game.Server.Entities.Enums;
-using Celler.App.Web.Game.Server.Entities.GameObjects;
-using Celler.App.Web.Game.Server.Entities.Structs;
-using Celler.App.Web.Game.Server.Models;
+using Crimenuts.App.Ajax.Game.Server.Entities.Enums;
+using Crimenuts.App.Ajax.Game.Server.Entities.GameObjects;
+using Crimenuts.App.Ajax.Game.Server.Entities.Structs;
 
-namespace Celler.App.Web.Game.Server.Managers
+namespace Crimenuts.App.Ajax.Game.Server.Managers
 {
     public interface ICellManager
     {

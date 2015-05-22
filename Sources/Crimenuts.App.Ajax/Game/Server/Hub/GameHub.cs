@@ -1,12 +1,12 @@
-﻿// Celler (c) 2015 Krokodev
-// Celler.App.Web
+﻿// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // GameHub.cs
 
-using Celler.App.Web.Game.Server.App;
-using Celler.App.Web.Game.Server.Logic;
-using Celler.App.Web.Game.Server.Models;
+using Crimenuts.App.Ajax.Game.Server.App;
+using Crimenuts.App.Ajax.Game.Server.Logic;
+using Crimenuts.App.Ajax.Game.Server.Models;
 
-namespace Celler.App.Web.Game.Server.Hub
+namespace Crimenuts.App.Ajax.Game.Server.Hub
 {
     public class GameHub : Microsoft.AspNet.SignalR.Hub, IGameLogic
     {
@@ -50,7 +50,7 @@ namespace Celler.App.Web.Game.Server.Hub
             return _gameLogic.GetSession();
         }
 
-        public void ResetSession( )
+        public void ResetSession()
         {
             _gameLogic.ResetSession();
         }

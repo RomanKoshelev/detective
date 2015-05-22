@@ -1,8 +1,8 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // CellModel.cs
 
-namespace Celler.App.Web.Game.Server.Models
+namespace Crimenuts.App.Ajax.Game.Server.Models
 {
     public class CellModel
     {

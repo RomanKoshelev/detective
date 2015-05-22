@@ -1,5 +1,5 @@
-﻿// Celler (c) 2015 Krokodev
-// Celler.App.Web
+﻿// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // AssemblyInfo.cs
 
 using System.Reflection;
@@ -9,12 +9,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly : AssemblyTitle( "Celler.App.Web" )]
+[assembly : AssemblyTitle( "Crimenuts" )]
 [assembly : AssemblyDescription( "" )]
 [assembly : AssemblyConfiguration( "" )]
 [assembly : AssemblyCompany( "" )]
-[assembly : AssemblyProduct( "Celler.App.Web" )]
-[assembly : AssemblyCopyright( "Copyright ©  2015" )]
+[assembly : AssemblyProduct( "Crimenuts" )]
+[assembly : AssemblyCopyright( "Copyright ©  2015 Roman Koshelev" )]
 [assembly : AssemblyTrademark( "" )]
 [assembly : AssemblyCulture( "" )]
 
@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly : Guid( "11c6532a-cf9e-4039-a7e9-d743f02b9feb" )]
+[assembly : Guid( "4EADBF4B-17C4-49E6-A8F6-9D45185DC171" )]
 
 // Version information for an assembly consists of the following four values:
 //

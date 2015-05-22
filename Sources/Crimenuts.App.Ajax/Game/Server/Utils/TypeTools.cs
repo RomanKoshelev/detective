@@ -1,10 +1,10 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // TypeTools.cs
 
 using System.Linq;
 
-namespace Celler.App.Web.Game.Server.Utils
+namespace Crimenuts.App.Ajax.Game.Server.Utils
 {
     internal static class TypeTools
     {
@@ -15,7 +15,7 @@ namespace Celler.App.Web.Game.Server.Utils
 
         public static T GetAnother<T>( T first, params object[] objects ) where T : class
         {
-            return objects.OfType< T >().FirstOrDefault(o => o!=first);
+            return objects.OfType< T >().FirstOrDefault( o => o != first );
         }
     }
 }

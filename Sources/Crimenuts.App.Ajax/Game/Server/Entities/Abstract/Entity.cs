@@ -1,11 +1,11 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // Entity.cs
 
 using System;
-using Celler.App.Web.Game.Server.Entities.Interfaces;
+using Crimenuts.App.Ajax.Game.Server.Entities.Interfaces;
 
-namespace Celler.App.Web.Game.Server.Entities.Abstract
+namespace Crimenuts.App.Ajax.Game.Server.Entities.Abstract
 {
     public abstract class Entity<T> : IIdentifiable, IModelled< T >
     {

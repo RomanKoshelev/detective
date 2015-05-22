@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Celler.App.Web</RootNamespace>
-    <AssemblyName>Celler.App.Web</AssemblyName>
+    <RootNamespace>Crimenuts.App.Ajax</RootNamespace>
+    <AssemblyName>Crimenuts.App.Ajax</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -263,7 +263,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\celler.js" />
+    <Content Include="Scripts\typescript.all.js" />
     <Content Include="Scripts\phaser.js" />
     <Content Include="Scripts\phaser.min.js" />
     <Content Include="Game\Client\Server\Hubs.tt">
@@ -343,7 +343,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TypeScriptOutFile>$(ProjectDir)\Scripts\celler.js</TypeScriptOutFile>
+    <TypeScriptOutFile>$(ProjectDir)\Scripts\typescript.all.js</TypeScriptOutFile>
     <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
     <TypeScriptModuleKind>none</TypeScriptModuleKind>
     <TypeScriptTarget>ES5</TypeScriptTarget>

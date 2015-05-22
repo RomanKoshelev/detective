@@ -1,10 +1,10 @@
-﻿// Celler (c) 2015 Krokodev
-// Celler.App.Web
+﻿// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // BundleConfig.cs
 
 using System.Web.Optimization;
 
-namespace Celler.App.Web
+namespace Crimenuts.App.Ajax
 {
     public class BundleConfig
     {

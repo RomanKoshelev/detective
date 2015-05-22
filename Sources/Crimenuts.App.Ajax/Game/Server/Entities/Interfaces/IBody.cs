@@ -1,10 +1,10 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // IBody.cs
 
-using Celler.App.Web.Game.Server.Entities.Structs;
+using Crimenuts.App.Ajax.Game.Server.Entities.Structs;
 
-namespace Celler.App.Web.Game.Server.Entities.Interfaces
+namespace Crimenuts.App.Ajax.Game.Server.Entities.Interfaces
 {
     public interface IBody
     {

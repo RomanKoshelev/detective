@@ -14,7 +14,12 @@
 interface SignalR {
  
     /**
-      * The hub implemented by Celler.App.Web.Game.Server.Hub.GameHub
+      * The hub implemented by Research.Signalr.Typescript.Hubs.ChatHub
+      */
+    chatHub : ChatHub;
+ 
+    /**
+      * The hub implemented by Crimenuts.App.Ajax.Game.Server.Hub.GameHub
       */
     gameHub : GameHub;
 }
@@ -24,6 +29,47 @@ interface SignalR {
 // Service Contracts //
 ///////////////////////
 //#region service contracts
+ 
+//#region ChatHub hub
+ 
+interface ChatHub {
+    
+    /**
+      * This property lets you send messages to the ChatHub hub.
+      */
+    server : ChatHubServer;
+ 
+    /**
+      * The functions on this property should be replaced if you want to receive messages from the ChatHub hub.
+      */
+    client : ChatHubClient;
+}
+ 
+interface ChatHubServer {
+ 
+    /** 
+      * Sends a "send" message to the ChatHub hub.
+      * Contract Documentation: ---
+      * @param msg {ChatMessage} 
+      * @return {JQueryPromise of void}
+      */
+    send(msg : ChatMessage) : JQueryPromise<void>;
+}
+ 
+interface ChatHubClient
+{
+ 
+    /**
+      * Set this function with a "function(msg : ChatMessage){}" to receive the "addNewMessageToPage" message from the ChatHub hub.
+      * Contract Documentation: ---
+      * @param msg {ChatMessage} 
+      * @return {void}
+      */
+    addNewMessageToPage : (msg : ChatMessage) => void;
+}
+ 
+//#endregion ChatHub hub
+ 
  
 //#region GameHub hub
  
@@ -197,7 +243,7 @@ interface GameHubClient
  
  
 /**
-  * Data contract for Celler.App.Web.Game.Server.Models.HomeModel
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.HomeModel
   */
 interface HomeModel {
     Base : GameObjectModel;
@@ -207,7 +253,7 @@ interface HomeModel {
  
  
 /**
-  * Data contract for Celler.App.Web.Game.Server.Models.GameObjectModel
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.GameObjectModel
   */
 interface GameObjectModel {
     Id : string;
@@ -218,7 +264,7 @@ interface GameObjectModel {
  
  
 /**
-  * Data contract for Celler.App.Web.Game.Server.Models.FoodModel
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.FoodModel
   */
 interface FoodModel {
     Base : GameObjectModel;
@@ -226,7 +272,7 @@ interface FoodModel {
  
  
 /**
-  * Data contract for Celler.App.Web.Game.Server.Models.SessionModel
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.SessionModel
   */
 interface SessionModel {
     Id : string;
@@ -239,7 +285,7 @@ interface SessionModel {
  
  
 /**
-  * Data contract for Celler.App.Web.Game.Server.Models.SightModel
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.SightModel
   */
 interface SightModel {
     Base : GameObjectModel;
@@ -248,7 +294,7 @@ interface SightModel {
  
  
 /**
-  * Data contract for Celler.App.Web.Game.Server.Models.CellModel
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.CellModel
   */
 interface CellModel {
     Base : GameObjectModel;
@@ -258,7 +304,7 @@ interface CellModel {
  
  
 /**
-  * Data contract for Celler.App.Web.Game.Server.Models.SizeModel
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.SizeModel
   */
 interface SizeModel {
     Width : number;
@@ -267,11 +313,20 @@ interface SizeModel {
  
  
 /**
-  * Data contract for Celler.App.Web.Game.Server.Models.PointModel
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.PointModel
   */
 interface PointModel {
     X : number;
     Y : number;
+}
+ 
+ 
+/**
+  * Data contract for Research.Signalr.Typescript.Hubs.ChatMessage
+  */
+interface ChatMessage {
+    Name : string;
+    Message : string;
 }
  
 //#endregion data contracts

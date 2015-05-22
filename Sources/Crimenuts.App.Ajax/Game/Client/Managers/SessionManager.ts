@@ -13,7 +13,7 @@
 
             app.server.getSession().done( ( model: SessionModel ) => {
                 this.fromModel( model );
-            });
+            } );
 
             app.server.onFoodAdded.add( this.onFoodAdded, this );
             app.server.onFoodRemoved.add( this.onFoodRemoved, this );
@@ -34,7 +34,7 @@
             this.cellLevel = this.game.add.group();
             this.sightLevel = this.game.add.group();
         }
-     
+
         private destroyLevels() {
             this.homeLevel.destroy();
             this.foodLevel.destroy();
@@ -114,7 +114,7 @@
 
         private addFood( model: FoodModel ) {
             var food = new Food( this.game, model );
-            this.foods[food.id] = food;
+            this.foods[ food.id ] = food;
             this.foodLevel.add( food );
         }
 

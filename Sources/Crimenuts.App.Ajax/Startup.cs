@@ -1,14 +1,14 @@
-﻿// Celler (c) 2015 Krokodev
-// Celler.App.Web
+﻿// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // Startup.cs
 
-using Celler.App.Web;
+using Crimenuts.App.Ajax;
 using Microsoft.Owin;
 using Owin;
 
 [assembly : OwinStartup( typeof( Startup ) )]
 
-namespace Celler.App.Web
+namespace Crimenuts.App.Ajax
 {
     public class Startup
     {

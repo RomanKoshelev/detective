@@ -1,4 +1,4 @@
-﻿/// <reference path="SuitSprite.ts"/>
+﻿/// <reference path="SuitSprite.ts" />
 module Celler {
     export class Food extends SuitSprite {
 

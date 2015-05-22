@@ -1,10 +1,10 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // IGameClient.cs
 
-using Celler.App.Web.Game.Server.Hub;
+using Crimenuts.App.Ajax.Game.Server.Hub;
 
-namespace Celler.App.Web.Game.Server.Clients
+namespace Crimenuts.App.Ajax.Game.Server.Clients
 {
     public interface IGameClient : IGameHubClient {}
 }

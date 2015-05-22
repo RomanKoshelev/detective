@@ -1,23 +1,21 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // Home.cs
 
-using Celler.App.Web.Game.Server.Entities.Abstract;
-using Celler.App.Web.Game.Server.Entities.Enums;
-using Celler.App.Web.Game.Server.Entities.Interfaces;
-using Celler.App.Web.Game.Server.Entities.Structs;
-using Celler.App.Web.Game.Server.Models;
+using Crimenuts.App.Ajax.Game.Server.Entities.Abstract;
+using Crimenuts.App.Ajax.Game.Server.Entities.Enums;
+using Crimenuts.App.Ajax.Game.Server.Entities.Interfaces;
+using Crimenuts.App.Ajax.Game.Server.Entities.Structs;
+using Crimenuts.App.Ajax.Game.Server.Models;
 
-namespace Celler.App.Web.Game.Server.Entities.GameObjects
+namespace Crimenuts.App.Ajax.Game.Server.Entities.GameObjects
 {
     public class Home : ValuableGameObject< HomeModel >, IHome
     {
         #region Ctor
 
         public Home( Suit suit, Point position, double size, double value, double maxValue )
-            : base( suit, position, size, value, maxValue )
-        {
-        }
+            : base( suit, position, size, value, maxValue ) {}
 
         #endregion
 
@@ -44,7 +42,5 @@ namespace Celler.App.Web.Game.Server.Entities.GameObjects
         }
 
         #endregion
-
-
     }
 }

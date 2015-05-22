@@ -1,11 +1,11 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // EntityTools.cs
 
 using System;
-using Celler.App.Web.Game.Server.Entities.Structs;
+using Crimenuts.App.Ajax.Game.Server.Entities.Structs;
 
-namespace Celler.App.Web.Game.Server.Utils
+namespace Crimenuts.App.Ajax.Game.Server.Utils
 {
     public static class EntityToos
     {

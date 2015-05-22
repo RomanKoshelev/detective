@@ -1,12 +1,12 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // ICellLogic.cs
 
-using Celler.App.Web.Game.Server.Entities.Enums;
-using Celler.App.Web.Game.Server.Entities.GameObjects;
-using Celler.App.Web.Game.Server.Entities.Structs;
+using Crimenuts.App.Ajax.Game.Server.Entities.Enums;
+using Crimenuts.App.Ajax.Game.Server.Entities.GameObjects;
+using Crimenuts.App.Ajax.Game.Server.Entities.Structs;
 
-namespace Celler.App.Web.Game.Server.Logic
+namespace Crimenuts.App.Ajax.Game.Server.Logic
 {
     internal interface ICellLogic : IAuxLogic
     {

@@ -1,5 +1,5 @@
-﻿// Celler (c) 2015 Krokodev
-// Celler.App.Web
+﻿// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // LogController.cs
 
 using System;
@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using NLog;
 using NLog.Targets;
 
-namespace Celler.App.Web.Controllers
+namespace Crimenuts.App.Ajax.Controllers
 {
     public class LogController : Controller
     {

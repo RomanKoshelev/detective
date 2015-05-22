@@ -1,5 +1,5 @@
-﻿// Celler (c) 2015 Krokodev
-// Celler.App.Web
+﻿// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // Global.asax.cs
 
 using System;
@@ -8,10 +8,10 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Celler.App.Web.Game.Server.App;
+using Crimenuts.App.Ajax.Game.Server.App;
 using NLog;
 
-namespace Celler.App.Web
+namespace Crimenuts.App.Ajax
 {
     public class MvcApplication : HttpApplication
     {
@@ -21,7 +21,7 @@ namespace Celler.App.Web
             FilterConfig.RegisterGlobalFilters( GlobalFilters.Filters );
             RouteConfig.RegisterRoutes( RouteTable.Routes );
             BundleConfig.RegisterBundles( BundleTable.Bundles );
-            HostingEnvironment.RegisterObject(new GameApplication());
+            HostingEnvironment.RegisterObject( new GameApplication() );
         }
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();

@@ -1,8 +1,8 @@
-﻿// Celler (c) 2015 Krokodev
-// Celler.App.Web
-// Balance.cs
+﻿// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
+// Settings.cs
 
-namespace Celler.App.Web.Game.Server.Config
+namespace Crimenuts.App.Ajax.Game.Server.Config
 {
     public static class Settings
     {
@@ -10,13 +10,13 @@ namespace Celler.App.Web.Game.Server.Config
         {
             public static class Home
             {
-                public const double Init =  1;
+                public const double Init = 1;
                 public const double Max = 100;
             }
 
             public static class Food
             {
-                public const double Min =  1;
+                public const double Min = 1;
                 public const double Max = 10;
             }
         }
@@ -56,10 +56,12 @@ namespace Celler.App.Web.Game.Server.Config
             {
                 public const double Size = 150;
             }
+
             public static class Cell
             {
                 public const double Size = 65;
             }
+
             public static class Sight
             {
                 public const double Size = 100;

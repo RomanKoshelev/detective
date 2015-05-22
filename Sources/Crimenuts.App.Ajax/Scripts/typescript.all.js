@@ -1,48 +1,5 @@
 var Celler;
 (function (Celler) {
-    var App = (function () {
-        function App() {
-            this.playerId = "";
-            this.playerSuit = 0 /* Blue */;
-            this.server = new Celler.ServerAdapter();
-            this.server.onStarted.addOnce(this.init, this);
-            this.server.onTickCountUpdated.add(this.onTickCountUpdated, this);
-        }
-        App.prototype.create = function () {
-            this.game.state.add("Room", Celler.PlayState, true);
-        };
-        App.prototype.init = function () {
-            var _this = this;
-            this.server.getPlayerId().done(function (id) {
-                _this.playerId = id;
-            });
-            this.server.getWorldBounds().done(function (bounds) {
-                _this.createGame(bounds.Width, bounds.Height);
-            });
-            document.getElementById("celler-reset-session").onclick = function () {
-                _this.server.resetSession();
-            };
-        };
-        App.prototype.createGame = function (width, height) {
-            this.game = new Phaser.Game(width, height, Phaser.AUTO, "celler-playground", { create: this.create });
-        };
-        App.prototype.onTickCountUpdated = function (count) {
-            this.tickCount = count;
-        };
-        return App;
-    })();
-    Celler.App = App;
-    Celler.app;
-    function initApp() {
-        Celler.app = new App();
-    }
-    Celler.initApp = initApp;
-})(Celler || (Celler = {}));
-window.onload = function () {
-    Celler.initApp();
-};
-var Celler;
-(function (Celler) {
     var Assets;
     (function (Assets) {
         (function (Type) {
@@ -79,67 +36,6 @@ var __extends = this.__extends || function (d, b) {
 };
 var Celler;
 (function (Celler) {
-    var Cell = (function (_super) {
-        __extends(Cell, _super);
-        function Cell(game, model) {
-            _super.call(this, game);
-            this.init(model);
-            Celler.app.server.onCellMoved.add(this.onCellMoved, this);
-            Celler.app.server.onSightPositionHinted.add(this.onSightPositionHinted, this);
-        }
-        Cell.prototype.update = function () {
-            _super.prototype.update.call(this);
-            this.lookAtSigtPoint();
-        };
-        Cell.prototype.init = function (model) {
-            this.id = model.Base.Id;
-            this.sightId = model.SightId;
-            this.homeId = model.HomeId;
-            this.suit = Celler.Suit[model.Base.Suit];
-            this.addChild(this.body = new Celler.SuitSprite(this.game, this.suit, 0 /* CellBody */));
-            this.addChild(this.eye = new Celler.SuitSprite(this.game, this.suit, 1 /* CellEye */));
-            this.scale.set(model.Base.Size / this.width);
-            this.position = Celler.modelToPoint(model.Base.Position);
-            this.updateEyeSize();
-        };
-        Cell.prototype.onCellMoved = function (id, position) {
-            if (this.id === id) {
-                this.game.add.tween(this).to({ x: position.X, y: position.Y }, 500, Phaser.Easing.Circular.InOut, true);
-            }
-        };
-        Cell.prototype.onSightPositionHinted = function (sightId, position) {
-            if (this.sightId === sightId) {
-                this.sightPoint = Celler.modelToPoint(position);
-            }
-        };
-        Cell.prototype.lookAtSigtPoint = function () {
-            if (this.sightPoint == null)
-                return;
-            var p = this.sightPoint.clone();
-            var l = Phaser.Point.distance(this.position, p);
-            var c = this.width;
-            var e = c * this.eyeRate;
-            var r = c * 0.1;
-            var d = (c - e) / 2;
-            var m = d / this.scale.x;
-            p = Phaser.Point.subtract(p, this.position);
-            p = p.normalize();
-            p = p.multiply(m, m);
-            this.eye.position = l > r ? p : new Phaser.Point();
-        };
-        Cell.prototype.calcEyeRate = function () {
-            return 0.75;
-        };
-        Cell.prototype.updateEyeSize = function () {
-            this.eyeRate = this.calcEyeRate();
-            this.eye.scale.set(this.eyeRate);
-        };
-        return Cell;
-    })(Phaser.Group);
-    Celler.Cell = Cell;
-})(Celler || (Celler = {}));
-var Celler;
-(function (Celler) {
     var SuitSprite = (function (_super) {
         __extends(SuitSprite, _super);
         function SuitSprite(game, suit, assetType, size) {
@@ -158,7 +54,7 @@ var Celler;
     })(Phaser.Sprite);
     Celler.SuitSprite = SuitSprite;
 })(Celler || (Celler = {}));
-/// <reference path="SuitSprite.ts"/>
+/// <reference path="SuitSprite.ts" />
 var Celler;
 (function (Celler) {
     var Food = (function (_super) {
@@ -180,168 +76,6 @@ var Celler;
         return Food;
     })(Celler.SuitSprite);
     Celler.Food = Food;
-})(Celler || (Celler = {}));
-/// <reference path="SuitSprite.ts" />
-var Celler;
-(function (Celler) {
-    var Home = (function (_super) {
-        __extends(Home, _super);
-        function Home(game, model) {
-            _super.call(this, game);
-            this.init(model);
-        }
-        Home.prototype.init = function (model) {
-            this.id = model.Base.Id;
-            this.suit = Celler.Suit[model.Base.Suit];
-            this.size = model.Base.Size;
-            this.lootVolume = model.Value;
-            this.lootMaxVolume = model.MaxValue;
-            this.addChild(this.house = new Celler.SuitSprite(this.game, this.suit, 4 /* House */));
-            this.addChild(this.loot = new Celler.SuitSprite(this.game, this.suit, 5 /* Loot */));
-            this.scale.set(this.calcScale());
-            this.position = Celler.modelToPoint(model.Base.Position);
-            this.updateLootPresentation();
-        };
-        Home.prototype.updateLootPresentation = function () {
-            this.loot.scale.set(this.calcLootScale());
-            this.loot.position = this.calcLootPosition();
-        };
-        Home.prototype.calcLootScale = function () {
-            var square = this.calcLootRate();
-            return Math.sqrt(square);
-        };
-        Home.prototype.calcLootRate = function () {
-            return this.lootVolume / this.lootMaxVolume;
-        };
-        Home.prototype.calcScale = function () {
-            return this.size / this.house.texture.width;
-        };
-        Home.prototype.calcLootPosition = function () {
-            var pos = new Phaser.Point();
-            var hh = this.house.height / 2;
-            var hw = this.house.width / 2;
-            var lh = this.loot.height / 2;
-            var lw = this.loot.width / 2;
-            switch (this.suit) {
-                case 0 /* Blue */:
-                    pos.x = -hh + lh;
-                    pos.y = hw - lw;
-                    break;
-                case 1 /* Red */:
-                    pos.x = hh - lh;
-                    pos.y = -hw + lw;
-                    break;
-            }
-            return pos;
-        };
-        Home.prototype.setLoot = function (volume) {
-            this.lootVolume = volume;
-            this.updateLootPresentation();
-        };
-        return Home;
-    })(Phaser.Group);
-    Celler.Home = Home;
-})(Celler || (Celler = {}));
-/// <reference path="SuitSprite.ts"/>
-var Celler;
-(function (Celler) {
-    var Sight = (function (_super) {
-        __extends(Sight, _super);
-        function Sight(game, model) {
-            _super.call(this, game, Celler.Suit[model.Base.Suit], 2 /* Sight */, model.Base.Size);
-            this.inTweening = false;
-            this.prevHintTime = Celler.app.game.time.now;
-            this.prevHintPosition = new Phaser.Point(0, 0);
-            this.id = model.Base.Id;
-            this.cellId = model.CellId;
-            this.position = Celler.modelToPoint(model.Base.Position);
-            this.inputEnabled = true;
-            this.input.enableDrag();
-            this.events.onDragStop.add(this.onDragStop, this);
-            Celler.app.server.onSightMoved.add(this.onSightMoved, this);
-        }
-        Sight.prototype.update = function () {
-            this.serverHintSightPosition();
-            this.procKeyboard();
-            _super.prototype.update.call(this);
-        };
-        Sight.prototype.procKeyboard = function () {
-            if (this.suit === Celler.app.playerSuit) {
-                this.doProcKeyboard();
-            }
-        };
-        Sight.prototype.onDragStop = function () {
-            Celler.app.server.moveSight(this.id, this.toPointModel());
-            Celler.app.server.moveCell(this.cellId, this.toPointModel());
-        };
-        Sight.prototype.onSightMoved = function (id, position) {
-            if (this.id === id) {
-                this.inTweening = true;
-                this.tween = this.game.add.tween(this).to({ x: position.X, y: position.Y }, 200, Phaser.Easing.Circular.InOut, true);
-                this.tween.onComplete.addOnce(this.onAnimationCompleete, this);
-            }
-        };
-        Sight.prototype.stopAnimation = function () {
-            if (this.tween != null) {
-                this.position = this.tween.target.position;
-                this.tween.stop();
-            }
-        };
-        Sight.prototype.onAnimationCompleete = function () {
-            this.inTweening = false;
-        };
-        Sight.prototype.toPointModel = function () {
-            return {
-                X: this.position.x,
-                Y: this.position.y
-            };
-        };
-        Sight.prototype.serverHintSightPosition = function () {
-            if (!this.inTweening && (Celler.app.game.time.now - this.prevHintTime) > Sight.minHintIntgerval && Phaser.Point.distance(this.prevHintPosition, this.position) > Sight.minHintDistance) {
-                this.prevHintTime = Celler.app.game.time.now;
-                this.prevHintPosition = this.position.clone();
-                Celler.app.server.hintSightPosition(this.id, this.toPointModel());
-            }
-        };
-        Sight.prototype.doProcKeyboard = function () {
-            var keyboard = this.game.input.keyboard;
-            var precisely = keyboard.isDown(Phaser.Keyboard.SHIFT);
-            var distance = Sight.shiftPerKeypoardClick * (precisely ? 0.2 : 1);
-            if (keyboard.isDown(Phaser.Keyboard.UP)) {
-                this.position.y -= distance;
-            }
-            if (keyboard.isDown(Phaser.Keyboard.DOWN)) {
-                this.position.y += distance;
-            }
-            if (keyboard.isDown(Phaser.Keyboard.LEFT)) {
-                this.position.x -= distance;
-            }
-            if (keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-                this.position.x += distance;
-            }
-            if (keyboard.isDown(Phaser.Keyboard.ENTER) || keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-                Celler.app.server.moveSight(this.id, this.toPointModel());
-                Celler.app.server.moveCell(this.cellId, this.toPointModel());
-            }
-        };
-        Sight.minHintIntgerval = 100;
-        Sight.minHintDistance = 4;
-        Sight.shiftPerKeypoardClick = 10;
-        return Sight;
-    })(Celler.SuitSprite);
-    Celler.Sight = Sight;
-})(Celler || (Celler = {}));
-var Celler;
-(function (Celler) {
-    (function (Suit) {
-        Suit[Suit["Blue"] = 0] = "Blue";
-        Suit[Suit["Red"] = 1] = "Red";
-    })(Celler.Suit || (Celler.Suit = {}));
-    var Suit = Celler.Suit;
-    function toSuit(str) {
-        return Suit[str];
-    }
-    Celler.toSuit = toSuit;
 })(Celler || (Celler = {}));
 var Celler;
 (function (Celler) {
@@ -455,6 +189,312 @@ var Celler;
     })();
     Celler.SessionManager = SessionManager;
 })(Celler || (Celler = {}));
+var Celler;
+(function (Celler) {
+    var PlayState = (function (_super) {
+        __extends(PlayState, _super);
+        function PlayState() {
+            _super.call(this);
+        }
+        PlayState.prototype.init = function () {
+            this.game.stage.backgroundColor = PlayState.background;
+        };
+        PlayState.prototype.preload = function () {
+            this.preloadSprites(0 /* Blue */);
+            this.preloadSprites(1 /* Red */);
+        };
+        PlayState.prototype.create = function () {
+            this.session = new Celler.SessionManager(this.game);
+        };
+        PlayState.prototype.update = function () {
+            this.game.debug.text("" + this.session.id + " [" + Celler.app.tickCount + "]", 10, 20);
+        };
+        PlayState.prototype.preloadSprites = function (suit) {
+            Celler.Assets.Sprites.load(suit, 4 /* House */);
+            Celler.Assets.Sprites.load(suit, 5 /* Loot */);
+            Celler.Assets.Sprites.load(suit, 0 /* CellBody */);
+            Celler.Assets.Sprites.load(suit, 1 /* CellEye */);
+            Celler.Assets.Sprites.load(suit, 2 /* Sight */);
+            Celler.Assets.Sprites.load(suit, 3 /* Food */);
+        };
+        PlayState.background = "#004400";
+        return PlayState;
+    })(Phaser.State);
+    Celler.PlayState = PlayState;
+})(Celler || (Celler = {}));
+/// <reference path="SuitSprite.ts" />
+var Celler;
+(function (Celler) {
+    var Home = (function (_super) {
+        __extends(Home, _super);
+        function Home(game, model) {
+            _super.call(this, game);
+            this.init(model);
+        }
+        Home.prototype.init = function (model) {
+            this.id = model.Base.Id;
+            this.suit = Celler.Suit[model.Base.Suit];
+            this.size = model.Base.Size;
+            this.lootVolume = model.Value;
+            this.lootMaxVolume = model.MaxValue;
+            this.addChild(this.house = new Celler.SuitSprite(this.game, this.suit, 4 /* House */));
+            this.addChild(this.loot = new Celler.SuitSprite(this.game, this.suit, 5 /* Loot */));
+            this.scale.set(this.calcScale());
+            this.position = Celler.modelToPoint(model.Base.Position);
+            this.updateLootPresentation();
+        };
+        Home.prototype.updateLootPresentation = function () {
+            this.loot.scale.set(this.calcLootScale());
+            this.loot.position = this.calcLootPosition();
+        };
+        Home.prototype.calcLootScale = function () {
+            var square = this.calcLootRate();
+            return Math.sqrt(square);
+        };
+        Home.prototype.calcLootRate = function () {
+            return this.lootVolume / this.lootMaxVolume;
+        };
+        Home.prototype.calcScale = function () {
+            return this.size / this.house.texture.width;
+        };
+        Home.prototype.calcLootPosition = function () {
+            var pos = new Phaser.Point();
+            var hh = this.house.height / 2;
+            var hw = this.house.width / 2;
+            var lh = this.loot.height / 2;
+            var lw = this.loot.width / 2;
+            switch (this.suit) {
+                case 0 /* Blue */:
+                    pos.x = -hh + lh;
+                    pos.y = hw - lw;
+                    break;
+                case 1 /* Red */:
+                    pos.x = hh - lh;
+                    pos.y = -hw + lw;
+                    break;
+            }
+            return pos;
+        };
+        Home.prototype.setLoot = function (volume) {
+            this.lootVolume = volume;
+            this.updateLootPresentation();
+        };
+        return Home;
+    })(Phaser.Group);
+    Celler.Home = Home;
+})(Celler || (Celler = {}));
+var Celler;
+(function (Celler) {
+    (function (Suit) {
+        Suit[Suit["Blue"] = 0] = "Blue";
+        Suit[Suit["Red"] = 1] = "Red";
+    })(Celler.Suit || (Celler.Suit = {}));
+    var Suit = Celler.Suit;
+    function toSuit(str) {
+        return Suit[str];
+    }
+    Celler.toSuit = toSuit;
+})(Celler || (Celler = {}));
+var Celler;
+(function (Celler) {
+    var Cell = (function (_super) {
+        __extends(Cell, _super);
+        function Cell(game, model) {
+            _super.call(this, game);
+            this.init(model);
+            Celler.app.server.onCellMoved.add(this.onCellMoved, this);
+            Celler.app.server.onSightPositionHinted.add(this.onSightPositionHinted, this);
+        }
+        Cell.prototype.update = function () {
+            _super.prototype.update.call(this);
+            this.lookAtSigtPoint();
+        };
+        Cell.prototype.init = function (model) {
+            this.id = model.Base.Id;
+            this.sightId = model.SightId;
+            this.homeId = model.HomeId;
+            this.suit = Celler.Suit[model.Base.Suit];
+            this.addChild(this.body = new Celler.SuitSprite(this.game, this.suit, 0 /* CellBody */));
+            this.addChild(this.eye = new Celler.SuitSprite(this.game, this.suit, 1 /* CellEye */));
+            this.scale.set(model.Base.Size / this.width);
+            this.position = Celler.modelToPoint(model.Base.Position);
+            this.updateEyeSize();
+        };
+        Cell.prototype.onCellMoved = function (id, position) {
+            if (this.id === id) {
+                this.game.add.tween(this).to({ x: position.X, y: position.Y }, 500, Phaser.Easing.Circular.InOut, true);
+            }
+        };
+        Cell.prototype.onSightPositionHinted = function (sightId, position) {
+            if (this.sightId === sightId) {
+                this.sightPoint = Celler.modelToPoint(position);
+            }
+        };
+        Cell.prototype.lookAtSigtPoint = function () {
+            if (this.sightPoint == null)
+                return;
+            var p = this.sightPoint.clone();
+            var l = Phaser.Point.distance(this.position, p);
+            var c = this.width;
+            var e = c * this.eyeRate;
+            var r = c * 0.1;
+            var d = (c - e) / 2;
+            var m = d / this.scale.x;
+            p = Phaser.Point.subtract(p, this.position);
+            p = p.normalize();
+            p = p.multiply(m, m);
+            this.eye.position = l > r ? p : new Phaser.Point();
+        };
+        Cell.prototype.calcEyeRate = function () {
+            return 0.75;
+        };
+        Cell.prototype.updateEyeSize = function () {
+            this.eyeRate = this.calcEyeRate();
+            this.eye.scale.set(this.eyeRate);
+        };
+        return Cell;
+    })(Phaser.Group);
+    Celler.Cell = Cell;
+})(Celler || (Celler = {}));
+/// <reference path="SuitSprite.ts" />
+var Celler;
+(function (Celler) {
+    var Sight = (function (_super) {
+        __extends(Sight, _super);
+        function Sight(game, model) {
+            _super.call(this, game, Celler.Suit[model.Base.Suit], 2 /* Sight */, model.Base.Size);
+            this.inTweening = false;
+            this.prevHintTime = Celler.app.game.time.now;
+            this.prevHintPosition = new Phaser.Point(0, 0);
+            this.id = model.Base.Id;
+            this.cellId = model.CellId;
+            this.position = Celler.modelToPoint(model.Base.Position);
+            this.inputEnabled = true;
+            this.input.enableDrag();
+            this.events.onDragStop.add(this.onDragStop, this);
+            Celler.app.server.onSightMoved.add(this.onSightMoved, this);
+        }
+        Sight.prototype.update = function () {
+            this.serverHintSightPosition();
+            this.procKeyboard();
+            _super.prototype.update.call(this);
+        };
+        Sight.prototype.procKeyboard = function () {
+            if (this.suit === Celler.app.playerSuit) {
+                this.doProcKeyboard();
+            }
+        };
+        Sight.prototype.onDragStop = function () {
+            Celler.app.server.moveSight(this.id, this.toPointModel());
+            Celler.app.server.moveCell(this.cellId, this.toPointModel());
+        };
+        Sight.prototype.onSightMoved = function (id, position) {
+            if (this.id === id) {
+                this.inTweening = true;
+                this.tween = this.game.add.tween(this).to({ x: position.X, y: position.Y }, 200, Phaser.Easing.Circular.InOut, true);
+                this.tween.onComplete.addOnce(this.onAnimationCompleete, this);
+            }
+        };
+        Sight.prototype.stopAnimation = function () {
+            if (this.tween != null) {
+                this.position = this.tween.target.position;
+                this.tween.stop();
+            }
+        };
+        Sight.prototype.onAnimationCompleete = function () {
+            this.inTweening = false;
+        };
+        Sight.prototype.toPointModel = function () {
+            return {
+                X: this.position.x,
+                Y: this.position.y
+            };
+        };
+        Sight.prototype.serverHintSightPosition = function () {
+            if (!this.inTweening && (Celler.app.game.time.now - this.prevHintTime) > Sight.minHintIntgerval && Phaser.Point.distance(this.prevHintPosition, this.position) > Sight.minHintDistance) {
+                this.prevHintTime = Celler.app.game.time.now;
+                this.prevHintPosition = this.position.clone();
+                Celler.app.server.hintSightPosition(this.id, this.toPointModel());
+            }
+        };
+        Sight.prototype.doProcKeyboard = function () {
+            var keyboard = this.game.input.keyboard;
+            var precisely = keyboard.isDown(Phaser.Keyboard.SHIFT);
+            var distance = Sight.shiftPerKeypoardClick * (precisely ? 0.2 : 1);
+            if (keyboard.isDown(Phaser.Keyboard.UP)) {
+                this.position.y -= distance;
+            }
+            if (keyboard.isDown(Phaser.Keyboard.DOWN)) {
+                this.position.y += distance;
+            }
+            if (keyboard.isDown(Phaser.Keyboard.LEFT)) {
+                this.position.x -= distance;
+            }
+            if (keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+                this.position.x += distance;
+            }
+            if (keyboard.isDown(Phaser.Keyboard.ENTER) || keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+                Celler.app.server.moveSight(this.id, this.toPointModel());
+                Celler.app.server.moveCell(this.cellId, this.toPointModel());
+            }
+        };
+        Sight.minHintIntgerval = 100;
+        Sight.minHintDistance = 4;
+        Sight.shiftPerKeypoardClick = 10;
+        return Sight;
+    })(Celler.SuitSprite);
+    Celler.Sight = Sight;
+})(Celler || (Celler = {}));
+var Celler;
+(function (Celler) {
+    function modelToPoint(model) {
+        return new Phaser.Point(model.X, model.Y);
+    }
+    Celler.modelToPoint = modelToPoint;
+})(Celler || (Celler = {}));
+var Celler;
+(function (Celler) {
+    var App = (function () {
+        function App() {
+            this.playerId = "";
+            this.playerSuit = 0 /* Blue */;
+            this.server = new Celler.ServerAdapter();
+            this.server.onStarted.addOnce(this.init, this);
+            this.server.onTickCountUpdated.add(this.onTickCountUpdated, this);
+        }
+        App.prototype.create = function () {
+            this.game.state.add("Room", Celler.PlayState, true);
+        };
+        App.prototype.init = function () {
+            var _this = this;
+            this.server.getPlayerId().done(function (id) {
+                _this.playerId = id;
+            });
+            this.server.getWorldBounds().done(function (bounds) {
+                _this.createGame(bounds.Width, bounds.Height);
+            });
+            document.getElementById("celler-reset-session").onclick = function () {
+                _this.server.resetSession();
+            };
+        };
+        App.prototype.createGame = function (width, height) {
+            this.game = new Phaser.Game(width, height, Phaser.AUTO, "celler-playground", { create: this.create });
+        };
+        App.prototype.onTickCountUpdated = function (count) {
+            this.tickCount = count;
+        };
+        return App;
+    })();
+    Celler.App = App;
+    Celler.app;
+    function initApp() {
+        Celler.app = new App();
+    }
+    Celler.initApp = initApp;
+})(Celler || (Celler = {}));
+window.onload = function () {
+    Celler.initApp();
+};
 var Celler;
 (function (Celler) {
     var ServerAdapter = (function () {
@@ -572,44 +612,4 @@ var Celler;
     })();
     Celler.ServerAdapter = ServerAdapter;
 })(Celler || (Celler = {}));
-var Celler;
-(function (Celler) {
-    var PlayState = (function (_super) {
-        __extends(PlayState, _super);
-        function PlayState() {
-            _super.call(this);
-        }
-        PlayState.prototype.init = function () {
-            this.game.stage.backgroundColor = PlayState.background;
-        };
-        PlayState.prototype.preload = function () {
-            this.preloadSprites(0 /* Blue */);
-            this.preloadSprites(1 /* Red */);
-        };
-        PlayState.prototype.create = function () {
-            this.session = new Celler.SessionManager(this.game);
-        };
-        PlayState.prototype.update = function () {
-            this.game.debug.text("" + this.session.id + " [" + Celler.app.tickCount + "]", 10, 20);
-        };
-        PlayState.prototype.preloadSprites = function (suit) {
-            Celler.Assets.Sprites.load(suit, 4 /* House */);
-            Celler.Assets.Sprites.load(suit, 5 /* Loot */);
-            Celler.Assets.Sprites.load(suit, 0 /* CellBody */);
-            Celler.Assets.Sprites.load(suit, 1 /* CellEye */);
-            Celler.Assets.Sprites.load(suit, 2 /* Sight */);
-            Celler.Assets.Sprites.load(suit, 3 /* Food */);
-        };
-        PlayState.background = "#004400";
-        return PlayState;
-    })(Phaser.State);
-    Celler.PlayState = PlayState;
-})(Celler || (Celler = {}));
-var Celler;
-(function (Celler) {
-    function modelToPoint(model) {
-        return new Phaser.Point(model.X, model.Y);
-    }
-    Celler.modelToPoint = modelToPoint;
-})(Celler || (Celler = {}));
-//# sourceMappingURL=celler.js.map
+//# sourceMappingURL=typescript.all.js.map

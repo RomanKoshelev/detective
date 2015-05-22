@@ -7,7 +7,7 @@ module Celler {
             this.suit = suit;
             this.anchor.set( 0.5 );
             if( size !== 0 ) {
-                this.resize(size);
+                this.resize( size );
             }
         }
 

@@ -1,10 +1,10 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
-// ISuitable.cs
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
+// ISuit.cs
 
-using Celler.App.Web.Game.Server.Entities.Enums;
+using Crimenuts.App.Ajax.Game.Server.Entities.Enums;
 
-namespace Celler.App.Web.Game.Server.Entities.Interfaces
+namespace Crimenuts.App.Ajax.Game.Server.Entities.Interfaces
 {
     public interface ISuit
     {

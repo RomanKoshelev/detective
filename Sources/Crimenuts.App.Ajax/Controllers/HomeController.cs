@@ -1,12 +1,12 @@
-﻿// Celler (c) 2015 Krokodev
-// Celler.App.Web
+﻿// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // HomeController.cs
 
 using System.Web.Mvc;
 
 // Here: Controller | Home 
 
-namespace Celler.App.Web.Controllers
+namespace Crimenuts.App.Ajax.Controllers
 {
     public class HomeController : Controller
     {

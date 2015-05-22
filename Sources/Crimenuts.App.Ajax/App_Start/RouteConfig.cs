@@ -1,11 +1,11 @@
-﻿// Celler (c) 2015 Krokodev
-// Celler.App.Web
+﻿// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // RouteConfig.cs
 
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Celler.App.Web
+namespace Crimenuts.App.Ajax
 {
     public class RouteConfig
     {

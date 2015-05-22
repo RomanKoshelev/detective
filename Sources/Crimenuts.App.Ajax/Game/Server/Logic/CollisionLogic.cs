@@ -1,15 +1,15 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // CollisionLogic.cs
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Celler.App.Web.Game.Server.Entities.Interfaces;
-using Celler.App.Web.Game.Server.Entities.Structs;
-using Celler.App.Web.Game.Server.Managers;
+using Crimenuts.App.Ajax.Game.Server.Entities.Interfaces;
+using Crimenuts.App.Ajax.Game.Server.Entities.Structs;
+using Crimenuts.App.Ajax.Game.Server.Managers;
 
-namespace Celler.App.Web.Game.Server.Logic
+namespace Crimenuts.App.Ajax.Game.Server.Logic
 {
     public class CollisionLogic : IAuxLogic, ICollisionLogic
     {

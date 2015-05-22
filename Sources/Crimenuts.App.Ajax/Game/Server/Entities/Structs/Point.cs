@@ -1,12 +1,12 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // Point.cs
 
 using System;
-using Celler.App.Web.Game.Server.Entities.Interfaces;
-using Celler.App.Web.Game.Server.Models;
+using Crimenuts.App.Ajax.Game.Server.Entities.Interfaces;
+using Crimenuts.App.Ajax.Game.Server.Models;
 
-namespace Celler.App.Web.Game.Server.Entities.Structs
+namespace Crimenuts.App.Ajax.Game.Server.Entities.Structs
 {
     public struct Point : IModelled< PointModel >
     {

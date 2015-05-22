@@ -1,18 +1,18 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // MainLogic.cs
 
 using System;
 using System.Collections.Generic;
-using Celler.App.Web.Game.Server.Clients;
-using Celler.App.Web.Game.Server.Config;
-using Celler.App.Web.Game.Server.Entities.Enums;
-using Celler.App.Web.Game.Server.Managers;
-using Celler.App.Web.Game.Server.Models;
-using Celler.App.Web.Game.Server.Utils;
+using Crimenuts.App.Ajax.Game.Server.Clients;
+using Crimenuts.App.Ajax.Game.Server.Config;
+using Crimenuts.App.Ajax.Game.Server.Entities.Enums;
+using Crimenuts.App.Ajax.Game.Server.Managers;
+using Crimenuts.App.Ajax.Game.Server.Models;
+using Crimenuts.App.Ajax.Game.Server.Utils;
 using NLog;
 
-namespace Celler.App.Web.Game.Server.Logic
+namespace Crimenuts.App.Ajax.Game.Server.Logic
 {
     public class MainLogic : IGameLogic, ITimeLogic
     {
@@ -23,7 +23,7 @@ namespace Celler.App.Web.Game.Server.Logic
             Logger.Trace( "MainLogic" );
 
             _clients = clients;
-            _session = new SessionManager( timer: this, clients : _clients );
+            _session = new SessionManager( timer : this, clients : _clients );
 
             CreateAuxLogics();
             InitSessionManager();
@@ -38,7 +38,7 @@ namespace Celler.App.Web.Game.Server.Logic
 
         int ITimeLogic.GetUpdateInterval()
         {
-            return (int)(UpdateInterval*1000);
+            return ( int ) ( UpdateInterval*1000 );
         }
 
         DateTime ITimeLogic.CurrentTime { get; set; }
@@ -161,7 +161,7 @@ namespace Celler.App.Web.Game.Server.Logic
         private void InitSessionSuit( SessionManager sessionManager, Suit suit )
         {
             var home = _homeLogic.AddHome( suit );
-            var cell = _cellLogic.AddCell( suit, home.IBody.Position);
+            var cell = _cellLogic.AddCell( suit, home.IBody.Position );
 
             var sight = sessionManager.ISightManager.AddSight( suit, cell.IBody.Position, SightSize );
 

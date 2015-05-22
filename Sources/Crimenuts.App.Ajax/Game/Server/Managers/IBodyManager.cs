@@ -1,11 +1,11 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // IBodyManager.cs
 
 using System.Collections.Generic;
-using Celler.App.Web.Game.Server.Entities.Interfaces;
+using Crimenuts.App.Ajax.Game.Server.Entities.Interfaces;
 
-namespace Celler.App.Web.Game.Server.Managers
+namespace Crimenuts.App.Ajax.Game.Server.Managers
 {
     public interface IBodyManager
     {

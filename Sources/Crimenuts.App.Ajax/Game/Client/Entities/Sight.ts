@@ -1,4 +1,4 @@
-﻿/// <reference path="SuitSprite.ts"/>
+﻿/// <reference path="SuitSprite.ts" />
 module Celler {
     export class Sight extends SuitSprite {
 
@@ -71,13 +71,12 @@ module Celler {
         }
 
         prevHintTime = app.game.time.now;
-        prevHintPosition= new Phaser.Point(0,0);
+        prevHintPosition= new Phaser.Point( 0, 0 );
 
         private serverHintSightPosition() {
-            if ( !this.inTweening
-                && ( app.game.time.now - this.prevHintTime ) > Sight.minHintIntgerval 
-                && Phaser.Point.distance(this.prevHintPosition, this.position ) > Sight.minHintDistance )
-            {
+            if( !this.inTweening
+                && ( app.game.time.now - this.prevHintTime ) > Sight.minHintIntgerval
+                && Phaser.Point.distance( this.prevHintPosition, this.position ) > Sight.minHintDistance ) {
                 this.prevHintTime = app.game.time.now;
                 this.prevHintPosition = this.position.clone();
                 app.server.hintSightPosition( this.id, this.toPointModel() );

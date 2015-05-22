@@ -1,8 +1,8 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // ISight.cs
 
-namespace Celler.App.Web.Game.Server.Entities.Interfaces
+namespace Crimenuts.App.Ajax.Game.Server.Entities.Interfaces
 {
     public interface ISight
     {

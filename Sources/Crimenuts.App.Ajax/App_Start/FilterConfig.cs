@@ -1,10 +1,10 @@
-﻿// Celler (c) 2015 Krokodev
-// Celler.App.Web
+﻿// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // FilterConfig.cs
 
 using System.Web.Mvc;
 
-namespace Celler.App.Web
+namespace Crimenuts.App.Ajax
 {
     public class FilterConfig
     {

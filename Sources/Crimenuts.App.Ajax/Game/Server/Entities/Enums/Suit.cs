@@ -1,8 +1,8 @@
-// Celler (c) 2015 Krokodev
-// Celler.App.Web
+// Crimenuts (c) 2015 Krokodev
+// Crimenuts.App.Ajax
 // Suit.cs
 
-namespace Celler.App.Web.Game.Server.Entities.Enums
+namespace Crimenuts.App.Ajax.Game.Server.Entities.Enums
 {
     public enum Suit
     {
