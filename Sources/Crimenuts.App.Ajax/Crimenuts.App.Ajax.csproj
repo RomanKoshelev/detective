@@ -306,6 +306,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
+    <TypeScriptCompile Include="Game\Client\UI\UserInterface.ts" />
+    <TypeScriptCompile Include="Game\Client\UI\BottomBar.ts" />
+    <TypeScriptCompile Include="Game\Client\UI\TopBar.ts" />
     <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
     <TypeScriptCompile Include="Game\Client\Entities\Food.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\SessionManager.ts" />

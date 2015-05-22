@@ -1,8 +1,9 @@
 ﻿module Crimenuts {
     export class ProcessState extends Phaser.State {
 
-        static background = "#000000";//"#004400";
+        static background = "#000000";
         session: SessionManager;
+        ui: UserInterface;
 
         constructor() {
             super();
@@ -13,19 +14,18 @@
         }
 
         preload() {
-            //this.preloadSprites( Suit.Blue );
         }
 
         create() {
             this.session = new SessionManager( this.game );
+            this.ui = new UserInterface( this.game );
         }
 
         update() {
-            this.game.debug.text( `${this.session.id} [${app.tickCount}]`, 10, 20 );
+            //this.game.debug.text( `${this.session.id} [${app.tickCount}]`, 10, 100 );
         }
 
         private preloadSprites( suit: Suit ) {
-            // Assets.Sprites.load( suit, Assets.Type.House );
         }
     }
 }

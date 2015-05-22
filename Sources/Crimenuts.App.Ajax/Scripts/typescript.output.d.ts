@@ -94,15 +94,10 @@ declare module Crimenuts {
     class SessionManager {
         game: Phaser.Game;
         id: string;
-        uiLevel: Phaser.Group;
         constructor(game: Phaser.Game);
         private serverUpdateInterval;
-        private createLevels();
-        private destroyLevels();
         private fromModel(model);
         private onSessionUpdated(model);
-        private destroyAll();
-        createUi(): void;
     }
 }
 declare module Crimenuts {
@@ -146,6 +141,7 @@ declare module Crimenuts {
     class ProcessState extends Phaser.State {
         static background: string;
         session: SessionManager;
+        ui: UserInterface;
         constructor();
         init(): void;
         preload(): void;
@@ -158,6 +154,25 @@ declare module Crimenuts {
     class Size {
         width: number;
         height: number;
+    }
+}
+declare module Crimenuts {
+    class BottomBar extends Phaser.Graphics {
+        text: Phaser.Text;
+        constructor(game: Phaser.Game);
+        preUpdate(): void;
+    }
+}
+declare module Crimenuts {
+    class TopBar extends Phaser.Graphics {
+        text: Phaser.Text;
+        constructor(game: Phaser.Game);
+    }
+}
+declare module Crimenuts {
+    class UserInterface {
+        private items;
+        constructor(game: Phaser.Game);
     }
 }
 declare module Crimenuts {

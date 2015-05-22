@@ -261,70 +261,16 @@ var Crimenuts;
             });
             Crimenuts.app.server.onSessionUpdated.add(this.onSessionUpdated, this);
         }
-        SessionManager.prototype.createLevels = function () {
-            this.uiLevel = this.game.add.group();
-        };
-        SessionManager.prototype.destroyLevels = function () {
-            this.uiLevel.destroy();
-        };
         SessionManager.prototype.fromModel = function (model) {
             this.id = model.Id;
             this.serverUpdateInterval = model.UpdateInterval;
-            this.createLevels();
-            this.createUi();
         };
         SessionManager.prototype.onSessionUpdated = function (model) {
-            this.destroyAll();
             this.fromModel(model);
-        };
-        SessionManager.prototype.destroyAll = function () {
-            this.destroyLevels();
-        };
-        SessionManager.prototype.createUi = function () {
-            this.uiLevel.add(new TopBar(this.game));
-            this.uiLevel.add(new BottomBar(this.game));
         };
         return SessionManager;
     })();
     Crimenuts.SessionManager = SessionManager;
-    var TopBar = (function (_super) {
-        __extends(TopBar, _super);
-        function TopBar(game) {
-            var h1 = 30;
-            var h2 = 3;
-            var c1 = 0x005500;
-            var c2 = 0x770000;
-            var wg = game.width;
-            var x = 0;
-            var y = 0;
-            _super.call(this, game, x, y);
-            this.beginFill(c1);
-            this.drawRect(0, 0, wg, h1);
-            this.beginFill(c2);
-            this.drawRect(0, h1, wg, h2);
-        }
-        return TopBar;
-    })(Phaser.Graphics);
-    var BottomBar = (function (_super) {
-        __extends(BottomBar, _super);
-        function BottomBar(game) {
-            var h1 = 3;
-            var h2 = 30;
-            var c1 = 0x770000;
-            var c2 = 0x005500;
-            var wg = game.width;
-            var hg = game.height;
-            var hb = h1 + h2;
-            var x = 0;
-            var y = hg - hb;
-            _super.call(this, game, x, y);
-            this.beginFill(c1);
-            this.drawRect(0, 0, wg, h1);
-            this.beginFill(c2);
-            this.drawRect(0, h1, wg, h2);
-        }
-        return BottomBar;
-    })(Phaser.Graphics);
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -454,18 +400,17 @@ var Crimenuts;
             this.game.stage.backgroundColor = ProcessState.background;
         };
         ProcessState.prototype.preload = function () {
-            //this.preloadSprites( Suit.Blue );
         };
         ProcessState.prototype.create = function () {
             this.session = new Crimenuts.SessionManager(this.game);
+            this.ui = new Crimenuts.UserInterface(this.game);
         };
         ProcessState.prototype.update = function () {
-            this.game.debug.text("" + this.session.id + " [" + Crimenuts.app.tickCount + "]", 10, 20);
+            //this.game.debug.text( `${this.session.id} [${app.tickCount}]`, 10, 100 );
         };
         ProcessState.prototype.preloadSprites = function (suit) {
-            // Assets.Sprites.load( suit, Assets.Type.House );
         };
-        ProcessState.background = "#000000"; //"#004400";
+        ProcessState.background = "#000000";
         return ProcessState;
     })(Phaser.State);
     Crimenuts.ProcessState = ProcessState;
@@ -478,6 +423,79 @@ var Crimenuts;
         return Size;
     })();
     Crimenuts.Size = Size;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var BottomBar = (function (_super) {
+        __extends(BottomBar, _super);
+        function BottomBar(game) {
+            var h1 = 3;
+            var h2 = 30;
+            var c1 = 0x770000;
+            var c2 = 0x005500;
+            var wg = game.width;
+            var hg = game.height;
+            var hb = h1 + h2;
+            var x = 0;
+            var y = hg - hb;
+            _super.call(this, game, x, y);
+            this.beginFill(c1);
+            this.drawRect(0, 0, wg, h1);
+            this.beginFill(c2);
+            this.drawRect(0, h1, wg, h2);
+            this.addChild(this.text = new Phaser.Text(game, 7, 7, "Case #1969", {
+                font: "18px Arial",
+                fill: "#44dd44",
+                align: "left"
+            }));
+        }
+        BottomBar.prototype.preUpdate = function () {
+            this.text.setText("[" + Crimenuts.app.tickCount + "]");
+        };
+        return BottomBar;
+    })(Phaser.Graphics);
+    Crimenuts.BottomBar = BottomBar;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var TopBar = (function (_super) {
+        __extends(TopBar, _super);
+        function TopBar(game) {
+            var h1 = 30;
+            var h2 = 3;
+            var c1 = 0x005500;
+            var c2 = 0x770000;
+            var wg = game.width;
+            var x = 0;
+            var y = 0;
+            _super.call(this, game, x, y);
+            this.beginFill(c1);
+            this.drawRect(0, 0, wg, h1);
+            this.endFill();
+            this.beginFill(c2);
+            this.drawRect(0, h1, wg, h2);
+            this.endFill();
+            this.addChild(this.text = new Phaser.Text(game, 7, 7, "Case #1969", {
+                font: "18px Arial",
+                fill: "#44dd44",
+                align: "left"
+            }));
+        }
+        return TopBar;
+    })(Phaser.Graphics);
+    Crimenuts.TopBar = TopBar;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var UserInterface = (function () {
+        function UserInterface(game) {
+            this.items = game.add.group();
+            this.items.add(new Crimenuts.TopBar(game));
+            this.items.add(new Crimenuts.BottomBar(game));
+        }
+        return UserInterface;
+    })();
+    Crimenuts.UserInterface = UserInterface;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
