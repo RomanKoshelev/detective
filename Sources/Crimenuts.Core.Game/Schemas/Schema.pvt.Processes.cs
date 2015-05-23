@@ -8,7 +8,7 @@ using Crimenuts.Core.Game.Cases;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Processes;
 using Crimenuts.Utils;
-using Crocodev.Common.Identifier;
+using Krokodev.Common.Identifier;
 
 namespace Crimenuts.Core.Game.Schemas
 {

@@ -42,9 +42,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Crocodev.Common, Version=1.0.1.36194, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\crocodev.common.1.0.1.36194\lib\net451\Crocodev.Common.dll</HintPath>
+    <Reference Include="Krokodev.Common">
+      <HintPath>..\..\packages\Krokodev.Common.1.2.1.28737\lib\net45\Krokodev.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -66,6 +65,12 @@
     </Reference>
     <Reference Include="MoreLinq">
       <HintPath>..\..\packages\morelinq.1.1.0\lib\net35\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="Nereal.Extensions">
+      <HintPath>..\..\packages\Krokodev.Common.1.2.1.28737\lib\net45\Nereal.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Nereal.Serialization">
+      <HintPath>..\..\packages\Krokodev.Common.1.2.1.28737\lib\net45\Nereal.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

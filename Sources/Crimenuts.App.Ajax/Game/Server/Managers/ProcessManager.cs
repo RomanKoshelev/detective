@@ -7,7 +7,7 @@ using Crimenuts.App.Ajax.Game.Server.Clients;
 using Crimenuts.App.Ajax.Game.Server.Models;
 using Crimenuts.Core.Game.Processes;
 using Crimenuts.Core.Game.Schemas;
-using Crocodev.Common.Identifier;
+using Krokodev.Common.Identifier;
 
 namespace Crimenuts.App.Ajax.Game.Server.Managers
 {

@@ -9,7 +9,7 @@ using Crimenuts.Core.Game.Cases;
 using Crimenuts.Core.Game.Masters;
 using Crimenuts.Core.Game.Processes;
 using Crimenuts.Utils;
-using Crocodev.Common.Identifier;
+using Krokodev.Common.Identifier;
 using MoreLinq;
 
 namespace Crimenuts.Core.Game.Schemas

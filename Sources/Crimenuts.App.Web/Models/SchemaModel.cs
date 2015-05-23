@@ -10,7 +10,7 @@ using Crimenuts.Core.Game.Cases;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Processes;
 using Crimenuts.Core.Game.Schemas;
-using Crocodev.Common.Identifier;
+using Krokodev.Common.Identifier;
 
 namespace Crimenuts.App.Web.Models
 {

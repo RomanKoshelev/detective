@@ -4,7 +4,7 @@
 
 using Crimenuts.Core.Game.Cases;
 using Crimenuts.Core.Game.Members;
-using Crocodev.Common.Identifier;
+using Krokodev.Common.Identifier;
 
 namespace Crimenuts.Core.Game.Schemas
 {
