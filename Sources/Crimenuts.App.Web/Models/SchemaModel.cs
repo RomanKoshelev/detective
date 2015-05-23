@@ -6,10 +6,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Crimenuts.Core.Game;
-using Crimenuts.Core.Game.Case;
+using Crimenuts.Core.Game.Cases;
 using Crimenuts.Core.Game.Enums;
-using Crimenuts.Core.Game.Process;
-using Crimenuts.Core.Game.Schema;
+using Crimenuts.Core.Game.Processes;
+using Crimenuts.Core.Game.Schemas;
 using Crocodev.Common.Identifier;
 
 namespace Crimenuts.App.Web.Models

@@ -25,9 +25,9 @@ namespace Crimenuts.App.Ajax.Game.Server.Hub
 
         #region IGameLogic
 
-        public ProcessModel GetProcess()
+        public ProcessModel GetProcess( string processId )
         {
-            return _gameLogic.GetProcess();
+            return _gameLogic.GetProcess( processId );
         }
 
         public void Update()

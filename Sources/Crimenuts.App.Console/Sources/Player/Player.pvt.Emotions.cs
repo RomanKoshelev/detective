@@ -7,8 +7,8 @@ using System;
 using System.Linq;
 using Crimenuts.Core.Game;
 using Crimenuts.Core.Game.Enums;
-using Crimenuts.Core.Game.History;
-using Crimenuts.Core.Game.Member;
+using Crimenuts.Core.Game.Histories;
+using Crimenuts.Core.Game.Members;
 using MoreLinq;
 using Action = Crimenuts.Core.Game.Enums.Action;
 

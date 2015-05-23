@@ -2,7 +2,7 @@
 // Crimenuts.Core.Game
 // IOptions.cs
 
-using Crimenuts.Core.Game.Pack.Worlds;
+using Crimenuts.Core.Game.Packs.Worlds;
 
 namespace Crimenuts.Core.Game.IOptions
 {

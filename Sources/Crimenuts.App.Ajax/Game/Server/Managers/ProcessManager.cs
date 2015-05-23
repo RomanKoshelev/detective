@@ -4,19 +4,19 @@
 
 using System;
 using Crimenuts.App.Ajax.Game.Server.Clients;
-using Crimenuts.App.Ajax.Game.Server.Entities.Abstract;
-using Crimenuts.App.Ajax.Game.Server.Entities.Interfaces;
 using Crimenuts.App.Ajax.Game.Server.Models;
+using Crimenuts.Core.Game.Processes;
+using Crimenuts.Core.Game.Schemas;
+using Crocodev.Common.Identifier;
 
 namespace Crimenuts.App.Ajax.Game.Server.Managers
 {
-    public class ProcessManager : Entity< ProcessModel >, IProcess
+    public class ProcessManager : IProcessManager
     {
         #region Constructor
 
         public ProcessManager( IGameClient clients )
         {
-            _id = Guid.NewGuid().ToString();
             _clients = clients;
         }
 
@@ -25,9 +25,19 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
 
         #region IProcess
 
-        public IProcess Process
+        public IProcessManager IProcessManager
         {
             get { return this; }
+        }
+
+        ProcessModel IProcessManager.GetModel( string processId )
+        {
+            var id = ( Identifiable< Process, int >.Identifier ) Convert.ToInt64( processId );
+            var process = Schema.FindProcess( id );
+            return new ProcessModel {
+                Id = process.Id.Value.ToString(),
+                CaseId = process.CaseId.Value.ToString()
+            };
         }
 
         #endregion
@@ -35,20 +45,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
 
         #region Fields
 
-        private readonly string _id;
         private readonly IGameClient _clients;
-
-        #endregion
-
-
-        #region Overrides
-
-        protected override ProcessModel ToModel()
-        {
-            return new ProcessModel {
-                Id = _id,
-            };
-        }
 
         #endregion
     }

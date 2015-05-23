@@ -7,9 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Crimenuts.Core.Game;
-using Crimenuts.Core.Game.Case;
-using Crimenuts.Core.Game.Member;
-using Crimenuts.Core.Game.Schema;
+using Crimenuts.Core.Game.Cases;
+using Crimenuts.Core.Game.Members;
+using Crimenuts.Core.Game.Schemas;
 using Crimenuts.Utils;
 using Crocodev.Common.Identifier;
 

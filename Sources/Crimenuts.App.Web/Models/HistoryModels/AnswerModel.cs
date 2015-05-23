@@ -5,7 +5,7 @@
 
 using Crimenuts.Core.Game;
 using Crimenuts.Core.Game.Enums;
-using Crimenuts.Core.Game.History;
+using Crimenuts.Core.Game.Histories;
 
 namespace Crimenuts.App.Web.Models
 {

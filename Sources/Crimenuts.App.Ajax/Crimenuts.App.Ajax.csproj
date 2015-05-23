@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Crimenuts.App.Ajax</RootNamespace>
     <AssemblyName>Crimenuts.App.Ajax</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -22,6 +22,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +42,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Crocodev.Common, Version=1.0.1.36194, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\crocodev.common.1.0.1.36194\lib\net451\Crocodev.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -78,6 +83,7 @@
     <Reference Include="System.Data">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity">
       <Private>True</Private>
     </Reference>
@@ -93,19 +99,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations">
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Core">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Extensions">
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Abstractions">
@@ -163,6 +158,7 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -190,6 +186,7 @@
     <Compile Include="Game\Server\Entities\Interfaces\IProcess.cs" />
     <Compile Include="Game\Server\Logic\IAuxLogic.cs" />
     <Compile Include="Game\Server\Logic\ITimeLogic.cs" />
+    <Compile Include="Game\Server\Managers\IProcessManager.cs" />
     <Compile Include="Game\Server\Utils\Calc.cs" />
     <Compile Include="Game\Server\Entities\Interfaces\IIdentifiable.cs" />
     <Compile Include="Game\Server\Managers\ProcessManager.cs" />
@@ -224,7 +221,6 @@
     </Content>
     <Content Include="NLog.config" />
     <Content Include="App_Code\GameView.cshtml" />
-    <None Include="Properties\PublishProfiles\celler.pubxml" />
     <None Include="Properties\PublishProfiles\crd-test-001.pubxml" />
     <None Include="Properties\PublishProfiles\crd-test-002.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -285,6 +281,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crimenuts.Core.Game\Crimenuts.Core.Game.csproj">
+      <Project>{476e8372-03a5-4bca-9e1c-2c51cfe3eb91}</Project>
+      <Name>Crimenuts.Core.Game</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

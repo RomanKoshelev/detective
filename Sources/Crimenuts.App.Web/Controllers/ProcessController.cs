@@ -6,8 +6,8 @@
 using System.Web.Mvc;
 using Crimenuts.App.Web.Models;
 using Crimenuts.Core.Game;
-using Crimenuts.Core.Game.Process;
-using Crimenuts.Core.Game.Schema;
+using Crimenuts.Core.Game.Processes;
+using Crimenuts.Core.Game.Schemas;
 using Crocodev.Common.Identifier;
 
 namespace Crimenuts.App.Web.Controllers

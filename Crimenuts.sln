@@ -18,10 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.Utils", "Sources\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.Utils.Tests", "Sources\Crimenuts.Utils.Tests\Crimenuts.Utils.Tests.csproj", "{2953AE32-84AD-42D9-BCB9-036F23CCC84A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Research.Signalr.Typescript", "Sources\Research.Signalr.Typescript\Research.Signalr.Typescript.csproj", "{6FF15764-87AC-4B6B-AAF1-EC6393066BED}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Research.Phaser.Typescript", "Sources\Research.Phaser.Typescript\Research.Phaser.Typescript.csproj", "{058E363F-6294-402F-AFF5-E53B86D775F1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimenuts.App.Ajax", "Sources\Crimenuts.App.Ajax\Crimenuts.App.Ajax.csproj", "{A76A3D69-BAF8-4BA3-96FF-2C9EAD4A310A}"
 EndProject
 Global
@@ -50,14 +46,6 @@ Global
 		{2953AE32-84AD-42D9-BCB9-036F23CCC84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2953AE32-84AD-42D9-BCB9-036F23CCC84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2953AE32-84AD-42D9-BCB9-036F23CCC84A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6FF15764-87AC-4B6B-AAF1-EC6393066BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FF15764-87AC-4B6B-AAF1-EC6393066BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FF15764-87AC-4B6B-AAF1-EC6393066BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FF15764-87AC-4B6B-AAF1-EC6393066BED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{058E363F-6294-402F-AFF5-E53B86D775F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{058E363F-6294-402F-AFF5-E53B86D775F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{058E363F-6294-402F-AFF5-E53B86D775F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{058E363F-6294-402F-AFF5-E53B86D775F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A76A3D69-BAF8-4BA3-96FF-2C9EAD4A310A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A76A3D69-BAF8-4BA3-96FF-2C9EAD4A310A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A76A3D69-BAF8-4BA3-96FF-2C9EAD4A310A}.Release|Any CPU.ActiveCfg = Release|Any CPU

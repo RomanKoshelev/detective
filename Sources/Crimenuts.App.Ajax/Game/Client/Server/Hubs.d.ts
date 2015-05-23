@@ -14,11 +14,6 @@
 interface SignalR {
  
     /**
-      * The hub implemented by Research.Signalr.Typescript.Hubs.ChatHub
-      */
-    chatHub : ChatHub;
- 
-    /**
       * The hub implemented by Crimenuts.App.Ajax.Game.Server.Hub.GameHub
       */
     gameHub : GameHub;
@@ -29,47 +24,6 @@ interface SignalR {
 // Service Contracts //
 ///////////////////////
 //#region service contracts
- 
-//#region ChatHub hub
- 
-interface ChatHub {
-    
-    /**
-      * This property lets you send messages to the ChatHub hub.
-      */
-    server : ChatHubServer;
- 
-    /**
-      * The functions on this property should be replaced if you want to receive messages from the ChatHub hub.
-      */
-    client : ChatHubClient;
-}
- 
-interface ChatHubServer {
- 
-    /** 
-      * Sends a "send" message to the ChatHub hub.
-      * Contract Documentation: ---
-      * @param msg {ChatMessage} 
-      * @return {JQueryPromise of void}
-      */
-    send(msg : ChatMessage) : JQueryPromise<void>;
-}
- 
-interface ChatHubClient
-{
- 
-    /**
-      * Set this function with a "function(msg : ChatMessage){}" to receive the "addNewMessageToPage" message from the ChatHub hub.
-      * Contract Documentation: ---
-      * @param msg {ChatMessage} 
-      * @return {void}
-      */
-    addNewMessageToPage : (msg : ChatMessage) => void;
-}
- 
-//#endregion ChatHub hub
- 
  
 //#region GameHub hub
  
@@ -98,9 +52,10 @@ interface GameHubServer {
     /** 
       * Sends a "getProcess" message to the GameHub hub.
       * Contract Documentation: ---
+      * @param processId {string} 
       * @return {JQueryPromise of ProcessModel}
       */
-    getProcess() : JQueryPromise<ProcessModel>;
+    getProcess(processId : string) : JQueryPromise<ProcessModel>;
  
     /** 
       * Sends a "update" message to the GameHub hub.
@@ -147,15 +102,7 @@ interface GameHubClient
   */
 interface ProcessModel {
     Id : string;
-}
- 
- 
-/**
-  * Data contract for Research.Signalr.Typescript.Hubs.ChatMessage
-  */
-interface ChatMessage {
-    Name : string;
-    Message : string;
+    CaseId : string;
 }
  
 //#endregion data contracts

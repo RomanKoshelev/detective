@@ -7,8 +7,8 @@ using System.Diagnostics;
 using System.Linq;
 using Crimenuts.Core.Game;
 using Crimenuts.Core.Game.Enums;
-using Crimenuts.Core.Game.History;
-using Crimenuts.Core.Game.Member;
+using Crimenuts.Core.Game.Histories;
+using Crimenuts.Core.Game.Members;
 using MoreLinq;
 
 namespace Crimenuts.App.Console

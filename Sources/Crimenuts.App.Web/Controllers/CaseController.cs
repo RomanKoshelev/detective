@@ -6,7 +6,7 @@
 using System.Web.Mvc;
 using Crimenuts.App.Web.Models;
 using Crimenuts.Core.Game;
-using Crimenuts.Core.Game.Case;
+using Crimenuts.Core.Game.Cases;
 using Crimenuts.Core.Game.Enums;
 using Crocodev.Common.Identifier;
 

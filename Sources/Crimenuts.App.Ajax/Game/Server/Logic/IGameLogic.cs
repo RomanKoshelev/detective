@@ -8,7 +8,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
 {
     public interface IGameLogic
     {
-        ProcessModel GetProcess();
+        ProcessModel GetProcess( string processId );
         void Update();
     }
 }

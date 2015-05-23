@@ -15,7 +15,7 @@
         }
 
         getProcess(): JQueryPromise<ProcessModel> {
-            return this.server.getProcess();
+            return this.server.getProcess("11");
         }
 
         update(): JQueryPromise<void> {
@@ -51,6 +51,5 @@
         processUpdated( model: ProcessModel ): void {
             this.onProcessUpdated.dispatch( model );
         }
-
     }
 }

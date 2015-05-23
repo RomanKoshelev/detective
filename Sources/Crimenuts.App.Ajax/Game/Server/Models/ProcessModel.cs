@@ -7,5 +7,6 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
     public class ProcessModel
     {
         public string Id { get; set; }
+        public string CaseId { get; set; }
     }
 }

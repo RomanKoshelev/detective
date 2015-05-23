@@ -22,7 +22,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
             Logger.Trace( "MainLogic" );
 
             _clients = clients;
-            _process = new ProcessManager( clients : _clients );
+            _processManager = new ProcessManager( clients : _clients );
         }
 
         #endregion
@@ -44,10 +44,11 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
 
         #region IGameLogic
 
-        ProcessModel IGameLogic.GetProcess()
+        ProcessModel IGameLogic.GetProcess( string processId )
         {
-            return _process.IModelled.Model;
+            return _processManager.IProcessManager.GetModel( processId );
         }
+
         void IGameLogic.Update()
         {
             UpdateTime();
@@ -72,7 +73,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IGameClient _clients;
-        private readonly ProcessManager _process;
+        private readonly ProcessManager _processManager;
         private readonly List< IAuxLogic > _auxLlogics = new List< IAuxLogic >();
         private int _tickCount;
 
