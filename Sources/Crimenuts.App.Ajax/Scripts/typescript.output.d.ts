@@ -52,7 +52,6 @@ declare module Crimenuts {
     class ProcessState extends Phaser.State {
         static background: string;
         processView: ProcessView;
-        userInterfaceView: UserInterfaceView;
         server: ServerAdapter;
         constructor();
         init(): void;
@@ -65,7 +64,6 @@ declare module Crimenuts {
     class BottomBar extends Phaser.Graphics {
         text: Phaser.Text;
         constructor(game: Phaser.Game);
-        preUpdate(): void;
     }
 }
 declare module Crimenuts {
@@ -76,19 +74,26 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class ProcessView {
-        game: Phaser.Game;
-        id: string;
         constructor(game: Phaser.Game, server: ServerAdapter);
+        private game;
+        private processId;
+        private caseId;
+        private ui;
+        private tickCount;
         private serverUpdateInterval;
         private fromModel(model);
         private onSessionUpdated(model);
+        private onTickCountUpdated(count);
+        private updateUi();
     }
 }
 declare module Crimenuts {
     class UserInterfaceView {
         private items;
         bottomBar: BottomBar;
+        topBar: TopBar;
         constructor(game: Phaser.Game);
         setBottomText(text: string): void;
+        setCaseId(caseId: string): void;
     }
 }

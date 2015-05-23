@@ -25,17 +25,13 @@
             this.addChild( this.text = new Phaser.Text(
                 game,
                 7, 7,
-                "Case #1969",
+                "",
                 {
                     font: "18px Arial",
                     fill: "#44dd44",
                     align: "left"
                 }) );
             
-        }
-
-        preUpdate() {
-            this.text.setText(`[${app.tickCount}]`);
         }
     }
 }

@@ -145,7 +145,6 @@ var Crimenuts;
         };
         ProcessState.prototype.create = function () {
             this.processView = new Crimenuts.ProcessView(this.game, this.server);
-            this.userInterfaceView = new Crimenuts.UserInterfaceView(this.game);
         };
         ProcessState.prototype.update = function () {
             //this.game.debug.text( `${this.session.id} [${app.tickCount}]`, 10, 100 );
@@ -174,15 +173,12 @@ var Crimenuts;
             this.drawRect(0, 0, wg, h1);
             this.beginFill(c2);
             this.drawRect(0, h1, wg, h2);
-            this.addChild(this.text = new Phaser.Text(game, 7, 7, "Case #1969", {
+            this.addChild(this.text = new Phaser.Text(game, 7, 7, "", {
                 font: "18px Arial",
                 fill: "#44dd44",
                 align: "left"
             }));
         }
-        BottomBar.prototype.preUpdate = function () {
-            this.text.setText("[" + Crimenuts.app.tickCount + "]");
-        };
         return BottomBar;
     })(Phaser.Graphics);
     Crimenuts.BottomBar = BottomBar;
@@ -206,7 +202,7 @@ var Crimenuts;
             this.beginFill(c2);
             this.drawRect(0, h1, wg, h2);
             this.endFill();
-            this.addChild(this.text = new Phaser.Text(game, 7, 7, "Crime Nuts Case #1969", {
+            this.addChild(this.text = new Phaser.Text(game, 7, 7, "", {
                 font: "18px Arial",
                 fill: "#44dd44",
                 align: "left"
@@ -222,16 +218,28 @@ var Crimenuts;
         function ProcessView(game, server) {
             var _this = this;
             this.game = game;
+            this.ui = new Crimenuts.UserInterfaceView(this.game);
             server.getProcess().done(function (model) {
                 _this.fromModel(model);
+                _this.updateUi();
             });
             server.onProcessUpdated.add(this.onSessionUpdated, this);
+            server.onTickCountUpdated.add(this.onTickCountUpdated, this);
         }
         ProcessView.prototype.fromModel = function (model) {
-            this.id = model.Id;
+            this.processId = model.Id;
+            this.caseId = model.CaseId;
         };
         ProcessView.prototype.onSessionUpdated = function (model) {
             this.fromModel(model);
+        };
+        ProcessView.prototype.onTickCountUpdated = function (count) {
+            this.tickCount = count;
+            this.updateUi();
+        };
+        ProcessView.prototype.updateUi = function () {
+            this.ui.setCaseId(this.caseId);
+            this.ui.setBottomText("" + this.processId + " [" + Crimenuts.app.tickCount + "]");
         };
         return ProcessView;
     })();
@@ -242,11 +250,14 @@ var Crimenuts;
     var UserInterfaceView = (function () {
         function UserInterfaceView(game) {
             this.items = game.add.group();
-            this.items.add(new Crimenuts.TopBar(game));
+            this.items.add(this.topBar = new Crimenuts.TopBar(game));
             this.items.add(this.bottomBar = new Crimenuts.BottomBar(game));
         }
         UserInterfaceView.prototype.setBottomText = function (text) {
             this.bottomBar.text.setText(text);
+        };
+        UserInterfaceView.prototype.setCaseId = function (caseId) {
+            this.topBar.text.setText("Crime Nuts Case #" + caseId);
         };
         return UserInterfaceView;
     })();
