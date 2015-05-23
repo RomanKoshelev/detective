@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Crimenuts.Core.Game;
+using Crimenuts.Core.Game.Member;
 using Crimenuts.Utils;
 
 namespace Crimenuts.App.Console

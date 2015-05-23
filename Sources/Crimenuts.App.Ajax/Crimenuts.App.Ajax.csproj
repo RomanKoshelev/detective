@@ -174,7 +174,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Game\Client\Assets\Sprites\" />
-    <Folder Include="Game\Client\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -187,55 +186,17 @@
     <Compile Include="Game\Server\App\GameApplication.cs" />
     <Compile Include="Game\Server\Config\Settings.cs" />
     <Compile Include="Game\Server\Entities\Abstract\Entity.cs" />
-    <Compile Include="Game\Server\Entities\Abstract\ValuableGameObject.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\IHome.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\IValuable.cs" />
-    <Compile Include="Game\Server\Entities\GameObjects\Food.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\ISight.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\ICell.cs" />
     <Compile Include="Game\Server\Entities\Interfaces\IModelled.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\ISuit.cs" />
-    <Compile Include="Game\Server\Entities\GameObjects\Sight.cs" />
-    <Compile Include="Game\Server\Entities\GameObjects\Home.cs" />
-    <Compile Include="Game\Server\Entities\GameObjects\Cell.cs" />
-    <Compile Include="Game\Server\Logic\CellLogic.cs" />
-    <Compile Include="Game\Server\Logic\CollisionLogic.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\ISession.cs" />
-    <Compile Include="Game\Server\Utils\EntityTools.cs" />
-    <Compile Include="Game\Server\Utils\TypeTools.cs" />
-    <Compile Include="Game\Server\Logic\FoodLogic.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\IBody.cs" />
-    <Compile Include="Game\Server\Logic\HomeLogic.cs" />
-    <Compile Include="Game\Server\Logic\ICellLogic.cs" />
-    <Compile Include="Game\Server\Logic\ICollisionLogic.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\IFood.cs" />
-    <Compile Include="Game\Server\Logic\IHomeLogic.cs" />
-    <Compile Include="Game\Server\Utils\ModelToos.cs" />
-    <Compile Include="Game\Server\Utils\Calc.cs" />
-    <Compile Include="Game\Server\Managers\IBodyManager.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\IIdentifiable.cs" />
-    <Compile Include="Game\Server\Managers\ICellManager.cs" />
-    <Compile Include="Game\Server\Managers\IFoodManager.cs" />
-    <Compile Include="Game\Server\Logic\ITimeLogic.cs" />
+    <Compile Include="Game\Server\Entities\Interfaces\IProcess.cs" />
     <Compile Include="Game\Server\Logic\IAuxLogic.cs" />
-    <Compile Include="Game\Server\Entities\Structs\Size.cs" />
-    <Compile Include="Game\Server\Managers\IHomeManager.cs" />
-    <Compile Include="Game\Server\Managers\ISightManager.cs" />
-    <Compile Include="Game\Server\Models\FoodModel.cs" />
-    <Compile Include="Game\Server\Models\SightModel.cs" />
-    <Compile Include="Game\Server\Models\HomeModel.cs" />
-    <Compile Include="Game\Server\Entities\Structs\Point.cs" />
-    <Compile Include="Game\Server\Managers\SessionManager.cs" />
-    <Compile Include="Game\Server\Entities\Enums\Suit.cs" />
-    <Compile Include="Game\Server\Entities\Abstract\GameObject.cs" />
+    <Compile Include="Game\Server\Logic\ITimeLogic.cs" />
+    <Compile Include="Game\Server\Utils\Calc.cs" />
+    <Compile Include="Game\Server\Entities\Interfaces\IIdentifiable.cs" />
+    <Compile Include="Game\Server\Managers\ProcessManager.cs" />
     <Compile Include="Game\Server\Logic\MainLogic.cs" />
     <Compile Include="Game\Server\Clients\IGameClient.cs" />
     <Compile Include="Game\Server\Logic\IGameLogic.cs" />
-    <Compile Include="Game\Server\Models\GameObjectModel.cs" />
-    <Compile Include="Game\Server\Models\CellModel.cs" />
-    <Compile Include="Game\Server\Models\SessionModel.cs" />
-    <Compile Include="Game\Server\Models\SizeModel.cs" />
-    <Compile Include="Game\Server\Models\PointModel.cs" />
+    <Compile Include="Game\Server\Models\ProcessModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -298,9 +259,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
     <TypeScriptCompile Include="Game\Client\Views\UserInterfaceView.ts" />
-    <TypeScriptCompile Include="Game\Client\UI\BottomBar.ts" />
-    <TypeScriptCompile Include="Game\Client\UI\TopBar.ts" />
-    <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\BottomBar.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\TopBar.ts" />
+    <TypeScriptCompile Include="Game\Client\Entities\Size.ts" />
     <TypeScriptCompile Include="Game\Client\Views\ProcessView.ts" />
     <TypeScriptCompile Include="Game\Client\States\ProcessState.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\p2.d.ts" />

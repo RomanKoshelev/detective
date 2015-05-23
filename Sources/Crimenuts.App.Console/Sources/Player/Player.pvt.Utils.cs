@@ -5,6 +5,9 @@
 
 using System.Collections.Generic;
 using Crimenuts.Core.Game;
+using Crimenuts.Core.Game.Enums;
+using Crimenuts.Core.Game.History;
+using Crimenuts.Core.Game.Member;
 
 namespace Crimenuts.App.Console
 {

@@ -5,6 +5,7 @@
 
 using System;
 using Crimenuts.Core.Game;
+using Crimenuts.Core.Game.Schema;
 
 namespace Crimenuts.App.Console
 {

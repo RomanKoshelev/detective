@@ -5,6 +5,8 @@
 
 using System.Collections.Generic;
 using Crimenuts.Core.Game;
+using Crimenuts.Core.Game.Enums;
+using Crimenuts.Core.Game.Process;
 using Action = System.Action;
 
 namespace Crimenuts.App.Console

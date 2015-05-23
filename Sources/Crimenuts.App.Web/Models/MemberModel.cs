@@ -4,6 +4,8 @@
 // Roman, 2015-03-29 12:56 AM
 
 using Crimenuts.Core.Game;
+using Crimenuts.Core.Game.Enums;
+using Crimenuts.Core.Game.Member;
 using Crimenuts.Utils;
 
 namespace Crimenuts.App.Web.Models

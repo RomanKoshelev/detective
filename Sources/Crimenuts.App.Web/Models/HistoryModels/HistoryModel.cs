@@ -7,9 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Crimenuts.Core.Game;
+using Crimenuts.Core.Game.Enums;
+using Crimenuts.Core.Game.History;
 using Crimenuts.Utils;
 using MoreLinq;
-using Action = Crimenuts.Core.Game.Action;
+using Action = Crimenuts.Core.Game.Enums.Action;
 
 namespace Crimenuts.App.Web.Models
 {

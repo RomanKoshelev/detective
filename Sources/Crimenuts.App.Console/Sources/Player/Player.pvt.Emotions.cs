@@ -6,8 +6,11 @@
 using System;
 using System.Linq;
 using Crimenuts.Core.Game;
+using Crimenuts.Core.Game.Enums;
+using Crimenuts.Core.Game.History;
+using Crimenuts.Core.Game.Member;
 using MoreLinq;
-using Action = Crimenuts.Core.Game.Action;
+using Action = Crimenuts.Core.Game.Enums.Action;
 
 namespace Crimenuts.App.Console
 {

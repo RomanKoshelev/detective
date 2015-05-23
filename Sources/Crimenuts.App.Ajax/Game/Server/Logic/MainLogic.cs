@@ -4,12 +4,11 @@
 
 using System;
 using System.Collections.Generic;
+using Celler.App.Web.Game.Server.Logic;
 using Crimenuts.App.Ajax.Game.Server.Clients;
 using Crimenuts.App.Ajax.Game.Server.Config;
-using Crimenuts.App.Ajax.Game.Server.Entities.Enums;
 using Crimenuts.App.Ajax.Game.Server.Managers;
 using Crimenuts.App.Ajax.Game.Server.Models;
-using Crimenuts.App.Ajax.Game.Server.Utils;
 using NLog;
 
 namespace Crimenuts.App.Ajax.Game.Server.Logic
@@ -23,10 +22,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
             Logger.Trace( "MainLogic" );
 
             _clients = clients;
-            _session = new SessionManager( timer : this, clients : _clients );
-
-            CreateAuxLogics();
-            InitSessionManager();
+            _process = new ProcessManager( clients : _clients );
         }
 
         #endregion
@@ -48,44 +44,10 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
 
         #region IGameLogic
 
-        void IGameLogic.MoveCell( string id, PointModel position )
+        ProcessModel IGameLogic.GetProcess()
         {
-            _cellLogic.MoveCell( id, position );
+            return _process.IModelled.Model;
         }
-
-        void IGameLogic.HintSightPosition( string id, PointModel position )
-        {
-            ModelToos.KeepPointInBounds( position, 0, 0, WorldWidth, WorldHeight );
-            _clients.SightPositionHinted( id, position );
-        }
-
-        void IGameLogic.MoveSight( string id, PointModel position )
-        {
-            ModelToos.KeepPointInBounds( position, 0, 0, WorldWidth, WorldHeight );
-            _session.ISightManager.MoveSight( id, position );
-        }
-
-        SizeModel IGameLogic.GetWorldBounds()
-        {
-            return new SizeModel {
-                Width = WorldWidth,
-                Height = WorldHeight
-            };
-        }
-
-        SessionModel IGameLogic.GetSession()
-        {
-            return _session.IModelled.Model;
-        }
-
-        void IGameLogic.ResetSession()
-        {
-            Logger.Trace( "ResetSession" );
-            _session.ISession.Reset();
-            InitSessionManager();
-            _clients.SessionUpdated( _session.IModelled.Model );
-        }
-
         void IGameLogic.Update()
         {
             UpdateTime();
@@ -108,11 +70,9 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
 
         #region Fields
 
-        private ICellLogic _cellLogic;
-        private IHomeLogic _homeLogic;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IGameClient _clients;
-        private readonly SessionManager _session;
+        private readonly ProcessManager _process;
         private readonly List< IAuxLogic > _auxLlogics = new List< IAuxLogic >();
         private int _tickCount;
 
@@ -121,53 +81,11 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
 
         #region Utils
 
-        private void CreateAuxLogics()
-        {
-            var collisionLogic = new CollisionLogic(
-                bodyManager : _session );
-            var foodLogic = new FoodLogic(
-                game : this,
-                timer : this,
-                collider : collisionLogic,
-                foodManager : _session );
-            _homeLogic = new HomeLogic(
-                game : this,
-                homeManager : _session );
-            _cellLogic = new CellLogic(
-                game : this,
-                homeLogic : _homeLogic,
-                collider : collisionLogic,
-                cellManager : _session );
-
-            _auxLlogics.Add( collisionLogic );
-            _auxLlogics.Add( foodLogic );
-            _auxLlogics.Add( _homeLogic );
-            _auxLlogics.Add( _cellLogic );
-        }
-
         private void UpdateTime()
         {
             var m = this as ITimeLogic;
             m.LastTime = m.CurrentTime;
             m.CurrentTime = DateTime.Now;
-        }
-
-        private void InitSessionManager()
-        {
-            InitSessionSuit( _session, Suit.Blue );
-            InitSessionSuit( _session, Suit.Red );
-        }
-
-        private void InitSessionSuit( SessionManager sessionManager, Suit suit )
-        {
-            var home = _homeLogic.AddHome( suit );
-            var cell = _cellLogic.AddCell( suit, home.IBody.Position );
-
-            var sight = sessionManager.ISightManager.AddSight( suit, cell.IBody.Position, SightSize );
-
-            cell.ICell.HomeId = home.IIdentifiable.Id;
-            cell.ICell.SightId = sight.IIdentifiable.Id;
-            sight.ISight.CellId = cell.IIdentifiable.Id;
         }
 
         #endregion

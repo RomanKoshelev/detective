@@ -5,6 +5,9 @@
 
 using System.Linq;
 using Crimenuts.Core.Game;
+using Crimenuts.Core.Game.Enums;
+using Crimenuts.Core.Game.History;
+using Crimenuts.Core.Game.Member;
 using MoreLinq;
 
 namespace Crimenuts.App.Console

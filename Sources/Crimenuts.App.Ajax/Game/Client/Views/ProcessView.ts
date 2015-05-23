@@ -6,21 +6,20 @@
         constructor( game: Phaser.Game, server : ServerAdapter ) {
             this.game = game;
 
-            server.getSession().done( ( model: SessionModel ) => {
+            server.getProcess().done( ( model: ProcessModel ) => {
                 this.fromModel( model );
             } );
 
-            server.onSessionUpdated.add( this.onSessionUpdated, this );
+            server.onProcessUpdated.add( this.onSessionUpdated, this );
         }
 
         private serverUpdateInterval: number;
 
-        private fromModel( model: SessionModel ) {
+        private fromModel( model: ProcessModel ) {
             this.id = model.Id;
-            this.serverUpdateInterval = model.UpdateInterval;
         }
 
-        private onSessionUpdated( model: SessionModel ) {
+        private onSessionUpdated( model: ProcessModel ) {
             this.fromModel( model );
         }
     }

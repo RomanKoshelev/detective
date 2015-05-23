@@ -25,34 +25,9 @@ namespace Crimenuts.App.Ajax.Game.Server.Hub
 
         #region IGameLogic
 
-        public void HintSightPosition( string id, PointModel position )
+        public ProcessModel GetProcess()
         {
-            _gameLogic.HintSightPosition( id, position );
-        }
-
-        public void MoveCell( string id, PointModel position )
-        {
-            _gameLogic.MoveCell( id, position );
-        }
-
-        public void MoveSight( string id, PointModel position )
-        {
-            _gameLogic.MoveSight( id, position );
-        }
-
-        public SizeModel GetWorldBounds()
-        {
-            return _gameLogic.GetWorldBounds();
-        }
-
-        public SessionModel GetSession()
-        {
-            return _gameLogic.GetSession();
-        }
-
-        public void ResetSession()
-        {
-            _gameLogic.ResetSession();
+            return _gameLogic.GetProcess();
         }
 
         public void Update()

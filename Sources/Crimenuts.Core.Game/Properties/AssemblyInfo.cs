@@ -1,7 +1,6 @@
-﻿// Crimenuts (c) 2015 Crocodev
+﻿// Crimenuts (c) 2015 Krokodev
 // Crimenuts.Core.Game
 // AssemblyInfo.cs
-// Roman, 2015-03-29 12:57 AM
 
 using System.Reflection;
 using System.Runtime.InteropServices;

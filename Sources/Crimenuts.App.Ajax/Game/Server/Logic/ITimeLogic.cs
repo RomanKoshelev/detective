@@ -1,10 +1,10 @@
-// Crimenuts (c) 2015 Krokodev
-// Crimenuts.App.Ajax
+// Celler (c) 2015 Krokodev
+// Celler.App.Web
 // ITimeLogic.cs
 
 using System;
 
-namespace Crimenuts.App.Ajax.Game.Server.Logic
+namespace Celler.App.Web.Game.Server.Logic
 {
     public interface ITimeLogic
     {

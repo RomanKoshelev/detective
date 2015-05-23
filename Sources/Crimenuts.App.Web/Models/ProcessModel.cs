@@ -7,6 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Crimenuts.Core.Game;
+using Crimenuts.Core.Game.Case;
+using Crimenuts.Core.Game.Enums;
+using Crimenuts.Core.Game.IOptions;
+using Crimenuts.Core.Game.Member;
+using Crimenuts.Core.Game.Process;
+using Crimenuts.Core.Game.Schema;
 using Crocodev.Common.Identifier;
 
 namespace Crimenuts.App.Web.Models

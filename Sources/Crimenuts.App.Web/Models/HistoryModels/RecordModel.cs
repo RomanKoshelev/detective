@@ -4,6 +4,7 @@
 // Roman, 2015-03-29 12:56 AM
 
 using Crimenuts.Core.Game;
+using Crimenuts.Core.Game.History;
 
 namespace Crimenuts.App.Web.Models
 {
