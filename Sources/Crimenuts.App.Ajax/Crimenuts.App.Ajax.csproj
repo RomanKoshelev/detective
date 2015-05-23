@@ -172,7 +172,10 @@
       <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Game\Client\Assets\Sprites\" />
+    <Folder Include="Game\Client\Entities\" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -245,18 +248,6 @@
     <Content Include="App_Data\Logs\.gitignore" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Game\Client\Assets\Sprites\blue\cellbody.png" />
-    <Content Include="Game\Client\Assets\Sprites\blue\food.png" />
-    <Content Include="Game\Client\Assets\Sprites\blue\celleye.png" />
-    <Content Include="Game\Client\Assets\Sprites\blue\house.png" />
-    <Content Include="Game\Client\Assets\Sprites\blue\loot.png" />
-    <Content Include="Game\Client\Assets\Sprites\blue\sight.png" />
-    <Content Include="Game\Client\Assets\Sprites\red\food.png" />
-    <Content Include="Game\Client\Assets\Sprites\red\house.png" />
-    <Content Include="Game\Client\Assets\Sprites\red\loot.png" />
-    <Content Include="Game\Client\Assets\Sprites\red\sight.png" />
-    <Content Include="Game\Client\Assets\Sprites\red\celleye.png" />
-    <Content Include="Game\Client\Assets\Sprites\red\cellbody.png" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -306,18 +297,12 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
-    <TypeScriptCompile Include="Game\Client\UI\UserInterface.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\UserInterfaceView.ts" />
     <TypeScriptCompile Include="Game\Client\UI\BottomBar.ts" />
     <TypeScriptCompile Include="Game\Client\UI\TopBar.ts" />
     <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
-    <TypeScriptCompile Include="Game\Client\Entities\Food.ts" />
-    <TypeScriptCompile Include="Game\Client\Managers\SessionManager.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\ProcessView.ts" />
     <TypeScriptCompile Include="Game\Client\States\ProcessState.ts" />
-    <TypeScriptCompile Include="Game\Client\Entities\SuitSprite.ts" />
-    <TypeScriptCompile Include="Game\Client\Entities\Home.ts" />
-    <TypeScriptCompile Include="Game\Client\Entities\Suit.ts" />
-    <TypeScriptCompile Include="Game\Client\Entities\Cell.ts" />
-    <TypeScriptCompile Include="Game\Client\Utils\Convertors.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\p2.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\phaser.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\pixi.d.ts" />

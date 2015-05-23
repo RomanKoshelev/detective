@@ -2,11 +2,13 @@
     export class ProcessState extends Phaser.State {
 
         static background = "#000000";
-        session: SessionManager;
-        ui: UserInterface;
+        processView: ProcessView;
+        userInterfaceView: UserInterfaceView;
+        server: ServerAdapter;
 
         constructor() {
             super();
+            this.server = app.server;
         }
 
         init() {
@@ -17,15 +19,12 @@
         }
 
         create() {
-            this.session = new SessionManager( this.game );
-            this.ui = new UserInterface( this.game );
+            this.processView = new ProcessView( this.game, this.server );
+            this.userInterfaceView = new UserInterfaceView( this.game );
         }
 
         update() {
             //this.game.debug.text( `${this.session.id} [${app.tickCount}]`, 10, 100 );
-        }
-
-        private preloadSprites( suit: Suit ) {
         }
     }
 }

@@ -42,235 +42,25 @@ var Crimenuts;
     var Assets;
     (function (Assets) {
         (function (Type) {
-            Type[Type["CellBody"] = 0] = "CellBody";
-            Type[Type["CellEye"] = 1] = "CellEye";
-            Type[Type["Sight"] = 2] = "Sight";
-            Type[Type["Food"] = 3] = "Food";
-            Type[Type["House"] = 4] = "House";
-            Type[Type["Loot"] = 5] = "Loot";
+            Type[Type["Person"] = 0] = "Person";
+            Type[Type["World"] = 1] = "World";
         })(Assets.Type || (Assets.Type = {}));
         var Type = Assets.Type;
         var Sprites = (function () {
             function Sprites() {
             }
-            Sprites.getKey = function (suit, assetType) {
-                return "" + assetType + "-" + suit;
+            Sprites.getKey = function (assetType) {
+                return "" + assetType;
             };
-            Sprites.load = function (suit, assetType) {
+            Sprites.load = function (assetType) {
                 var typeName = Type[assetType].toLowerCase();
-                var suitName = Crimenuts.Suit[suit].toLowerCase();
-                Crimenuts.app.game.load.image(Sprites.getKey(suit, assetType), "" + Sprites.path + "/" + suitName + "/" + typeName + ".png");
+                Crimenuts.app.game.load.image(Sprites.getKey(assetType), "" + Sprites.path + "/" + typeName + ".png");
             };
             Sprites.path = "/Game/Client/Assets/Sprites";
             return Sprites;
         })();
         Assets.Sprites = Sprites;
     })(Assets = Crimenuts.Assets || (Crimenuts.Assets = {}));
-})(Crimenuts || (Crimenuts = {}));
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
-var Crimenuts;
-(function (Crimenuts) {
-    var Cell = (function (_super) {
-        __extends(Cell, _super);
-        function Cell(game, model) {
-            _super.call(this, game);
-            this.init(model);
-            Crimenuts.app.server.onCellMoved.add(this.onCellMoved, this);
-            Crimenuts.app.server.onSightPositionHinted.add(this.onSightPositionHinted, this);
-        }
-        Cell.prototype.update = function () {
-            _super.prototype.update.call(this);
-            this.lookAtSigtPoint();
-        };
-        Cell.prototype.init = function (model) {
-            this.id = model.Base.Id;
-            this.sightId = model.SightId;
-            this.homeId = model.HomeId;
-            this.suit = Crimenuts.Suit[model.Base.Suit];
-            this.addChild(this.body = new Crimenuts.SuitSprite(this.game, this.suit, 0 /* CellBody */));
-            this.addChild(this.eye = new Crimenuts.SuitSprite(this.game, this.suit, 1 /* CellEye */));
-            this.scale.set(model.Base.Size / this.width);
-            this.position = Crimenuts.modelToPoint(model.Base.Position);
-            this.updateEyeSize();
-        };
-        Cell.prototype.onCellMoved = function (id, position) {
-            if (this.id === id) {
-                this.game.add.tween(this).to({ x: position.X, y: position.Y }, 500, Phaser.Easing.Circular.InOut, true);
-            }
-        };
-        Cell.prototype.onSightPositionHinted = function (sightId, position) {
-            if (this.sightId === sightId) {
-                this.sightPoint = Crimenuts.modelToPoint(position);
-            }
-        };
-        Cell.prototype.lookAtSigtPoint = function () {
-            if (this.sightPoint == null)
-                return;
-            var p = this.sightPoint.clone();
-            var l = Phaser.Point.distance(this.position, p);
-            var c = this.width;
-            var e = c * this.eyeRate;
-            var r = c * 0.1;
-            var d = (c - e) / 2;
-            var m = d / this.scale.x;
-            p = Phaser.Point.subtract(p, this.position);
-            p = p.normalize();
-            p = p.multiply(m, m);
-            this.eye.position = l > r ? p : new Phaser.Point();
-        };
-        Cell.prototype.calcEyeRate = function () {
-            return 0.75;
-        };
-        Cell.prototype.updateEyeSize = function () {
-            this.eyeRate = this.calcEyeRate();
-            this.eye.scale.set(this.eyeRate);
-        };
-        return Cell;
-    })(Phaser.Group);
-    Crimenuts.Cell = Cell;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    var SuitSprite = (function (_super) {
-        __extends(SuitSprite, _super);
-        function SuitSprite(game, suit, assetType, size) {
-            if (size === void 0) { size = 0; }
-            _super.call(this, game, 0, 0, Crimenuts.Assets.Sprites.getKey(suit, assetType));
-            this.suit = suit;
-            this.anchor.set(0.5);
-            if (size !== 0) {
-                this.resize(size);
-            }
-        }
-        SuitSprite.prototype.resize = function (size) {
-            this.scale.set(size / this.texture.width);
-        };
-        return SuitSprite;
-    })(Phaser.Sprite);
-    Crimenuts.SuitSprite = SuitSprite;
-})(Crimenuts || (Crimenuts = {}));
-/// <reference path="SuitSprite.ts" />
-var Crimenuts;
-(function (Crimenuts) {
-    var Food = (function (_super) {
-        __extends(Food, _super);
-        function Food(game, model) {
-            _super.call(this, game, Crimenuts.Suit[model.Base.Suit], 3 /* Food */, model.Base.Size);
-            this.id = model.Base.Id;
-            this.position = Crimenuts.modelToPoint(model.Base.Position);
-            this.size = 0;
-            this.update();
-        }
-        Food.prototype.update = function () {
-            _super.prototype.update.call(this);
-            this.resize(this.size);
-        };
-        Food.prototype.setSize = function (size, foodUpdateInterval) {
-            this.game.add.tween(this).to({ size: size }, foodUpdateInterval, Phaser.Easing.Linear.None, true);
-        };
-        return Food;
-    })(Crimenuts.SuitSprite);
-    Crimenuts.Food = Food;
-})(Crimenuts || (Crimenuts = {}));
-/// <reference path="SuitSprite.ts" />
-var Crimenuts;
-(function (Crimenuts) {
-    var Home = (function (_super) {
-        __extends(Home, _super);
-        function Home(game, model) {
-            _super.call(this, game);
-            this.init(model);
-        }
-        Home.prototype.init = function (model) {
-            this.id = model.Base.Id;
-            this.suit = Crimenuts.Suit[model.Base.Suit];
-            this.size = model.Base.Size;
-            this.lootVolume = model.Value;
-            this.lootMaxVolume = model.MaxValue;
-            this.addChild(this.house = new Crimenuts.SuitSprite(this.game, this.suit, 4 /* House */));
-            this.addChild(this.loot = new Crimenuts.SuitSprite(this.game, this.suit, 5 /* Loot */));
-            this.scale.set(this.calcScale());
-            this.position = Crimenuts.modelToPoint(model.Base.Position);
-            this.updateLootPresentation();
-        };
-        Home.prototype.updateLootPresentation = function () {
-            this.loot.scale.set(this.calcLootScale());
-            this.loot.position = this.calcLootPosition();
-        };
-        Home.prototype.calcLootScale = function () {
-            var square = this.calcLootRate();
-            return Math.sqrt(square);
-        };
-        Home.prototype.calcLootRate = function () {
-            return this.lootVolume / this.lootMaxVolume;
-        };
-        Home.prototype.calcScale = function () {
-            return this.size / this.house.texture.width;
-        };
-        Home.prototype.calcLootPosition = function () {
-            var pos = new Phaser.Point();
-            var hh = this.house.height / 2;
-            var hw = this.house.width / 2;
-            var lh = this.loot.height / 2;
-            var lw = this.loot.width / 2;
-            switch (this.suit) {
-                case 0 /* Blue */:
-                    pos.x = -hh + lh;
-                    pos.y = hw - lw;
-                    break;
-                case 1 /* Red */:
-                    pos.x = hh - lh;
-                    pos.y = -hw + lw;
-                    break;
-            }
-            return pos;
-        };
-        Home.prototype.setLoot = function (volume) {
-            this.lootVolume = volume;
-            this.updateLootPresentation();
-        };
-        return Home;
-    })(Phaser.Group);
-    Crimenuts.Home = Home;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    (function (Suit) {
-        Suit[Suit["Blue"] = 0] = "Blue";
-        Suit[Suit["Red"] = 1] = "Red";
-    })(Crimenuts.Suit || (Crimenuts.Suit = {}));
-    var Suit = Crimenuts.Suit;
-    function toSuit(str) {
-        return Suit[str];
-    }
-    Crimenuts.toSuit = toSuit;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    var SessionManager = (function () {
-        function SessionManager(game) {
-            var _this = this;
-            this.game = game;
-            Crimenuts.app.server.getSession().done(function (model) {
-                _this.fromModel(model);
-            });
-            Crimenuts.app.server.onSessionUpdated.add(this.onSessionUpdated, this);
-        }
-        SessionManager.prototype.fromModel = function (model) {
-            this.id = model.Id;
-            this.serverUpdateInterval = model.UpdateInterval;
-        };
-        SessionManager.prototype.onSessionUpdated = function (model) {
-            this.fromModel(model);
-        };
-        return SessionManager;
-    })();
-    Crimenuts.SessionManager = SessionManager;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -389,12 +179,19 @@ var Crimenuts;
     })();
     Crimenuts.ServerAdapter = ServerAdapter;
 })(Crimenuts || (Crimenuts = {}));
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
 var Crimenuts;
 (function (Crimenuts) {
     var ProcessState = (function (_super) {
         __extends(ProcessState, _super);
         function ProcessState() {
             _super.call(this);
+            this.server = Crimenuts.app.server;
         }
         ProcessState.prototype.init = function () {
             this.game.stage.backgroundColor = ProcessState.background;
@@ -402,13 +199,11 @@ var Crimenuts;
         ProcessState.prototype.preload = function () {
         };
         ProcessState.prototype.create = function () {
-            this.session = new Crimenuts.SessionManager(this.game);
-            this.ui = new Crimenuts.UserInterface(this.game);
+            this.processView = new Crimenuts.ProcessView(this.game, this.server);
+            this.userInterfaceView = new Crimenuts.UserInterfaceView(this.game);
         };
         ProcessState.prototype.update = function () {
             //this.game.debug.text( `${this.session.id} [${app.tickCount}]`, 10, 100 );
-        };
-        ProcessState.prototype.preloadSprites = function (suit) {
         };
         ProcessState.background = "#000000";
         return ProcessState;
@@ -475,7 +270,7 @@ var Crimenuts;
             this.beginFill(c2);
             this.drawRect(0, h1, wg, h2);
             this.endFill();
-            this.addChild(this.text = new Phaser.Text(game, 7, 7, "Case #1969", {
+            this.addChild(this.text = new Phaser.Text(game, 7, 7, "Crime Nuts Case #1969", {
                 font: "18px Arial",
                 fill: "#44dd44",
                 align: "left"
@@ -487,21 +282,36 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var UserInterface = (function () {
-        function UserInterface(game) {
+    var ProcessView = (function () {
+        function ProcessView(game, server) {
+            var _this = this;
+            this.game = game;
+            server.getSession().done(function (model) {
+                _this.fromModel(model);
+            });
+            server.onSessionUpdated.add(this.onSessionUpdated, this);
+        }
+        ProcessView.prototype.fromModel = function (model) {
+            this.id = model.Id;
+            this.serverUpdateInterval = model.UpdateInterval;
+        };
+        ProcessView.prototype.onSessionUpdated = function (model) {
+            this.fromModel(model);
+        };
+        return ProcessView;
+    })();
+    Crimenuts.ProcessView = ProcessView;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var UserInterfaceView = (function () {
+        function UserInterfaceView(game) {
             this.items = game.add.group();
             this.items.add(new Crimenuts.TopBar(game));
             this.items.add(new Crimenuts.BottomBar(game));
         }
-        return UserInterface;
+        return UserInterfaceView;
     })();
-    Crimenuts.UserInterface = UserInterface;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    function modelToPoint(model) {
-        return new Phaser.Point(model.X, model.Y);
-    }
-    Crimenuts.modelToPoint = modelToPoint;
+    Crimenuts.UserInterfaceView = UserInterfaceView;
 })(Crimenuts || (Crimenuts = {}));
 //# sourceMappingURL=typescript.output.js.map

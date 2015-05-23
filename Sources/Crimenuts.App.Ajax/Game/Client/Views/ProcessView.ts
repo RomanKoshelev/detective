@@ -1,16 +1,16 @@
 ﻿module Crimenuts {
-    export class SessionManager {
+    export class ProcessView {
         game: Phaser.Game;
         id: string;
 
-        constructor( game: Phaser.Game ) {
+        constructor( game: Phaser.Game, server : ServerAdapter ) {
             this.game = game;
 
-            app.server.getSession().done( ( model: SessionModel ) => {
+            server.getSession().done( ( model: SessionModel ) => {
                 this.fromModel( model );
             } );
 
-            app.server.onSessionUpdated.add( this.onSessionUpdated, this );
+            server.onSessionUpdated.add( this.onSessionUpdated, this );
         }
 
         private serverUpdateInterval: number;

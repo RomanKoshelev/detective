@@ -1,27 +1,22 @@
 ﻿module Crimenuts.Assets {
 
     export enum Type {
-        CellBody,
-        CellEye,
-        Sight,
-        Food,
-        House,
-        Loot
+        Person,
+        World
     }
 
     export class Sprites {
         static path = "/Game/Client/Assets/Sprites";
 
-        static getKey( suit: Suit, assetType: Type ): string {
-            return `${assetType}-${suit}`;
+        static getKey( assetType: Type ): string {
+            return `${assetType}`;
         }
 
-        static load( suit: Suit, assetType: Assets.Type ) {
+        static load( assetType: Assets.Type ) {
             var typeName = Type[ assetType ].toLowerCase();
-            var suitName = Suit[ suit ].toLowerCase();
             app.game.load.image(
-                Sprites.getKey( suit, assetType ),
-                `${Sprites.path}/${suitName}/${typeName}.png` );
+                Sprites.getKey( assetType ),
+                `${Sprites.path}/${typeName}.png` );
         }
     }
 }

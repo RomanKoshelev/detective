@@ -1,5 +1,5 @@
 module Crimenuts {
-    export class UserInterface {
+    export class UserInterfaceView {
         private items: Phaser.Group;
 
         constructor( game: Phaser.Game ) {
