@@ -8,10 +8,10 @@
             server.getProcess().done( ( model: ProcessModel ) => {
                 this.fromModel( model );
                 this.updateUi();
-            } );
 
-            server.onProcessUpdated.add( this.onSessionUpdated, this );
-            server.onTickCountUpdated.add( this.onTickCountUpdated, this );
+                server.onProcessUpdated.add( this.onSessionUpdated, this );
+                server.onTickCountUpdated.add( this.onTickCountUpdated, this );
+            } );
         }
 
         private game: Phaser.Game;
@@ -19,12 +19,13 @@
         private caseId: string;
         private ui: UserInterfaceView;
         private tickCount: Number;
-            
         private serverUpdateInterval: number;
+        private members: string[];
 
         private fromModel( model: ProcessModel ) {
             this.processId = model.Id;
             this.caseId = model.CaseId;
+            this.members = model.Company.Members;
         }
 
         private onSessionUpdated( model: ProcessModel ) {
@@ -37,9 +38,17 @@
         }
 
         private updateUi() {
+            var members = this.getMemersNamesList();
             this.ui.setCaseId( this.caseId );
-            this.ui.setBottomText(`${this.processId} [${app.tickCount}]`);
+            this.ui.setBottomText( `${this.processId} ${members} [${app.tickCount}]` );
         }
 
+        private getMemersNamesList() {
+            var names = "";
+            this.members.forEach( m => {
+                names += m + " ";
+            } );
+            return names;
+        }
     }
 }

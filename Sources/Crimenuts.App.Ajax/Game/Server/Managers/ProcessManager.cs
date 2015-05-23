@@ -3,6 +3,7 @@
 // ProcessManager.cs
 
 using System;
+using System.Linq;
 using Crimenuts.App.Ajax.Game.Server.Clients;
 using Crimenuts.App.Ajax.Game.Server.Models;
 using Crimenuts.Core.Game.Processes;
@@ -36,7 +37,10 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
             var process = Schema.FindProcess( id );
             return new ProcessModel {
                 Id = process.Id.Value.ToString(),
-                CaseId = process.CaseId.Value.ToString()
+                CaseId = process.CaseId.Value.ToString(),
+                Company = new CompanyModel {
+                    Members = process.Members.Select(m=>m.Name).ToList()
+                }
             };
         }
 

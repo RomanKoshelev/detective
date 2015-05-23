@@ -4,7 +4,6 @@
 
 using System.Threading;
 using System.Web.Hosting;
-using Celler.App.Web.Game.Server.Logic;
 using Crimenuts.App.Ajax.Game.Server.Clients;
 using Crimenuts.App.Ajax.Game.Server.Logic;
 using NLog;

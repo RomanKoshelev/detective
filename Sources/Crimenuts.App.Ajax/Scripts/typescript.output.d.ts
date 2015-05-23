@@ -25,12 +25,6 @@ declare module Crimenuts.Assets {
     }
 }
 declare module Crimenuts {
-    class Size {
-        width: number;
-        height: number;
-    }
-}
-declare module Crimenuts {
     class ServerAdapter implements GameHubServer, GameHubClient {
         constructor();
         private server;
@@ -61,6 +55,12 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
+    class Size {
+        width: number;
+        height: number;
+    }
+}
+declare module Crimenuts {
     class BottomBar extends Phaser.Graphics {
         text: Phaser.Text;
         constructor(game: Phaser.Game);
@@ -81,10 +81,12 @@ declare module Crimenuts {
         private ui;
         private tickCount;
         private serverUpdateInterval;
+        private members;
         private fromModel(model);
         private onSessionUpdated(model);
         private onTickCountUpdated(count);
         private updateUi();
+        private getMemersNamesList();
     }
 }
 declare module Crimenuts {

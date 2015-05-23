@@ -188,10 +188,10 @@
     <Compile Include="Game\Server\Config\Settings.cs" />
     <Compile Include="Game\Server\Entities\Abstract\Entity.cs" />
     <Compile Include="Game\Server\Entities\Interfaces\IModelled.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\IProcess.cs" />
     <Compile Include="Game\Server\Logic\IAuxLogic.cs" />
     <Compile Include="Game\Server\Logic\ITimeLogic.cs" />
     <Compile Include="Game\Server\Managers\IProcessManager.cs" />
+    <Compile Include="Game\Server\Models\CompanyModel.cs" />
     <Compile Include="Game\Server\Utils\Calc.cs" />
     <Compile Include="Game\Server\Entities\Interfaces\IIdentifiable.cs" />
     <Compile Include="Game\Server\Managers\ProcessManager.cs" />
@@ -262,7 +262,7 @@
     <TypeScriptCompile Include="Game\Client\Views\UserInterfaceView.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\BottomBar.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\TopBar.ts" />
-    <TypeScriptCompile Include="Game\Client\Entities\Size.ts" />
+    <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
     <TypeScriptCompile Include="Game\Client\Views\ProcessView.ts" />
     <TypeScriptCompile Include="Game\Client\States\ProcessState.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\p2.d.ts" />

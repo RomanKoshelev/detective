@@ -103,6 +103,15 @@ interface GameHubClient
 interface ProcessModel {
     Id : string;
     CaseId : string;
+    Company : CompanyModel;
+}
+ 
+ 
+/**
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.CompanyModel
+  */
+interface CompanyModel {
+    Members : string[];
 }
  
 //#endregion data contracts

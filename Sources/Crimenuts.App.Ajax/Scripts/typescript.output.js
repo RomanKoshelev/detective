@@ -64,15 +64,6 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var Size = (function () {
-        function Size() {
-        }
-        return Size;
-    })();
-    Crimenuts.Size = Size;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
     var ServerAdapter = (function () {
         function ServerAdapter() {
             // --------------------------------------------------------[]
@@ -156,6 +147,15 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
+    var Size = (function () {
+        function Size() {
+        }
+        return Size;
+    })();
+    Crimenuts.Size = Size;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
     var BottomBar = (function (_super) {
         __extends(BottomBar, _super);
         function BottomBar(game) {
@@ -222,13 +222,14 @@ var Crimenuts;
             server.getProcess().done(function (model) {
                 _this.fromModel(model);
                 _this.updateUi();
+                server.onProcessUpdated.add(_this.onSessionUpdated, _this);
+                server.onTickCountUpdated.add(_this.onTickCountUpdated, _this);
             });
-            server.onProcessUpdated.add(this.onSessionUpdated, this);
-            server.onTickCountUpdated.add(this.onTickCountUpdated, this);
         }
         ProcessView.prototype.fromModel = function (model) {
             this.processId = model.Id;
             this.caseId = model.CaseId;
+            this.members = model.Company.Members;
         };
         ProcessView.prototype.onSessionUpdated = function (model) {
             this.fromModel(model);
@@ -238,8 +239,16 @@ var Crimenuts;
             this.updateUi();
         };
         ProcessView.prototype.updateUi = function () {
+            var members = this.getMemersNamesList();
             this.ui.setCaseId(this.caseId);
-            this.ui.setBottomText("" + this.processId + " [" + Crimenuts.app.tickCount + "]");
+            this.ui.setBottomText("" + this.processId + " " + members + " [" + Crimenuts.app.tickCount + "]");
+        };
+        ProcessView.prototype.getMemersNamesList = function () {
+            var names = "";
+            this.members.forEach(function (m) {
+                names += m + " ";
+            });
+            return names;
         };
         return ProcessView;
     })();

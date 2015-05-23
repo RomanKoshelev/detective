@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using Celler.App.Web.Game.Server.Logic;
 using Crimenuts.App.Ajax.Game.Server.Clients;
 using Crimenuts.App.Ajax.Game.Server.Config;
 using Crimenuts.App.Ajax.Game.Server.Managers;
