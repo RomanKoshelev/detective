@@ -1,14 +1,20 @@
 ﻿@{
     // Code: Here: View | Play.cshtml
     ViewBag.Title = "Game";
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section scripts {
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
     <script src="~/Scripts/phaser.js"></script>
     <script src="~/signalr/hubs"></script>
+@*
     <script src="~/Scripts/typescript.output.js"></script>
+*@
 }
 
 <br/>
-<div id="crimenuts-playground"></div>
+
+<img src="/Image/Person?world=Simpsons&name=Snake"/>
+
+<div id="crimenuts-playground" ></div>

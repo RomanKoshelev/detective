@@ -3,33 +3,30 @@
 
         constructor( game: Phaser.Game, server : ServerAdapter ) {
             this.game = game;
+            this.server = server;
             this.ui = new UserInterfaceView( this.game );
+            this.items = new Phaser.Group(game);
 
             server.getProcess().done( ( model: ProcessModel ) => {
-                this.fromModel( model );
+                this.model= model;
                 this.updateUi();
-
-                server.onProcessUpdated.add( this.onSessionUpdated, this );
-                server.onTickCountUpdated.add( this.onTickCountUpdated, this );
+                this.createMembers();
+                this.subscribeEvents();
             } );
         }
 
+        // References
         private game: Phaser.Game;
-        private processId: string;
-        private caseId: string;
+        private server: ServerAdapter;
+        // Parts
         private ui: UserInterfaceView;
+        private items: Phaser.Group;
+        // Data
+        private model: ProcessModel;
         private tickCount: Number;
-        private serverUpdateInterval: number;
-        private members: string[];
-
-        private fromModel( model: ProcessModel ) {
-            this.processId = model.Id;
-            this.caseId = model.CaseId;
-            this.members = model.Company.Members;
-        }
 
         private onSessionUpdated( model: ProcessModel ) {
-            this.fromModel( model );
+            this.model = model;
         }
 
         private onTickCountUpdated( count: Number ) {
@@ -39,16 +36,33 @@
 
         private updateUi() {
             var members = this.getMemersNamesList();
-            this.ui.setCaseId( this.caseId );
-            this.ui.setBottomText( `${this.processId} ${members} [${app.tickCount}]` );
+            this.ui.setCaseId( this.model.CaseId );
+            this.ui.setBottomText( `${this.model.Id} ${members} [${app.tickCount}]` );
         }
 
         private getMemersNamesList() {
             var names = "";
-            this.members.forEach( m => {
+            this.model.Company.Members.forEach( m => {
                 names += m + " ";
             } );
             return names;
+        }
+
+        private subscribeEvents() {
+            this.server.onProcessUpdated.add( this.onSessionUpdated, this );
+            this.server.onTickCountUpdated.add( this.onTickCountUpdated, this );
+            
+        }
+
+        private createMembers() {
+            this.model.Company.Members.forEach( m => {
+                this.items.add( new PersonPicture(
+                    this.game,
+                    "Simpsons",
+                    "Snake",//m,
+                    150
+                    ) );
+            } );
         }
     }
 }

@@ -15,14 +15,11 @@
         }
 
         preload() {
+            Assets.Sprites.preloadPerson( "Simpsons", "Snake" );
         }
 
         create() {
             this.processView = new ProcessView( this.game, this.server );
-        }
-
-        update() {
-            //this.game.debug.text( `${this.session.id} [${app.tickCount}]`, 10, 100 );
         }
     }
 }

@@ -11,7 +11,7 @@
             this.server.onTickCountUpdated.add( this.onTickCountUpdated, this );
         }
 
-        create() {
+        onGameCreate() {
             this.game.state.add( "Process", ProcessState, true );
         }
 
@@ -21,11 +21,12 @@
         }
 
         private createGame( width: number, height: number ) {
-            this.game = new Phaser.Game( width, height, Phaser.AUTO, "crimenuts-playground", { create: this.create } );
+            this.game = new Phaser.Game( width, height, Phaser.AUTO, "crimenuts-playground", { create: this.onGameCreate });
         }
 
         private onTickCountUpdated( count: Number ) {
             this.tickCount = count;
+            this.game.canvas.style["background"] = "red";
         }
 
         getGameScreenSize() : Size {

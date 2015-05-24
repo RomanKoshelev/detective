@@ -1,22 +1,25 @@
 ﻿module Crimenuts.Assets {
 
-    export enum Type {
-        Person,
-        World
-    }
-
     export class Sprites {
         static path = "/Game/Client/Assets/Sprites";
 
-        static getKey( assetType: Type ): string {
-            return `${assetType}`;
+        static preloadPerson( world: string, person: string ): string {
+            var key = Sprites.getPersonKey( world, person );
+            if( !app.game.cache.checkImageKey( key ) ) {
+                this.loadPerson( world, person );
+            }
+            return key;
         }
 
-        static load( assetType: Assets.Type ) {
-            var typeName = Type[ assetType ].toLowerCase();
-            app.game.load.image(
-                Sprites.getKey( assetType ),
-                `${Sprites.path}/${typeName}.png` );
+
+        static getPersonKey( world: string, person: string ): string {
+            return `sprite-person-${world}-${person}`;
+        }
+
+        static loadPerson( world: string, person: string ) {
+            var key = Sprites.getPersonKey( world, person );
+            var path = `${Sprites.path}/Worlds/${world}/Persons/${person}/person.picture.png`;
+            app.game.load.image( key, path);
         }
     }
 }

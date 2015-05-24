@@ -1,7 +1,6 @@
 module Crimenuts {
     export class UserInterfaceView {
 
-        private items: Phaser.Group;
         bottomBar: BottomBar;
         topBar: TopBar;
 
@@ -10,6 +9,8 @@ module Crimenuts {
             this.items.add( this.topBar = new TopBar( game ) );
             this.items.add( this.bottomBar = new BottomBar( game ) );
         }
+
+        private items: Phaser.Group;
 
         setBottomText( text: string ) {
             this.bottomBar.text.setText(text);

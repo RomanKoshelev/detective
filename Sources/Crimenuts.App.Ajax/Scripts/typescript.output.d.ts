@@ -4,7 +4,7 @@ declare module Crimenuts {
         server: ServerAdapter;
         tickCount: Number;
         constructor();
-        create(): void;
+        onGameCreate(): void;
         private init();
         private createGame(width, height);
         private onTickCountUpdated(count);
@@ -14,14 +14,19 @@ declare module Crimenuts {
     function initApp(): void;
 }
 declare module Crimenuts.Assets {
-    enum Type {
-        Person = 0,
-        World = 1,
-    }
     class Sprites {
         static path: string;
-        static getKey(assetType: Type): string;
-        static load(assetType: Assets.Type): void;
+        static preloadPerson(world: string, person: string): string;
+        static getPersonKey(world: string, person: string): string;
+        static loadPerson(world: string, person: string): void;
+    }
+}
+declare module Crimenuts {
+    class PersonPicture extends Phaser.Image {
+        worldName: string;
+        personName: string;
+        constructor(game: Phaser.Game, worldName: string, personName: string, size: number);
+        resize(size: number): void;
     }
 }
 declare module Crimenuts {
@@ -51,7 +56,6 @@ declare module Crimenuts {
         init(): void;
         preload(): void;
         create(): void;
-        update(): void;
     }
 }
 declare module Crimenuts {
@@ -76,25 +80,25 @@ declare module Crimenuts {
     class ProcessView {
         constructor(game: Phaser.Game, server: ServerAdapter);
         private game;
-        private processId;
-        private caseId;
+        private server;
         private ui;
+        private items;
+        private model;
         private tickCount;
-        private serverUpdateInterval;
-        private members;
-        private fromModel(model);
         private onSessionUpdated(model);
         private onTickCountUpdated(count);
         private updateUi();
         private getMemersNamesList();
+        private subscribeEvents();
+        private createMembers();
     }
 }
 declare module Crimenuts {
     class UserInterfaceView {
-        private items;
         bottomBar: BottomBar;
         topBar: TopBar;
         constructor(game: Phaser.Game);
+        private items;
         setBottomText(text: string): void;
         setCaseId(caseId: string): void;
     }
