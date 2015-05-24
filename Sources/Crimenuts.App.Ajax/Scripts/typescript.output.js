@@ -45,19 +45,19 @@ var Crimenuts;
         var Sprites = (function () {
             function Sprites() {
             }
-            Sprites.preloadPerson = function (world, person) {
-                var key = Sprites.getPersonKey(world, person);
+            Sprites.preloadPerson = function (world, person, size) {
+                var key = Sprites.getPersonKey(world, person, size);
                 if (!Crimenuts.app.game.cache.checkImageKey(key)) {
-                    this.loadPerson(world, person);
+                    this.loadPerson(world, person, size);
                 }
                 return key;
             };
-            Sprites.getPersonKey = function (world, person) {
-                return "sprite-person-" + world + "-" + person;
+            Sprites.getPersonKey = function (world, person, size) {
+                return "sprite-person-" + world + "-" + person + "-" + size;
             };
-            Sprites.loadPerson = function (world, person) {
-                var key = Sprites.getPersonKey(world, person);
-                var path = "" + Sprites.path + "/Worlds/" + world + "/Persons/" + person + "/person.picture.png";
+            Sprites.loadPerson = function (world, person, size) {
+                var key = Sprites.getPersonKey(world, person, size);
+                var path = "/Image/Person?world=" + world + "&name=" + person + "&width=" + size + "&height=" + size;
                 Crimenuts.app.game.load.image(key, path);
             };
             Sprites.path = "/Game/Client/Assets/Sprites";
@@ -76,12 +76,10 @@ var Crimenuts;
 (function (Crimenuts) {
     var PersonPicture = (function (_super) {
         __extends(PersonPicture, _super);
-        function PersonPicture(game, worldName, personName, size) {
-            var key = Crimenuts.Assets.Sprites.preloadPerson(worldName, personName);
+        function PersonPicture(game, world, name, size) {
+            var key = Crimenuts.Assets.Sprites.getPersonKey(world, name, size);
             _super.call(this, game, 100, 100, key, 0);
-            this.worldName = worldName;
-            this.personName = personName;
-            this.resize(size);
+            //            this.resize(size);
         }
         PersonPicture.prototype.resize = function (size) {
             this.scale.set(size / this.texture.width);
@@ -155,7 +153,7 @@ var Crimenuts;
             this.game.stage.backgroundColor = ProcessState.background;
         };
         ProcessState.prototype.preload = function () {
-            Crimenuts.Assets.Sprites.preloadPerson("Simpsons", "Snake");
+            //Assets.Sprites.loadPerson( "Simpsons", "Snake", 200 );
         };
         ProcessState.prototype.create = function () {
             this.processView = new Crimenuts.ProcessView(this.game, this.server);
@@ -272,9 +270,16 @@ var Crimenuts;
             this.server.onTickCountUpdated.add(this.onTickCountUpdated, this);
         };
         ProcessView.prototype.createMembers = function () {
+            var key = Crimenuts.Assets.Sprites.getPersonKey("Simpsons", "Snake", 200);
+            var loader = new Phaser.Loader(this.game);
+            loader.image(key, "/Image/Person?world=Simpsons&name=Snake&width=200&height=200");
+            loader.onLoadComplete.addOnce(this.onLoaded, this);
+            loader.start();
+        };
+        ProcessView.prototype.onLoaded = function () {
             var _this = this;
             this.model.Company.Members.forEach(function (m) {
-                _this.items.add(new Crimenuts.PersonPicture(_this.game, "Simpsons", "Snake", 150));
+                _this.items.add(new Crimenuts.PersonPicture(_this.game, "Simpsons", "Snake", 200));
             });
         };
         return ProcessView;

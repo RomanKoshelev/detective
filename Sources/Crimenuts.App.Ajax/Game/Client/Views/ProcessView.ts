@@ -55,14 +55,24 @@
         }
 
         private createMembers() {
+            var key = Assets.Sprites.getPersonKey( "Simpsons", "Snake", 200 );
+
+            var loader = new Phaser.Loader( this.game );
+            loader.image( key, "/Image/Person?world=Simpsons&name=Snake&width=200&height=200" );
+            loader.onLoadComplete.addOnce( this.onLoaded, this );
+            loader.start();
+        }
+
+        private onLoaded() {
             this.model.Company.Members.forEach( m => {
                 this.items.add( new PersonPicture(
                     this.game,
                     "Simpsons",
                     "Snake",//m,
-                    150
+                    200
                     ) );
-            } );
+            });            
         }
+
     }
 }
