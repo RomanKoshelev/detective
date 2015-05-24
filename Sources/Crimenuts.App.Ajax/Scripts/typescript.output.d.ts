@@ -16,15 +16,14 @@ declare module Crimenuts {
 declare module Crimenuts.Assets {
     class Sprites {
         static path: string;
-        static preloadPerson(world: string, person: string, size: number): string;
         static getPersonKey(world: string, person: string, size: number): string;
+        static getPersonUrl(world: string, person: string, size: number): string;
         static loadPerson(world: string, person: string, size: number): void;
     }
 }
 declare module Crimenuts {
     class PersonPicture extends Phaser.Image {
-        constructor(game: Phaser.Game, world: string, name: string, size: number);
-        private resize(size);
+        constructor(game: Phaser.Game, world: string, name: string, x: number, y: number, size: number);
     }
 }
 declare module Crimenuts {
@@ -89,7 +88,7 @@ declare module Crimenuts {
         private getMemersNamesList();
         private subscribeEvents();
         private createMembers();
-        private onLoaded();
+        private createMembersWhenImagesLoaded();
     }
 }
 declare module Crimenuts {
