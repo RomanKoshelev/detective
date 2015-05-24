@@ -261,7 +261,7 @@ var Crimenuts;
         };
         ProcessView.prototype.createMembers = function () {
             var world = "Simpsons";
-            var size = 100;
+            var size = 120;
             var loader = new Phaser.Loader(this.game);
             this.model.Company.Members.forEach(function (name) {
                 loader.image(Crimenuts.Assets.Sprites.getPersonKey(world, name, size), Crimenuts.Assets.Sprites.getPersonUrl(world, name, size));
@@ -272,10 +272,17 @@ var Crimenuts;
         ProcessView.prototype.createMembersWhenImagesLoaded = function () {
             var _this = this;
             var world = "Simpsons";
-            var size = 100;
+            var size = 120;
+            var i = 0;
+            var n = 6;
             var x = 0;
             var y = 50;
             this.model.Company.Members.forEach(function (name) {
+                if (i === 6) {
+                    x = 0;
+                    y += size * 1.5;
+                }
+                i++;
                 _this.items.add(new Crimenuts.PersonPicture(_this.game, world, name, x, y, size));
                 x += size;
             });

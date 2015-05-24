@@ -56,7 +56,7 @@
 
         private createMembers() {
             var world = "Simpsons";
-            var size  = 100;
+            var size  = 120;
             var loader = new Phaser.Loader( this.game );
 
             this.model.Company.Members.forEach( name => {
@@ -71,10 +71,17 @@
 
         private createMembersWhenImagesLoaded() {
             var world = "Simpsons";
-            var size = 100;
+            var size = 120;
+            var i = 0;
+            var n = 6;
             var x = 0;
             var y = 50;
             this.model.Company.Members.forEach( name => {
+                if( i === 6 ) {
+                    x = 0;
+                    y += size*1.5;
+                }
+                i++;
                 this.items.add( new PersonPicture( this.game, world, name, x, y, size ) );
                 x += size;
             });            
