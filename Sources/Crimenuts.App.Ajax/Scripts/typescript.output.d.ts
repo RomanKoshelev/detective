@@ -47,12 +47,20 @@ declare module Crimenuts {
 declare module Crimenuts {
     class ProcessState extends Phaser.State {
         static background: string;
-        processView: ProcessView;
-        server: ServerAdapter;
+        membersView: ProcessMembersView;
         constructor();
         init(): void;
         preload(): void;
         create(): void;
+        private ui;
+        private model;
+        private tickCount;
+        private onProcessUpdated(model);
+        private createMembersView();
+        private subscribeEvents(server);
+        private onTickCountUpdated(count);
+        private updateUi();
+        private createUiView();
     }
 }
 declare module Crimenuts {
@@ -74,19 +82,13 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class ProcessView {
-        constructor(game: Phaser.Game, server: ServerAdapter);
+    class ProcessMembersView {
+        constructor(game: Phaser.Game, world: string, members: string[]);
         private game;
-        private server;
-        private ui;
         private items;
-        private model;
-        private tickCount;
-        private onProcessUpdated(model);
-        private onTickCountUpdated(count);
-        private updateUi();
+        private world;
+        private members;
         private getMembersNamesList();
-        private subscribeEvents();
         private createMembers();
         private createMembersWhenImagesLoaded();
     }

@@ -302,7 +302,7 @@
     <TypeScriptCompile Include="Game\Client\UserInterface\BottomBar.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\TopBar.ts" />
     <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\ProcessView.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\ProcessMembersView.ts" />
     <TypeScriptCompile Include="Game\Client\States\ProcessState.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\p2.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\phaser.d.ts" />

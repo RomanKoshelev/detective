@@ -136,7 +136,6 @@ var Crimenuts;
         __extends(ProcessState, _super);
         function ProcessState() {
             _super.call(this);
-            this.server = Crimenuts.app.server;
         }
         ProcessState.prototype.init = function () {
             this.game.stage.backgroundColor = ProcessState.background;
@@ -144,7 +143,35 @@ var Crimenuts;
         ProcessState.prototype.preload = function () {
         };
         ProcessState.prototype.create = function () {
-            this.processView = new Crimenuts.ProcessView(this.game, this.server);
+            var _this = this;
+            Crimenuts.app.server.getProcess().done(function (model) {
+                _this.model = model;
+                _this.createMembersView();
+                _this.createUiView();
+                _this.subscribeEvents(Crimenuts.app.server);
+            });
+        };
+        ProcessState.prototype.onProcessUpdated = function (model) {
+            this.model = model;
+        };
+        ProcessState.prototype.createMembersView = function () {
+            this.membersView = new Crimenuts.ProcessMembersView(this.game, this.model.World, this.model.Members);
+        };
+        ProcessState.prototype.subscribeEvents = function (server) {
+            server.onProcessUpdated.add(this.onProcessUpdated, this);
+            server.onTickCountUpdated.add(this.onTickCountUpdated, this);
+        };
+        ProcessState.prototype.onTickCountUpdated = function (count) {
+            this.tickCount = count;
+            this.updateUi();
+        };
+        ProcessState.prototype.updateUi = function () {
+            this.ui.setCaseId(this.model.CaseId);
+            this.ui.setBottomText("" + this.model.Id + " [" + Crimenuts.app.tickCount + "]");
+        };
+        ProcessState.prototype.createUiView = function () {
+            this.ui = new Crimenuts.UserInterfaceView(this.game);
+            this.updateUi();
         };
         ProcessState.background = "#000000";
         return ProcessState;
@@ -220,74 +247,51 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var ProcessView = (function () {
-        function ProcessView(game, server) {
-            var _this = this;
+    var ProcessMembersView = (function () {
+        function ProcessMembersView(game, world, members) {
             this.game = game;
-            this.server = server;
-            this.ui = new Crimenuts.UserInterfaceView(this.game);
+            this.members = members;
+            this.world = world;
             this.items = new Phaser.Group(game);
-            server.getProcess().done(function (model) {
-                _this.model = model;
-                _this.createMembers();
-                _this.updateUi();
-                _this.subscribeEvents();
-            });
+            this.createMembers();
         }
-        ProcessView.prototype.onProcessUpdated = function (model) {
-            this.model = model;
-        };
-        ProcessView.prototype.onTickCountUpdated = function (count) {
-            this.tickCount = count;
-            this.updateUi();
-        };
-        ProcessView.prototype.updateUi = function () {
-            var members = this.getMembersNamesList();
-            this.ui.setCaseId(this.model.CaseId);
-            this.ui.setBottomText("" + this.model.Id + " " + members + " [" + Crimenuts.app.tickCount + "]");
-        };
-        ProcessView.prototype.getMembersNamesList = function () {
+        ProcessMembersView.prototype.getMembersNamesList = function () {
             var names = "";
-            this.model.Members.forEach(function (m) {
+            this.members.forEach(function (m) {
                 names += m + " ";
             });
             return names;
         };
-        ProcessView.prototype.subscribeEvents = function () {
-            this.server.onProcessUpdated.add(this.onProcessUpdated, this);
-            this.server.onTickCountUpdated.add(this.onTickCountUpdated, this);
-        };
-        ProcessView.prototype.createMembers = function () {
-            var world = this.model.World;
+        ProcessMembersView.prototype.createMembers = function () {
+            var _this = this;
             var size = 120;
             var loader = new Phaser.Loader(this.game);
-            this.model.Members.forEach(function (name) {
-                loader.image(Crimenuts.Assets.Sprites.getPersonKey(world, name, size), Crimenuts.Assets.Sprites.getPersonUrl(world, name, size));
+            this.members.forEach(function (name) {
+                loader.image(Crimenuts.Assets.Sprites.getPersonKey(_this.world, name, size), Crimenuts.Assets.Sprites.getPersonUrl(_this.world, name, size));
             });
             loader.onLoadComplete.addOnce(this.createMembersWhenImagesLoaded, this);
             loader.start();
         };
-        ProcessView.prototype.createMembersWhenImagesLoaded = function () {
+        ProcessMembersView.prototype.createMembersWhenImagesLoaded = function () {
             var _this = this;
-            var world = this.model.World;
             var size = 120;
             var i = 0;
             var n = 6;
             var x = 0;
             var y = 50;
-            this.model.Members.forEach(function (name) {
-                if (i === 6) {
+            this.members.forEach(function (name) {
+                if (i === n) {
                     x = 0;
                     y += size * 1.5;
                 }
                 i++;
-                _this.items.add(new Crimenuts.PersonPicture(_this.game, world, name, x, y, size));
+                _this.items.add(new Crimenuts.PersonPicture(_this.game, _this.world, name, x, y, size));
                 x += size;
             });
         };
-        return ProcessView;
+        return ProcessMembersView;
     })();
-    Crimenuts.ProcessView = ProcessView;
+    Crimenuts.ProcessMembersView = ProcessMembersView;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
