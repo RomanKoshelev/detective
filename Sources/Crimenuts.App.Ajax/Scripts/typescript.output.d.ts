@@ -1,18 +1,3 @@
-declare module Crimenuts {
-    class App {
-        game: Phaser.Game;
-        server: ServerAdapter;
-        tickCount: Number;
-        constructor();
-        onGameCreate(): void;
-        private init();
-        private createGame(width, height);
-        private onTickCountUpdated(count);
-        getGameScreenSize(): Size;
-    }
-    var app: App;
-    function initApp(): void;
-}
 declare module Crimenuts.Assets {
     class Sprites {
         static path: string;
@@ -30,27 +15,61 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class TextBox extends Phaser.Graphics {
-        text: Phaser.Text;
-        constructor(game: Phaser.Game, text: string, x: number, y: number, w: number, h: number, fs: number);
+    class MemberCard extends Phaser.Group {
+        static nameHeight: number;
+        static nameFontSize: number;
+        static nameColor: string;
+        static nameBgColor: number;
+        constructor(game: Phaser.Game, world: string, member: string, x: number, y: number, width: number, height: number);
+        private picture;
+        private nameLabel;
+        private createPicture(game, world, name, width);
+        private createNameBox(game, name, width, height);
     }
 }
 declare module Crimenuts {
-    class ServerAdapter implements GameHubServer, GameHubClient {
-        constructor();
-        private server;
-        getPlayerId(): JQueryPromise<string>;
-        getProcess(): JQueryPromise<ProcessModel>;
-        update(): JQueryPromise<void>;
-        onStarted: Phaser.Signal;
-        onProcessUpdated: Phaser.Signal;
-        onTickCountUpdated: Phaser.Signal;
-        private client;
-        private init();
-        startHub(): void;
-        private setupClientCallbacks();
-        tickCountUpdated(count: number): void;
-        processUpdated(model: ProcessModel): void;
+    class TextLabel extends Phaser.Graphics {
+        private text;
+        constructor(game: Phaser.Game, text: string, x: number, y: number, w: number, h: number, fs: number, c: string, bgc: number, fn?: string);
+    }
+}
+declare module Crimenuts {
+    class UserInterface extends Phaser.Group {
+        bottomBar: BottomBar;
+        topBar: TopBar;
+        constructor(game: Phaser.Game);
+        setBottomText(text: string): void;
+        setCaseId(caseId: string): void;
+    }
+}
+declare module Crimenuts {
+    class BottomBar extends Phaser.Graphics {
+        text: Phaser.Text;
+        constructor(game: Phaser.Game);
+    }
+}
+declare module Crimenuts {
+    class TopBar extends Phaser.Graphics {
+        text: Phaser.Text;
+        constructor(game: Phaser.Game);
+    }
+}
+declare module Crimenuts {
+    class Size {
+        width: number;
+        height: number;
+    }
+}
+declare module Crimenuts {
+    class ProcessMembers extends Phaser.Group {
+        constructor(game: Phaser.Game, world: string, members: string[]);
+        private world;
+        private model;
+        static memberWidth: number;
+        static memberHeight: number;
+        static memberNumInRow: number;
+        private createMembers();
+        private calcPersonCardPosition(i, w, h);
     }
 }
 declare module Crimenuts {
@@ -74,52 +93,35 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class Size {
-        width: number;
-        height: number;
+    class App {
+        game: Phaser.Game;
+        server: ServerAdapter;
+        tickCount: Number;
+        constructor();
+        onGameCreate(): void;
+        private init();
+        private createGame(width, height);
+        private onTickCountUpdated(count);
+        getGameScreenSize(): Size;
     }
+    var app: App;
+    function initApp(): void;
 }
 declare module Crimenuts {
-    class BottomBar extends Phaser.Graphics {
-        text: Phaser.Text;
-        constructor(game: Phaser.Game);
-    }
-}
-declare module Crimenuts {
-    class TopBar extends Phaser.Graphics {
-        text: Phaser.Text;
-        constructor(game: Phaser.Game);
-    }
-}
-declare module Crimenuts {
-    class MemberCard extends Phaser.Group {
-        static nameHeight: any;
-        static nameFontSize: any;
-        constructor(game: Phaser.Game, world: string, member: string, x: number, y: number, width: number, height: number);
-        private picture;
-        private nameBox;
-        private createPicture(game, world, name, width);
-        private createNameBox(game, name, width, height);
-    }
-}
-declare module Crimenuts {
-    class ProcessMembers extends Phaser.Group {
-        constructor(game: Phaser.Game, world: string, members: string[]);
-        private world;
-        private model;
-        static memberWidth: number;
-        static memberHeight: number;
-        static memberNumInRow: number;
-        private createMembers();
-        private calcPersonCardPosition(i, w, h);
-    }
-}
-declare module Crimenuts {
-    class UserInterface extends Phaser.Group {
-        bottomBar: BottomBar;
-        topBar: TopBar;
-        constructor(game: Phaser.Game);
-        setBottomText(text: string): void;
-        setCaseId(caseId: string): void;
+    class ServerAdapter implements GameHubServer, GameHubClient {
+        constructor();
+        private server;
+        getPlayerId(): JQueryPromise<string>;
+        getProcess(): JQueryPromise<ProcessModel>;
+        update(): JQueryPromise<void>;
+        onStarted: Phaser.Signal;
+        onProcessUpdated: Phaser.Signal;
+        onTickCountUpdated: Phaser.Signal;
+        private client;
+        private init();
+        startHub(): void;
+        private setupClientCallbacks();
+        tickCountUpdated(count: number): void;
+        processUpdated(model: ProcessModel): void;
     }
 }

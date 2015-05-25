@@ -1,44 +1,5 @@
 var Crimenuts;
 (function (Crimenuts) {
-    var App = (function () {
-        function App() {
-            this.server = new Crimenuts.ServerAdapter();
-            this.server.onStarted.addOnce(this.init, this);
-            this.server.onTickCountUpdated.add(this.onTickCountUpdated, this);
-        }
-        App.prototype.onGameCreate = function () {
-            this.game.state.add("Process", Crimenuts.ProcessState, true);
-        };
-        App.prototype.init = function () {
-            var size = this.getGameScreenSize();
-            this.createGame(size.width, size.height);
-        };
-        App.prototype.createGame = function (width, height) {
-            this.game = new Phaser.Game(width, height, Phaser.AUTO, "crimenuts-playground", { create: this.onGameCreate });
-        };
-        App.prototype.onTickCountUpdated = function (count) {
-            this.tickCount = count;
-        };
-        App.prototype.getGameScreenSize = function () {
-            return {
-                width: 720,
-                height: 820
-            };
-        };
-        return App;
-    })();
-    Crimenuts.App = App;
-    Crimenuts.app;
-    function initApp() {
-        Crimenuts.app = new App();
-    }
-    Crimenuts.initApp = initApp;
-})(Crimenuts || (Crimenuts = {}));
-window.onload = function () {
-    Crimenuts.initApp();
-};
-var Crimenuts;
-(function (Crimenuts) {
     var Assets;
     (function (Assets) {
         var Sprites = (function () {
@@ -90,135 +51,74 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var TextBox = (function (_super) {
-        __extends(TextBox, _super);
-        function TextBox(game, text, x, y, w, h, fs) {
+    var MemberCard = (function (_super) {
+        __extends(MemberCard, _super);
+        function MemberCard(game, world, member, x, y, width, height) {
+            _super.call(this, game);
+            this.position.set(x, y);
+            var name = member;
+            this.createPicture(game, world, name, width);
+            this.createNameBox(game, name, width, height);
+        }
+        MemberCard.prototype.createPicture = function (game, world, name, width) {
+            this.add(this.picture = new Crimenuts.PersonPicture(game, world, name, 0, 0, width));
+        };
+        MemberCard.prototype.createNameBox = function (game, name, width, height) {
+            var w = width;
+            var h = MemberCard.nameHeight;
+            var fs = MemberCard.nameFontSize;
+            var x = 0;
+            var y = height - h;
+            this.add(this.nameLabel = new Crimenuts.TextLabel(game, name, x, y, w, h, fs, MemberCard.nameColor, MemberCard.nameBgColor));
+        };
+        MemberCard.nameHeight = 18;
+        MemberCard.nameFontSize = 12;
+        MemberCard.nameColor = "#FFFFFF";
+        MemberCard.nameBgColor = 0x222222;
+        return MemberCard;
+    })(Phaser.Group);
+    Crimenuts.MemberCard = MemberCard;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var TextLabel = (function (_super) {
+        __extends(TextLabel, _super);
+        function TextLabel(game, text, x, y, w, h, fs, c, bgc, fn) {
+            if (fn === void 0) { fn = "Arial"; }
             _super.call(this, game, x, y);
-            var bg = 0xEEEEEE;
-            this.beginFill(bg);
+            this.position.set(x, y);
+            this.beginFill(bgc);
             this.drawRect(0, 0, w, h);
             this.endFill();
-            this.addChild(this.text = new Phaser.Text(game, fs / 2, fs / 2, text, {
-                font: "" + fs + "px Arial",
-                fill: "#44dd44",
-                align: "left"
+            this.addChild(this.text = new Phaser.Text(game, w / 2, h / 2 + fs / 5, text, {
+                font: "" + fs + "px " + fn,
+                fill: c,
+                align: "center"
             }));
+            this.text.anchor.set(0.5, 0.5);
         }
-        return TextBox;
+        return TextLabel;
     })(Phaser.Graphics);
-    Crimenuts.TextBox = TextBox;
+    Crimenuts.TextLabel = TextLabel;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var ServerAdapter = (function () {
-        function ServerAdapter() {
-            // --------------------------------------------------------[]
-            // Server
-            this.server = $.connection.gameHub.server;
-            // --------------------------------------------------------[]
-            // Client
-            this.onStarted = new Phaser.Signal();
-            this.onProcessUpdated = new Phaser.Signal();
-            this.onTickCountUpdated = new Phaser.Signal();
-            this.client = $.connection.gameHub.client;
-            this.init();
+    var UserInterface = (function (_super) {
+        __extends(UserInterface, _super);
+        function UserInterface(game) {
+            _super.call(this, game);
+            this.add(this.topBar = new Crimenuts.TopBar(game));
+            this.add(this.bottomBar = new Crimenuts.BottomBar(game));
         }
-        ServerAdapter.prototype.getPlayerId = function () {
-            return this.server.getPlayerId();
+        UserInterface.prototype.setBottomText = function (text) {
+            this.bottomBar.text.setText(text);
         };
-        ServerAdapter.prototype.getProcess = function () {
-            return this.server.getProcess("11");
+        UserInterface.prototype.setCaseId = function (caseId) {
+            this.topBar.text.setText("Crime Nuts Case #" + caseId);
         };
-        ServerAdapter.prototype.update = function () {
-            return this.server.update();
-        };
-        ServerAdapter.prototype.init = function () {
-            this.setupClientCallbacks();
-            this.startHub();
-        };
-        ServerAdapter.prototype.startHub = function () {
-            var _this = this;
-            $.connection.hub.start().done(function () {
-                _this.onStarted.dispatch();
-            });
-        };
-        ServerAdapter.prototype.setupClientCallbacks = function () {
-            var _this = this;
-            this.client.tickCountUpdated = function (count) {
-                _this.tickCountUpdated(count);
-            };
-            this.client.processUpdated = function (model) {
-                _this.processUpdated(model);
-            };
-        };
-        ServerAdapter.prototype.tickCountUpdated = function (count) {
-            this.onTickCountUpdated.dispatch(count);
-        };
-        ServerAdapter.prototype.processUpdated = function (model) {
-            this.onProcessUpdated.dispatch(model);
-        };
-        return ServerAdapter;
-    })();
-    Crimenuts.ServerAdapter = ServerAdapter;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    var ProcessState = (function (_super) {
-        __extends(ProcessState, _super);
-        function ProcessState() {
-            _super.call(this);
-        }
-        ProcessState.prototype.init = function () {
-            this.game.stage.backgroundColor = ProcessState.background;
-        };
-        ProcessState.prototype.preload = function () {
-        };
-        ProcessState.prototype.create = function () {
-            var _this = this;
-            Crimenuts.app.server.getProcess().done(function (model) {
-                _this.model = model;
-                _this.createMembersView();
-                _this.createUiView();
-                _this.subscribeEvents(Crimenuts.app.server);
-            });
-        };
-        ProcessState.prototype.onProcessUpdated = function (model) {
-            this.model = model;
-        };
-        ProcessState.prototype.createMembersView = function () {
-            this.members = new Crimenuts.ProcessMembers(this.game, this.model.World, this.model.Members);
-            this.members.position = ProcessState.membersPosition;
-        };
-        ProcessState.prototype.subscribeEvents = function (server) {
-            server.onProcessUpdated.add(this.onProcessUpdated, this);
-            server.onTickCountUpdated.add(this.onTickCountUpdated, this);
-        };
-        ProcessState.prototype.onTickCountUpdated = function (count) {
-            this.tickCount = count;
-            this.updateUi();
-        };
-        ProcessState.prototype.updateUi = function () {
-            this.ui.setCaseId(this.model.CaseId);
-            this.ui.setBottomText("" + this.model.Id + " [" + Crimenuts.app.tickCount + "]");
-        };
-        ProcessState.prototype.createUiView = function () {
-            this.ui = new Crimenuts.UserInterface(this.game);
-            this.updateUi();
-        };
-        ProcessState.background = "#000000";
-        ProcessState.membersPosition = new Phaser.Point(0, 50);
-        return ProcessState;
-    })(Phaser.State);
-    Crimenuts.ProcessState = ProcessState;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    var Size = (function () {
-        function Size() {
-        }
-        return Size;
-    })();
-    Crimenuts.Size = Size;
+        return UserInterface;
+    })(Phaser.Group);
+    Crimenuts.UserInterface = UserInterface;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -280,29 +180,12 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var MemberCard = (function (_super) {
-        __extends(MemberCard, _super);
-        function MemberCard(game, world, member, x, y, width, height) {
-            _super.call(this, game);
-            this.position.set(x, y);
-            var name = member;
-            this.createPicture(game, world, name, width);
-            this.createNameBox(game, name, width, height);
+    var Size = (function () {
+        function Size() {
         }
-        MemberCard.prototype.createPicture = function (game, world, name, width) {
-            this.add(this.picture = new Crimenuts.PersonPicture(game, world, name, 0, 0, width));
-        };
-        MemberCard.prototype.createNameBox = function (game, name, width, height) {
-            var w = width;
-            var h = MemberCard.nameHeight;
-            var fs = MemberCard.nameFontSize;
-            var x = 0;
-            var y = height - h;
-            this.add(this.nameBox = new Crimenuts.TextBox(game, name, x, y, w, h, fs));
-        };
-        return MemberCard;
-    })(Phaser.Group);
-    Crimenuts.MemberCard = MemberCard;
+        return Size;
+    })();
+    Crimenuts.Size = Size;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -338,21 +221,144 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var UserInterface = (function (_super) {
-        __extends(UserInterface, _super);
-        function UserInterface(game) {
-            _super.call(this, game);
-            this.add(this.topBar = new Crimenuts.TopBar(game));
-            this.add(this.bottomBar = new Crimenuts.BottomBar(game));
+    var ProcessState = (function (_super) {
+        __extends(ProcessState, _super);
+        function ProcessState() {
+            _super.call(this);
         }
-        UserInterface.prototype.setBottomText = function (text) {
-            this.bottomBar.text.setText(text);
+        ProcessState.prototype.init = function () {
+            this.game.stage.backgroundColor = ProcessState.background;
         };
-        UserInterface.prototype.setCaseId = function (caseId) {
-            this.topBar.text.setText("Crime Nuts Case #" + caseId);
+        ProcessState.prototype.preload = function () {
         };
-        return UserInterface;
-    })(Phaser.Group);
-    Crimenuts.UserInterface = UserInterface;
+        ProcessState.prototype.create = function () {
+            var _this = this;
+            Crimenuts.app.server.getProcess().done(function (model) {
+                _this.model = model;
+                _this.createMembersView();
+                _this.createUiView();
+                _this.subscribeEvents(Crimenuts.app.server);
+            });
+        };
+        ProcessState.prototype.onProcessUpdated = function (model) {
+            this.model = model;
+        };
+        ProcessState.prototype.createMembersView = function () {
+            this.members = new Crimenuts.ProcessMembers(this.game, this.model.World, this.model.Members);
+            this.members.position = ProcessState.membersPosition;
+        };
+        ProcessState.prototype.subscribeEvents = function (server) {
+            server.onProcessUpdated.add(this.onProcessUpdated, this);
+            server.onTickCountUpdated.add(this.onTickCountUpdated, this);
+        };
+        ProcessState.prototype.onTickCountUpdated = function (count) {
+            this.tickCount = count;
+            this.updateUi();
+        };
+        ProcessState.prototype.updateUi = function () {
+            this.ui.setCaseId(this.model.CaseId);
+            this.ui.setBottomText("" + this.model.Id + " [" + Crimenuts.app.tickCount + "]");
+        };
+        ProcessState.prototype.createUiView = function () {
+            this.ui = new Crimenuts.UserInterface(this.game);
+            this.updateUi();
+        };
+        ProcessState.background = "#000000";
+        ProcessState.membersPosition = new Phaser.Point(10, 50);
+        return ProcessState;
+    })(Phaser.State);
+    Crimenuts.ProcessState = ProcessState;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var App = (function () {
+        function App() {
+            this.server = new Crimenuts.ServerAdapter();
+            this.server.onStarted.addOnce(this.init, this);
+            this.server.onTickCountUpdated.add(this.onTickCountUpdated, this);
+        }
+        App.prototype.onGameCreate = function () {
+            this.game.state.add("Process", Crimenuts.ProcessState, true);
+        };
+        App.prototype.init = function () {
+            var size = this.getGameScreenSize();
+            this.createGame(size.width, size.height);
+        };
+        App.prototype.createGame = function (width, height) {
+            this.game = new Phaser.Game(width, height, Phaser.AUTO, "crimenuts-playground", { create: this.onGameCreate });
+        };
+        App.prototype.onTickCountUpdated = function (count) {
+            this.tickCount = count;
+        };
+        App.prototype.getGameScreenSize = function () {
+            return {
+                width: 720,
+                height: 820
+            };
+        };
+        return App;
+    })();
+    Crimenuts.App = App;
+    Crimenuts.app;
+    function initApp() {
+        Crimenuts.app = new App();
+    }
+    Crimenuts.initApp = initApp;
+})(Crimenuts || (Crimenuts = {}));
+window.onload = function () {
+    Crimenuts.initApp();
+};
+var Crimenuts;
+(function (Crimenuts) {
+    var ServerAdapter = (function () {
+        function ServerAdapter() {
+            // --------------------------------------------------------[]
+            // Server
+            this.server = $.connection.gameHub.server;
+            // --------------------------------------------------------[]
+            // Client
+            this.onStarted = new Phaser.Signal();
+            this.onProcessUpdated = new Phaser.Signal();
+            this.onTickCountUpdated = new Phaser.Signal();
+            this.client = $.connection.gameHub.client;
+            this.init();
+        }
+        ServerAdapter.prototype.getPlayerId = function () {
+            return this.server.getPlayerId();
+        };
+        ServerAdapter.prototype.getProcess = function () {
+            return this.server.getProcess("11");
+        };
+        ServerAdapter.prototype.update = function () {
+            return this.server.update();
+        };
+        ServerAdapter.prototype.init = function () {
+            this.setupClientCallbacks();
+            this.startHub();
+        };
+        ServerAdapter.prototype.startHub = function () {
+            var _this = this;
+            $.connection.hub.start().done(function () {
+                _this.onStarted.dispatch();
+            });
+        };
+        ServerAdapter.prototype.setupClientCallbacks = function () {
+            var _this = this;
+            this.client.tickCountUpdated = function (count) {
+                _this.tickCountUpdated(count);
+            };
+            this.client.processUpdated = function (model) {
+                _this.processUpdated(model);
+            };
+        };
+        ServerAdapter.prototype.tickCountUpdated = function (count) {
+            this.onTickCountUpdated.dispatch(count);
+        };
+        ServerAdapter.prototype.processUpdated = function (model) {
+            this.onProcessUpdated.dispatch(model);
+        };
+        return ServerAdapter;
+    })();
+    Crimenuts.ServerAdapter = ServerAdapter;
 })(Crimenuts || (Crimenuts = {}));
 //# sourceMappingURL=typescript.output.js.map

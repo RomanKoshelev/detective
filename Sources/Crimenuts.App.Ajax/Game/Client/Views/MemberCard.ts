@@ -2,8 +2,10 @@
 
     export class MemberCard extends Phaser.Group {
 
-        static nameHeight;
-        static nameFontSize;
+        static nameHeight = 18;
+        static nameFontSize = 12;
+        static nameColor = "#FFFFFF";
+        static nameBgColor = 0x222222;
 
         constructor( game: Phaser.Game, world: string, member: string, x: number, y: number, width: number, height: number ) {
             super( game );
@@ -14,7 +16,7 @@
         }
         
         private picture: PersonPicture;
-        private nameBox: TextBox;
+        private nameLabel: TextLabel;
 
         private createPicture( game: Phaser.Game, world: string, name: string, width: number ) {
             this.add( this.picture = new PersonPicture( game, world, name, 0, 0, width ) );
@@ -27,7 +29,7 @@
             var x = 0;
             var y = height - h;
 
-            this.add( this.nameBox = new TextBox( game, name, x, y, w, h, fs ) );
+            this.add( this.nameLabel = new TextLabel( game, name, x, y, w, h, fs, MemberCard.nameColor, MemberCard.nameBgColor ) );
         }
     }
 }

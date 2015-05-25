@@ -22,7 +22,7 @@
         }
 
         static background = "#000000";
-        static membersPosition = new Phaser.Point( 0, 50 );
+        static membersPosition = new Phaser.Point( 10, 50 );
 
         private ui: UserInterface;
         private members: ProcessMembers;
