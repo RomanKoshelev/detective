@@ -1,9 +1,6 @@
 ﻿module Crimenuts {
     export class ProcessState extends Phaser.State {
 
-        static background = "#000000";
-        membersView: ProcessMembersView;
-
         constructor() {
             super();
         }
@@ -24,9 +21,12 @@
             } );
         }
 
+        static background = "#000000";
         static membersPosition = new Phaser.Point( 0, 50 );
 
-        private ui: UserInterfaceView;
+        private ui: UserInterface;
+        private members: ProcessMembers;
+
         private model: ProcessModel;
         private tickCount: Number;
 
@@ -35,8 +35,8 @@
         }
         
         private createMembersView() {
-            this.membersView = new ProcessMembersView( this.game, this.model.World, this.model.Members );
-            this.membersView.position = ProcessState.membersPosition;
+            this.members = new ProcessMembers( this.game, this.model.World, this.model.Members );
+            this.members.position = ProcessState.membersPosition;
         }
 
         private subscribeEvents( server: ServerAdapter ) {
@@ -55,7 +55,7 @@
         }
 
         private createUiView() {
-            this.ui = new UserInterfaceView( this.game );
+            this.ui = new UserInterface( this.game );
             this.updateUi();
         }
     }

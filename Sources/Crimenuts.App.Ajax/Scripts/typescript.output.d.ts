@@ -23,7 +23,16 @@ declare module Crimenuts.Assets {
 }
 declare module Crimenuts {
     class PersonPicture extends Phaser.Image {
-        constructor(game: Phaser.Game, world: string, name: string, x: number, y: number, size: number);
+        constructor(game: Phaser.Game, world: string, name: string, x: number, y: number, width: number);
+        private imageKey;
+        private getLoader(world, name, width);
+        private onLoadComplete();
+    }
+}
+declare module Crimenuts {
+    class TextBox extends Phaser.Graphics {
+        text: Phaser.Text;
+        constructor(game: Phaser.Game, text: string, x: number, y: number, w: number, h: number, fs: number);
     }
 }
 declare module Crimenuts {
@@ -46,14 +55,14 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class ProcessState extends Phaser.State {
-        static background: string;
-        membersView: ProcessMembersView;
         constructor();
         init(): void;
         preload(): void;
         create(): void;
+        static background: string;
         static membersPosition: Phaser.Point;
         private ui;
+        private members;
         private model;
         private tickCount;
         private onProcessUpdated(model);
@@ -83,24 +92,33 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class ProcessMembersView extends Phaser.Group {
-        constructor(game: Phaser.Game, world: string, members: string[]);
-        private world;
-        private model;
-        private createMembers();
-        static memberWidth: number;
-        static memberNumInRow: number;
-        private getLoader();
-        private doCreateMembers();
-        private calcPersonCardPosition(i, size);
+    class MemberCard extends Phaser.Group {
+        static nameHeight: any;
+        static nameFontSize: any;
+        constructor(game: Phaser.Game, world: string, member: string, x: number, y: number, width: number, height: number);
+        private picture;
+        private nameBox;
+        private createPicture(game, world, name, width);
+        private createNameBox(game, name, width, height);
     }
 }
 declare module Crimenuts {
-    class UserInterfaceView {
+    class ProcessMembers extends Phaser.Group {
+        constructor(game: Phaser.Game, world: string, members: string[]);
+        private world;
+        private model;
+        static memberWidth: number;
+        static memberHeight: number;
+        static memberNumInRow: number;
+        private createMembers();
+        private calcPersonCardPosition(i, w, h);
+    }
+}
+declare module Crimenuts {
+    class UserInterface extends Phaser.Group {
         bottomBar: BottomBar;
         topBar: TopBar;
         constructor(game: Phaser.Game);
-        private items;
         setBottomText(text: string): void;
         setCaseId(caseId: string): void;
     }

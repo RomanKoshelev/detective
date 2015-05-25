@@ -298,11 +298,13 @@
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
     <TypeScriptCompile Include="Game\Client\Elements\PersonPicture.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\UserInterfaceView.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\MemberCard.ts" />
+    <TypeScriptCompile Include="Game\Client\Elements\TextBox.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\UserInterface.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\BottomBar.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\TopBar.ts" />
     <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\ProcessMembersView.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\ProcessMembers.ts" />
     <TypeScriptCompile Include="Game\Client\States\ProcessState.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\p2.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\phaser.d.ts" />
