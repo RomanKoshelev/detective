@@ -24,6 +24,8 @@
             } );
         }
 
+        static membersPosition = new Phaser.Point( 0, 50 );
+
         private ui: UserInterfaceView;
         private model: ProcessModel;
         private tickCount: Number;
@@ -31,9 +33,10 @@
         private onProcessUpdated( model: ProcessModel ) {
             this.model = model;
         }
-
+        
         private createMembersView() {
             this.membersView = new ProcessMembersView( this.game, this.model.World, this.model.Members );
+            this.membersView.position = ProcessState.membersPosition;
         }
 
         private subscribeEvents( server: ServerAdapter ) {

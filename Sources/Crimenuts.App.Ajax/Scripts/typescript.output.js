@@ -156,6 +156,7 @@ var Crimenuts;
         };
         ProcessState.prototype.createMembersView = function () {
             this.membersView = new Crimenuts.ProcessMembersView(this.game, this.model.World, this.model.Members);
+            this.membersView.position = ProcessState.membersPosition;
         };
         ProcessState.prototype.subscribeEvents = function (server) {
             server.onProcessUpdated.add(this.onProcessUpdated, this);
@@ -174,6 +175,7 @@ var Crimenuts;
             this.updateUi();
         };
         ProcessState.background = "#000000";
+        ProcessState.membersPosition = new Phaser.Point(0, 50);
         return ProcessState;
     })(Phaser.State);
     Crimenuts.ProcessState = ProcessState;
@@ -247,50 +249,45 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var ProcessMembersView = (function () {
+    var ProcessMembersView = (function (_super) {
+        __extends(ProcessMembersView, _super);
         function ProcessMembersView(game, world, members) {
-            this.game = game;
-            this.members = members;
+            _super.call(this, game);
+            this.model = members;
             this.world = world;
-            this.items = new Phaser.Group(game);
             this.createMembers();
         }
-        ProcessMembersView.prototype.getMembersNamesList = function () {
-            var names = "";
-            this.members.forEach(function (m) {
-                names += m + " ";
-            });
-            return names;
-        };
         ProcessMembersView.prototype.createMembers = function () {
-            var _this = this;
-            var size = 120;
-            var loader = new Phaser.Loader(this.game);
-            this.members.forEach(function (name) {
-                loader.image(Crimenuts.Assets.Sprites.getPersonKey(_this.world, name, size), Crimenuts.Assets.Sprites.getPersonUrl(_this.world, name, size));
-            });
-            loader.onLoadComplete.addOnce(this.createMembersWhenImagesLoaded, this);
+            var loader = this.getLoader();
+            loader.onLoadComplete.addOnce(this.doCreateMembers, this);
             loader.start();
         };
-        ProcessMembersView.prototype.createMembersWhenImagesLoaded = function () {
+        ProcessMembersView.prototype.getLoader = function () {
             var _this = this;
-            var size = 120;
-            var i = 0;
-            var n = 6;
-            var x = 0;
-            var y = 50;
-            this.members.forEach(function (name) {
-                if (i === n) {
-                    x = 0;
-                    y += size * 1.5;
-                }
-                i++;
-                _this.items.add(new Crimenuts.PersonPicture(_this.game, _this.world, name, x, y, size));
-                x += size;
+            var loader = new Phaser.Loader(this.game);
+            this.model.forEach(function (name) {
+                loader.image(Crimenuts.Assets.Sprites.getPersonKey(_this.world, name, ProcessMembersView.memberWidth), Crimenuts.Assets.Sprites.getPersonUrl(_this.world, name, ProcessMembersView.memberWidth));
             });
+            return loader;
         };
+        ProcessMembersView.prototype.doCreateMembers = function () {
+            var width = ProcessMembersView.memberWidth;
+            for (var i in this.model) {
+                var pos = this.calcPersonCardPosition(i, width);
+                var name = this.model[i];
+                this.add(new Crimenuts.PersonPicture(this.game, this.world, name, pos.x, pos.y, width));
+            }
+        };
+        ProcessMembersView.prototype.calcPersonCardPosition = function (i, size) {
+            var n = ProcessMembersView.memberNumInRow;
+            var x = (i % n) * size;
+            var y = Math.floor(i / n) * size * 1.5;
+            return new Phaser.Point(x, y);
+        };
+        ProcessMembersView.memberWidth = 120;
+        ProcessMembersView.memberNumInRow = 6;
         return ProcessMembersView;
-    })();
+    })(Phaser.Group);
     Crimenuts.ProcessMembersView = ProcessMembersView;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;

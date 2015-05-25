@@ -1,56 +1,51 @@
-﻿ module Crimenuts {
-    export class ProcessMembersView {
+﻿module Crimenuts {
+    export class ProcessMembersView extends Phaser.Group {
 
         constructor( game: Phaser.Game, world: string, members: string[] ) {
-            this.game = game;
-            this.members = members;
+            super( game );
+            this.model = members;
             this.world = world;
-            this.items = new Phaser.Group( game );
             this.createMembers();
         }
 
-        private game: Phaser.Game;
-        private items: Phaser.Group;
         private world: string;
-        private members: string[];
-
-        private getMembersNamesList() {
-            var names = "";
-            this.members.forEach( m => {
-                names += m + " ";
-            } );
-            return names;
-        }
+        private model: string[];
 
         private createMembers() {
-            var size  = 120;
-            var loader = new Phaser.Loader( this.game );
-
-            this.members.forEach( name => {
-                loader.image(
-                    Assets.Sprites.getPersonKey( this.world, name, size ),
-                    Assets.Sprites.getPersonUrl( this.world, name, size ) );
-            });
-
-            loader.onLoadComplete.addOnce( this.createMembersWhenImagesLoaded, this );
+            var loader = this.getLoader();
+            loader.onLoadComplete.addOnce( this.doCreateMembers, this );
             loader.start();
         }
 
-        private createMembersWhenImagesLoaded() {
-            var size = 120;
-            var i = 0;
-            var n = 6;
-            var x = 0;
-            var y = 50;
-            this.members.forEach( name => {
-                if( i === n ) {
-                    x = 0;
-                    y += size*1.5;
-                }
-                i++;
-                this.items.add( new PersonPicture( this.game, this.world, name, x, y, size ) );
-                x += size;
-            });            
+        static memberWidth = 120;
+        static memberNumInRow = 6;
+
+        private getLoader() {
+            var loader = new Phaser.Loader( this.game );
+            this.model.forEach( name => {
+                loader.image(
+                    Assets.Sprites.getPersonKey( this.world, name, ProcessMembersView.memberWidth ),
+                    Assets.Sprites.getPersonUrl( this.world, name, ProcessMembersView.memberWidth ) );
+            } );
+            return loader;
         }
+
+        private doCreateMembers() {
+            var width = ProcessMembersView.memberWidth;
+            for( var i in this.model ) {
+                var pos = this.calcPersonCardPosition( i, width );
+                var name = this.model[ i ];
+                this.add( new PersonPicture( this.game, this.world, name, pos.x, pos.y, width ) );
+            }
+        }
+
+        private calcPersonCardPosition( i: number, size: number ): Phaser.Point {
+            var n = ProcessMembersView.memberNumInRow;
+            var x = ( i % n ) * size;
+            var y = Math.floor( i / n ) * size * 1.5;
+
+            return new Phaser.Point( x, y );
+        }
+
     }
 }

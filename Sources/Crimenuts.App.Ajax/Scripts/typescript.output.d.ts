@@ -52,6 +52,7 @@ declare module Crimenuts {
         init(): void;
         preload(): void;
         create(): void;
+        static membersPosition: Phaser.Point;
         private ui;
         private model;
         private tickCount;
@@ -82,15 +83,16 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class ProcessMembersView {
+    class ProcessMembersView extends Phaser.Group {
         constructor(game: Phaser.Game, world: string, members: string[]);
-        private game;
-        private items;
         private world;
-        private members;
-        private getMembersNamesList();
+        private model;
         private createMembers();
-        private createMembersWhenImagesLoaded();
+        static memberWidth: number;
+        static memberNumInRow: number;
+        private getLoader();
+        private doCreateMembers();
+        private calcPersonCardPosition(i, size);
     }
 }
 declare module Crimenuts {
