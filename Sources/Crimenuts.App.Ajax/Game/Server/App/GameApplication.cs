@@ -6,6 +6,7 @@ using System.Threading;
 using System.Web.Hosting;
 using Crimenuts.App.Ajax.Game.Server.Clients;
 using Crimenuts.App.Ajax.Game.Server.Logic;
+using Crimenuts.Core.Game.Schemas;
 using NLog;
 
 namespace Crimenuts.App.Ajax.Game.Server.App
@@ -20,6 +21,7 @@ namespace Crimenuts.App.Ajax.Game.Server.App
         {
             Logger.Trace( "new GameApplication" );
             Instance = this;
+            Schema.Init();
             CreateTickTimer();
         }
 

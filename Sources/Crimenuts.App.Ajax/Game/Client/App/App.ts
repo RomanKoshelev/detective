@@ -26,7 +26,6 @@
 
         private onTickCountUpdated( count: Number ) {
             this.tickCount = count;
-            this.game.canvas.style["background"] = "red";
         }
 
         getGameScreenSize() : Size {

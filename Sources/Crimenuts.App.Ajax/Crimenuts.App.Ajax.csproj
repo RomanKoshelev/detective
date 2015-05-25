@@ -188,14 +188,11 @@
     <Compile Include="Game\Server\Clients\GameClientsProxy.cs" />
     <Compile Include="Game\Server\App\GameApplication.cs" />
     <Compile Include="Game\Server\Config\Settings.cs" />
-    <Compile Include="Game\Server\Entities\Abstract\Entity.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\IModelled.cs" />
     <Compile Include="Game\Server\Logic\IAuxLogic.cs" />
     <Compile Include="Game\Server\Logic\ITimeLogic.cs" />
-    <Compile Include="Game\Server\Managers\IProcessManager.cs" />
-    <Compile Include="Game\Server\Models\CompanyModel.cs" />
+    <Compile Include="Game\Server\Managers\IManager.cs" />
+    <Compile Include="Game\Server\Models\IModel.cs" />
     <Compile Include="Game\Server\Utils\Calc.cs" />
-    <Compile Include="Game\Server\Entities\Interfaces\IIdentifiable.cs" />
     <Compile Include="Game\Server\Managers\ProcessManager.cs" />
     <Compile Include="Game\Server\Logic\MainLogic.cs" />
     <Compile Include="Game\Server\Clients\IGameClient.cs" />
@@ -361,7 +358,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1656</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2012/</IISUrl>
+          <IISUrl>http://localhost:2013/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

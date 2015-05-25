@@ -15,7 +15,6 @@
         }
 
         preload() {
-            //Assets.Sprites.loadPerson( "Simpsons", "Snake", 200 );
         }
 
         create() {

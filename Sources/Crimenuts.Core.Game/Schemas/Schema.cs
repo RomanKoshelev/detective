@@ -15,8 +15,8 @@ namespace Crimenuts.Core.Game.Schemas
     public static partial class Schema
     {
         // ===================================================================================== []
-        // Constructor
-        static Schema()
+        // Init
+        public static void Init()
         {
             InitMaster();
             InitWorlds();

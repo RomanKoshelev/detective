@@ -45,7 +45,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
 
         ProcessModel IGameLogic.GetProcess( string processId )
         {
-            return _processManager.IProcessManager.GetModel( processId );
+            return _processManager.GetModel( processId );
         }
 
         void IGameLogic.Update()
@@ -61,9 +61,6 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
         #region Constants
 
         private const double UpdateInterval = Settings.Dynamic.Game.Update.Interval;
-        private const double WorldWidth = Settings.World.Width;
-        private const double WorldHeight = Settings.World.Height;
-        private const double SightSize = Settings.World.Sight.Size;
 
         #endregion
 
@@ -72,7 +69,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IGameClient _clients;
-        private readonly ProcessManager _processManager;
+        private readonly IManager<ProcessModel> _processManager;
         private readonly List< IAuxLogic > _auxLlogics = new List< IAuxLogic >();
         private int _tickCount;
 

@@ -9,8 +9,8 @@
 
             server.getProcess().done( ( model: ProcessModel ) => {
                 this.model= model;
-                this.updateUi();
                 this.createMembers();
+                this.updateUi();
                 this.subscribeEvents();
             } );
         }
@@ -25,7 +25,7 @@
         private model: ProcessModel;
         private tickCount: Number;
 
-        private onSessionUpdated( model: ProcessModel ) {
+        private onProcessUpdated( model: ProcessModel ) {
             this.model = model;
         }
 
@@ -35,31 +35,31 @@
         }
 
         private updateUi() {
-            var members = this.getMemersNamesList();
+            var members = this.getMembersNamesList();
             this.ui.setCaseId( this.model.CaseId );
             this.ui.setBottomText( `${this.model.Id} ${members} [${app.tickCount}]` );
         }
 
-        private getMemersNamesList() {
+        private getMembersNamesList() {
             var names = "";
-            this.model.Company.Members.forEach( m => {
+            this.model.Members.forEach( m => {
                 names += m + " ";
             } );
             return names;
         }
 
         private subscribeEvents() {
-            this.server.onProcessUpdated.add( this.onSessionUpdated, this );
+            this.server.onProcessUpdated.add( this.onProcessUpdated, this );
             this.server.onTickCountUpdated.add( this.onTickCountUpdated, this );
             
         }
 
         private createMembers() {
-            var world = "Simpsons";
+            var world = this.model.World;
             var size  = 120;
             var loader = new Phaser.Loader( this.game );
 
-            this.model.Company.Members.forEach( name => {
+            this.model.Members.forEach( name => {
                 loader.image(
                     Assets.Sprites.getPersonKey( world, name, size ),
                     Assets.Sprites.getPersonUrl( world, name, size ) );
@@ -70,13 +70,13 @@
         }
 
         private createMembersWhenImagesLoaded() {
-            var world = "Simpsons";
+            var world = this.model.World;
             var size = 120;
             var i = 0;
             var n = 6;
             var x = 0;
             var y = 50;
-            this.model.Company.Members.forEach( name => {
+            this.model.Members.forEach( name => {
                 if( i === 6 ) {
                     x = 0;
                     y += size*1.5;

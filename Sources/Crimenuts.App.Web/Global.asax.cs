@@ -4,6 +4,7 @@
 // Roman, 2015-03-29 12:57 AM
 
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -21,6 +22,7 @@ namespace Crimenuts.App.Web
             FilterConfig.RegisterGlobalFilters( GlobalFilters.Filters );
             RouteConfig.RegisterRoutes( RouteTable.Routes );
             BundleConfig.RegisterBundles( BundleTable.Bundles );
+            HostingEnvironment.RegisterObject( new GameApplication() );
         }
     }
 }

@@ -82,10 +82,10 @@ declare module Crimenuts {
         private items;
         private model;
         private tickCount;
-        private onSessionUpdated(model);
+        private onProcessUpdated(model);
         private onTickCountUpdated(count);
         private updateUi();
-        private getMemersNamesList();
+        private getMembersNamesList();
         private subscribeEvents();
         private createMembers();
         private createMembersWhenImagesLoaded();

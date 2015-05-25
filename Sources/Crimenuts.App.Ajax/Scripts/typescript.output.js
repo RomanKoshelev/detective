@@ -18,7 +18,6 @@ var Crimenuts;
         };
         App.prototype.onTickCountUpdated = function (count) {
             this.tickCount = count;
-            this.game.canvas.style["background"] = "red";
         };
         App.prototype.getGameScreenSize = function () {
             return {
@@ -143,7 +142,6 @@ var Crimenuts;
             this.game.stage.backgroundColor = ProcessState.background;
         };
         ProcessState.prototype.preload = function () {
-            //Assets.Sprites.loadPerson( "Simpsons", "Snake", 200 );
         };
         ProcessState.prototype.create = function () {
             this.processView = new Crimenuts.ProcessView(this.game, this.server);
@@ -231,12 +229,12 @@ var Crimenuts;
             this.items = new Phaser.Group(game);
             server.getProcess().done(function (model) {
                 _this.model = model;
-                _this.updateUi();
                 _this.createMembers();
+                _this.updateUi();
                 _this.subscribeEvents();
             });
         }
-        ProcessView.prototype.onSessionUpdated = function (model) {
+        ProcessView.prototype.onProcessUpdated = function (model) {
             this.model = model;
         };
         ProcessView.prototype.onTickCountUpdated = function (count) {
@@ -244,26 +242,26 @@ var Crimenuts;
             this.updateUi();
         };
         ProcessView.prototype.updateUi = function () {
-            var members = this.getMemersNamesList();
+            var members = this.getMembersNamesList();
             this.ui.setCaseId(this.model.CaseId);
             this.ui.setBottomText("" + this.model.Id + " " + members + " [" + Crimenuts.app.tickCount + "]");
         };
-        ProcessView.prototype.getMemersNamesList = function () {
+        ProcessView.prototype.getMembersNamesList = function () {
             var names = "";
-            this.model.Company.Members.forEach(function (m) {
+            this.model.Members.forEach(function (m) {
                 names += m + " ";
             });
             return names;
         };
         ProcessView.prototype.subscribeEvents = function () {
-            this.server.onProcessUpdated.add(this.onSessionUpdated, this);
+            this.server.onProcessUpdated.add(this.onProcessUpdated, this);
             this.server.onTickCountUpdated.add(this.onTickCountUpdated, this);
         };
         ProcessView.prototype.createMembers = function () {
-            var world = "Simpsons";
+            var world = this.model.World;
             var size = 120;
             var loader = new Phaser.Loader(this.game);
-            this.model.Company.Members.forEach(function (name) {
+            this.model.Members.forEach(function (name) {
                 loader.image(Crimenuts.Assets.Sprites.getPersonKey(world, name, size), Crimenuts.Assets.Sprites.getPersonUrl(world, name, size));
             });
             loader.onLoadComplete.addOnce(this.createMembersWhenImagesLoaded, this);
@@ -271,13 +269,13 @@ var Crimenuts;
         };
         ProcessView.prototype.createMembersWhenImagesLoaded = function () {
             var _this = this;
-            var world = "Simpsons";
+            var world = this.model.World;
             var size = 120;
             var i = 0;
             var n = 6;
             var x = 0;
             var y = 50;
-            this.model.Company.Members.forEach(function (name) {
+            this.model.Members.forEach(function (name) {
                 if (i === 6) {
                     x = 0;
                     y += size * 1.5;
