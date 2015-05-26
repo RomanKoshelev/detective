@@ -2,10 +2,10 @@
 
     export class MemberCard extends Phaser.Group {
 
-        static nameHeight = 18;
-        static nameFontSize = 12;
-        static nameColor = "#FFFFFF";
-        static nameBgColor = 0x222222;
+        static nameHeight = Settings.Process.Members.Card.Name.height;
+        static nameFontSize = Settings.Process.Members.Card.Name.fontSize;
+        static nameColor = Settings.Process.Members.Card.Name.color;
+        static nameBgColor = Settings.Process.Members.Card.Name.bgColor;
 
         constructor( game: Phaser.Game, world: string, member: string, x: number, y: number, width: number, height: number ) {
             super( game );

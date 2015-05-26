@@ -10,7 +10,7 @@ module Crimenuts {
             w: number, h: number,
             fs: number,
             c: string, bgc: number,
-            fn: string = "Arial" ) {
+            fn: string = Settings.Default.Font.face ) {
 
             super( game, x, y );
             this.position.set( x, y );

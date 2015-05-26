@@ -12,9 +12,9 @@
         private world: string;
         private model: string[];
 
-        static memberWidth = 120;
-        static memberHeight = 150;
-        static memberNumInRow = 6;
+        static memberWidth = Settings.Process.Members.Card.width;
+        static memberHeight = Settings.Process.Members.Card.height;
+        static memberNumInRow = Settings.Process.Members.numInRow;
 
         private createMembers() {
             var w = ProcessMembers.memberWidth;

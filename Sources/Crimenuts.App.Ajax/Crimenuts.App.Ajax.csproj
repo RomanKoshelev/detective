@@ -297,6 +297,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
+    <TypeScriptCompile Include="Game\Client\Config\Settings.ts" />
     <TypeScriptCompile Include="Game\Client\Elements\PersonPicture.ts" />
     <TypeScriptCompile Include="Game\Client\Views\MemberCard.ts" />
     <TypeScriptCompile Include="Game\Client\Elements\TextLabel.ts" />

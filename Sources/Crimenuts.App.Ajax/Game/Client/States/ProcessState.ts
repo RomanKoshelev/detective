@@ -21,8 +21,8 @@
             } );
         }
 
-        static background = "#000000";
-        static membersPosition = new Phaser.Point( 10, 50 );
+        static background = Settings.Process.bgColor;
+        static membersPosition = Settings.Process.Members.position;
 
         private ui: UserInterface;
         private members: ProcessMembers;
