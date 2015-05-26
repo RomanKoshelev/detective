@@ -43,6 +43,20 @@ declare module Crimenuts.Settings {
                 }
             }
         }
+        module StateBar {
+            var position: Phaser.Point;
+            var width: number;
+            var height: number;
+            var fontSize: number;
+            var color: string;
+            var bgColor: number;
+        }
+    }
+}
+declare module Crimenuts {
+    class BottomBar extends Phaser.Graphics {
+        text: Phaser.Text;
+        constructor(game: Phaser.Game);
     }
 }
 declare module Crimenuts {
@@ -54,9 +68,24 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
+    class ProcessStateBar extends Phaser.Group {
+        constructor(game: Phaser.Game, x: number, y: number);
+        private textLabel;
+        private createTextLabel(game);
+        setText(text: string): void;
+    }
+}
+declare module Crimenuts {
     class TextLabel extends Phaser.Graphics {
         private text;
         constructor(game: Phaser.Game, text: string, x: number, y: number, w: number, h: number, fs: number, c: string, bgc: number, fn?: string);
+        setText(text: string): void;
+    }
+}
+declare module Crimenuts {
+    class TopBar extends Phaser.Graphics {
+        text: Phaser.Text;
+        constructor(game: Phaser.Game);
     }
 }
 declare module Crimenuts {
@@ -104,27 +133,15 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class BottomBar extends Phaser.Graphics {
-        text: Phaser.Text;
-        constructor(game: Phaser.Game);
-    }
-}
-declare module Crimenuts {
-    class TopBar extends Phaser.Graphics {
-        text: Phaser.Text;
-        constructor(game: Phaser.Game);
-    }
-}
-declare module Crimenuts {
     class MemberCard extends Phaser.Group {
         static nameHeight: number;
         static nameFontSize: number;
         static nameColor: string;
         static nameBgColor: number;
-        constructor(game: Phaser.Game, world: string, member: string, x: number, y: number, width: number, height: number);
+        constructor(game: Phaser.Game, world: string, member: string, x: number, y: number, w: number, h: number);
         private picture;
         private nameLabel;
-        private createPicture(game, world, name, width);
+        private createPicture(game, world, name, w, h);
         private createNameBox(game, name, width, height);
     }
 }

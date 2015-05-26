@@ -298,12 +298,13 @@
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
     <TypeScriptCompile Include="Game\Client\Config\Settings.ts" />
+    <TypeScriptCompile Include="Game\Client\Elements\BottomBar.ts" />
+    <TypeScriptCompile Include="Game\Client\Elements\ProcessStateBar.ts" />
     <TypeScriptCompile Include="Game\Client\Elements\PersonPicture.ts" />
+    <TypeScriptCompile Include="Game\Client\Elements\TopBar.ts" />
     <TypeScriptCompile Include="Game\Client\Views\MemberCard.ts" />
     <TypeScriptCompile Include="Game\Client\Elements\TextLabel.ts" />
     <TypeScriptCompile Include="Game\Client\Views\UserInterface.ts" />
-    <TypeScriptCompile Include="Game\Client\UserInterface\BottomBar.ts" />
-    <TypeScriptCompile Include="Game\Client\UserInterface\TopBar.ts" />
     <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
     <TypeScriptCompile Include="Game\Client\Views\ProcessMembers.ts" />
     <TypeScriptCompile Include="Game\Client\States\ProcessState.ts" />
@@ -361,7 +362,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1656</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2013/</IISUrl>
+          <IISUrl>http://localhost:2014/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -31,5 +31,10 @@ module Crimenuts {
 
             this.text.anchor.set( 0.5, 0.5 );
         }
+
+        setText( text: string ) {
+            this.text.text = text;
+        }
+
     }
 }

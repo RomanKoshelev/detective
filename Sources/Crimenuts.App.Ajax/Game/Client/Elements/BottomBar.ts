@@ -1,4 +1,4 @@
-﻿module Crimenuts {
+module Crimenuts {
     export class BottomBar extends Phaser.Graphics {
 
         text: Phaser.Text;

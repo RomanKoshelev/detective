@@ -7,19 +7,21 @@
         static nameColor = Settings.Process.Members.Card.Name.color;
         static nameBgColor = Settings.Process.Members.Card.Name.bgColor;
 
-        constructor( game: Phaser.Game, world: string, member: string, x: number, y: number, width: number, height: number ) {
+        constructor( game: Phaser.Game, world: string, member: string, x: number, y: number, w: number, h: number ) {
             super( game );
             this.position.set( x, y );
             var name = member;
-            this.createPicture( game, world, name, width);
-            this.createNameBox( game, name, width, height);
+            this.createPicture( game, world, name, w,h);
+            this.createNameBox( game, name, w, h);
         }
         
         private picture: PersonPicture;
         private nameLabel: TextLabel;
 
-        private createPicture( game: Phaser.Game, world: string, name: string, width: number ) {
-            this.add( this.picture = new PersonPicture( game, world, name, 0, 0, width ) );
+        private createPicture( game: Phaser.Game, world: string, name: string, w: number, h: number ) {
+            this.add( this.picture = new PersonPicture( game, world, name, 0, 0, w) );
+            this.picture.anchor.set( 0, 1 );
+            this.picture.position.y = h - MemberCard.nameHeight;
         }
 
         private createNameBox( game: Phaser.Game, name: string, width: number , height: number ) {

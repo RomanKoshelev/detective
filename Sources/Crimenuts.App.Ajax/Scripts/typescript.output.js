@@ -75,21 +75,30 @@ var Crimenuts;
             Process.bgColor = "#000000";
             var Members;
             (function (Members) {
-                Members.position = new Phaser.Point(10, 50);
+                Members.position = new Phaser.Point(25, 90);
                 Members.numInRow = 6;
                 var Card;
                 (function (Card) {
-                    Card.width = 100;
-                    Card.height = 150;
+                    Card.width = 95;
+                    Card.height = 120;
                     var Name;
                     (function (Name) {
-                        Name.height = 22;
-                        Name.fontSize = 16;
-                        Name.color = "#FFFFFF";
+                        Name.height = 16;
+                        Name.fontSize = 10;
+                        Name.color = "#CCCCCC";
                         Name.bgColor = 0x222222;
                     })(Name = Card.Name || (Card.Name = {}));
                 })(Card = Members.Card || (Members.Card = {}));
             })(Members = Process.Members || (Process.Members = {}));
+            var StateBar;
+            (function (StateBar) {
+                StateBar.position = new Phaser.Point(25, 20);
+                StateBar.width = 700;
+                StateBar.height = 20;
+                StateBar.fontSize = 10;
+                StateBar.color = "#CCCCCC";
+                StateBar.bgColor = 0x222222;
+            })(StateBar = Process.StateBar || (Process.StateBar = {}));
         })(Process = Settings.Process || (Settings.Process = {}));
     })(Settings = Crimenuts.Settings || (Crimenuts.Settings = {}));
 })(Crimenuts || (Crimenuts = {}));
@@ -99,6 +108,35 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+var Crimenuts;
+(function (Crimenuts) {
+    var BottomBar = (function (_super) {
+        __extends(BottomBar, _super);
+        function BottomBar(game) {
+            var h1 = 3;
+            var h2 = 30;
+            var c1 = 0x770000;
+            var c2 = 0x005500;
+            var wg = game.width;
+            var hg = game.height;
+            var hb = h1 + h2;
+            var x = 0;
+            var y = hg - hb;
+            _super.call(this, game, x, y);
+            this.beginFill(c1);
+            this.drawRect(0, 0, wg, h1);
+            this.beginFill(c2);
+            this.drawRect(0, h1, wg, h2);
+            this.addChild(this.text = new Phaser.Text(game, 7, 7, "", {
+                font: "18px Arial",
+                fill: "#44dd44",
+                align: "left"
+            }));
+        }
+        return BottomBar;
+    })(Phaser.Graphics);
+    Crimenuts.BottomBar = BottomBar;
+})(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
     var PersonPicture = (function (_super) {
@@ -124,6 +162,25 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
+    var ProcessStateBar = (function (_super) {
+        __extends(ProcessStateBar, _super);
+        function ProcessStateBar(game, x, y) {
+            _super.call(this, game);
+            this.position.set(x, y);
+            this.createTextLabel(game);
+        }
+        ProcessStateBar.prototype.createTextLabel = function (game) {
+            this.add(this.textLabel = new Crimenuts.TextLabel(game, name, 0, 0, Crimenuts.Settings.Process.StateBar.width, Crimenuts.Settings.Process.StateBar.height, Crimenuts.Settings.Process.StateBar.fontSize, Crimenuts.Settings.Process.StateBar.color, Crimenuts.Settings.Process.StateBar.bgColor));
+        };
+        ProcessStateBar.prototype.setText = function (text) {
+            this.textLabel.setText(text);
+        };
+        return ProcessStateBar;
+    })(Phaser.Group);
+    Crimenuts.ProcessStateBar = ProcessStateBar;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
     var TextLabel = (function (_super) {
         __extends(TextLabel, _super);
         function TextLabel(game, text, x, y, w, h, fs, c, bgc, fn) {
@@ -140,9 +197,41 @@ var Crimenuts;
             }));
             this.text.anchor.set(0.5, 0.5);
         }
+        TextLabel.prototype.setText = function (text) {
+            this.text.text = text;
+        };
         return TextLabel;
     })(Phaser.Graphics);
     Crimenuts.TextLabel = TextLabel;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var TopBar = (function (_super) {
+        __extends(TopBar, _super);
+        function TopBar(game) {
+            var h1 = 30;
+            var h2 = 3;
+            var c1 = 0x005500;
+            var c2 = 0x770000;
+            var wg = game.width;
+            var x = 0;
+            var y = 0;
+            _super.call(this, game, x, y);
+            this.beginFill(c1);
+            this.drawRect(0, 0, wg, h1);
+            this.endFill();
+            this.beginFill(c2);
+            this.drawRect(0, h1, wg, h2);
+            this.endFill();
+            this.addChild(this.text = new Phaser.Text(game, 7, 7, "", {
+                font: "18px Arial",
+                fill: "#44dd44",
+                align: "left"
+            }));
+        }
+        return TopBar;
+    })(Phaser.Graphics);
+    Crimenuts.TopBar = TopBar;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -258,75 +347,19 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var BottomBar = (function (_super) {
-        __extends(BottomBar, _super);
-        function BottomBar(game) {
-            var h1 = 3;
-            var h2 = 30;
-            var c1 = 0x770000;
-            var c2 = 0x005500;
-            var wg = game.width;
-            var hg = game.height;
-            var hb = h1 + h2;
-            var x = 0;
-            var y = hg - hb;
-            _super.call(this, game, x, y);
-            this.beginFill(c1);
-            this.drawRect(0, 0, wg, h1);
-            this.beginFill(c2);
-            this.drawRect(0, h1, wg, h2);
-            this.addChild(this.text = new Phaser.Text(game, 7, 7, "", {
-                font: "18px Arial",
-                fill: "#44dd44",
-                align: "left"
-            }));
-        }
-        return BottomBar;
-    })(Phaser.Graphics);
-    Crimenuts.BottomBar = BottomBar;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    var TopBar = (function (_super) {
-        __extends(TopBar, _super);
-        function TopBar(game) {
-            var h1 = 30;
-            var h2 = 3;
-            var c1 = 0x005500;
-            var c2 = 0x770000;
-            var wg = game.width;
-            var x = 0;
-            var y = 0;
-            _super.call(this, game, x, y);
-            this.beginFill(c1);
-            this.drawRect(0, 0, wg, h1);
-            this.endFill();
-            this.beginFill(c2);
-            this.drawRect(0, h1, wg, h2);
-            this.endFill();
-            this.addChild(this.text = new Phaser.Text(game, 7, 7, "", {
-                font: "18px Arial",
-                fill: "#44dd44",
-                align: "left"
-            }));
-        }
-        return TopBar;
-    })(Phaser.Graphics);
-    Crimenuts.TopBar = TopBar;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
     var MemberCard = (function (_super) {
         __extends(MemberCard, _super);
-        function MemberCard(game, world, member, x, y, width, height) {
+        function MemberCard(game, world, member, x, y, w, h) {
             _super.call(this, game);
             this.position.set(x, y);
             var name = member;
-            this.createPicture(game, world, name, width);
-            this.createNameBox(game, name, width, height);
+            this.createPicture(game, world, name, w, h);
+            this.createNameBox(game, name, w, h);
         }
-        MemberCard.prototype.createPicture = function (game, world, name, width) {
-            this.add(this.picture = new Crimenuts.PersonPicture(game, world, name, 0, 0, width));
+        MemberCard.prototype.createPicture = function (game, world, name, w, h) {
+            this.add(this.picture = new Crimenuts.PersonPicture(game, world, name, 0, 0, w));
+            this.picture.anchor.set(0, 1);
+            this.picture.position.y = h - MemberCard.nameHeight;
         };
         MemberCard.prototype.createNameBox = function (game, name, width, height) {
             var w = width;
