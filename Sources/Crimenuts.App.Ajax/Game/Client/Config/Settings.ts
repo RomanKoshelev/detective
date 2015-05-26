@@ -26,13 +26,13 @@
         }
 
         export module StateBar {
-            export var position = new Phaser.Point( 25, 20 );
+            export var position = new Phaser.Point( 10, 45 );
             export var width = 700;
-            export var height = 20;
+            export var height = 25;
 
-            export var fontSize = 10;
-            export var color = "#CCCCCC";
-            export var bgColor = 0x222222;
+            export var fontSize = 18;
+            export var color = "#000000";
+            export var bgColor = 0x666666;
         }
 
     }

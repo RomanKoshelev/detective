@@ -69,7 +69,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class ProcessStateBar extends Phaser.Group {
-        constructor(game: Phaser.Game, x: number, y: number);
+        constructor(game: Phaser.Game);
         private textLabel;
         private createTextLabel(game);
         setText(text: string): void;
@@ -112,18 +112,18 @@ declare module Crimenuts {
         init(): void;
         preload(): void;
         create(): void;
-        static background: string;
-        static membersPosition: Phaser.Point;
-        private ui;
-        private members;
         private model;
         private tickCount;
-        private onProcessUpdated(model);
-        private createMembersView();
+        private ui;
+        private members;
+        private stateBar;
+        private createStateBar();
+        private createMembers();
+        private createUi();
+        private updateUi();
         private subscribeEvents(server);
         private onTickCountUpdated(count);
-        private updateUi();
-        private createUiView();
+        private onProcessUpdated(model);
     }
 }
 declare module Crimenuts {

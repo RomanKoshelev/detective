@@ -92,12 +92,12 @@ var Crimenuts;
             })(Members = Process.Members || (Process.Members = {}));
             var StateBar;
             (function (StateBar) {
-                StateBar.position = new Phaser.Point(25, 20);
+                StateBar.position = new Phaser.Point(10, 45);
                 StateBar.width = 700;
-                StateBar.height = 20;
-                StateBar.fontSize = 10;
-                StateBar.color = "#CCCCCC";
-                StateBar.bgColor = 0x222222;
+                StateBar.height = 25;
+                StateBar.fontSize = 18;
+                StateBar.color = "#000000";
+                StateBar.bgColor = 0x666666;
             })(StateBar = Process.StateBar || (Process.StateBar = {}));
         })(Process = Settings.Process || (Settings.Process = {}));
     })(Settings = Crimenuts.Settings || (Crimenuts.Settings = {}));
@@ -164,9 +164,8 @@ var Crimenuts;
 (function (Crimenuts) {
     var ProcessStateBar = (function (_super) {
         __extends(ProcessStateBar, _super);
-        function ProcessStateBar(game, x, y) {
+        function ProcessStateBar(game) {
             _super.call(this, game);
-            this.position.set(x, y);
             this.createTextLabel(game);
         }
         ProcessStateBar.prototype.createTextLabel = function (game) {
@@ -294,7 +293,7 @@ var Crimenuts;
             _super.call(this);
         }
         ProcessState.prototype.init = function () {
-            this.game.stage.backgroundColor = ProcessState.background;
+            this.game.stage.backgroundColor = Crimenuts.Settings.Process.bgColor;
         };
         ProcessState.prototype.preload = function () {
         };
@@ -302,18 +301,30 @@ var Crimenuts;
             var _this = this;
             Crimenuts.app.server.getProcess().done(function (model) {
                 _this.model = model;
-                _this.createMembersView();
-                _this.createUiView();
+                _this.createMembers();
+                _this.createUi();
+                _this.createStateBar();
                 _this.subscribeEvents(Crimenuts.app.server);
+                _this.updateUi();
             });
         };
-        ProcessState.prototype.onProcessUpdated = function (model) {
-            this.model = model;
+        ProcessState.prototype.createStateBar = function () {
+            this.stateBar = new Crimenuts.ProcessStateBar(this.game);
+            this.stateBar.position = Crimenuts.Settings.Process.StateBar.position;
         };
-        ProcessState.prototype.createMembersView = function () {
+        ProcessState.prototype.createMembers = function () {
             this.members = new Crimenuts.ProcessMembers(this.game, this.model.World, this.model.Members);
-            this.members.position = ProcessState.membersPosition;
+            this.members.position = Crimenuts.Settings.Process.Members.position;
         };
+        ProcessState.prototype.createUi = function () {
+            this.ui = new Crimenuts.UserInterface(this.game);
+        };
+        ProcessState.prototype.updateUi = function () {
+            this.ui.setCaseId(this.model.CaseId);
+            this.ui.setBottomText("" + this.model.Id + " [" + Crimenuts.app.tickCount + "]");
+            this.stateBar.setText("Morning");
+        };
+        // Events
         ProcessState.prototype.subscribeEvents = function (server) {
             server.onProcessUpdated.add(this.onProcessUpdated, this);
             server.onTickCountUpdated.add(this.onTickCountUpdated, this);
@@ -322,16 +333,10 @@ var Crimenuts;
             this.tickCount = count;
             this.updateUi();
         };
-        ProcessState.prototype.updateUi = function () {
-            this.ui.setCaseId(this.model.CaseId);
-            this.ui.setBottomText("" + this.model.Id + " [" + Crimenuts.app.tickCount + "]");
-        };
-        ProcessState.prototype.createUiView = function () {
-            this.ui = new Crimenuts.UserInterface(this.game);
+        ProcessState.prototype.onProcessUpdated = function (model) {
+            this.model = model;
             this.updateUi();
         };
-        ProcessState.background = Crimenuts.Settings.Process.bgColor;
-        ProcessState.membersPosition = Crimenuts.Settings.Process.Members.position;
         return ProcessState;
     })(Phaser.State);
     Crimenuts.ProcessState = ProcessState;
