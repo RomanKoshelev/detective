@@ -26,7 +26,7 @@
         }
 
         export module StateBar {
-            export var position = new Phaser.Point( 10, 45 );
+            export var position = new Phaser.Point( 10, 375 );
             export var width = 700;
             export var height = 25;
 
