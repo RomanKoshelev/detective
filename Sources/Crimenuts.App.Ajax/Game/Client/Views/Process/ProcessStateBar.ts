@@ -20,8 +20,8 @@
             this.textLabel.setFontBold();
         }
 
-        setText( text: string ) {
-            this.textLabel.setText( text );
+        setState( state: string ) {
+            this.textLabel.setText( state );
         }
     }
 }

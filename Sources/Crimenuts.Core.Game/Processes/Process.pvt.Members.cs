@@ -50,7 +50,7 @@ namespace Crimenuts.Core.Game.Processes
 
         private Member FindMember( int number )
         {
-            return Members.First( m => m.Number == number );
+            return Members.FirstOrDefault( m => m.Number == number );
         }
 
         private void UpdateMembersLastActiviryDay()
@@ -60,12 +60,22 @@ namespace Crimenuts.Core.Game.Processes
 
         private Member DoGetTodayVictim()
         {
-            return History.Records.First( r => r.Action == Action.Murder && r.Day == Today ).Subject;
+            try {
+                return History.Records.First( r => r.Action == Action.Murder && r.Day == Today ).Subject;
+            }
+            catch {
+                return null;
+            }
         }
 
         private Member DoGetTodayPrisoner()
         {
-            return History.Records.First( r => r.Action == Action.Arrest && r.Day == Today ).Subject;
+            try {
+                return History.Records.First( r => r.Action == Action.Arrest && r.Day == Today ).Subject;
+            }
+            catch {
+                return null;
+            }
         }
     }
 }

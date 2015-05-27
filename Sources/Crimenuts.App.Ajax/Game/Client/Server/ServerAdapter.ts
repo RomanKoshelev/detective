@@ -35,7 +35,7 @@
             this.startHub();
         }
 
-        startHub() {
+        private startHub() {
             $.connection.hub.start().done( () => { this.onStarted.dispatch() } );
         }
 

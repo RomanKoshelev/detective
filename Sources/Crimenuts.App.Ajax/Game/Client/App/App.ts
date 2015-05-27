@@ -12,7 +12,7 @@
         }
 
         onGameCreate() {
-            this.game.state.add( "Process", ProcessState, true );
+            this.game.state.add( "Process", ProcessController, true );
         }
 
         private init() {

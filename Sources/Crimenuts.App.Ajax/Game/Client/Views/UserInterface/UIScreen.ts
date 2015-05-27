@@ -1,5 +1,5 @@
 module Crimenuts {
-    export class UserInterface extends Phaser.Group {
+    export class UiScreen extends Phaser.Group {
 
         bottomBar: BottomBar;
         topBar: TopBar;
