@@ -30,10 +30,9 @@
             export var width = 700;
             export var height = 25;
 
-            export var fontSize = 18;
+            export var fontSize = 16;
             export var color = "#000000";
             export var bgColor = 0x666666;
         }
-
     }
 }

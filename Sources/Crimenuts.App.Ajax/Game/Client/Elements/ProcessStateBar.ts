@@ -12,13 +12,12 @@
         private createTextLabel( game: Phaser.Game ) {
             this.add( this.textLabel = new TextLabel(
                 game,
-                name,
-                0, 0,
                 Settings.Process.StateBar.width,
                 Settings.Process.StateBar.height,
                 Settings.Process.StateBar.fontSize,
                 Settings.Process.StateBar.color,
                 Settings.Process.StateBar.bgColor ) );
+            this.textLabel.setFontBold();
         }
 
         setText( text: string ) {

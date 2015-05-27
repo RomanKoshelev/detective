@@ -77,9 +77,17 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class TextLabel extends Phaser.Graphics {
-        private text;
-        constructor(game: Phaser.Game, text: string, x: number, y: number, w: number, h: number, fs: number, c: string, bgc: number, fn?: string);
+        private label;
+        private fontSize;
+        constructor(game: Phaser.Game, width: number, height: number, fontSize: number, color: string, bgcolor: number, fontFace?: string);
         setText(text: string): void;
+        alignLeft(): void;
+        alignCenter(): void;
+        alignTop(): void;
+        alignMiddle(): void;
+        setFontBold(): void;
+        private createLabel(fontFace, fontSize, color);
+        private createBackground(width, height, bgcolor);
     }
 }
 declare module Crimenuts {
@@ -146,7 +154,7 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class ProcessMembers extends Phaser.Group {
+    class Members extends Phaser.Group {
         constructor(game: Phaser.Game, world: string, members: string[]);
         private world;
         private model;

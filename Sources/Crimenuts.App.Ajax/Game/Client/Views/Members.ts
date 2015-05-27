@@ -1,6 +1,6 @@
 ﻿module Crimenuts {
 
-    export class ProcessMembers extends Phaser.Group {
+    export class Members extends Phaser.Group {
 
         constructor( game: Phaser.Game, world: string, members: string[] ) {
             super( game );
@@ -17,8 +17,8 @@
         static memberNumInRow = Settings.Process.Members.numInRow;
 
         private createMembers() {
-            var w = ProcessMembers.memberWidth;
-            var h = ProcessMembers.memberHeight;
+            var w = Members.memberWidth;
+            var h = Members.memberHeight;
             for( var i in this.model ) {
                 var p = this.calcPersonCardPosition( i, w, h );
                 var name = this.model[ i ];
@@ -27,7 +27,7 @@
         }
 
         private calcPersonCardPosition( i: number, w: number, h: number ): Phaser.Point {
-            var n = ProcessMembers.memberNumInRow;
+            var n = Members.memberNumInRow;
             var x = ( i % n ) * w * 1.2;
             var y = Math.floor( i / n ) * h * 1.2;
             return new Phaser.Point( x, y );

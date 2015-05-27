@@ -28,10 +28,12 @@
             var w = width;
             var h = MemberCard.nameHeight;
             var fs = MemberCard.nameFontSize;
-            var x = 0;
-            var y = height - h;
 
-            this.add( this.nameLabel = new TextLabel( game, name, x, y, w, h, fs, MemberCard.nameColor, MemberCard.nameBgColor ) );
+            this.add( this.nameLabel = new TextLabel( game, w, h, fs, MemberCard.nameColor, MemberCard.nameBgColor ) );
+
+            this.nameLabel.setText( name );
+            this.nameLabel.alignCenter();
+            this.nameLabel.position.set( 0, height - h );
         }
     }
 }

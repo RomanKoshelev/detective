@@ -29,7 +29,7 @@
 
         // Parts
         private ui: UserInterface;
-        private members: ProcessMembers;
+        private members: Members;
         private stateBar: ProcessStateBar;
 
         private createStateBar() {
@@ -38,7 +38,7 @@
         }
 
         private createMembers() {
-            this.members = new ProcessMembers( this.game, this.model.World, this.model.Members );
+            this.members = new Members( this.game, this.model.World, this.model.Members );
             this.members.position = Settings.Process.Members.position;
         }
         
@@ -49,7 +49,7 @@
         private updateUi() {
             this.ui.setCaseId( this.model.CaseId );
             this.ui.setBottomText( `${this.model.Id} [${app.tickCount}]` );
-            this.stateBar.setText( "Morning" );
+            this.stateBar.setText( this.model.State );
         }
 
         // Events

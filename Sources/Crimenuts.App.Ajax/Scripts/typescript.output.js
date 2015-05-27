@@ -95,7 +95,7 @@ var Crimenuts;
                 StateBar.position = new Phaser.Point(10, 45);
                 StateBar.width = 700;
                 StateBar.height = 25;
-                StateBar.fontSize = 18;
+                StateBar.fontSize = 16;
                 StateBar.color = "#000000";
                 StateBar.bgColor = 0x666666;
             })(StateBar = Process.StateBar || (Process.StateBar = {}));
@@ -169,7 +169,8 @@ var Crimenuts;
             this.createTextLabel(game);
         }
         ProcessStateBar.prototype.createTextLabel = function (game) {
-            this.add(this.textLabel = new Crimenuts.TextLabel(game, name, 0, 0, Crimenuts.Settings.Process.StateBar.width, Crimenuts.Settings.Process.StateBar.height, Crimenuts.Settings.Process.StateBar.fontSize, Crimenuts.Settings.Process.StateBar.color, Crimenuts.Settings.Process.StateBar.bgColor));
+            this.add(this.textLabel = new Crimenuts.TextLabel(game, Crimenuts.Settings.Process.StateBar.width, Crimenuts.Settings.Process.StateBar.height, Crimenuts.Settings.Process.StateBar.fontSize, Crimenuts.Settings.Process.StateBar.color, Crimenuts.Settings.Process.StateBar.bgColor));
+            this.textLabel.setFontBold();
         };
         ProcessStateBar.prototype.setText = function (text) {
             this.textLabel.setText(text);
@@ -182,22 +183,52 @@ var Crimenuts;
 (function (Crimenuts) {
     var TextLabel = (function (_super) {
         __extends(TextLabel, _super);
-        function TextLabel(game, text, x, y, w, h, fs, c, bgc, fn) {
-            if (fn === void 0) { fn = Crimenuts.Settings.Default.Font.face; }
-            _super.call(this, game, x, y);
-            this.position.set(x, y);
-            this.beginFill(bgc);
-            this.drawRect(0, 0, w, h);
-            this.endFill();
-            this.addChild(this.text = new Phaser.Text(game, w / 2, h / 2 + fs / 5, text, {
-                font: "" + fs + "px " + fn,
-                fill: c,
-                align: "center"
-            }));
-            this.text.anchor.set(0.5, 0.5);
+        function TextLabel(game, width, height, fontSize, color, bgcolor, fontFace) {
+            if (fontFace === void 0) { fontFace = Crimenuts.Settings.Default.Font.face; }
+            _super.call(this, game, 0, 0);
+            this.createBackground(width, height, bgcolor);
+            this.createLabel(fontFace, fontSize, color);
+            this.alignLeft();
+            this.alignMiddle();
         }
         TextLabel.prototype.setText = function (text) {
-            this.text.text = text;
+            this.label.text = text;
+        };
+        TextLabel.prototype.alignLeft = function () {
+            this.label.x = (this.fontSize) / 3;
+            this.label.anchor.x = 0;
+            this.label.align = "left";
+        };
+        TextLabel.prototype.alignCenter = function () {
+            this.label.x = this.width / 2;
+            this.label.anchor.x = 0.5;
+            this.label.align = "center";
+        };
+        TextLabel.prototype.alignTop = function () {
+            this.label.y = 0;
+            this.label.anchor.y = 0;
+        };
+        TextLabel.prototype.alignMiddle = function () {
+            this.label.y = this.height / 2;
+            this.label.y += (this.fontSize) / 5;
+            this.label.anchor.y = 0.5;
+        };
+        TextLabel.prototype.setFontBold = function () {
+            this.label.fontWeight = "bold";
+        };
+        // utils
+        TextLabel.prototype.createLabel = function (fontFace, fontSize, color) {
+            this.addChild(this.label = new Phaser.Text(this.game, 0, 0, "", {
+                font: "" + fontSize + "px " + fontFace,
+                fill: color,
+                align: "left"
+            }));
+            this.fontSize = fontSize;
+        };
+        TextLabel.prototype.createBackground = function (width, height, bgcolor) {
+            this.beginFill(bgcolor);
+            this.drawRect(0, 0, width, height);
+            this.endFill();
         };
         return TextLabel;
     })(Phaser.Graphics);
@@ -313,7 +344,7 @@ var Crimenuts;
             this.stateBar.position = Crimenuts.Settings.Process.StateBar.position;
         };
         ProcessState.prototype.createMembers = function () {
-            this.members = new Crimenuts.ProcessMembers(this.game, this.model.World, this.model.Members);
+            this.members = new Crimenuts.Members(this.game, this.model.World, this.model.Members);
             this.members.position = Crimenuts.Settings.Process.Members.position;
         };
         ProcessState.prototype.createUi = function () {
@@ -322,7 +353,7 @@ var Crimenuts;
         ProcessState.prototype.updateUi = function () {
             this.ui.setCaseId(this.model.CaseId);
             this.ui.setBottomText("" + this.model.Id + " [" + Crimenuts.app.tickCount + "]");
-            this.stateBar.setText("Morning");
+            this.stateBar.setText(this.model.State);
         };
         // Events
         ProcessState.prototype.subscribeEvents = function (server) {
@@ -370,9 +401,10 @@ var Crimenuts;
             var w = width;
             var h = MemberCard.nameHeight;
             var fs = MemberCard.nameFontSize;
-            var x = 0;
-            var y = height - h;
-            this.add(this.nameLabel = new Crimenuts.TextLabel(game, name, x, y, w, h, fs, MemberCard.nameColor, MemberCard.nameBgColor));
+            this.add(this.nameLabel = new Crimenuts.TextLabel(game, w, h, fs, MemberCard.nameColor, MemberCard.nameBgColor));
+            this.nameLabel.setText(name);
+            this.nameLabel.alignCenter();
+            this.nameLabel.position.set(0, height - h);
         };
         MemberCard.nameHeight = Crimenuts.Settings.Process.Members.Card.Name.height;
         MemberCard.nameFontSize = Crimenuts.Settings.Process.Members.Card.Name.fontSize;
@@ -384,35 +416,35 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var ProcessMembers = (function (_super) {
-        __extends(ProcessMembers, _super);
-        function ProcessMembers(game, world, members) {
+    var Members = (function (_super) {
+        __extends(Members, _super);
+        function Members(game, world, members) {
             _super.call(this, game);
             this.model = members;
             this.world = world;
             this.createMembers();
         }
-        ProcessMembers.prototype.createMembers = function () {
-            var w = ProcessMembers.memberWidth;
-            var h = ProcessMembers.memberHeight;
+        Members.prototype.createMembers = function () {
+            var w = Members.memberWidth;
+            var h = Members.memberHeight;
             for (var i in this.model) {
                 var p = this.calcPersonCardPosition(i, w, h);
                 var name = this.model[i];
                 this.add(new Crimenuts.MemberCard(this.game, this.world, name, p.x, p.y, w, h));
             }
         };
-        ProcessMembers.prototype.calcPersonCardPosition = function (i, w, h) {
-            var n = ProcessMembers.memberNumInRow;
+        Members.prototype.calcPersonCardPosition = function (i, w, h) {
+            var n = Members.memberNumInRow;
             var x = (i % n) * w * 1.2;
             var y = Math.floor(i / n) * h * 1.2;
             return new Phaser.Point(x, y);
         };
-        ProcessMembers.memberWidth = Crimenuts.Settings.Process.Members.Card.width;
-        ProcessMembers.memberHeight = Crimenuts.Settings.Process.Members.Card.height;
-        ProcessMembers.memberNumInRow = Crimenuts.Settings.Process.Members.numInRow;
-        return ProcessMembers;
+        Members.memberWidth = Crimenuts.Settings.Process.Members.Card.width;
+        Members.memberHeight = Crimenuts.Settings.Process.Members.Card.height;
+        Members.memberNumInRow = Crimenuts.Settings.Process.Members.numInRow;
+        return Members;
     })(Phaser.Group);
-    Crimenuts.ProcessMembers = ProcessMembers;
+    Crimenuts.Members = Members;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {

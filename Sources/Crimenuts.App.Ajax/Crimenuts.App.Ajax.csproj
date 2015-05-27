@@ -306,7 +306,7 @@
     <TypeScriptCompile Include="Game\Client\Elements\TextLabel.ts" />
     <TypeScriptCompile Include="Game\Client\Views\UserInterface.ts" />
     <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\ProcessMembers.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Members.ts" />
     <TypeScriptCompile Include="Game\Client\States\ProcessState.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\p2.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\phaser.d.ts" />
@@ -362,7 +362,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1656</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2014/</IISUrl>
+          <IISUrl>http://localhost:2015/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -105,6 +105,7 @@ interface ProcessModel {
     CaseId : string;
     Members : string[];
     World : string;
+    State : string;
 }
  
 //#endregion data contracts

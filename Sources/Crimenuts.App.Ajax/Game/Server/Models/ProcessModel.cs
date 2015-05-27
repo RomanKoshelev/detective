@@ -26,6 +26,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
         public string CaseId { get; set; }
         public List< string > Members { get; set; }
         public string World { get; set; }
+        public string State { get; set; }
 
         #endregion
 
@@ -43,6 +44,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
             CaseId = process.CaseId.Value.ToString();
             World = process.Case.World.Name;
             Members = process.Members.Select( m => m.Name ).ToList();
+            State = process.State.ToString();
         }
 
         #endregion
