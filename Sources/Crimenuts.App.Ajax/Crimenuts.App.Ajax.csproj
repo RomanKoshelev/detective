@@ -300,8 +300,8 @@
     <TypeScriptCompile Include="Game\Client\Config\Settings.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\ProcessView.ts" />
     <TypeScriptCompile Include="Game\Client\Views\UserInterface\BottomBar.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Process\ProcessInfoBar.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Process\ProcessStateBar.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\InfoBar.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\StateBar.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\PersonPicture.ts" />
     <TypeScriptCompile Include="Game\Client\Views\UserInterface\TopBar.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Members\MemberCard.ts" />

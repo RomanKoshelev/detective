@@ -1,6 +1,6 @@
-﻿module Crimenuts {
+﻿module Crimenuts.View.Process {
 
-    export class ProcessStateBar extends Phaser.Group {
+    export class StateBar extends Phaser.Group {
 
         constructor( game: Phaser.Game ) {
             super( game );

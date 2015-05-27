@@ -106,6 +106,10 @@ interface ProcessModel {
     Members : string[];
     World : string;
     State : string;
+    TodayPrisoner : string;
+    TodayVictim : string;
+    Today : number;
+    ActiveMurderersNum : number;
 }
  
 //#endregion data contracts

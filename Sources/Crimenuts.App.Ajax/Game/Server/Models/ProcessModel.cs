@@ -31,7 +31,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
         public string TodayPrisoner { get; set; }
         public string TodayVictim { get; set; }
         public int Today { get; set; }
-        public int? ActiveMurderersOpenNum { get; set; }
+        public int? ActiveMurderersNum { get; set; }
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
             Today = process.Today;
             TodayVictim = getName( process.TodayVictim );
             TodayPrisoner = getName( process.TodayPrisoner );
-            ActiveMurderersOpenNum = process.ActiveMurderersOpenNum;
+            ActiveMurderersNum = process.ActiveMurderersOpenNum;
         }
 
         #endregion

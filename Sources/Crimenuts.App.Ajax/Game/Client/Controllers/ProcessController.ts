@@ -1,4 +1,7 @@
-﻿module Crimenuts {
+﻿/// <reference path="../Views/Process/ProcessView.ts"/>
+module Crimenuts {
+    import ProcessView = Crimenuts.View.Process.ProcessView;
+
     export class ProcessController extends Phaser.State {
 
         create() {

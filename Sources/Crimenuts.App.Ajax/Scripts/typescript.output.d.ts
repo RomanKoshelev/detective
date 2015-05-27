@@ -43,6 +43,14 @@ declare module Crimenuts.Settings {
                 }
             }
         }
+        module InfoBar {
+            var position: Phaser.Point;
+            var width: number;
+            var height: number;
+            var fontSize: number;
+            var color: string;
+            var bgColor: number;
+        }
         module StateBar {
             var position: Phaser.Point;
             var width: number;
@@ -51,6 +59,21 @@ declare module Crimenuts.Settings {
             var color: string;
             var bgColor: number;
         }
+    }
+}
+declare module Crimenuts.View.Process {
+    class ProcessView extends Phaser.Group {
+        constructor(game: Phaser.Game, model: ProcessModel);
+        updateModel(model: ProcessModel): void;
+        updateTickCount(count: number): void;
+        private screen;
+        private members;
+        private stateBar;
+        private infoBar;
+        private createStateBar();
+        private createInfoBar();
+        private createMembers(model);
+        private createUi();
     }
 }
 declare module Crimenuts {
@@ -135,33 +158,20 @@ declare module Crimenuts {
         private calcPersonCardPosition(i, w, h);
     }
 }
-declare module Crimenuts {
-    class ProcessInfoBar extends Phaser.Group {
+declare module Crimenuts.View.Process {
+    class InfoBar extends Phaser.Group {
+        constructor(game: Phaser.Game);
+        private textLabel;
+        private createTextLabel(game);
+        setInfo(day: number, victim: string, arrested: string, murdererNum: number): void;
+    }
+}
+declare module Crimenuts.View.Process {
+    class StateBar extends Phaser.Group {
         constructor(game: Phaser.Game);
         private textLabel;
         private createTextLabel(game);
         setState(state: string): void;
-    }
-}
-declare module Crimenuts {
-    class ProcessStateBar extends Phaser.Group {
-        constructor(game: Phaser.Game);
-        private textLabel;
-        private createTextLabel(game);
-        setState(state: string): void;
-    }
-}
-declare module Crimenuts {
-    class ProcessView extends Phaser.Group {
-        constructor(game: Phaser.Game, model: ProcessModel);
-        updateModel(model: ProcessModel): void;
-        updateTickCount(count: number): void;
-        private screen;
-        private members;
-        private stateBar;
-        private createStateBar();
-        private createMembers(model);
-        private createUi();
     }
 }
 declare module Crimenuts {
