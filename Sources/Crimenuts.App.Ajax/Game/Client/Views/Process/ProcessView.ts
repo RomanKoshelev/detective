@@ -5,16 +5,12 @@
             super( game );
             this.game.stage.backgroundColor = Settings.Process.bgColor;
 
-            this.createDisplay();
-            this.createStateBar();
-            this.createInfoBar();
-            this.createMembers( model );
-
-            this.updateModel( model );
+            this.createParts( model );
+            this.updateParts( model );
         }
 
-        updateModel( model: ProcessModel ) {
-            this.parts.forEach( p => p.updateModel( model ) );
+        updateModel (model: ProcessModel ) {
+            this.updateParts( model );
         }
 
         updateTickCount( count: number ) {
@@ -23,6 +19,18 @@
 
         private parts = new Array <IProcessViewPart>();
         private display: Display;
+
+        private createParts(model: ProcessModel ) {
+            this.createDisplay();
+            this.createStateBar();
+            this.createInfoBar();
+            this.createMembers( model );
+
+        }
+
+        private updateParts( model: ProcessModel ) {
+            this.parts.forEach( p => p.updateModel( model ) );
+        }
 
         private createStateBar() {
             var stateBar = new StateBar( this.game );

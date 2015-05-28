@@ -134,17 +134,23 @@ var Crimenuts;
                     _super.call(this, game);
                     this.parts = new Array();
                     this.game.stage.backgroundColor = Crimenuts.Settings.Process.bgColor;
+                    this.createParts(model);
+                    this.updateParts(model);
+                }
+                ProcessView.prototype.updateModel = function (model) {
+                    this.updateParts(model);
+                };
+                ProcessView.prototype.updateTickCount = function (count) {
+                    this.display.setBottomText("[" + count + "]");
+                };
+                ProcessView.prototype.createParts = function (model) {
                     this.createDisplay();
                     this.createStateBar();
                     this.createInfoBar();
                     this.createMembers(model);
-                    this.updateModel(model);
-                }
-                ProcessView.prototype.updateModel = function (model) {
-                    this.parts.forEach(function (p) { return p.updateModel(model); });
                 };
-                ProcessView.prototype.updateTickCount = function (count) {
-                    this.display.setBottomText("[" + count + "]");
+                ProcessView.prototype.updateParts = function (model) {
+                    this.parts.forEach(function (p) { return p.updateModel(model); });
                 };
                 ProcessView.prototype.createStateBar = function () {
                     var stateBar = new Process.StateBar(this.game);

@@ -72,6 +72,8 @@ declare module Crimenuts.View.Process {
         updateTickCount(count: number): void;
         private parts;
         private display;
+        private createParts(model);
+        private updateParts(model);
         private createStateBar();
         private createInfoBar();
         private createMembers(model);
