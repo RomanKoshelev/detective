@@ -2,8 +2,9 @@
 
     export class InfoBar extends Phaser.Group {
 
-        constructor( game: Phaser.Game ) {
+        constructor( game: Phaser.Game, position: Phaser.Point ) {
             super( game );
+            this.position = position;
             this.createTextLabel( game );
         }
         

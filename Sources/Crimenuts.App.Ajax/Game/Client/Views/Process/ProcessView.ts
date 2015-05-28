@@ -20,39 +20,15 @@
         private parts = new Array <IProcessViewPart>();
         private display: Display;
 
-        private createParts(model: ProcessModel ) {
-            this.createDisplay();
-            this.createStateBar();
-            this.createInfoBar();
-            this.createMembers( model );
-
+        private createParts( model: ProcessModel ) {
+            this.parts.push( this.display = new Display( this.game ) );
+            this.parts.push( new StateBar( this.game, Settings.Process.Bars.StateBar.position ) );
+            this.parts.push( new InfoBar( this.game, Settings.Process.Bars.InfoBar.position) );
+            this.parts.push( new Members( this.game, model, Settings.Process.Members.position ) );
         }
 
         private updateParts( model: ProcessModel ) {
             this.parts.forEach( p => p.updateModel( model ) );
-        }
-
-        private createStateBar() {
-            var stateBar = new StateBar( this.game );
-            stateBar.position = Settings.Process.Bars.StateBar.position;
-            this.parts.push( stateBar );
-        }
-
-        private createInfoBar() {
-            var infoBar = new InfoBar( this.game );
-            infoBar.position = Settings.Process.Bars.InfoBar.position;
-            this.parts.push( infoBar );
-        }
-
-        private createMembers( model: ProcessModel ) {
-            var members = new Members( this.game, model.World, model.Members );
-            members.position = Settings.Process.Members.position;
-            this.parts.push( members );
-        }
-
-        private createDisplay() {
-            this.display = new Display( this.game );
-            this.parts.push( this.display );
         }
     }
 }

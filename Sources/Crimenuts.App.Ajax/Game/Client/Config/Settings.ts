@@ -12,7 +12,7 @@
             export var position = new Phaser.Point( 25, 90 );
             export var numInRow = 6;
 
-            export module Card {
+            export module Member {
                 export var width = 95;
                 export var height = 120;
 

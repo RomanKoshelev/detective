@@ -2,31 +2,27 @@
 
     export class Members extends Phaser.Group implements IProcessViewPart {
 
-        constructor( game: Phaser.Game, world: string, members: string[] ) {
+        constructor( game: Phaser.Game, model: ProcessModel, position: Phaser.Point ) {
             super( game );
-            this.model = members;
-            this.world = world;
-            this.createMembers();
+            this.position = position;
+            this.createMembers(model.World, model.Members);
         }
 
-        updateModel( processModel: ProcessModel ): void {
+        updateModel( model: ProcessModel ): void {
             
         }
 
-        private world: string;
-        private model: string[];
-
-        static memberWidth = Settings.Process.Members.Card.width;
-        static memberHeight = Settings.Process.Members.Card.height;
+        static memberWidth = Settings.Process.Members.Member.width;
+        static memberHeight = Settings.Process.Members.Member.height;
         static memberNumInRow = Settings.Process.Members.numInRow;
 
-        private createMembers() {
+        private createMembers(world: string, members: string[]) {
             var w = Members.memberWidth;
             var h = Members.memberHeight;
-            for( var i in this.model ) {
+            for( var i in members ) {
                 var p = this.calcPersonCardPosition( i, w, h );
-                var name = this.model[ i ];
-                this.add( new MemberCard( this.game, this.world, name, p.x, p.y, w, h ) );
+                var name = members[ i ];
+                this.add( new Member( this.game, world, name, p.x, p.y, w, h ) );
             }
         }
 
@@ -36,6 +32,5 @@
             var y = Math.floor( i / n ) * h * 1.2;
             return new Phaser.Point( x, y );
         }
-
     }
 }

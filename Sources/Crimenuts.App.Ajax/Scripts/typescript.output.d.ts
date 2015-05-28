@@ -32,7 +32,7 @@ declare module Crimenuts.Settings {
         module Members {
             var position: Phaser.Point;
             var numInRow: number;
-            module Card {
+            module Member {
                 var width: number;
                 var height: number;
                 module Name {
@@ -74,10 +74,6 @@ declare module Crimenuts.View.Process {
         private display;
         private createParts(model);
         private updateParts(model);
-        private createStateBar();
-        private createInfoBar();
-        private createMembers(model);
-        private createDisplay();
     }
 }
 declare module Crimenuts {
@@ -115,14 +111,6 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class PersonPicture extends Phaser.Image {
-        constructor(game: Phaser.Game, world: string, name: string, x: number, y: number, width: number);
-        private imageKey;
-        private getLoader(world, name, width);
-        private onLoadComplete();
-    }
-}
-declare module Crimenuts {
     class TextLabel extends Phaser.Graphics {
         private label;
         private fontSize;
@@ -138,21 +126,25 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class MemberCard extends Phaser.Group {
-        static nameHeight: number;
-        static nameFontSize: number;
-        static nameColor: string;
-        static nameBgColor: number;
-        constructor(game: Phaser.Game, world: string, member: string, x: number, y: number, w: number, h: number);
-        private picture;
-        private nameLabel;
-        private createPicture(game, world, name, w, h);
-        private createNameBox(game, name, width, height);
+    class PersonPicture extends Phaser.Image {
+        constructor(game: Phaser.Game, world: string, name: string, x: number, y: number, width: number);
+        private imageKey;
+        private getLoader(world, name, width);
+        private onLoadComplete();
     }
 }
 declare module Crimenuts.View.Process {
     interface IProcessViewPart {
         updateModel(model: ProcessModel): void;
+    }
+}
+declare module Crimenuts.View.Process {
+    class Answers extends Phaser.Group implements IProcessViewPart {
+        constructor(game: Phaser.Game, world: string, members: string[]);
+        updateModel(processModel: ProcessModel): void;
+        private world;
+        private model;
+        private createAnswers();
     }
 }
 declare module Crimenuts.View.Process {
@@ -167,7 +159,7 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class InfoBar extends Phaser.Group {
-        constructor(game: Phaser.Game);
+        constructor(game: Phaser.Game, position: Phaser.Point);
         updateModel(model: ProcessModel): void;
         private textLabel;
         private createTextLabel(game);
@@ -175,21 +167,32 @@ declare module Crimenuts.View.Process {
     }
 }
 declare module Crimenuts.View.Process {
+    class Member extends Phaser.Group {
+        static nameHeight: number;
+        static nameFontSize: number;
+        static nameColor: string;
+        static nameBgColor: number;
+        constructor(game: Phaser.Game, world: string, member: string, x: number, y: number, w: number, h: number);
+        private picture;
+        private nameLabel;
+        private createPicture(game, world, name, w, h);
+        private createNameBox(game, name, width, height);
+    }
+}
+declare module Crimenuts.View.Process {
     class Members extends Phaser.Group implements IProcessViewPart {
-        constructor(game: Phaser.Game, world: string, members: string[]);
-        updateModel(processModel: ProcessModel): void;
-        private world;
-        private model;
+        constructor(game: Phaser.Game, model: ProcessModel, position: Phaser.Point);
+        updateModel(model: ProcessModel): void;
         static memberWidth: number;
         static memberHeight: number;
         static memberNumInRow: number;
-        private createMembers();
+        private createMembers(world, members);
         private calcPersonCardPosition(i, w, h);
     }
 }
 declare module Crimenuts.View.Process {
     class StateBar extends Phaser.Group implements IProcessViewPart {
-        constructor(game: Phaser.Game);
+        constructor(game: Phaser.Game, position: Phaser.Point);
         updateModel(model: ProcessModel): void;
         private textLabel;
         private createTextLabel(game);
