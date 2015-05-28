@@ -26,6 +26,8 @@
             this.parts.push( new InfoBar( this.game, Settings.Process.Bars.InfoBar.position) );
             this.parts.push( new Members( this.game, Settings.Process.Members.position, model ) );
             this.parts.push( new Answers( this.game, Settings.Process.Answers.position, model ) );
+
+            // Todo:> Add "AutoAnswer" Button
         }
 
         private updateParts( model: ProcessModel ) {

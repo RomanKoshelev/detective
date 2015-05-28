@@ -166,6 +166,7 @@ var Crimenuts;
                     this.parts.push(new Process.InfoBar(this.game, Crimenuts.Settings.Process.Bars.InfoBar.position));
                     this.parts.push(new Process.Members(this.game, Crimenuts.Settings.Process.Members.position, model));
                     this.parts.push(new Process.Answers(this.game, Crimenuts.Settings.Process.Answers.position, model));
+                    // Todo:> Add "AutoAnswer" Button
                 };
                 ProcessView.prototype.updateParts = function (model) {
                     this.parts.forEach(function (p) { return p.updateModel(model); });
