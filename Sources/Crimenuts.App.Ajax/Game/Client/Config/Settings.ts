@@ -25,24 +25,30 @@
             }
         }
 
-        export module InfoBar {
-            export var position = new Phaser.Point( 10, 50 );
-            export var width = 700;
-            export var height = 25;
 
-            export var fontSize = 16;
-            export var color = "#000000";
-            export var bgColor = 0x666666;
-        }
+        export module Bars {
+            export var textColor = "#000000";
+            export var bgColor = 0x777777;
 
-        export module StateBar {
-            export var position = new Phaser.Point( 10, 375 );
-            export var width = 700;
-            export var height = 25;
+            export module InfoBar {
+                export var position = new Phaser.Point( 10, 50 );
+                export var width = 700;
+                export var height = 25;
 
-            export var fontSize = 16;
-            export var color = "#000000";
-            export var bgColor = 0x666666;
+                export var fontSize = 16;
+                export var textColor = Bars.textColor;
+                export var bgColor = Bars.bgColor;
+            }
+
+            export module StateBar {
+                export var position = new Phaser.Point( 10, 375 );
+                export var width = 700;
+                export var height = 25;
+
+                export var fontSize = 16;
+                export var textColor = Bars.textColor;
+                export var bgColor = Bars.bgColor;
+            }
         }
     }
 }

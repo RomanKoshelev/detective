@@ -1,5 +1,5 @@
-module Crimenuts {
-    export class UiScreen extends Phaser.Group {
+module Crimenuts.View.Process {
+    export class Display extends Phaser.Group implements IProcessViewPart {
 
         bottomBar: BottomBar;
         topBar: TopBar;
@@ -10,13 +10,16 @@ module Crimenuts {
             this.add( this.bottomBar = new BottomBar( game ) );
         }
 
+        updateModel( model: ProcessModel ): void {
+            this.setCaseId( model.CaseId );
+        }
 
         setBottomText( text: string ) {
             this.bottomBar.text.setText(text);
         }
 
-        setCaseId( caseId: string ) {
-            this.topBar.text.setText(`Crime Nuts Case #${caseId}`);
+        private setCaseId( caseId: string ) {
+            this.topBar.text.setText(`Crime Nuts, Case #${caseId}`);
         }
     }
 }

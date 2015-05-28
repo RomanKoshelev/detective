@@ -5,48 +5,46 @@
             super( game );
             this.game.stage.backgroundColor = Settings.Process.bgColor;
 
-            this.createUi();
-
+            this.createDisplay();
             this.createStateBar();
             this.createInfoBar();
-
             this.createMembers( model );
 
             this.updateModel( model );
         }
 
         updateModel( model: ProcessModel ) {
-            this.screen.setCaseId( model.CaseId );
-            this.stateBar.setState( model.State );
-            this.infoBar.setInfo( model.Today, model.TodayVictim, model.TodayPrisoner, model.ActiveMurderersNum);
+            this.parts.forEach( p => p.updateModel( model ) );
         }
 
         updateTickCount( count: number ) {
-            this.screen.setBottomText( `[${count}]` );
+            this.display.setBottomText( `[${count}]` );
         }
 
-        private screen: UiScreen;
-        private members: Members;
-        private stateBar: StateBar;
-        private infoBar: InfoBar;
+        private parts = new Array <IProcessViewPart>();
+        private display: Display;
 
         private createStateBar() {
-            this.stateBar = new StateBar( this.game );
-            this.stateBar.position = Settings.Process.StateBar.position;
+            var stateBar = new StateBar( this.game );
+            stateBar.position = Settings.Process.Bars.StateBar.position;
+            this.parts.push( stateBar );
         }
 
         private createInfoBar() {
-            this.infoBar = new InfoBar( this.game );
-            this.infoBar.position = Settings.Process.InfoBar.position;
+            var infoBar = new InfoBar( this.game );
+            infoBar.position = Settings.Process.Bars.InfoBar.position;
+            this.parts.push( infoBar );
         }
 
         private createMembers( model: ProcessModel ) {
-            this.members = new Members( this.game, model.World, model.Members );
-            this.members.position = Settings.Process.Members.position;
+            var members = new Members( this.game, model.World, model.Members );
+            members.position = Settings.Process.Members.position;
+            this.parts.push( members );
         }
 
-        private createUi() {
-            this.screen = new UiScreen( this.game );
+        private createDisplay() {
+            this.display = new Display( this.game );
+            this.parts.push( this.display );
         }
     }
 }

@@ -43,21 +43,25 @@ declare module Crimenuts.Settings {
                 }
             }
         }
-        module InfoBar {
-            var position: Phaser.Point;
-            var width: number;
-            var height: number;
-            var fontSize: number;
-            var color: string;
+        module Bars {
+            var textColor: string;
             var bgColor: number;
-        }
-        module StateBar {
-            var position: Phaser.Point;
-            var width: number;
-            var height: number;
-            var fontSize: number;
-            var color: string;
-            var bgColor: number;
+            module InfoBar {
+                var position: Phaser.Point;
+                var width: number;
+                var height: number;
+                var fontSize: number;
+                var textColor: string;
+                var bgColor: number;
+            }
+            module StateBar {
+                var position: Phaser.Point;
+                var width: number;
+                var height: number;
+                var fontSize: number;
+                var textColor: string;
+                var bgColor: number;
+            }
         }
     }
 }
@@ -66,14 +70,12 @@ declare module Crimenuts.View.Process {
         constructor(game: Phaser.Game, model: ProcessModel);
         updateModel(model: ProcessModel): void;
         updateTickCount(count: number): void;
-        private screen;
-        private members;
-        private stateBar;
-        private infoBar;
+        private parts;
+        private display;
         private createStateBar();
         private createInfoBar();
         private createMembers(model);
-        private createUi();
+        private createDisplay();
     }
 }
 declare module Crimenuts {
@@ -146,9 +148,34 @@ declare module Crimenuts {
         private createNameBox(game, name, width, height);
     }
 }
-declare module Crimenuts {
-    class Members extends Phaser.Group {
+declare module Crimenuts.View.Process {
+    interface IProcessViewPart {
+        updateModel(model: ProcessModel): void;
+    }
+}
+declare module Crimenuts.View.Process {
+    class Display extends Phaser.Group implements IProcessViewPart {
+        bottomBar: BottomBar;
+        topBar: TopBar;
+        constructor(game: Phaser.Game);
+        updateModel(model: ProcessModel): void;
+        setBottomText(text: string): void;
+        private setCaseId(caseId);
+    }
+}
+declare module Crimenuts.View.Process {
+    class InfoBar extends Phaser.Group {
+        constructor(game: Phaser.Game);
+        updateModel(model: ProcessModel): void;
+        private textLabel;
+        private createTextLabel(game);
+        private setInfo(day, victim, arrested, murdererNum);
+    }
+}
+declare module Crimenuts.View.Process {
+    class Members extends Phaser.Group implements IProcessViewPart {
         constructor(game: Phaser.Game, world: string, members: string[]);
+        updateModel(processModel: ProcessModel): void;
         private world;
         private model;
         static memberWidth: number;
@@ -159,19 +186,12 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts.View.Process {
-    class InfoBar extends Phaser.Group {
+    class StateBar extends Phaser.Group implements IProcessViewPart {
         constructor(game: Phaser.Game);
+        updateModel(model: ProcessModel): void;
         private textLabel;
         private createTextLabel(game);
-        setInfo(day: number, victim: string, arrested: string, murdererNum: number): void;
-    }
-}
-declare module Crimenuts.View.Process {
-    class StateBar extends Phaser.Group {
-        constructor(game: Phaser.Game);
-        private textLabel;
-        private createTextLabel(game);
-        setState(state: string): void;
+        private setState(state);
     }
 }
 declare module Crimenuts {
@@ -184,14 +204,5 @@ declare module Crimenuts {
     class TopBar extends Phaser.Graphics {
         text: Phaser.Text;
         constructor(game: Phaser.Game);
-    }
-}
-declare module Crimenuts {
-    class UiScreen extends Phaser.Group {
-        bottomBar: BottomBar;
-        topBar: TopBar;
-        constructor(game: Phaser.Game);
-        setBottomText(text: string): void;
-        setCaseId(caseId: string): void;
     }
 }

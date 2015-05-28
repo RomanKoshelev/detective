@@ -298,17 +298,18 @@
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
     <TypeScriptCompile Include="Game\Client\Config\Settings.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\IProcessViewPart.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\ProcessView.ts" />
     <TypeScriptCompile Include="Game\Client\Views\UserInterface\BottomBar.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Process\InfoBar.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Process\StateBar.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\InfoBar.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\StateBar.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\PersonPicture.ts" />
     <TypeScriptCompile Include="Game\Client\Views\UserInterface\TopBar.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Members\MemberCard.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\TextLabel.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\UserInterface\UIScreen.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Display.ts" />
     <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Members\Members.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Members.ts" />
     <TypeScriptCompile Include="Game\Client\Controllers\ProcessController.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\p2.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\phaser.d.ts" />
