@@ -14,7 +14,7 @@ namespace Crimenuts.Core.Game.Enums
         NotSuspicious
     }
 
-    public static class AswerExtension
+    public static class AnswerExtension
     {
         public static string PrefixedString( this Answer answer )
         {

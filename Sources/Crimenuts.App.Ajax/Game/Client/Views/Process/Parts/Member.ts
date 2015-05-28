@@ -25,15 +25,14 @@
         }
 
         private createNameBox( game: Phaser.Game, name: string, width: number , height: number ) {
-            var w = width;
-            var h = Member.nameHeight;
-            var fs = Member.nameFontSize;
-
-            this.add( this.nameLabel = new TextLabel( game, w, h, fs, Member.nameColor, Member.nameBgColor ) );
-
+            this.add( this.nameLabel = new TextLabel( game, width, Member.nameHeight,
+                Settings.Default.Font.face,
+                Member.nameFontSize,
+                Member.nameColor,
+                Member.nameBgColor ) );
             this.nameLabel.setText( name );
             this.nameLabel.alignCenter();
-            this.nameLabel.position.set( 0, height - h );
+            this.nameLabel.position.set( 0, height - Member.nameHeight );
         }
     }
 }

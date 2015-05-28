@@ -9,7 +9,11 @@
         }
         
         updateModel( model: ProcessModel ): void {
-            this.setInfo( model.Today, model.TodayVictim, model.TodayPrisoner, model.ActiveMurderersNum);
+            this.setInfo(
+                model.Today.Day,
+                model.Today.Victim,
+                model.Today.Prisoner,
+                model.Today.ActiveMurdererNum );
         }
 
         private textLabel: TextLabel;
@@ -19,15 +23,13 @@
                 game,
                 Settings.Process.Bars.InfoBar.width,
                 Settings.Process.Bars.InfoBar.height,
+                Settings.Default.Font.face,
                 Settings.Process.Bars.InfoBar.fontSize,
                 Settings.Process.Bars.InfoBar.textColor,
                 Settings.Process.Bars.InfoBar.bgColor ) );
         }
 
         private setInfo( day: number, victim: string, arrested: string, murdererNum: number ) {
-            if( arrested == null )
-                arrested = "nobody";
-
             this.textLabel.setText( `Day ${day}: ${victim} was killed, ${arrested} arrested, ${murdererNum} active murderers` );
         }
     }

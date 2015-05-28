@@ -25,6 +25,8 @@ declare module Crimenuts.Settings {
     module Default {
         module Font {
             var face: string;
+            var size: number;
+            var color: string;
         }
     }
     module Process {
@@ -40,6 +42,18 @@ declare module Crimenuts.Settings {
                     var fontSize: number;
                     var color: string;
                     var bgColor: number;
+                }
+            }
+        }
+        module Answers {
+            var position: Phaser.Point;
+            var width: number;
+            var height: number;
+            var bgColor: number;
+            module Answer {
+                var fontSize: number;
+                module Color {
+                    var regular: string;
                 }
             }
         }
@@ -71,7 +85,7 @@ declare module Crimenuts.View.Process {
         updateModel(model: ProcessModel): void;
         updateTickCount(count: number): void;
         private parts;
-        private display;
+        private ticks;
         private createParts(model);
         private updateParts(model);
     }
@@ -114,7 +128,7 @@ declare module Crimenuts {
     class TextLabel extends Phaser.Graphics {
         private label;
         private fontSize;
-        constructor(game: Phaser.Game, width: number, height: number, fontSize: number, color: string, bgcolor: number, fontFace?: string);
+        constructor(game: Phaser.Game, width: number, height: number, fontFace?: string, fontSize?: number, color?: string, bgcolor?: number);
         setText(text: string): void;
         alignLeft(): void;
         alignCenter(): void;
@@ -123,6 +137,11 @@ declare module Crimenuts {
         setFontBold(): void;
         private createLabel(fontFace, fontSize, color);
         private createBackground(width, height, bgcolor);
+    }
+}
+declare module Crimenuts.View.Process {
+    interface ITicksViewer {
+        updateTicks(count: number): any;
     }
 }
 declare module Crimenuts {
@@ -140,20 +159,21 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class Answers extends Phaser.Group implements IProcessViewPart {
-        constructor(game: Phaser.Game, world: string, members: string[]);
-        updateModel(processModel: ProcessModel): void;
-        private world;
-        private model;
+        constructor(game: Phaser.Game, position: Phaser.Point, model: ProcessModel);
+        updateModel(model: ProcessModel): void;
+        private answerSheet;
         private createAnswers();
+        private updateAnswers(answers);
     }
 }
 declare module Crimenuts.View.Process {
-    class Display extends Phaser.Group implements IProcessViewPart {
+    class Display extends Phaser.Group implements IProcessViewPart, ITicksViewer {
         bottomBar: BottomBar;
         topBar: TopBar;
         constructor(game: Phaser.Game);
         updateModel(model: ProcessModel): void;
-        setBottomText(text: string): void;
+        updateTicks(count: number): void;
+        private setBottomText(text);
         private setCaseId(caseId);
     }
 }
@@ -181,7 +201,7 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class Members extends Phaser.Group implements IProcessViewPart {
-        constructor(game: Phaser.Game, model: ProcessModel, position: Phaser.Point);
+        constructor(game: Phaser.Game, position: Phaser.Point, model: ProcessModel);
         updateModel(model: ProcessModel): void;
         static memberWidth: number;
         static memberHeight: number;

@@ -3,8 +3,11 @@
     export module Default {
         export module Font {
             export var face = "Arial";
+            export var size = 12;
+            export var color = "#AAAAAA";
         }
     }
+
     export module Process {
         export var bgColor = "#000000";
 
@@ -19,9 +22,26 @@
                 export module Name {
                     export var height = 16;
                     export var fontSize = 10;
-                    export var color = "#CCCCCC";
+                    export var color = "#AAAAAA";
                     export var bgColor = 0x222222;
                 }
+            }
+        }
+
+
+        export module Answers {
+            export var position = new Phaser.Point( 10, 405 );
+            export var width = 700;
+            export var height = 200;
+            export var bgColor = 0x111111;
+
+            export module Answer {
+                export var fontSize = 16;
+
+                export module Color {
+                    export var regular = "#777777";
+                }
+
             }
         }
 

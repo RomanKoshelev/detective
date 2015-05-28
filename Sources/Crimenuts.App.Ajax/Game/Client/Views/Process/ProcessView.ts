@@ -14,17 +14,18 @@
         }
 
         updateTickCount( count: number ) {
-            this.display.setBottomText( `[${count}]` );
+            this.ticks.updateTicks( count );
         }
 
         private parts = new Array <IProcessViewPart>();
-        private display: Display;
+        private ticks: ITicksViewer;
 
         private createParts( model: ProcessModel ) {
-            this.parts.push( this.display = new Display( this.game ) );
+            this.parts.push( this.ticks = new Display( this.game ) );
             this.parts.push( new StateBar( this.game, Settings.Process.Bars.StateBar.position ) );
             this.parts.push( new InfoBar( this.game, Settings.Process.Bars.InfoBar.position) );
-            this.parts.push( new Members( this.game, model, Settings.Process.Members.position ) );
+            this.parts.push( new Members( this.game, Settings.Process.Members.position, model ) );
+            this.parts.push( new Answers( this.game, Settings.Process.Answers.position, model ) );
         }
 
         private updateParts( model: ProcessModel ) {

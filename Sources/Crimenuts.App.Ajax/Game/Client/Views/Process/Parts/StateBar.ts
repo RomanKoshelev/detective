@@ -19,6 +19,7 @@
                 game,
                 Settings.Process.Bars.StateBar.width,
                 Settings.Process.Bars.StateBar.height,
+                Settings.Default.Font.face,
                 Settings.Process.Bars.StateBar.fontSize,
                 Settings.Process.Bars.StateBar.textColor,
                 Settings.Process.Bars.StateBar.bgColor ) );

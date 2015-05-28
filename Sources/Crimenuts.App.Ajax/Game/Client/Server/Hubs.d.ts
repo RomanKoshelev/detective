@@ -103,13 +103,33 @@ interface GameHubClient
 interface ProcessModel {
     Id : string;
     CaseId : string;
-    Members : string[];
     World : string;
     State : string;
-    TodayPrisoner : string;
-    TodayVictim : string;
-    Today : number;
-    ActiveMurderersNum : number;
+    Today : TodayModel;
+    Members : string[];
+    Answers : AnswerModel[];
+}
+ 
+ 
+/**
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.AnswerModel
+  */
+interface AnswerModel {
+    IsValid : boolean;
+    Agent : string;
+    Subject : string;
+    Message : string;
+}
+ 
+ 
+/**
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.TodayModel
+  */
+interface TodayModel {
+    Prisoner : string;
+    Victim : string;
+    Day : number;
+    ActiveMurdererNum : number;
 }
  
 //#endregion data contracts

@@ -4,66 +4,54 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Crimenuts.Core.Game.Histories;
 using Crimenuts.Core.Game.Members;
 using Crimenuts.Core.Game.Processes;
 
 namespace Crimenuts.App.Ajax.Game.Server.Models
 {
-    public class ProcessModel : IModel< Process >
+    public class ProcessModel
     {
-        #region Ctor
-
         public ProcessModel( Process process )
         {
-            IModel.InitFrom( process );
+            InitFrom( process );
         }
-
-        #endregion
 
 
         #region Properties
 
         public string Id { get; set; }
         public string CaseId { get; set; }
-        public List< string > Members { get; set; }
         public string World { get; set; }
         public string State { get; set; }
-        public string TodayPrisoner { get; set; }
-        public string TodayVictim { get; set; }
-        public int Today { get; set; }
-        public int? ActiveMurderersNum { get; set; }
-
-        #endregion
-
-
-        #region IModel
-
-        private IModel< Process > IModel
-        {
-            get { return this; }
-        }
-
-        void IModel< Process >.InitFrom( Process process )
-        {
-            Id = process.Id.Value.ToString();
-            CaseId = process.CaseId.Value.ToString();
-            World = process.Case.World.Name;
-            Members = process.Members.Select( m => m.Name ).ToList();
-            State = process.State.ToString();
-            Today = process.Today;
-            TodayVictim = getName( process.TodayVictim );
-            TodayPrisoner = getName( process.TodayPrisoner );
-            ActiveMurderersNum = process.ActiveMurderersOpenNum;
-        }
+        public TodayModel Today { get; set; }
+        public List< string > Members { get; set; }
+        public List< AnswerModel > Answers { get; set; }
 
         #endregion
 
 
         #region Utils
 
-        private string getName( Member m )
+        private void InitFrom( Process process )
         {
-            return m == null ? null : m.Name;
+            Id = process.Id.Value.ToString();
+            CaseId = process.CaseId.Value.ToString();
+            World = process.Case.World.Name;
+            Members = process.Members.Select( m => m.Name ).ToList();
+            State = process.State.ToString();
+            Today = new TodayModel( process );
+            Answers = CreateAnswers( process );
+        }
+
+        private List< AnswerModel > CreateAnswers( Process process )
+        {
+            return process.ActiveMembers.Select( m => CreateAnswerModel( m, process.History.Answers ) ).ToList();
+        }
+
+        private AnswerModel CreateAnswerModel( Member member, IEnumerable< History.Record > answers )
+        {
+            return new AnswerModel( member, answers.FirstOrDefault( a => a.Agent == member ) );
         }
 
         #endregion

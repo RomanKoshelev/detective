@@ -8,9 +8,11 @@ module Crimenuts {
         constructor(
             game: Phaser.Game,
             width: number, height: number,
-            fontSize: number,
-            color: string, bgcolor: number,
-            fontFace: string = Settings.Default.Font.face ) {
+            fontFace: string = Settings.Default.Font.face,
+            fontSize: number = Settings.Default.Font.size,
+            color: string = Settings.Default.Font.color, 
+            bgcolor: number = 0x000000
+            ) {
 
             super( game, 0, 0 );
 
@@ -43,8 +45,7 @@ module Crimenuts {
         }
 
         alignMiddle() {
-            this.label.y = this.height / 2;
-            this.label.y += ( this.fontSize ) / 5;
+            this.label.y = Math.ceil( this.height / 2 + this.label.height / 10);
             this.label.anchor.y = 0.5;
         }
 

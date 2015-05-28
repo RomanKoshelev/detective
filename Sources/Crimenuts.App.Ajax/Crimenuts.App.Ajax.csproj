@@ -191,7 +191,8 @@
     <Compile Include="Game\Server\Logic\IAuxLogic.cs" />
     <Compile Include="Game\Server\Logic\ITimeLogic.cs" />
     <Compile Include="Game\Server\Managers\IManager.cs" />
-    <Compile Include="Game\Server\Models\IModel.cs" />
+    <Compile Include="Game\Server\Models\AnswerModel.cs" />
+    <Compile Include="Game\Server\Models\TodayModel.cs" />
     <Compile Include="Game\Server\Utils\Calc.cs" />
     <Compile Include="Game\Server\Managers\ProcessManager.cs" />
     <Compile Include="Game\Server\Logic\MainLogic.cs" />
@@ -299,6 +300,7 @@
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
     <TypeScriptCompile Include="Game\Client\Config\Settings.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\IProcessViewPart.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Helpers\ITicksViewer.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Answers.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\ProcessView.ts" />
     <TypeScriptCompile Include="Game\Client\Views\UserInterface\BottomBar.ts" />

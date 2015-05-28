@@ -1,5 +1,5 @@
 module Crimenuts.View.Process {
-    export class Display extends Phaser.Group implements IProcessViewPart {
+    export class Display extends Phaser.Group implements IProcessViewPart, ITicksViewer {
 
         bottomBar: BottomBar;
         topBar: TopBar;
@@ -14,7 +14,11 @@ module Crimenuts.View.Process {
             this.setCaseId( model.CaseId );
         }
 
-        setBottomText( text: string ) {
+        updateTicks( count: number ) {
+            this.setBottomText( `[${count}]` );
+        }
+
+        private setBottomText( text: string ) {
             this.bottomBar.text.setText(text);
         }
 
