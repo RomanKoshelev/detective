@@ -55,13 +55,19 @@ module Crimenuts {
 
         // utils
         private createLabel( fontFace: string, fontSize: number, color: string ) {
+            this.fontSize = fontSize;
+
+            var magicScale = 2.1;
+            fontSize *= magicScale;
+
             this.addChild( this.label = new Phaser.Text(
                 this.game, 0, 0, "", {
                     font: `${fontSize}px ${fontFace}`,
                     fill: color,
                     align: "left"
                 }) );
-            this.fontSize = fontSize;
+
+            this.label.scale.set( 1/magicScale, 1/magicScale );
         }
 
         private createBackground(width:number, height:number, bgcolor:number ) {

@@ -311,12 +311,15 @@ var Crimenuts;
         };
         // utils
         TextLabel.prototype.createLabel = function (fontFace, fontSize, color) {
+            this.fontSize = fontSize;
+            var magicScale = 2.1;
+            fontSize *= magicScale;
             this.addChild(this.label = new Phaser.Text(this.game, 0, 0, "", {
                 font: "" + fontSize + "px " + fontFace,
                 fill: color,
                 align: "left"
             }));
-            this.fontSize = fontSize;
+            this.label.scale.set(1 / magicScale, 1 / magicScale);
         };
         TextLabel.prototype.createBackground = function (width, height, bgcolor) {
             this.beginFill(bgcolor);
