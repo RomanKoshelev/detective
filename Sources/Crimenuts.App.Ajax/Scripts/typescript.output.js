@@ -82,6 +82,12 @@ var Crimenuts;
             (function (RoundedRectangle) {
                 RoundedRectangle.radiusRate = 1 / 5;
             })(RoundedRectangle = Default.RoundedRectangle || (Default.RoundedRectangle = {}));
+            var Shape;
+            (function (Shape) {
+                Shape.lineWidth = 2;
+                Shape.fillColor = 0x222222;
+                Shape.lineColor = 0xAAAAAA;
+            })(Shape = Default.Shape || (Default.Shape = {}));
         })(Default = Settings.Default || (Settings.Default = {}));
         var Assets;
         (function (Assets) {
@@ -101,8 +107,13 @@ var Crimenuts;
             var Button;
             (function (Button) {
                 Button.width = 100;
-                Button.height = 40;
-                Button.key = Assets.Sprites.transparent;
+                Button.height = 35;
+                Button.sprite = Assets.Sprites.transparent;
+                Button.fontSize = 16;
+                Button.fillColor = 0x222222;
+                Button.lineColor = 0x888888;
+                Button.textColor = "#AAAAAA";
+                Button.lineWidth = 1.5;
             })(Button = UserInterface.Button || (UserInterface.Button = {}));
         })(UserInterface = Settings.UserInterface || (Settings.UserInterface = {}));
         var Process;
@@ -194,22 +205,16 @@ var Crimenuts;
                     this.ticks.updateTicks(count);
                 };
                 ProcessView.prototype.createParts = function (model) {
-                    var _this = this;
                     this.addPart(this.ticks = new Process.Display(this.game));
                     this.addPart(new Process.StateBar(this.game, Crimenuts.Settings.Process.Bars.StateBar.position));
                     this.addPart(new Process.InfoBar(this.game, Crimenuts.Settings.Process.Bars.InfoBar.position));
                     this.addPart(new Process.Members(this.game, Crimenuts.Settings.Process.Members.position, model));
                     this.addPart(new Process.Answers(this.game, Crimenuts.Settings.Process.Answers.position, model));
-                    var button;
-                    this.add(button = new Crimenuts.RoundedRectangleDecor(new Crimenuts.TextDecor(new Crimenuts.Button(this.game, function () { return _this.clickedIt(); }, this), "Button")));
-                    button.position.set(200, 600);
+                    // Todo:> use this.controller (IProcessController) to call operations
                 };
                 ProcessView.prototype.addPart = function (part) {
                     this.parts.push(part);
                     this.add(part);
-                };
-                ProcessView.prototype.clickedIt = function () {
-                    this.scale.set(this.scale.x * 1.1, this.scale.y * 1.1);
                 };
                 ProcessView.prototype.updateParts = function (model) {
                     this.parts.forEach(function (p) { return p.updateModel(model); });
@@ -324,12 +329,10 @@ var Crimenuts;
 (function (Crimenuts) {
     var Button = (function (_super) {
         __extends(Button, _super);
-        function Button(game, callback, callbackContext, x, y, width, height) {
-            if (x === void 0) { x = 0; }
-            if (y === void 0) { y = 0; }
+        function Button(game, callback, callbackContext, width, height) {
             if (width === void 0) { width = Crimenuts.Settings.UserInterface.Button.width; }
             if (height === void 0) { height = Crimenuts.Settings.UserInterface.Button.height; }
-            _super.call(this, game, x, y, Crimenuts.Settings.UserInterface.Button.key, callback, callbackContext);
+            _super.call(this, game, 0, 0, Crimenuts.Settings.UserInterface.Button.sprite, callback, callbackContext);
             this.resize(width, height);
         }
         Button.prototype.getGame = function () {
@@ -352,11 +355,14 @@ var Crimenuts;
 (function (Crimenuts) {
     var RoundedRectangleDecor = (function (_super) {
         __extends(RoundedRectangleDecor, _super);
-        function RoundedRectangleDecor(component) {
+        function RoundedRectangleDecor(component, fillColor, lineColor, lineWidth) {
+            if (fillColor === void 0) { fillColor = Crimenuts.Settings.Default.Shape.fillColor; }
+            if (lineColor === void 0) { lineColor = Crimenuts.Settings.Default.Shape.lineColor; }
+            if (lineWidth === void 0) { lineWidth = Crimenuts.Settings.Default.Shape.lineWidth; }
             var game = component.getGame();
             var size = component.getSize();
             _super.call(this, game, 0, 0);
-            this.createRoundedRectangle(size);
+            this.createRoundedRectangle(size, fillColor, lineColor, lineWidth);
             this.addChild(component.getDysplayObject());
             this.component = component;
         }
@@ -369,10 +375,10 @@ var Crimenuts;
         RoundedRectangleDecor.prototype.getDysplayObject = function () {
             return this;
         };
-        RoundedRectangleDecor.prototype.createRoundedRectangle = function (size) {
+        RoundedRectangleDecor.prototype.createRoundedRectangle = function (size, fillColor, lineColor, lineWidth) {
             var radius = Math.min(size.width, size.height) * Crimenuts.Settings.Default.RoundedRectangle.radiusRate;
-            this.lineStyle(2, Crimenuts.Settings.BgColor.white);
-            this.beginFill(Crimenuts.Settings.BgColor.black);
+            this.lineStyle(lineWidth, lineColor);
+            this.beginFill(fillColor);
             this.drawRoundedRect(0, 0, size.width, size.height, radius);
             this.endFill();
         };
@@ -384,10 +390,10 @@ var Crimenuts;
 (function (Crimenuts) {
     var TextDecor = (function (_super) {
         __extends(TextDecor, _super);
-        function TextDecor(component, text, fontFace, fontSize, color) {
-            if (fontFace === void 0) { fontFace = Crimenuts.Settings.Default.Font.face; }
-            if (fontSize === void 0) { fontSize = Crimenuts.Settings.Default.Font.size; }
+        function TextDecor(component, text, color, fontSize, fontFace) {
             if (color === void 0) { color = Crimenuts.Settings.Default.Font.color; }
+            if (fontSize === void 0) { fontSize = Crimenuts.Settings.Default.Font.size; }
+            if (fontFace === void 0) { fontFace = Crimenuts.Settings.Default.Font.face; }
             var game = component.getGame();
             var size = component.getSize();
             _super.call(this, game);
@@ -506,6 +512,7 @@ var Crimenuts;
                     _super.call(this, game);
                     this.position = position;
                     this.createAnswers();
+                    this.createAutoAnswerButton();
                     this.updateAnswers(model.Answers);
                 }
                 Answers.prototype.updateModel = function (model) {
@@ -515,6 +522,15 @@ var Crimenuts;
                     this.answerSheet = new Crimenuts.TextLabel(this.game, Crimenuts.Settings.Process.Answers.width, Crimenuts.Settings.Process.Answers.height, Crimenuts.Settings.Default.Font.face, Crimenuts.Settings.Process.Answers.Answer.fontSize, Crimenuts.Settings.Process.Answers.Answer.Color.regular, Crimenuts.Settings.Process.Answers.bgColor);
                     this.answerSheet.alignMiddle();
                     this.add(this.answerSheet);
+                };
+                Answers.prototype.createAutoAnswerButton = function () {
+                    var _this = this;
+                    var button = new Crimenuts.RoundedRectangleDecor(new Crimenuts.TextDecor(new Crimenuts.Button(this.game, function () { return _this.onAutoAnswer(); }, this, Crimenuts.Settings.UserInterface.Button.width, Crimenuts.Settings.UserInterface.Button.height), "Auto", Crimenuts.Settings.UserInterface.Button.textColor, Crimenuts.Settings.UserInterface.Button.fontSize), Crimenuts.Settings.UserInterface.Button.fillColor, Crimenuts.Settings.UserInterface.Button.lineColor, Crimenuts.Settings.UserInterface.Button.lineWidth);
+                    button.position.set(580, 20);
+                    this.add(button);
+                };
+                Answers.prototype.onAutoAnswer = function () {
+                    this.scale.set(this.scale.x * 0.95, this.scale.y * 0.95);
                 };
                 Answers.prototype.updateAnswers = function (answers) {
                     var text = "";

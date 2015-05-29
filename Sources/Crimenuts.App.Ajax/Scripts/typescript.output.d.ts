@@ -34,6 +34,11 @@ declare module Crimenuts.Settings {
         module RoundedRectangle {
             var radiusRate: number;
         }
+        module Shape {
+            var lineWidth: number;
+            var fillColor: number;
+            var lineColor: number;
+        }
     }
     module Assets {
         module Sprites {
@@ -49,7 +54,12 @@ declare module Crimenuts.Settings {
         module Button {
             var width: number;
             var height: number;
-            var key: string;
+            var sprite: string;
+            var fontSize: number;
+            var fillColor: number;
+            var lineColor: number;
+            var textColor: string;
+            var lineWidth: number;
         }
     }
     module Process {
@@ -111,7 +121,6 @@ declare module Crimenuts.View.Process {
         private ticks;
         private createParts(model);
         private addPart(part);
-        clickedIt(): void;
         private updateParts(model);
     }
 }
@@ -153,7 +162,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class Button extends Phaser.Button implements IDecorable {
-        constructor(game: Phaser.Game, callback?: Function, callbackContext?: any, x?: number, y?: number, width?: number, height?: number);
+        constructor(game: Phaser.Game, callback?: Function, callbackContext?: any, width?: number, height?: number);
         getGame(): Phaser.Game;
         private resize(width, height);
         getSize(): Size;
@@ -169,17 +178,17 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class RoundedRectangleDecor extends Phaser.Graphics implements IDecorable {
-        constructor(component: IDecorable);
+        constructor(component: IDecorable, fillColor?: number, lineColor?: number, lineWidth?: number);
         private component;
         getGame(): Phaser.Game;
         getSize(): Size;
         getDysplayObject(): PIXI.DisplayObject;
-        createRoundedRectangle(size: Size): void;
+        createRoundedRectangle(size: Size, fillColor: number, lineColor: number, lineWidth: number): void;
     }
 }
 declare module Crimenuts {
     class TextDecor extends Phaser.Group implements IDecorable {
-        constructor(component: IDecorable, text: string, fontFace?: string, fontSize?: number, color?: string);
+        constructor(component: IDecorable, text: string, color?: string, fontSize?: number, fontFace?: string);
         private component;
         private textLabel;
         getGame(): Phaser.Game;
@@ -226,6 +235,8 @@ declare module Crimenuts.View.Process {
         updateModel(model: ProcessModel): void;
         private answerSheet;
         private createAnswers();
+        private createAutoAnswerButton();
+        private onAutoAnswer();
         private updateAnswers(answers);
     }
 }

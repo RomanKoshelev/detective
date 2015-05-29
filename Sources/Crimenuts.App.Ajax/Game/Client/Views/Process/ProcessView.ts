@@ -22,28 +22,16 @@
 
         private createParts( model: ProcessModel ) {
             this.addPart( this.ticks = new Display( this.game ) );
-            this.addPart( new StateBar( this.game, Settings.Process.Bars.StateBar.position ) );
+            this.addPart( new StateBar(this.game, Settings.Process.Bars.StateBar.position ) );
             this.addPart( new InfoBar( this.game, Settings.Process.Bars.InfoBar.position ) );
             this.addPart( new Members( this.game, Settings.Process.Members.position, model ) );
-            this.addPart( new Answers( this.game, Settings.Process.Answers.position, model ) );
-
-            var button;
-            this.add( button =
-                new RoundedRectangleDecor(
-                    new TextDecor(
-                        new Button( this.game, () => this.clickedIt(), this ),
-                        "Button" )
-                ) );
-            button.position.set( 200, 600 );
+            this.addPart( new Answers( this.game, Settings.Process.Answers.position, model /*, this.controller */  ) );
+            // Todo:> use this.controller (IProcessController) to call operations
         }
 
         private addPart( part: any ) {
             this.parts.push( part );
             this.add( part );
-        }
-
-        clickedIt() {
-            this.scale.set( this.scale.x * 1.1, this.scale.y * 1.1 );
         }
 
         private updateParts( model: ProcessModel ) {

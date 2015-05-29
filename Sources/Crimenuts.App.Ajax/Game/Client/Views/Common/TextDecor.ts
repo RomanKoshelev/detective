@@ -5,9 +5,9 @@ module Crimenuts {
         constructor(
             component: IDecorable,
             text: string,
-            fontFace: string = Settings.Default.Font.face,
+            color: string = Settings.Default.Font.color,
             fontSize: number = Settings.Default.Font.size,
-            color: string = Settings.Default.Font.color
+            fontFace: string = Settings.Default.Font.face
         ) {
             var game = component.getGame();
             var size = component.getSize();

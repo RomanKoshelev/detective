@@ -6,11 +6,10 @@ module Crimenuts {
             game: Phaser.Game,
             callback?: Function,
             callbackContext?: any,
-            x: number=0, y: number=0,
             width: number = Settings.UserInterface.Button.width,
             height: number  = Settings.UserInterface.Button.height
             ) {
-            super( game, x, y, Settings.UserInterface.Button.key, callback, callbackContext );
+            super( game, 0, 0, Settings.UserInterface.Button.sprite, callback, callbackContext );
             this.resize( width, height );
         }
 

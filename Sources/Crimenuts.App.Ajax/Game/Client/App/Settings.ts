@@ -11,6 +11,11 @@
         export module RoundedRectangle {
             export var  radiusRate = 1/5;
         }
+        export module Shape {
+            export var lineWidth = 2;
+            export var fillColor = 0x222222;
+            export var lineColor = 0xAAAAAA;
+        }
     }
 
     export module Assets {
@@ -28,8 +33,13 @@
     export module UserInterface {
         export module Button {
             export var width = 100;
-            export var height = 40;
-            export var key = Assets.Sprites.transparent;
+            export var height = 35;
+            export var sprite = Assets.Sprites.transparent;
+            export var fontSize  = 16;
+            export var fillColor = 0x222222;
+            export var lineColor = 0x888888;
+            export var textColor = "#AAAAAA";
+            export var lineWidth = 1.5;
         }
     }
 
