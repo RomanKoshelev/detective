@@ -11,7 +11,7 @@ module Crimenuts {
             fontFace: string = Settings.Default.Font.face,
             fontSize: number = Settings.Default.Font.size,
             color: string = Settings.Default.Font.color, 
-            bgcolor: number = 0x000000
+            bgcolor: number = Settings.Default.Font.bgColor
             ) {
 
             super( game, 0, 0 );
@@ -70,7 +70,10 @@ module Crimenuts {
             this.label.scale.set( 1/magicScale, 1/magicScale );
         }
 
-        private createBackground(width:number, height:number, bgcolor:number ) {
+        private createBackground( width: number, height: number, bgcolor: number ) {
+            if( bgcolor === Settings.BgColor.transparent ) {
+                return;
+            }
             this.beginFill( bgcolor );
             this.drawRect( 0, 0, width, height );
             this.endFill();

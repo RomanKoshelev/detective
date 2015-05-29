@@ -70,8 +70,21 @@ var Crimenuts;
                 Font.face = "Arial";
                 Font.size = 12;
                 Font.color = "#AAAAAA";
+                Font.bgColor = 0x000000;
             })(Font = Default.Font || (Default.Font = {}));
+            var Button;
+            (function (Button) {
+                Button.width = 100;
+                Button.height = 30;
+                Button.key = null;
+            })(Button = Default.Button || (Default.Button = {}));
         })(Default = Settings.Default || (Settings.Default = {}));
+        var BgColor;
+        (function (BgColor) {
+            BgColor.black = 0x000000;
+            BgColor.wite = 0xFFFFFF;
+            BgColor.transparent = -1;
+        })(BgColor = Settings.BgColor || (Settings.BgColor = {}));
         var Process;
         (function (Process) {
             Process.bgColor = "#000000";
@@ -161,12 +174,20 @@ var Crimenuts;
                     this.ticks.updateTicks(count);
                 };
                 ProcessView.prototype.createParts = function (model) {
-                    this.parts.push(this.ticks = new Process.Display(this.game));
-                    this.parts.push(new Process.StateBar(this.game, Crimenuts.Settings.Process.Bars.StateBar.position));
-                    this.parts.push(new Process.InfoBar(this.game, Crimenuts.Settings.Process.Bars.InfoBar.position));
-                    this.parts.push(new Process.Members(this.game, Crimenuts.Settings.Process.Members.position, model));
-                    this.parts.push(new Process.Answers(this.game, Crimenuts.Settings.Process.Answers.position, model));
-                    // Todo:> Add "AutoAnswer" Button
+                    var _this = this;
+                    this.addPart(this.ticks = new Process.Display(this.game));
+                    this.addPart(new Process.StateBar(this.game, Crimenuts.Settings.Process.Bars.StateBar.position));
+                    this.addPart(new Process.InfoBar(this.game, Crimenuts.Settings.Process.Bars.InfoBar.position));
+                    this.addPart(new Process.Members(this.game, Crimenuts.Settings.Process.Members.position, model));
+                    this.addPart(new Process.Answers(this.game, Crimenuts.Settings.Process.Answers.position, model));
+                    this.add(new Crimenuts.TextDecor(new Crimenuts.Button(this.game, function () { return _this.clickedIt(); }, this), "Text button"));
+                };
+                ProcessView.prototype.addPart = function (part) {
+                    this.parts.push(part);
+                    this.add(part);
+                };
+                ProcessView.prototype.clickedIt = function () {
+                    this.scale.set(0.5, 0.5);
                 };
                 ProcessView.prototype.updateParts = function (model) {
                     this.parts.forEach(function (p) { return p.updateModel(model); });
@@ -264,11 +285,60 @@ var Crimenuts;
 var Crimenuts;
 (function (Crimenuts) {
     var Size = (function () {
-        function Size() {
+        function Size(width, height) {
+            if (width === void 0) { width = 0; }
+            if (height === void 0) { height = 0; }
+            this.width = width;
+            this.height = height;
         }
         return Size;
     })();
     Crimenuts.Size = Size;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var Button = (function (_super) {
+        __extends(Button, _super);
+        function Button(game, callback, callbackContext, x, y, width, height) {
+            if (x === void 0) { x = 0; }
+            if (y === void 0) { y = 0; }
+            if (width === void 0) { width = Crimenuts.Settings.Default.Button.width; }
+            if (height === void 0) { height = Crimenuts.Settings.Default.Button.height; }
+            _super.call(this, game, x, y, Crimenuts.Settings.Default.Button.key, callback, callbackContext);
+            this.resize(width, height);
+        }
+        Button.prototype.getGame = function () {
+            return this.game;
+        };
+        Button.prototype.resize = function (width, height) {
+            this.scale.set(width / this.texture.width, height / this.texture.height);
+        };
+        Button.prototype.getSize = function () {
+            return new Crimenuts.Size(this.width, this.height);
+        };
+        return Button;
+    })(Phaser.Button);
+    Crimenuts.Button = Button;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var TextDecor = (function (_super) {
+        __extends(TextDecor, _super);
+        function TextDecor(subj, text, fontFace, fontSize, color) {
+            if (fontFace === void 0) { fontFace = Crimenuts.Settings.Default.Font.face; }
+            if (fontSize === void 0) { fontSize = Crimenuts.Settings.Default.Font.size; }
+            if (color === void 0) { color = Crimenuts.Settings.Default.Font.color; }
+            var game = subj.getGame();
+            var size = subj.getSize();
+            _super.call(this, game);
+            this.textLabel = new Crimenuts.TextLabel(game, size.width, size.height, fontFace, fontSize, color, Crimenuts.Settings.BgColor.transparent);
+            this.textLabel.setText(text);
+            this.textLabel.alignCenter();
+            this.add(this.textLabel);
+        }
+        return TextDecor;
+    })(Phaser.Group);
+    Crimenuts.TextDecor = TextDecor;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -278,7 +348,7 @@ var Crimenuts;
             if (fontFace === void 0) { fontFace = Crimenuts.Settings.Default.Font.face; }
             if (fontSize === void 0) { fontSize = Crimenuts.Settings.Default.Font.size; }
             if (color === void 0) { color = Crimenuts.Settings.Default.Font.color; }
-            if (bgcolor === void 0) { bgcolor = 0x000000; }
+            if (bgcolor === void 0) { bgcolor = Crimenuts.Settings.Default.Font.bgColor; }
             _super.call(this, game, 0, 0);
             this.createBackground(width, height, bgcolor);
             this.createLabel(fontFace, fontSize, color);
@@ -322,6 +392,9 @@ var Crimenuts;
             this.label.scale.set(1 / magicScale, 1 / magicScale);
         };
         TextLabel.prototype.createBackground = function (width, height, bgcolor) {
+            if (bgcolor === Crimenuts.Settings.BgColor.transparent) {
+                return;
+            }
             this.beginFill(bgcolor);
             this.drawRect(0, 0, width, height);
             this.endFill();

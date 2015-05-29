@@ -5,7 +5,21 @@
             export var face = "Arial";
             export var size = 12;
             export var color = "#AAAAAA";
+            export var bgColor = 0x000000;
         }
+
+        export module Button {
+            export var width = 100;
+            export var height = 30;
+            export var key = null;
+        }
+
+    }
+
+    export module BgColor {
+        export var black = 0x000000;
+        export var wite = 0xFFFFFF;
+        export var transparent = -1;
     }
 
     export module Process {

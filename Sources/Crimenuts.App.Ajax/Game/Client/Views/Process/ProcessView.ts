@@ -21,13 +21,27 @@
         private ticks: ITicksViewer;
 
         private createParts( model: ProcessModel ) {
-            this.parts.push( this.ticks = new Display( this.game ) );
-            this.parts.push( new StateBar( this.game, Settings.Process.Bars.StateBar.position ) );
-            this.parts.push( new InfoBar( this.game, Settings.Process.Bars.InfoBar.position) );
-            this.parts.push( new Members( this.game, Settings.Process.Members.position, model ) );
-            this.parts.push( new Answers( this.game, Settings.Process.Answers.position, model ) );
+            this.addPart( this.ticks = new Display( this.game ) );
+            this.addPart( new StateBar( this.game, Settings.Process.Bars.StateBar.position ) );
+            this.addPart( new InfoBar( this.game, Settings.Process.Bars.InfoBar.position) );
+            this.addPart( new Members( this.game, Settings.Process.Members.position, model ) );
+            this.addPart( new Answers( this.game, Settings.Process.Answers.position, model ) );
 
-            // Todo:> Add "AutoAnswer" Button
+            this.add(
+                new TextDecor(
+                    new Button( this.game,() => this.clickedIt(), this ),
+                "Text button")
+                );
+        }
+
+        
+        private addPart( part: any ) {
+            this.parts.push( part );
+            this.add( part );
+        }
+
+        clickedIt( ) {
+            this.scale.set(0.5,0.5);
         }
 
         private updateParts( model: ProcessModel ) {

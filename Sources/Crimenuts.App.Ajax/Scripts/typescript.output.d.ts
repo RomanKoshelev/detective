@@ -27,7 +27,18 @@ declare module Crimenuts.Settings {
             var face: string;
             var size: number;
             var color: string;
+            var bgColor: number;
         }
+        module Button {
+            var width: number;
+            var height: number;
+            var key: any;
+        }
+    }
+    module BgColor {
+        var black: number;
+        var wite: number;
+        var transparent: number;
     }
     module Process {
         var bgColor: string;
@@ -87,6 +98,8 @@ declare module Crimenuts.View.Process {
         private parts;
         private ticks;
         private createParts(model);
+        private addPart(part);
+        clickedIt(): void;
         private updateParts(model);
     }
 }
@@ -122,6 +135,27 @@ declare module Crimenuts {
     class Size {
         width: number;
         height: number;
+        constructor(width?: number, height?: number);
+    }
+}
+declare module Crimenuts {
+    class Button extends Phaser.Button implements IDecorable {
+        constructor(game: Phaser.Game, callback?: Function, callbackContext?: any, x?: number, y?: number, width?: number, height?: number);
+        getGame(): Phaser.Game;
+        private resize(width, height);
+        getSize(): Size;
+    }
+}
+declare module Crimenuts {
+    interface IDecorable {
+        getGame(): Phaser.Game;
+        getSize(): Size;
+    }
+}
+declare module Crimenuts {
+    class TextDecor extends Phaser.Group {
+        constructor(subj: IDecorable, text: string, fontFace?: string, fontSize?: number, color?: string);
+        private textLabel;
     }
 }
 declare module Crimenuts {
