@@ -31,6 +31,9 @@ declare module Crimenuts.Settings {
             var color: string;
             var bgColor: number;
         }
+        module RoundedRectangle {
+            var radiusRate: number;
+        }
     }
     module Assets {
         module Sprites {
@@ -154,18 +157,34 @@ declare module Crimenuts {
         getGame(): Phaser.Game;
         private resize(width, height);
         getSize(): Size;
+        getDysplayObject(): PIXI.DisplayObject;
     }
 }
 declare module Crimenuts {
     interface IDecorable {
         getGame(): Phaser.Game;
         getSize(): Size;
+        getDysplayObject(): PIXI.DisplayObject;
     }
 }
 declare module Crimenuts {
-    class TextDecor extends Phaser.Group {
-        constructor(subj: IDecorable, text: string, fontFace?: string, fontSize?: number, color?: string);
+    class RoundedRectangleDecor extends Phaser.Graphics implements IDecorable {
+        constructor(component: IDecorable);
+        private component;
+        getGame(): Phaser.Game;
+        getSize(): Size;
+        getDysplayObject(): PIXI.DisplayObject;
+        createRoundedRectangle(size: Size): void;
+    }
+}
+declare module Crimenuts {
+    class TextDecor extends Phaser.Group implements IDecorable {
+        constructor(component: IDecorable, text: string, fontFace?: string, fontSize?: number, color?: string);
+        private component;
         private textLabel;
+        getGame(): Phaser.Game;
+        getSize(): Size;
+        getDysplayObject(): PIXI.DisplayObject;
     }
 }
 declare module Crimenuts {

@@ -78,6 +78,10 @@ var Crimenuts;
                 Font.color = "#AAAAAA";
                 Font.bgColor = 0x000000;
             })(Font = Default.Font || (Default.Font = {}));
+            var RoundedRectangle;
+            (function (RoundedRectangle) {
+                RoundedRectangle.radiusRate = 1 / 5;
+            })(RoundedRectangle = Default.RoundedRectangle || (Default.RoundedRectangle = {}));
         })(Default = Settings.Default || (Settings.Default = {}));
         var Assets;
         (function (Assets) {
@@ -97,7 +101,7 @@ var Crimenuts;
             var Button;
             (function (Button) {
                 Button.width = 100;
-                Button.height = 30;
+                Button.height = 40;
                 Button.key = Assets.Sprites.transparent;
             })(Button = UserInterface.Button || (UserInterface.Button = {}));
         })(UserInterface = Settings.UserInterface || (Settings.UserInterface = {}));
@@ -197,7 +201,7 @@ var Crimenuts;
                     this.addPart(new Process.Members(this.game, Crimenuts.Settings.Process.Members.position, model));
                     this.addPart(new Process.Answers(this.game, Crimenuts.Settings.Process.Answers.position, model));
                     var button;
-                    this.add(button = new Crimenuts.TextDecor(new Crimenuts.Button(this.game, function () { return _this.clickedIt(); }, this), "Button"));
+                    this.add(button = new Crimenuts.RoundedRectangleDecor(new Crimenuts.TextDecor(new Crimenuts.Button(this.game, function () { return _this.clickedIt(); }, this), "Button")));
                     button.position.set(200, 600);
                 };
                 ProcessView.prototype.addPart = function (part) {
@@ -205,7 +209,7 @@ var Crimenuts;
                     this.add(part);
                 };
                 ProcessView.prototype.clickedIt = function () {
-                    this.scale.set(0.5, 0.5);
+                    this.scale.set(this.scale.x * 1.1, this.scale.y * 1.1);
                 };
                 ProcessView.prototype.updateParts = function (model) {
                     this.parts.forEach(function (p) { return p.updateModel(model); });
@@ -337,27 +341,71 @@ var Crimenuts;
         Button.prototype.getSize = function () {
             return new Crimenuts.Size(this.width, this.height);
         };
+        Button.prototype.getDysplayObject = function () {
+            return this;
+        };
         return Button;
     })(Phaser.Button);
     Crimenuts.Button = Button;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
+    var RoundedRectangleDecor = (function (_super) {
+        __extends(RoundedRectangleDecor, _super);
+        function RoundedRectangleDecor(component) {
+            var game = component.getGame();
+            var size = component.getSize();
+            _super.call(this, game, 0, 0);
+            this.createRoundedRectangle(size);
+            this.addChild(component.getDysplayObject());
+            this.component = component;
+        }
+        RoundedRectangleDecor.prototype.getGame = function () {
+            return this.component.getGame();
+        };
+        RoundedRectangleDecor.prototype.getSize = function () {
+            return this.component.getSize();
+        };
+        RoundedRectangleDecor.prototype.getDysplayObject = function () {
+            return this;
+        };
+        RoundedRectangleDecor.prototype.createRoundedRectangle = function (size) {
+            var radius = Math.min(size.width, size.height) * Crimenuts.Settings.Default.RoundedRectangle.radiusRate;
+            this.lineStyle(2, Crimenuts.Settings.BgColor.white);
+            this.beginFill(Crimenuts.Settings.BgColor.black);
+            this.drawRoundedRect(0, 0, size.width, size.height, radius);
+            this.endFill();
+        };
+        return RoundedRectangleDecor;
+    })(Phaser.Graphics);
+    Crimenuts.RoundedRectangleDecor = RoundedRectangleDecor;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
     var TextDecor = (function (_super) {
         __extends(TextDecor, _super);
-        function TextDecor(subj, text, fontFace, fontSize, color) {
+        function TextDecor(component, text, fontFace, fontSize, color) {
             if (fontFace === void 0) { fontFace = Crimenuts.Settings.Default.Font.face; }
             if (fontSize === void 0) { fontSize = Crimenuts.Settings.Default.Font.size; }
             if (color === void 0) { color = Crimenuts.Settings.Default.Font.color; }
-            var game = subj.getGame();
-            var size = subj.getSize();
+            var game = component.getGame();
+            var size = component.getSize();
             _super.call(this, game);
             this.textLabel = new Crimenuts.TextLabel(game, size.width, size.height, fontFace, fontSize, color, Crimenuts.Settings.BgColor.transparent);
             this.textLabel.setText(text);
             this.textLabel.alignCenter();
-            this.add(subj);
+            this.add(this.component = component);
             this.add(this.textLabel);
         }
+        TextDecor.prototype.getGame = function () {
+            return this.component.getGame();
+        };
+        TextDecor.prototype.getSize = function () {
+            return this.component.getSize();
+        };
+        TextDecor.prototype.getDysplayObject = function () {
+            return this;
+        };
         return TextDecor;
     })(Phaser.Group);
     Crimenuts.TextDecor = TextDecor;

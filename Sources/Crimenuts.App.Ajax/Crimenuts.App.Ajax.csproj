@@ -297,9 +297,10 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
-    <TypeScriptCompile Include="Game\Client\Config\Settings.ts" />
+    <TypeScriptCompile Include="Game\Client\App\Settings.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\Button.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\IDecorable.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Common\RoundedRectangleDecor.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\TextDecor.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\IProcessViewPart.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Helpers\ITicksViewer.ts" />

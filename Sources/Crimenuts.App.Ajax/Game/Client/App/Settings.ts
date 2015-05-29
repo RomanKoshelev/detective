@@ -7,6 +7,10 @@
             export var color = "#AAAAAA";
             export var bgColor = 0x000000;
         }
+
+        export module RoundedRectangle {
+            export var  radiusRate = 1/5;
+        }
     }
 
     export module Assets {
@@ -24,7 +28,7 @@
     export module UserInterface {
         export module Button {
             export var width = 100;
-            export var height = 30;
+            export var height = 40;
             export var key = Assets.Sprites.transparent;
         }
     }

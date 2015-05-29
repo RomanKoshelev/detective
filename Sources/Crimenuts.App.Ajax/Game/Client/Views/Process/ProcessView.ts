@@ -9,7 +9,7 @@
             this.updateParts( model );
         }
 
-        updateModel (model: ProcessModel ) {
+        updateModel( model: ProcessModel ) {
             this.updateParts( model );
         }
 
@@ -17,33 +17,33 @@
             this.ticks.updateTicks( count );
         }
 
-        private parts = new Array <IProcessViewPart>();
+        private parts = new Array<IProcessViewPart>();
         private ticks: ITicksViewer;
 
         private createParts( model: ProcessModel ) {
             this.addPart( this.ticks = new Display( this.game ) );
             this.addPart( new StateBar( this.game, Settings.Process.Bars.StateBar.position ) );
-            this.addPart( new InfoBar( this.game, Settings.Process.Bars.InfoBar.position) );
+            this.addPart( new InfoBar( this.game, Settings.Process.Bars.InfoBar.position ) );
             this.addPart( new Members( this.game, Settings.Process.Members.position, model ) );
             this.addPart( new Answers( this.game, Settings.Process.Answers.position, model ) );
 
             var button;
             this.add( button =
-                new TextDecor(
-                    new Button( this.game,() => this.clickedIt(), this ),
-                "Button")
-                );
+                new RoundedRectangleDecor(
+                    new TextDecor(
+                        new Button( this.game, () => this.clickedIt(), this ),
+                        "Button" )
+                ) );
             button.position.set( 200, 600 );
         }
 
-        
         private addPart( part: any ) {
             this.parts.push( part );
             this.add( part );
         }
 
-        clickedIt( ) {
-            this.scale.set(0.5,0.5);
+        clickedIt() {
+            this.scale.set( this.scale.x * 1.1, this.scale.y * 1.1 );
         }
 
         private updateParts( model: ProcessModel ) {

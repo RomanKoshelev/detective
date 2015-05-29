@@ -23,5 +23,8 @@ module Crimenuts {
         getSize(): Size {
             return new Size( this.width, this.height );
         }
+
+        getDysplayObject(): PIXI.DisplayObject { return this; }
+
     }
 }
