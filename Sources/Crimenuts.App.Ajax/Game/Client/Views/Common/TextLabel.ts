@@ -45,7 +45,7 @@ module Crimenuts {
         }
 
         alignMiddle() {
-            this.label.y = Math.ceil( this.height / 2 + this.label.height / 10);
+            this.label.y = this.height / 2 + 1;
             this.label.anchor.y = 0.5;
         }
 
@@ -71,10 +71,8 @@ module Crimenuts {
         }
 
         private createBackground( width: number, height: number, bgcolor: number ) {
-            if( bgcolor === Settings.BgColor.transparent ) {
-                return;
-            }
-            this.beginFill( bgcolor );
+            var a = bgcolor === Settings.BgColor.transparent? 0: 1;
+            this.beginFill( bgcolor, a );
             this.drawRect( 0, 0, width, height );
             this.endFill();
         }

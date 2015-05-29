@@ -27,11 +27,13 @@
             this.addPart( new Members( this.game, Settings.Process.Members.position, model ) );
             this.addPart( new Answers( this.game, Settings.Process.Answers.position, model ) );
 
-            this.add(
+            var button;
+            this.add( button =
                 new TextDecor(
                     new Button( this.game,() => this.clickedIt(), this ),
-                "Text button")
+                "Button")
                 );
+            button.position.set( 200, 600 );
         }
 
         

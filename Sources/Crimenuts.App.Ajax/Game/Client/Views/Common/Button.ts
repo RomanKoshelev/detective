@@ -7,10 +7,10 @@ module Crimenuts {
             callback?: Function,
             callbackContext?: any,
             x: number=0, y: number=0,
-            width: number = Settings.Default.Button.width,
-            height: number  = Settings.Default.Button.height
+            width: number = Settings.UserInterface.Button.width,
+            height: number  = Settings.UserInterface.Button.height
             ) {
-            super( game, x, y, Settings.Default.Button.key, callback, callbackContext );
+            super( game, x, y, Settings.UserInterface.Button.key, callback, callbackContext );
             this.resize( width, height );
         }
 

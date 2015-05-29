@@ -53,6 +53,12 @@ var Crimenuts;
             Sprites.loadPerson = function (world, person, size) {
                 Crimenuts.app.game.load.image(Sprites.getPersonKey(world, person, size), Sprites.getPersonUrl(world, person, size));
             };
+            Sprites.load = function (key) {
+                Crimenuts.app.game.load.image(key, Sprites.getUrl(key));
+            };
+            Sprites.getUrl = function (key) {
+                return "" + Sprites.path + "/" + key + ".png";
+            };
             Sprites.path = "/Game/Client/Assets/Sprites";
             return Sprites;
         })();
@@ -68,23 +74,33 @@ var Crimenuts;
             var Font;
             (function (Font) {
                 Font.face = "Arial";
-                Font.size = 12;
+                Font.size = 16;
                 Font.color = "#AAAAAA";
                 Font.bgColor = 0x000000;
             })(Font = Default.Font || (Default.Font = {}));
+        })(Default = Settings.Default || (Settings.Default = {}));
+        var Assets;
+        (function (Assets) {
+            var Sprites;
+            (function (Sprites) {
+                Sprites.transparent = "transparent";
+            })(Sprites = Assets.Sprites || (Assets.Sprites = {}));
+        })(Assets = Settings.Assets || (Settings.Assets = {}));
+        var BgColor;
+        (function (BgColor) {
+            BgColor.black = 0x000000;
+            BgColor.white = 0xFFFFFF;
+            BgColor.transparent = -1;
+        })(BgColor = Settings.BgColor || (Settings.BgColor = {}));
+        var UserInterface;
+        (function (UserInterface) {
             var Button;
             (function (Button) {
                 Button.width = 100;
                 Button.height = 30;
-                Button.key = null;
-            })(Button = Default.Button || (Default.Button = {}));
-        })(Default = Settings.Default || (Settings.Default = {}));
-        var BgColor;
-        (function (BgColor) {
-            BgColor.black = 0x000000;
-            BgColor.wite = 0xFFFFFF;
-            BgColor.transparent = -1;
-        })(BgColor = Settings.BgColor || (Settings.BgColor = {}));
+                Button.key = Assets.Sprites.transparent;
+            })(Button = UserInterface.Button || (UserInterface.Button = {}));
+        })(UserInterface = Settings.UserInterface || (Settings.UserInterface = {}));
         var Process;
         (function (Process) {
             Process.bgColor = "#000000";
@@ -180,7 +196,9 @@ var Crimenuts;
                     this.addPart(new Process.InfoBar(this.game, Crimenuts.Settings.Process.Bars.InfoBar.position));
                     this.addPart(new Process.Members(this.game, Crimenuts.Settings.Process.Members.position, model));
                     this.addPart(new Process.Answers(this.game, Crimenuts.Settings.Process.Answers.position, model));
-                    this.add(new Crimenuts.TextDecor(new Crimenuts.Button(this.game, function () { return _this.clickedIt(); }, this), "Text button"));
+                    var button;
+                    this.add(button = new Crimenuts.TextDecor(new Crimenuts.Button(this.game, function () { return _this.clickedIt(); }, this), "Button"));
+                    button.position.set(200, 600);
                 };
                 ProcessView.prototype.addPart = function (part) {
                     this.parts.push(part);
@@ -207,6 +225,9 @@ var Crimenuts;
         function ProcessController() {
             _super.apply(this, arguments);
         }
+        ProcessController.prototype.preload = function () {
+            Crimenuts.Assets.Sprites.load(Crimenuts.Settings.Assets.Sprites.transparent);
+        };
         ProcessController.prototype.create = function () {
             var _this = this;
             Crimenuts.app.server.getProcess().done(function (model) {
@@ -302,9 +323,9 @@ var Crimenuts;
         function Button(game, callback, callbackContext, x, y, width, height) {
             if (x === void 0) { x = 0; }
             if (y === void 0) { y = 0; }
-            if (width === void 0) { width = Crimenuts.Settings.Default.Button.width; }
-            if (height === void 0) { height = Crimenuts.Settings.Default.Button.height; }
-            _super.call(this, game, x, y, Crimenuts.Settings.Default.Button.key, callback, callbackContext);
+            if (width === void 0) { width = Crimenuts.Settings.UserInterface.Button.width; }
+            if (height === void 0) { height = Crimenuts.Settings.UserInterface.Button.height; }
+            _super.call(this, game, x, y, Crimenuts.Settings.UserInterface.Button.key, callback, callbackContext);
             this.resize(width, height);
         }
         Button.prototype.getGame = function () {
@@ -334,6 +355,7 @@ var Crimenuts;
             this.textLabel = new Crimenuts.TextLabel(game, size.width, size.height, fontFace, fontSize, color, Crimenuts.Settings.BgColor.transparent);
             this.textLabel.setText(text);
             this.textLabel.alignCenter();
+            this.add(subj);
             this.add(this.textLabel);
         }
         return TextDecor;
@@ -373,7 +395,7 @@ var Crimenuts;
             this.label.anchor.y = 0;
         };
         TextLabel.prototype.alignMiddle = function () {
-            this.label.y = Math.ceil(this.height / 2 + this.label.height / 10);
+            this.label.y = this.height / 2 + 1;
             this.label.anchor.y = 0.5;
         };
         TextLabel.prototype.setFontBold = function () {
@@ -392,10 +414,8 @@ var Crimenuts;
             this.label.scale.set(1 / magicScale, 1 / magicScale);
         };
         TextLabel.prototype.createBackground = function (width, height, bgcolor) {
-            if (bgcolor === Crimenuts.Settings.BgColor.transparent) {
-                return;
-            }
-            this.beginFill(bgcolor);
+            var a = bgcolor === Crimenuts.Settings.BgColor.transparent ? 0 : 1;
+            this.beginFill(bgcolor, a);
             this.drawRect(0, 0, width, height);
             this.endFill();
         };

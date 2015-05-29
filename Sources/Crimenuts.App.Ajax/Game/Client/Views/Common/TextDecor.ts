@@ -24,6 +24,7 @@ module Crimenuts {
             );
             this.textLabel.setText( text );
             this.textLabel.alignCenter();
+            this.add( subj );
             this.add( this.textLabel );
         }
 

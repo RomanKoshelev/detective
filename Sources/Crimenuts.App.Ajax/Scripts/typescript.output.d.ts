@@ -19,6 +19,8 @@ declare module Crimenuts.Assets {
         static getPersonKey(world: string, person: string, size: number): string;
         static getPersonUrl(world: string, person: string, size: number): string;
         static loadPerson(world: string, person: string, size: number): void;
+        static load(key: string): void;
+        static getUrl(key: string): string;
     }
 }
 declare module Crimenuts.Settings {
@@ -29,16 +31,23 @@ declare module Crimenuts.Settings {
             var color: string;
             var bgColor: number;
         }
-        module Button {
-            var width: number;
-            var height: number;
-            var key: any;
+    }
+    module Assets {
+        module Sprites {
+            var transparent: string;
         }
     }
     module BgColor {
         var black: number;
-        var wite: number;
+        var white: number;
         var transparent: number;
+    }
+    module UserInterface {
+        module Button {
+            var width: number;
+            var height: number;
+            var key: string;
+        }
     }
     module Process {
         var bgColor: string;
@@ -105,6 +114,7 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts {
     class ProcessController extends Phaser.State {
+        preload(): void;
         create(): void;
         private model;
         private view;

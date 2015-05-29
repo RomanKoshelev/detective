@@ -4,6 +4,10 @@ module Crimenuts {
 
     export class ProcessController extends Phaser.State {
 
+        preload() {
+            Assets.Sprites.load( Settings.Assets.Sprites.transparent );
+        }
+
         create() {
             app.server.getProcess().done( ( model: ProcessModel ) => {
                 this.model = model;

@@ -17,5 +17,13 @@
                 Sprites.getPersonUrl( world, person, size )
                 );
         }
+
+        static load( key:string ) {
+            app.game.load.image( key, Sprites.getUrl( key ) );
+        }
+
+        static getUrl( key: string ): string {
+            return `${Sprites.path}/${key}.png`;
+        }
     }
 }

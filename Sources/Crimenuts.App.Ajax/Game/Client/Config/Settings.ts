@@ -3,23 +3,30 @@
     export module Default {
         export module Font {
             export var face = "Arial";
-            export var size = 12;
+            export var size = 16;
             export var color = "#AAAAAA";
             export var bgColor = 0x000000;
         }
+    }
 
-        export module Button {
-            export var width = 100;
-            export var height = 30;
-            export var key = null;
+    export module Assets {
+        export module Sprites {
+            export var transparent = "transparent";
         }
-
     }
 
     export module BgColor {
         export var black = 0x000000;
-        export var wite = 0xFFFFFF;
+        export var white = 0xFFFFFF;
         export var transparent = -1;
+    }
+
+    export module UserInterface {
+        export module Button {
+            export var width = 100;
+            export var height = 30;
+            export var key = Assets.Sprites.transparent;
+        }
     }
 
     export module Process {
