@@ -12,6 +12,7 @@ var Crimenuts;
         App.prototype.init = function () {
             var size = this.getGameScreenSize();
             this.createGame(size.width, size.height);
+            this.handleResetLink();
         };
         App.prototype.createGame = function (width, height) {
             this.game = new Phaser.Game(width, height, Phaser.AUTO, "crimenuts-playground", { create: this.onGameCreate });
@@ -23,6 +24,12 @@ var Crimenuts;
             return {
                 width: Crimenuts.Settings.Game.width,
                 height: Crimenuts.Settings.Game.height
+            };
+        };
+        App.prototype.handleResetLink = function () {
+            var _this = this;
+            document.getElementById("crimenuts-reset-processes").onclick = function () {
+                _this.server.resetProcesses();
             };
         };
         return App;
@@ -201,6 +208,7 @@ var Crimenuts;
             this.onProcessUpdated = observer.onProcessUpdated;
             this.onTickCountUpdated = observer.onTickCountUpdated;
             this.onProcessAnswersUpdated = observer.onProcessAnswersUpdated;
+            this.onProcessesReset = observer.onProcessesReset;
         }
         // IProcessController
         ProcessManager.prototype.getProcess = function (processId) {
@@ -223,6 +231,7 @@ var Crimenuts;
             this.onProcessUpdated = new Phaser.Signal();
             this.onTickCountUpdated = new Phaser.Signal();
             this.onProcessAnswersUpdated = new Phaser.Signal();
+            this.onProcessesReset = new Phaser.Signal();
             // --------------------------------------------------------[]
             // Fields
             this.server = $.connection.gameHub.server;
@@ -238,11 +247,11 @@ var Crimenuts;
         ServerAdapter.prototype.getProcess = function (processId) {
             return this.server.getProcess(processId);
         };
-        ServerAdapter.prototype.update = function () {
-            return this.server.update();
-        };
         ServerAdapter.prototype.autoAnswer = function (processId) {
             return this.server.autoAnswer(processId);
+        };
+        ServerAdapter.prototype.resetProcesses = function () {
+            return this.server.resetProcesses();
         };
         // --------------------------------------------------------[]
         // IGameHubClient
@@ -254,6 +263,9 @@ var Crimenuts;
         };
         ServerAdapter.prototype.processAnswersUpdated = function (processId, answerModels) {
             this.onProcessAnswersUpdated.dispatch(processId, answerModels);
+        };
+        ServerAdapter.prototype.processesReset = function () {
+            this.onProcessesReset.dispatch();
         };
         // --------------------------------------------------------[]
         // Utils
@@ -267,6 +279,9 @@ var Crimenuts;
             };
             this.client.processAnswersUpdated = function (id, answers) {
                 _this.processAnswersUpdated(id, answers);
+            };
+            this.client.processesReset = function () {
+                _this.processesReset();
             };
         };
         ServerAdapter.prototype.startHub = function () {
@@ -299,7 +314,6 @@ var Crimenuts;
                     this.parts = new Array();
                     this.game.stage.backgroundColor = Crimenuts.Settings.Process.bgColor;
                     this.createParts(controller, observer, model);
-                    this.updateParts(model);
                     this.subscribeEvents(observer);
                 }
                 // Parts Utils
@@ -309,6 +323,7 @@ var Crimenuts;
                     this.addPart(new Process.InfoBar(this.game, Crimenuts.Settings.Process.Bars.InfoBar.position));
                     this.addPart(new Process.Members(this.game, Crimenuts.Settings.Process.Members.position, model));
                     this.addPart(new Process.Answers(this.game, Crimenuts.Settings.Process.Answers.position, controller, observer, model));
+                    this.updateParts(model);
                 };
                 ProcessView.prototype.addPart = function (part) {
                     this.parts.push(part);
@@ -349,20 +364,37 @@ var Crimenuts;
             Crimenuts.Assets.Sprites.load(Crimenuts.Settings.Assets.Sprites.transparent);
         };
         ProcessState.prototype.create = function () {
-            var _this = this;
             this.createManager();
-            this.controller.getProcess(this.processId).done(function (model) {
-                _this.model = model;
-                _this.createView(model);
-            });
+            this.loadModelCreateView();
+            this.subscribeEvents();
         };
         ProcessState.prototype.createManager = function () {
             var manager = new Crimenuts.ProcessManager(Crimenuts.app.server, Crimenuts.app.server);
             this.controller = manager;
             this.observer = manager;
         };
+        ProcessState.prototype.loadModelCreateView = function (callback) {
+            var _this = this;
+            if (callback === void 0) { callback = null; }
+            this.controller.getProcess(this.processId).done(function (model) {
+                _this.model = model;
+                if (callback != null)
+                    callback();
+                _this.createView(model);
+            });
+        };
         ProcessState.prototype.createView = function (model) {
             this.view = new ProcessView(this.game, this.controller, this.observer, model);
+        };
+        ProcessState.prototype.subscribeEvents = function () {
+            this.observer.onProcessesReset.add(this.onProcessesReset, this);
+        };
+        ProcessState.prototype.onProcessesReset = function () {
+            var _this = this;
+            this.loadModelCreateView(function () { return _this.destroyView(); });
+        };
+        ProcessState.prototype.destroyView = function () {
+            this.view.destroy(true);
         };
         return ProcessState;
     })(Phaser.State);

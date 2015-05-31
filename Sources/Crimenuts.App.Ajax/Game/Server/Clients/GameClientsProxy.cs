@@ -30,6 +30,11 @@ namespace Crimenuts.App.Ajax.Game.Server.Clients
             Clients.All.ProcessAnswersUpdated( processId, answerModels );
         }
 
+        void IGameHubClient.ProcessesReset()
+        {
+            Clients.All.ProcessesReset();
+        }
+
         #endregion
 
 

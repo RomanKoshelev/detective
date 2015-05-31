@@ -46,6 +46,11 @@ namespace Crimenuts.App.Ajax.Game.Server.App
             get { return _gameLogic ?? ( _gameLogic = new MainLogic( GameClients ) ); }
         }
 
+        public ITimeLogic TimeLogic
+        {
+            get { return ( ITimeLogic ) GameLogic; }
+        }
+
         #endregion
 
 
@@ -61,11 +66,6 @@ namespace Crimenuts.App.Ajax.Game.Server.App
         private IGameClient _gameClients;
         private Timer _tickTimer;
 
-        private ITimeLogic TimeLogic
-        {
-            get { return ( ITimeLogic ) GameLogic; }
-        }
-
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         #endregion
@@ -80,7 +80,7 @@ namespace Crimenuts.App.Ajax.Game.Server.App
 
         private void onTickTimer( object _ )
         {
-            GameLogic.Update();
+            TimeLogic.Update();
         }
 
         #endregion

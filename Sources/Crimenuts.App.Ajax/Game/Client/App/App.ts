@@ -18,21 +18,28 @@
         private init() {
             var size = this.getGameScreenSize();
             this.createGame( size.width, size.height );
+            this.handleResetLink();
         }
 
         private createGame( width: number, height: number ) {
-            this.game = new Phaser.Game( width, height, Phaser.AUTO, "crimenuts-playground", { create: this.onGameCreate });
+            this.game = new Phaser.Game( width, height, Phaser.AUTO, "crimenuts-playground", { create: this.onGameCreate } );
         }
 
         private onTickCountUpdated( count: Number ) {
             this.tickCount = count;
         }
 
-        getGameScreenSize() : Size {
+        private getGameScreenSize(): Size {
             return {
                 width: Settings.Game.width,
                 height: Settings.Game.height
             };
+        }
+
+        private handleResetLink() {
+            document.getElementById( "crimenuts-reset-processes" ).onclick = () => {
+                this.server.resetProcesses();
+            }
         }
     }
 

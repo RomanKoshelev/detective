@@ -10,5 +10,6 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
     {
         ProcessModel GetModel( string processId );
         void AutoAnswer( string processId );
+        void Reset();
     }
 }

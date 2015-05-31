@@ -35,9 +35,9 @@ namespace Crimenuts.App.Ajax.Game.Server.Hub
             _gameLogic.AutoAnswer( processId );
         }
 
-        public void Update()
+        public void ResetProcesses()
         {
-            // Ignore client's invocation
+            _gameLogic.ResetProcesses();
         }
 
         #endregion

@@ -9,9 +9,7 @@
         ) {
             super( game );
             this.game.stage.backgroundColor = Settings.Process.bgColor;
-
             this.createParts( controller, observer, model );
-            this.updateParts( model );
             this.subscribeEvents( observer );
         }
 
@@ -26,6 +24,7 @@
             this.addPart( new InfoBar( this.game, Settings.Process.Bars.InfoBar.position ) );
             this.addPart( new Members( this.game, Settings.Process.Members.position, model ) );
             this.addPart( new Answers( this.game, Settings.Process.Answers.position, controller, observer, model ) );
+            this.updateParts( model );
         }
 
         private addPart( part: any ) {
@@ -50,5 +49,6 @@
         private onTickCountUpdated( count: number ) {
             this.ticks.updateTicks( count );
         }
+      
     }
 }

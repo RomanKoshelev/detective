@@ -8,7 +8,8 @@ declare module Crimenuts {
         private init();
         private createGame(width, height);
         private onTickCountUpdated(count);
-        getGameScreenSize(): Size;
+        private getGameScreenSize();
+        private handleResetLink();
     }
     var app: App;
     function initApp(): void;
@@ -135,6 +136,7 @@ declare module Crimenuts {
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
         onProcessAnswersUpdated: Phaser.Signal;
+        onProcessesReset: Phaser.Signal;
     }
 }
 declare module Crimenuts {
@@ -145,6 +147,7 @@ declare module Crimenuts {
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
         onProcessAnswersUpdated: Phaser.Signal;
+        onProcessesReset: Phaser.Signal;
         private server;
     }
 }
@@ -154,6 +157,7 @@ declare module Crimenuts {
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
         onProcessAnswersUpdated: Phaser.Signal;
+        onProcessesReset: Phaser.Signal;
     }
 }
 declare module Crimenuts {
@@ -161,15 +165,17 @@ declare module Crimenuts {
         constructor();
         getPlayerId(): JQueryPromise<string>;
         getProcess(processId: string): JQueryPromise<ProcessModel>;
-        update(): JQueryPromise<void>;
         autoAnswer(processId: string): JQueryPromise<void>;
+        resetProcesses(): JQueryPromise<void>;
         onServerStarted: Phaser.Signal;
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
         onProcessAnswersUpdated: Phaser.Signal;
+        onProcessesReset: Phaser.Signal;
         tickCountUpdated(count: number): void;
         processUpdated(model: ProcessModel): void;
         processAnswersUpdated(processId: string, answerModels: AnswerModel[]): void;
+        processesReset(): void;
         private server;
         private client;
         private setupClientCallbacks();
@@ -199,7 +205,11 @@ declare module Crimenuts {
         private model;
         private view;
         private createManager();
+        private loadModelCreateView(callback?);
         private createView(model);
+        private subscribeEvents();
+        private onProcessesReset();
+        private destroyView();
     }
 }
 declare module Crimenuts {

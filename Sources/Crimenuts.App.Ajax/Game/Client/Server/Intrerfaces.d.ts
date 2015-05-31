@@ -66,11 +66,11 @@ interface IGameHubServer {
     autoAnswer(processId : string) : JQueryPromise<void>;
  
     /** 
-      * Sends a "update" message to the GameHub hub.
+      * Sends a "resetProcesses" message to the GameHub hub.
       * Contract Documentation: ---
       * @return {JQueryPromise of void}
       */
-    update() : JQueryPromise<void>;
+    resetProcesses() : JQueryPromise<void>;
 }
  
 interface IGameHubClient
@@ -100,6 +100,13 @@ interface IGameHubClient
       * @return {void}
       */
     processAnswersUpdated : (processId : string, answerModels : AnswerModel[]) => void;
+ 
+    /**
+      * Set this function with a "function(){}" to receive the "processesReset" message from the GameHub hub.
+      * Contract Documentation: ---
+      * @return {void}
+      */
+    processesReset : () => void;
 }
  
 //#endregion GameHub hub

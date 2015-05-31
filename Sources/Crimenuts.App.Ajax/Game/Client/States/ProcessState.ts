@@ -11,10 +11,8 @@ module Crimenuts {
 
         create() {
             this.createManager();
-            this.controller.getProcess( this.processId ).done( ( model: ProcessModel ) => {
-                this.model = model;
-                this.createView( model );
-            });
+            this.loadModelCreateView();
+            this.subscribeEvents();
         }
 
         private processId = Settings.Default.Process.testId;
@@ -29,8 +27,28 @@ module Crimenuts {
             this.observer = manager;
         }
 
+        private loadModelCreateView( callback: Function=null ) {
+            this.controller.getProcess( this.processId ).done( ( model: ProcessModel ) => {
+                this.model = model;
+                if( callback != null ) callback();
+                this.createView( model );
+            } );
+        }
+
         private createView( model: ProcessModel ) {
             this.view = new ProcessView( this.game, this.controller, this.observer, model );
+        }
+
+        private subscribeEvents() {
+            this.observer.onProcessesReset.add( this.onProcessesReset, this );
+        }
+
+        private onProcessesReset() {
+            this.loadModelCreateView( ()=>this.destroyView() );
+        }
+
+        private destroyView() {
+            this.view.destroy( true );
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
     public interface IGameLogic
     {
         ProcessModel GetProcess( string processId );
-        void AutoAnswer ( string processId );
-        void Update();
+        void AutoAnswer( string processId );
+        void ResetProcesses();
     }
 }

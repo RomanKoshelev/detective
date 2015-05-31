@@ -59,6 +59,11 @@ namespace Crimenuts.Core.Game.Schemas
             return DoNewProcess( gcase );
         }
 
+        public static void ResetProcesses()
+        {
+            InitProcesses();
+        }
+
         public static Identifiable< Process, int >.Identifier NewProcess(
             Identifiable< Case, int >.Identifier caseId )
         {

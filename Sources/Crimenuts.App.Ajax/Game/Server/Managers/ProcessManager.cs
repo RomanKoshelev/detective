@@ -45,6 +45,12 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
             _clients.ProcessAnswersUpdated( processId, model.Answers );
         }
 
+        void IProcessManager.Reset()
+        {
+            Schema.ResetProcesses();
+            _clients.ProcessesReset( );
+        }
+
         #endregion
 
 

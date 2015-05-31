@@ -11,5 +11,6 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
         DateTime LastTime { get; set; }
         DateTime CurrentTime { get; set; }
         int GetUpdateInterval();
+        void Update();
     }
 }

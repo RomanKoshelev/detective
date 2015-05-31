@@ -12,5 +12,6 @@ namespace Crimenuts.App.Ajax.Game.Server.Hub
         void TickCountUpdated( int tickCount );
         void ProcessUpdated( ProcessModel model );
         void ProcessAnswersUpdated( string processId, List< AnswerModel > answerModels );
+        void ProcessesReset();
     }
 }

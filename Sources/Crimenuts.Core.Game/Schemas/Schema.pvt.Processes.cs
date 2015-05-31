@@ -18,10 +18,10 @@ namespace Crimenuts.Core.Game.Schemas
         {
             Processes = new List< Process >();
 
-            Cases.ForEach( CreateStartProcesses );
+            Cases.ForEach( CreateSampleProcesses );
         }
 
-        private static void CreateStartProcesses( Case c )
+        private static void CreateSampleProcesses( Case c )
         {
             const int procNum = 1;
             for( var i = 0; i < procNum; i++ ) {

@@ -16,12 +16,12 @@
             return this.server.getProcess( processId );
         }
 
-        update(): JQueryPromise<void> {
-            return this.server.update();
-        }
-
         autoAnswer( processId: string ): JQueryPromise<void> {
             return this.server.autoAnswer( processId );
+        }
+
+        resetProcesses(): JQueryPromise<void> {
+            return this.server.resetProcesses();
         }
 
         // --------------------------------------------------------[]
@@ -30,6 +30,7 @@
         onProcessUpdated = new Phaser.Signal();
         onTickCountUpdated = new Phaser.Signal();
         onProcessAnswersUpdated = new Phaser.Signal();
+        onProcessesReset = new Phaser.Signal();
 
         // --------------------------------------------------------[]
         // IGameHubClient
@@ -44,6 +45,9 @@
         processAnswersUpdated( processId: string, answerModels: AnswerModel[] ): void {
             this.onProcessAnswersUpdated.dispatch( processId, answerModels );
         }
+        processesReset(): void {
+            this.onProcessesReset.dispatch();
+        }
 
         // --------------------------------------------------------[]
         // Fields
@@ -56,10 +60,12 @@
             this.client.tickCountUpdated = ( count: number ) => { this.tickCountUpdated( count ); };
             this.client.processUpdated = ( model: ProcessModel ) => { this.processUpdated( model ); };
             this.client.processAnswersUpdated = ( id: string, answers: AnswerModel[] ) => { this.processAnswersUpdated( id, answers ); };
+            this.client.processesReset = () => { this.processesReset(); };
         }
 
         private startHub() {
             $.connection.hub.start().done( () => { this.onServerStarted.dispatch() } );
         }
+
     }
 }

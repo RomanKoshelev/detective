@@ -21,7 +21,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
             Logger.Trace( "MainLogic" );
 
             _clients = clients;
-            _processManager = new ProcessManager( clients : _clients );
+            _processManager = new ProcessManager( _clients );
         }
 
         #endregion
@@ -38,6 +38,12 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
 
         DateTime ITimeLogic.CurrentTime { get; set; }
 
+        void ITimeLogic.Update()
+        {
+            UpdateTime();
+            _auxLlogics.ForEach( l => l.Update() );
+            _clients.TickCountUpdated( _tickCount++ );
+        }
         #endregion
 
 
@@ -53,11 +59,10 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
             _processManager.AutoAnswer( processId );
         }
 
-        void IGameLogic.Update()
+        void IGameLogic.ResetProcesses()
         {
-            UpdateTime();
-            _auxLlogics.ForEach( l => l.Update() );
-            _clients.TickCountUpdated( _tickCount++ );
+            _tickCount = 0;
+            _processManager.Reset();
         }
 
         #endregion
