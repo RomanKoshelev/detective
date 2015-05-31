@@ -2,6 +2,7 @@
 // Crimenuts.App.Ajax
 // IGameHubClient.cs
 
+using System.Collections.Generic;
 using Crimenuts.App.Ajax.Game.Server.Models;
 
 namespace Crimenuts.App.Ajax.Game.Server.Hub
@@ -10,5 +11,6 @@ namespace Crimenuts.App.Ajax.Game.Server.Hub
     {
         void TickCountUpdated( int tickCount );
         void ProcessUpdated( ProcessModel model );
+        void ProcessAnswersUpdated( string processId, List< AnswerModel > answerModels );
     }
 }

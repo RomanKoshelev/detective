@@ -9,8 +9,9 @@
         }
 
         export module RoundedRectangle {
-            export var  radiusRate = 1/5;
+            export var radiusRate = 1 / 5;
         }
+
         export module Shape {
             export var lineWidth = 2;
             export var fillColor = 0x222222;
@@ -44,7 +45,7 @@
             export var width = 100;
             export var height = 35;
             export var sprite = Assets.Sprites.transparent;
-            export var fontSize  = 16;
+            export var fontSize = 16;
             export var fillColor = 0x222222;
             export var lineColor = 0x888888;
             export var textColor = "#AAAAAA";
@@ -79,13 +80,18 @@
             export var height = 200;
             export var bgColor = 0x111111;
 
+            export module Buttons {
+                export module Auto {
+                    export var position = new Phaser.Point( 580, 20 );
+                }
+            }
+
             export module Answer {
                 export var fontSize = 16;
 
                 export module Color {
                     export var regular = "#777777";
                 }
-
             }
         }
 

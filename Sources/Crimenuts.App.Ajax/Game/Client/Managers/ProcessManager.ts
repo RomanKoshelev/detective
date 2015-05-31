@@ -6,6 +6,7 @@ module Crimenuts {
 
             this.onProcessUpdated = observer.onProcessUpdated;
             this.onTickCountUpdated = observer.onTickCountUpdated;
+            this.onProcessAnswersUpdated = observer.onProcessAnswersUpdated;
         }
 
         // IProcessController
@@ -20,6 +21,7 @@ module Crimenuts {
         // IProcessObserver
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
+        onProcessAnswersUpdated: Phaser.Signal;
         
         // Fields
         private server: IGameHubServer;

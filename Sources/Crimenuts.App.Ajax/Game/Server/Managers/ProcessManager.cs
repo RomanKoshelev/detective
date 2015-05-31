@@ -23,7 +23,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
         #endregion
 
 
-        #region IManager
+        #region IProcessManager
 
         public IProcessManager IManager
         {
@@ -41,6 +41,8 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
         {
             var process = GetProcess( processId );
             process.ExecuteUserAction( Process.UserAction.ActionType.AutoAsk, null );
+            var model = new ProcessModel( process );
+            _clients.ProcessAnswersUpdated( processId, model.Answers );
         }
 
         #endregion

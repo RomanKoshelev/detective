@@ -2,13 +2,19 @@
 
     export class Answers extends Phaser.Group implements IProcessViewPart {
 
-        constructor( game: Phaser.Game, position: Phaser.Point, model: ProcessModel, controller: IProcessController ) {
+        constructor( game: Phaser.Game,
+            position: Phaser.Point,
+            controller: IProcessController,
+            observer: IProcessObserver,
+            model: ProcessModel
+        ) {
             super( game );
             this.position = position;
             this.controller = controller;
             this.createAnswers();
-            this.createAutoAnswerButton();
+            this.createButton( "Auto", this.cmdAutoAnswer, Settings.Process.Answers.Buttons.Auto.position );
             this.updateModel( model );
+            this.subscribe( observer );
         }
 
         updateModel( model: ProcessModel ): void {
@@ -34,19 +40,19 @@
             this.add( this.answerSheet );
         }
 
-        private createAutoAnswerButton() {
+        private createButton( text: string, callback: Function, position: Phaser.Point ) {
             var button = new RoundedRectangleDecor(
                 new TextDecor(
                     new Button(
-                        this.game, () => this.onAutoAnswer(), this, Settings.UserInterface.Button.width, Settings.UserInterface.Button.height ),
-                    "Auto", Settings.UserInterface.Button.textColor, Settings.UserInterface.Button.fontSize ),
+                        this.game, callback, this, Settings.UserInterface.Button.width, Settings.UserInterface.Button.height ),
+                    text, Settings.UserInterface.Button.textColor, Settings.UserInterface.Button.fontSize ),
                 Settings.UserInterface.Button.fillColor, Settings.UserInterface.Button.lineColor, Settings.UserInterface.Button.lineWidth );
 
-            button.position.set( 580, 20 );
+            button.position = position.clone();
             this.add( button );
         }
 
-        private onAutoAnswer() {
+        private cmdAutoAnswer() {
             this.controller.autoAnswer( this.processId );
         }
 
@@ -63,6 +69,16 @@
             } );
 
             this.answerSheet.setText( text );
+        }
+
+        private onProcessAnswersUpdated( processId: string, answerModels: AnswerModel[] ) {
+            if( processId === this.processId ) {
+                this.updateAnswers( answerModels );
+            }
+        }
+
+        private subscribe( observer: IProcessObserver ) {
+            observer.onProcessAnswersUpdated.add( this.onProcessAnswersUpdated, this );
         }
     }
 }

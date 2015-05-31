@@ -3,5 +3,6 @@ module Crimenuts {
         onServerStarted: Phaser.Signal;
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
+        onProcessAnswersUpdated: Phaser.Signal;
     }
 }
