@@ -1,14 +1,15 @@
 ﻿module Crimenuts.View.Process {
     export class ProcessView extends Phaser.Group {
 
-        constructor( game: Phaser.Game, controller: IProcessController, model: ProcessModel ) {
+        constructor( game: Phaser.Game, controller: IProcessController, observer: IProcessObserver, model: ProcessModel ) {
             super( game );
             this.game.stage.backgroundColor = Settings.Process.bgColor;
+
             this.controller = controller;
 
             this.createParts( model );
             this.updateParts( model );
-            this.subscribeEvents();
+            this.subscribeEvents(observer);
         }
 
         // Fields
@@ -22,8 +23,7 @@
             this.addPart( new StateBar( this.game, Settings.Process.Bars.StateBar.position ) );
             this.addPart( new InfoBar( this.game, Settings.Process.Bars.InfoBar.position ) );
             this.addPart( new Members( this.game, Settings.Process.Members.position, model ) );
-            this.addPart( new Answers( this.game, Settings.Process.Answers.position, model /*, this.controller   */ ) );
-            // Todo:> use this.controller (IProcessController) to call operations
+            this.addPart( new Answers( this.game, Settings.Process.Answers.position, model, this.controller ) );
         }
 
         private addPart( part: any ) {
@@ -36,9 +36,9 @@
         }
 
         // Events
-        private subscribeEvents() {
-            this.controller.onProcessUpdated.add( this.onProcessUpdated, this );
-            this.controller.onTickCountUpdated.add( this.onTickCountUpdated, this );
+        private subscribeEvents(observer: IProcessObserver) {
+            observer.onProcessUpdated.add( this.onProcessUpdated, this );
+            observer.onTickCountUpdated.add( this.onTickCountUpdated, this );
         }
 
         private onProcessUpdated( model: ProcessModel ) {

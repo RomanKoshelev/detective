@@ -122,14 +122,20 @@ declare module Crimenuts.Settings {
 declare module Crimenuts {
     interface IProcessController {
         getProcess(processId: string): JQueryPromise<ProcessModel>;
+        autoAnswer(processId: string): any;
+    }
+}
+declare module Crimenuts {
+    interface IProcessObserver {
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
     }
 }
 declare module Crimenuts {
-    class ProcessController implements IProcessController {
+    class ProcessManager implements IProcessController, IProcessObserver {
         constructor(server: IGameHubServer, observer: IServerObserver);
         getProcess(processId: string): JQueryPromise<ProcessModel>;
+        autoAnswer(processId: string): void;
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
         private server;
@@ -161,14 +167,14 @@ declare module Crimenuts {
 }
 declare module Crimenuts.View.Process {
     class ProcessView extends Phaser.Group {
-        constructor(game: Phaser.Game, controller: IProcessController, model: ProcessModel);
+        constructor(game: Phaser.Game, controller: IProcessController, observer: IProcessObserver, model: ProcessModel);
         private parts;
         private ticks;
         private controller;
         private createParts(model);
         private addPart(part);
         private updateParts(model);
-        private subscribeEvents();
+        private subscribeEvents(observer);
         private onProcessUpdated(model);
         private onTickCountUpdated(count);
     }
@@ -179,9 +185,10 @@ declare module Crimenuts {
         create(): void;
         private processId;
         private controller;
+        private observer;
         private model;
         private view;
-        private createController();
+        private createManager();
         private createView(model);
     }
 }
@@ -263,9 +270,11 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class Answers extends Phaser.Group implements IProcessViewPart {
-        constructor(game: Phaser.Game, position: Phaser.Point, model: ProcessModel);
+        constructor(game: Phaser.Game, position: Phaser.Point, model: ProcessModel, controller: IProcessController);
         updateModel(model: ProcessModel): void;
         private answerSheet;
+        private controller;
+        private processId;
         private createAnswers();
         private createAutoAnswerButton();
         private onAutoAnswer();

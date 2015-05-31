@@ -2,20 +2,23 @@
 
     export class Answers extends Phaser.Group implements IProcessViewPart {
 
-        constructor( game: Phaser.Game, position: Phaser.Point, model: ProcessModel ) {
+        constructor( game: Phaser.Game, position: Phaser.Point, model: ProcessModel, controller: IProcessController ) {
             super( game );
             this.position = position;
+            this.controller = controller;
             this.createAnswers();
             this.createAutoAnswerButton();
-            this.updateAnswers( model.Answers );
+            this.updateModel( model );
         }
 
         updateModel( model: ProcessModel ): void {
+            this.processId = model.Id;
             this.updateAnswers( model.Answers );
         }
 
-
         private answerSheet: TextLabel;
+        private controller: IProcessController;
+        private processId: string;
 
         private createAnswers() {
             this.answerSheet = new TextLabel(
@@ -44,7 +47,7 @@
         }
 
         private onAutoAnswer() {
-            this.scale.set( this.scale.x * 0.95, this.scale.y * 0.95 );
+            this.controller.autoAnswer( this.processId );
         }
 
         private updateAnswers( answers: AnswerModel[] ) {
@@ -61,6 +64,5 @@
 
             this.answerSheet.setText( text );
         }
-
     }
 }

@@ -188,19 +188,22 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var ProcessController = (function () {
-        function ProcessController(server, observer) {
+    var ProcessManager = (function () {
+        function ProcessManager(server, observer) {
             this.server = server;
             this.onProcessUpdated = observer.onProcessUpdated;
             this.onTickCountUpdated = observer.onTickCountUpdated;
         }
         // IProcessController
-        ProcessController.prototype.getProcess = function (processId) {
+        ProcessManager.prototype.getProcess = function (processId) {
             return this.server.getProcess(processId);
         };
-        return ProcessController;
+        ProcessManager.prototype.autoAnswer = function (processId) {
+            //this.server.autoAnswer( processId );
+        };
+        return ProcessManager;
     })();
-    Crimenuts.ProcessController = ProcessController;
+    Crimenuts.ProcessManager = ProcessManager;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -272,7 +275,7 @@ var Crimenuts;
         (function (Process) {
             var ProcessView = (function (_super) {
                 __extends(ProcessView, _super);
-                function ProcessView(game, controller, model) {
+                function ProcessView(game, controller, observer, model) {
                     _super.call(this, game);
                     // Fields
                     this.parts = new Array();
@@ -280,7 +283,7 @@ var Crimenuts;
                     this.controller = controller;
                     this.createParts(model);
                     this.updateParts(model);
-                    this.subscribeEvents();
+                    this.subscribeEvents(observer);
                 }
                 // Parts Utils
                 ProcessView.prototype.createParts = function (model) {
@@ -288,8 +291,7 @@ var Crimenuts;
                     this.addPart(new Process.StateBar(this.game, Crimenuts.Settings.Process.Bars.StateBar.position));
                     this.addPart(new Process.InfoBar(this.game, Crimenuts.Settings.Process.Bars.InfoBar.position));
                     this.addPart(new Process.Members(this.game, Crimenuts.Settings.Process.Members.position, model));
-                    this.addPart(new Process.Answers(this.game, Crimenuts.Settings.Process.Answers.position, model));
-                    // Todo:> use this.controller (IProcessController) to call operations
+                    this.addPart(new Process.Answers(this.game, Crimenuts.Settings.Process.Answers.position, model, this.controller));
                 };
                 ProcessView.prototype.addPart = function (part) {
                     this.parts.push(part);
@@ -299,9 +301,9 @@ var Crimenuts;
                     this.parts.forEach(function (p) { return p.updateModel(model); });
                 };
                 // Events
-                ProcessView.prototype.subscribeEvents = function () {
-                    this.controller.onProcessUpdated.add(this.onProcessUpdated, this);
-                    this.controller.onTickCountUpdated.add(this.onTickCountUpdated, this);
+                ProcessView.prototype.subscribeEvents = function (observer) {
+                    observer.onProcessUpdated.add(this.onProcessUpdated, this);
+                    observer.onTickCountUpdated.add(this.onTickCountUpdated, this);
                 };
                 ProcessView.prototype.onProcessUpdated = function (model) {
                     this.updateParts(model);
@@ -316,7 +318,7 @@ var Crimenuts;
     })(View = Crimenuts.View || (Crimenuts.View = {}));
 })(Crimenuts || (Crimenuts = {}));
 /// <reference path="../Views/Process/ProcessView.ts" />
-/// <reference path="../Controllers/ProcessController.ts" />
+/// <reference path="../Managers/ProcessManager.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var ProcessView = Crimenuts.View.Process.ProcessView;
@@ -331,17 +333,19 @@ var Crimenuts;
         };
         ProcessState.prototype.create = function () {
             var _this = this;
-            this.createController();
+            this.createManager();
             this.controller.getProcess(this.processId).done(function (model) {
                 _this.model = model;
                 _this.createView(model);
             });
         };
-        ProcessState.prototype.createController = function () {
-            this.controller = new Crimenuts.ProcessController(Crimenuts.app.server, Crimenuts.app.server);
+        ProcessState.prototype.createManager = function () {
+            var manager = new Crimenuts.ProcessManager(Crimenuts.app.server, Crimenuts.app.server);
+            this.controller = manager;
+            this.observer = manager;
         };
         ProcessState.prototype.createView = function (model) {
-            this.view = new ProcessView(this.game, this.controller, model);
+            this.view = new ProcessView(this.game, this.controller, this.observer, model);
         };
         return ProcessState;
     })(Phaser.State);
@@ -543,14 +547,16 @@ var Crimenuts;
         (function (Process) {
             var Answers = (function (_super) {
                 __extends(Answers, _super);
-                function Answers(game, position, model) {
+                function Answers(game, position, model, controller) {
                     _super.call(this, game);
                     this.position = position;
+                    this.controller = controller;
                     this.createAnswers();
                     this.createAutoAnswerButton();
-                    this.updateAnswers(model.Answers);
+                    this.updateModel(model);
                 }
                 Answers.prototype.updateModel = function (model) {
+                    this.processId = model.Id;
                     this.updateAnswers(model.Answers);
                 };
                 Answers.prototype.createAnswers = function () {
@@ -565,7 +571,7 @@ var Crimenuts;
                     this.add(button);
                 };
                 Answers.prototype.onAutoAnswer = function () {
-                    this.scale.set(this.scale.x * 0.95, this.scale.y * 0.95);
+                    this.controller.autoAnswer(this.processId);
                 };
                 Answers.prototype.updateAnswers = function (answers) {
                     var text = "";

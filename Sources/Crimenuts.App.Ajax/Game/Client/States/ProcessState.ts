@@ -1,5 +1,5 @@
 ﻿/// <reference path="../Views/Process/ProcessView.ts" />
-/// <reference path="../Controllers/ProcessController.ts" />
+/// <reference path="../Managers/ProcessManager.ts" />
 module Crimenuts {
     import ProcessView = View.Process.ProcessView;
 
@@ -10,7 +10,7 @@ module Crimenuts {
         }
 
         create() {
-            this.createController();
+            this.createManager();
             this.controller.getProcess( this.processId ).done( ( model: ProcessModel ) => {
                 this.model = model;
                 this.createView( model );
@@ -19,15 +19,18 @@ module Crimenuts {
 
         private processId = Settings.Default.Process.testId;
         private controller: IProcessController;
+        private observer: IProcessObserver;
         private model: ProcessModel;
         private view: ProcessView;
 
-        private createController() {
-            this.controller = new ProcessController( app.server, app.server );
+        private createManager() {
+            var manager = new ProcessManager( app.server, app.server );
+            this.controller = manager;
+            this.observer = manager;
         }
 
         private createView( model: ProcessModel ) {
-            this.view = new ProcessView( this.game, this.controller, model );
+            this.view = new ProcessView( this.game, this.controller, this.observer, model );
         }
     }
 }
