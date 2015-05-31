@@ -2,17 +2,18 @@
     export class ServerAdapter implements IGameHubServer, IGameHubClient, IServerObserver {
 
         constructor() {
-            this.init();
+            this.setupClientCallbacks();
+            this.startHub();
         }
 
         // --------------------------------------------------------[]
         // IGameHubServer
         getPlayerId(): JQueryPromise<string> {
-             return this.server.getPlayerId();
+            return this.server.getPlayerId();
         }
 
-        getProcess(): JQueryPromise<ProcessModel> {
-            return this.server.getProcess("11");
+        getProcess( processId: string ): JQueryPromise<ProcessModel> {
+            return this.server.getProcess( processId );
         }
 
         update(): JQueryPromise<void> {
@@ -42,18 +43,13 @@
 
         // --------------------------------------------------------[]
         // Utils
-        private init() {
-            this.setupClientCallbacks();
-            this.startHub();
+        private setupClientCallbacks() {
+            this.client.tickCountUpdated = ( count: number ) => { this.tickCountUpdated( count ); };
+            this.client.processUpdated = ( model: ProcessModel ) => { this.processUpdated( model ); };
         }
 
         private startHub() {
             $.connection.hub.start().done( () => { this.onServerStarted.dispatch() } );
-        }
-
-        private setupClientCallbacks() {
-            this.client.tickCountUpdated = ( count: number ) => { this.tickCountUpdated( count ); };
-            this.client.processUpdated = ( model: ProcessModel ) => { this.processUpdated( model ); };
         }
     }
 }

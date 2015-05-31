@@ -16,6 +16,10 @@
             export var fillColor = 0x222222;
             export var lineColor = 0xAAAAAA;
         }
+
+        export module Process {
+            export var testId = "11";
+        }
     }
 
     export module Game {

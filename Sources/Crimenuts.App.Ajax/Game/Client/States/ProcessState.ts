@@ -1,4 +1,5 @@
-﻿/// <reference path="../Views/Process/ProcessView.ts"/>
+﻿/// <reference path="../Views/Process/ProcessView.ts" />
+/// <reference path="../Controllers/ProcessController.ts" />
 module Crimenuts {
     import ProcessView = View.Process.ProcessView;
 
@@ -10,32 +11,23 @@ module Crimenuts {
 
         create() {
             this.createController();
-            app.server.getProcess().done( ( model: ProcessModel ) => {
+            this.controller.getProcess( this.processId ).done( ( model: ProcessModel ) => {
                 this.model = model;
-                this.view = new ProcessView( this.game, model );
-                this.subscribeEvents( app.server );
-            } );
+                this.createView( model );
+            });
         }
 
+        private processId = Settings.Default.Process.testId;
+        private controller: IProcessController;
         private model: ProcessModel;
         private view: ProcessView;
-        private controller: ProcessController;
 
-        private subscribeEvents( server: ServerAdapter ) {
-            server.onProcessUpdated.add( this.onProcessUpdated, this );
-            server.onTickCountUpdated.add( this.onTickCountUpdated, this );
+        private createController() {
+            this.controller = new ProcessController( app.server, app.server );
         }
 
-        private onProcessUpdated( model: ProcessModel ) {
-            this.view.updateModel(this.model = model);
-        }
-
-        private onTickCountUpdated( count: number  ) {
-            this.view.updateTickCount(count);
-        }
-
-        createController() {
-            this.controller = new ProcessController(app.server);
+        private createView( model: ProcessModel ) {
+            this.view = new ProcessView( this.game, this.controller, model );
         }
     }
 }
