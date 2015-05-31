@@ -13,8 +13,8 @@ module Crimenuts {
             return this.server.getProcess( processId );
         }
 
-        autoAnswer( processId: string ) {
-            //this.server.autoAnswer( processId );
+        autoAnswer( processId: string ): JQueryPromise<void> {
+            return this.server.autoAnswer( processId );
         }
 
         // IProcessObserver

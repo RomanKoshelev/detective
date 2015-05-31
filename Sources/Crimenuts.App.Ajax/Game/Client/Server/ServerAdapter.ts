@@ -19,6 +19,9 @@
         update(): JQueryPromise<void> {
             return this.server.update();
         }
+        autoAnswer( processId: string ): JQueryPromise<void> {
+            return this.server.autoAnswer( processId );
+        }
 
         // --------------------------------------------------------[]
         // IServerObserver

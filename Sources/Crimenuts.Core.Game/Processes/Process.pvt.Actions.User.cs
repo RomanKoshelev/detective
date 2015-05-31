@@ -170,7 +170,7 @@ namespace Crimenuts.Core.Game.Processes
         private void AddAutoAskActionIfEnabled()
         {
             if( Options.AutoQuestioningIsEnabled ) {
-                AddUserAction( UserAction.ActionType.AutoAsk );
+                AddAutoAskAction();
             }
         }
 

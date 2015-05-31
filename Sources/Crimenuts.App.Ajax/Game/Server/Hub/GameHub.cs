@@ -30,6 +30,11 @@ namespace Crimenuts.App.Ajax.Game.Server.Hub
             return _gameLogic.GetProcess( processId );
         }
 
+        public void AutoAnswer( string processId )
+        {
+            _gameLogic.AutoAnswer( processId );
+        }
+
         public void Update()
         {
             // Ignore client's invocation

@@ -212,7 +212,7 @@ namespace Crimenuts.App.Web.Models
         // ===================================================================================== []
         public bool UserActionIsEnabled( Process.UserAction.ActionType actionType )
         {
-            return Process.UserActionIsEnabled( actionType );
+            return Process.IsUserActionEnabled( actionType );
         }
     }
 }

@@ -1,6 +1,6 @@
 // Crimenuts (c) 2015 Krokodev
 // Crimenuts.App.Ajax
-// Manager.cs
+// ProcessManager.cs
 
 using System;
 using Crimenuts.App.Ajax.Game.Server.Clients;
@@ -11,7 +11,7 @@ using Krokodev.Common.Identifier;
 
 namespace Crimenuts.App.Ajax.Game.Server.Managers
 {
-    public class ProcessManager : IManager< ProcessModel >
+    public class ProcessManager : IProcessManager
     {
         #region Constructor
 
@@ -25,17 +25,22 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
 
         #region IManager
 
-        public IManager< ProcessModel > IManager
+        public IProcessManager IManager
         {
             get { return this; }
         }
 
-        ProcessModel IManager< ProcessModel >.GetModel( string processId )
+        ProcessModel IProcessManager.GetModel( string processId )
         {
-            var id = ( Identifiable< Process, int >.Identifier ) Convert.ToInt64( processId );
-            var process = Schema.FindProcess( id );
+            var process = GetProcess( processId );
             var model = new ProcessModel( process );
             return model;
+        }
+
+        void IProcessManager.AutoAnswer( string processId )
+        {
+            var process = GetProcess( processId );
+            process.ExecuteUserAction( Process.UserAction.ActionType.AutoAsk, null );
         }
 
         #endregion
@@ -44,6 +49,22 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
         #region Fields
 
         private readonly IGameClient _clients;
+
+        #endregion
+
+
+        #region Utils
+
+        private static Identifiable< Process, int >.Identifier ConvertToProcessIdentifier( string processId )
+        {
+            return ( Identifiable< Process, int >.Identifier ) Convert.ToInt64( processId );
+        }
+
+        private static Process GetProcess( string processId )
+        {
+            var id = ConvertToProcessIdentifier( processId );
+            return Schema.FindProcess( id );
+        }
 
         #endregion
     }

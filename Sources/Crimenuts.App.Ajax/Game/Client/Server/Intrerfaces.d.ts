@@ -58,6 +58,14 @@ interface IGameHubServer {
     getProcess(processId : string) : JQueryPromise<ProcessModel>;
  
     /** 
+      * Sends a "autoAnswer" message to the GameHub hub.
+      * Contract Documentation: ---
+      * @param processId {string} 
+      * @return {JQueryPromise of void}
+      */
+    autoAnswer(processId : string) : JQueryPromise<void>;
+ 
+    /** 
       * Sends a "update" message to the GameHub hub.
       * Contract Documentation: ---
       * @return {JQueryPromise of void}

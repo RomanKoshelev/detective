@@ -147,11 +147,17 @@ namespace Crimenuts.Core.Game.Processes
 
         public void ExecuteUserAction( UserAction.ActionType actionType, int[] actionParams, bool autoSkip = true )
         {
-            actionParams = actionParams ?? new int[0];
-            DoExecuteUserAction( actionType, actionParams, autoSkip );
+            var correctedActionParams  = actionParams ?? new int[0];
+            if( !IsActionEnabled( actionType ) ) {
+                return;
+            }
+            if( !VerifyActionArgs( actionType, correctedActionParams ) ) {
+                return;
+            }
+            DoExecuteUserAction( actionType, correctedActionParams, autoSkip );
         }
 
-        public bool UserActionIsEnabled( UserAction.ActionType actionType )
+        public bool IsUserActionEnabled( UserAction.ActionType actionType )
         {
             return IsActionEnabled( actionType );
         }

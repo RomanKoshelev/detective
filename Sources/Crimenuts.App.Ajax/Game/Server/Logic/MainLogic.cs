@@ -48,6 +48,11 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
             return _processManager.GetModel( processId );
         }
 
+        void IGameLogic.AutoAnswer( string processId )
+        {
+            _processManager.AutoAnswer( processId );
+        }
+
         void IGameLogic.Update()
         {
             UpdateTime();
@@ -69,7 +74,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IGameClient _clients;
-        private readonly IManager<ProcessModel> _processManager;
+        private readonly IProcessManager _processManager;
         private readonly List< IAuxLogic > _auxLlogics = new List< IAuxLogic >();
         private int _tickCount;
 
