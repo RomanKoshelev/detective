@@ -258,9 +258,9 @@
     <Content Include="Scripts\typescript.output.js" />
     <Content Include="Scripts\phaser.js" />
     <Content Include="Scripts\phaser.min.js" />
-    <Content Include="Game\Client\Server\Hubs.tt">
+    <Content Include="Game\Client\Server\Intrerfaces.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Hubs.d.ts</LastGenOutput>
+      <LastGenOutput>Intrerfaces.d.ts</LastGenOutput>
     </Content>
     <Content Include="NLog.config" />
     <Content Include="App_Code\GameView.cshtml" />
@@ -298,6 +298,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
     <TypeScriptCompile Include="Game\Client\App\Settings.ts" />
+    <TypeScriptCompile Include="Game\Client\Controllers\IProcessController.ts" />
+    <TypeScriptCompile Include="Game\Client\Controllers\ProcessController.ts" />
+    <TypeScriptCompile Include="Game\Client\Server\IServerObserver.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\Button.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\IDecorable.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\RoundedRectangleDecor.ts" />
@@ -316,14 +319,14 @@
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Display.ts" />
     <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Members.ts" />
-    <TypeScriptCompile Include="Game\Client\Controllers\ProcessController.ts" />
+    <TypeScriptCompile Include="Game\Client\States\ProcessState.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\p2.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\phaser.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\pixi.d.ts" />
-    <TypeScriptCompile Include="Game\Client\Server\Hubs.d.ts">
+    <TypeScriptCompile Include="Game\Client\Server\Intrerfaces.d.ts">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Hubs.tt</DependentUpon>
+      <DependentUpon>Intrerfaces.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\signalr\signalr.d.ts" />

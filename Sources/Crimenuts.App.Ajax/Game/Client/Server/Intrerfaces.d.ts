@@ -32,15 +32,15 @@ interface GameHub {
     /**
       * This property lets you send messages to the GameHub hub.
       */
-    server : GameHubServer;
+    server : IGameHubServer;
  
     /**
       * The functions on this property should be replaced if you want to receive messages from the GameHub hub.
       */
-    client : GameHubClient;
+    client : IGameHubClient;
 }
  
-interface GameHubServer {
+interface IGameHubServer {
  
     /** 
       * Sends a "getPlayerId" message to the GameHub hub.
@@ -65,7 +65,7 @@ interface GameHubServer {
     update() : JQueryPromise<void>;
 }
  
-interface GameHubClient
+interface IGameHubClient
 {
  
     /**

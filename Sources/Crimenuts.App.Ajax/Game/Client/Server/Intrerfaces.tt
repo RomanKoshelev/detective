@@ -69,18 +69,18 @@ interface <#= hubType.Name #> {
     /**
       * This property lets you send messages to the <#= hub.Name#> hub.
       */
-    server : <#= hubType.Name #>Server;
+    server : I<#= hubType.Name #>Server;
  
     /**
       * The functions on this property should be replaced if you want to receive messages from the <#= hub.Name#> hub.
       */
-    client : <#= clientType != null?(hubType.Name+"Client"):"any"#>;
+    client : I<#= clientType != null?(hubType.Name+"Client"):"any"#>;
 }
  
 <#
 /* Server type definition */
 #>
-interface <#= hubType.Name #>Server {
+interface I<#= hubType.Name #>Server {
 <#
     foreach (var method in hubmanager.GetHubMethods(hub.Name ))
     {
@@ -115,7 +115,7 @@ interface <#= hubType.Name #>Server {
     if (clientType != null)
     {
 #>
-interface <#= hubType.Name #>Client
+interface I<#= hubType.Name #>Client
 {
 <#
     foreach (var method in clientType.GetMethods())

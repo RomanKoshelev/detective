@@ -1,15 +1,12 @@
 ﻿module Crimenuts {
-
-    export class ServerAdapter implements GameHubServer, GameHubClient {
+    export class ServerAdapter implements IGameHubServer, IGameHubClient, IServerObserver {
 
         constructor() {
             this.init();
         }
 
         // --------------------------------------------------------[]
-        // Server
-        private server = $.connection.gameHub.server;
-
+        // IGameHubServer
         getPlayerId(): JQueryPromise<string> {
              return this.server.getPlayerId();
         }
@@ -23,33 +20,40 @@
         }
 
         // --------------------------------------------------------[]
-        // Client
-        onStarted = new Phaser.Signal();
+        // IServerObserver
+        onServerStarted = new Phaser.Signal();
         onProcessUpdated = new Phaser.Signal();
         onTickCountUpdated = new Phaser.Signal();
 
-        private client = $.connection.gameHub.client;
-
-        private init() {
-            this.setupClientCallbacks();
-            this.startHub();
-        }
-
-        private startHub() {
-            $.connection.hub.start().done( () => { this.onStarted.dispatch() } );
-        }
-
-        private setupClientCallbacks() {
-            this.client.tickCountUpdated = ( count: number ) => { this.tickCountUpdated( count ); };
-            this.client.processUpdated = ( model: ProcessModel ) => { this.processUpdated( model ); };
-        }
-
+        // --------------------------------------------------------[]
+        // IGameHubClient
         tickCountUpdated( count: number ) {
             this.onTickCountUpdated.dispatch( count );
         }
 
         processUpdated( model: ProcessModel ): void {
             this.onProcessUpdated.dispatch( model );
+        }
+
+        // --------------------------------------------------------[]
+        // Fields
+        private server = $.connection.gameHub.server;
+        private client = $.connection.gameHub.client;
+
+        // --------------------------------------------------------[]
+        // Utils
+        private init() {
+            this.setupClientCallbacks();
+            this.startHub();
+        }
+
+        private startHub() {
+            $.connection.hub.start().done( () => { this.onServerStarted.dispatch() } );
+        }
+
+        private setupClientCallbacks() {
+            this.client.tickCountUpdated = ( count: number ) => { this.tickCountUpdated( count ); };
+            this.client.processUpdated = ( model: ProcessModel ) => { this.processUpdated( model ); };
         }
     }
 }

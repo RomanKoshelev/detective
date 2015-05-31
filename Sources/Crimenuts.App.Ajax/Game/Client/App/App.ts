@@ -7,12 +7,12 @@
 
         constructor() {
             this.server = new ServerAdapter();
-            this.server.onStarted.addOnce( this.init, this );
+            this.server.onServerStarted.addOnce( this.init, this );
             this.server.onTickCountUpdated.add( this.onTickCountUpdated, this );
         }
 
         onGameCreate() {
-            this.game.state.add( "Process", ProcessController, true );
+            this.game.state.add( "Process", ProcessState, true );
         }
 
         private init() {
@@ -30,8 +30,8 @@
 
         getGameScreenSize() : Size {
             return {
-                width: 720,
-                height: 820
+                width: Settings.Game.width,
+                height: Settings.Game.height
             };
         }
     }

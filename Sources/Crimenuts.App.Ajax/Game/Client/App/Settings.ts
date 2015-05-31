@@ -18,6 +18,11 @@
         }
     }
 
+    export module Game {
+        export var width = 720;
+        export var height = 820;
+    }
+
     export module Assets {
         export module Sprites {
             export var transparent = "transparent";
