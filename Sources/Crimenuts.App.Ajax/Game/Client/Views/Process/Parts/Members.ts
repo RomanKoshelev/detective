@@ -2,8 +2,8 @@
 
     export class Members extends Phaser.Group implements IProcessViewPart {
 
-        constructor( game: Phaser.Game, position: Phaser.Point, model: ProcessModel ) {
-            super( game );
+        constructor( position: Phaser.Point, model: ProcessModel ) {
+            super( app.game );
             this.position = position;
             this.createMembers(model.World, model.Members);
         }
@@ -22,7 +22,7 @@
             for( var i in members ) {
                 var p = this.calcPersonCardPosition( i, w, h );
                 var name = members[ i ];
-                this.add( new Member( this.game, world, name, p.x, p.y, w, h ) );
+                this.add( new Member( world, name, p.x, p.y, w, h ) );
             }
         }
 

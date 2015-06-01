@@ -2,10 +2,10 @@
 
     export class InfoBar extends Phaser.Group {
 
-        constructor( game: Phaser.Game, position: Phaser.Point ) {
-            super( game );
+        constructor( position: Phaser.Point ) {
+            super( app.game );
             this.position = position;
-            this.createTextLabel( game );
+            this.createTextLabel();
         }
         
         updateModel( model: ProcessModel ): void {
@@ -18,9 +18,8 @@
 
         private textLabel: TextLabel;
 
-        private createTextLabel( game: Phaser.Game ) {
+        private createTextLabel() {
             this.add( this.textLabel = new TextLabel(
-                game,
                 Settings.Process.Bars.InfoBar.width,
                 Settings.Process.Bars.InfoBar.height,
                 Settings.Default.Font.face,

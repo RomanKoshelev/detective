@@ -2,10 +2,10 @@
 
     export class StateBar extends Phaser.Group implements IProcessViewPart {
 
-        constructor( game: Phaser.Game, position: Phaser.Point ) {
-            super( game );
+        constructor( position: Phaser.Point ) {
+            super( app.game );
             this.position = position;
-            this.createTextLabel( game );
+            this.createTextLabel();
         }
         
         updateModel( model: ProcessModel ): void {
@@ -14,9 +14,8 @@
 
         private textLabel: TextLabel;
 
-        private createTextLabel( game: Phaser.Game ) {
+        private createTextLabel() {
             this.add( this.textLabel = new TextLabel(
-                game,
                 Settings.Process.Bars.StateBar.width,
                 Settings.Process.Bars.StateBar.height,
                 Settings.Default.Font.face,

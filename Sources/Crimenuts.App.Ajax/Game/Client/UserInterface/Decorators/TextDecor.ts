@@ -9,13 +9,11 @@ module Crimenuts {
             fontSize: number = Settings.Default.Font.size,
             fontFace: string = Settings.Default.Font.face
         ) {
-            var game = component.getGame();
             var size = component.getSize();
 
-            super( game );
+            super( app.game );
 
             this.textLabel = new TextLabel(
-                game,
                 size.width, size.height,
                 fontFace,
                 fontSize,
@@ -30,8 +28,6 @@ module Crimenuts {
 
         private component: IDecorable;
         private textLabel: TextLabel;
-
-        getGame(): Phaser.Game { return this.component.getGame(); }
 
         getSize(): Size { return this.component.getSize(); }
 

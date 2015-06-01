@@ -6,7 +6,6 @@ module Crimenuts {
         private fontSize: number;
 
         constructor(
-            game: Phaser.Game,
             width: number, height: number,
             fontFace: string = Settings.Default.Font.face,
             fontSize: number = Settings.Default.Font.size,
@@ -14,7 +13,7 @@ module Crimenuts {
             bgcolor: number = Settings.Default.Font.bgColor
             ) {
 
-            super( game, 0, 0 );
+            super( app.game, 0, 0 );
 
             this.createBackground(width, height, bgcolor);
             this.createLabel(fontFace, fontSize, color);

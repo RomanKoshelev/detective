@@ -1,14 +1,14 @@
 ﻿module Crimenuts.View.Process {
     export class Answers extends Phaser.Group implements IProcessViewPart {
 
-        constructor( game: Phaser.Game,
+        constructor( 
             position: Phaser.Point,
             controller: IProcessController,
             observer: IProcessObserver,
             model: ProcessModel,
             factory: IUIFactory
         ) {
-            super( game );
+            super( app.game );
             this.position = position;
             this.controller = controller;
             this.createAnswers();
@@ -28,7 +28,6 @@
 
         private createAnswers() {
             this.answerSheet = new TextLabel(
-                this.game,
                 Settings.Process.Answers.width,
                 Settings.Process.Answers.height,
                 Settings.Default.Font.face,
@@ -79,6 +78,5 @@
         private createButton( factory: IUIFactory, command: Command, position: Phaser.Point ) {
             this.add( factory.makeDefaultButton( command, position ) );
         }
-
     }
 }

@@ -4,10 +4,10 @@ module Crimenuts.View.Process {
         bottomBar: BottomBar;
         topBar: TopBar;
 
-        constructor( game: Phaser.Game ) {
-            super( game );
-            this.add( this.topBar = new TopBar( game ) );
-            this.add( this.bottomBar = new BottomBar( game ) );
+        constructor() {
+            super( app.game );
+            this.add( this.topBar = new TopBar() );
+            this.add( this.bottomBar = new BottomBar() );
         }
 
         updateModel( model: ProcessModel ): void {

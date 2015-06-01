@@ -8,10 +8,9 @@ module Crimenuts {
             lineColor: number = Settings.Default.Shape.lineColor,
             lineWidth: number = Settings.Default.Shape.lineWidth
         ) {
-            var game = component.getGame();
             var size = component.getSize();
 
-            super( game, 0, 0 );
+            super( app.game, 0, 0 );
 
             this.createRoundedRectangle( size, fillColor, lineColor, lineWidth );
 
@@ -20,8 +19,6 @@ module Crimenuts {
         }
 
         private component: IDecorable;
-
-        getGame(): Phaser.Game { return this.component.getGame(); }
 
         getSize(): Size { return this.component.getSize(); }
 

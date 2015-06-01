@@ -3,17 +3,17 @@ module Crimenuts {
 
         text: Phaser.Text;
 
-        constructor( game: Phaser.Game ) {
+        constructor() {
             var h1 = 30;
             var h2 = 3;
             var c1 = 0x005500;
             var c2 = 0x770000;
 
-            var wg = game.width;
+            var wg = app.game.width;
             var x = 0;
             var y = 0;
 
-            super( game, x, y );
+            super( app.game, x, y );
 
             this.beginFill( c1 );
             this.drawRect( 0, 0, wg, h1 );
@@ -23,7 +23,7 @@ module Crimenuts {
             this.endFill();
 
             this.addChild( this.text = new Phaser.Text(
-                game,
+                app.game,
                 7, 7,
                 "",
                 {
