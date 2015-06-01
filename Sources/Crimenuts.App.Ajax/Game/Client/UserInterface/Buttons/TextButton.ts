@@ -3,42 +3,35 @@ module Crimenuts {
     export class TextButton extends Phaser.Group {
 
         constructor(
-            game: Phaser.Game,
-            text: string,
-            callback: Function,
-            callbackContext: any,
+            command: Command,
             regularColors: ColorSet,
             highlightColors: ColorSet,
             position: Phaser.Point
     
         ) {
-            super( game );
-            this.createButton( text, callback, callbackContext, regularColors, highlightColors );
+            super( app.game );
+            this.createButton( command, regularColors, highlightColors );
             this.position.set( position.x, position.y );
         }
 
         private decors = new Array<IDecorable>();
 
         private createButton(
-            text: string,
-            callback: Function,
-            callbackContext: any,
+            command: Command,
             regularColors: ColorSet,
             highlightColors: ColorSet
         ) {
-            var buttonEssence = this.createButtonEssence( callback, callbackContext );
-            var regularDecor = this.createDecor( buttonEssence, text, regularColors );
-            var higlightDecor = this.createDecor( buttonEssence, text, highlightColors );
+            var buttonEssence = this.createButtonEssence( command );
+            var regularDecor = this.createDecor( buttonEssence, command.name, regularColors );
+            var higlightDecor = this.createDecor( buttonEssence, command.name, highlightColors );
 
             this.initSignalHandlers( buttonEssence, regularDecor, higlightDecor );
             this.showDecor( regularDecor );
         }
 
-        private createButtonEssence( callback: Function, callbackContext: any ): ButtonEssence {
+        private createButtonEssence( command: Command ): ButtonEssence {
             var essence = new ButtonEssence(
-                this.game,
-                callback,
-                callbackContext,
+                command,
                 Settings.UserInterface.Button.width,
                 Settings.UserInterface.Button.height );
             this.add( essence );

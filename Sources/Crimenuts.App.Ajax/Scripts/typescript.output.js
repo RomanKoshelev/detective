@@ -442,10 +442,10 @@ var Crimenuts;
 (function (Crimenuts) {
     var ButtonEssence = (function (_super) {
         __extends(ButtonEssence, _super);
-        function ButtonEssence(game, callback, callbackContext, width, height) {
+        function ButtonEssence(command, width, height) {
             if (width === void 0) { width = Crimenuts.Settings.UserInterface.Button.width; }
             if (height === void 0) { height = Crimenuts.Settings.UserInterface.Button.height; }
-            _super.call(this, game, 0, 0, Crimenuts.Settings.UserInterface.Button.sprite, callback, callbackContext);
+            _super.call(this, Crimenuts.app.game, 0, 0, Crimenuts.Settings.UserInterface.Button.sprite, command.callback, command.context);
             this.resize(width, height);
         }
         // IDecorable
@@ -482,21 +482,21 @@ var Crimenuts;
 (function (Crimenuts) {
     var TextButton = (function (_super) {
         __extends(TextButton, _super);
-        function TextButton(game, text, callback, callbackContext, regularColors, highlightColors, position) {
-            _super.call(this, game);
+        function TextButton(command, regularColors, highlightColors, position) {
+            _super.call(this, Crimenuts.app.game);
             this.decors = new Array();
-            this.createButton(text, callback, callbackContext, regularColors, highlightColors);
+            this.createButton(command, regularColors, highlightColors);
             this.position.set(position.x, position.y);
         }
-        TextButton.prototype.createButton = function (text, callback, callbackContext, regularColors, highlightColors) {
-            var buttonEssence = this.createButtonEssence(callback, callbackContext);
-            var regularDecor = this.createDecor(buttonEssence, text, regularColors);
-            var higlightDecor = this.createDecor(buttonEssence, text, highlightColors);
+        TextButton.prototype.createButton = function (command, regularColors, highlightColors) {
+            var buttonEssence = this.createButtonEssence(command);
+            var regularDecor = this.createDecor(buttonEssence, command.name, regularColors);
+            var higlightDecor = this.createDecor(buttonEssence, command.name, highlightColors);
             this.initSignalHandlers(buttonEssence, regularDecor, higlightDecor);
             this.showDecor(regularDecor);
         };
-        TextButton.prototype.createButtonEssence = function (callback, callbackContext) {
-            var essence = new Crimenuts.ButtonEssence(this.game, callback, callbackContext, Crimenuts.Settings.UserInterface.Button.width, Crimenuts.Settings.UserInterface.Button.height);
+        TextButton.prototype.createButtonEssence = function (command) {
+            var essence = new Crimenuts.ButtonEssence(command, Crimenuts.Settings.UserInterface.Button.width, Crimenuts.Settings.UserInterface.Button.height);
             this.add(essence);
             return essence;
         };
@@ -531,8 +531,8 @@ var Crimenuts;
 (function (Crimenuts) {
     var WhiteButton = (function (_super) {
         __extends(WhiteButton, _super);
-        function WhiteButton(game, text, callback, callbackContext, position) {
-            _super.call(this, game, text, callback, callbackContext, Crimenuts.Settings.UserInterface.Button.White.Regular.colors, Crimenuts.Settings.UserInterface.Button.White.Highlight.colors, position);
+        function WhiteButton(command, position) {
+            _super.call(this, command, Crimenuts.Settings.UserInterface.Button.White.Regular.colors, Crimenuts.Settings.UserInterface.Button.White.Highlight.colors, position);
         }
         return WhiteButton;
     })(Crimenuts.TextButton);
@@ -629,8 +629,8 @@ var Crimenuts;
     var DefaultUIFactory = (function () {
         function DefaultUIFactory() {
         }
-        DefaultUIFactory.prototype.makeDefaultButton = function (game, text, callback, callbackContext, position) {
-            return new Crimenuts.WhiteButton(game, text, callback, callbackContext, position);
+        DefaultUIFactory.prototype.makeDefaultButton = function (command, position) {
+            return new Crimenuts.WhiteButton(command, position);
         };
         return DefaultUIFactory;
     })();
@@ -696,6 +696,19 @@ var Crimenuts;
         return TextLabel;
     })(Phaser.Graphics);
     Crimenuts.TextLabel = TextLabel;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var Command = (function () {
+        function Command(name, callback, context) {
+            if (context === void 0) { context = null; }
+            this.name = name;
+            this.callback = callback;
+            this.context = context;
+        }
+        return Command;
+    })();
+    Crimenuts.Command = Command;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -791,7 +804,7 @@ var Crimenuts;
                     this.position = position;
                     this.controller = controller;
                     this.createAnswers();
-                    this.createButton(factory, "Auto", this.cmdAutoAnswer, Crimenuts.Settings.Process.Answers.Buttons.Auto.position);
+                    this.createButtons(factory);
                     this.updateModel(model);
                     this.subscribe(observer);
                 }
@@ -803,9 +816,6 @@ var Crimenuts;
                     this.answerSheet = new Crimenuts.TextLabel(this.game, Crimenuts.Settings.Process.Answers.width, Crimenuts.Settings.Process.Answers.height, Crimenuts.Settings.Default.Font.face, Crimenuts.Settings.Process.Answers.Answer.fontSize, Crimenuts.Settings.Process.Answers.Answer.Color.regular, Crimenuts.Settings.Process.Answers.bgColor);
                     this.answerSheet.alignMiddle();
                     this.add(this.answerSheet);
-                };
-                Answers.prototype.createButton = function (factory, text, callback, position) {
-                    this.add(factory.makeDefaultButton(this.game, text, callback, this, position));
                 };
                 Answers.prototype.cmdAutoAnswer = function () {
                     this.controller.autoAnswer(this.processId);
@@ -829,6 +839,12 @@ var Crimenuts;
                 };
                 Answers.prototype.subscribe = function (observer) {
                     observer.onProcessAnswersUpdated.add(this.onProcessAnswersUpdated, this);
+                };
+                Answers.prototype.createButtons = function (factory) {
+                    this.createButton(factory, new Crimenuts.Command("Auto", this.cmdAutoAnswer, this), Crimenuts.Settings.Process.Answers.Buttons.Auto.position);
+                };
+                Answers.prototype.createButton = function (factory, command, position) {
+                    this.add(factory.makeDefaultButton(command, position));
                 };
                 return Answers;
             })(Phaser.Group);

@@ -238,7 +238,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class ButtonEssence extends Phaser.Button implements IDecorable, ISignalSource {
-        constructor(game: Phaser.Game, callback?: Function, callbackContext?: any, width?: number, height?: number);
+        constructor(command: Command, width?: number, height?: number);
         getGame(): Phaser.Game;
         private resize(width, height);
         getSize(): Size;
@@ -254,10 +254,10 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class TextButton extends Phaser.Group {
-        constructor(game: Phaser.Game, text: string, callback: Function, callbackContext: any, regularColors: ColorSet, highlightColors: ColorSet, position: Phaser.Point);
+        constructor(command: Command, regularColors: ColorSet, highlightColors: ColorSet, position: Phaser.Point);
         private decors;
-        private createButton(text, callback, callbackContext, regularColors, highlightColors);
-        private createButtonEssence(callback, callbackContext);
+        private createButton(command, regularColors, highlightColors);
+        private createButtonEssence(command);
         private createDecor(essence, text, colors);
         private initSignalHandlers(source, regularDecor, higlightDecor);
         private showDecor(decor);
@@ -266,7 +266,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class WhiteButton extends TextButton {
-        constructor(game: Phaser.Game, text: string, callback: Function, callbackContext: any, position: Phaser.Point);
+        constructor(command: Command, position: Phaser.Point);
     }
 }
 declare module Crimenuts {
@@ -307,12 +307,12 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class DefaultUIFactory implements IUIFactory {
-        makeDefaultButton(game: Phaser.Game, text: string, callback: Function, callbackContext: any, position: Phaser.Point): any;
+        makeDefaultButton(command: Command, position: Phaser.Point): any;
     }
 }
 declare module Crimenuts {
     interface IUIFactory {
-        makeDefaultButton(game: Phaser.Game, text: string, callback: Function, callbackContext: any, position: Phaser.Point): any;
+        makeDefaultButton(command: Command, position: Phaser.Point): any;
     }
 }
 declare module Crimenuts {
@@ -328,6 +328,14 @@ declare module Crimenuts {
         setFontBold(): void;
         private createLabel(fontFace, fontSize, color);
         private createBackground(width, height, bgcolor);
+    }
+}
+declare module Crimenuts {
+    class Command {
+        constructor(name: string, callback: Function, context?: any);
+        name: string;
+        callback: Function;
+        context: any;
     }
 }
 declare module Crimenuts {
@@ -370,11 +378,12 @@ declare module Crimenuts.View.Process {
         private controller;
         private processId;
         private createAnswers();
-        private createButton(factory, text, callback, position);
         private cmdAutoAnswer();
         private updateAnswers(answers);
         private onProcessAnswersUpdated(processId, answerModels);
         private subscribe(observer);
+        createButtons(factory: IUIFactory): void;
+        private createButton(factory, command, position);
     }
 }
 declare module Crimenuts.View.Process {

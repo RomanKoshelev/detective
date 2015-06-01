@@ -12,7 +12,7 @@
             this.position = position;
             this.controller = controller;
             this.createAnswers();
-            this.createButton( factory, "Auto", this.cmdAutoAnswer, Settings.Process.Answers.Buttons.Auto.position );
+            this.createButtons(factory);
             this.updateModel( model );
             this.subscribe( observer );
         }
@@ -38,10 +38,6 @@
             );
             this.answerSheet.alignMiddle();
             this.add( this.answerSheet );
-        }
-
-        private createButton( factory: IUIFactory, text: string, callback: Function, position: Phaser.Point ) {
-            this.add( factory.makeDefaultButton( this.game, text, callback, this, position ) );
         }
 
         private cmdAutoAnswer() {
@@ -72,5 +68,17 @@
         private subscribe( observer: IProcessObserver ) {
             observer.onProcessAnswersUpdated.add( this.onProcessAnswersUpdated, this );
         }
+
+        createButtons( factory: IUIFactory ) {
+            this.createButton(
+                factory,
+                new Command( "Auto", this.cmdAutoAnswer, this),
+                Settings.Process.Answers.Buttons.Auto.position );
+        }
+
+        private createButton( factory: IUIFactory, command: Command, position: Phaser.Point ) {
+            this.add( factory.makeDefaultButton( command, position ) );
+        }
+
     }
 }

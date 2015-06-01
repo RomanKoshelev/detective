@@ -1,19 +1,12 @@
 module Crimenuts {
 
     export class WhiteButton extends TextButton {
-
         constructor(
-            game: Phaser.Game,
-            text: string,
-            callback: Function,
-            callbackContext: any,
+            command: Command,
             position: Phaser.Point
         ) {
             super(
-                game,
-                text,
-                callback,
-                callbackContext,
+                command,
                 Settings.UserInterface.Button.White.Regular.colors,
                 Settings.UserInterface.Button.White.Highlight.colors,
                 position
