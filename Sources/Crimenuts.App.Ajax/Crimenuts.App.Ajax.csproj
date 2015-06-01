@@ -301,11 +301,13 @@
     <TypeScriptCompile Include="Game\Client\Managers\IProcessController.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\ProcessManager.ts" />
     <TypeScriptCompile Include="Game\Client\Server\IServerObserver.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\DecorableProxy.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\DefaultButton.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Common\Button.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Common\IDecorable.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Common\RoundedRectangleDecor.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Common\TextDecor.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\ButtonEssence.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\IDecorable.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\ISignalSource.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\RoundedRectangleDecor.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\TextDecor.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\IProcessObserver.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\IProcessViewPart.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Helpers\ITicksViewer.ts" />
@@ -317,7 +319,7 @@
     <TypeScriptCompile Include="Game\Client\Views\Members\PersonPicture.ts" />
     <TypeScriptCompile Include="Game\Client\Views\UserInterface\TopBar.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Member.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Common\TextLabel.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\TextLabel.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Display.ts" />
     <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Members.ts" />

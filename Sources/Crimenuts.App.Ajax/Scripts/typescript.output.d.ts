@@ -1,3 +1,19 @@
+declare module Crimenuts {
+    class App {
+        game: Phaser.Game;
+        server: ServerAdapter;
+        tickCount: Number;
+        constructor();
+        onGameCreate(): void;
+        private init();
+        private createGame(width, height);
+        private onTickCountUpdated(count);
+        private getGameScreenSize();
+        private handleResetLink();
+    }
+    var app: App;
+    function initApp(): void;
+}
 declare module Crimenuts.Assets {
     class Sprites {
         static path: string;
@@ -53,7 +69,6 @@ declare module Crimenuts.Settings {
             var textColor: string;
             var lineWidth: number;
             module Default {
-                var lineWidth: number;
                 module Regular {
                     var fillColor: number;
                     var lineColor: number;
@@ -61,7 +76,7 @@ declare module Crimenuts.Settings {
                 }
                 module Hover {
                     var fillColor: number;
-                    var lineColor: any;
+                    var lineColor: number;
                     var textColor: string;
                 }
             }
@@ -129,6 +144,14 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
+    interface IProcessObserver {
+        onProcessUpdated: Phaser.Signal;
+        onTickCountUpdated: Phaser.Signal;
+        onProcessAnswersUpdated: Phaser.Signal;
+        onProcessesReset: Phaser.Signal;
+    }
+}
+declare module Crimenuts {
     class ProcessManager implements IProcessController, IProcessObserver {
         constructor(server: IGameHubServer, observer: IServerObserver);
         getProcess(processId: string): JQueryPromise<ProcessModel>;
@@ -150,32 +173,85 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class DefaultButton extends Phaser.Group {
-        constructor(game: Phaser.Game, text: string, callback: Function, callbackContext: any, position: Phaser.Point);
-        private createButton(text, callback, callbackContext);
+    class ServerAdapter implements IGameHubServer, IGameHubClient, IServerObserver {
+        constructor();
+        getPlayerId(): JQueryPromise<string>;
+        getProcess(processId: string): JQueryPromise<ProcessModel>;
+        autoAnswer(processId: string): JQueryPromise<void>;
+        resetProcesses(): JQueryPromise<void>;
+        onServerStarted: Phaser.Signal;
+        onProcessUpdated: Phaser.Signal;
+        onTickCountUpdated: Phaser.Signal;
+        onProcessAnswersUpdated: Phaser.Signal;
+        onProcessesReset: Phaser.Signal;
+        tickCountUpdated(count: number): void;
+        processUpdated(model: ProcessModel): void;
+        processAnswersUpdated(processId: string, answerModels: AnswerModel[]): void;
+        processesReset(): void;
+        private server;
+        private client;
+        private setupClientCallbacks();
+        private startHub();
     }
+}
+declare module Crimenuts.View.Process {
+    class ProcessView extends Phaser.Group {
+        constructor(game: Phaser.Game, controller: IProcessController, observer: IProcessObserver, model: ProcessModel);
+        private parts;
+        private ticks;
+        private createParts(controller, observer, model);
+        private addPart(part);
+        private updateParts(model);
+        private subscribeEvents(observer);
+        private onProcessUpdated(model);
+        private onTickCountUpdated(count);
+    }
+}
+declare module Crimenuts {
+    class ProcessState extends Phaser.State {
+        preload(): void;
+        create(): void;
+        private processId;
+        private controller;
+        private observer;
+        private model;
+        private view;
+        private createManager();
+        private loadModelCreateView(callback?);
+        private createView(model);
+        private subscribeEvents();
+        private onProcessesReset();
+        private destroyView();
+    }
+}
+declare module Crimenuts {
+    class Size {
+        width: number;
+        height: number;
+        constructor(width?: number, height?: number);
+    }
+}
+declare module Crimenuts {
+    class ButtonEssence extends Phaser.Button implements IDecorable, ISignalSource {
+        static stateOver: string;
+        static stateOut: string;
+        constructor(game: Phaser.Game, callback?: Function, callbackContext?: any, width?: number, height?: number);
+        getGame(): Phaser.Game;
+        private resize(width, height);
+        getSize(): Size;
+        getDysplayObject(): PIXI.DisplayObject;
+        getSignals(): {
+            [key: string]: Phaser.Signal;
+        };
+    }
+}
+declare module Crimenuts {
     class DecorableProxy extends Phaser.Group implements IDecorable {
         constructor(essence: IDecorable);
         getGame(): Phaser.Game;
         getSize(): Size;
         getDysplayObject(): PIXI.DisplayObject;
         private essence;
-    }
-}
-declare module Crimenuts {
-    class Button extends Phaser.Button implements IDecorable {
-        constructor(game: Phaser.Game, callback?: Function, callbackContext?: any, width?: number, height?: number);
-        getGame(): Phaser.Game;
-        private resize(width, height);
-        getSize(): Size;
-        getDysplayObject(): PIXI.DisplayObject;
-    }
-}
-declare module Crimenuts {
-    interface IDecorable {
-        getGame(): Phaser.Game;
-        getSize(): Size;
-        getDysplayObject(): PIXI.DisplayObject;
     }
 }
 declare module Crimenuts {
@@ -199,21 +275,64 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    interface IProcessObserver {
-        onProcessUpdated: Phaser.Signal;
-        onTickCountUpdated: Phaser.Signal;
-        onProcessAnswersUpdated: Phaser.Signal;
-        onProcessesReset: Phaser.Signal;
+    interface IDecorable {
+        getGame(): Phaser.Game;
+        getSize(): Size;
+        getDysplayObject(): PIXI.DisplayObject;
     }
 }
-declare module Crimenuts.View.Process {
-    interface IProcessViewPart {
-        updateModel(model: ProcessModel): void;
+declare module Crimenuts {
+    interface ISignalSource {
+        getSignals(): {
+            [key: string]: Phaser.Signal;
+        };
+    }
+}
+declare module Crimenuts {
+    class TextLabel extends Phaser.Graphics {
+        private label;
+        private fontSize;
+        constructor(game: Phaser.Game, width: number, height: number, fontFace?: string, fontSize?: number, color?: string, bgcolor?: number);
+        setText(text: string): void;
+        alignLeft(): void;
+        alignCenter(): void;
+        alignTop(): void;
+        alignMiddle(): void;
+        setFontBold(): void;
+        private createLabel(fontFace, fontSize, color);
+        private createBackground(width, height, bgcolor);
+    }
+}
+declare module Crimenuts {
+    class DefaultButton extends Phaser.Group {
+        constructor(game: Phaser.Game, text: string, callback: Function, callbackContext: any, position: Phaser.Point);
+        private decors;
+        private createButton(text, callback, callbackContext);
+        private createButtonEssence(callback, callbackContext);
+        private createRegularDecor(essence, text);
+        private createHoverDecor(essence, text);
+        private createDecor(essence, text, textColor, fillColor, lineColor);
+        private initSignalHandlers(source, regularDecor, higlightDecor);
+        private showDecor(decor);
+        private setDecorMapping(source, signal, decor);
     }
 }
 declare module Crimenuts.View.Process {
     interface ITicksViewer {
         updateTicks(count: number): any;
+    }
+}
+declare module Crimenuts {
+    class PersonPicture extends Phaser.Image {
+        constructor(game: Phaser.Game, world: string, name: string, x: number, y: number, width: number);
+        private imageKey;
+        private getLoader(world, name, width);
+        private onLoadComplete();
+    }
+}
+declare module Crimenuts.View.Process {
+    interface IProcessViewPart {
+        updateModel(model: ProcessModel): void;
     }
 }
 declare module Crimenuts.View.Process {
@@ -232,22 +351,14 @@ declare module Crimenuts.View.Process {
     }
 }
 declare module Crimenuts.View.Process {
-    class ProcessView extends Phaser.Group {
-        constructor(game: Phaser.Game, controller: IProcessController, observer: IProcessObserver, model: ProcessModel);
-        private parts;
-        private ticks;
-        private createParts(controller, observer, model);
-        private addPart(part);
-        private updateParts(model);
-        private subscribeEvents(observer);
-        private onProcessUpdated(model);
-        private onTickCountUpdated(count);
-    }
-}
-declare module Crimenuts {
-    class BottomBar extends Phaser.Graphics {
-        text: Phaser.Text;
+    class Display extends Phaser.Group implements IProcessViewPart, ITicksViewer {
+        bottomBar: BottomBar;
+        topBar: TopBar;
         constructor(game: Phaser.Game);
+        updateModel(model: ProcessModel): void;
+        updateTicks(count: number): void;
+        private setBottomText(text);
+        private setCaseId(caseId);
     }
 }
 declare module Crimenuts.View.Process {
@@ -257,29 +368,6 @@ declare module Crimenuts.View.Process {
         private textLabel;
         private createTextLabel(game);
         private setInfo(day, victim, arrested, murdererNum);
-    }
-}
-declare module Crimenuts.View.Process {
-    class StateBar extends Phaser.Group implements IProcessViewPart {
-        constructor(game: Phaser.Game, position: Phaser.Point);
-        updateModel(model: ProcessModel): void;
-        private textLabel;
-        private createTextLabel(game);
-        private setState(state);
-    }
-}
-declare module Crimenuts {
-    class PersonPicture extends Phaser.Image {
-        constructor(game: Phaser.Game, world: string, name: string, x: number, y: number, width: number);
-        private imageKey;
-        private getLoader(world, name, width);
-        private onLoadComplete();
-    }
-}
-declare module Crimenuts {
-    class TopBar extends Phaser.Graphics {
-        text: Phaser.Text;
-        constructor(game: Phaser.Game);
     }
 }
 declare module Crimenuts.View.Process {
@@ -295,39 +383,6 @@ declare module Crimenuts.View.Process {
         private createNameBox(game, name, width, height);
     }
 }
-declare module Crimenuts {
-    class TextLabel extends Phaser.Graphics {
-        private label;
-        private fontSize;
-        constructor(game: Phaser.Game, width: number, height: number, fontFace?: string, fontSize?: number, color?: string, bgcolor?: number);
-        setText(text: string): void;
-        alignLeft(): void;
-        alignCenter(): void;
-        alignTop(): void;
-        alignMiddle(): void;
-        setFontBold(): void;
-        private createLabel(fontFace, fontSize, color);
-        private createBackground(width, height, bgcolor);
-    }
-}
-declare module Crimenuts.View.Process {
-    class Display extends Phaser.Group implements IProcessViewPart, ITicksViewer {
-        bottomBar: BottomBar;
-        topBar: TopBar;
-        constructor(game: Phaser.Game);
-        updateModel(model: ProcessModel): void;
-        updateTicks(count: number): void;
-        private setBottomText(text);
-        private setCaseId(caseId);
-    }
-}
-declare module Crimenuts {
-    class Size {
-        width: number;
-        height: number;
-        constructor(width?: number, height?: number);
-    }
-}
 declare module Crimenuts.View.Process {
     class Members extends Phaser.Group implements IProcessViewPart {
         constructor(game: Phaser.Game, position: Phaser.Point, model: ProcessModel);
@@ -339,58 +394,24 @@ declare module Crimenuts.View.Process {
         private calcPersonCardPosition(i, w, h);
     }
 }
-declare module Crimenuts {
-    class ProcessState extends Phaser.State {
-        preload(): void;
-        create(): void;
-        private processId;
-        private controller;
-        private observer;
-        private model;
-        private view;
-        private createManager();
-        private loadModelCreateView(callback?);
-        private createView(model);
-        private subscribeEvents();
-        private onProcessesReset();
-        private destroyView();
+declare module Crimenuts.View.Process {
+    class StateBar extends Phaser.Group implements IProcessViewPart {
+        constructor(game: Phaser.Game, position: Phaser.Point);
+        updateModel(model: ProcessModel): void;
+        private textLabel;
+        private createTextLabel(game);
+        private setState(state);
     }
 }
 declare module Crimenuts {
-    class App {
-        game: Phaser.Game;
-        server: ServerAdapter;
-        tickCount: Number;
-        constructor();
-        onGameCreate(): void;
-        private init();
-        private createGame(width, height);
-        private onTickCountUpdated(count);
-        private getGameScreenSize();
-        private handleResetLink();
+    class BottomBar extends Phaser.Graphics {
+        text: Phaser.Text;
+        constructor(game: Phaser.Game);
     }
-    var app: App;
-    function initApp(): void;
 }
 declare module Crimenuts {
-    class ServerAdapter implements IGameHubServer, IGameHubClient, IServerObserver {
-        constructor();
-        getPlayerId(): JQueryPromise<string>;
-        getProcess(processId: string): JQueryPromise<ProcessModel>;
-        autoAnswer(processId: string): JQueryPromise<void>;
-        resetProcesses(): JQueryPromise<void>;
-        onServerStarted: Phaser.Signal;
-        onProcessUpdated: Phaser.Signal;
-        onTickCountUpdated: Phaser.Signal;
-        onProcessAnswersUpdated: Phaser.Signal;
-        onProcessesReset: Phaser.Signal;
-        tickCountUpdated(count: number): void;
-        processUpdated(model: ProcessModel): void;
-        processAnswersUpdated(processId: string, answerModels: AnswerModel[]): void;
-        processesReset(): void;
-        private server;
-        private client;
-        private setupClientCallbacks();
-        private startHub();
+    class TopBar extends Phaser.Graphics {
+        text: Phaser.Text;
+        constructor(game: Phaser.Game);
     }
 }

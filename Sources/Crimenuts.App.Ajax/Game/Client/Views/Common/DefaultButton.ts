@@ -14,59 +14,70 @@ module Crimenuts {
             this.position.set( position.x, position.y );
         }
 
+        private decors = new Array<IDecorable>();
+
         private createButton( text: string, callback: Function, callbackContext: any ) {
-            var essence = new Button( this.game, callback, callbackContext, Settings.UserInterface.Button.width, Settings.UserInterface.Button.height );
+            var buttonEssence = this.createButtonEssence( callback, callbackContext );
+            var regularDecor = this.createRegularDecor( buttonEssence, text );
+            var higlightDecor = this.createHoverDecor( buttonEssence, text );
 
-            var regularDecor =
-                new RoundedRectangleDecor(
-                    new TextDecor(
-                        new DecorableProxy( essence ),
-                        text,
-                        Settings.UserInterface.Button.Default.Regular.textColor,
-                        Settings.UserInterface.Button.fontSize ),
-                    Settings.UserInterface.Button.Default.Regular.fillColor,
-                    Settings.UserInterface.Button.Default.Regular.lineColor,
-                    Settings.UserInterface.Button.Default.lineWidth );
-//            regularDecor.visible = false;
+            this.initSignalHandlers( buttonEssence, regularDecor, higlightDecor );
+            this.showDecor( regularDecor );
+        }
 
-
-            var hoverDecor =
-                new RoundedRectangleDecor(
-                    new TextDecor(
-                        new DecorableProxy( essence ),
-                        text,
-                        Settings.UserInterface.Button.Default.Hover.textColor,
-                        Settings.UserInterface.Button.fontSize ),
-                    Settings.UserInterface.Button.Default.Hover.fillColor,
-                    Settings.UserInterface.Button.Default.Hover.lineColor,
-                    Settings.UserInterface.Button.Default.lineWidth );
-            hoverDecor.visible = false;
-
+        private createButtonEssence( callback: Function, callbackContext: any ): ButtonEssence {
+            var essence = new ButtonEssence(
+                this.game,
+                callback,
+                callbackContext,
+                Settings.UserInterface.Button.width,
+                Settings.UserInterface.Button.height );
             this.add( essence );
-            this.add( regularDecor );
-            this.add( hoverDecor );
+            return essence;
+        }
+
+        private createRegularDecor( essence: IDecorable, text: string ): IDecorable {
+            return this.createDecor( essence, text,
+                Settings.UserInterface.Button.Default.Regular.textColor,
+                Settings.UserInterface.Button.Default.Regular.fillColor,
+                Settings.UserInterface.Button.Default.Regular.lineColor );
+        }
+
+        private createHoverDecor( essence: IDecorable, text: string ): IDecorable {
+            return this.createDecor( essence, text,
+                Settings.UserInterface.Button.Default.Hover.textColor,
+                Settings.UserInterface.Button.Default.Hover.fillColor,
+                Settings.UserInterface.Button.Default.Hover.lineColor );
+        }
+
+        private createDecor( essence: IDecorable, text: string, textColor: string, fillColor: number, lineColor: number ): IDecorable {
+            var decor = new RoundedRectangleDecor(
+                new TextDecor(
+                    new DecorableProxy( essence ),
+                    text,
+                    textColor,
+                    Settings.UserInterface.Button.fontSize ),
+                fillColor,
+                lineColor,
+                Settings.UserInterface.Button.lineWidth );
+            decor.visible = false;
+            this.add( decor );
+            this.decors.push( decor );
+            return decor;
+        }
+
+        private initSignalHandlers( source: ISignalSource, regularDecor: IDecorable, higlightDecor: IDecorable ) {
+            this.setDecorMapping( source, ButtonEssence.stateOut, regularDecor );
+            this.setDecorMapping( source, ButtonEssence.stateOver, higlightDecor );
+        }
+
+        private showDecor( decor: IDecorable ) {
+            this.decors.forEach( d => d.getDysplayObject().visible = false );
+            decor.getDysplayObject().visible = true;
+        }
+
+        private setDecorMapping( source: ISignalSource, signal: string, decor: IDecorable ) {
+            source.getSignals()[ signal ].add( () => { this.showDecor( decor ); } );
         }
     }
-
-    export class DecorableProxy extends Phaser.Group implements IDecorable {
-        constructor( essence: IDecorable ) {
-            super( essence.getGame() );
-            this.essence = essence;
-        }
-
-        getGame(): Phaser.Game {
-            return this.essence.getGame();
-        }
-
-        getSize(): Size {
-            return this.essence.getSize();
-        }
-
-        getDysplayObject(): PIXI.DisplayObject {
-            return this.essence.getDysplayObject();
-        }
-
-        private essence: IDecorable;
-    }
-
 }
