@@ -1,5 +1,5 @@
 module Crimenuts.View.Process {
-    export class Display extends Phaser.Group implements IProcessViewPart, ITicksViewer {
+    export class Display extends Phaser.Group implements IProcessViewPart, ITicksWidget {
 
         bottomBar: BottomBar;
         topBar: TopBar;

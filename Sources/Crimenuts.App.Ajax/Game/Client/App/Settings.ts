@@ -1,4 +1,5 @@
-﻿module Crimenuts.Settings {
+﻿/// <reference path="../UserInterface/Types/ColorSet.ts" />
+module Crimenuts.Settings {
 
     export module Default {
         export module Font {
@@ -51,17 +52,12 @@
             export var textColor = "#AAAAAA";
             export var lineWidth = 1.5;
 
-            export module Default {
+            export module White {
                 export module Regular {
-                    export var fillColor = 0xAAAAAA;
-                    export var lineColor = fillColor;
-                    export var textColor = "#000000";
+                    export var colors = new ColorSet(0xAAAAAA, 0xAAAAAA, "#000000");
                 }
-
-                export module Hover {
-                    export var fillColor = 0xFFFFFF;
-                    export var lineColor = fillColor ;
-                    export var textColor = "#000000";
+                export module Highlight {
+                    export var colors = new ColorSet(0xFFFFFF, 0xFFFFFF, "#000000");
                 }
             }
         }
@@ -87,7 +83,6 @@
             }
         }
 
-
         export module Answers {
             export var position = new Phaser.Point( 10, 405 );
             export var width = 700;
@@ -108,8 +103,7 @@
                 }
             }
         }
-
-
+        
         export module Bars {
             export var textColor = "#000000";
             export var bgColor = 0x777777;

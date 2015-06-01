@@ -1,25 +1,34 @@
 module Crimenuts {
 
-    export class DefaultButton extends Phaser.Group {
+    export class TextButton extends Phaser.Group {
 
         constructor(
             game: Phaser.Game,
             text: string,
             callback: Function,
             callbackContext: any,
+            regularColors: ColorSet,
+            highlightColors: ColorSet,
             position: Phaser.Point
+    
         ) {
             super( game );
-            this.createButton( text, callback, callbackContext );
+            this.createButton( text, callback, callbackContext, regularColors, highlightColors );
             this.position.set( position.x, position.y );
         }
 
         private decors = new Array<IDecorable>();
 
-        private createButton( text: string, callback: Function, callbackContext: any ) {
+        private createButton(
+            text: string,
+            callback: Function,
+            callbackContext: any,
+            regularColors: ColorSet,
+            highlightColors: ColorSet
+        ) {
             var buttonEssence = this.createButtonEssence( callback, callbackContext );
-            var regularDecor = this.createRegularDecor( buttonEssence, text );
-            var higlightDecor = this.createHoverDecor( buttonEssence, text );
+            var regularDecor = this.createDecor( buttonEssence, text, regularColors );
+            var higlightDecor = this.createDecor( buttonEssence, text, highlightColors );
 
             this.initSignalHandlers( buttonEssence, regularDecor, higlightDecor );
             this.showDecor( regularDecor );
@@ -36,29 +45,15 @@ module Crimenuts {
             return essence;
         }
 
-        private createRegularDecor( essence: IDecorable, text: string ): IDecorable {
-            return this.createDecor( essence, text,
-                Settings.UserInterface.Button.Default.Regular.textColor,
-                Settings.UserInterface.Button.Default.Regular.fillColor,
-                Settings.UserInterface.Button.Default.Regular.lineColor );
-        }
-
-        private createHoverDecor( essence: IDecorable, text: string ): IDecorable {
-            return this.createDecor( essence, text,
-                Settings.UserInterface.Button.Default.Hover.textColor,
-                Settings.UserInterface.Button.Default.Hover.fillColor,
-                Settings.UserInterface.Button.Default.Hover.lineColor );
-        }
-
-        private createDecor( essence: IDecorable, text: string, textColor: string, fillColor: number, lineColor: number ): IDecorable {
+        private createDecor( essence: IDecorable, text: string, colors: ColorSet): IDecorable {
             var decor = new RoundedRectangleDecor(
                 new TextDecor(
                     new DecorableProxy( essence ),
                     text,
-                    textColor,
+                    colors.text,
                     Settings.UserInterface.Button.fontSize ),
-                fillColor,
-                lineColor,
+                colors.fill,
+                colors.border,
                 Settings.UserInterface.Button.lineWidth );
             decor.visible = false;
             this.add( decor );
@@ -67,8 +62,10 @@ module Crimenuts {
         }
 
         private initSignalHandlers( source: ISignalSource, regularDecor: IDecorable, higlightDecor: IDecorable ) {
-            this.setDecorMapping( source, ButtonEssence.stateOut, regularDecor );
-            this.setDecorMapping( source, ButtonEssence.stateOver, higlightDecor );
+            this.setDecorMapping( source, ButtonEssence.signalOut, regularDecor );
+            this.setDecorMapping( source, ButtonEssence.signalOver, higlightDecor );
+            this.setDecorMapping( source, ButtonEssence.signalUp, regularDecor );
+            this.setDecorMapping( source, ButtonEssence.signalDown, higlightDecor );
         }
 
         private showDecor( decor: IDecorable ) {

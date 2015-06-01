@@ -1,18 +1,18 @@
 ﻿module Crimenuts.View.Process {
-
     export class Answers extends Phaser.Group implements IProcessViewPart {
 
         constructor( game: Phaser.Game,
             position: Phaser.Point,
             controller: IProcessController,
             observer: IProcessObserver,
-            model: ProcessModel
+            model: ProcessModel,
+            factory: IUIFactory
         ) {
             super( game );
             this.position = position;
             this.controller = controller;
             this.createAnswers();
-            this.createButton( "Auto", this.cmdAutoAnswer, Settings.Process.Answers.Buttons.Auto.position );
+            this.createButton( factory, "Auto", this.cmdAutoAnswer, Settings.Process.Answers.Buttons.Auto.position );
             this.updateModel( model );
             this.subscribe( observer );
         }
@@ -40,8 +40,8 @@
             this.add( this.answerSheet );
         }
 
-        private createButton( text: string, callback: Function, position: Phaser.Point ) {
-            this.add( new DefaultButton( this.game, text, callback, this, position ) );
+        private createButton( factory: IUIFactory, text: string, callback: Function, position: Phaser.Point ) {
+            this.add( factory.makeDefaultButton( this.game, text, callback, this, position ) );
         }
 
         private cmdAutoAnswer() {

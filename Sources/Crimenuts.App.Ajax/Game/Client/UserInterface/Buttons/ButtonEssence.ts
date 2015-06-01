@@ -2,9 +2,6 @@ module Crimenuts {
 
     export class ButtonEssence extends Phaser.Button implements IDecorable, ISignalSource {
 
-        static stateOver = "hover";
-        static stateOut = "out";
-
         constructor(
             game: Phaser.Game,
             callback?: Function,
@@ -16,6 +13,7 @@ module Crimenuts {
             this.resize( width, height );
         }
 
+        // IDecorable
         getGame(): Phaser.Game { return this.game; }
 
         private resize( width: number, height: number ) {
@@ -28,10 +26,19 @@ module Crimenuts {
 
         getDysplayObject(): PIXI.DisplayObject { return this; }
 
+        // ISignalSource
+
+        static signalOver = "signal.hover";
+        static signalOut = "signal.out";
+        static signalDown = "signal.down";
+        static signalUp = "signal.up";
+
         getSignals(): { [ key: string ]: Phaser.Signal } {
             var states: { [key: string]: Phaser.Signal } = {};
-            states[ButtonEssence.stateOver] = this.onInputOver;
-            states[ButtonEssence.stateOut] = this.onInputOut;
+            states[ButtonEssence.signalOver] = this.onInputOver;
+            states[ButtonEssence.signalOut] = this.onInputOut;
+            states[ButtonEssence.signalDown] = this.onInputDown;
+            states[ButtonEssence.signalUp] = this.onInputUp;
             return states;
         }
     }

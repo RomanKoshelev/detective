@@ -5,6 +5,7 @@ var Crimenuts;
             this.server = new Crimenuts.ServerAdapter();
             this.server.onServerStarted.addOnce(this.init, this);
             this.server.onTickCountUpdated.add(this.onTickCountUpdated, this);
+            this.uiFactory = new Crimenuts.DefaultUIFactory();
         }
         App.prototype.onGameCreate = function () {
             this.game.state.add("Process", Crimenuts.ProcessState, true);
@@ -74,6 +75,19 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
+    var ColorSet = (function () {
+        function ColorSet(fill, border, text) {
+            this.fill = fill;
+            this.border = border;
+            this.text = text;
+        }
+        return ColorSet;
+    })();
+    Crimenuts.ColorSet = ColorSet;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="../UserInterface/Types/ColorSet.ts" />
+var Crimenuts;
+(function (Crimenuts) {
     var Settings;
     (function (Settings) {
         var Default;
@@ -130,21 +144,17 @@ var Crimenuts;
                 Button.lineColor = 0x888888;
                 Button.textColor = "#AAAAAA";
                 Button.lineWidth = 1.5;
-                var Default;
-                (function (Default) {
+                var White;
+                (function (White) {
                     var Regular;
                     (function (Regular) {
-                        Regular.fillColor = 0xAAAAAA;
-                        Regular.lineColor = Regular.fillColor;
-                        Regular.textColor = "#000000";
-                    })(Regular = Default.Regular || (Default.Regular = {}));
-                    var Hover;
-                    (function (Hover) {
-                        Hover.fillColor = 0xFFFFFF;
-                        Hover.lineColor = Hover.fillColor;
-                        Hover.textColor = "#000000";
-                    })(Hover = Default.Hover || (Default.Hover = {}));
-                })(Default = Button.Default || (Button.Default = {}));
+                        Regular.colors = new Crimenuts.ColorSet(0xAAAAAA, 0xAAAAAA, "#000000");
+                    })(Regular = White.Regular || (White.Regular = {}));
+                    var Highlight;
+                    (function (Highlight) {
+                        Highlight.colors = new Crimenuts.ColorSet(0xFFFFFF, 0xFFFFFF, "#000000");
+                    })(Highlight = White.Highlight || (White.Highlight = {}));
+                })(White = Button.White || (Button.White = {}));
             })(Button = UserInterface.Button || (UserInterface.Button = {}));
         })(UserInterface = Settings.UserInterface || (Settings.UserInterface = {}));
         var Process;
@@ -323,21 +333,21 @@ var Crimenuts;
         (function (Process) {
             var ProcessView = (function (_super) {
                 __extends(ProcessView, _super);
-                function ProcessView(game, controller, observer, model) {
+                function ProcessView(game, controller, observer, model, factory) {
                     _super.call(this, game);
                     // Fields
                     this.parts = new Array();
                     this.game.stage.backgroundColor = Crimenuts.Settings.Process.bgColor;
-                    this.createParts(controller, observer, model);
+                    this.createParts(controller, observer, model, factory);
                     this.subscribeEvents(observer);
                 }
                 // Parts Utils
-                ProcessView.prototype.createParts = function (controller, observer, model) {
+                ProcessView.prototype.createParts = function (controller, observer, model, factory) {
                     this.addPart(this.ticks = new Process.Display(this.game));
                     this.addPart(new Process.StateBar(this.game, Crimenuts.Settings.Process.Bars.StateBar.position));
                     this.addPart(new Process.InfoBar(this.game, Crimenuts.Settings.Process.Bars.InfoBar.position));
                     this.addPart(new Process.Members(this.game, Crimenuts.Settings.Process.Members.position, model));
-                    this.addPart(new Process.Answers(this.game, Crimenuts.Settings.Process.Answers.position, controller, observer, model));
+                    this.addPart(new Process.Answers(this.game, Crimenuts.Settings.Process.Answers.position, controller, observer, model, factory));
                     this.updateParts(model);
                 };
                 ProcessView.prototype.addPart = function (part) {
@@ -399,7 +409,7 @@ var Crimenuts;
             });
         };
         ProcessState.prototype.createView = function (model) {
-            this.view = new ProcessView(this.game, this.controller, this.observer, model);
+            this.view = new ProcessView(this.game, this.controller, this.observer, model, Crimenuts.app.uiFactory);
         };
         ProcessState.prototype.subscribeEvents = function () {
             this.observer.onProcessesReset.add(this.onProcessesReset, this);
@@ -438,6 +448,7 @@ var Crimenuts;
             _super.call(this, game, 0, 0, Crimenuts.Settings.UserInterface.Button.sprite, callback, callbackContext);
             this.resize(width, height);
         }
+        // IDecorable
         ButtonEssence.prototype.getGame = function () {
             return this.game;
         };
@@ -452,15 +463,80 @@ var Crimenuts;
         };
         ButtonEssence.prototype.getSignals = function () {
             var states = {};
-            states[ButtonEssence.stateOver] = this.onInputOver;
-            states[ButtonEssence.stateOut] = this.onInputOut;
+            states[ButtonEssence.signalOver] = this.onInputOver;
+            states[ButtonEssence.signalOut] = this.onInputOut;
+            states[ButtonEssence.signalDown] = this.onInputDown;
+            states[ButtonEssence.signalUp] = this.onInputUp;
             return states;
         };
-        ButtonEssence.stateOver = "hover";
-        ButtonEssence.stateOut = "out";
+        // ISignalSource
+        ButtonEssence.signalOver = "signal.hover";
+        ButtonEssence.signalOut = "signal.out";
+        ButtonEssence.signalDown = "signal.down";
+        ButtonEssence.signalUp = "signal.up";
         return ButtonEssence;
     })(Phaser.Button);
     Crimenuts.ButtonEssence = ButtonEssence;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var TextButton = (function (_super) {
+        __extends(TextButton, _super);
+        function TextButton(game, text, callback, callbackContext, regularColors, highlightColors, position) {
+            _super.call(this, game);
+            this.decors = new Array();
+            this.createButton(text, callback, callbackContext, regularColors, highlightColors);
+            this.position.set(position.x, position.y);
+        }
+        TextButton.prototype.createButton = function (text, callback, callbackContext, regularColors, highlightColors) {
+            var buttonEssence = this.createButtonEssence(callback, callbackContext);
+            var regularDecor = this.createDecor(buttonEssence, text, regularColors);
+            var higlightDecor = this.createDecor(buttonEssence, text, highlightColors);
+            this.initSignalHandlers(buttonEssence, regularDecor, higlightDecor);
+            this.showDecor(regularDecor);
+        };
+        TextButton.prototype.createButtonEssence = function (callback, callbackContext) {
+            var essence = new Crimenuts.ButtonEssence(this.game, callback, callbackContext, Crimenuts.Settings.UserInterface.Button.width, Crimenuts.Settings.UserInterface.Button.height);
+            this.add(essence);
+            return essence;
+        };
+        TextButton.prototype.createDecor = function (essence, text, colors) {
+            var decor = new Crimenuts.RoundedRectangleDecor(new Crimenuts.TextDecor(new Crimenuts.DecorableProxy(essence), text, colors.text, Crimenuts.Settings.UserInterface.Button.fontSize), colors.fill, colors.border, Crimenuts.Settings.UserInterface.Button.lineWidth);
+            decor.visible = false;
+            this.add(decor);
+            this.decors.push(decor);
+            return decor;
+        };
+        TextButton.prototype.initSignalHandlers = function (source, regularDecor, higlightDecor) {
+            this.setDecorMapping(source, Crimenuts.ButtonEssence.signalOut, regularDecor);
+            this.setDecorMapping(source, Crimenuts.ButtonEssence.signalOver, higlightDecor);
+            this.setDecorMapping(source, Crimenuts.ButtonEssence.signalUp, regularDecor);
+            this.setDecorMapping(source, Crimenuts.ButtonEssence.signalDown, higlightDecor);
+        };
+        TextButton.prototype.showDecor = function (decor) {
+            this.decors.forEach(function (d) { return d.getDysplayObject().visible = false; });
+            decor.getDysplayObject().visible = true;
+        };
+        TextButton.prototype.setDecorMapping = function (source, signal, decor) {
+            var _this = this;
+            source.getSignals()[signal].add(function () {
+                _this.showDecor(decor);
+            });
+        };
+        return TextButton;
+    })(Phaser.Group);
+    Crimenuts.TextButton = TextButton;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var WhiteButton = (function (_super) {
+        __extends(WhiteButton, _super);
+        function WhiteButton(game, text, callback, callbackContext, position) {
+            _super.call(this, game, text, callback, callbackContext, Crimenuts.Settings.UserInterface.Button.White.Regular.colors, Crimenuts.Settings.UserInterface.Button.White.Highlight.colors, position);
+        }
+        return WhiteButton;
+    })(Crimenuts.TextButton);
+    Crimenuts.WhiteButton = WhiteButton;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -550,6 +626,18 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
+    var DefaultUIFactory = (function () {
+        function DefaultUIFactory() {
+        }
+        DefaultUIFactory.prototype.makeDefaultButton = function (game, text, callback, callbackContext, position) {
+            return new Crimenuts.WhiteButton(game, text, callback, callbackContext, position);
+        };
+        return DefaultUIFactory;
+    })();
+    Crimenuts.DefaultUIFactory = DefaultUIFactory;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
     var TextLabel = (function (_super) {
         __extends(TextLabel, _super);
         function TextLabel(game, width, height, fontFace, fontSize, color, bgcolor) {
@@ -611,56 +699,61 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var DefaultButton = (function (_super) {
-        __extends(DefaultButton, _super);
-        function DefaultButton(game, text, callback, callbackContext, position) {
-            _super.call(this, game);
-            this.decors = new Array();
-            this.createButton(text, callback, callbackContext);
-            this.position.set(position.x, position.y);
+    var BottomBar = (function (_super) {
+        __extends(BottomBar, _super);
+        function BottomBar(game) {
+            var h1 = 3;
+            var h2 = 30;
+            var c1 = 0x770000;
+            var c2 = 0x005500;
+            var wg = game.width;
+            var hg = game.height;
+            var hb = h1 + h2;
+            var x = 0;
+            var y = hg - hb;
+            _super.call(this, game, x, y);
+            this.beginFill(c1);
+            this.drawRect(0, 0, wg, h1);
+            this.beginFill(c2);
+            this.drawRect(0, h1, wg, h2);
+            this.addChild(this.text = new Phaser.Text(game, 7, 7, "", {
+                font: "18px Arial",
+                fill: "#44dd44",
+                align: "left"
+            }));
         }
-        DefaultButton.prototype.createButton = function (text, callback, callbackContext) {
-            var buttonEssence = this.createButtonEssence(callback, callbackContext);
-            var regularDecor = this.createRegularDecor(buttonEssence, text);
-            var higlightDecor = this.createHoverDecor(buttonEssence, text);
-            this.initSignalHandlers(buttonEssence, regularDecor, higlightDecor);
-            this.showDecor(regularDecor);
-        };
-        DefaultButton.prototype.createButtonEssence = function (callback, callbackContext) {
-            var essence = new Crimenuts.ButtonEssence(this.game, callback, callbackContext, Crimenuts.Settings.UserInterface.Button.width, Crimenuts.Settings.UserInterface.Button.height);
-            this.add(essence);
-            return essence;
-        };
-        DefaultButton.prototype.createRegularDecor = function (essence, text) {
-            return this.createDecor(essence, text, Crimenuts.Settings.UserInterface.Button.Default.Regular.textColor, Crimenuts.Settings.UserInterface.Button.Default.Regular.fillColor, Crimenuts.Settings.UserInterface.Button.Default.Regular.lineColor);
-        };
-        DefaultButton.prototype.createHoverDecor = function (essence, text) {
-            return this.createDecor(essence, text, Crimenuts.Settings.UserInterface.Button.Default.Hover.textColor, Crimenuts.Settings.UserInterface.Button.Default.Hover.fillColor, Crimenuts.Settings.UserInterface.Button.Default.Hover.lineColor);
-        };
-        DefaultButton.prototype.createDecor = function (essence, text, textColor, fillColor, lineColor) {
-            var decor = new Crimenuts.RoundedRectangleDecor(new Crimenuts.TextDecor(new Crimenuts.DecorableProxy(essence), text, textColor, Crimenuts.Settings.UserInterface.Button.fontSize), fillColor, lineColor, Crimenuts.Settings.UserInterface.Button.lineWidth);
-            decor.visible = false;
-            this.add(decor);
-            this.decors.push(decor);
-            return decor;
-        };
-        DefaultButton.prototype.initSignalHandlers = function (source, regularDecor, higlightDecor) {
-            this.setDecorMapping(source, Crimenuts.ButtonEssence.stateOut, regularDecor);
-            this.setDecorMapping(source, Crimenuts.ButtonEssence.stateOver, higlightDecor);
-        };
-        DefaultButton.prototype.showDecor = function (decor) {
-            this.decors.forEach(function (d) { return d.getDysplayObject().visible = false; });
-            decor.getDysplayObject().visible = true;
-        };
-        DefaultButton.prototype.setDecorMapping = function (source, signal, decor) {
-            var _this = this;
-            source.getSignals()[signal].add(function () {
-                _this.showDecor(decor);
-            });
-        };
-        return DefaultButton;
-    })(Phaser.Group);
-    Crimenuts.DefaultButton = DefaultButton;
+        return BottomBar;
+    })(Phaser.Graphics);
+    Crimenuts.BottomBar = BottomBar;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var TopBar = (function (_super) {
+        __extends(TopBar, _super);
+        function TopBar(game) {
+            var h1 = 30;
+            var h2 = 3;
+            var c1 = 0x005500;
+            var c2 = 0x770000;
+            var wg = game.width;
+            var x = 0;
+            var y = 0;
+            _super.call(this, game, x, y);
+            this.beginFill(c1);
+            this.drawRect(0, 0, wg, h1);
+            this.endFill();
+            this.beginFill(c2);
+            this.drawRect(0, h1, wg, h2);
+            this.endFill();
+            this.addChild(this.text = new Phaser.Text(game, 7, 7, "", {
+                font: "18px Arial",
+                fill: "#44dd44",
+                align: "left"
+            }));
+        }
+        return TopBar;
+    })(Phaser.Graphics);
+    Crimenuts.TopBar = TopBar;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -693,12 +786,12 @@ var Crimenuts;
         (function (Process) {
             var Answers = (function (_super) {
                 __extends(Answers, _super);
-                function Answers(game, position, controller, observer, model) {
+                function Answers(game, position, controller, observer, model, factory) {
                     _super.call(this, game);
                     this.position = position;
                     this.controller = controller;
                     this.createAnswers();
-                    this.createButton("Auto", this.cmdAutoAnswer, Crimenuts.Settings.Process.Answers.Buttons.Auto.position);
+                    this.createButton(factory, "Auto", this.cmdAutoAnswer, Crimenuts.Settings.Process.Answers.Buttons.Auto.position);
                     this.updateModel(model);
                     this.subscribe(observer);
                 }
@@ -711,8 +804,8 @@ var Crimenuts;
                     this.answerSheet.alignMiddle();
                     this.add(this.answerSheet);
                 };
-                Answers.prototype.createButton = function (text, callback, position) {
-                    this.add(new Crimenuts.DefaultButton(this.game, text, callback, this, position));
+                Answers.prototype.createButton = function (factory, text, callback, position) {
+                    this.add(factory.makeDefaultButton(this.game, text, callback, this, position));
                 };
                 Answers.prototype.cmdAutoAnswer = function () {
                     this.controller.autoAnswer(this.processId);
@@ -904,63 +997,5 @@ var Crimenuts;
             Process.StateBar = StateBar;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    var BottomBar = (function (_super) {
-        __extends(BottomBar, _super);
-        function BottomBar(game) {
-            var h1 = 3;
-            var h2 = 30;
-            var c1 = 0x770000;
-            var c2 = 0x005500;
-            var wg = game.width;
-            var hg = game.height;
-            var hb = h1 + h2;
-            var x = 0;
-            var y = hg - hb;
-            _super.call(this, game, x, y);
-            this.beginFill(c1);
-            this.drawRect(0, 0, wg, h1);
-            this.beginFill(c2);
-            this.drawRect(0, h1, wg, h2);
-            this.addChild(this.text = new Phaser.Text(game, 7, 7, "", {
-                font: "18px Arial",
-                fill: "#44dd44",
-                align: "left"
-            }));
-        }
-        return BottomBar;
-    })(Phaser.Graphics);
-    Crimenuts.BottomBar = BottomBar;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    var TopBar = (function (_super) {
-        __extends(TopBar, _super);
-        function TopBar(game) {
-            var h1 = 30;
-            var h2 = 3;
-            var c1 = 0x005500;
-            var c2 = 0x770000;
-            var wg = game.width;
-            var x = 0;
-            var y = 0;
-            _super.call(this, game, x, y);
-            this.beginFill(c1);
-            this.drawRect(0, 0, wg, h1);
-            this.endFill();
-            this.beginFill(c2);
-            this.drawRect(0, h1, wg, h2);
-            this.endFill();
-            this.addChild(this.text = new Phaser.Text(game, 7, 7, "", {
-                font: "18px Arial",
-                fill: "#44dd44",
-                align: "left"
-            }));
-        }
-        return TopBar;
-    })(Phaser.Graphics);
-    Crimenuts.TopBar = TopBar;
 })(Crimenuts || (Crimenuts = {}));
 //# sourceMappingURL=typescript.output.js.map
