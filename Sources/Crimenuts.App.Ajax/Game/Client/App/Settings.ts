@@ -50,6 +50,22 @@
             export var lineColor = 0x888888;
             export var textColor = "#AAAAAA";
             export var lineWidth = 1.5;
+
+            export module Default {
+                export var lineWidth = Button.lineWidth;
+
+                export module Regular {
+                    export var fillColor = 0xAAAAAA;
+                    export var lineColor = fillColor;
+                    export var textColor = "#000000";
+                }
+
+                export module Hover {
+                    export var fillColor = 0xFFFFFF;
+                    export var lineColor = lineColor;
+                    export var textColor = "#000000";
+                }
+            }
         }
     }
 

@@ -41,15 +41,7 @@
         }
 
         private createButton( text: string, callback: Function, position: Phaser.Point ) {
-            var button = new RoundedRectangleDecor(
-                new TextDecor(
-                    new Button(
-                        this.game, callback, this, Settings.UserInterface.Button.width, Settings.UserInterface.Button.height ),
-                    text, Settings.UserInterface.Button.textColor, Settings.UserInterface.Button.fontSize ),
-                Settings.UserInterface.Button.fillColor, Settings.UserInterface.Button.lineColor, Settings.UserInterface.Button.lineWidth );
-
-            button.position = position.clone();
-            this.add( button );
+            this.add( new DefaultButton( this.game, text, callback, this, position ) );
         }
 
         private cmdAutoAnswer() {

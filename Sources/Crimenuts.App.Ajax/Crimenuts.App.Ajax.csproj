@@ -301,6 +301,7 @@
     <TypeScriptCompile Include="Game\Client\Managers\IProcessController.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\ProcessManager.ts" />
     <TypeScriptCompile Include="Game\Client\Server\IServerObserver.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Common\DefaultButton.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\Button.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\IDecorable.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Common\RoundedRectangleDecor.ts" />
