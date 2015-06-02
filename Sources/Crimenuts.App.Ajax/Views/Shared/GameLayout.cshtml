@@ -1,0 +1,49 @@
+﻿@*Here: View | GameLayout*@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crimenuts - detective game</title>
+
+    @Styles.Render( "~/game/css" )
+</head>
+
+<body>
+
+
+    <div class="cn-layout-body" align="center">
+        <div class="cn-layout-frame cn-layout-page">
+            <div class="cn-layout-row">
+                <div class="cn-layout-page-part">
+                    <div align="left" class="cn-layout-page-content">
+                        @*LayoutView.Header(ViewBag.Title)*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="cn-layout-row cn-layout-expand" align="center">
+                <div class="cn-layout-page-part">
+                    <div align="left" class="cn-layout-page-content">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+
+            <div class="cn-layout-row" align="center">
+                <div class="cn-layout-page-part">
+                    <div align="left" class="cn-layout-page-content">
+                        @*LayoutView.Footer()*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+@Scripts.Render( "~/bundles/jquery" )
+@RenderSection( "scripts", required : false )
+
+</body>
+</html>

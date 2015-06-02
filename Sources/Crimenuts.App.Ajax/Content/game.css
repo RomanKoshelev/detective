@@ -3,7 +3,10 @@
 // Layout
 */
 
-html, body { height: 100%; }
+html, body {
+     height: 100%;
+    background: #222222;
+}
 
 .cn-layout-frame {
     background: black;
@@ -32,9 +35,9 @@ html, body { height: 100%; }
 .cn-layout-page {
     display: table;
     font-size: 10px;
-    max-width: 900px;
-    min-width: 768px;
-    width: 100%;
+    max-width: 720px;
+    min-width: 720px;
+    width: 720px;
 }
 
 .cn-layout-page-part {
@@ -43,7 +46,7 @@ html, body { height: 100%; }
 }
 
 .cn-layout-page-content {
-    background-color: #000000;
+    background-color: black;
     background-color: rgba(0, 0, 0, 0.90);
     display: table-row;
     overflow: hidden;
