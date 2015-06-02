@@ -95,7 +95,7 @@ var Crimenuts;
         var Game;
         (function (Game) {
             Game.width = 768;
-            Game.height = 1024;
+            Game.height = 870;
         })(Game = Settings.Game || (Settings.Game = {}));
         var k = Game.width / 720.0;
         var Default;

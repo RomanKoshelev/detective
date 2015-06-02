@@ -3,7 +3,7 @@ module Crimenuts.Settings {
 
     export module Game {
         export var width = 768;
-        export var height = 1024;
+        export var height = 870;
     }
 
     var k = Game.width / 720.0;
