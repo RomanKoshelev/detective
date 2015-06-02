@@ -17,7 +17,7 @@
             <div class="cn-layout-row">
                 <div class="cn-layout-page-part">
                     <div align="left" class="cn-layout-page-content">
-                        @*LayoutView.Header(ViewBag.Title)*@
+                        @RenderSection("Header", false)
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             <div class="cn-layout-row cn-layout-expand" align="center">
                 <div class="cn-layout-page-part">
                     <div align="left" class="cn-layout-page-content">
-                        @RenderBody()
+                        @RenderSection("Content", false)
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
             <div class="cn-layout-row" align="center">
                 <div class="cn-layout-page-part">
                     <div align="left" class="cn-layout-page-content">
-                        @*LayoutView.Footer()*@
+                        @RenderSection("Footer", false)
                     </div>
                 </div>
             </div>

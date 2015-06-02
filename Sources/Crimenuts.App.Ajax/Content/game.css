@@ -4,8 +4,8 @@
 */
 
 html, body {
-     height: 100%;
     background: #222222;
+    height: 100%;
 }
 
 .cn-layout-frame {
@@ -35,8 +35,6 @@ html, body {
 .cn-layout-page {
     display: table;
     font-size: 10px;
-    max-width: 720px;
-    min-width: 720px;
     width: 720px;
 }
 
@@ -47,10 +45,20 @@ html, body {
 
 .cn-layout-page-content {
     background-color: black;
-    background-color: rgba(0, 0, 0, 0.90);
     display: table-row;
     overflow: hidden;
     width: 100%;
+}
+
+/*
+// ============================================================================================= []
+// Aux
+*/
+
+.cn-game-aux-links {
+    background: #111111;
+    font-size: 16px;
+    padding: 10px;
 }
 /*
 // ============================================================================================= []
