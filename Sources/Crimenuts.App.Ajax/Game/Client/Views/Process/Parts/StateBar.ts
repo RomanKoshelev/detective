@@ -16,12 +16,12 @@
 
         private createTextLabel() {
             this.add( this.textLabel = new TextLabel(
-                Settings.Process.Bars.StateBar.width,
-                Settings.Process.Bars.StateBar.height,
+                Settings.Process.Bars.width,
+                Settings.Process.Bars.height,
                 Settings.Default.Font.face,
-                Settings.Process.Bars.StateBar.fontSize,
-                Settings.Process.Bars.StateBar.textColor,
-                Settings.Process.Bars.StateBar.bgColor ) );
+                Settings.Process.Bars.fontSize,
+                Settings.Process.Bars.textColor,
+                Settings.Process.Bars.bgColor ) );
         }
 
         private setState( state: string ) {

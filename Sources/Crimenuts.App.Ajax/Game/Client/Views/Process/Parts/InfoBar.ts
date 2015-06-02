@@ -20,12 +20,12 @@
 
         private createTextLabel() {
             this.add( this.textLabel = new TextLabel(
-                Settings.Process.Bars.InfoBar.width,
-                Settings.Process.Bars.InfoBar.height,
+                Settings.Process.Bars.width,
+                Settings.Process.Bars.height,
                 Settings.Default.Font.face,
-                Settings.Process.Bars.InfoBar.fontSize,
-                Settings.Process.Bars.InfoBar.textColor,
-                Settings.Process.Bars.InfoBar.bgColor ) );
+                Settings.Process.Bars.fontSize,
+                Settings.Process.Bars.textColor,
+                Settings.Process.Bars.bgColor ) );
         }
 
         private setInfo( day: number, victim: string, arrested: string, murdererNum: number ) {
