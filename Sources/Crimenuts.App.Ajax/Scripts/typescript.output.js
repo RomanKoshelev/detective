@@ -167,18 +167,25 @@ var Crimenuts;
             (function (Members) {
                 Members.position = new Phaser.Point(10 * k, 75 * k);
                 Members.numInRow = 6;
-                var Member;
-                (function (Member) {
-                    Member.width = 100 * k;
-                    Member.height = Member.width * 1.2;
+                var Card;
+                (function (Card) {
+                    Card.width = 100 * k;
+                    Card.height = Card.width * 1.2;
                     var Name;
                     (function (Name) {
                         Name.height = 16 * k;
                         Name.fontSize = 11 * k;
                         Name.color = "#AAAAAA";
                         Name.bgColor = 0x222222;
-                    })(Name = Member.Name || (Member.Name = {}));
-                })(Member = Members.Member || (Members.Member = {}));
+                    })(Name = Card.Name || (Card.Name = {}));
+                })(Card = Members.Card || (Members.Card = {}));
+                var Dialog;
+                (function (Dialog) {
+                    Dialog.position = new Phaser.Point(20 * k, 80 * k);
+                    Dialog.width = 680 * k;
+                    Dialog.height = 250 * k;
+                    Dialog.bgColor = 0x333333;
+                })(Dialog = Members.Dialog || (Members.Dialog = {}));
             })(Members = Process.Members || (Process.Members = {}));
             var Bars;
             (function (Bars) {
@@ -194,7 +201,7 @@ var Crimenuts;
                 })(InfoBar = Bars.InfoBar || (Bars.InfoBar = {}));
                 var StateBar;
                 (function (StateBar) {
-                    StateBar.position = new Phaser.Point(Bars.left, Members.position.y + (Members.Member.height + Members.Member.Name.height) * 2);
+                    StateBar.position = new Phaser.Point(Bars.left, Members.position.y + (Members.Card.height + Members.Card.Name.height) * 2);
                 })(StateBar = Bars.StateBar || (Bars.StateBar = {}));
             })(Bars = Process.Bars || (Process.Bars = {}));
             var Answers;
@@ -221,6 +228,82 @@ var Crimenuts;
             })(Answers = Process.Answers || (Process.Answers = {}));
         })(Process = Settings.Process || (Settings.Process = {}));
     })(Settings = Crimenuts.Settings || (Crimenuts.Settings = {}));
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var Command = (function () {
+        function Command(name, callback, context) {
+            if (callback === void 0) { callback = null; }
+            if (context === void 0) { context = null; }
+            this.name = name;
+            this.callback = callback;
+            this.context = context;
+        }
+        return Command;
+    })();
+    Crimenuts.Command = Command;
+})(Crimenuts || (Crimenuts = {}));
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var Crimenuts;
+(function (Crimenuts) {
+    var View;
+    (function (View) {
+        var Process;
+        (function (Process) {
+            var MemberDialog = (function (_super) {
+                __extends(MemberDialog, _super);
+                function MemberDialog() {
+                    _super.call(this, Crimenuts.app.game);
+                    this.position.set(MemberDialog.position.x, MemberDialog.position.y);
+                    this.createFrameDecoration(MemberDialog.width, MemberDialog.height);
+                }
+                MemberDialog.prototype.getSize = function () {
+                    return new Crimenuts.Size(MemberDialog.width, MemberDialog.height);
+                };
+                MemberDialog.prototype.getDysplayObject = function () {
+                    return this;
+                };
+                MemberDialog.prototype.createFrameDecoration = function (width, height) {
+                    var area = new Crimenuts.Decorable(width, height);
+                    var frameDecor = new Crimenuts.RectangleDecor(area, MemberDialog.bgColor);
+                    this.add(frameDecor);
+                };
+                MemberDialog.position = Crimenuts.Settings.Process.Members.Dialog.position;
+                MemberDialog.width = Crimenuts.Settings.Process.Members.Dialog.width;
+                MemberDialog.height = Crimenuts.Settings.Process.Members.Dialog.height;
+                MemberDialog.bgColor = Crimenuts.Settings.Process.Members.Dialog.bgColor;
+                return MemberDialog;
+            })(Phaser.Group);
+            Process.MemberDialog = MemberDialog;
+        })(Process = View.Process || (View.Process = {}));
+    })(View = Crimenuts.View || (Crimenuts.View = {}));
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="../UserInterface/Types/Command.ts" />
+/// <reference path="../Views/Process/Parts/MemberDialog.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var MemberDialog = Crimenuts.View.Process.MemberDialog;
+    var MemberDialogCommand = (function (_super) {
+        __extends(MemberDialogCommand, _super);
+        function MemberDialogCommand() {
+            _super.call(this, "Open Member Dialog");
+            this.dialog = null;
+            this.callback = this.execute;
+            this.context = this;
+        }
+        MemberDialogCommand.prototype.execute = function () {
+            if (this.dialog == null) {
+                this.dialog = new MemberDialog();
+            }
+        };
+        return MemberDialogCommand;
+    })(Crimenuts.Command);
+    Crimenuts.MemberDialogCommand = MemberDialogCommand;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -316,12 +399,6 @@ var Crimenuts;
     })();
     Crimenuts.ServerAdapter = ServerAdapter;
 })(Crimenuts || (Crimenuts = {}));
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 var Crimenuts;
 (function (Crimenuts) {
     var View;
@@ -440,18 +517,10 @@ var Crimenuts;
     var ButtonEssence = (function (_super) {
         __extends(ButtonEssence, _super);
         function ButtonEssence(command, width, height) {
-            if (width === void 0) { width = Crimenuts.Settings.UserInterface.Button.width; }
-            if (height === void 0) { height = Crimenuts.Settings.UserInterface.Button.height; }
             _super.call(this, Crimenuts.app.game, 0, 0, Crimenuts.Settings.UserInterface.Button.sprite, command.callback, command.context);
             this.resize(width, height);
         }
         // IDecorable
-        ButtonEssence.prototype.getGame = function () {
-            return this.game;
-        };
-        ButtonEssence.prototype.resize = function (width, height) {
-            this.scale.set(width / this.texture.width, height / this.texture.height);
-        };
         ButtonEssence.prototype.getSize = function () {
             return new Crimenuts.Size(this.width, this.height);
         };
@@ -465,6 +534,10 @@ var Crimenuts;
             states[ButtonEssence.signalDown] = this.onInputDown;
             states[ButtonEssence.signalUp] = this.onInputUp;
             return states;
+        };
+        // Utils
+        ButtonEssence.prototype.resize = function (width, height) {
+            this.scale.set(width / this.texture.width, height / this.texture.height);
         };
         // ISignalSource
         ButtonEssence.signalOver = "signal.hover";
@@ -529,11 +602,35 @@ var Crimenuts;
     var WhiteButton = (function (_super) {
         __extends(WhiteButton, _super);
         function WhiteButton(command, position) {
+            if (position === void 0) { position = new Phaser.Point(); }
             _super.call(this, command, Crimenuts.Settings.UserInterface.Button.White.Regular.colors, Crimenuts.Settings.UserInterface.Button.White.Highlight.colors, position);
         }
         return WhiteButton;
     })(Crimenuts.TextButton);
     Crimenuts.WhiteButton = WhiteButton;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var Decorable = (function (_super) {
+        __extends(Decorable, _super);
+        function Decorable(width, height) {
+            _super.call(this, Crimenuts.app.game, 0, 0, Crimenuts.Settings.Assets.Sprites.transparent);
+            this.resize(width, height);
+        }
+        // IDecorable
+        Decorable.prototype.getSize = function () {
+            return new Crimenuts.Size(this.width, this.height);
+        };
+        Decorable.prototype.getDysplayObject = function () {
+            return this;
+        };
+        // Utils
+        Decorable.prototype.resize = function (width, height) {
+            this.scale.set(width / this.texture.width, height / this.texture.height);
+        };
+        return Decorable;
+    })(Phaser.Sprite);
+    Crimenuts.Decorable = Decorable;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -552,6 +649,36 @@ var Crimenuts;
         return DecorableProxy;
     })(Phaser.Group);
     Crimenuts.DecorableProxy = DecorableProxy;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var RectangleDecor = (function (_super) {
+        __extends(RectangleDecor, _super);
+        function RectangleDecor(component, fillColor, lineColor, lineWidth) {
+            if (fillColor === void 0) { fillColor = Crimenuts.Settings.Default.Shape.fillColor; }
+            if (lineColor === void 0) { lineColor = Crimenuts.Settings.Default.Shape.lineColor; }
+            if (lineWidth === void 0) { lineWidth = Crimenuts.Settings.Default.Shape.lineWidth; }
+            var size = component.getSize();
+            _super.call(this, Crimenuts.app.game, 0, 0);
+            this.createRectangle(size, fillColor, lineColor, lineWidth);
+            this.addChild(component.getDysplayObject());
+            this.component = component;
+        }
+        RectangleDecor.prototype.getSize = function () {
+            return this.component.getSize();
+        };
+        RectangleDecor.prototype.getDysplayObject = function () {
+            return this;
+        };
+        RectangleDecor.prototype.createRectangle = function (size, fillColor, lineColor, lineWidth) {
+            this.lineStyle(lineWidth, lineColor);
+            this.beginFill(fillColor);
+            this.drawRect(0, 0, size.width, size.height);
+            this.endFill();
+        };
+        return RectangleDecor;
+    })(Phaser.Graphics);
+    Crimenuts.RectangleDecor = RectangleDecor;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -682,19 +809,6 @@ var Crimenuts;
         return TextLabel;
     })(Phaser.Graphics);
     Crimenuts.TextLabel = TextLabel;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    var Command = (function () {
-        function Command(name, callback, context) {
-            if (context === void 0) { context = null; }
-            this.name = name;
-            this.callback = callback;
-            this.context = context;
-        }
-        return Command;
-    })();
-    Crimenuts.Command = Command;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -897,39 +1011,45 @@ var Crimenuts;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
 })(Crimenuts || (Crimenuts = {}));
+/// <reference path="../../../Commands/MemberDialogCommand.ts" />
+/// <reference path="../../../UserInterface/Buttons/ButtonEssence.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var View;
     (function (View) {
         var Process;
         (function (Process) {
-            var Member = (function (_super) {
-                __extends(Member, _super);
-                function Member(world, member, x, y, w, h) {
+            var MemberCard = (function (_super) {
+                __extends(MemberCard, _super);
+                function MemberCard(world, member, x, y, w, h) {
                     _super.call(this, Crimenuts.app.game);
                     this.position.set(x, y);
                     var name = member;
+                    this.createButton(w, h);
                     this.createPicture(world, name, w, h);
                     this.createNameBox(name, w, h);
                 }
-                Member.prototype.createPicture = function (world, name, w, h) {
+                MemberCard.prototype.createPicture = function (world, name, w, h) {
                     this.add(this.picture = new Crimenuts.PersonPicture(world, name, 0, 0, w));
                     this.picture.anchor.set(0, 1);
-                    this.picture.position.y = h - Member.nameHeight;
+                    this.picture.position.y = h - MemberCard.nameHeight;
                 };
-                Member.prototype.createNameBox = function (name, width, height) {
-                    this.add(this.nameLabel = new Crimenuts.TextLabel(width, Member.nameHeight, Crimenuts.Settings.Default.Font.face, Member.nameFontSize, Member.nameColor, Member.nameBgColor));
+                MemberCard.prototype.createNameBox = function (name, width, height) {
+                    this.add(this.nameLabel = new Crimenuts.TextLabel(width, MemberCard.nameHeight, Crimenuts.Settings.Default.Font.face, MemberCard.nameFontSize, MemberCard.nameColor, MemberCard.nameBgColor));
                     this.nameLabel.setText(name);
                     this.nameLabel.alignCenter();
-                    this.nameLabel.position.set(0, height - Member.nameHeight);
+                    this.nameLabel.position.set(0, height - MemberCard.nameHeight);
                 };
-                Member.nameHeight = Crimenuts.Settings.Process.Members.Member.Name.height;
-                Member.nameFontSize = Crimenuts.Settings.Process.Members.Member.Name.fontSize;
-                Member.nameColor = Crimenuts.Settings.Process.Members.Member.Name.color;
-                Member.nameBgColor = Crimenuts.Settings.Process.Members.Member.Name.bgColor;
-                return Member;
+                MemberCard.prototype.createButton = function (w, h) {
+                    this.add(this.button = new Crimenuts.ButtonEssence(new Crimenuts.MemberDialogCommand(), w, h));
+                };
+                MemberCard.nameHeight = Crimenuts.Settings.Process.Members.Card.Name.height;
+                MemberCard.nameFontSize = Crimenuts.Settings.Process.Members.Card.Name.fontSize;
+                MemberCard.nameColor = Crimenuts.Settings.Process.Members.Card.Name.color;
+                MemberCard.nameBgColor = Crimenuts.Settings.Process.Members.Card.Name.bgColor;
+                return MemberCard;
             })(Phaser.Group);
-            Process.Member = Member;
+            Process.MemberCard = MemberCard;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
 })(Crimenuts || (Crimenuts = {}));
@@ -954,7 +1074,7 @@ var Crimenuts;
                     for (var i in members) {
                         var p = this.calcPersonCardPosition(i, w, h);
                         var name = members[i];
-                        this.add(new Process.Member(world, name, p.x, p.y, w, h));
+                        this.add(new Crimenuts.View.Process.MemberCard(world, name, p.x, p.y, w, h));
                     }
                 };
                 Members.prototype.calcPersonCardPosition = function (i, w, h) {
@@ -963,8 +1083,8 @@ var Crimenuts;
                     var y = Math.floor(i / n) * h * 1.2;
                     return new Phaser.Point(x, y);
                 };
-                Members.memberWidth = Crimenuts.Settings.Process.Members.Member.width;
-                Members.memberHeight = Crimenuts.Settings.Process.Members.Member.height;
+                Members.memberWidth = Crimenuts.Settings.Process.Members.Card.width;
+                Members.memberHeight = Crimenuts.Settings.Process.Members.Card.height;
                 Members.memberNumInRow = Crimenuts.Settings.Process.Members.numInRow;
                 return Members;
             })(Phaser.Group);

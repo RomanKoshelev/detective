@@ -72,7 +72,7 @@ module Crimenuts.Settings {
             export var position = new Phaser.Point( 10*k, 75*k );
             export var numInRow = 6;
 
-            export module Member {
+            export module Card {
                 export var width = 100*k;
                 export var height = width*1.2;
 
@@ -82,6 +82,13 @@ module Crimenuts.Settings {
                     export var color = "#AAAAAA";
                     export var bgColor = 0x222222;
                 }
+            }
+
+            export module Dialog {
+                export var position = new Phaser.Point( 20*k, 80*k );
+                export var width = 680*k;
+                export var height = 250*k;
+                export var bgColor = 0x333333;
             }
         }
 
@@ -98,7 +105,7 @@ module Crimenuts.Settings {
             }
 
             export module StateBar {
-                export var position = new Phaser.Point( Bars.left, Members.position.y + (Members.Member.height + Members.Member.Name.height)*2 );
+                export var position = new Phaser.Point( Bars.left, Members.position.y + (Members.Card.height + Members.Card.Name.height)*2 );
             }
         }
 

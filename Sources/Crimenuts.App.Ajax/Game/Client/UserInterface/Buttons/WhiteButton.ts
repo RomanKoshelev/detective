@@ -3,7 +3,7 @@ module Crimenuts {
     export class WhiteButton extends TextButton {
         constructor(
             command: Command,
-            position: Phaser.Point
+            position: Phaser.Point=new Phaser.Point()
         ) {
             super(
                 command,

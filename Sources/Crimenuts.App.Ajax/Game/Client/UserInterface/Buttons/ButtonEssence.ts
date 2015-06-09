@@ -4,20 +4,14 @@ module Crimenuts {
 
         constructor(
             command: Command,
-            width: number = Settings.UserInterface.Button.width,
-            height: number  = Settings.UserInterface.Button.height
+            width: number,
+            height: number
             ) {
             super( app.game, 0, 0, Settings.UserInterface.Button.sprite, command.callback, command.context );
             this.resize( width, height );
         }
 
         // IDecorable
-        getGame(): Phaser.Game { return this.game; }
-
-        private resize( width: number, height: number ) {
-            this.scale.set( width / this.texture.width, height/ this.texture.height );
-        }
-
         getSize(): Size {
             return new Size( this.width, this.height );
         }
@@ -37,6 +31,11 @@ module Crimenuts {
             states[ButtonEssence.signalDown] = this.onInputDown;
             states[ButtonEssence.signalUp] = this.onInputUp;
             return states;
+        }
+
+        // Utils
+        private resize( width: number, height: number ) {
+            this.scale.set( width / this.texture.width, height/ this.texture.height );
         }
     }
 }

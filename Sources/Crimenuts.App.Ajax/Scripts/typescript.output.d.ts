@@ -92,7 +92,7 @@ declare module Crimenuts.Settings {
         module Members {
             var position: Phaser.Point;
             var numInRow: number;
-            module Member {
+            module Card {
                 var width: number;
                 var height: number;
                 module Name {
@@ -101,6 +101,12 @@ declare module Crimenuts.Settings {
                     var color: string;
                     var bgColor: number;
                 }
+            }
+            module Dialog {
+                var position: Phaser.Point;
+                var width: number;
+                var height: number;
+                var bgColor: number;
             }
         }
         module Bars {
@@ -134,6 +140,33 @@ declare module Crimenuts.Settings {
                 }
             }
         }
+    }
+}
+declare module Crimenuts {
+    class Command {
+        constructor(name: string, callback?: Function, context?: any);
+        name: string;
+        callback: Function;
+        context: any;
+    }
+}
+declare module Crimenuts.View.Process {
+    class MemberDialog extends Phaser.Group implements IDecorable {
+        static position: Phaser.Point;
+        static width: number;
+        static height: number;
+        static bgColor: number;
+        constructor();
+        getSize(): Size;
+        getDysplayObject(): PIXI.DisplayObject;
+        private createFrameDecoration(width, height);
+    }
+}
+declare module Crimenuts {
+    class MemberDialogCommand extends Command {
+        constructor();
+        private dialog;
+        private execute();
     }
 }
 declare module Crimenuts {
@@ -232,9 +265,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class ButtonEssence extends Phaser.Button implements IDecorable, ISignalSource {
-        constructor(command: Command, width?: number, height?: number);
-        getGame(): Phaser.Game;
-        private resize(width, height);
+        constructor(command: Command, width: number, height: number);
         getSize(): Size;
         getDysplayObject(): PIXI.DisplayObject;
         static signalOver: string;
@@ -244,6 +275,7 @@ declare module Crimenuts {
         getSignals(): {
             [key: string]: Phaser.Signal;
         };
+        private resize(width, height);
     }
 }
 declare module Crimenuts {
@@ -260,7 +292,15 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class WhiteButton extends TextButton {
-        constructor(command: Command, position: Phaser.Point);
+        constructor(command: Command, position?: Phaser.Point);
+    }
+}
+declare module Crimenuts {
+    class Decorable extends Phaser.Sprite implements IDecorable {
+        constructor(width: number, height: number);
+        getSize(): Size;
+        getDysplayObject(): PIXI.DisplayObject;
+        private resize(width, height);
     }
 }
 declare module Crimenuts {
@@ -275,6 +315,15 @@ declare module Crimenuts {
     interface IDecorable {
         getSize(): Size;
         getDysplayObject(): PIXI.DisplayObject;
+    }
+}
+declare module Crimenuts {
+    class RectangleDecor extends Phaser.Graphics implements IDecorable {
+        constructor(component: IDecorable, fillColor?: number, lineColor?: number, lineWidth?: number);
+        private component;
+        getSize(): Size;
+        getDysplayObject(): PIXI.DisplayObject;
+        createRectangle(size: Size, fillColor: number, lineColor: number, lineWidth: number): void;
     }
 }
 declare module Crimenuts {
@@ -318,14 +367,6 @@ declare module Crimenuts {
         setFontBold(): void;
         private createLabel(fontFace, fontSize, color);
         private createBackground(width, height, bgcolor);
-    }
-}
-declare module Crimenuts {
-    class Command {
-        constructor(name: string, callback: Function, context?: any);
-        name: string;
-        callback: Function;
-        context: any;
     }
 }
 declare module Crimenuts {
@@ -397,16 +438,18 @@ declare module Crimenuts.View.Process {
     }
 }
 declare module Crimenuts.View.Process {
-    class Member extends Phaser.Group {
+    class MemberCard extends Phaser.Group {
         static nameHeight: number;
         static nameFontSize: number;
         static nameColor: string;
         static nameBgColor: number;
         constructor(world: string, member: string, x: number, y: number, w: number, h: number);
         private picture;
+        private button;
         private nameLabel;
         private createPicture(world, name, w, h);
         private createNameBox(name, width, height);
+        createButton(w: number, h: number): void;
     }
 }
 declare module Crimenuts.View.Process {

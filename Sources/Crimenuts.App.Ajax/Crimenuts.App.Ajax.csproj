@@ -303,7 +303,9 @@
     <TypeScriptCompile Include="Game\Client\Managers\IProcessController.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\ProcessManager.ts" />
     <TypeScriptCompile Include="Game\Client\Server\IServerObserver.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\RectangleDecor.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Factory\DefaultUIFactory.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\Decorable.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Types\Command.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Types\ColorSet.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\DecorableProxy.ts" />
@@ -317,6 +319,8 @@
     <TypeScriptCompile Include="Game\Client\Managers\IProcessObserver.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\IProcessViewPart.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Factory\IUIFactory.ts" />
+    <TypeScriptCompile Include="Game\Client\Commands\MemberDialogCommand.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\MemberDialog.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Widgets\ITicksWidget.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Answers.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\ProcessView.ts" />
@@ -325,7 +329,7 @@
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\StateBar.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Persons\PersonPicture.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Display\TopBar.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Member.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\MemberCard.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Text\TextLabel.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Display.ts" />
     <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />

@@ -2,7 +2,7 @@ module Crimenuts {
     export class Command {
         constructor(
             name: string,
-            callback: Function,
+            callback: Function = null,
             context: any = null
         ) {
             this.name = name;

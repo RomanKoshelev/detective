@@ -12,8 +12,8 @@
             
         }
 
-        static memberWidth = Settings.Process.Members.Member.width;
-        static memberHeight = Settings.Process.Members.Member.height;
+        static memberWidth = Settings.Process.Members.Card.width;
+        static memberHeight = Settings.Process.Members.Card.height;
         static memberNumInRow = Settings.Process.Members.numInRow;
 
         private createMembers(world: string, members: string[]) {
@@ -22,7 +22,7 @@
             for( var i in members ) {
                 var p = this.calcPersonCardPosition( i, w, h );
                 var name = members[ i ];
-                this.add( new Member( world, name, p.x, p.y, w, h ) );
+                this.add( new Crimenuts.View.Process.MemberCard( world, name, p.x, p.y, w, h ) );
             }
         }
 
