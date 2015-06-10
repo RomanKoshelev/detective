@@ -158,6 +158,7 @@ declare module Crimenuts.View.Process {
         constructor();
         private createFrameDecoration(width, height);
         updateModel(model: ProcessModel): void;
+        private nameLabel;
     }
 }
 declare module Crimenuts {

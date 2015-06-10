@@ -267,6 +267,8 @@ var Crimenuts;
                 }
                 MemberDialog.prototype.createFrameDecoration = function (width, height) {
                     this.add(new Crimenuts.RectangleDecor(new Crimenuts.BracketDecor(new Crimenuts.Decorable(width, height), Crimenuts.Settings.Process.Members.Dialog.bracketColor, Crimenuts.Settings.Process.Members.Dialog.bracketWidth), Crimenuts.Settings.Process.Members.Dialog.bgColor, Crimenuts.Settings.BgColor.transparent, 0));
+                    this.add(this.nameLabel = new Crimenuts.TextLabel(300, 25, Crimenuts.Settings.Default.Font.face, 22, "0x000000", 0xAAAAAA));
+                    this.nameLabel.setText("Name");
                 };
                 MemberDialog.prototype.updateModel = function (model) {
                 };

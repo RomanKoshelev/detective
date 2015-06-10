@@ -8,7 +8,7 @@
             this.createFrameDecoration(
                 Settings.Process.Members.Dialog.width,
                 Settings.Process.Members.Dialog.height
-                );
+            );
         }
 
         private createFrameDecoration( width: number, height: number ) {
@@ -24,10 +24,19 @@
                     0
                 )
             );
+            this.add( this.nameLabel = new TextLabel(
+                300, 25,
+                Settings.Default.Font.face,
+                22,
+                "0x000000",
+                0xAAAAAA ) );
+            this.nameLabel.setText( "Name" );
         }
 
         updateModel( model: ProcessModel ): void {
 
         }
+
+        private nameLabel: TextLabel;
     }
 }
