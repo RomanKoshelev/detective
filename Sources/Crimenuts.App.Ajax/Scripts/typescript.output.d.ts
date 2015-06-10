@@ -103,10 +103,13 @@ declare module Crimenuts.Settings {
                 }
             }
             module Dialog {
+                var left: number;
                 var position: Phaser.Point;
                 var width: number;
                 var height: number;
                 var bgColor: number;
+                var bracketColor: number;
+                var bracketWidth: number;
             }
         }
         module Bars {
@@ -151,15 +154,10 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts.View.Process {
-    class MemberDialog extends Phaser.Group implements IDecorable {
-        static position: Phaser.Point;
-        static width: number;
-        static height: number;
-        static bgColor: number;
+    class MemberDialog extends Phaser.Group implements IProcessViewPart {
         constructor();
-        getSize(): Size;
-        getDysplayObject(): PIXI.DisplayObject;
         private createFrameDecoration(width, height);
+        updateModel(model: ProcessModel): void;
     }
 }
 declare module Crimenuts {
@@ -228,10 +226,10 @@ declare module Crimenuts {
 }
 declare module Crimenuts.View.Process {
     class ProcessView extends Phaser.Group {
-        constructor(game: Phaser.Game, controller: IProcessController, observer: IProcessObserver, model: ProcessModel, factory: IUIFactory);
+        constructor(controller: IProcessController, observer: IProcessObserver, model: ProcessModel);
         private parts;
         private ticks;
-        private createParts(controller, observer, model, factory);
+        private createParts(controller, observer, model);
         private addPart(part);
         private updateParts(model);
         private subscribeEvents(observer);
@@ -293,6 +291,15 @@ declare module Crimenuts {
 declare module Crimenuts {
     class WhiteButton extends TextButton {
         constructor(command: Command, position?: Phaser.Point);
+    }
+}
+declare module Crimenuts {
+    class BracketDecor extends Phaser.Graphics implements IDecorable {
+        constructor(component: IDecorable, lineColor?: number, lineWidth?: number);
+        private component;
+        getSize(): Size;
+        getDysplayObject(): PIXI.DisplayObject;
+        createBrackets(size: Size, lineColor: number, lineWidth: number): void;
     }
 }
 declare module Crimenuts {
@@ -403,7 +410,7 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class Answers extends Phaser.Group implements IProcessViewPart {
-        constructor(position: Phaser.Point, controller: IProcessController, observer: IProcessObserver, model: ProcessModel, factory: IUIFactory);
+        constructor(position: Phaser.Point, controller: IProcessController, observer: IProcessObserver, model: ProcessModel);
         updateModel(model: ProcessModel): void;
         private answerSheet;
         private controller;
@@ -413,8 +420,8 @@ declare module Crimenuts.View.Process {
         private updateAnswers(answers);
         private onProcessAnswersUpdated(processId, answerModels);
         private subscribe(observer);
-        createButtons(factory: IUIFactory): void;
-        private createButton(factory, command, position);
+        createButtons(): void;
+        private createButton(command, position);
     }
 }
 declare module Crimenuts.View.Process {

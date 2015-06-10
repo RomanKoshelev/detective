@@ -303,10 +303,11 @@
     <TypeScriptCompile Include="Game\Client\Managers\IProcessController.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\ProcessManager.ts" />
     <TypeScriptCompile Include="Game\Client\Server\IServerObserver.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\BracketDecor.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\RectangleDecor.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Factory\DefaultUIFactory.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\Decorable.ts" />
-    <TypeScriptCompile Include="Game\Client\UserInterface\Types\Command.ts" />
+    <TypeScriptCompile Include="Game\Client\Commands\Command.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Types\ColorSet.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\DecorableProxy.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Buttons\TextButton.ts" />
@@ -389,7 +390,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1656</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2016/</IISUrl>
+          <IISUrl>http://localhost:2017/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -85,10 +85,13 @@ module Crimenuts.Settings {
             }
 
             export module Dialog {
-                export var position = new Phaser.Point( 20*k, 80*k );
-                export var width = 680*k;
-                export var height = 250*k;
-                export var bgColor = 0x333333;
+                export var left = 5*k;
+                export var position = new Phaser.Point( left, 540*k );
+                export var width = Game.width-left*2;
+                export var height = 200*k;
+                export var bgColor = 0x1a1a1a;
+                export var bracketColor = 0x888888;
+                export var bracketWidth = 2;
             }
         }
 
@@ -110,10 +113,10 @@ module Crimenuts.Settings {
         }
 
         export module Answers {
-            export var position = new Phaser.Point( 5*k, Bars.StateBar.position.y + Bars.height );
+            export var position = new Phaser.Point( 15*k, Bars.StateBar.position.y + Bars.height );
             export var width = Game.width - position.x*2;
             export var height = 170*k;
-            export var bgColor = 0x111111;
+            export var bgColor = 0x000000;
 
             export module Buttons {
                 export module Auto {

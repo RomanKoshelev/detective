@@ -1,5 +1,4 @@
-﻿/// <reference path="../UserInterface/Types/Command.ts" />
-/// <reference path="../Views/Process/Parts/MemberDialog.ts" />
+﻿/// <reference path="../Views/Process/Parts/MemberDialog.ts" />
 module Crimenuts {
     import MemberDialog = View.Process.MemberDialog;
 

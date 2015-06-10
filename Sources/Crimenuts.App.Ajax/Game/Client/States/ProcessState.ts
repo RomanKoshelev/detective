@@ -36,7 +36,7 @@ module Crimenuts {
         }
 
         private createView( model: ProcessModel ) {
-            this.view = new ProcessView( this.game, this.controller, this.observer, model, app.uiFactory );
+            this.view = new ProcessView( this.controller, this.observer, model );
         }
 
         private subscribeEvents() {

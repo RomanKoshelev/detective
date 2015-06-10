@@ -5,14 +5,13 @@
             position: Phaser.Point,
             controller: IProcessController,
             observer: IProcessObserver,
-            model: ProcessModel,
-            factory: IUIFactory
+            model: ProcessModel
         ) {
             super( app.game );
             this.position = position;
             this.controller = controller;
             this.createAnswers();
-            this.createButtons(factory);
+            this.createButtons();
             this.updateModel( model );
             this.subscribe( observer );
         }
@@ -68,15 +67,14 @@
             observer.onProcessAnswersUpdated.add( this.onProcessAnswersUpdated, this );
         }
 
-        createButtons( factory: IUIFactory ) {
+        createButtons() {
             this.createButton(
-                factory,
                 new Command( "Auto", this.cmdAutoAnswer, this),
                 Settings.Process.Answers.Buttons.Auto.position );
         }
 
-        private createButton( factory: IUIFactory, command: Command, position: Phaser.Point ) {
-            this.add( factory.makeDefaultButton( command, position ) );
+        private createButton( command: Command, position: Phaser.Point ) {
+            this.add( app.uiFactory.makeDefaultButton( command, position ) );
         }
     }
 }

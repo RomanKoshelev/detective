@@ -1,30 +1,33 @@
 ﻿module Crimenuts.View.Process {
 
-    export class MemberDialog extends Phaser.Group implements IDecorable{
-
-        static position = Settings.Process.Members.Dialog.position;
-        static width = Settings.Process.Members.Dialog.width;
-        static height = Settings.Process.Members.Dialog.height;
-        static bgColor = Settings.Process.Members.Dialog.bgColor;
+    export class MemberDialog extends Phaser.Group implements IProcessViewPart {
 
         constructor() {
             super( app.game );
-            this.position.set( MemberDialog.position.x, MemberDialog.position.y );
-            this.createFrameDecoration( MemberDialog.width, MemberDialog.height );
-        }
-
-        getSize(): Size {
-            return new Size( MemberDialog.width, MemberDialog.height );
-        }
-
-        getDysplayObject(): PIXI.DisplayObject {
-            return this;
+            this.position = Settings.Process.Members.Dialog.position.clone();
+            this.createFrameDecoration(
+                Settings.Process.Members.Dialog.width,
+                Settings.Process.Members.Dialog.height
+                );
         }
 
         private createFrameDecoration( width: number, height: number ) {
-            var area = new Decorable(width, height);
-            var frameDecor = new RectangleDecor( area, MemberDialog.bgColor );
-            this.add( frameDecor );
+            this.add(
+                new RectangleDecor(
+                    new BracketDecor(
+                        new Decorable( width, height ),
+                        Settings.Process.Members.Dialog.bracketColor,
+                        Settings.Process.Members.Dialog.bracketWidth
+                    ),
+                    Settings.Process.Members.Dialog.bgColor,
+                    Settings.BgColor.transparent,
+                    0
+                )
+            );
+        }
+
+        updateModel( model: ProcessModel ): void {
+
         }
     }
 }
