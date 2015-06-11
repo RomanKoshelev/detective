@@ -1,15 +1,23 @@
 ﻿module Crimenuts {
     export class PersonPicture extends Phaser.Image {
 
-        constructor( world: string, name: string, x: number, y: number, width: number ) {
+        constructor( x: number, y: number, width: number, world: string="", name: string="" ) {
+            this.imageWidth = width;
             super( app.game, x, y, "", 0 );
-            var loader = this.getLoader( world, name, width );
-            this.imageKey = Assets.Sprites.getPersonKey( world, name, width );
+            if( world!=="" && name !== "" ) {
+                this.setPerson( world, name );
+            }
+        }
+
+        setPerson( world: string, name: string ) {
+            var loader = this.getLoader( world, name, this.imageWidth );
+            this.imageKey = Assets.Sprites.getPersonKey( world, name, this.imageWidth );
             loader.onLoadComplete.addOnce( this.onLoadComplete, this );
             loader.start();
         }
 
         private imageKey: string;
+        private imageWidth: number;
 
         private getLoader( world: string, name: string, width: number ) {
             var loader = new Phaser.Loader( this.game );

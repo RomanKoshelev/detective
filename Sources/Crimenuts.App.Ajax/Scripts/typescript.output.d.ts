@@ -166,10 +166,12 @@ declare module Crimenuts.View.Process {
         constructor(model: ProcessModel);
         setMember(memberId: number): void;
         updateModel(model: ProcessModel): void;
-        private nameLabel;
         private model;
+        private memberName;
+        private memberPicture;
         private createFrameDecoration();
         private createName();
+        private createPersonPicture();
     }
 }
 declare module Crimenuts {
@@ -412,8 +414,10 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class PersonPicture extends Phaser.Image {
-        constructor(world: string, name: string, x: number, y: number, width: number);
+        constructor(x: number, y: number, width: number, world?: string, name?: string);
+        setPerson(world: string, name: string): void;
         private imageKey;
+        private imageWidth;
         private getLoader(world, name, width);
         private onLoadComplete();
     }
@@ -476,7 +480,7 @@ declare module Crimenuts.View.Process {
         private nameLabel;
         private createPicture(world, name, w, h);
         private createNameBox(name, width, height);
-        createButton(w: number, h: number, command: Command): void;
+        private createButton(w, h, command);
     }
 }
 declare module Crimenuts.View.Process {

@@ -7,21 +7,22 @@
             this.model = model;
             this.createFrameDecoration();
             this.createName();
+            this.createPersonPicture();
             this.setMember( 0 );
         }
 
         setMember( memberId: number ) {
-            this.nameLabel.setText(
-                this.model.Members[ memberId ] );
+            this.memberName.setText( this.model.Members[ memberId ] );
+            this.memberPicture.setPerson( this.model.World, this.model.Members[ memberId ] );
         }
-
 
         updateModel( model: ProcessModel ): void {
 
         }
 
-        private nameLabel: TextLabel;
         private model: ProcessModel;
+        private memberName: TextLabel;
+        private memberPicture: PersonPicture;
 
         private createFrameDecoration() {
             this.add(
@@ -42,12 +43,16 @@
         }
 
         private createName() {
-            this.add( this.nameLabel = app.uiFactory.makeTextLabel(
+            this.add( this.memberName = app.uiFactory.makeTextLabel(
                 Settings.Process.Members.Dialog.Name.width,
                 Settings.Process.Members.Dialog.Name.height,
                 Settings.Process.Members.Dialog.Name.color,
                 Settings.Process.Members.Dialog.Name.bgColor
             ) );
+        }
+
+        private createPersonPicture() {
+            this.add( this.memberPicture = new PersonPicture( 0, 40, 170 ) );
         }
     }
 }

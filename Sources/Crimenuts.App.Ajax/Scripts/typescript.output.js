@@ -276,10 +276,12 @@ var Crimenuts;
                     this.model = model;
                     this.createFrameDecoration();
                     this.createName();
+                    this.createPersonPicture();
                     this.setMember(0);
                 }
                 MemberDialog.prototype.setMember = function (memberId) {
-                    this.nameLabel.setText(this.model.Members[memberId]);
+                    this.memberName.setText(this.model.Members[memberId]);
+                    this.memberPicture.setPerson(this.model.World, this.model.Members[memberId]);
                 };
                 MemberDialog.prototype.updateModel = function (model) {
                 };
@@ -287,7 +289,10 @@ var Crimenuts;
                     this.add(new Crimenuts.RectangleDecor(new Crimenuts.BracketDecor(new Crimenuts.Decorable(Crimenuts.Settings.Process.Members.Dialog.width, Crimenuts.Settings.Process.Members.Dialog.height), Crimenuts.Settings.Process.Members.Dialog.bracketColor, Crimenuts.Settings.Process.Members.Dialog.bracketWidth), Crimenuts.Settings.Process.Members.Dialog.bgColor, Crimenuts.Settings.BgColor.transparent, 0));
                 };
                 MemberDialog.prototype.createName = function () {
-                    this.add(this.nameLabel = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Members.Dialog.Name.width, Crimenuts.Settings.Process.Members.Dialog.Name.height, Crimenuts.Settings.Process.Members.Dialog.Name.color, Crimenuts.Settings.Process.Members.Dialog.Name.bgColor));
+                    this.add(this.memberName = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Members.Dialog.Name.width, Crimenuts.Settings.Process.Members.Dialog.Name.height, Crimenuts.Settings.Process.Members.Dialog.Name.color, Crimenuts.Settings.Process.Members.Dialog.Name.bgColor));
+                };
+                MemberDialog.prototype.createPersonPicture = function () {
+                    this.add(this.memberPicture = new Crimenuts.PersonPicture(0, 40, 170));
                 };
                 return MemberDialog;
             })(Phaser.Group);
@@ -926,13 +931,21 @@ var Crimenuts;
 (function (Crimenuts) {
     var PersonPicture = (function (_super) {
         __extends(PersonPicture, _super);
-        function PersonPicture(world, name, x, y, width) {
+        function PersonPicture(x, y, width, world, name) {
+            if (world === void 0) { world = ""; }
+            if (name === void 0) { name = ""; }
+            this.imageWidth = width;
             _super.call(this, Crimenuts.app.game, x, y, "", 0);
-            var loader = this.getLoader(world, name, width);
-            this.imageKey = Crimenuts.Assets.Sprites.getPersonKey(world, name, width);
+            if (world !== "" && name !== "") {
+                this.setPerson(world, name);
+            }
+        }
+        PersonPicture.prototype.setPerson = function (world, name) {
+            var loader = this.getLoader(world, name, this.imageWidth);
+            this.imageKey = Crimenuts.Assets.Sprites.getPersonKey(world, name, this.imageWidth);
             loader.onLoadComplete.addOnce(this.onLoadComplete, this);
             loader.start();
-        }
+        };
         PersonPicture.prototype.getLoader = function (world, name, width) {
             var loader = new Phaser.Loader(this.game);
             loader.image(Crimenuts.Assets.Sprites.getPersonKey(world, name, width), Crimenuts.Assets.Sprites.getPersonUrl(world, name, width));
@@ -1083,7 +1096,7 @@ var Crimenuts;
                     this.createNameBox(name, w, h);
                 }
                 MemberCard.prototype.createPicture = function (world, name, w, h) {
-                    this.add(this.picture = new Crimenuts.PersonPicture(world, name, 0, 0, w));
+                    this.add(this.picture = new Crimenuts.PersonPicture(0, 0, w, world, name));
                     this.picture.anchor.set(0, 1);
                     this.picture.position.y = h - MemberCard.nameHeight;
                 };

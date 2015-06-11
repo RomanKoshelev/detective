@@ -22,7 +22,7 @@ module Crimenuts.View.Process {
         private nameLabel: TextLabel;
 
         private createPicture( world: string, name: string, w: number, h: number ) {
-            this.add( this.picture = new PersonPicture( world, name, 0, 0, w ) );
+            this.add( this.picture = new PersonPicture( 0, 0, w, world, name ) );
             this.picture.anchor.set( 0, 1 );
             this.picture.position.y = h - MemberCard.nameHeight;
         }
@@ -38,7 +38,7 @@ module Crimenuts.View.Process {
             this.nameLabel.position.set( 0, height - MemberCard.nameHeight );
         }
 
-        createButton( w: number, h: number, command: Command ) {
+        private createButton( w: number, h: number, command: Command ) {
             this.add( this.button = new ButtonEssence( command, w, h ) );
         }
     }
