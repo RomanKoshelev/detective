@@ -15,11 +15,9 @@
         private textLabel: TextLabel;
 
         private createTextLabel() {
-            this.add( this.textLabel = new TextLabel(
+            this.add( this.textLabel = app.uiFactory.makeTextLabel(
                 Settings.Process.Bars.width,
                 Settings.Process.Bars.height,
-                Settings.Default.Font.face,
-                Settings.Process.Bars.fontSize,
                 Settings.Process.Bars.textColor,
                 Settings.Process.Bars.bgColor ) );
         }

@@ -63,6 +63,10 @@ module Crimenuts.Settings {
                 }
             }
         }
+
+        export module TextLabel {
+            export var fontSizeToHeightRate = 16/25;
+        }
     }
 
     export module Process {
@@ -92,13 +96,19 @@ module Crimenuts.Settings {
                 export var bgColor = 0x1a1a1a;
                 export var bracketColor = 0x888888;
                 export var bracketWidth = 2;
+
+                export module Name {
+                    export var width = 250*k;
+                    export var height = 25*k;
+                    export var color = "#000000";
+                    export var bgColor = 0xAAAAAA;
+                }
             }
         }
 
         export module Bars {
             export var textColor = "#000000";
             export var bgColor = 0x444444;
-            export var fontSize = 16*k;
             export var left = 5*k;
             export var width = Game.width-left*2;
             export var height = 25*k;

@@ -24,12 +24,13 @@
                     0
                 )
             );
-            this.add( this.nameLabel = new TextLabel(
-                300, 25,
-                Settings.Default.Font.face,
-                22,
-                "0x000000",
-                0xAAAAAA ) );
+            this.add( this.nameLabel = app.uiFactory.makeTextLabel(
+                Settings.Process.Members.Dialog.Name.width,
+                Settings.Process.Members.Dialog.Name.height,
+                Settings.Process.Members.Dialog.Name.color,
+                Settings.Process.Members.Dialog.Name.bgColor
+            ) );
+
             this.nameLabel.setText( "Name" );
         }
 
