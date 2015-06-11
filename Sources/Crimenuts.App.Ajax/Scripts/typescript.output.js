@@ -945,7 +945,7 @@ var Crimenuts;
         }
         PersonPicture.prototype.setPerson = function (world, name) {
             this.imageKey = Crimenuts.Assets.Sprites.getPersonKey(world, name, this.imageWidth);
-            if (this.keyInCache()) {
+            if (this.game.cache.checkImageKey(this.imageKey)) {
                 this.onLoadComplete();
             }
             else {
@@ -955,15 +955,11 @@ var Crimenuts;
             }
         };
         PersonPicture.prototype.getLoader = function (world, name, width) {
-            var loader = new Phaser.Loader(this.game);
-            loader.image(Crimenuts.Assets.Sprites.getPersonKey(world, name, width), Crimenuts.Assets.Sprites.getPersonUrl(world, name, width));
-            return loader;
+            this.game.load.image(Crimenuts.Assets.Sprites.getPersonKey(world, name, width), Crimenuts.Assets.Sprites.getPersonUrl(world, name, width));
+            return this.game.load;
         };
         PersonPicture.prototype.onLoadComplete = function () {
             this.loadTexture(this.imageKey, 0);
-        };
-        PersonPicture.prototype.keyInCache = function () {
-            return new Phaser.Cache(this.game).checkImageKey(this.imageKey);
         };
         return PersonPicture;
     })(Phaser.Image);

@@ -423,7 +423,6 @@ declare module Crimenuts {
         private imageWidth;
         private getLoader(world, name, width);
         private onLoadComplete();
-        private keyInCache();
     }
 }
 declare module Crimenuts.View.Process {

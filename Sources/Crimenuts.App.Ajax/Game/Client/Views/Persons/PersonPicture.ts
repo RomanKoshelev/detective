@@ -11,7 +11,7 @@
 
         setPerson( world: string, name: string ) {
             this.imageKey = Assets.Sprites.getPersonKey( world, name, this.imageWidth );
-            if( this.keyInCache() ) {
+            if( this.game.cache.checkImageKey( this.imageKey ) ) {
                 this.onLoadComplete();
             } else {
                 var loader = this.getLoader( world, name, this.imageWidth );
@@ -24,20 +24,15 @@
         private imageWidth: number;
 
         private getLoader( world: string, name: string, width: number ) : Phaser.Loader {
-            var loader = new Phaser.Loader( this.game );
-            loader.image(
+            this.game.load.image(
                 Assets.Sprites.getPersonKey( world, name, width ),
                 Assets.Sprites.getPersonUrl( world, name, width )
             );
-            return loader;
+            return this.game.load;
         }
 
         private onLoadComplete() {
             this.loadTexture( this.imageKey, 0 );
-        }
-
-        private keyInCache() {
-            return new Phaser.Cache( this.game ).checkImageKey( this.imageKey );
         }
     }
 }
