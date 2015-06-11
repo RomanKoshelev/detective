@@ -1,21 +1,36 @@
 ﻿module Crimenuts.View.Process {
+    export class MemberDialog extends Phaser.Group implements IProcessViewPart, IMemberDialog {
 
-    export class MemberDialog extends Phaser.Group implements IProcessViewPart {
-
-        constructor() {
+        constructor( model: ProcessModel ) {
             super( app.game );
             this.position = Settings.Process.Members.Dialog.position.clone();
-            this.createFrameDecoration(
-                Settings.Process.Members.Dialog.width,
-                Settings.Process.Members.Dialog.height
-            );
+            this.model = model;
+            this.createFrameDecoration();
+            this.createName();
+            this.setMember( 0 );
         }
 
-        private createFrameDecoration( width: number, height: number ) {
+        setMember( memberId: number ) {
+            this.nameLabel.setText(
+                this.model.Members[ memberId ] );
+        }
+
+
+        updateModel( model: ProcessModel ): void {
+
+        }
+
+        private nameLabel: TextLabel;
+        private model: ProcessModel;
+
+        private createFrameDecoration() {
             this.add(
                 new RectangleDecor(
                     new BracketDecor(
-                        new Decorable( width, height ),
+                        new Decorable(
+                            Settings.Process.Members.Dialog.width,
+                            Settings.Process.Members.Dialog.height
+                        ),
                         Settings.Process.Members.Dialog.bracketColor,
                         Settings.Process.Members.Dialog.bracketWidth
                     ),
@@ -24,20 +39,15 @@
                     0
                 )
             );
+        }
+
+        private createName() {
             this.add( this.nameLabel = app.uiFactory.makeTextLabel(
                 Settings.Process.Members.Dialog.Name.width,
                 Settings.Process.Members.Dialog.Name.height,
                 Settings.Process.Members.Dialog.Name.color,
                 Settings.Process.Members.Dialog.Name.bgColor
             ) );
-
-            this.nameLabel.setText( "Name" );
         }
-
-        updateModel( model: ProcessModel ): void {
-
-        }
-
-        private nameLabel: TextLabel;
     }
 }

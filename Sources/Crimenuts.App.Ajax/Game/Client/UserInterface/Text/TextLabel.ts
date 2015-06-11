@@ -72,7 +72,7 @@ module Crimenuts {
         private createBackground( width: number, height: number, bgcolor: number ) {
             var a = bgcolor === Settings.BgColor.transparent? 0: 1;
             this.beginFill( bgcolor, a );
-            this.drawRect( 0, 0, width, height );
+            this.drawRect( 0,0, width, height );
             this.endFill();
         }
     }

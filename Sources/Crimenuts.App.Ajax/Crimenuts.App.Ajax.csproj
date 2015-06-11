@@ -321,6 +321,7 @@
     <TypeScriptCompile Include="Game\Client\Views\Process\IProcessViewPart.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Factory\IUIFactory.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\MemberDialogCommand.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\IMemberDialog.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\MemberDialog.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Widgets\ITicksWidget.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Answers.ts" />

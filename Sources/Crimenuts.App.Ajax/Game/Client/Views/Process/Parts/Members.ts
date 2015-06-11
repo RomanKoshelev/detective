@@ -1,28 +1,31 @@
-﻿module Crimenuts.View.Process {
+﻿/// <reference path="../../../Commands/MemberDialogCommand.ts" />
+module Crimenuts.View.Process {
 
     export class Members extends Phaser.Group implements IProcessViewPart {
 
-        constructor( position: Phaser.Point, model: ProcessModel ) {
+        constructor( position: Phaser.Point, model: ProcessModel, dialog: IMemberDialog ) {
             super( app.game );
             this.position = position;
-            this.createMembers(model.World, model.Members);
+            this.createMembers( model.World, model.Members, dialog );
         }
 
         updateModel( model: ProcessModel ): void {
-            
+
         }
 
         static memberWidth = Settings.Process.Members.Card.width;
         static memberHeight = Settings.Process.Members.Card.height;
         static memberNumInRow = Settings.Process.Members.numInRow;
 
-        private createMembers(world: string, members: string[]) {
+        private createMembers( world: string, members: string[], dialog: IMemberDialog ) {
             var w = Members.memberWidth;
             var h = Members.memberHeight;
             for( var i in members ) {
                 var p = this.calcPersonCardPosition( i, w, h );
                 var name = members[ i ];
-                this.add( new Crimenuts.View.Process.MemberCard( world, name, p.x, p.y, w, h ) );
+                this.add( new MemberCard( world, name, p.x, p.y, w, h,
+                    new MemberDialogCommand( dialog, i )
+                ) );
             }
         }
 

@@ -1,21 +1,23 @@
 ﻿/// <reference path="../Views/Process/Parts/MemberDialog.ts" />
 module Crimenuts {
-    import MemberDialog = View.Process.MemberDialog;
+    import IMemberDialog = View.Process.IMemberDialog;
 
     export class MemberDialogCommand extends Command {
 
-        constructor() {
+        constructor( dialog: IMemberDialog, memberId: number ) {
             super( "Open Member Dialog" );
             this.callback = this.execute;
             this.context = this;
+            this.dialog = dialog;
+            this.memberId = memberId;
         }
 
-        private dialog : MemberDialog = null;
+        private dialog: IMemberDialog;
+        private memberId: number;
 
         private execute() {
-            if( this.dialog == null ) {
-                this.dialog = new MemberDialog();
-            }
+            this.dialog.setMember( this.memberId );
         }
+
     }
 }

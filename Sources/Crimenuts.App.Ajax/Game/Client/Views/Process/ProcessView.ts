@@ -21,13 +21,14 @@
             controller: IProcessController,
             observer: IProcessObserver,
             model: ProcessModel
-        ) {
+            ) {
+            var dialog : IMemberDialog;
             this.addPart( this.ticks = new Display() );
             this.addPart( new StateBar( Settings.Process.Bars.StateBar.position ) );
             this.addPart( new InfoBar( Settings.Process.Bars.InfoBar.position ) );
-            this.addPart( new Members( Settings.Process.Members.position, model ) );
+            this.addPart( dialog = new MemberDialog( model ) );
+            this.addPart( new Members( Settings.Process.Members.position, model, dialog ) );
             this.addPart( new Answers( Settings.Process.Answers.position, controller, observer, model ) );
-            this.addPart( new MemberDialog() );
             this.updateParts( model );
         }
 

@@ -125,7 +125,7 @@ module Crimenuts.Settings {
         export module Answers {
             export var position = new Phaser.Point( 15*k, Bars.StateBar.position.y + Bars.height );
             export var width = Game.width - position.x*2;
-            export var height = 170*k;
+            export var height = 165*k;
             export var bgColor = 0x000000;
 
             export module Buttons {

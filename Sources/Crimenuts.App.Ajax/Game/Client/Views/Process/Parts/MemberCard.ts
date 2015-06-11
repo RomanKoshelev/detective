@@ -1,5 +1,4 @@
-﻿/// <reference path="../../../Commands/MemberDialogCommand.ts" />
-/// <reference path="../../../UserInterface/Buttons/ButtonEssence.ts" />
+﻿/// <reference path="../../../UserInterface/Buttons/ButtonEssence.ts" />
 
 module Crimenuts.View.Process {
     export class MemberCard extends Phaser.Group {
@@ -9,11 +8,11 @@ module Crimenuts.View.Process {
         static nameColor = Settings.Process.Members.Card.Name.color;
         static nameBgColor = Settings.Process.Members.Card.Name.bgColor;
 
-        constructor( world: string, member: string, x: number, y: number, w: number, h: number ) {
+        constructor( world: string, member: string, x: number, y: number, w: number, h: number, command: Command ) {
             super( app.game );
             this.position.set( x, y );
             var name = member;
-            this.createButton( w, h );
+            this.createButton( w, h, command );
             this.createPicture( world, name, w, h );
             this.createNameBox( name, w, h );
         }
@@ -39,8 +38,8 @@ module Crimenuts.View.Process {
             this.nameLabel.position.set( 0, height - MemberCard.nameHeight );
         }
 
-        createButton( w: number, h: number ) {
-            this.add( this.button = new ButtonEssence( new MemberDialogCommand(), w, h ) );
+        createButton( w: number, h: number, command: Command ) {
+            this.add( this.button = new ButtonEssence( command, w, h ) );
         }
     }
 }
