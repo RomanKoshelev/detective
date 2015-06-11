@@ -52,7 +52,7 @@
         }
 
         private createPersonPicture() {
-            this.add( this.memberPicture = new PersonPicture( 0, 40, 170 ) );
+            this.add( this.memberPicture = new PersonPicture( 0, 40, 160 ) );
         }
     }
 }

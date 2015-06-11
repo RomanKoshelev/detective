@@ -96,7 +96,7 @@ module Crimenuts.Settings {
                 export var position = new Phaser.Point( left, top );
                 export var width = Game.width-left*2;
                 export var height = 200*k;
-                export var bgColor = 0x111111;
+                export var bgColor = 0x101010;
                 export var bracketColor = 0x888888;
                 export var bracketWidth = 2;
 
@@ -121,7 +121,7 @@ module Crimenuts.Settings {
             }
 
             export module StateBar {
-                export var position = new Phaser.Point( Bars.left, 300*k);
+                export var position = new Phaser.Point( Bars.left, -300*k);
             }
         }
 

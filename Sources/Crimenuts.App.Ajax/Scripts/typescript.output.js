@@ -192,7 +192,7 @@ var Crimenuts;
                     Dialog.position = new Phaser.Point(Dialog.left, Dialog.top);
                     Dialog.width = Game.width - Dialog.left * 2;
                     Dialog.height = 200 * k;
-                    Dialog.bgColor = 0x111111;
+                    Dialog.bgColor = 0x101010;
                     Dialog.bracketColor = 0x888888;
                     Dialog.bracketWidth = 2;
                     var Name;
@@ -217,7 +217,7 @@ var Crimenuts;
                 })(InfoBar = Bars.InfoBar || (Bars.InfoBar = {}));
                 var StateBar;
                 (function (StateBar) {
-                    StateBar.position = new Phaser.Point(Bars.left, 300 * k);
+                    StateBar.position = new Phaser.Point(Bars.left, -300 * k);
                 })(StateBar = Bars.StateBar || (Bars.StateBar = {}));
             })(Bars = Process.Bars || (Process.Bars = {}));
             var Answers;
@@ -295,7 +295,7 @@ var Crimenuts;
                     this.add(this.memberName = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Members.Dialog.Name.width, Crimenuts.Settings.Process.Members.Dialog.Name.height, Crimenuts.Settings.Process.Members.Dialog.Name.color, Crimenuts.Settings.Process.Members.Dialog.Name.bgColor));
                 };
                 MemberDialog.prototype.createPersonPicture = function () {
-                    this.add(this.memberPicture = new Crimenuts.PersonPicture(0, 40, 170));
+                    this.add(this.memberPicture = new Crimenuts.PersonPicture(0, 40, 160));
                 };
                 return MemberDialog;
             })(Phaser.Group);
