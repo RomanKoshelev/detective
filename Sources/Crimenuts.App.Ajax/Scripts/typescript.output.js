@@ -169,7 +169,9 @@ var Crimenuts;
             Process.bgColor = "#000000";
             var Members;
             (function (Members) {
-                Members.position = new Phaser.Point(10 * k, 75 * k);
+                Members.left = 10 * k;
+                Members.top = 510 * k;
+                Members.position = new Phaser.Point(Members.left, Members.top);
                 Members.numInRow = 6;
                 var Card;
                 (function (Card) {
@@ -186,10 +188,11 @@ var Crimenuts;
                 var Dialog;
                 (function (Dialog) {
                     Dialog.left = 5 * k;
-                    Dialog.position = new Phaser.Point(Dialog.left, 540 * k);
+                    Dialog.top = 280 * k;
+                    Dialog.position = new Phaser.Point(Dialog.left, Dialog.top);
                     Dialog.width = Game.width - Dialog.left * 2;
                     Dialog.height = 200 * k;
-                    Dialog.bgColor = 0x1a1a1a;
+                    Dialog.bgColor = 0x111111;
                     Dialog.bracketColor = 0x888888;
                     Dialog.bracketWidth = 2;
                     var Name;
@@ -214,12 +217,12 @@ var Crimenuts;
                 })(InfoBar = Bars.InfoBar || (Bars.InfoBar = {}));
                 var StateBar;
                 (function (StateBar) {
-                    StateBar.position = new Phaser.Point(Bars.left, Members.position.y + (Members.Card.height + Members.Card.Name.height) * 2);
+                    StateBar.position = new Phaser.Point(Bars.left, 300 * k);
                 })(StateBar = Bars.StateBar || (Bars.StateBar = {}));
             })(Bars = Process.Bars || (Process.Bars = {}));
             var Answers;
             (function (Answers) {
-                Answers.position = new Phaser.Point(15 * k, Bars.StateBar.position.y + Bars.height);
+                Answers.position = new Phaser.Point(15 * k, 65 * k);
                 Answers.width = Game.width - Answers.position.x * 2;
                 Answers.height = 165 * k;
                 Answers.bgColor = 0x000000;
@@ -227,7 +230,7 @@ var Crimenuts;
                 (function (Buttons) {
                     var Auto;
                     (function (Auto) {
-                        Auto.position = new Phaser.Point(590 * k, 20 * k);
+                        Auto.position = new Phaser.Point(590 * k, 10 * k);
                     })(Auto = Buttons.Auto || (Buttons.Auto = {}));
                 })(Buttons = Answers.Buttons || (Answers.Buttons = {}));
                 var Answer;
@@ -941,10 +944,15 @@ var Crimenuts;
             }
         }
         PersonPicture.prototype.setPerson = function (world, name) {
-            var loader = this.getLoader(world, name, this.imageWidth);
             this.imageKey = Crimenuts.Assets.Sprites.getPersonKey(world, name, this.imageWidth);
-            loader.onLoadComplete.addOnce(this.onLoadComplete, this);
-            loader.start();
+            if (this.keyInCache()) {
+                this.onLoadComplete();
+            }
+            else {
+                var loader = this.getLoader(world, name, this.imageWidth);
+                loader.onLoadComplete.addOnce(this.onLoadComplete, this);
+                loader.start();
+            }
         };
         PersonPicture.prototype.getLoader = function (world, name, width) {
             var loader = new Phaser.Loader(this.game);
@@ -953,6 +961,9 @@ var Crimenuts;
         };
         PersonPicture.prototype.onLoadComplete = function () {
             this.loadTexture(this.imageKey, 0);
+        };
+        PersonPicture.prototype.keyInCache = function () {
+            return new Phaser.Cache(this.game).checkImageKey(this.imageKey);
         };
         return PersonPicture;
     })(Phaser.Image);

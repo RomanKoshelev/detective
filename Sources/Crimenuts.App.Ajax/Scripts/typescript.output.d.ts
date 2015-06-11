@@ -93,6 +93,8 @@ declare module Crimenuts.Settings {
     module Process {
         var bgColor: string;
         module Members {
+            var left: number;
+            var top: number;
             var position: Phaser.Point;
             var numInRow: number;
             module Card {
@@ -107,6 +109,7 @@ declare module Crimenuts.Settings {
             }
             module Dialog {
                 var left: number;
+                var top: number;
                 var position: Phaser.Point;
                 var width: number;
                 var height: number;
@@ -420,6 +423,7 @@ declare module Crimenuts {
         private imageWidth;
         private getLoader(world, name, width);
         private onLoadComplete();
+        private keyInCache();
     }
 }
 declare module Crimenuts.View.Process {
