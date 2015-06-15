@@ -93,15 +93,6 @@ interface IGameHubClient
     processUpdated : (model : ProcessModel) => void;
  
     /**
-      * Set this function with a "function(processId : string, answerModels : AnswerModel[]){}" to receive the "processAnswersUpdated" message from the GameHub hub.
-      * Contract Documentation: ---
-      * @param processId {string} 
-      * @param answerModels {AnswerModel[]} 
-      * @return {void}
-      */
-    processAnswersUpdated : (processId : string, answerModels : AnswerModel[]) => void;
- 
-    /**
       * Set this function with a "function(){}" to receive the "processesReset" message from the GameHub hub.
       * Contract Documentation: ---
       * @return {void}
@@ -122,17 +113,6 @@ interface IGameHubClient
  
  
 /**
-  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.AnswerModel
-  */
-interface AnswerModel {
-    IsValid : boolean;
-    Agent : string;
-    Subject : string;
-    Message : string;
-}
- 
- 
-/**
   * Data contract for Crimenuts.App.Ajax.Game.Server.Models.ProcessModel
   */
 interface ProcessModel {
@@ -143,6 +123,17 @@ interface ProcessModel {
     Today : TodayModel;
     Members : MemberModel[];
     Answers : AnswerModel[];
+}
+ 
+ 
+/**
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.AnswerModel
+  */
+interface AnswerModel {
+    IsValid : boolean;
+    Agent : string;
+    Subject : string;
+    Message : string;
 }
  
  

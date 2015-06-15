@@ -29,7 +29,6 @@
         onServerStarted = new Phaser.Signal();
         onProcessUpdated = new Phaser.Signal();
         onTickCountUpdated = new Phaser.Signal();
-        onProcessAnswersUpdated = new Phaser.Signal();
         onProcessesReset = new Phaser.Signal();
 
         // --------------------------------------------------------[]
@@ -42,9 +41,6 @@
             this.onProcessUpdated.dispatch( model );
         }
 
-        processAnswersUpdated( processId: string, answerModels: AnswerModel[] ): void {
-            this.onProcessAnswersUpdated.dispatch( processId, answerModels );
-        }
         processesReset(): void {
             this.onProcessesReset.dispatch();
         }
@@ -59,7 +55,6 @@
         private setupClientCallbacks() {
             this.client.tickCountUpdated = ( count: number ) => { this.tickCountUpdated( count ); };
             this.client.processUpdated = ( model: ProcessModel ) => { this.processUpdated( model ); };
-            this.client.processAnswersUpdated = ( id: string, answers: AnswerModel[] ) => { this.processAnswersUpdated( id, answers ); };
             this.client.processesReset = () => { this.processesReset(); };
         }
 

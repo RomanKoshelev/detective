@@ -52,19 +52,18 @@ module Crimenuts {
         // Events
         private subscribeEvents() {
             this.observer.onProcessesReset.add( this.onProcessesReset, this );
-            this.observer.onProcessAnswersUpdated.add( this.onProcessAnswersUpdated, this );
+            this.observer.onProcessUpdated.add( this.onProcessUpdated, this );
         }
 
         private onProcessesReset() {
             this.loadModelCreateView( () => this.destroyView() );
         }
 
-        private onProcessAnswersUpdated( processId: string, answerModels: AnswerModel[] ) {
-            if( processId === this.processId ) {
-                this.model.Answers = answerModels;
+        private onProcessUpdated( model: ProcessModel) {
+            if( model.Id === this.processId ) {
+                this.model = model;
                 this.view.onUpdateProcess( this.model );
             }
         }
-
     }
 }

@@ -2,7 +2,6 @@
 // Crimenuts.App.Ajax
 // GameClientsProxy.cs
 
-using System.Collections.Generic;
 using Crimenuts.App.Ajax.Game.Server.Hub;
 using Crimenuts.App.Ajax.Game.Server.Models;
 using Microsoft.AspNet.SignalR;
@@ -21,13 +20,8 @@ namespace Crimenuts.App.Ajax.Game.Server.Clients
 
         void IGameHubClient.ProcessUpdated( ProcessModel model )
         {
-            Clients.All.SessionUpdated( model );
-        }
-
-        void IGameHubClient.ProcessAnswersUpdated( string processId, List< AnswerModel > answerModels )
-        {
             // Todo:> Send only for those clients who works with process haven the same processId
-            Clients.All.ProcessAnswersUpdated( processId, answerModels );
+            Clients.All.ProcessUpdated( model );
         }
 
         void IGameHubClient.ProcessesReset()

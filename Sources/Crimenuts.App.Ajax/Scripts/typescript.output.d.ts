@@ -197,7 +197,6 @@ declare module Crimenuts {
     interface IProcessObserver {
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
-        onProcessAnswersUpdated: Phaser.Signal;
         onProcessesReset: Phaser.Signal;
     }
 }
@@ -208,7 +207,6 @@ declare module Crimenuts {
         autoAnswer(processId: string): JQueryPromise<void>;
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
-        onProcessAnswersUpdated: Phaser.Signal;
         onProcessesReset: Phaser.Signal;
         private server;
         process: JQueryPromise<ProcessModel>;
@@ -219,7 +217,6 @@ declare module Crimenuts {
         onServerStarted: Phaser.Signal;
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
-        onProcessAnswersUpdated: Phaser.Signal;
         onProcessesReset: Phaser.Signal;
     }
 }
@@ -233,11 +230,9 @@ declare module Crimenuts {
         onServerStarted: Phaser.Signal;
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
-        onProcessAnswersUpdated: Phaser.Signal;
         onProcessesReset: Phaser.Signal;
         tickCountUpdated(count: number): void;
         processUpdated(model: ProcessModel): void;
-        processAnswersUpdated(processId: string, answerModels: AnswerModel[]): void;
         processesReset(): void;
         private server;
         private client;
@@ -279,7 +274,7 @@ declare module Crimenuts {
         private destroyView();
         private subscribeEvents();
         private onProcessesReset();
-        private onProcessAnswersUpdated(processId, answerModels);
+        private onProcessUpdated(model);
     }
 }
 declare module Crimenuts {

@@ -6,7 +6,6 @@ module Crimenuts {
 
             this.onProcessUpdated = observer.onProcessUpdated;
             this.onTickCountUpdated = observer.onTickCountUpdated;
-            this.onProcessAnswersUpdated = observer.onProcessAnswersUpdated;
             this.onProcessesReset = observer.onProcessesReset;
         }
 
@@ -22,7 +21,6 @@ module Crimenuts {
         // IProcessObserver
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
-        onProcessAnswersUpdated: Phaser.Signal;
         onProcessesReset: Phaser.Signal;
         
         // Fields

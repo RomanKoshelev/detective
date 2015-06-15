@@ -338,7 +338,6 @@ var Crimenuts;
             this.server = server;
             this.onProcessUpdated = observer.onProcessUpdated;
             this.onTickCountUpdated = observer.onTickCountUpdated;
-            this.onProcessAnswersUpdated = observer.onProcessAnswersUpdated;
             this.onProcessesReset = observer.onProcessesReset;
         }
         // IProcessController
@@ -361,7 +360,6 @@ var Crimenuts;
             this.onServerStarted = new Phaser.Signal();
             this.onProcessUpdated = new Phaser.Signal();
             this.onTickCountUpdated = new Phaser.Signal();
-            this.onProcessAnswersUpdated = new Phaser.Signal();
             this.onProcessesReset = new Phaser.Signal();
             // --------------------------------------------------------[]
             // Fields
@@ -392,9 +390,6 @@ var Crimenuts;
         ServerAdapter.prototype.processUpdated = function (model) {
             this.onProcessUpdated.dispatch(model);
         };
-        ServerAdapter.prototype.processAnswersUpdated = function (processId, answerModels) {
-            this.onProcessAnswersUpdated.dispatch(processId, answerModels);
-        };
         ServerAdapter.prototype.processesReset = function () {
             this.onProcessesReset.dispatch();
         };
@@ -407,9 +402,6 @@ var Crimenuts;
             };
             this.client.processUpdated = function (model) {
                 _this.processUpdated(model);
-            };
-            this.client.processAnswersUpdated = function (id, answers) {
-                _this.processAnswersUpdated(id, answers);
             };
             this.client.processesReset = function () {
                 _this.processesReset();
@@ -523,15 +515,15 @@ var Crimenuts;
         // Events
         ProcessState.prototype.subscribeEvents = function () {
             this.observer.onProcessesReset.add(this.onProcessesReset, this);
-            this.observer.onProcessAnswersUpdated.add(this.onProcessAnswersUpdated, this);
+            this.observer.onProcessUpdated.add(this.onProcessUpdated, this);
         };
         ProcessState.prototype.onProcessesReset = function () {
             var _this = this;
             this.loadModelCreateView(function () { return _this.destroyView(); });
         };
-        ProcessState.prototype.onProcessAnswersUpdated = function (processId, answerModels) {
-            if (processId === this.processId) {
-                this.model.Answers = answerModels;
+        ProcessState.prototype.onProcessUpdated = function (model) {
+            if (model.Id === this.processId) {
+                this.model = model;
                 this.view.onUpdateProcess(this.model);
             }
         };
