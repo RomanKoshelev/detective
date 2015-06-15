@@ -1,16 +1,22 @@
 ﻿module Crimenuts.View.Process {
-    export class ProcessView extends Phaser.Group {
+    export class ProcessView extends Phaser.Group implements IProcessViewPart {
 
         constructor(
+            director: IProcessDirector,
             controller: IProcessController,
             observer: IProcessObserver,
             model: ProcessModel
         ) {
             super( app.game );
             this.game.stage.backgroundColor = Settings.Process.bgColor;
-            this.createParts( controller, observer, model );
+            this.createParts( director, controller, observer, model );
             this.subscribeEvents( observer );
         }
+
+        onUpdateProcess( model: ProcessModel ): void {
+            this.updateParts( model );
+        }
+
 
         // Fields
         private parts = new Array<IProcessViewPart>();
@@ -18,15 +24,16 @@
 
         // Parts Utils
         private createParts(
+            director: IProcessDirector,
             controller: IProcessController,
             observer: IProcessObserver,
             model: ProcessModel
-            ) {
-            var dialog : IMemberDialog;
+        ) {
+            var dialog: IMemberDialog;
             this.addPart( this.ticks = new Display() );
             this.addPart( new StateBar( Settings.Process.Bars.StateBar.position ) );
             this.addPart( new InfoBar( Settings.Process.Bars.InfoBar.position ) );
-            this.addPart( dialog = new MemberDialog( model ) );
+            this.addPart( dialog = new MemberDialog( director ) );
             this.addPart( new Members( Settings.Process.Members.position, model, dialog ) );
             this.addPart( new Answers( Settings.Process.Answers.position, controller, observer, model ) );
             this.updateParts( model );
@@ -38,17 +45,12 @@
         }
 
         private updateParts( model: ProcessModel ) {
-            this.parts.forEach( p => p.updateModel( model ) );
+            this.parts.forEach( p => p.onUpdateProcess( model ) );
         }
 
         // Events
         private subscribeEvents( observer: IProcessObserver ) {
-            observer.onProcessUpdated.add( this.onProcessUpdated, this );
             observer.onTickCountUpdated.add( this.onTickCountUpdated, this );
-        }
-
-        private onProcessUpdated( model: ProcessModel ) {
-            this.updateParts( model );
         }
 
         private onTickCountUpdated( count: number ) {

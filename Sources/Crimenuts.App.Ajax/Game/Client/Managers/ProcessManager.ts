@@ -27,5 +27,6 @@ module Crimenuts {
         
         // Fields
         private server: IGameHubServer;
+        process: JQueryPromise<ProcessModel>;
     }
 }

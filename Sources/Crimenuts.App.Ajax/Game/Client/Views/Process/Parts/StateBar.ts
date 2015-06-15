@@ -8,7 +8,7 @@
             this.createTextLabel();
         }
         
-        updateModel( model: ProcessModel ): void {
+        onUpdateProcess( model: ProcessModel ): void {
             this.setState( model.State );
         }
 

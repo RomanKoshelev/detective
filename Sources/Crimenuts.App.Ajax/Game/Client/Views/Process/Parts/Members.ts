@@ -9,8 +9,8 @@ module Crimenuts.View.Process {
             this.createMembers( model.World, model.Members, dialog );
         }
 
-        updateModel( model: ProcessModel ): void {
-
+        onUpdateProcess( model: ProcessModel ): void {
+            // do nothing
         }
 
         static memberWidth = Settings.Process.Members.Card.width;

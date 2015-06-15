@@ -23,7 +23,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Config
             {
                 public static class Member
                 {
-                    public const string HasNoAnswer = "Has no answrer";
+                    public const string HasNoAnswer = "Ask me";
                     
                 }
             }

@@ -11,7 +11,6 @@ module Crimenuts.View.Process {
         constructor( member: MemberModel, x: number, y: number, w: number, h: number, command: Command ) {
             super( app.game );
             this.position.set( x, y );
-            var name = member;
             this.createButton( w, h, command );
             this.createPicture( member.World, member.Name, w, h );
             this.createNameBox( member.Name, w, h );

@@ -10,7 +10,7 @@ module Crimenuts.View.Process {
             this.add( this.bottomBar = new BottomBar() );
         }
 
-        updateModel( model: ProcessModel ): void {
+        onUpdateProcess( model: ProcessModel ): void {
             this.setCaseId( model.CaseId );
         }
 

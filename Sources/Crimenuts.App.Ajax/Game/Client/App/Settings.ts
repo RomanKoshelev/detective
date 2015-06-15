@@ -77,6 +77,7 @@ module Crimenuts.Settings {
             export var top = 510*k;
             export var position = new Phaser.Point( left, top );
             export var numInRow = 6;
+            export var unknownMember = -1;
 
             export module Card {
                 export var width = 100*k;
@@ -100,13 +101,14 @@ module Crimenuts.Settings {
                 export var bracketColor = 0x888888;
                 export var bracketWidth = 2;
 
-                export module Name {
-                    export var position = new Phaser.Point( 250*k, 15*k );
+                export module Title {
+                    export var position = new Phaser.Point( 250*k, 25*k );
                     export var width = 250*k;
                     export var height =36*k;
                     export var color = "#AAAAAA";
                     export var bgColor = BgColor.transparent;
                 }
+
             }
         }
 

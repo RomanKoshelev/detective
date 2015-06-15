@@ -1,6 +1,6 @@
 ﻿module Crimenuts.View.Process {
 
-    export class InfoBar extends Phaser.Group {
+    export class InfoBar extends Phaser.Group implements IProcessViewPart{
 
         constructor( position: Phaser.Point ) {
             super( app.game );
@@ -28,6 +28,10 @@
 
         private setInfo( day: number, victim: string, arrested: string, murdererNum: number ) {
             this.textLabel.setText( `Day ${day}: ${victim} was killed, ${arrested} arrested, ${murdererNum} active murderers` );
+        }
+
+        onUpdateProcess( model: ProcessModel ): void {
+            // do nothing
         }
     }
 }

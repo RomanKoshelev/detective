@@ -4,6 +4,7 @@
         constructor( 
             position: Phaser.Point,
             controller: IProcessController,
+//todo:> remove observer
             observer: IProcessObserver,
             model: ProcessModel
         ) {
@@ -12,11 +13,11 @@
             this.controller = controller;
             this.createAnswers();
             this.createButtons();
-            this.updateModel( model );
-            this.subscribe( observer );
+            this.onUpdateProcess( model );
+//            this.subscribe( observer );
         }
 
-        updateModel( model: ProcessModel ): void {
+        onUpdateProcess( model: ProcessModel ): void {
             this.processId = model.Id;
             this.updateAnswers( model.Answers );
         }
@@ -57,6 +58,7 @@
             this.answerSheet.setText( text );
         }
 
+/*
         private onProcessAnswersUpdated( processId: string, answerModels: AnswerModel[] ) {
             if( processId === this.processId ) {
                 this.updateAnswers( answerModels );
@@ -66,6 +68,7 @@
         private subscribe( observer: IProcessObserver ) {
             observer.onProcessAnswersUpdated.add( this.onProcessAnswersUpdated, this );
         }
+*/
 
         createButtons() {
             this.createButton(

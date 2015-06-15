@@ -18,6 +18,5 @@ module Crimenuts {
         private execute() {
             this.dialog.setMember( this.memberId );
         }
-
     }
 }

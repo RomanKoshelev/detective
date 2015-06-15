@@ -3,8 +3,12 @@
 module Crimenuts {
     import ProcessView = View.Process.ProcessView;
 
-    export class ProcessState extends Phaser.State {
+    export class ProcessState extends Phaser.State implements IProcessDirector {
 
+        // IProcessDirector
+        getActualModel(): ProcessModel { return this.model; }
+
+        // Phaser.State
         preload() {
             Assets.Sprites.load( Settings.Assets.Sprites.transparent );
         }
@@ -15,12 +19,14 @@ module Crimenuts {
             this.subscribeEvents();
         }
 
+        // Fields
         private processId = Settings.Default.Process.testId;
         private controller: IProcessController;
         private observer: IProcessObserver;
         private model: ProcessModel;
         private view: ProcessView;
 
+        // Parts
         private createManager() {
             var manager = new ProcessManager( app.server, app.server );
             this.controller = manager;
@@ -36,19 +42,29 @@ module Crimenuts {
         }
 
         private createView( model: ProcessModel ) {
-            this.view = new ProcessView( this.controller, this.observer, model );
-        }
-
-        private subscribeEvents() {
-            this.observer.onProcessesReset.add( this.onProcessesReset, this );
-        }
-
-        private onProcessesReset() {
-            this.loadModelCreateView( ()=>this.destroyView() );
+            this.view = new ProcessView( this, this.controller, this.observer, model );
         }
 
         private destroyView() {
             this.view.destroy( true );
         }
+
+        // Events
+        private subscribeEvents() {
+            this.observer.onProcessesReset.add( this.onProcessesReset, this );
+            this.observer.onProcessAnswersUpdated.add( this.onProcessAnswersUpdated, this );
+        }
+
+        private onProcessesReset() {
+            this.loadModelCreateView( () => this.destroyView() );
+        }
+
+        private onProcessAnswersUpdated( processId: string, answerModels: AnswerModel[] ) {
+            if( processId === this.processId ) {
+                this.model.Answers = answerModels;
+                this.view.onUpdateProcess( this.model );
+            }
+        }
+
     }
 }

@@ -1,30 +1,39 @@
 ﻿module Crimenuts.View.Process {
     export class MemberDialog extends Phaser.Group implements IProcessViewPart, IMemberDialog {
 
-        constructor( model: ProcessModel ) {
+        constructor(
+            director: IProcessDirector
+        ) {
             super( app.game );
             this.position = Settings.Process.Members.Dialog.position.clone();
-            this.model = model;
+            this.director = director;
+
 
             this.createFrameDecoration();
             this.createPersonPicture();
-            this.createName();
+            this.createTitle();
 
             this.setMember( 0 );
         }
 
         setMember( memberId: number ) {
-            var name = this.model.Members[ memberId ].Name;
-            this.memberName.setText( name );
-            this.memberPicture.setPerson( this.model.World, name );
+            this.memberId = memberId;
+            var member = this.director.getActualModel().Members[ memberId ];
+            var name = member.Name;
+            var answer = member.TodayAnswer;
+            this.memberPicture.setPerson( member.World, name );
+            this.title.setText( `${name}:\n"${answer}"` );
         }
 
-        updateModel( model: ProcessModel ): void {
-            // do nothing
+        onUpdateProcess( process: ProcessModel ): void {
+            this.setMember( this.memberId );
         }
 
-        private model: ProcessModel;
-        private memberName: TextLabel;
+        private director: IProcessDirector;
+        private controller: IProcessController;
+
+        private memberId = Settings.Process.Members.unknownMember;
+        private title: TextLabel;
         private memberPicture: PersonPicture;
 
         private createFrameDecoration() {
@@ -45,14 +54,14 @@
             );
         }
 
-        private createName() {
-            this.add( this.memberName = app.uiFactory.makeTextLabel(
-                Settings.Process.Members.Dialog.Name.width,
-                Settings.Process.Members.Dialog.Name.height,
-                Settings.Process.Members.Dialog.Name.color,
-                Settings.Process.Members.Dialog.Name.bgColor
-                ) );
-            this.memberName.position = Settings.Process.Members.Dialog.Name.position.clone();
+        private createTitle() {
+            this.add( this.title = app.uiFactory.makeTextLabel(
+                Settings.Process.Members.Dialog.Title.width,
+                Settings.Process.Members.Dialog.Title.height,
+                Settings.Process.Members.Dialog.Title.color,
+                Settings.Process.Members.Dialog.Title.bgColor
+            ) );
+            this.title.position = Settings.Process.Members.Dialog.Title.position.clone();
         }
 
         private createPersonPicture() {
