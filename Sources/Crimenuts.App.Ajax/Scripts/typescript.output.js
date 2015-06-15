@@ -95,7 +95,7 @@ var Crimenuts;
         var Game;
         (function (Game) {
             Game.width = 768;
-            Game.height = 1024;
+            Game.height = 910;
         })(Game = Settings.Game || (Settings.Game = {}));
         var k = Game.width / 720.0;
         var Default;
@@ -119,7 +119,7 @@ var Crimenuts;
             })(Shape = Default.Shape || (Default.Shape = {}));
             var Process;
             (function (Process) {
-                Process.testId = "21";
+                Process.testId = "30";
             })(Process = Default.Process || (Default.Process = {}));
         })(Default = Settings.Default || (Settings.Default = {}));
         var Assets;
@@ -170,7 +170,7 @@ var Crimenuts;
             var Members;
             (function (Members) {
                 Members.left = 10 * k;
-                Members.top = 640 * k;
+                Members.top = 555 * k;
                 Members.position = new Phaser.Point(Members.left, Members.top);
                 Members.numInRow = 6;
                 Members.unknownMember = -1;
@@ -183,13 +183,13 @@ var Crimenuts;
                         Name.height = 16 * k;
                         Name.fontSize = 11 * k;
                         Name.color = "#666666";
-                        Name.bgColor = 0x000000;
+                        Name.bgColor = BgColor.transparent;
                     })(Name = Card.Name || (Card.Name = {}));
                 })(Card = Members.Card || (Members.Card = {}));
                 var Dialog;
                 (function (Dialog) {
                     Dialog.left = 5 * k;
-                    Dialog.top = 400 * k;
+                    Dialog.top = 330 * k;
                     Dialog.position = new Phaser.Point(Dialog.left, Dialog.top);
                     Dialog.width = Game.width - Dialog.left * 2;
                     Dialog.height = 200 * k;
@@ -206,6 +206,28 @@ var Crimenuts;
                     })(Title = Dialog.Title || (Dialog.Title = {}));
                 })(Dialog = Members.Dialog || (Members.Dialog = {}));
             })(Members = Process.Members || (Process.Members = {}));
+            var Answers;
+            (function (Answers) {
+                Answers.position = new Phaser.Point(15 * k, 70 * k);
+                Answers.width = Game.width - Answers.position.x * 2;
+                Answers.height = 250 * k;
+                Answers.bgColor = 0x000000;
+                var Buttons;
+                (function (Buttons) {
+                    var Auto;
+                    (function (Auto) {
+                        Auto.position = new Phaser.Point(590 * k, 10 * k);
+                    })(Auto = Buttons.Auto || (Buttons.Auto = {}));
+                })(Buttons = Answers.Buttons || (Answers.Buttons = {}));
+                var Answer;
+                (function (Answer) {
+                    Answer.fontSize = 15 * k;
+                    var Color;
+                    (function (Color) {
+                        Color.regular = "#777777";
+                    })(Color = Answer.Color || (Answer.Color = {}));
+                })(Answer = Answers.Answer || (Answers.Answer = {}));
+            })(Answers = Process.Answers || (Process.Answers = {}));
             var Bars;
             (function (Bars) {
                 Bars.textColor = "#000000";
@@ -218,28 +240,6 @@ var Crimenuts;
                     InfoBar.position = new Phaser.Point(Bars.left, 37 * k);
                 })(InfoBar = Bars.InfoBar || (Bars.InfoBar = {}));
             })(Bars = Process.Bars || (Process.Bars = {}));
-            var Answers;
-            (function (Answers) {
-                Answers.position = new Phaser.Point(15 * k, 100 * k);
-                Answers.width = Game.width - Answers.position.x * 2;
-                Answers.height = 200 * k;
-                Answers.bgColor = 0x000000;
-                var Buttons;
-                (function (Buttons) {
-                    var Auto;
-                    (function (Auto) {
-                        Auto.position = new Phaser.Point(590 * k, 10 * k);
-                    })(Auto = Buttons.Auto || (Buttons.Auto = {}));
-                })(Buttons = Answers.Buttons || (Answers.Buttons = {}));
-                var Answer;
-                (function (Answer) {
-                    Answer.fontSize = 16 * k;
-                    var Color;
-                    (function (Color) {
-                        Color.regular = "#777777";
-                    })(Color = Answer.Color || (Answer.Color = {}));
-                })(Answer = Answers.Answer || (Answers.Answer = {}));
-            })(Answers = Process.Answers || (Process.Answers = {}));
         })(Process = Settings.Process || (Settings.Process = {}));
     })(Settings = Crimenuts.Settings || (Crimenuts.Settings = {}));
 })(Crimenuts || (Crimenuts = {}));

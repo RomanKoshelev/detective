@@ -126,16 +126,6 @@ declare module Crimenuts.Settings {
                 }
             }
         }
-        module Bars {
-            var textColor: string;
-            var bgColor: number;
-            var left: number;
-            var width: number;
-            var height: number;
-            module InfoBar {
-                var position: Phaser.Point;
-            }
-        }
         module Answers {
             var position: Phaser.Point;
             var width: number;
@@ -151,6 +141,16 @@ declare module Crimenuts.Settings {
                 module Color {
                     var regular: string;
                 }
+            }
+        }
+        module Bars {
+            var textColor: string;
+            var bgColor: number;
+            var left: number;
+            var width: number;
+            var height: number;
+            module InfoBar {
+                var position: Phaser.Point;
             }
         }
     }
