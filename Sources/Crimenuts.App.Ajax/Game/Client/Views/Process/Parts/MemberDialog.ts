@@ -12,20 +12,18 @@
 
 
             this.createFrameDecoration();
-            this.createPersonPicture();
+            this.createMemberCard();
             this.createTitle();
-
-            this.setMember( 0 );
 
             MemberDialog.instance = this;
         }
 
         setMember( memberId: number ) {
             this.memberId = memberId;
-            var member = this.getActualMemberModel( memberId );
+            var member = this.getMemberModel();
             var name = member.Name;
             var answer = member.TodayAnswer;
-            this.memberPicture.setPerson( member.World, name );
+            this.memberCard.setMember( member );
             this.title.setText( `${name}:\n"${answer}"` );
         }
 
@@ -36,9 +34,9 @@
         private director: IProcessDirector;
         private controller: IProcessController;
 
-        private memberId = Settings.Process.Members.unknownMember;
+        private memberId = 0;
         private title: TextLabel;
-        private memberPicture: PersonPicture;
+        private memberCard: MemberCard;
 
         private createFrameDecoration() {
             this.add(
@@ -68,12 +66,18 @@
             this.title.position = Settings.Process.Members.Dialog.Title.position.clone();
         }
 
-        private createPersonPicture() {
-            this.add( this.memberPicture = new PersonPicture( 0, 40, 160 ) );
+        private createMemberCard() {
+            this.add( this.memberCard = new MemberCard( this.getMemberModel(),
+                Settings.Process.Members.Dialog.Card.position.x,
+                Settings.Process.Members.Dialog.Card.position.y,
+                Settings.Process.Members.Dialog.Card.width,
+                Settings.Process.Members.Dialog.Card.height
+                ) );
+            this.memberCard.showName = false;
         }
 
-        private getActualMemberModel( memberId: number ) {
-            return this.director.getActualModel().Members[ memberId ];
+        private getMemberModel() {
+            return this.director.getActualModel().Members[ this.memberId ];
         }
     }
 }

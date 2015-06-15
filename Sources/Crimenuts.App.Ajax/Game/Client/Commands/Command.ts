@@ -13,5 +13,7 @@ module Crimenuts {
         name: string;
         callback: Function;
         context: any;
+
+        static nothing = new Command( "" );
     }
 }

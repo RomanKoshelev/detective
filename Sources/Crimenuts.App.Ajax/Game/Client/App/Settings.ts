@@ -82,6 +82,7 @@ module Crimenuts.Settings {
             export module Card {
                 export var width = 100*k;
                 export var height = width*1.2;
+                export var footShiftRate = 0.15;
 
                 export module Name {
                     export var height = 16*k;
@@ -101,6 +102,12 @@ module Crimenuts.Settings {
                 export var bracketColor = 0x888888;
                 export var bracketWidth = 2;
 
+                export module Card {
+                    export var position = new Phaser.Point( 8*k, 10*k );
+                    export var width = 180*k;
+                    export var height = 210*k;
+                }
+
                 export module Title {
                     export var position = new Phaser.Point( 250*k, 25*k );
                     export var width = 250*k;
@@ -108,7 +115,6 @@ module Crimenuts.Settings {
                     export var color = "#AAAAAA";
                     export var bgColor = BgColor.transparent;
                 }
-
             }
         }
 

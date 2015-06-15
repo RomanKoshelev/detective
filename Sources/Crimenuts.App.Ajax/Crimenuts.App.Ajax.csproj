@@ -330,7 +330,7 @@
     <TypeScriptCompile Include="Game\Client\Views\Process\ProcessView.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Display\BottomBar.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\InfoBar.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Persons\PersonPicture.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Pictures\PersonPicture.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Display\TopBar.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\MemberCard.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Text\TextLabel.ts" />
