@@ -8,13 +8,13 @@ module Crimenuts.View.Process {
         static nameColor = Settings.Process.Members.Card.Name.color;
         static nameBgColor = Settings.Process.Members.Card.Name.bgColor;
 
-        constructor( world: string, member: string, x: number, y: number, w: number, h: number, command: Command ) {
+        constructor( member: MemberModel, x: number, y: number, w: number, h: number, command: Command ) {
             super( app.game );
             this.position.set( x, y );
             var name = member;
             this.createButton( w, h, command );
-            this.createPicture( world, name, w, h );
-            this.createNameBox( name, w, h );
+            this.createPicture( member.World, member.Name, w, h );
+            this.createNameBox( member.Name, w, h );
         }
 
         private picture: PersonPicture;

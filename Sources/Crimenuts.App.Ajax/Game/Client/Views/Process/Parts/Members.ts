@@ -17,13 +17,12 @@ module Crimenuts.View.Process {
         static memberHeight = Settings.Process.Members.Card.height;
         static memberNumInRow = Settings.Process.Members.numInRow;
 
-        private createMembers( world: string, members: string[], dialog: IMemberDialog ) {
+        private createMembers( world: string, members: MemberModel[], dialog: IMemberDialog ) {
             var w = Members.memberWidth;
             var h = Members.memberHeight;
             for( var i in members ) {
                 var p = this.calcPersonCardPosition( i, w, h );
-                var name = members[ i ];
-                this.add( new MemberCard( world, name, p.x, p.y, w, h,
+                this.add( new MemberCard( members[ i ], p.x, p.y, w, h,
                     new MemberDialogCommand( dialog, i )
                 ) );
             }

@@ -30,7 +30,9 @@ namespace Crimenuts.Core.Game.Cases
             Detective = new Member(
                 this,
                 detectiveNumber,
-                new Person( new Profile( ProfileType.Detective ) ) { Name = "Detective" }
+                new Person( new Profile( ProfileType.Detective ) ) {
+                    Name = "Detective"
+                }
                 );
         }
 

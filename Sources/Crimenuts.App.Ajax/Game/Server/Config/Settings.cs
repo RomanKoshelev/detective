@@ -16,5 +16,18 @@ namespace Crimenuts.App.Ajax.Game.Server.Config
                 }
             }
         }
+
+        public static class Texts
+        {
+            public static class Process
+            {
+                public static class Member
+                {
+                    public const string HasNoAnswer = "Has no answrer";
+                    
+                }
+            }
+        }
+
     }
 }

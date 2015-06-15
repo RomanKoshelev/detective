@@ -141,8 +141,18 @@ interface ProcessModel {
     World : string;
     State : string;
     Today : TodayModel;
-    Members : string[];
+    Members : MemberModel[];
     Answers : AnswerModel[];
+}
+ 
+ 
+/**
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.MemberModel
+  */
+interface MemberModel {
+    World : string;
+    Name : string;
+    TodayAnswer : string;
 }
  
  

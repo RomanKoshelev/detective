@@ -85,8 +85,8 @@ module Crimenuts.Settings {
                 export module Name {
                     export var height = 16*k;
                     export var fontSize = 11*k;
-                    export var color = "#AAAAAA";
-                    export var bgColor = 0x222222;
+                    export var color = "#666666";
+                    export var bgColor = 0x000000;
                 }
             }
 
@@ -96,15 +96,16 @@ module Crimenuts.Settings {
                 export var position = new Phaser.Point( left, top );
                 export var width = Game.width-left*2;
                 export var height = 200*k;
-                export var bgColor = 0x101010;
+                export var bgColor = 0x000000;
                 export var bracketColor = 0x888888;
                 export var bracketWidth = 2;
 
                 export module Name {
+                    export var position = new Phaser.Point( 250*k, 15*k );
                     export var width = 250*k;
-                    export var height = 25*k;
-                    export var color = "#000000";
-                    export var bgColor = 0xAAAAAA;
+                    export var height =36*k;
+                    export var color = "#AAAAAA";
+                    export var bgColor = BgColor.transparent;
                 }
             }
         }

@@ -1,6 +1,7 @@
 ﻿@{
     @Arrest()
 }
+@using System.Web.WebPages
 @using Crimenuts.Core.Game
 @using Crimenuts.Core.Game.Enums
 @using Crimenuts.Core.Game.Processes
@@ -44,10 +45,12 @@
 @helper EarlyArrestButton()
 {
     if( EarlyArrestIsEnabled() && ProcessView.CanArrest( Face ) ) {
-        @Record( RoomView.Button(
-            Localization.Text( "Button:Arrest" ) + ProcessView.MemberName( Face ),
-            RoomView.ButtonEarlyArrestClass,
-            ProcessView.EarlyArrestActionUrl( ( int ) Face ) ) )
+        if( Face != null ) {
+            @Record( RoomView.Button(
+                Localization.Text( "Button:Arrest" ) + ProcessView.MemberName( Face ),
+                RoomView.ButtonEarlyArrestClass,
+                ProcessView.EarlyArrestActionUrl( ( int ) Face ) ) )
+        }
     }
 }
 

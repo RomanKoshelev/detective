@@ -82,6 +82,11 @@ namespace Crimenuts.Core.Game.Members
             get { return OpenRole == Role.Innocent; }
         }
 
+        public string World
+        {
+            get { return Process.Case.World.Name; }
+        }
+
         public void SetProcess( Process process )
         {
             Process = process;

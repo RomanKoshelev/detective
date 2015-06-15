@@ -5,19 +5,22 @@
             super( app.game );
             this.position = Settings.Process.Members.Dialog.position.clone();
             this.model = model;
+
             this.createFrameDecoration();
-            this.createName();
             this.createPersonPicture();
+            this.createName();
+
             this.setMember( 0 );
         }
 
         setMember( memberId: number ) {
-            this.memberName.setText( this.model.Members[ memberId ] );
-            this.memberPicture.setPerson( this.model.World, this.model.Members[ memberId ] );
+            var name = this.model.Members[ memberId ].Name;
+            this.memberName.setText( name );
+            this.memberPicture.setPerson( this.model.World, name );
         }
 
         updateModel( model: ProcessModel ): void {
-
+            // do nothing
         }
 
         private model: ProcessModel;
@@ -48,7 +51,8 @@
                 Settings.Process.Members.Dialog.Name.height,
                 Settings.Process.Members.Dialog.Name.color,
                 Settings.Process.Members.Dialog.Name.bgColor
-            ) );
+                ) );
+            this.memberName.position = Settings.Process.Members.Dialog.Name.position.clone();
         }
 
         private createPersonPicture() {

@@ -69,7 +69,9 @@ namespace Crimenuts.Core.Game.Packs.Worlds
         protected Person CreatePerson( ProfileType type, string name )
         {
             var profile = Profiles[ ( int ) type ];
-            return new Person( profile ) { Name = name };
+            return new Person( profile ) {
+                Name = name
+            };
         }
 
         protected Person NormalPerson( string name )
