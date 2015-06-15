@@ -287,7 +287,7 @@ var Crimenuts;
                 }
                 MemberDialog.prototype.setMember = function (memberId) {
                     this.memberId = memberId;
-                    var member = this.director.getActualModel().Members[memberId];
+                    var member = this.getActualMemberModel(memberId);
                     var name = member.Name;
                     var answer = member.TodayAnswer;
                     this.memberPicture.setPerson(member.World, name);
@@ -305,6 +305,9 @@ var Crimenuts;
                 };
                 MemberDialog.prototype.createPersonPicture = function () {
                     this.add(this.memberPicture = new Crimenuts.PersonPicture(0, 40, 160));
+                };
+                MemberDialog.prototype.getActualMemberModel = function (memberId) {
+                    return this.director.getActualModel().Members[memberId];
                 };
                 return MemberDialog;
             })(Phaser.Group);
@@ -448,11 +451,10 @@ var Crimenuts;
                 ProcessView.prototype.createParts = function (director, controller, observer, model) {
                     var dialog;
                     this.addPart(this.ticks = new Process.Display());
-                    this.addPart(new Process.StateBar(Crimenuts.Settings.Process.Bars.StateBar.position));
                     this.addPart(new Process.InfoBar(Crimenuts.Settings.Process.Bars.InfoBar.position));
                     this.addPart(dialog = new Process.MemberDialog(director));
                     this.addPart(new Process.Members(Crimenuts.Settings.Process.Members.position, model, dialog));
-                    this.addPart(new Process.Answers(Crimenuts.Settings.Process.Answers.position, controller, observer, model));
+                    this.addPart(new Process.Answers(Crimenuts.Settings.Process.Answers.position, controller, model));
                     this.updateParts(model);
                 };
                 ProcessView.prototype.addPart = function (part) {
@@ -996,16 +998,13 @@ var Crimenuts;
         (function (Process) {
             var Answers = (function (_super) {
                 __extends(Answers, _super);
-                function Answers(position, controller, 
-                    //todo:> remove observer
-                    observer, model) {
+                function Answers(position, controller, model) {
                     _super.call(this, Crimenuts.app.game);
                     this.position = position;
                     this.controller = controller;
                     this.createAnswers();
                     this.createButtons();
                     this.onUpdateProcess(model);
-                    //            this.subscribe( observer );
                 }
                 Answers.prototype.onUpdateProcess = function (model) {
                     this.processId = model.Id;
@@ -1031,17 +1030,6 @@ var Crimenuts;
                     });
                     this.answerSheet.setText(text);
                 };
-                /*
-                        private onProcessAnswersUpdated( processId: string, answerModels: AnswerModel[] ) {
-                            if( processId === this.processId ) {
-                                this.updateAnswers( answerModels );
-                            }
-                        }
-                
-                        private subscribe( observer: IProcessObserver ) {
-                            observer.onProcessAnswersUpdated.add( this.onProcessAnswersUpdated, this );
-                        }
-                */
                 Answers.prototype.createButtons = function () {
                     this.createButton(new Crimenuts.Command("Auto", this.cmdAutoAnswer, this), Crimenuts.Settings.Process.Answers.Buttons.Auto.position);
                 };
@@ -1098,7 +1086,7 @@ var Crimenuts;
                     this.position = position;
                     this.createTextLabel();
                 }
-                InfoBar.prototype.updateModel = function (model) {
+                InfoBar.prototype.onUpdateProcess = function (model) {
                     this.setInfo(model.Today.Day, model.Today.Victim, model.Today.Prisoner, model.Today.ActiveMurdererNum);
                 };
                 InfoBar.prototype.createTextLabel = function () {
@@ -1106,9 +1094,6 @@ var Crimenuts;
                 };
                 InfoBar.prototype.setInfo = function (day, victim, arrested, murdererNum) {
                     this.textLabel.setText("Day " + day + ": " + victim + " was killed, " + arrested + " arrested, " + murdererNum + " active murderers");
-                };
-                InfoBar.prototype.onUpdateProcess = function (model) {
-                    // do nothing
                 };
                 return InfoBar;
             })(Phaser.Group);
@@ -1193,34 +1178,6 @@ var Crimenuts;
                 return Members;
             })(Phaser.Group);
             Process.Members = Members;
-        })(Process = View.Process || (View.Process = {}));
-    })(View = Crimenuts.View || (Crimenuts.View = {}));
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    var View;
-    (function (View) {
-        var Process;
-        (function (Process) {
-            var StateBar = (function (_super) {
-                __extends(StateBar, _super);
-                function StateBar(position) {
-                    _super.call(this, Crimenuts.app.game);
-                    this.position = position;
-                    this.createTextLabel();
-                }
-                StateBar.prototype.onUpdateProcess = function (model) {
-                    this.setState(model.State);
-                };
-                StateBar.prototype.createTextLabel = function () {
-                    this.add(this.textLabel = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Bars.width, Crimenuts.Settings.Process.Bars.height, Crimenuts.Settings.Process.Bars.textColor, Crimenuts.Settings.Process.Bars.bgColor));
-                };
-                StateBar.prototype.setState = function (state) {
-                    this.textLabel.setText(state);
-                };
-                return StateBar;
-            })(Phaser.Group);
-            Process.StateBar = StateBar;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
 })(Crimenuts || (Crimenuts = {}));

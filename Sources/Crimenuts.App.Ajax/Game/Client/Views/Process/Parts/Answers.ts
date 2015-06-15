@@ -4,8 +4,6 @@
         constructor( 
             position: Phaser.Point,
             controller: IProcessController,
-//todo:> remove observer
-            observer: IProcessObserver,
             model: ProcessModel
         ) {
             super( app.game );
@@ -14,7 +12,6 @@
             this.createAnswers();
             this.createButtons();
             this.onUpdateProcess( model );
-//            this.subscribe( observer );
         }
 
         onUpdateProcess( model: ProcessModel ): void {
@@ -57,18 +54,6 @@
 
             this.answerSheet.setText( text );
         }
-
-/*
-        private onProcessAnswersUpdated( processId: string, answerModels: AnswerModel[] ) {
-            if( processId === this.processId ) {
-                this.updateAnswers( answerModels );
-            }
-        }
-
-        private subscribe( observer: IProcessObserver ) {
-            observer.onProcessAnswersUpdated.add( this.onProcessAnswersUpdated, this );
-        }
-*/
 
         createButtons() {
             this.createButton(

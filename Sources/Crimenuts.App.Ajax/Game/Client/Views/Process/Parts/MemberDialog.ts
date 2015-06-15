@@ -18,7 +18,7 @@
 
         setMember( memberId: number ) {
             this.memberId = memberId;
-            var member = this.director.getActualModel().Members[ memberId ];
+            var member = this.getActualMemberModel( memberId );
             var name = member.Name;
             var answer = member.TodayAnswer;
             this.memberPicture.setPerson( member.World, name );
@@ -66,6 +66,10 @@
 
         private createPersonPicture() {
             this.add( this.memberPicture = new PersonPicture( 0, 40, 160 ) );
+        }
+
+        private getActualMemberModel( memberId: number ) {
+            return this.director.getActualModel().Members[ memberId ];
         }
     }
 }

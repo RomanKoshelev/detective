@@ -31,11 +31,10 @@
         ) {
             var dialog: IMemberDialog;
             this.addPart( this.ticks = new Display() );
-            this.addPart( new StateBar( Settings.Process.Bars.StateBar.position ) );
             this.addPart( new InfoBar( Settings.Process.Bars.InfoBar.position ) );
             this.addPart( dialog = new MemberDialog( director ) );
             this.addPart( new Members( Settings.Process.Members.position, model, dialog ) );
-            this.addPart( new Answers( Settings.Process.Answers.position, controller, observer, model ) );
+            this.addPart( new Answers( Settings.Process.Answers.position, controller, model ) );
             this.updateParts( model );
         }
 

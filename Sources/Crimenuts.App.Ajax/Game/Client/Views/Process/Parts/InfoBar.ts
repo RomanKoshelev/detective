@@ -7,15 +7,15 @@
             this.position = position;
             this.createTextLabel();
         }
-        
-        updateModel( model: ProcessModel ): void {
+
+        onUpdateProcess( model: ProcessModel ): void {
             this.setInfo(
                 model.Today.Day,
                 model.Today.Victim,
                 model.Today.Prisoner,
                 model.Today.ActiveMurdererNum );
         }
-
+        
         private textLabel: TextLabel;
 
         private createTextLabel() {
@@ -28,10 +28,6 @@
 
         private setInfo( day: number, victim: string, arrested: string, murdererNum: number ) {
             this.textLabel.setText( `Day ${day}: ${victim} was killed, ${arrested} arrested, ${murdererNum} active murderers` );
-        }
-
-        onUpdateProcess( model: ProcessModel ): void {
-            // do nothing
         }
     }
 }

@@ -179,6 +179,7 @@ declare module Crimenuts.View.Process {
         private createFrameDecoration();
         private createTitle();
         private createPersonPicture();
+        private getActualMemberModel(memberId);
     }
 }
 declare module Crimenuts {
@@ -444,7 +445,7 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class Answers extends Phaser.Group implements IProcessViewPart {
-        constructor(position: Phaser.Point, controller: IProcessController, observer: IProcessObserver, model: ProcessModel);
+        constructor(position: Phaser.Point, controller: IProcessController, model: ProcessModel);
         onUpdateProcess(model: ProcessModel): void;
         private answerSheet;
         private controller;
@@ -475,11 +476,10 @@ declare module Crimenuts.View.Process {
 declare module Crimenuts.View.Process {
     class InfoBar extends Phaser.Group implements IProcessViewPart {
         constructor(position: Phaser.Point);
-        updateModel(model: ProcessModel): void;
+        onUpdateProcess(model: ProcessModel): void;
         private textLabel;
         private createTextLabel();
         private setInfo(day, victim, arrested, murdererNum);
-        onUpdateProcess(model: ProcessModel): void;
     }
 }
 declare module Crimenuts.View.Process {
@@ -506,15 +506,6 @@ declare module Crimenuts.View.Process {
         static memberNumInRow: number;
         private createMembers(world, members, dialog);
         private calcPersonCardPosition(i, w, h);
-    }
-}
-declare module Crimenuts.View.Process {
-    class StateBar extends Phaser.Group implements IProcessViewPart {
-        constructor(position: Phaser.Point);
-        onUpdateProcess(model: ProcessModel): void;
-        private textLabel;
-        private createTextLabel();
-        private setState(state);
     }
 }
 declare module Crimenuts.View.Process {
