@@ -1,6 +1,8 @@
 ﻿module Crimenuts.View.Process {
     export class MemberDialog extends Phaser.Group implements IProcessViewPart, IMemberDialog {
 
+        static instance: IMemberDialog;
+
         constructor(
             director: IProcessDirector
         ) {
@@ -14,6 +16,8 @@
             this.createTitle();
 
             this.setMember( 0 );
+
+            MemberDialog.instance = this;
         }
 
         setMember( memberId: number ) {

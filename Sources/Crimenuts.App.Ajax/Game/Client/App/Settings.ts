@@ -3,7 +3,7 @@ module Crimenuts.Settings {
 
     export module Game {
         export var width = 768;
-        export var height = 870;
+        export var height = 1024;
     }
 
     var k = Game.width / 720.0;
@@ -27,7 +27,7 @@ module Crimenuts.Settings {
         }
 
         export module Process {
-            export var testId = "11";
+            export var testId = "21";
         }
     }
 
@@ -74,7 +74,7 @@ module Crimenuts.Settings {
 
         export module Members {
             export var left = 10*k;
-            export var top = 510*k;
+            export var top = 640*k;
             export var position = new Phaser.Point( left, top );
             export var numInRow = 6;
             export var unknownMember = -1;
@@ -93,7 +93,7 @@ module Crimenuts.Settings {
 
             export module Dialog {
                 export var left = 5*k;
-                export var top = 280*k;
+                export var top = 400*k;
                 export var position = new Phaser.Point( left, top );
                 export var width = Game.width-left*2;
                 export var height = 200*k;
@@ -122,16 +122,12 @@ module Crimenuts.Settings {
             export module InfoBar {
                 export var position = new Phaser.Point( Bars.left, 37*k );
             }
-
-            export module StateBar {
-                export var position = new Phaser.Point( Bars.left, -300*k);
-            }
         }
 
         export module Answers {
-            export var position = new Phaser.Point( 15*k, 65*k );
+            export var position = new Phaser.Point( 15*k, 100*k );
             export var width = Game.width - position.x*2;
-            export var height = 165*k;
+            export var height = 200*k;
             export var bgColor = 0x000000;
 
             export module Buttons {

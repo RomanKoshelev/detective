@@ -135,9 +135,6 @@ declare module Crimenuts.Settings {
             module InfoBar {
                 var position: Phaser.Point;
             }
-            module StateBar {
-                var position: Phaser.Point;
-            }
         }
         module Answers {
             var position: Phaser.Point;
@@ -168,6 +165,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts.View.Process {
     class MemberDialog extends Phaser.Group implements IProcessViewPart, IMemberDialog {
+        static instance: IMemberDialog;
         constructor(director: IProcessDirector);
         setMember(memberId: number): void;
         onUpdateProcess(process: ProcessModel): void;
@@ -183,10 +181,8 @@ declare module Crimenuts.View.Process {
     }
 }
 declare module Crimenuts {
-    import IMemberDialog = View.Process.IMemberDialog;
     class MemberDialogCommand extends Command {
-        constructor(dialog: IMemberDialog, memberId: number);
-        private dialog;
+        constructor(memberId: number);
         private memberId;
         private execute();
     }
@@ -445,7 +441,7 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class Answers extends Phaser.Group implements IProcessViewPart {
-        constructor(position: Phaser.Point, controller: IProcessController, model: ProcessModel);
+        constructor(controller: IProcessController, model: ProcessModel);
         onUpdateProcess(model: ProcessModel): void;
         private answerSheet;
         private controller;
@@ -475,7 +471,7 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class InfoBar extends Phaser.Group implements IProcessViewPart {
-        constructor(position: Phaser.Point);
+        constructor();
         onUpdateProcess(model: ProcessModel): void;
         private textLabel;
         private createTextLabel();
@@ -499,12 +495,12 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class Members extends Phaser.Group implements IProcessViewPart {
-        constructor(position: Phaser.Point, model: ProcessModel, dialog: IMemberDialog);
+        constructor(model: ProcessModel);
         onUpdateProcess(model: ProcessModel): void;
         static memberWidth: number;
         static memberHeight: number;
         static memberNumInRow: number;
-        private createMembers(world, members, dialog);
+        private createMembers(world, members);
         private calcPersonCardPosition(i, w, h);
     }
 }

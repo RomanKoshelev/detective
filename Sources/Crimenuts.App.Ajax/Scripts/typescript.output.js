@@ -95,7 +95,7 @@ var Crimenuts;
         var Game;
         (function (Game) {
             Game.width = 768;
-            Game.height = 870;
+            Game.height = 1024;
         })(Game = Settings.Game || (Settings.Game = {}));
         var k = Game.width / 720.0;
         var Default;
@@ -119,7 +119,7 @@ var Crimenuts;
             })(Shape = Default.Shape || (Default.Shape = {}));
             var Process;
             (function (Process) {
-                Process.testId = "11";
+                Process.testId = "21";
             })(Process = Default.Process || (Default.Process = {}));
         })(Default = Settings.Default || (Settings.Default = {}));
         var Assets;
@@ -170,7 +170,7 @@ var Crimenuts;
             var Members;
             (function (Members) {
                 Members.left = 10 * k;
-                Members.top = 510 * k;
+                Members.top = 640 * k;
                 Members.position = new Phaser.Point(Members.left, Members.top);
                 Members.numInRow = 6;
                 Members.unknownMember = -1;
@@ -189,7 +189,7 @@ var Crimenuts;
                 var Dialog;
                 (function (Dialog) {
                     Dialog.left = 5 * k;
-                    Dialog.top = 280 * k;
+                    Dialog.top = 400 * k;
                     Dialog.position = new Phaser.Point(Dialog.left, Dialog.top);
                     Dialog.width = Game.width - Dialog.left * 2;
                     Dialog.height = 200 * k;
@@ -217,16 +217,12 @@ var Crimenuts;
                 (function (InfoBar) {
                     InfoBar.position = new Phaser.Point(Bars.left, 37 * k);
                 })(InfoBar = Bars.InfoBar || (Bars.InfoBar = {}));
-                var StateBar;
-                (function (StateBar) {
-                    StateBar.position = new Phaser.Point(Bars.left, -300 * k);
-                })(StateBar = Bars.StateBar || (Bars.StateBar = {}));
             })(Bars = Process.Bars || (Process.Bars = {}));
             var Answers;
             (function (Answers) {
-                Answers.position = new Phaser.Point(15 * k, 65 * k);
+                Answers.position = new Phaser.Point(15 * k, 100 * k);
                 Answers.width = Game.width - Answers.position.x * 2;
-                Answers.height = 165 * k;
+                Answers.height = 200 * k;
                 Answers.bgColor = 0x000000;
                 var Buttons;
                 (function (Buttons) {
@@ -284,6 +280,7 @@ var Crimenuts;
                     this.createPersonPicture();
                     this.createTitle();
                     this.setMember(0);
+                    MemberDialog.instance = this;
                 }
                 MemberDialog.prototype.setMember = function (memberId) {
                     this.memberId = memberId;
@@ -318,17 +315,17 @@ var Crimenuts;
 /// <reference path="../Views/Process/Parts/MemberDialog.ts" />
 var Crimenuts;
 (function (Crimenuts) {
+    var MemberDialog = Crimenuts.View.Process.MemberDialog;
     var MemberDialogCommand = (function (_super) {
         __extends(MemberDialogCommand, _super);
-        function MemberDialogCommand(dialog, memberId) {
+        function MemberDialogCommand(memberId) {
             _super.call(this, "Open Member Dialog");
             this.callback = this.execute;
             this.context = this;
-            this.dialog = dialog;
             this.memberId = memberId;
         }
         MemberDialogCommand.prototype.execute = function () {
-            this.dialog.setMember(this.memberId);
+            MemberDialog.instance.setMember(this.memberId);
         };
         return MemberDialogCommand;
     })(Crimenuts.Command);
@@ -449,12 +446,11 @@ var Crimenuts;
                 };
                 // Parts Utils
                 ProcessView.prototype.createParts = function (director, controller, observer, model) {
-                    var dialog;
                     this.addPart(this.ticks = new Process.Display());
-                    this.addPart(new Process.InfoBar(Crimenuts.Settings.Process.Bars.InfoBar.position));
-                    this.addPart(dialog = new Process.MemberDialog(director));
-                    this.addPart(new Process.Members(Crimenuts.Settings.Process.Members.position, model, dialog));
-                    this.addPart(new Process.Answers(Crimenuts.Settings.Process.Answers.position, controller, model));
+                    this.addPart(new Process.InfoBar());
+                    this.addPart(new Process.MemberDialog(director));
+                    this.addPart(new Process.Members(model));
+                    this.addPart(new Process.Answers(controller, model));
                     this.updateParts(model);
                 };
                 ProcessView.prototype.addPart = function (part) {
@@ -998,9 +994,9 @@ var Crimenuts;
         (function (Process) {
             var Answers = (function (_super) {
                 __extends(Answers, _super);
-                function Answers(position, controller, model) {
+                function Answers(controller, model) {
                     _super.call(this, Crimenuts.app.game);
-                    this.position = position;
+                    this.position = Crimenuts.Settings.Process.Answers.position.clone();
                     this.controller = controller;
                     this.createAnswers();
                     this.createButtons();
@@ -1081,9 +1077,9 @@ var Crimenuts;
         (function (Process) {
             var InfoBar = (function (_super) {
                 __extends(InfoBar, _super);
-                function InfoBar(position) {
+                function InfoBar() {
                     _super.call(this, Crimenuts.app.game);
-                    this.position = position;
+                    this.position = Crimenuts.Settings.Process.Bars.InfoBar.position.clone();
                     this.createTextLabel();
                 }
                 InfoBar.prototype.onUpdateProcess = function (model) {
@@ -1150,20 +1146,20 @@ var Crimenuts;
         (function (Process) {
             var Members = (function (_super) {
                 __extends(Members, _super);
-                function Members(position, model, dialog) {
+                function Members(model) {
                     _super.call(this, Crimenuts.app.game);
-                    this.position = position;
-                    this.createMembers(model.World, model.Members, dialog);
+                    this.position = Crimenuts.Settings.Process.Members.position.clone();
+                    this.createMembers(model.World, model.Members);
                 }
                 Members.prototype.onUpdateProcess = function (model) {
                     // do nothing
                 };
-                Members.prototype.createMembers = function (world, members, dialog) {
+                Members.prototype.createMembers = function (world, members) {
                     var w = Members.memberWidth;
                     var h = Members.memberHeight;
                     for (var i in members) {
                         var p = this.calcPersonCardPosition(i, w, h);
-                        this.add(new Process.MemberCard(members[i], p.x, p.y, w, h, new Crimenuts.MemberDialogCommand(dialog, i)));
+                        this.add(new Process.MemberCard(members[i], p.x, p.y, w, h, new Crimenuts.MemberDialogCommand(i)));
                     }
                 };
                 Members.prototype.calcPersonCardPosition = function (i, w, h) {

@@ -2,12 +2,11 @@
     export class Answers extends Phaser.Group implements IProcessViewPart {
 
         constructor( 
-            position: Phaser.Point,
             controller: IProcessController,
             model: ProcessModel
         ) {
             super( app.game );
-            this.position = position;
+            this.position = Settings.Process.Answers.position.clone();
             this.controller = controller;
             this.createAnswers();
             this.createButtons();

@@ -2,9 +2,9 @@
 
     export class InfoBar extends Phaser.Group implements IProcessViewPart{
 
-        constructor( position: Phaser.Point ) {
+        constructor( ) {
             super( app.game );
-            this.position = position;
+            this.position = Settings.Process.Bars.InfoBar.position.clone();
             this.createTextLabel();
         }
 

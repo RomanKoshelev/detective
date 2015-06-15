@@ -3,10 +3,10 @@ module Crimenuts.View.Process {
 
     export class Members extends Phaser.Group implements IProcessViewPart {
 
-        constructor( position: Phaser.Point, model: ProcessModel, dialog: IMemberDialog ) {
+        constructor( model: ProcessModel ) {
             super( app.game );
-            this.position = position;
-            this.createMembers( model.World, model.Members, dialog );
+            this.position = Settings.Process.Members.position.clone();
+            this.createMembers( model.World, model.Members );
         }
 
         onUpdateProcess( model: ProcessModel ): void {
@@ -17,13 +17,13 @@ module Crimenuts.View.Process {
         static memberHeight = Settings.Process.Members.Card.height;
         static memberNumInRow = Settings.Process.Members.numInRow;
 
-        private createMembers( world: string, members: MemberModel[], dialog: IMemberDialog ) {
+        private createMembers( world: string, members: MemberModel[] ) {
             var w = Members.memberWidth;
             var h = Members.memberHeight;
             for( var i in members ) {
                 var p = this.calcPersonCardPosition( i, w, h );
                 this.add( new MemberCard( members[ i ], p.x, p.y, w, h,
-                    new MemberDialogCommand( dialog, i )
+                    new MemberDialogCommand( i )
                 ) );
             }
         }

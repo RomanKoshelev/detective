@@ -29,12 +29,11 @@
             observer: IProcessObserver,
             model: ProcessModel
         ) {
-            var dialog: IMemberDialog;
             this.addPart( this.ticks = new Display() );
-            this.addPart( new InfoBar( Settings.Process.Bars.InfoBar.position ) );
-            this.addPart( dialog = new MemberDialog( director ) );
-            this.addPart( new Members( Settings.Process.Members.position, model, dialog ) );
-            this.addPart( new Answers( Settings.Process.Answers.position, controller, model ) );
+            this.addPart( new InfoBar( ) );
+            this.addPart( new MemberDialog( director ) );
+            this.addPart( new Members( model ) );
+            this.addPart( new Answers( controller, model ) );
             this.updateParts( model );
         }
 
