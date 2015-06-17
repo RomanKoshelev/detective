@@ -102,6 +102,7 @@ declare module Crimenuts.Settings {
                 var width: number;
                 var height: number;
                 var footShiftRate: number;
+                var inaciveShade: number;
                 module Name {
                     var height: number;
                     var fontSize: number;
@@ -112,6 +113,7 @@ declare module Crimenuts.Settings {
                     var sizeRate: number;
                     var xRate: number;
                     var yRate: number;
+                    var tintColor: number;
                 }
             }
             module Dialog {
@@ -401,7 +403,7 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class PersonPicture extends Phaser.Image {
+    class PersonPicture extends Phaser.Sprite {
         constructor(x: number, y: number, width: number, world?: string, name?: string);
         setPerson(world: string, name: string): void;
         private imageKey;
@@ -505,6 +507,7 @@ declare module Crimenuts.View.Process {
         private nameLabel;
         private spot;
         private answer;
+        private shade;
         createAnswer(level: number, w: number, h: number): void;
         private createPicture(world, name, w, h);
         private createNameLabel(name, width, height);
@@ -512,6 +515,9 @@ declare module Crimenuts.View.Process {
         private createSpot(width, height);
         private createFrame(w, h);
         private updateAnswer(memberId);
+        private createShade(w, h);
+        private updateShade(memberId);
+        private setShade(shade);
         private getMemberModel(memberId);
     }
 }

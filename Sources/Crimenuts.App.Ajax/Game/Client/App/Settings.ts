@@ -83,6 +83,7 @@ module Crimenuts.Settings {
                 export var width = 100*k;
                 export var height = width*1.2;
                 export var footShiftRate = 0.15;
+                export var inaciveShade = 0.8;
 
                 export module Name {
                     export var height = 16*k;
@@ -95,6 +96,7 @@ module Crimenuts.Settings {
                     export var sizeRate = 0.4;
                     export var xRate = 0.6;
                     export var yRate = 0.0;
+                    export var tintColor = 0xCCCCCC;
                 }
             }
 

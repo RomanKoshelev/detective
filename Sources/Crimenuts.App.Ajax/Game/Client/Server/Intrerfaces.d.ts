@@ -152,10 +152,10 @@ interface Answer {
   * Data contract for Crimenuts.App.Ajax.Game.Server.Models.MemberModel
   */
 interface MemberModel {
-    Id : number;
     World : string;
     Name : string;
     TodayAnswer : AnswerModel;
+    IsActive : boolean;
 }
  
  

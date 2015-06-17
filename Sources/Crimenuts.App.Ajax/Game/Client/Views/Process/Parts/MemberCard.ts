@@ -12,6 +12,7 @@ module Crimenuts.View.Process {
             this.picture.setPerson( member.World, member.Name );
             this.nameLabel.setText( member.Name );
             this.updateAnswer( memberId );
+            this.updateShade( memberId );
         }
 
         // Overrides
@@ -43,8 +44,9 @@ module Crimenuts.View.Process {
             this.createSpot( w, h );
             this.createAnswer( answerLevel, w, h );
             this.createPicture( member.World, member.Name, w, h );
-            this.createFrame( w, h );
             this.createButton( w, h, command );
+            this.createShade( w, h );
+            //this.createFrame( w, h );
 
             this.setMember( memberId );
         }
@@ -57,6 +59,7 @@ module Crimenuts.View.Process {
         private nameLabel: TextLabel;
         private spot: Phaser.Graphics;
         private answer: MemberCard = null;
+        private shade: Phaser.Graphics;
 
         // Utils
 
@@ -82,6 +85,7 @@ module Crimenuts.View.Process {
             );
             this.answer.showName = false;
             this.answer.visible = true;
+            this.answer.picture.tint = Settings.Process.Members.Card.Answer.tintColor;
             this.add( this.answer );
         }
 
@@ -130,7 +134,7 @@ module Crimenuts.View.Process {
         }
 
         private createFrame( w: number, h: number ) {
-            this.spot.lineStyle( 1, 0x1111111 );
+            this.spot.lineStyle( 1, 0x222222 );
             this.spot.drawRect( 0, 0, w, h );
         }
 
@@ -146,8 +150,30 @@ module Crimenuts.View.Process {
             }
         }
 
+        private createShade( w: number, h: number ) {
+            this.add( this.shade = new Phaser.Graphics( app.game, 0, 0 ) );
+        }
+
+        private updateShade( memberId: number ) {
+            var model = this.getMemberModel( memberId );
+            if( model.IsActive ) {
+                this.setShade( 0 );
+            } else {
+                this.setShade( Settings.Process.Members.Card.inaciveShade );
+            }
+        }
+
+        private setShade( shade ) {
+            this.shade.clear();
+            this.shade.lineStyle( 0 );
+            this.shade.beginFill( 0x000000, shade );
+            this.shade.drawRect( 0, 0, this.width, this.height );
+            this.shade.endFill();
+        }
+
         private getMemberModel( memberId: number ): MemberModel {
             return this.director.getProcessModel().Members[ memberId ];
         }
+
     }
 }

@@ -179,6 +179,7 @@ var Crimenuts;
                     Card.width = 100 * k;
                     Card.height = Card.width * 1.2;
                     Card.footShiftRate = 0.15;
+                    Card.inaciveShade = 0.8;
                     var Name;
                     (function (Name) {
                         Name.height = 16 * k;
@@ -191,6 +192,7 @@ var Crimenuts;
                         Answer.sizeRate = 0.4;
                         Answer.xRate = 0.6;
                         Answer.yRate = 0.0;
+                        Answer.tintColor = 0xCCCCCC;
                     })(Answer = Card.Answer || (Card.Answer = {}));
                 })(Card = Members.Card || (Members.Card = {}));
                 var Dialog;
@@ -887,7 +889,7 @@ var Crimenuts;
             this.visible = true;
         };
         return PersonPicture;
-    })(Phaser.Image);
+    })(Phaser.Sprite);
     Crimenuts.PersonPicture = PersonPicture;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
@@ -1141,8 +1143,9 @@ var Crimenuts;
                     this.createSpot(w, h);
                     this.createAnswer(answerLevel, w, h);
                     this.createPicture(member.World, member.Name, w, h);
-                    this.createFrame(w, h);
                     this.createButton(w, h, command);
+                    this.createShade(w, h);
+                    //this.createFrame( w, h );
                     this.setMember(memberId);
                 }
                 MemberCard.prototype.setMember = function (memberId) {
@@ -1150,6 +1153,7 @@ var Crimenuts;
                     this.picture.setPerson(member.World, member.Name);
                     this.nameLabel.setText(member.Name);
                     this.updateAnswer(memberId);
+                    this.updateShade(memberId);
                 };
                 // Overrides
                 MemberCard.prototype.update = function () {
@@ -1171,6 +1175,7 @@ var Crimenuts;
                     this.answer = new MemberCard(this.director, 0, mx, my, mw, mh, Crimenuts.Command.nothing, level - 1);
                     this.answer.showName = false;
                     this.answer.visible = true;
+                    this.answer.picture.tint = Crimenuts.Settings.Process.Members.Card.Answer.tintColor;
                     this.add(this.answer);
                 };
                 MemberCard.prototype.createPicture = function (world, name, w, h) {
@@ -1206,7 +1211,7 @@ var Crimenuts;
                     this.spot.endFill();
                 };
                 MemberCard.prototype.createFrame = function (w, h) {
-                    this.spot.lineStyle(1, 0x1111111);
+                    this.spot.lineStyle(1, 0x222222);
                     this.spot.drawRect(0, 0, w, h);
                 };
                 MemberCard.prototype.updateAnswer = function (memberId) {
@@ -1220,6 +1225,25 @@ var Crimenuts;
                     else {
                         this.answer.visible = false;
                     }
+                };
+                MemberCard.prototype.createShade = function (w, h) {
+                    this.add(this.shade = new Phaser.Graphics(Crimenuts.app.game, 0, 0));
+                };
+                MemberCard.prototype.updateShade = function (memberId) {
+                    var model = this.getMemberModel(memberId);
+                    if (model.IsActive) {
+                        this.setShade(0);
+                    }
+                    else {
+                        this.setShade(Crimenuts.Settings.Process.Members.Card.inaciveShade);
+                    }
+                };
+                MemberCard.prototype.setShade = function (shade) {
+                    this.shade.clear();
+                    this.shade.lineStyle(0);
+                    this.shade.beginFill(0x000000, shade);
+                    this.shade.drawRect(0, 0, this.width, this.height);
+                    this.shade.endFill();
                 };
                 MemberCard.prototype.getMemberModel = function (memberId) {
                     return this.director.getProcessModel().Members[memberId];

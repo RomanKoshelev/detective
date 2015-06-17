@@ -1,5 +1,5 @@
 ﻿module Crimenuts {
-    export class PersonPicture extends Phaser.Image {
+    export class PersonPicture extends Phaser.Sprite {
 
         constructor( x: number, y: number, width: number, world: string="", name: string="" ) {
             this.imageWidth = width;
