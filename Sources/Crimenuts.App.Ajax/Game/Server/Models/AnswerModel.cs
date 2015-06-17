@@ -2,8 +2,11 @@
 // Crimenuts.App.Ajax
 // AnswerModel.cs
 
+using Crimenuts.App.Ajax.Game.Server.Config;
+using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Histories;
 using Crimenuts.Core.Game.Members;
+using Krokodev.Common.Extensions;
 
 namespace Crimenuts.App.Ajax.Game.Server.Models
 {
@@ -11,22 +14,31 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
     {
         public bool IsValid { get; set; }
 
-        public string Agent { get; set; }
+        public string AgentName { get; set; }
+        public int AgentNumber { get; set; }
 
-        public string Subject { get; set; }
-
-        public string Message { get; set; }
+        public string SubjectName { get; set; }
+        public int SubjectNumber { get; set; }
+        public string AnswerText { get; set; }
+        public string AnswerDiaogText { get; set; }
+        public Answer AnswerVariant { get; set; }
 
         public AnswerModel( Member member, History.Record record )
         {
-            Agent = member.Name;
+            AgentName = member.Name;
+            AgentNumber = member.Number;
+
             if( record == null ) {
                 IsValid = false;
-                Message = "no answer";
+                AnswerText = Settings.Texts.Process.NoAnswer;
+                AnswerDiaogText = Settings.Texts.Process.AskMe;
             } else {
                 IsValid = true;
-                Subject = record.Subject.Name;
-                Message = record.Answer.ToString();
+                SubjectName = record.Subject.Name;
+                SubjectNumber = record.Subject.Number;
+                AnswerVariant = record.Answer;
+                AnswerText = record.Answer.ToString();
+                AnswerDiaogText = "{0} is {1}".SafeFormat( record.Subject.Name,  record.Answer);
             }
         }
     }

@@ -45,9 +45,9 @@
             var n = answers.length;
 
             answers.forEach( a => {
-                text += `${i++}.     ${a.Agent} — `;
-                text += a.IsValid ? `${a.Subject} is ` : "";
-                text += a.Message;
+                text += `${i++}.     ${a.AgentName} — `;
+                text += a.IsValid ? `${a.SubjectName} is ` : "";
+                text += a.AnswerText;
                 text += i <= n ? "\n" : "";
             } );
 

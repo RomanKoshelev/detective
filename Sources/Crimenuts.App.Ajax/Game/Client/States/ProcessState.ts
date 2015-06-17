@@ -6,7 +6,7 @@ module Crimenuts {
     export class ProcessState extends Phaser.State implements IProcessDirector {
 
         // IProcessDirector
-        getActualModel(): ProcessModel { return this.model; }
+        getProcessModel(): ProcessModel { return this.model; }
 
         // Phaser.State
         preload() {

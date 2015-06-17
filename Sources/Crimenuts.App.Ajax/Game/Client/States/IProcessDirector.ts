@@ -1,5 +1,5 @@
 ﻿module Crimenuts {
     export interface IProcessDirector{
-        getActualModel() : ProcessModel;
+        getProcessModel() : ProcessModel;
     }
 }

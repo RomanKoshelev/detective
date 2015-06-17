@@ -5,10 +5,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Crimenuts.App.Ajax.Game.Server.Config;
 using Crimenuts.Core.Game.Histories;
 using Crimenuts.Core.Game.Members;
-using Krokodev.Common.Extensions;
 
 namespace Crimenuts.App.Ajax.Game.Server.Models
 {
@@ -17,9 +15,10 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
     {
         #region Properties
 
+        public int Id { get; set; }
         public string World { get; set; }
         public string Name { get; set; }
-        public string TodayAnswer { get; set; }
+        public AnswerModel TodayAnswer { get; set; }
 
         #endregion
 
@@ -30,22 +29,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
         {
             World = member.World;
             Name = member.Name;
-            TodayAnswer = CreateTodayAnswer( todayAnswers );
-        }
-
-
-        #endregion
-
-
-        #region Utils
-
-        private static string CreateTodayAnswer( IList< History.Record > todayAnswers )
-        {
-            if( todayAnswers.Any() ) {
-                var answer = todayAnswers.First();
-                return "{0} is {1}".SafeFormat( answer.Subject, answer.Answer );
-            }
-            return Settings.Texts.Process.Member.HasNoAnswer;
+            TodayAnswer = new AnswerModel( member, todayAnswers.FirstOrDefault() );
         }
 
         #endregion

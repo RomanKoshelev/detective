@@ -108,7 +108,7 @@ declare module Crimenuts.Settings {
                     var color: string;
                     var bgColor: number;
                 }
-                module Mind {
+                module Answer {
                     var sizeRate: number;
                     var xRate: number;
                     var yRate: number;
@@ -254,7 +254,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     interface IProcessDirector {
-        getActualModel(): ProcessModel;
+        getProcessModel(): ProcessModel;
     }
 }
 declare module Crimenuts.View.Process {
@@ -272,7 +272,7 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts {
     class ProcessState extends Phaser.State implements IProcessDirector {
-        getActualModel(): ProcessModel;
+        getProcessModel(): ProcessModel;
         preload(): void;
         create(): void;
         private processId;
@@ -443,7 +443,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts.View.Process {
     interface IProcessViewPart {
-        onUpdateProcess(model: ProcessModel): void;
+        onUpdateProcess(processModel: ProcessModel): void;
     }
 }
 declare module Crimenuts.View.Process {
@@ -472,6 +472,13 @@ declare module Crimenuts.View.Process {
     }
 }
 declare module Crimenuts.View.Process {
+    interface IMemberCard {
+        setMember(memberId: number): any;
+        showName: boolean;
+        memberId: any;
+    }
+}
+declare module Crimenuts.View.Process {
     interface IMemberDialog {
         setMember(memberId: number): any;
     }
@@ -486,34 +493,39 @@ declare module Crimenuts.View.Process {
     }
 }
 declare module Crimenuts.View.Process {
-    class MemberCard extends Phaser.Group {
+    class MemberCard extends Phaser.Group implements IMemberCard {
+        memberId: number;
         showName: boolean;
-        showMind: boolean;
-        setMember(member: MemberModel): void;
-        setMind(member: MemberModel): void;
+        setMember(memberId: number): void;
         update(): void;
-        constructor(member: MemberModel, x: number, y: number, w: number, h: number, command?: Command, mindLevel?: number);
+        constructor(director: IProcessDirector, memberId: number, x: number, y: number, w: number, h: number, command?: Command, answerLevel?: number);
+        private director;
         private picture;
         private button;
         private nameLabel;
         private spot;
-        private mind;
-        createMind(level: number, model: MemberModel, w: number, h: number): void;
+        private answer;
+        createAnswer(level: number, w: number, h: number): void;
         private createPicture(world, name, w, h);
         private createNameLabel(name, width, height);
         private createButton(w, h, command);
         private createSpot(width, height);
-        createFrame(w: number, h: number): void;
+        private createFrame(w, h);
+        private updateAnswer();
+        private getMemberModel(id);
+        private getMyModel();
+        private getAnswerModel();
     }
 }
 declare module Crimenuts.View.Process {
-    class Members extends Phaser.Group implements IProcessViewPart {
-        constructor(model: ProcessModel);
-        onUpdateProcess(model: ProcessModel): void;
+    class MembersPool extends Phaser.Group implements IProcessViewPart {
+        constructor(director: IProcessDirector);
+        onUpdateProcess(processModel: ProcessModel): void;
         static memberWidth: number;
         static memberHeight: number;
         static memberNumInRow: number;
-        private createMembers(world, members);
+        private cards;
+        private createMembers(director);
         private calcPersonCardPosition(i, w, h);
     }
 }

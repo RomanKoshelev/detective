@@ -323,6 +323,7 @@
     <TypeScriptCompile Include="Game\Client\Views\Process\IProcessViewPart.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Factory\IUIFactory.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\MemberDialogCommand.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\IMemberCard.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\IMemberDialog.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\MemberDialog.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Widgets\ITicksWidget.ts" />
@@ -336,7 +337,7 @@
     <TypeScriptCompile Include="Game\Client\UserInterface\Text\TextLabel.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Display.ts" />
     <TypeScriptCompile Include="Game\Client\Structs\Size.ts" />
-    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Members.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\MembersPool.ts" />
     <TypeScriptCompile Include="Game\Client\States\ProcessState.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\p2.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\phaser\phaser.d.ts" />

@@ -21,11 +21,8 @@ namespace Crimenuts.App.Ajax.Game.Server.Config
         {
             public static class Process
             {
-                public static class Member
-                {
-                    public const string HasNoAnswer = "Ask me";
-                    
-                }
+                public const string NoAnswer = "No answer";
+                public const string AskMe = "Ask me";
             }
         }
 

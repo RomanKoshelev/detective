@@ -91,7 +91,7 @@ module Crimenuts.Settings {
                     export var bgColor = BgColor.transparent;
                 }
 
-                export module Mind {
+                export module Answer {
                     export var sizeRate = 0.4;
                     export var xRate = 0.6;
                     export var yRate = 0.0;

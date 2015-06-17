@@ -186,12 +186,12 @@ var Crimenuts;
                         Name.color = "#666666";
                         Name.bgColor = BgColor.transparent;
                     })(Name = Card.Name || (Card.Name = {}));
-                    var Mind;
-                    (function (Mind) {
-                        Mind.sizeRate = 0.4;
-                        Mind.xRate = 0.6;
-                        Mind.yRate = 0.0;
-                    })(Mind = Card.Mind || (Card.Mind = {}));
+                    var Answer;
+                    (function (Answer) {
+                        Answer.sizeRate = 0.4;
+                        Answer.xRate = 0.6;
+                        Answer.yRate = 0.0;
+                    })(Answer = Card.Answer || (Card.Answer = {}));
                 })(Card = Members.Card || (Members.Card = {}));
                 var Dialog;
                 (function (Dialog) {
@@ -299,9 +299,8 @@ var Crimenuts;
                     this.memberId = memberId;
                     var member = this.getMemberModel();
                     var name = member.Name;
-                    var answer = member.TodayAnswer;
-                    this.memberCard.setMember(member);
-                    this.title.setText("" + name + ":\n\"" + answer + "\"");
+                    this.memberCard.setMember(memberId);
+                    this.title.setText("" + name + ":\n\"" + member.TodayAnswer.AnswerDiaogText + "\"");
                 };
                 MemberDialog.prototype.onUpdateProcess = function (process) {
                     this.setMember(this.memberId);
@@ -314,11 +313,11 @@ var Crimenuts;
                     this.title.position = Crimenuts.Settings.Process.Members.Dialog.Title.position.clone();
                 };
                 MemberDialog.prototype.createMemberCard = function () {
-                    this.add(this.memberCard = new Process.MemberCard(this.getMemberModel(), Crimenuts.Settings.Process.Members.Dialog.Card.position.x, Crimenuts.Settings.Process.Members.Dialog.Card.position.y, Crimenuts.Settings.Process.Members.Dialog.Card.width, Crimenuts.Settings.Process.Members.Dialog.Card.height));
+                    this.add(this.memberCard = new Process.MemberCard(this.director, this.memberId, Crimenuts.Settings.Process.Members.Dialog.Card.position.x, Crimenuts.Settings.Process.Members.Dialog.Card.position.y, Crimenuts.Settings.Process.Members.Dialog.Card.width, Crimenuts.Settings.Process.Members.Dialog.Card.height));
                     this.memberCard.showName = false;
                 };
                 MemberDialog.prototype.getMemberModel = function () {
-                    return this.director.getActualModel().Members[this.memberId];
+                    return this.director.getProcessModel().Members[this.memberId];
                 };
                 return MemberDialog;
             })(Phaser.Group);
@@ -455,7 +454,7 @@ var Crimenuts;
                     this.addPart(this.ticks = new Process.Display());
                     this.addPart(new Process.InfoBar());
                     this.addPart(new Process.MemberDialog(director));
-                    this.addPart(new Process.Members(model));
+                    this.addPart(new Process.MembersPool(director));
                     this.addPart(new Process.Answers(controller, model));
                     this.updateParts(model);
                 };
@@ -492,7 +491,7 @@ var Crimenuts;
             this.processId = Crimenuts.Settings.Default.Process.testId;
         }
         // IProcessDirector
-        ProcessState.prototype.getActualModel = function () {
+        ProcessState.prototype.getProcessModel = function () {
             return this.model;
         };
         // Phaser.State
@@ -1025,9 +1024,9 @@ var Crimenuts;
                     var i = 1;
                     var n = answers.length;
                     answers.forEach(function (a) {
-                        text += "" + i++ + ".     " + a.Agent + " — ";
-                        text += a.IsValid ? "" + a.Subject + " is " : "";
-                        text += a.Message;
+                        text += "" + i++ + ".     " + a.AgentName + " — ";
+                        text += a.IsValid ? "" + a.SubjectName + " is " : "";
+                        text += a.AnswerText;
                         text += i <= n ? "\n" : "";
                     });
                     this.answerSheet.setText(text);
@@ -1112,53 +1111,54 @@ var Crimenuts;
         (function (Process) {
             var MemberCard = (function (_super) {
                 __extends(MemberCard, _super);
-                function MemberCard(member, x, y, w, h, command, mindLevel) {
+                // Ctor
+                function MemberCard(director, memberId, x, y, w, h, command, answerLevel) {
                     if (command === void 0) { command = Crimenuts.Command.nothing; }
-                    if (mindLevel === void 0) { mindLevel = 1; }
+                    if (answerLevel === void 0) { answerLevel = 1; }
                     _super.call(this, Crimenuts.app.game);
-                    // Public
+                    // IMemberCard
+                    this.memberId = Crimenuts.Settings.Process.Members.unknownMember;
                     this.showName = true;
-                    this.showMind = true;
-                    this.mind = null;
+                    this.answer = null;
+                    this.director = director;
+                    this.memberId = memberId;
                     this.position.set(x, y);
-                    this.createButton(w, h, command);
+                    var member = this.getMyModel();
                     this.createNameLabel(member.Name, w, h);
                     this.createSpot(w, h);
-                    this.createMind(mindLevel, member, w, h);
+                    this.createAnswer(answerLevel, w, h);
                     this.createPicture(member.World, member.Name, w, h);
                     this.createFrame(w, h);
+                    this.createButton(w, h, command);
                 }
-                MemberCard.prototype.setMember = function (member) {
+                MemberCard.prototype.setMember = function (memberId) {
+                    this.memberId = memberId;
+                    var member = this.getMyModel();
                     this.picture.setPerson(member.World, member.Name);
                     this.nameLabel.setText(member.Name);
+                    //this.updateAnswer();
                 };
-                MemberCard.prototype.setMind = function (member) {
-                    if (this.mind !== null) {
-                        this.mind.setMember(member);
-                    }
-                };
+                // Overrides
                 MemberCard.prototype.update = function () {
                     this.nameLabel.visible = this.showName;
-                    if (this.mind !== null) {
-                        this.mind.visible = this.showMind;
-                    }
                     _super.prototype.update.call(this);
                 };
                 // Utils
-                MemberCard.prototype.createMind = function (level, model, w, h) {
+                MemberCard.prototype.createAnswer = function (level, w, h) {
                     if (level < 1)
                         return;
-                    var k = Crimenuts.Settings.Process.Members.Card.Mind.sizeRate;
-                    var wk = Crimenuts.Settings.Process.Members.Card.Mind.xRate;
-                    var hk = Crimenuts.Settings.Process.Members.Card.Mind.yRate;
+                    var k = Crimenuts.Settings.Process.Members.Card.Answer.sizeRate;
+                    var wk = Crimenuts.Settings.Process.Members.Card.Answer.xRate;
+                    var hk = Crimenuts.Settings.Process.Members.Card.Answer.yRate;
                     var kk = Math.pow(k, level);
                     var mx = w * wk;
                     var my = h * hk;
                     var mw = w * kk;
                     var mh = h * kk;
-                    this.mind = new MemberCard(model, mx, my, mw, mh, Crimenuts.Command.nothing, level - 1);
-                    this.mind.showName = false;
-                    this.add(this.mind);
+                    this.answer = new MemberCard(this.director, this.memberId, mx, my, mw, mh, Crimenuts.Command.nothing, level - 1);
+                    this.answer.showName = false;
+                    this.answer.visible = false;
+                    this.add(this.answer);
                 };
                 MemberCard.prototype.createPicture = function (world, name, w, h) {
                     var nh = Crimenuts.Settings.Process.Members.Card.Name.height;
@@ -1196,6 +1196,19 @@ var Crimenuts;
                     this.spot.lineStyle(1, 0x1111111);
                     this.spot.drawRect(0, 0, w, h);
                 };
+                MemberCard.prototype.updateAnswer = function () {
+                    if (this.answer !== null) {
+                    }
+                };
+                MemberCard.prototype.getMemberModel = function (id) {
+                    return this.director.getProcessModel().Members[this.memberId];
+                };
+                MemberCard.prototype.getMyModel = function () {
+                    return this.getMemberModel(this.memberId);
+                };
+                MemberCard.prototype.getAnswerModel = function () {
+                    return this.getMemberModel(this.getMyModel().TodayAnswer.AgentNumber);
+                };
                 return MemberCard;
             })(Phaser.Group);
             Process.MemberCard = MemberCard;
@@ -1209,36 +1222,42 @@ var Crimenuts;
     (function (View) {
         var Process;
         (function (Process) {
-            var Members = (function (_super) {
-                __extends(Members, _super);
-                function Members(model) {
+            var MembersPool = (function (_super) {
+                __extends(MembersPool, _super);
+                function MembersPool(director) {
                     _super.call(this, Crimenuts.app.game);
+                    this.cards = new Array();
                     this.position = Crimenuts.Settings.Process.Members.position.clone();
-                    this.createMembers(model.World, model.Members);
+                    this.createMembers(director);
                 }
-                Members.prototype.onUpdateProcess = function (model) {
-                    // do nothing
+                MembersPool.prototype.onUpdateProcess = function (processModel) {
+                    this.cards.forEach(function (card) {
+                        //card.setMember( processModel.Members[ card.memberId ] );
+                    });
                 };
-                Members.prototype.createMembers = function (world, members) {
-                    var w = Members.memberWidth;
-                    var h = Members.memberHeight;
-                    for (var i in members) {
+                MembersPool.prototype.createMembers = function (director) {
+                    var w = MembersPool.memberWidth;
+                    var h = MembersPool.memberHeight;
+                    var process = director.getProcessModel();
+                    for (var i in process.Members) {
                         var p = this.calcPersonCardPosition(i, w, h);
-                        this.add(new Process.MemberCard(members[i], p.x, p.y, w, h, new Crimenuts.MemberDialogCommand(i)));
+                        var card = new Process.MemberCard(director, i, p.x, p.y, w, h, new Crimenuts.MemberDialogCommand(i));
+                        this.add(card);
+                        this.cards.push(card);
                     }
                 };
-                Members.prototype.calcPersonCardPosition = function (i, w, h) {
-                    var n = Members.memberNumInRow;
+                MembersPool.prototype.calcPersonCardPosition = function (i, w, h) {
+                    var n = MembersPool.memberNumInRow;
                     var x = (i % n) * w * 1.2;
                     var y = Math.floor(i / n) * h * 1.2;
                     return new Phaser.Point(x, y);
                 };
-                Members.memberWidth = Crimenuts.Settings.Process.Members.Card.width;
-                Members.memberHeight = Crimenuts.Settings.Process.Members.Card.height;
-                Members.memberNumInRow = Crimenuts.Settings.Process.Members.numInRow;
-                return Members;
+                MembersPool.memberWidth = Crimenuts.Settings.Process.Members.Card.width;
+                MembersPool.memberHeight = Crimenuts.Settings.Process.Members.Card.height;
+                MembersPool.memberNumInRow = Crimenuts.Settings.Process.Members.numInRow;
+                return MembersPool;
             })(Phaser.Group);
-            Process.Members = Members;
+            Process.MembersPool = MembersPool;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
 })(Crimenuts || (Crimenuts = {}));

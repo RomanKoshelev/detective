@@ -19,10 +19,12 @@
 
 
         // Fields
+
         private parts = new Array<IProcessViewPart>();
         private ticks: ITicksWidget;
 
         // Parts Utils
+
         private createParts(
             director: IProcessDirector,
             controller: IProcessController,
@@ -32,7 +34,7 @@
             this.addPart( this.ticks = new Display() );
             this.addPart( new InfoBar( ) );
             this.addPart( new MemberDialog( director ) );
-            this.addPart( new Members( model ) );
+            this.addPart( new Process.MembersPool( director ) );
             this.addPart( new Answers( controller, model ) );
             this.updateParts( model );
         }

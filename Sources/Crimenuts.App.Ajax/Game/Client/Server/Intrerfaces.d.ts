@@ -131,9 +131,20 @@ interface ProcessModel {
   */
 interface AnswerModel {
     IsValid : boolean;
-    Agent : string;
-    Subject : string;
-    Message : string;
+    AgentName : string;
+    AgentNumber : number;
+    SubjectName : string;
+    SubjectNumber : number;
+    AnswerText : string;
+    AnswerDiaogText : string;
+    AnswerVariant : Answer;
+}
+ 
+ 
+/**
+  * Data contract for Crimenuts.Core.Game.Enums.Answer
+  */
+interface Answer {
 }
  
  
@@ -141,9 +152,10 @@ interface AnswerModel {
   * Data contract for Crimenuts.App.Ajax.Game.Server.Models.MemberModel
   */
 interface MemberModel {
+    Id : number;
     World : string;
     Name : string;
-    TodayAnswer : string;
+    TodayAnswer : AnswerModel;
 }
  
  

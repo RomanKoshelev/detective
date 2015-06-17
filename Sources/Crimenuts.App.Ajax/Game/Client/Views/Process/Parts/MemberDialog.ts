@@ -9,8 +9,7 @@
             super( app.game );
             this.position = Settings.Process.Members.Dialog.position.clone();
             this.director = director;
-
-
+            
             this.createFrameDecoration();
             this.createMemberCard();
             this.createTitle();
@@ -22,9 +21,8 @@
             this.memberId = memberId;
             var member = this.getMemberModel();
             var name = member.Name;
-            var answer = member.TodayAnswer;
-            this.memberCard.setMember( member );
-            this.title.setText( `${name}:\n"${answer}"` );
+            this.memberCard.setMember( memberId );
+            this.title.setText( `${name}:\n"${member.TodayAnswer.AnswerDiaogText}"` );
         }
 
         onUpdateProcess( process: ProcessModel ): void {
@@ -67,7 +65,9 @@
         }
 
         private createMemberCard() {
-            this.add( this.memberCard = new MemberCard( this.getMemberModel(),
+            this.add( this.memberCard = new MemberCard(
+                this.director,
+                this.memberId,
                 Settings.Process.Members.Dialog.Card.position.x,
                 Settings.Process.Members.Dialog.Card.position.y,
                 Settings.Process.Members.Dialog.Card.width,
@@ -77,7 +77,7 @@
         }
 
         private getMemberModel() {
-            return this.director.getActualModel().Members[ this.memberId ];
+            return this.director.getProcessModel().Members[ this.memberId ];
         }
     }
 }

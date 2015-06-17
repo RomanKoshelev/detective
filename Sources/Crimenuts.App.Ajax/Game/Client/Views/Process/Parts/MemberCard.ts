@@ -1,77 +1,89 @@
 ﻿/// <reference path="../../../UserInterface/Buttons/ButtonEssence.ts" />
 
 module Crimenuts.View.Process {
-    export class MemberCard extends Phaser.Group {
+    export class MemberCard extends Phaser.Group implements IMemberCard {
 
-        // Public
+        // IMemberCard
 
+        memberId = Settings.Process.Members.unknownMember;
         showName = true;
-        showMind = true;
 
-        setMember( member: MemberModel ) {
+        setMember( memberId: number ) {
+            this.memberId = memberId;
+            var member = this.getMyModel();
             this.picture.setPerson( member.World, member.Name );
             this.nameLabel.setText( member.Name );
+            //this.updateAnswer();
         }
 
-        setMind( member: MemberModel ) {
-            if( this.mind !== null ) {
-                this.mind.setMember( member );
-            }
-        }
+        // Overrides
 
         update() {
             this.nameLabel.visible = this.showName;
-            if( this.mind !== null ) {
-                this.mind.visible = this.showMind;
-            }
             super.update();
         }
 
+        // Ctor
+
         constructor(
-            member: MemberModel,
+            director: IProcessDirector,
+            memberId: number,
             x: number,
             y: number,
             w: number,
             h: number,
             command = Command.nothing,
-            mindLevel = 1
+            answerLevel = 1
         ) {
             super( app.game );
+            this.director = director;
+            this.memberId = memberId;
             this.position.set( x, y );
-            this.createButton( w, h, command );
+
+            var member = this.getMyModel();
+
             this.createNameLabel( member.Name, w, h );
             this.createSpot( w, h );
-            this.createMind( mindLevel, member, w, h );
+            this.createAnswer( answerLevel, w, h );
             this.createPicture( member.World, member.Name, w, h );
             this.createFrame( w, h );
+            this.createButton( w, h, command );
         }
 
         // Fields
 
+        private director: IProcessDirector;
         private picture: PersonPicture;
         private button: PIXI.DisplayObject;
         private nameLabel: TextLabel;
         private spot: Phaser.Graphics;
-        private mind: MemberCard = null;
-
+        private answer: MemberCard = null;
 
         // Utils
 
-        createMind( level: number, model: MemberModel, w: number, h: number ) {
+        createAnswer( level: number, w: number, h: number ) {
             if( level < 1 ) return;
 
-            var k = Settings.Process.Members.Card.Mind.sizeRate;
-            var wk = Settings.Process.Members.Card.Mind.xRate;
-            var hk = Settings.Process.Members.Card.Mind.yRate;
+            var k = Settings.Process.Members.Card.Answer.sizeRate;
+            var wk = Settings.Process.Members.Card.Answer.xRate;
+            var hk = Settings.Process.Members.Card.Answer.yRate;
 
             var kk = Math.pow( k, level );
             var mx = w * wk;
             var my = h * hk;
             var mw = w * kk;
             var mh = h * kk;
-            this.mind = new MemberCard( model, mx, my, mw, mh, Command.nothing, level - 1 );
-            this.mind.showName = false;
-            this.add( this.mind );
+
+            this.answer = new MemberCard(
+                this.director,
+                this.memberId,
+                mx, my, mw, mh,
+                Command.nothing,
+                level - 1
+            );
+            this.answer.showName = false;
+            this.answer.visible = false;
+            this.add( this.answer );
         }
 
         private createPicture( world: string, name: string, w: number, h: number ) {
@@ -119,9 +131,27 @@ module Crimenuts.View.Process {
             this.spot.endFill();
         }
 
-        createFrame( w: number, h: number ) {
+        private createFrame( w: number, h: number ) {
             this.spot.lineStyle( 1, 0x1111111 );
             this.spot.drawRect( 0, 0, w, h );
+        }
+
+        private updateAnswer() {
+
+            if( this.answer !== null ) {
+            }
+        }
+
+        private getMemberModel( id: number ): MemberModel {
+            return this.director.getProcessModel().Members[ this.memberId ];
+        }
+
+        private getMyModel(): MemberModel {
+            return this.getMemberModel( this.memberId );
+        }
+
+        private getAnswerModel(): MemberModel {
+            return this.getMemberModel( this.getMyModel().TodayAnswer.AgentNumber );
         }
     }
 }
