@@ -101,7 +101,7 @@ namespace Crimenuts.Core.Game.Processes
 
         // ===================================================================================== []
         // User Actions
-        public Answer Ask( Member respondent, Member subject )
+        public AnswerCode Ask( Member respondent, Member subject )
         {
             return DoAsk( respondent, subject );
         }

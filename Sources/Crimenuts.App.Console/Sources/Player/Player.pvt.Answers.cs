@@ -47,7 +47,7 @@ namespace Crimenuts.App.Console
             return string.Format( "{0,-11}",
                 rec == null
                     ? member.IsActive ? "   ?" : "   -"
-                    : FormatAnswerSubjectName( rec, isGameOver ) + " is " + rec.Answer );
+                    : FormatAnswerSubjectName( rec, isGameOver ) + " is " + rec.AnswerCode );
         }
 
         private static string FormatAnswerSubjectName( History.Record rec, bool isGameOver )
@@ -76,7 +76,7 @@ namespace Crimenuts.App.Console
             WriteLine();
         }
 
-        public void PrintAnswerWithAdverb( Member respondent, Member subject, Answer answer )
+        public void PrintAnswerWithAdverb( Member respondent, Member subject, AnswerCode answerCode )
         {
             if( SilenceMode ) {
                 return;
@@ -86,27 +86,27 @@ namespace Crimenuts.App.Console
             if( subject == respondent ) {
                 verb = "";
             } else {
-                switch( answer ) {
-                    case Answer.Unknown :
+                switch( answerCode ) {
+                    case AnswerCode.Unknown :
                         verb = SelectOnRelation( respondent, subject, "is truly", "is fucking", "" );
                         break;
 
-                    case Answer.Suspicious :
+                    case AnswerCode.Suspicious :
                         verb = SelectOnRelation( respondent, subject, "is slightly", "is very", "" );
                         break;
-                    case Answer.NotSuspicious :
+                    case AnswerCode.NotSuspicious :
                         verb = SelectOnRelation( respondent, subject, "is certainly", "is strangely", "" );
                         break;
 
-                    case Answer.Innocent :
+                    case AnswerCode.Innocent :
                         verb = SelectOnRelation( respondent, subject, "is absolutely", "may be", "" );
                         break;
-                    case Answer.Murderer :
+                    case AnswerCode.Murderer :
                         verb = SelectOnRelation( respondent, subject, "seems", "is goddamn", "" );
                         break;
                 }
             }
-            PrintAnswer( respondent, subject, answer, verb );
+            PrintAnswer( respondent, subject, answerCode, verb );
         }
 
         private static string SelectOnRelation(
@@ -119,14 +119,14 @@ namespace Crimenuts.App.Console
             return respondent.Loves( subject ) ? love : respondent.Hates( subject ) ? hate : ignore;
         }
 
-        private void PrintAnswer( Member respondent, Member subject, Answer answer, string verb = "" )
+        private void PrintAnswer( Member respondent, Member subject, AnswerCode answerCode, string verb = "" )
         {
             Trace.Assert( subject != respondent, "subject != respondent" );
             if( verb == "" ) {
                 verb = "is";
             }
 
-            WriteLine( "    {0}:{1} {2} {3}", subject.Number, subject.Name, verb, answer );
+            WriteLine( "    {0}:{1} {2} {3}", subject.Number, subject.Name, verb, answerCode );
             WriteLine();
         }
     }

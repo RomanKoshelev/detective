@@ -137,14 +137,7 @@ interface AnswerModel {
     SubjectId : number;
     AnswerText : string;
     AnswerDiaogText : string;
-    AnswerVariant : Answer;
-}
- 
- 
-/**
-  * Data contract for Crimenuts.Core.Game.Enums.Answer
-  */
-interface Answer {
+    AnswerCode : string;
 }
  
  

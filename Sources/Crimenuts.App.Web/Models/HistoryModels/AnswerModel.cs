@@ -9,9 +9,9 @@ using Crimenuts.Core.Game.Histories;
 
 namespace Crimenuts.App.Web.Models
 {
-    public class AnswerModel : GenericHistoryRecordModel< Answer >
+    public class AnswerModel : GenericHistoryRecordModel< AnswerCode >
     {
         public AnswerModel( History.Record record )
-            : base( record, r => r.Answer ) {}
+            : base( record, r => r.AnswerCode ) {}
     }
 }

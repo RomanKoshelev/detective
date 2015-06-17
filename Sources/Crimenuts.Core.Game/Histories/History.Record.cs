@@ -19,13 +19,13 @@ namespace Crimenuts.Core.Game.Histories
                 Agent = agent;
                 Subject = subject;
                 Emotion = Emotion.Error;
-                Answer = Answer.Error;
+                AnswerCode = AnswerCode.Error;
             }
 
-            public Record( int currentDay, Action action, Member agent, Member subject, Answer answer )
+            public Record( int currentDay, Action action, Member agent, Member subject, AnswerCode answerCode )
                 : this( currentDay, action, agent, subject )
             {
-                Answer = answer;
+                AnswerCode = answerCode;
             }
 
             public Record( int currentDay, Action action, Member agent, Member subject, Emotion emotion )
@@ -38,7 +38,7 @@ namespace Crimenuts.Core.Game.Histories
             public Action Action { get; set; }
             public Member Agent { get; set; }
             public Member Subject { get; set; }
-            public Answer Answer { get; set; }
+            public AnswerCode AnswerCode { get; set; }
             public Emotion Emotion { get; set; }
         }
 

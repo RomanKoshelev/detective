@@ -68,7 +68,7 @@ namespace Crimenuts.Core.Game.Members
             DoRememberInnocent( innocent );
         }
 
-        public Answer Ask( Member subj )
+        public AnswerCode Ask( Member subj )
         {
             return DoAsk( subj );
         }

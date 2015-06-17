@@ -3,7 +3,6 @@
 // AnswerModel.cs
 
 using Crimenuts.App.Ajax.Game.Server.Config;
-using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Histories;
 using Crimenuts.Core.Game.Members;
 using Krokodev.Common.Extensions;
@@ -20,7 +19,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
         public int SubjectId { get; set; }
         public string AnswerText { get; set; }
         public string AnswerDiaogText { get; set; }
-        public Answer AnswerVariant { get; set; }
+        public string AnswerCode { get; set; }
 
         public AnswerModel( Member member, History.Record record )
         {
@@ -35,9 +34,9 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
                 IsValid = true;
                 SubjectName = record.Subject.Name;
                 SubjectId = record.Subject.Number - 1;
-                AnswerVariant = record.Answer;
-                AnswerText = record.Answer.ToString();
-                AnswerDiaogText = "{0} is {1}".SafeFormat( record.Subject.Name, record.Answer );
+                AnswerCode = record.AnswerCode.ToString();
+                AnswerText = "{0}".SafeFormat( record.AnswerCode );
+                AnswerDiaogText = "{0} is {1}".SafeFormat( record.Subject.Name, record.AnswerCode );
             }
         }
     }

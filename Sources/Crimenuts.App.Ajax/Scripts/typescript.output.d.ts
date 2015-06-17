@@ -33,6 +33,16 @@ declare module Crimenuts {
         text: string;
     }
 }
+declare module Crimenuts {
+    enum AnswerCode {
+        Error = 0,
+        Unknown = 1,
+        Innocent = 2,
+        Murderer = 3,
+        Suspicious = 4,
+        NotSuspicious = 5,
+    }
+}
 declare module Crimenuts.Settings {
     module Game {
         var width: number;
@@ -101,8 +111,14 @@ declare module Crimenuts.Settings {
             module Card {
                 var width: number;
                 var height: number;
-                var footShiftRate: number;
                 var inaciveShade: number;
+                module Spot {
+                    var heightRate: number;
+                    var footShiftRate: number;
+                    var color: {
+                        [key: string]: number;
+                    };
+                }
                 module Name {
                     var height: number;
                     var fontSize: number;
@@ -508,11 +524,14 @@ declare module Crimenuts.View.Process {
         private spot;
         private answer;
         private shade;
+        private spotEllipse;
+        private createSpot(width, height);
+        private updateSpot(memberId);
+        private setSpotColor(color);
         createAnswer(level: number, w: number, h: number): void;
         private createPicture(world, name, w, h);
         private createNameLabel(name, width, height);
         private createButton(w, h, command);
-        private createSpot(width, height);
         private createFrame(w, h);
         private updateAnswer(memberId);
         private createShade(w, h);

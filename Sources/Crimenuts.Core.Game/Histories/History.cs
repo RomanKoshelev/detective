@@ -51,9 +51,9 @@ namespace Crimenuts.Core.Game.Histories
             get { return Records.Where( r => r.Action == Action.Answer ).ToList(); }
         }
 
-        public void StoreAnswer( int day, Member respondent, Member subject, Answer answer )
+        public void StoreAnswer( int day, Member respondent, Member subject, AnswerCode answerCode )
         {
-            Records.Add( new Record( day, Action.Answer, respondent, subject, answer ) );
+            Records.Add( new Record( day, Action.Answer, respondent, subject, answerCode ) );
         }
 
         public IList< Record > GetAnswers( Member respondent, int day )

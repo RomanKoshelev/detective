@@ -12,10 +12,10 @@ namespace Crimenuts.Core.Game.Packs.Rules
         {
             public class Attitude
             {
-                public Answer Innocent = Answer.Error;
-                public Answer Murderer = Answer.Error;
-                public Answer Uninformed = Answer.Error;
-                public Answer WitnessMurderer = Answer.Error;
+                public AnswerCode Innocent = AnswerCode.Error;
+                public AnswerCode Murderer = AnswerCode.Error;
+                public AnswerCode Uninformed = AnswerCode.Error;
+                public AnswerCode WitnessMurderer = AnswerCode.Error;
             }
 
             public Attitude Love = new Attitude();

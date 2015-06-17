@@ -11,7 +11,7 @@ namespace Crimenuts.Core.Game.Members
 {
     public partial class Member
     {
-        private Answer DoAsk( Member subj )
+        private AnswerCode DoAsk( Member subj )
         {
             Trace.Assert( IsActive );
             Trace.Assert( this != subj );
@@ -44,14 +44,14 @@ namespace Crimenuts.Core.Game.Members
             get { return Person.Profile.AnswerRule; }
         }
 
-        private Answer Answer(
+        private AnswerCode Answer(
             Func< AnswerRule, AnswerRule.MyStatus > statusSelector,
             Member subject,
-            Func< AnswerRule.MyStatus.Attitude, Answer > answerSelector )
+            Func< AnswerRule.MyStatus.Attitude, AnswerCode > answerSelector )
         {
             var attitudeSelector = MakeAnswerAttitudeSelector( subject );
             var answer = answerSelector( attitudeSelector( statusSelector( AnswerRule ) ) );
-            Trace.Assert( answer != Enums.Answer.Error, "Wrong answer" );
+            Trace.Assert( answer != Enums.AnswerCode.Error, "Wrong answer" );
             return answer;
         }
 

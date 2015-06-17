@@ -50,26 +50,26 @@ namespace Crimenuts.Core.Game.Packs.Profile
             _answerDecodeIndex = 0;
         }
 
-        private Answer AnswerDecodeNext()
+        private AnswerCode AnswerDecodeNext()
         {
             var startIndex = ( int ) Type*AnswerRulesPerProfile;
 
             return DecodeAnswer( _answerPack[ startIndex + _answerDecodeIndex++ ] );
         }
 
-        private static Answer DecodeAnswer( char c )
+        private static AnswerCode DecodeAnswer( char c )
         {
             switch( c ) {
                 case 'u' :
-                    return Answer.Unknown;
+                    return AnswerCode.Unknown;
                 case 'i' :
-                    return Answer.Innocent;
+                    return AnswerCode.Innocent;
                 case 'm' :
-                    return Answer.Murderer;
+                    return AnswerCode.Murderer;
                 case 's' :
-                    return Answer.Suspicious;
+                    return AnswerCode.Suspicious;
                 case 'n' :
-                    return Answer.NotSuspicious;
+                    return AnswerCode.NotSuspicious;
             }
 
             throw new Exception( string.Format( "Wrong AnswerCode [{0}]", c ) );

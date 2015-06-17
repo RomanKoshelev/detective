@@ -97,7 +97,7 @@
     <Compile Include="Members\Member.pvt.Answer.cs" />
     <Compile Include="Members\Member.pvt.Mind.cs" />
     <Compile Include="Enums\Action.cs" />
-    <Compile Include="Enums\Answer.cs" />
+    <Compile Include="Enums\AnswerCode.cs" />
     <Compile Include="Persons\Person.cs" />
     <Compile Include="Packs\Profile\Profile.cs" />
     <Compile Include="Enums\ProfileType.cs" />

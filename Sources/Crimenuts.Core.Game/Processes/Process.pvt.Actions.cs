@@ -21,7 +21,7 @@ namespace Crimenuts.Core.Game.Processes
             DoStep();
         }
 
-        private Answer DoAsk( Member respondent, Member subject )
+        private AnswerCode DoAsk( Member respondent, Member subject )
         {
             var answer = respondent.Ask( subject );
             History.StoreAnswer( Today, respondent, subject, answer );

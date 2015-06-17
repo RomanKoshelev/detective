@@ -13,6 +13,7 @@ module Crimenuts.View.Process {
             this.nameLabel.setText( member.Name );
             this.updateAnswer( memberId );
             this.updateShade( memberId );
+            this.updateSpot( memberId );
         }
 
         // Overrides
@@ -27,10 +28,7 @@ module Crimenuts.View.Process {
         constructor(
             director: IProcessDirector,
             memberId: number,
-            x: number,
-            y: number,
-            w: number,
-            h: number,
+            x: number, y: number, w: number, h: number,
             command = Command.nothing,
             answerLevel = 1
         ) {
@@ -60,8 +58,35 @@ module Crimenuts.View.Process {
         private spot: Phaser.Graphics;
         private answer: MemberCard = null;
         private shade: Phaser.Graphics;
+        private spotEllipse = new PIXI.Rectangle();
 
         // Utils
+
+        private createSpot( width: number, height: number ) {
+            this.add( this.spot = new Phaser.Graphics( app.game, 0, 0 ) );
+
+            this.spotEllipse.width = width / 2;
+            this.spotEllipse.height = this.spotEllipse.width * Settings.Process.Members.Card.Spot.heightRate;
+            this.spotEllipse.x = width / 2;
+            this.spotEllipse.y = height - this.spotEllipse.height - Settings.Process.Members.Card.Name.height;
+            this.setSpotColor( 0 );
+        }
+
+        private updateSpot( memberId: number ) {
+            var member = this.getMemberModel( memberId );
+            var answerCode = member.TodayAnswer.AnswerCode;
+            var color = Settings.Process.Members.Card.Spot.color[answerCode];
+            //color = 0xffffff;
+            this.setSpotColor( color );
+        }
+
+        private setSpotColor( color: number ) {
+            this.spot.clear();
+            this.spot.beginFill( color );
+            this.spot.drawEllipse( this.spotEllipse.x, this.spotEllipse.y, this.spotEllipse.width, this.spotEllipse.height);
+            this.spot.endFill();
+        }
+
 
         createAnswer( level: number, w: number, h: number ) {
             if( level < 1 ) return;
@@ -91,7 +116,7 @@ module Crimenuts.View.Process {
 
         private createPicture( world: string, name: string, w: number, h: number ) {
             var nh = Settings.Process.Members.Card.Name.height;
-            var dx = this.spot.height / 2 * ( 1 - Settings.Process.Members.Card.footShiftRate );
+            var dx = this.spot.height / 2 * ( 1 - Settings.Process.Members.Card.Spot.footShiftRate );
             var pw = w - dx;
             var ph = h - nh - dx;
             var sz = Math.min( pw, ph );
@@ -116,21 +141,6 @@ module Crimenuts.View.Process {
 
         private createButton( w: number, h: number, command: Command ) {
             this.add( this.button = new ButtonEssence( command, w, h ) );
-        }
-
-        private createSpot( width: number, height: number ) {
-            this.spot = new Phaser.Graphics( app.game, 0, 0 );
-            this.add( this.spot );
-
-            var k = 0.2;
-            var w = width / 2;
-            var h = w * k;
-            var x = width / 2;
-            var y = height - h - Settings.Process.Members.Card.Name.height;
-
-            this.spot.beginFill( 0x222222 );
-            this.spot.drawEllipse( x, y, w, h );
-            this.spot.endFill();
         }
 
         private createFrame( w: number, h: number ) {
@@ -174,6 +184,5 @@ module Crimenuts.View.Process {
         private getMemberModel( memberId: number ): MemberModel {
             return this.director.getProcessModel().Members[ memberId ];
         }
-
     }
 }
