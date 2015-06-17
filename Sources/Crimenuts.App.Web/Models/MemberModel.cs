@@ -7,6 +7,7 @@ using Crimenuts.Core.Game;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Members;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Sex;
 
 namespace Crimenuts.App.Web.Models
 {

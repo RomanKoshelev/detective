@@ -175,12 +175,23 @@ declare module Crimenuts {
         static nothing: Command;
     }
 }
+declare module Crimenuts {
+    interface IProcessController {
+        getProcess(processId: string): JQueryPromise<ProcessModel>;
+        autoAnswer(processId: string): JQueryPromise<void>;
+    }
+}
+declare module Crimenuts.View.Process {
+    class AutoAnswerCommand extends Command {
+        constructor(controller: IProcessController, processId: string);
+    }
+}
 declare module Crimenuts.View.Process {
     class MemberDialog extends Phaser.Group implements IProcessViewPart, IMemberDialog {
         static instance: IMemberDialog;
         constructor(director: IProcessDirector);
         setMember(memberId: number): void;
-        onUpdateProcess(process: ProcessModel): void;
+        onProcessUpdated(director: IProcessDirector): void;
         private director;
         private controller;
         private memberId;
@@ -195,14 +206,6 @@ declare module Crimenuts.View.Process {
 declare module Crimenuts {
     class MemberDialogCommand extends Command {
         constructor(memberId: number);
-        private memberId;
-        private execute();
-    }
-}
-declare module Crimenuts {
-    interface IProcessController {
-        getProcess(processId: string): JQueryPromise<ProcessModel>;
-        autoAnswer(processId: string): JQueryPromise<void>;
     }
 }
 declare module Crimenuts {
@@ -260,12 +263,12 @@ declare module Crimenuts {
 declare module Crimenuts.View.Process {
     class ProcessView extends Phaser.Group implements IProcessViewPart {
         constructor(director: IProcessDirector, controller: IProcessController, observer: IProcessObserver, model: ProcessModel);
-        onUpdateProcess(model: ProcessModel): void;
+        onProcessUpdated(director: IProcessDirector): void;
         private parts;
         private ticks;
-        private createParts(director, controller, observer, model);
+        private createParts(director, controller, observer, process);
         private addPart(part);
-        private updateParts(model);
+        private updateParts(director);
         private subscribeEvents(observer);
         private onTickCountUpdated(count);
     }
@@ -443,20 +446,19 @@ declare module Crimenuts {
 }
 declare module Crimenuts.View.Process {
     interface IProcessViewPart {
-        onUpdateProcess(processModel: ProcessModel): void;
+        onProcessUpdated(director: IProcessDirector): void;
     }
 }
 declare module Crimenuts.View.Process {
     class Answers extends Phaser.Group implements IProcessViewPart {
-        constructor(controller: IProcessController, model: ProcessModel);
-        onUpdateProcess(model: ProcessModel): void;
+        constructor(answers: AnswerModel[], cmdAutoAnswer: Command);
+        onProcessUpdated(director: IProcessDirector): void;
         private answerSheet;
         private controller;
         private processId;
         private createAnswers();
-        private cmdAutoAnswer();
         private updateAnswers(answers);
-        createButtons(): void;
+        createButtons(cmdAutoAnswer: Command): void;
         private createButton(command, position);
     }
 }
@@ -465,7 +467,7 @@ declare module Crimenuts.View.Process {
         bottomBar: BottomBar;
         topBar: TopBar;
         constructor();
-        onUpdateProcess(model: ProcessModel): void;
+        onProcessUpdated(director: IProcessDirector): void;
         updateTicks(count: number): void;
         private setBottomText(text);
         private setCaseId(caseId);
@@ -485,7 +487,7 @@ declare module Crimenuts.View.Process {
 declare module Crimenuts.View.Process {
     class InfoBar extends Phaser.Group implements IProcessViewPart {
         constructor();
-        onUpdateProcess(model: ProcessModel): void;
+        onProcessUpdated(director: IProcessDirector): void;
         private textLabel;
         private createTextLabel();
         private setInfo(day, victim, arrested, murdererNum);
@@ -514,12 +516,9 @@ declare module Crimenuts.View.Process {
     }
 }
 declare module Crimenuts.View.Process {
-    class MembersPool extends Phaser.Group implements IProcessViewPart {
+    class Members extends Phaser.Group implements IProcessViewPart {
         constructor(director: IProcessDirector);
-        onUpdateProcess(processModel: ProcessModel): void;
-        static memberWidth: number;
-        static memberHeight: number;
-        static memberNumInRow: number;
+        onProcessUpdated(director: IProcessDirector): void;
         private cards;
         private director;
         private createMembers(director);

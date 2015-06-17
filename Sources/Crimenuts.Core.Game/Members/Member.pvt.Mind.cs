@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Extensions;
 
 namespace Crimenuts.Core.Game.Members
 {

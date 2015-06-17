@@ -5,7 +5,7 @@
 
 using System.Web.Mvc;
 using System.Web.Routing;
-using Crimenuts.Utils.Web;
+using Crimenuts.Utils.Mvc;
 
 namespace Crimenuts.App.Web
 {

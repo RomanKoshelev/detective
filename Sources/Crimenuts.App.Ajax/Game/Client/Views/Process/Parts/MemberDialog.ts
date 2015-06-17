@@ -25,7 +25,7 @@
             this.title.setText( `${name}:\n"${member.TodayAnswer.AnswerDiaogText}"` );
         }
 
-        onUpdateProcess( process: ProcessModel ): void {
+        onProcessUpdated(  director: IProcessDirector ): void {
             this.setMember( this.memberId );
         }
 

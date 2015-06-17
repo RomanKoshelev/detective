@@ -9,6 +9,7 @@ using Crimenuts.Core.Game;
 using Crimenuts.Core.Game.Members;
 using Crimenuts.Core.Game.Processes;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Extensions;
 
 namespace Crimenuts.App.Console
 {

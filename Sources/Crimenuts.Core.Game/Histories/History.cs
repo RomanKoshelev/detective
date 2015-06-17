@@ -8,6 +8,7 @@ using System.Linq;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Members;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Extensions;
 
 namespace Crimenuts.Core.Game.Histories
 {

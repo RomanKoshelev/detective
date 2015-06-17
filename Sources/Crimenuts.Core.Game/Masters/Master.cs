@@ -6,6 +6,7 @@ using System;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Members;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Traces;
 
 namespace Crimenuts.Core.Game.Masters
 {

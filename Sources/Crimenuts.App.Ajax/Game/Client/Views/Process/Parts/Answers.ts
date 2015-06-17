@@ -1,21 +1,20 @@
 ﻿module Crimenuts.View.Process {
     export class Answers extends Phaser.Group implements IProcessViewPart {
 
-        constructor( 
-            controller: IProcessController,
-            model: ProcessModel
+        constructor(
+            answers: AnswerModel[],
+            cmdAutoAnswer: Command
         ) {
             super( app.game );
             this.position = Settings.Process.Answers.position.clone();
-            this.controller = controller;
             this.createAnswers();
-            this.createButtons();
-            this.onUpdateProcess( model );
+            this.createButtons( cmdAutoAnswer );
+            this.updateAnswers( answers );
         }
 
-        onUpdateProcess( model: ProcessModel ): void {
-            this.processId = model.Id;
-            this.updateAnswers( model.Answers );
+        onProcessUpdated( director: IProcessDirector ): void {
+            var answers = director.getProcessModel().Answers;
+            this.updateAnswers( answers );
         }
 
         private answerSheet: TextLabel;
@@ -35,10 +34,6 @@
             this.add( this.answerSheet );
         }
 
-        private cmdAutoAnswer() {
-            this.controller.autoAnswer( this.processId );
-        }
-
         private updateAnswers( answers: AnswerModel[] ) {
             var text = "";
             var i = 1;
@@ -54,10 +49,8 @@
             this.answerSheet.setText( text );
         }
 
-        createButtons() {
-            this.createButton(
-                new Command( "Auto", this.cmdAutoAnswer, this),
-                Settings.Process.Answers.Buttons.Auto.position );
+        createButtons( cmdAutoAnswer: Command ) {
+            this.createButton( cmdAutoAnswer, Settings.Process.Answers.Buttons.Auto.position );
         }
 
         private createButton( command: Command, position: Phaser.Point ) {

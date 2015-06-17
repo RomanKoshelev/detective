@@ -8,12 +8,13 @@
             this.createTextLabel();
         }
 
-        onUpdateProcess( model: ProcessModel ): void {
+        onProcessUpdated( director: IProcessDirector ): void {
+            var process = director.getProcessModel();
             this.setInfo(
-                model.Today.Day,
-                model.Today.Victim,
-                model.Today.Prisoner,
-                model.Today.ActiveMurdererNum );
+                process.Today.Day,
+                process.Today.Victim,
+                process.Today.Prisoner,
+                process.Today.ActiveMurdererNum );
         }
         
         private textLabel: TextLabel;

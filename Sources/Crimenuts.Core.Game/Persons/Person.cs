@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Crimenuts.Core.Game.Packs.Profile;
 using Crimenuts.Utils;
 using Crimenuts.Utils.Localization;
+using Crimenuts.Utils.Sex;
 using MoreLinq;
 
 namespace Crimenuts.Core.Game.Persons

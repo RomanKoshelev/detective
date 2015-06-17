@@ -8,6 +8,7 @@ using System.Linq;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Persons;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Extensions;
 using Crimenuts.Utils.Localization;
 using MoreLinq;
 

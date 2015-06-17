@@ -10,6 +10,7 @@ using Crimenuts.Core.Game;
 using Crimenuts.Core.Game.Histories;
 using Crimenuts.Core.Game.Members;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Extensions;
 using MoreLinq;
 
 namespace Crimenuts.App.Console

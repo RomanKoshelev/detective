@@ -1,5 +1,6 @@
 ﻿/// <reference path="../Views/Process/ProcessView.ts" />
 /// <reference path="../Managers/ProcessManager.ts" />
+
 module Crimenuts {
     import ProcessView = View.Process.ProcessView;
 
@@ -62,7 +63,7 @@ module Crimenuts {
         private onProcessUpdated( model: ProcessModel) {
             if( model.Id === this.processId ) {
                 this.model = model;
-                this.view.onUpdateProcess( this.model );
+                this.view.onProcessUpdated( this );
             }
         }
     }

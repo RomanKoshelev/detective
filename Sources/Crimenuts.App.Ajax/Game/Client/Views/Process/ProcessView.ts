@@ -1,4 +1,6 @@
-﻿module Crimenuts.View.Process {
+﻿/// <reference path="../../Commands/AutoAnswerCommand.ts" />
+
+module Crimenuts.View.Process {
     export class ProcessView extends Phaser.Group implements IProcessViewPart {
 
         constructor(
@@ -13,8 +15,8 @@
             this.subscribeEvents( observer );
         }
 
-        onUpdateProcess( model: ProcessModel ): void {
-            this.updateParts( model );
+        onProcessUpdated( director: IProcessDirector ): void {
+            this.updateParts( director );
         }
 
 
@@ -29,14 +31,14 @@
             director: IProcessDirector,
             controller: IProcessController,
             observer: IProcessObserver,
-            model: ProcessModel
+            process: ProcessModel
         ) {
             this.addPart( this.ticks = new Display() );
-            this.addPart( new InfoBar( ) );
+            this.addPart( new InfoBar() );
             this.addPart( new MemberDialog( director ) );
-            this.addPart( new Process.MembersPool( director ) );
-            this.addPart( new Answers( controller, model ) );
-            this.updateParts( model );
+            this.addPart( new Process.Members( director ) );
+            this.addPart( new Answers( process.Answers, new Process.AutoAnswerCommand( controller, process.Id ) ) );
+            this.updateParts( director );
         }
 
         private addPart( part: IProcessViewPart ) {
@@ -44,8 +46,8 @@
             this.add( part );
         }
 
-        private updateParts( model: ProcessModel ) {
-            this.parts.forEach( p => p.onUpdateProcess( model ) );
+        private updateParts( director: IProcessDirector ) {
+            this.parts.forEach( p => p.onProcessUpdated( director ) );
         }
 
         // Events

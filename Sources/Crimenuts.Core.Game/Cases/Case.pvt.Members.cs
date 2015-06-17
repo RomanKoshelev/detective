@@ -10,6 +10,7 @@ using Crimenuts.Core.Game.Members;
 using Crimenuts.Core.Game.Packs.Profile;
 using Crimenuts.Core.Game.Persons;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Extensions;
 using MoreLinq;
 
 namespace Crimenuts.Core.Game.Cases

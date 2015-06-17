@@ -11,6 +11,7 @@ using Crimenuts.Core.Game.Cases;
 using Crimenuts.Core.Game.Members;
 using Crimenuts.Core.Game.Schemas;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Extensions;
 using Krokodev.Common.Identifier;
 
 namespace Crimenuts.App.Web.Models

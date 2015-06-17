@@ -277,6 +277,25 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+/// <reference path="./Command.ts" />
+/// <reference path="../Managers/IProcessController.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var View;
+    (function (View) {
+        var Process;
+        (function (Process) {
+            var AutoAnswerCommand = (function (_super) {
+                __extends(AutoAnswerCommand, _super);
+                function AutoAnswerCommand(controller, processId) {
+                    _super.call(this, "Auto answer", function () { return controller.autoAnswer(processId); });
+                }
+                return AutoAnswerCommand;
+            })(Crimenuts.Command);
+            Process.AutoAnswerCommand = AutoAnswerCommand;
+        })(Process = View.Process || (View.Process = {}));
+    })(View = Crimenuts.View || (Crimenuts.View = {}));
+})(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
     var View;
@@ -302,7 +321,7 @@ var Crimenuts;
                     this.memberCard.setMember(memberId);
                     this.title.setText("" + name + ":\n\"" + member.TodayAnswer.AnswerDiaogText + "\"");
                 };
-                MemberDialog.prototype.onUpdateProcess = function (process) {
+                MemberDialog.prototype.onProcessUpdated = function (director) {
                     this.setMember(this.memberId);
                 };
                 MemberDialog.prototype.createFrameDecoration = function () {
@@ -325,6 +344,7 @@ var Crimenuts;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
 })(Crimenuts || (Crimenuts = {}));
+/// <reference path="./Command.ts" />
 /// <reference path="../Views/Process/Parts/MemberDialog.ts" />
 var Crimenuts;
 (function (Crimenuts) {
@@ -332,14 +352,8 @@ var Crimenuts;
     var MemberDialogCommand = (function (_super) {
         __extends(MemberDialogCommand, _super);
         function MemberDialogCommand(memberId) {
-            _super.call(this, "Open Member Dialog");
-            this.callback = this.execute;
-            this.context = this;
-            this.memberId = memberId;
+            _super.call(this, "Open Member Dialog", function () { return MemberDialog.instance.setMember(memberId); });
         }
-        MemberDialogCommand.prototype.execute = function () {
-            MemberDialog.instance.setMember(this.memberId);
-        };
         return MemberDialogCommand;
     })(Crimenuts.Command);
     Crimenuts.MemberDialogCommand = MemberDialogCommand;
@@ -430,6 +444,7 @@ var Crimenuts;
     })();
     Crimenuts.ServerAdapter = ServerAdapter;
 })(Crimenuts || (Crimenuts = {}));
+/// <reference path="../../Commands/AutoAnswerCommand.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var View;
@@ -446,24 +461,24 @@ var Crimenuts;
                     this.createParts(director, controller, observer, model);
                     this.subscribeEvents(observer);
                 }
-                ProcessView.prototype.onUpdateProcess = function (model) {
-                    this.updateParts(model);
+                ProcessView.prototype.onProcessUpdated = function (director) {
+                    this.updateParts(director);
                 };
                 // Parts Utils
-                ProcessView.prototype.createParts = function (director, controller, observer, model) {
+                ProcessView.prototype.createParts = function (director, controller, observer, process) {
                     this.addPart(this.ticks = new Process.Display());
                     this.addPart(new Process.InfoBar());
                     this.addPart(new Process.MemberDialog(director));
-                    this.addPart(new Process.MembersPool(director));
-                    this.addPart(new Process.Answers(controller, model));
-                    this.updateParts(model);
+                    this.addPart(new Process.Members(director));
+                    this.addPart(new Process.Answers(process.Answers, new Process.AutoAnswerCommand(controller, process.Id)));
+                    this.updateParts(director);
                 };
                 ProcessView.prototype.addPart = function (part) {
                     this.parts.push(part);
                     this.add(part);
                 };
-                ProcessView.prototype.updateParts = function (model) {
-                    this.parts.forEach(function (p) { return p.onUpdateProcess(model); });
+                ProcessView.prototype.updateParts = function (director) {
+                    this.parts.forEach(function (p) { return p.onProcessUpdated(director); });
                 };
                 // Events
                 ProcessView.prototype.subscribeEvents = function (observer) {
@@ -537,7 +552,7 @@ var Crimenuts;
         ProcessState.prototype.onProcessUpdated = function (model) {
             if (model.Id === this.processId) {
                 this.model = model;
-                this.view.onUpdateProcess(this.model);
+                this.view.onProcessUpdated(this);
             }
         };
         return ProcessState;
@@ -999,25 +1014,21 @@ var Crimenuts;
         (function (Process) {
             var Answers = (function (_super) {
                 __extends(Answers, _super);
-                function Answers(controller, model) {
+                function Answers(answers, cmdAutoAnswer) {
                     _super.call(this, Crimenuts.app.game);
                     this.position = Crimenuts.Settings.Process.Answers.position.clone();
-                    this.controller = controller;
                     this.createAnswers();
-                    this.createButtons();
-                    this.onUpdateProcess(model);
+                    this.createButtons(cmdAutoAnswer);
+                    this.updateAnswers(answers);
                 }
-                Answers.prototype.onUpdateProcess = function (model) {
-                    this.processId = model.Id;
-                    this.updateAnswers(model.Answers);
+                Answers.prototype.onProcessUpdated = function (director) {
+                    var answers = director.getProcessModel().Answers;
+                    this.updateAnswers(answers);
                 };
                 Answers.prototype.createAnswers = function () {
                     this.answerSheet = new Crimenuts.TextLabel(Crimenuts.Settings.Process.Answers.width, Crimenuts.Settings.Process.Answers.height, Crimenuts.Settings.Default.Font.face, Crimenuts.Settings.Process.Answers.Answer.fontSize, Crimenuts.Settings.Process.Answers.Answer.Color.regular, Crimenuts.Settings.Process.Answers.bgColor);
                     this.answerSheet.alignMiddle();
                     this.add(this.answerSheet);
-                };
-                Answers.prototype.cmdAutoAnswer = function () {
-                    this.controller.autoAnswer(this.processId);
                 };
                 Answers.prototype.updateAnswers = function (answers) {
                     var text = "";
@@ -1031,8 +1042,8 @@ var Crimenuts;
                     });
                     this.answerSheet.setText(text);
                 };
-                Answers.prototype.createButtons = function () {
-                    this.createButton(new Crimenuts.Command("Auto", this.cmdAutoAnswer, this), Crimenuts.Settings.Process.Answers.Buttons.Auto.position);
+                Answers.prototype.createButtons = function (cmdAutoAnswer) {
+                    this.createButton(cmdAutoAnswer, Crimenuts.Settings.Process.Answers.Buttons.Auto.position);
                 };
                 Answers.prototype.createButton = function (command, position) {
                     this.add(Crimenuts.app.uiFactory.makeDefaultButton(command, position));
@@ -1056,8 +1067,8 @@ var Crimenuts;
                     this.add(this.topBar = new Crimenuts.TopBar());
                     this.add(this.bottomBar = new Crimenuts.BottomBar());
                 }
-                Display.prototype.onUpdateProcess = function (model) {
-                    this.setCaseId(model.CaseId);
+                Display.prototype.onProcessUpdated = function (director) {
+                    this.setCaseId(director.getProcessModel().CaseId);
                 };
                 Display.prototype.updateTicks = function (count) {
                     this.setBottomText("[" + count + "]");
@@ -1087,8 +1098,9 @@ var Crimenuts;
                     this.position = Crimenuts.Settings.Process.Bars.InfoBar.position.clone();
                     this.createTextLabel();
                 }
-                InfoBar.prototype.onUpdateProcess = function (model) {
-                    this.setInfo(model.Today.Day, model.Today.Victim, model.Today.Prisoner, model.Today.ActiveMurdererNum);
+                InfoBar.prototype.onProcessUpdated = function (director) {
+                    var process = director.getProcessModel();
+                    this.setInfo(process.Today.Day, process.Today.Victim, process.Today.Prisoner, process.Today.ActiveMurdererNum);
                 };
                 InfoBar.prototype.createTextLabel = function () {
                     this.add(this.textLabel = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Bars.width, Crimenuts.Settings.Process.Bars.height, Crimenuts.Settings.Process.Bars.textColor, Crimenuts.Settings.Process.Bars.bgColor));
@@ -1222,24 +1234,24 @@ var Crimenuts;
     (function (View) {
         var Process;
         (function (Process) {
-            var MembersPool = (function (_super) {
-                __extends(MembersPool, _super);
-                function MembersPool(director) {
+            var Members = (function (_super) {
+                __extends(Members, _super);
+                function Members(director) {
                     _super.call(this, Crimenuts.app.game);
                     this.cards = new Array();
                     this.position = Crimenuts.Settings.Process.Members.position.clone();
                     this.createMembers(director);
                 }
-                MembersPool.prototype.onUpdateProcess = function (processModel) {
+                Members.prototype.onProcessUpdated = function (director) {
                     var process = this.director.getProcessModel();
                     for (var i in process.Members) {
                         this.cards[i].setMember(i);
                     }
                 };
-                MembersPool.prototype.createMembers = function (director) {
+                Members.prototype.createMembers = function (director) {
                     this.director = director;
-                    var w = MembersPool.memberWidth;
-                    var h = MembersPool.memberHeight;
+                    var w = Crimenuts.Settings.Process.Members.Card.width;
+                    var h = Crimenuts.Settings.Process.Members.Card.height;
                     var process = director.getProcessModel();
                     for (var i in process.Members) {
                         var p = this.calcPersonCardPosition(i, w, h);
@@ -1248,18 +1260,15 @@ var Crimenuts;
                         this.cards.push(card);
                     }
                 };
-                MembersPool.prototype.calcPersonCardPosition = function (i, w, h) {
-                    var n = MembersPool.memberNumInRow;
+                Members.prototype.calcPersonCardPosition = function (i, w, h) {
+                    var n = Crimenuts.Settings.Process.Members.numInRow;
                     var x = (i % n) * w * 1.2;
                     var y = Math.floor(i / n) * h * 1.2;
                     return new Phaser.Point(x, y);
                 };
-                MembersPool.memberWidth = Crimenuts.Settings.Process.Members.Card.width;
-                MembersPool.memberHeight = Crimenuts.Settings.Process.Members.Card.height;
-                MembersPool.memberNumInRow = Crimenuts.Settings.Process.Members.numInRow;
-                return MembersPool;
+                return Members;
             })(Phaser.Group);
-            Process.MembersPool = MembersPool;
+            Process.Members = Members;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
 })(Crimenuts || (Crimenuts = {}));

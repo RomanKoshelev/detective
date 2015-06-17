@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Extensions;
 
 namespace Crimenuts.Core.Game.Packs.Utils.NameGenerator
 {

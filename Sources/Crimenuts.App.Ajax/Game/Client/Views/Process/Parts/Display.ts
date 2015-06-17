@@ -10,8 +10,8 @@ module Crimenuts.View.Process {
             this.add( this.bottomBar = new BottomBar() );
         }
 
-        onUpdateProcess( model: ProcessModel ): void {
-            this.setCaseId( model.CaseId );
+        onProcessUpdated( director: IProcessDirector ): void {
+            this.setCaseId( director.getProcessModel().CaseId );
         }
 
         updateTicks( count: number ) {

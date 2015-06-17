@@ -3,6 +3,7 @@
 // Member.pub.Format.cs
 
 using Crimenuts.Utils;
+using Crimenuts.Utils.Extensions;
 
 namespace Crimenuts.Core.Game.Members
 {

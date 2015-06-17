@@ -9,6 +9,7 @@ using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Packs.Utils.NameGenerator;
 using Crimenuts.Core.Game.Persons;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Extensions;
 
 namespace Crimenuts.Core.Game.Packs.Worlds
 {

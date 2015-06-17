@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../../Commands/MemberDialogCommand.ts" />
 module Crimenuts.View.Process {
 
-    export class MembersPool extends Phaser.Group implements IProcessViewPart {
+    export class Members extends Phaser.Group implements IProcessViewPart {
 
         constructor(
             director: IProcessDirector
@@ -11,16 +11,12 @@ module Crimenuts.View.Process {
             this.createMembers( director );
         }
 
-        onUpdateProcess( processModel: ProcessModel ): void {
+        onProcessUpdated( director: IProcessDirector ): void {
             var process = this.director.getProcessModel();
             for( var i in process.Members ) {
                 this.cards[ i ].setMember( i);
             }
         }
-
-        static memberWidth = Settings.Process.Members.Card.width;
-        static memberHeight = Settings.Process.Members.Card.height;
-        static memberNumInRow = Settings.Process.Members.numInRow;
 
         private cards = new Array<IMemberCard>();
         private director: IProcessDirector;
@@ -29,8 +25,8 @@ module Crimenuts.View.Process {
             director: IProcessDirector
         ) {
             this.director = director;
-            var w = MembersPool.memberWidth;
-            var h = MembersPool.memberHeight;
+            var w = Settings.Process.Members.Card.width;
+            var h = Settings.Process.Members.Card.height;
 
             var process = director.getProcessModel();
             for( var i in process.Members ) {
@@ -44,7 +40,7 @@ module Crimenuts.View.Process {
         }
 
         private calcPersonCardPosition( i: number, w: number, h: number ): Phaser.Point {
-            var n = MembersPool.memberNumInRow;
+            var n = Settings.Process.Members.numInRow;
             var x = ( i % n ) * w * 1.2;
             var y = Math.floor( i / n ) * h * 1.2;
             return new Phaser.Point( x, y );

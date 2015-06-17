@@ -5,6 +5,7 @@
 
 using System.Linq;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Extensions;
 using MoreLinq;
 
 namespace Crimenuts.App.Console

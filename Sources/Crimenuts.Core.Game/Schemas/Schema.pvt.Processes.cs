@@ -8,6 +8,7 @@ using Crimenuts.Core.Game.Cases;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Processes;
 using Crimenuts.Utils;
+using Crimenuts.Utils.Traces;
 using Krokodev.Common.Identifier;
 
 namespace Crimenuts.Core.Game.Schemas
