@@ -4,7 +4,6 @@ module Crimenuts.View.Process {
     export class MemberCard extends Phaser.Group implements IMemberCard {
 
         // IMemberCard
-
         showName = true;
 
         setMember( memberId: number ) {
@@ -17,14 +16,12 @@ module Crimenuts.View.Process {
         }
 
         // Overrides
-
         update() {
             this.nameLabel.visible = this.showName;
             super.update();
         }
 
         // Ctor
-
         constructor(
             director: IProcessDirector,
             memberId: number,
@@ -50,7 +47,6 @@ module Crimenuts.View.Process {
         }
 
         // Fields
-
         private director: IProcessDirector;
         private picture: PersonPicture;
         private button: PIXI.DisplayObject;
@@ -59,9 +55,9 @@ module Crimenuts.View.Process {
         private answer: MemberCard = null;
         private shade: Phaser.Graphics;
         private spotEllipse = new PIXI.Rectangle();
+        private answerCode = AnswerCode.Unknown;
 
         // Utils
-
         private createSpot( width: number, height: number ) {
             this.add( this.spot = new Phaser.Graphics( app.game, 0, 0 ) );
 
@@ -73,19 +69,16 @@ module Crimenuts.View.Process {
         }
 
         private updateSpot( memberId: number ) {
-            var member = this.getMemberModel( memberId );
-            var answerCode = member.TodayAnswer.AnswerCode;
-            var color = Settings.Process.Members.Card.Spot.color[answerCode];
+            var color = Settings.Process.Members.Card.Spot.color[ AnswerCode[this.answerCode] ];
             this.setSpotColor( color );
         }
 
         private setSpotColor( color: number ) {
             this.spot.clear();
             this.spot.beginFill( color );
-            this.spot.drawEllipse( this.spotEllipse.x, this.spotEllipse.y, this.spotEllipse.width, this.spotEllipse.height);
+            this.spot.drawEllipse( this.spotEllipse.x, this.spotEllipse.y, this.spotEllipse.width, this.spotEllipse.height );
             this.spot.endFill();
         }
-
 
         createAnswer( level: number, w: number, h: number ) {
             if( level < 1 ) return;
@@ -152,10 +145,12 @@ module Crimenuts.View.Process {
 
             var model = this.getMemberModel( memberId );
             if( model.TodayAnswer.IsValid ) {
+                this.answer.answerCode = AnswerCode[ model.TodayAnswer.AnswerCode ];
                 this.answer.setMember( model.TodayAnswer.SubjectId );
                 this.answer.visible = true;
             } else {
                 this.answer.visible = false;
+                this.answer.answerCode = AnswerCode.Unknown;
             }
         }
 

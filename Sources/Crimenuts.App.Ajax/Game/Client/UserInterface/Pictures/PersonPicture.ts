@@ -15,14 +15,7 @@
                 this.onLoadComplete();
             } else {
                 this.loadAsync( world, name );
-
-                var defkey = Assets.Sprites.getPersonKey( world, name );
-                if( this.game.cache.checkImageKey( defkey ) ) {
-                    this.loadTexture( defkey );
-                    this.updateScale();
-                } else {
-                    Assets.Sprites.loadPerson( world, name );
-                }
+                this.setDefaultImage( world, name );
             }
         }
 
@@ -40,8 +33,18 @@
             this.updateScale();
         }
 
-        updateScale() {
+        private updateScale() {
             this.scale.set( this.imageWidth / this.texture.width );
+        }
+
+        private setDefaultImage( world: string, name: string ) {
+            var defkey = Assets.Sprites.getPersonKey( world, name );
+            if( this.game.cache.checkImageKey( defkey ) ) {
+                this.loadTexture( defkey );
+                this.updateScale();
+            } else {
+                Assets.Sprites.loadPerson( world, name );
+            }
         }
     }
 }

@@ -26,7 +26,6 @@ module Crimenuts {
             } );
         }
 
-
         // Fields
         private processId = Settings.Default.Process.testId;
         private controller: IProcessController;
