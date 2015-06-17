@@ -132,9 +132,9 @@ interface ProcessModel {
 interface AnswerModel {
     IsValid : boolean;
     AgentName : string;
-    AgentNumber : number;
+    AgentId : number;
     SubjectName : string;
-    SubjectNumber : number;
+    SubjectId : number;
     AnswerText : string;
     AnswerDiaogText : string;
     AnswerVariant : Answer;

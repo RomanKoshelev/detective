@@ -475,7 +475,6 @@ declare module Crimenuts.View.Process {
     interface IMemberCard {
         setMember(memberId: number): any;
         showName: boolean;
-        memberId: any;
     }
 }
 declare module Crimenuts.View.Process {
@@ -494,7 +493,6 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class MemberCard extends Phaser.Group implements IMemberCard {
-        memberId: number;
         showName: boolean;
         setMember(memberId: number): void;
         update(): void;
@@ -511,10 +509,8 @@ declare module Crimenuts.View.Process {
         private createButton(w, h, command);
         private createSpot(width, height);
         private createFrame(w, h);
-        private updateAnswer();
-        private getMemberModel(id);
-        private getMyModel();
-        private getAnswerModel();
+        private updateAnswer(memberId);
+        private getMemberModel(memberId);
     }
 }
 declare module Crimenuts.View.Process {

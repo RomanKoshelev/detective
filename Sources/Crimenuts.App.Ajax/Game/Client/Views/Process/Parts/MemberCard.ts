@@ -5,15 +5,13 @@ module Crimenuts.View.Process {
 
         // IMemberCard
 
-        memberId = Settings.Process.Members.unknownMember;
         showName = true;
 
         setMember( memberId: number ) {
-            this.memberId = memberId;
-            var member = this.getMyModel();
+            var member = this.getMemberModel( memberId );
             this.picture.setPerson( member.World, member.Name );
             this.nameLabel.setText( member.Name );
-            //this.updateAnswer();
+            this.updateAnswer( memberId );
         }
 
         // Overrides
@@ -37,10 +35,9 @@ module Crimenuts.View.Process {
         ) {
             super( app.game );
             this.director = director;
-            this.memberId = memberId;
             this.position.set( x, y );
 
-            var member = this.getMyModel();
+            var member = this.getMemberModel( memberId );
 
             this.createNameLabel( member.Name, w, h );
             this.createSpot( w, h );
@@ -48,6 +45,8 @@ module Crimenuts.View.Process {
             this.createPicture( member.World, member.Name, w, h );
             this.createFrame( w, h );
             this.createButton( w, h, command );
+
+            this.setMember( memberId );
         }
 
         // Fields
@@ -76,13 +75,13 @@ module Crimenuts.View.Process {
 
             this.answer = new MemberCard(
                 this.director,
-                this.memberId,
+                0,
                 mx, my, mw, mh,
                 Command.nothing,
                 level - 1
             );
             this.answer.showName = false;
-            this.answer.visible = false;
+            this.answer.visible = true;
             this.add( this.answer );
         }
 
@@ -97,7 +96,6 @@ module Crimenuts.View.Process {
             this.picture.position.x = w / 2;
             this.picture.position.y = ph;
         }
-
 
         private createNameLabel( name: string, width: number, height: number ) {
             this.add( this.nameLabel = new TextLabel( width,
@@ -136,22 +134,20 @@ module Crimenuts.View.Process {
             this.spot.drawRect( 0, 0, w, h );
         }
 
-        private updateAnswer() {
+        private updateAnswer( memberId: number ) {
+            if( this.answer === null ) return;
 
-            if( this.answer !== null ) {
+            var model = this.getMemberModel( memberId );
+            if( model.TodayAnswer.IsValid ) {
+                this.answer.setMember( model.TodayAnswer.SubjectId );
+                this.answer.visible = true;
+            } else {
+                this.answer.visible = false;
             }
         }
 
-        private getMemberModel( id: number ): MemberModel {
-            return this.director.getProcessModel().Members[ this.memberId ];
-        }
-
-        private getMyModel(): MemberModel {
-            return this.getMemberModel( this.memberId );
-        }
-
-        private getAnswerModel(): MemberModel {
-            return this.getMemberModel( this.getMyModel().TodayAnswer.AgentNumber );
+        private getMemberModel( memberId: number ): MemberModel {
+            return this.director.getProcessModel().Members[ memberId ];
         }
     }
 }

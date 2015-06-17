@@ -1117,26 +1117,24 @@ var Crimenuts;
                     if (answerLevel === void 0) { answerLevel = 1; }
                     _super.call(this, Crimenuts.app.game);
                     // IMemberCard
-                    this.memberId = Crimenuts.Settings.Process.Members.unknownMember;
                     this.showName = true;
                     this.answer = null;
                     this.director = director;
-                    this.memberId = memberId;
                     this.position.set(x, y);
-                    var member = this.getMyModel();
+                    var member = this.getMemberModel(memberId);
                     this.createNameLabel(member.Name, w, h);
                     this.createSpot(w, h);
                     this.createAnswer(answerLevel, w, h);
                     this.createPicture(member.World, member.Name, w, h);
                     this.createFrame(w, h);
                     this.createButton(w, h, command);
+                    this.setMember(memberId);
                 }
                 MemberCard.prototype.setMember = function (memberId) {
-                    this.memberId = memberId;
-                    var member = this.getMyModel();
+                    var member = this.getMemberModel(memberId);
                     this.picture.setPerson(member.World, member.Name);
                     this.nameLabel.setText(member.Name);
-                    //this.updateAnswer();
+                    this.updateAnswer(memberId);
                 };
                 // Overrides
                 MemberCard.prototype.update = function () {
@@ -1155,9 +1153,9 @@ var Crimenuts;
                     var my = h * hk;
                     var mw = w * kk;
                     var mh = h * kk;
-                    this.answer = new MemberCard(this.director, this.memberId, mx, my, mw, mh, Crimenuts.Command.nothing, level - 1);
+                    this.answer = new MemberCard(this.director, 0, mx, my, mw, mh, Crimenuts.Command.nothing, level - 1);
                     this.answer.showName = false;
-                    this.answer.visible = false;
+                    this.answer.visible = true;
                     this.add(this.answer);
                 };
                 MemberCard.prototype.createPicture = function (world, name, w, h) {
@@ -1196,18 +1194,20 @@ var Crimenuts;
                     this.spot.lineStyle(1, 0x1111111);
                     this.spot.drawRect(0, 0, w, h);
                 };
-                MemberCard.prototype.updateAnswer = function () {
-                    if (this.answer !== null) {
+                MemberCard.prototype.updateAnswer = function (memberId) {
+                    if (this.answer === null)
+                        return;
+                    var model = this.getMemberModel(memberId);
+                    if (model.TodayAnswer.IsValid) {
+                        this.answer.setMember(model.TodayAnswer.SubjectId);
+                        this.answer.visible = true;
+                    }
+                    else {
+                        this.answer.visible = false;
                     }
                 };
-                MemberCard.prototype.getMemberModel = function (id) {
-                    return this.director.getProcessModel().Members[this.memberId];
-                };
-                MemberCard.prototype.getMyModel = function () {
-                    return this.getMemberModel(this.memberId);
-                };
-                MemberCard.prototype.getAnswerModel = function () {
-                    return this.getMemberModel(this.getMyModel().TodayAnswer.AgentNumber);
+                MemberCard.prototype.getMemberModel = function (memberId) {
+                    return this.director.getProcessModel().Members[memberId];
                 };
                 return MemberCard;
             })(Phaser.Group);

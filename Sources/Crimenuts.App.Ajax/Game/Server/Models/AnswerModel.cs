@@ -15,10 +15,9 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
         public bool IsValid { get; set; }
 
         public string AgentName { get; set; }
-        public int AgentNumber { get; set; }
-
+        public int AgentId { get; set; }
         public string SubjectName { get; set; }
-        public int SubjectNumber { get; set; }
+        public int SubjectId { get; set; }
         public string AnswerText { get; set; }
         public string AnswerDiaogText { get; set; }
         public Answer AnswerVariant { get; set; }
@@ -26,7 +25,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
         public AnswerModel( Member member, History.Record record )
         {
             AgentName = member.Name;
-            AgentNumber = member.Number;
+            AgentId = member.Number - 1;
 
             if( record == null ) {
                 IsValid = false;
@@ -35,10 +34,10 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
             } else {
                 IsValid = true;
                 SubjectName = record.Subject.Name;
-                SubjectNumber = record.Subject.Number;
+                SubjectId = record.Subject.Number - 1;
                 AnswerVariant = record.Answer;
                 AnswerText = record.Answer.ToString();
-                AnswerDiaogText = "{0} is {1}".SafeFormat( record.Subject.Name,  record.Answer);
+                AnswerDiaogText = "{0} is {1}".SafeFormat( record.Subject.Name, record.Answer );
             }
         }
     }
