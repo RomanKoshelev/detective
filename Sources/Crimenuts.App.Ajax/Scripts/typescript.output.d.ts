@@ -108,6 +108,11 @@ declare module Crimenuts.Settings {
                     var color: string;
                     var bgColor: number;
                 }
+                module Mind {
+                    var sizeRate: number;
+                    var xRate: number;
+                    var yRate: number;
+                }
             }
             module Dialog {
                 var left: number;
@@ -482,18 +487,18 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class MemberCard extends Phaser.Group {
-        static nameHeight: number;
-        static nameFontSize: number;
-        static nameColor: string;
-        static nameBgColor: number;
         showName: boolean;
-        constructor(member: MemberModel, x: number, y: number, w: number, h: number, command?: Command);
+        showMind: boolean;
         setMember(member: MemberModel): void;
+        setMind(member: MemberModel): void;
         update(): void;
+        constructor(member: MemberModel, x: number, y: number, w: number, h: number, command?: Command, mindLevel?: number);
         private picture;
         private button;
         private nameLabel;
         private spot;
+        private mind;
+        createMind(level: number, model: MemberModel, w: number, h: number): void;
         private createPicture(world, name, w, h);
         private createNameLabel(name, width, height);
         private createButton(w, h, command);

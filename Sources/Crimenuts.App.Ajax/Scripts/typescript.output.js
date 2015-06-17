@@ -186,6 +186,12 @@ var Crimenuts;
                         Name.color = "#666666";
                         Name.bgColor = BgColor.transparent;
                     })(Name = Card.Name || (Card.Name = {}));
+                    var Mind;
+                    (function (Mind) {
+                        Mind.sizeRate = 0.4;
+                        Mind.xRate = 0.6;
+                        Mind.yRate = 0.0;
+                    })(Mind = Card.Mind || (Card.Mind = {}));
                 })(Card = Members.Card || (Members.Card = {}));
                 var Dialog;
                 (function (Dialog) {
@@ -1106,39 +1112,70 @@ var Crimenuts;
         (function (Process) {
             var MemberCard = (function (_super) {
                 __extends(MemberCard, _super);
-                function MemberCard(member, x, y, w, h, command) {
+                function MemberCard(member, x, y, w, h, command, mindLevel) {
                     if (command === void 0) { command = Crimenuts.Command.nothing; }
+                    if (mindLevel === void 0) { mindLevel = 1; }
                     _super.call(this, Crimenuts.app.game);
+                    // Public
                     this.showName = true;
+                    this.showMind = true;
+                    this.mind = null;
                     this.position.set(x, y);
                     this.createButton(w, h, command);
                     this.createNameLabel(member.Name, w, h);
                     this.createSpot(w, h);
+                    this.createMind(mindLevel, member, w, h);
                     this.createPicture(member.World, member.Name, w, h);
-                    //this.createFrame( w, h );
+                    this.createFrame(w, h);
                 }
                 MemberCard.prototype.setMember = function (member) {
                     this.picture.setPerson(member.World, member.Name);
                     this.nameLabel.setText(member.Name);
                 };
+                MemberCard.prototype.setMind = function (member) {
+                    if (this.mind !== null) {
+                        this.mind.setMember(member);
+                    }
+                };
                 MemberCard.prototype.update = function () {
                     this.nameLabel.visible = this.showName;
+                    if (this.mind !== null) {
+                        this.mind.visible = this.showMind;
+                    }
+                    _super.prototype.update.call(this);
+                };
+                // Utils
+                MemberCard.prototype.createMind = function (level, model, w, h) {
+                    if (level < 1)
+                        return;
+                    var k = Crimenuts.Settings.Process.Members.Card.Mind.sizeRate;
+                    var wk = Crimenuts.Settings.Process.Members.Card.Mind.xRate;
+                    var hk = Crimenuts.Settings.Process.Members.Card.Mind.yRate;
+                    var kk = Math.pow(k, level);
+                    var mx = w * wk;
+                    var my = h * hk;
+                    var mw = w * kk;
+                    var mh = h * kk;
+                    this.mind = new MemberCard(model, mx, my, mw, mh, Crimenuts.Command.nothing, level - 1);
+                    this.mind.showName = false;
+                    this.add(this.mind);
                 };
                 MemberCard.prototype.createPicture = function (world, name, w, h) {
+                    var nh = Crimenuts.Settings.Process.Members.Card.Name.height;
                     var dx = this.spot.height / 2 * (1 - Crimenuts.Settings.Process.Members.Card.footShiftRate);
                     var pw = w - dx;
-                    var ph = h - MemberCard.nameHeight - dx;
+                    var ph = h - nh - dx;
                     var sz = Math.min(pw, ph);
                     this.add(this.picture = new Crimenuts.PersonPicture(0, 0, sz, world, name));
                     this.picture.anchor.set(0.5, 1);
                     this.picture.position.x = w / 2;
-                    this.picture.position.y = h - MemberCard.nameHeight - dx;
+                    this.picture.position.y = ph;
                 };
                 MemberCard.prototype.createNameLabel = function (name, width, height) {
-                    this.add(this.nameLabel = new Crimenuts.TextLabel(width, MemberCard.nameHeight, Crimenuts.Settings.Default.Font.face, MemberCard.nameFontSize, MemberCard.nameColor, MemberCard.nameBgColor));
+                    this.add(this.nameLabel = new Crimenuts.TextLabel(width, Crimenuts.Settings.Process.Members.Card.Name.height, Crimenuts.Settings.Default.Font.face, Crimenuts.Settings.Process.Members.Card.Name.fontSize, Crimenuts.Settings.Process.Members.Card.Name.color, Crimenuts.Settings.Process.Members.Card.Name.bgColor));
                     this.nameLabel.setText(name);
                     this.nameLabel.alignCenter();
-                    this.nameLabel.position.set(0, height - MemberCard.nameHeight);
+                    this.nameLabel.position.set(0, height - this.nameLabel.height);
                 };
                 MemberCard.prototype.createButton = function (w, h, command) {
                     this.add(this.button = new Crimenuts.ButtonEssence(command, w, h));
@@ -1150,7 +1187,7 @@ var Crimenuts;
                     var w = width / 2;
                     var h = w * k;
                     var x = width / 2;
-                    var y = height - h - MemberCard.nameHeight;
+                    var y = height - h - Crimenuts.Settings.Process.Members.Card.Name.height;
                     this.spot.beginFill(0x222222);
                     this.spot.drawEllipse(x, y, w, h);
                     this.spot.endFill();
@@ -1159,10 +1196,6 @@ var Crimenuts;
                     this.spot.lineStyle(1, 0x1111111);
                     this.spot.drawRect(0, 0, w, h);
                 };
-                MemberCard.nameHeight = Crimenuts.Settings.Process.Members.Card.Name.height;
-                MemberCard.nameFontSize = Crimenuts.Settings.Process.Members.Card.Name.fontSize;
-                MemberCard.nameColor = Crimenuts.Settings.Process.Members.Card.Name.color;
-                MemberCard.nameBgColor = Crimenuts.Settings.Process.Members.Card.Name.bgColor;
                 return MemberCard;
             })(Phaser.Group);
             Process.MemberCard = MemberCard;

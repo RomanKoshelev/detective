@@ -90,6 +90,12 @@ module Crimenuts.Settings {
                     export var color = "#666666";
                     export var bgColor = BgColor.transparent;
                 }
+
+                export module Mind {
+                    export var sizeRate = 0.4;
+                    export var xRate = 0.6;
+                    export var yRate = 0.0;
+                }
             }
 
             export module Dialog {
