@@ -1,10 +1,16 @@
 ﻿/// <reference path="../Views/Process/ProcessView.ts" />
 /// <reference path="../Managers/ProcessManager.ts" />
-
 module Crimenuts {
     import ProcessView = View.Process.ProcessView;
 
     export class ProcessState extends Phaser.State implements IProcessDirector {
+
+        // Ctor
+        constructor() {
+            super();
+            this.createManager();
+            this.subscribeEvents();
+        }
 
         // IProcessDirector
         getProcessModel(): ProcessModel { return this.model; }
@@ -15,10 +21,11 @@ module Crimenuts {
         }
 
         create() {
-            this.createManager();
-            this.loadModelCreateView();
-            this.subscribeEvents();
+            this.loadModelThen(() => {
+                this.createView();
+            } );
         }
+
 
         // Fields
         private processId = Settings.Default.Process.testId;
@@ -34,16 +41,15 @@ module Crimenuts {
             this.observer = manager;
         }
 
-        private loadModelCreateView( callback: Function=null ) {
+        private loadModelThen( callback: Function ) {
             this.controller.getProcess( this.processId ).done( ( model: ProcessModel ) => {
                 this.model = model;
-                if( callback != null ) callback();
-                this.createView( model );
+                callback();
             } );
         }
 
-        private createView( model: ProcessModel ) {
-            this.view = new ProcessView( this, this.controller, this.observer, model );
+        private createView() {
+            this.view = new ProcessView( this, this.controller, this.observer, this.model );
         }
 
         private destroyView() {
@@ -57,10 +63,13 @@ module Crimenuts {
         }
 
         private onProcessesReset() {
-            this.loadModelCreateView( () => this.destroyView() );
+            this.loadModelThen( () => {
+                this.destroyView();
+                this.createView();
+            } );
         }
 
-        private onProcessUpdated( model: ProcessModel) {
+        private onProcessUpdated( model: ProcessModel ) {
             if( model.Id === this.processId ) {
                 this.model = model;
                 this.view.onProcessUpdated( this );

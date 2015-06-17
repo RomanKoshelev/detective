@@ -30,6 +30,10 @@ module Crimenuts.Settings {
         export module Process {
             export var testId = "30";
         }
+
+        export module Assets {
+            export var personSize = 10;
+        }
     }
 
     export module Assets {

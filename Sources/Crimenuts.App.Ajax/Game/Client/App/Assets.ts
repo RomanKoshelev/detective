@@ -3,7 +3,7 @@
     export class Sprites {
         static path = "/Game/Client/Assets/Sprites";
 
-        static getPersonKey( world: string, person: string, size: number ): string {
+        static getPersonKey( world: string, person: string, size: number = Settings.Default.Assets.personSize  ): string {
             size = Math.ceil( size );
             return `sprite-person-${world}-${person}-${size}`;
         }
@@ -13,14 +13,14 @@
             return `/Image/Person?world=${world}&name=${person}&width=${size}&height=${size}`;
         }
 
-        static loadPerson( world: string, person: string, size: number  ) {
+        static loadPerson( world: string, person: string, size: number = Settings.Default.Assets.personSize ) {
             app.game.load.image(
                 Sprites.getPersonKey( world, person, size ),
                 Sprites.getPersonUrl( world, person, size )
-                );
+            );
         }
 
-        static load( key:string ) {
+        static load( key: string ) {
             app.game.load.image( key, Sprites.getUrl( key ) );
         }
 

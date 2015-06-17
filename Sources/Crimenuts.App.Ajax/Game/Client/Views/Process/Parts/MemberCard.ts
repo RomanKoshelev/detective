@@ -76,7 +76,6 @@ module Crimenuts.View.Process {
             var member = this.getMemberModel( memberId );
             var answerCode = member.TodayAnswer.AnswerCode;
             var color = Settings.Process.Members.Card.Spot.color[answerCode];
-            //color = 0xffffff;
             this.setSpotColor( color );
         }
 

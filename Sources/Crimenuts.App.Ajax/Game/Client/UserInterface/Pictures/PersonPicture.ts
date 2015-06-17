@@ -4,7 +4,7 @@
         constructor( x: number, y: number, width: number, world: string="", name: string="" ) {
             this.imageWidth = width;
             super( app.game, x, y, "", 0 );
-            if( world!=="" && name !== "" ) {
+            if( world !== "" && name !== "" ) {
                 this.setPerson( world, name );
             }
         }
@@ -14,27 +14,34 @@
             if( this.game.cache.checkImageKey( this.imageKey ) ) {
                 this.onLoadComplete();
             } else {
-                this.visible = false;
-                var loader = this.getLoader( world, name, this.imageWidth );
-                loader.onLoadComplete.addOnce( this.onLoadComplete, this );
-                loader.start();
+                this.loadAsync( world, name );
+
+                var defkey = Assets.Sprites.getPersonKey( world, name );
+                if( this.game.cache.checkImageKey( defkey ) ) {
+                    this.loadTexture( defkey );
+                    this.updateScale();
+                } else {
+                    Assets.Sprites.loadPerson( world, name );
+                }
             }
         }
 
         private imageKey: string;
         private imageWidth: number;
 
-        private getLoader( world: string, name: string, width: number ) : Phaser.Loader {
-            this.game.load.image(
-                Assets.Sprites.getPersonKey( world, name, width ),
-                Assets.Sprites.getPersonUrl( world, name, width )
-            );
-            return this.game.load;
+        private loadAsync( world: string, name: string ) {
+            Assets.Sprites.loadPerson( world, name, this.imageWidth );
+            this.game.load.onLoadComplete.addOnce( this.onLoadComplete, this );
+            this.game.load.start();
         }
 
         private onLoadComplete() {
-            this.loadTexture( this.imageKey, 0 );
-            this.visible = true;
+            this.loadTexture( this.imageKey );
+            this.updateScale();
+        }
+
+        updateScale() {
+            this.scale.set( this.imageWidth / this.texture.width );
         }
     }
 }
