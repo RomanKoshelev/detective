@@ -12,9 +12,10 @@ module Crimenuts.View.Process {
         }
 
         onUpdateProcess( processModel: ProcessModel ): void {
-            this.cards.forEach( card => {
-                //card.setMember( processModel.Members[ card.memberId ] );
-            } );
+            var process = this.director.getProcessModel();
+            for( var i in process.Members ) {
+                this.cards[ i ].setMember( i);
+            }
         }
 
         static memberWidth = Settings.Process.Members.Card.width;
@@ -22,10 +23,12 @@ module Crimenuts.View.Process {
         static memberNumInRow = Settings.Process.Members.numInRow;
 
         private cards = new Array<IMemberCard>();
+        private director: IProcessDirector;
 
         private createMembers(
             director: IProcessDirector
         ) {
+            this.director = director;
             var w = MembersPool.memberWidth;
             var h = MembersPool.memberHeight;
 

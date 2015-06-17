@@ -1231,11 +1231,13 @@ var Crimenuts;
                     this.createMembers(director);
                 }
                 MembersPool.prototype.onUpdateProcess = function (processModel) {
-                    this.cards.forEach(function (card) {
-                        //card.setMember( processModel.Members[ card.memberId ] );
-                    });
+                    var process = this.director.getProcessModel();
+                    for (var i in process.Members) {
+                        this.cards[i].setMember(i);
+                    }
                 };
                 MembersPool.prototype.createMembers = function (director) {
+                    this.director = director;
                     var w = MembersPool.memberWidth;
                     var h = MembersPool.memberHeight;
                     var process = director.getProcessModel();

@@ -521,6 +521,7 @@ declare module Crimenuts.View.Process {
         static memberHeight: number;
         static memberNumInRow: number;
         private cards;
+        private director;
         private createMembers(director);
         private calcPersonCardPosition(i, w, h);
     }
