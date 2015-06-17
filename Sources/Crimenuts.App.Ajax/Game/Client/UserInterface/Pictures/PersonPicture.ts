@@ -14,6 +14,7 @@
             if( this.game.cache.checkImageKey( this.imageKey ) ) {
                 this.onLoadComplete();
             } else {
+                this.visible = false;
                 var loader = this.getLoader( world, name, this.imageWidth );
                 loader.onLoadComplete.addOnce( this.onLoadComplete, this );
                 loader.start();
@@ -33,6 +34,7 @@
 
         private onLoadComplete() {
             this.loadTexture( this.imageKey, 0 );
+            this.visible = true;
         }
     }
 }

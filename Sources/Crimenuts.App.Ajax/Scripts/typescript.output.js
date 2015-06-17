@@ -466,11 +466,12 @@ var Crimenuts;
                 };
                 // Parts Utils
                 ProcessView.prototype.createParts = function (director, controller, observer, process) {
+                    var cmdAutoAnswer = new Process.AutoAnswerCommand(controller, process.Id);
                     this.addPart(this.ticks = new Process.Display());
                     this.addPart(new Process.InfoBar());
+                    this.addPart(new Process.Answers(process.Answers, cmdAutoAnswer));
                     this.addPart(new Process.MemberDialog(director));
                     this.addPart(new Process.Members(director));
-                    this.addPart(new Process.Answers(process.Answers, new Process.AutoAnswerCommand(controller, process.Id)));
                     this.updateParts(director);
                 };
                 ProcessView.prototype.addPart = function (part) {
@@ -871,6 +872,7 @@ var Crimenuts;
                 this.onLoadComplete();
             }
             else {
+                this.visible = false;
                 var loader = this.getLoader(world, name, this.imageWidth);
                 loader.onLoadComplete.addOnce(this.onLoadComplete, this);
                 loader.start();
@@ -882,6 +884,7 @@ var Crimenuts;
         };
         PersonPicture.prototype.onLoadComplete = function () {
             this.loadTexture(this.imageKey, 0);
+            this.visible = true;
         };
         return PersonPicture;
     })(Phaser.Image);

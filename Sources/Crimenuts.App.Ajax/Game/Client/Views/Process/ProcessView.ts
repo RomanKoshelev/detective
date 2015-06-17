@@ -32,12 +32,14 @@ module Crimenuts.View.Process {
             controller: IProcessController,
             observer: IProcessObserver,
             process: ProcessModel
-        ) {
+            ) {
+            var cmdAutoAnswer = new Process.AutoAnswerCommand( controller, process.Id );
+
             this.addPart( this.ticks = new Display() );
             this.addPart( new InfoBar() );
+            this.addPart( new Answers( process.Answers, cmdAutoAnswer ) );
             this.addPart( new MemberDialog( director ) );
-            this.addPart( new Process.Members( director ) );
-            this.addPart( new Answers( process.Answers, new Process.AutoAnswerCommand( controller, process.Id ) ) );
+            this.addPart( new Members( director ) );
             this.updateParts( director );
         }
 
