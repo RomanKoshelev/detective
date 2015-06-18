@@ -607,7 +607,7 @@ declare module Crimenuts.View.Process {
         onProcessUpdated(director: IProcessDirector): void;
         private textLabel;
         private createTextLabel();
-        private setInfo(day, victim, arrested, murdererNum);
+        private setInfo(state, day, victim, arrested, murdererNum);
     }
 }
 declare module Crimenuts.View.Process {

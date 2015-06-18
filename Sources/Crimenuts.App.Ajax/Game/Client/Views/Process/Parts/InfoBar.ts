@@ -11,6 +11,7 @@
         onProcessUpdated( director: IProcessDirector ): void {
             var process = director.getProcessModel();
             this.setInfo(
+                process.State,
                 process.Today.Day,
                 process.Today.Victim,
                 process.Today.Prisoner,
@@ -27,8 +28,8 @@
                 Settings.Process.Bars.bgColor ) );
         }
 
-        private setInfo( day: number, victim: string, arrested: string, murdererNum: number ) {
-            this.textLabel.setText( `Day ${day}: ${victim} was killed, ${arrested} arrested, ${murdererNum} active murderers` );
+        private setInfo( state: string, day: number, victim: string, arrested: string, murdererNum: number ) {
+            this.textLabel.setText( `Day ${day}: ${state}, ${victim} was killed, ${arrested} arrested, ${murdererNum} active murderers` );
         }
     }
 }

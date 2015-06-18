@@ -1370,13 +1370,13 @@ var Crimenuts;
                 }
                 InfoBar.prototype.onProcessUpdated = function (director) {
                     var process = director.getProcessModel();
-                    this.setInfo(process.Today.Day, process.Today.Victim, process.Today.Prisoner, process.Today.ActiveMurdererNum);
+                    this.setInfo(process.State, process.Today.Day, process.Today.Victim, process.Today.Prisoner, process.Today.ActiveMurdererNum);
                 };
                 InfoBar.prototype.createTextLabel = function () {
                     this.add(this.textLabel = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Bars.width, Crimenuts.Settings.Process.Bars.height, Crimenuts.Settings.Process.Bars.textColor, Crimenuts.Settings.Process.Bars.bgColor));
                 };
-                InfoBar.prototype.setInfo = function (day, victim, arrested, murdererNum) {
-                    this.textLabel.setText("Day " + day + ": " + victim + " was killed, " + arrested + " arrested, " + murdererNum + " active murderers");
+                InfoBar.prototype.setInfo = function (state, day, victim, arrested, murdererNum) {
+                    this.textLabel.setText("Day " + day + ": " + state + ", " + victim + " was killed, " + arrested + " arrested, " + murdererNum + " active murderers");
                 };
                 return InfoBar;
             })(Phaser.Group);
