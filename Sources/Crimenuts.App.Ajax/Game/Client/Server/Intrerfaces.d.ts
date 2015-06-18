@@ -66,6 +66,24 @@ interface IGameHubServer {
     autoAnswer(processId : string) : JQueryPromise<void>;
  
     /** 
+      * Sends a "mark" message to the GameHub hub.
+      * Contract Documentation: ---
+      * @param processId {string} 
+      * @param memberId {number} 
+      * @return {JQueryPromise of void}
+      */
+    mark(processId : string, memberId : number) : JQueryPromise<void>;
+ 
+    /** 
+      * Sends a "arrest" message to the GameHub hub.
+      * Contract Documentation: ---
+      * @param processId {string} 
+      * @param memberId {number} 
+      * @return {JQueryPromise of void}
+      */
+    arrest(processId : string, memberId : number) : JQueryPromise<void>;
+ 
+    /** 
       * Sends a "resetProcesses" message to the GameHub hub.
       * Contract Documentation: ---
       * @return {JQueryPromise of void}

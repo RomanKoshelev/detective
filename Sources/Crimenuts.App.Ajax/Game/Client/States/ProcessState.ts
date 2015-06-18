@@ -14,6 +14,7 @@ module Crimenuts {
 
         // IProcessDirector
         getProcessModel(): ProcessModel { return this.model; }
+        getController(): IProcessController { return this.controller; }
 
         // Phaser.State
         preload() {

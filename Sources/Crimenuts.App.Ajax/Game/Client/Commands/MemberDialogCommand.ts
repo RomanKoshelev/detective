@@ -5,8 +5,11 @@ module Crimenuts {
 
     export class MemberDialogCommand extends Command {
 
-        constructor( memberId: number ) {
-            super( "Open Member Dialog", () => MemberDialog.instance.setMember( memberId ) );
+        constructor( controller: IProcessController, memberId: number ) {
+            super( "Open Member Dialog", () => {
+                MemberDialog.instance.setMember( memberId );
+                controller.currentMemberChanged( memberId );
+            } );
         }
     }
 }

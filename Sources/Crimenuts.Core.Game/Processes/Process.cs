@@ -145,6 +145,11 @@ namespace Crimenuts.Core.Game.Processes
             get { return _userActions; }
         }
 
+        public void ExecuteUserAction( UserAction.ActionType actionType, int actionParam, bool autoSkip = true )
+        {
+            ExecuteUserAction( actionType, new [] { actionParam }, autoSkip );
+        }
+
         public void ExecuteUserAction( UserAction.ActionType actionType, int[] actionParams, bool autoSkip = true )
         {
             var correctedActionParams  = actionParams ?? new int[0];

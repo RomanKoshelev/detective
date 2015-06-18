@@ -41,14 +41,25 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
         {
             var process = GetProcess( processId );
             process.ExecuteUserAction( Process.UserAction.ActionType.AutoAsk, null );
-            var model = new ProcessModel( process );
-            _clients.ProcessUpdated( model );
+            _clients.ProcessUpdated( new ProcessModel( process ) );
         }
 
         void IProcessManager.Reset()
         {
             Schema.ResetProcesses();
             _clients.ProcessesReset( );
+        }
+
+        void IProcessManager.Arrest( string processId, int memberId )
+        {
+            var process = GetProcess( processId );
+            process.ExecuteUserAction( Process.UserAction.ActionType.Arrest, memberId );
+            _clients.ProcessUpdated( new ProcessModel( process ) );
+        }
+
+        void IProcessManager.Mark( string processId, int memberId )
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

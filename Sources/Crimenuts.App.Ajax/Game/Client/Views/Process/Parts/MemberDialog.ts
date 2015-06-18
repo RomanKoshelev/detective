@@ -115,7 +115,11 @@
 
         // Update
         private updateAnswerCardCommand() {
-            this.memberCard.getAnswerCard().setCommand( new MemberDialogCommand( this.memberCard.getAnswerCard().getMemberId() ) );
+            this.memberCard.getAnswerCard().setCommand(
+                new MemberDialogCommand(
+                    this.director.getController(),
+                    this.memberCard.getAnswerCard().getMemberId()
+                ) );
         }
 
         private updateTitle() {

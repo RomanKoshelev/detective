@@ -20,6 +20,14 @@
             return this.server.autoAnswer( processId );
         }
 
+        mark( processId: string, memberId: number ): JQueryPromise<void> {
+            return this.server.mark ( processId, memberId );
+        }
+
+        arrest( processId: string, memberId: number ): JQueryPromise<void> {
+            return this.server.arrest ( processId, memberId );
+        }
+
         resetProcesses(): JQueryPromise<void> {
             return this.server.resetProcesses();
         }
@@ -61,6 +69,5 @@
         private startHub() {
             $.connection.hub.start().done( () => { this.onServerStarted.dispatch() } );
         }
-
     }
 }

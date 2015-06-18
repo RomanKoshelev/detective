@@ -59,6 +59,16 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
             _processManager.AutoAnswer( processId );
         }
 
+        void IGameLogic.Mark( string processId, int memberId )
+        {
+            _processManager.Mark( processId, memberId );
+        }
+
+        void IGameLogic.Arrest( string processId, int memberId )
+        {
+            _processManager.Arrest( processId, memberId );
+        }
+
         void IGameLogic.ResetProcesses()
         {
             _tickCount = 0;

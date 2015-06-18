@@ -32,7 +32,7 @@ module Crimenuts.View.Process {
             for( var i in process.Members ) {
                 var p = this.calcPersonCardPosition( i, w, h );
                 var card = new MemberCard( director, i, p.x, p.y, w, h,
-                    new MemberDialogCommand( i )
+                    new MemberDialogCommand( director.getController(), i )
                 );
                 this.add( card );
                 this.cards.push( card );
