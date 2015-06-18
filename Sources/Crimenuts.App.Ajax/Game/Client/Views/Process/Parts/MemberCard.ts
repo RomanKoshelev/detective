@@ -76,8 +76,10 @@ module Crimenuts.View.Process {
         private sign: Phaser.Sprite;
 
         // Create
-        createSign( w: number, h: number ) {
-
+        private createSign( w: number, h: number ) {
+            this.sign = new Picture( "heart" );
+            
+            this.add( this.sign );
         }
 
         private createSpot( width: number, height: number ) {

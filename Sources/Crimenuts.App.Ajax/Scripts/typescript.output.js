@@ -52,6 +52,19 @@ var Crimenuts;
         var Sprites = (function () {
             function Sprites() {
             }
+            // Scalable Picture
+            Sprites.getPictureKey = function (name, size) {
+                size = Math.ceil(size);
+                return "sprite-picture-" + name + "-" + size;
+            };
+            Sprites.getPictureUrl = function (name, size) {
+                size = Math.ceil(size);
+                return "/Image/Picture?name=" + name + "&width=" + size + "&height=" + size;
+            };
+            Sprites.loadPicture = function (name, size) {
+                Crimenuts.app.game.load.image(Sprites.getPictureKey(name, size), Sprites.getPictureUrl(name, size));
+            };
+            // Scalable Person
             Sprites.getPersonKey = function (world, person, size) {
                 if (size === void 0) { size = Crimenuts.Settings.Default.Assets.personSize; }
                 size = Math.ceil(size);
@@ -65,6 +78,7 @@ var Crimenuts;
                 if (size === void 0) { size = Crimenuts.Settings.Default.Assets.personSize; }
                 Crimenuts.app.game.load.image(Sprites.getPersonKey(world, person, size), Sprites.getPersonUrl(world, person, size));
             };
+            // Fixed size
             Sprites.load = function (key) {
                 Crimenuts.app.game.load.image(key, Sprites.getUrl(key));
             };
@@ -139,6 +153,7 @@ var Crimenuts;
             var Assets;
             (function (Assets) {
                 Assets.personSize = 100;
+                Assets.pictureSize = 100;
             })(Assets = Default.Assets || (Default.Assets = {}));
         })(Default = Settings.Default || (Settings.Default = {}));
         var Assets;
@@ -959,6 +974,46 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
+    var Picture = (function (_super) {
+        __extends(Picture, _super);
+        function Picture(name, width) {
+            if (width === void 0) { width = Crimenuts.Settings.Default.Assets.pictureSize; }
+            _super.call(this, Crimenuts.app.game, 0, 0);
+            this.imageWidth = width;
+            this.setPicture(name);
+        }
+        Picture.prototype.setPicture = function (name) {
+            this.imageKey = Crimenuts.Assets.Sprites.getPictureKey(name, this.imageWidth);
+            if (this.game.cache.checkImageKey(this.imageKey)) {
+                this.onLoadComplete();
+            }
+            else {
+                this.setDefaultImage();
+                this.loadAsync(name);
+            }
+        };
+        Picture.prototype.loadAsync = function (name) {
+            Crimenuts.Assets.Sprites.loadPicture(name, this.imageWidth);
+            this.game.load.onLoadComplete.addOnce(this.onLoadComplete, this);
+            this.game.load.start();
+        };
+        Picture.prototype.onLoadComplete = function () {
+            this.loadTexture(this.imageKey);
+            this.updateScale();
+        };
+        Picture.prototype.updateScale = function () {
+            this.scale.set(this.imageWidth / this.texture.width);
+        };
+        Picture.prototype.setDefaultImage = function () {
+            this.loadTexture(Crimenuts.Settings.Assets.Sprites.transparent);
+            this.updateScale();
+        };
+        return Picture;
+    })(Phaser.Sprite);
+    Crimenuts.Picture = Picture;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
     var TextLabel = (function (_super) {
         __extends(TextLabel, _super);
         function TextLabel(width, height, fontFace, fontSize, color, bgcolor) {
@@ -1243,6 +1298,8 @@ var Crimenuts;
                 };
                 // Create
                 MemberCard.prototype.createSign = function (w, h) {
+                    this.sign = new Crimenuts.Picture("heart");
+                    this.add(this.sign);
                 };
                 MemberCard.prototype.createSpot = function (width, height) {
                     this.spot = new Phaser.Graphics(Crimenuts.app.game, 0, 0);

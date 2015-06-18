@@ -18,6 +18,9 @@ declare module Crimenuts {
 declare module Crimenuts.Assets {
     class Sprites {
         static path: string;
+        static getPictureKey(name: string, size: number): string;
+        static getPictureUrl(name: string, size: number): string;
+        static loadPicture(name: string, size: number): void;
         static getPersonKey(world: string, person: string, size?: number): string;
         static getPersonUrl(world: string, person: string, size: number): string;
         static loadPerson(world: string, person: string, size?: number): void;
@@ -68,6 +71,7 @@ declare module Crimenuts.Settings {
         }
         module Assets {
             var personSize: number;
+            var pictureSize: number;
         }
     }
     module Assets {
@@ -442,6 +446,18 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
+    class Picture extends Phaser.Sprite {
+        constructor(name: string, width?: number);
+        setPicture(name: string): void;
+        private imageKey;
+        private imageWidth;
+        private loadAsync(name);
+        private onLoadComplete();
+        private updateScale();
+        private setDefaultImage();
+    }
+}
+declare module Crimenuts {
     class TextLabel extends Phaser.Graphics {
         private label;
         private fontSize;
@@ -547,7 +563,7 @@ declare module Crimenuts.View.Process {
         private answerCode;
         private frame;
         private sign;
-        createSign(w: number, h: number): void;
+        private createSign(w, h);
         private createSpot(width, height);
         private createAnswer(level, w, h, command);
         private createPicture(world, name, w, h);

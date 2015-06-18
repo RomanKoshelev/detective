@@ -20,7 +20,6 @@ namespace Crimenuts.App.Ajax.Controllers
         {
             var filePath = string.Format( @"Worlds\{0}\Images\world.picture.png", name );
             var fileName = string.Format( "World-{0}-Picture.png", name );
-
             return ImageActionResult( filePath, fileName, width, height );
         }
 
@@ -29,7 +28,14 @@ namespace Crimenuts.App.Ajax.Controllers
         {
             var filePath = string.Format( @"Worlds\{0}\Persons\{1}\person.picture.png", world, name );
             var fileName = string.Format( "{0}-{1}-Picture.png", world, name );
+            return ImageActionResult( filePath, fileName, width, height );
+        }
 
+        [OutputCache( Duration = CacheDuration, VaryByParam = "name;width;height" )]
+        public ActionResult Picture( string name, int width = 0, int height = 0 )
+        {
+            var filePath = string.Format( @"Pictures\{0}.png", name );
+            var fileName = string.Format( "{0}.png", name );
             return ImageActionResult( filePath, fileName, width, height );
         }
 

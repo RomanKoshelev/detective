@@ -33,6 +33,7 @@ module Crimenuts.Settings {
 
         export module Assets {
             export var personSize = 100;
+            export var pictureSize = 100;
         }
     }
 
