@@ -117,10 +117,10 @@ module Crimenuts.Settings {
                 }
 
                 export module Answer {
-                    export var sizeRate = 0.6;
-                    export var xRate = 0.7;
-                    export var yRate = -0.1;
-                    export var tintColor = 0xCCCCCC;
+                    export var sizeRate = 0.5;
+                    export var xRate = 0.65;
+                    export var yRate = 0.0;
+                    export var tintColor = 0xDDDDDD;
                 }
 
                 export module Sign {
@@ -154,6 +154,14 @@ module Crimenuts.Settings {
                     export var position = new Phaser.Point( 250 * k, 25 * k );
                     export var width = 250 * k;
                     export var height = 36 * k;
+                    export var color = "#AAAAAA";
+                    export var bgColor = BgColor.transparent;
+                }
+
+                export module Text {
+                    export var position = new Phaser.Point( 252 * k, 85 * k );
+                    export var width = 250 * k;
+                    export var height = 22 * k;
                     export var color = "#AAAAAA";
                     export var bgColor = BgColor.transparent;
                 }

@@ -178,6 +178,13 @@ declare module Crimenuts.Settings {
                     var color: string;
                     var bgColor: number;
                 }
+                module Text {
+                    var position: Phaser.Point;
+                    var width: number;
+                    var height: number;
+                    var color: string;
+                    var bgColor: number;
+                }
             }
         }
         module Answers {
@@ -239,12 +246,18 @@ declare module Crimenuts.View.Process {
         private controller;
         private memberId;
         private title;
+        private text;
         private memberCard;
         private createFrameDecoration();
         private createTitle();
+        private createText();
+        private createButtons();
         private createMemberCard();
-        private getMemberModel();
         private updateAnswerCardCommand();
+        private updateTitle();
+        private updateText();
+        private updateMemberCard();
+        private getMemberModel();
     }
 }
 declare module Crimenuts {

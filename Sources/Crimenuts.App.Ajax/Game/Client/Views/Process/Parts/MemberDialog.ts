@@ -13,16 +13,16 @@
             this.createFrameDecoration();
             this.createMemberCard();
             this.createTitle();
+            this.createText();
 
             MemberDialog.instance = this;
         }
 
         setMember( memberId: number ) {
             this.memberId = memberId;
-            var member = this.getMemberModel();
-            var name = member.Name;
-            this.memberCard.setMember( memberId );
-            this.title.setText( `${name}:\n"${member.TodayAnswer.AnswerDiaogText}"` );
+            this.updateMemberCard();
+            this.updateTitle();
+            this.updateText();
             this.updateAnswerCardCommand();
         }
 
@@ -35,6 +35,7 @@
 
         private memberId = 0;
         private title: TextLabel;
+        private text: TextLabel;
         private memberCard: MemberCard;
 
         private createFrameDecoration() {
@@ -56,13 +57,30 @@
         }
 
         private createTitle() {
-            this.add( this.title = app.uiFactory.makeTextLabel(
+            this.title = app.uiFactory.makeTextLabel(
                 Settings.Process.Members.Dialog.Title.width,
                 Settings.Process.Members.Dialog.Title.height,
                 Settings.Process.Members.Dialog.Title.color,
                 Settings.Process.Members.Dialog.Title.bgColor
-            ) );
+            );
             this.title.position = Settings.Process.Members.Dialog.Title.position.clone();
+            this.add( this.title );
+        }
+
+        private createText() {
+            this.text = app.uiFactory.makeTextLabel(
+                Settings.Process.Members.Dialog.Text.width,
+                Settings.Process.Members.Dialog.Text.height,
+                Settings.Process.Members.Dialog.Text.color,
+                Settings.Process.Members.Dialog.Text.bgColor
+            );
+            this.text.position = Settings.Process.Members.Dialog.Text.position.clone();
+            this.text.alignTop();
+            this.add( this.text );
+        }
+
+        private createButtons() {
+
         }
 
         private createMemberCard() {
@@ -80,12 +98,34 @@
             this.add( this.memberCard );
         }
 
+
+        // Update
+        private updateAnswerCardCommand() {
+            this.memberCard.getAnswerCard().setCommand( new MemberDialogCommand( this.memberCard.getAnswerCard().getMemberId() ) );
+        }
+
+        private updateTitle() {
+            var member = this.getMemberModel();
+            this.title.setText( `${member.Name}:\n"${member.TodayAnswer.AnswerDiaogText}"` );
+        }
+
+        private updateText() {
+            var member = this.getMemberModel();
+            var answer = member.TodayAnswer;
+            this.text.setText( answer.IsValid
+                ? `${member.Name} ${answer.SubjectRelation}s ${answer.SubjectName}`
+                : ""
+            );
+        }
+
+        private updateMemberCard() {
+            this.memberCard.setMember( this.memberId );
+        }
+
+        // Model
         private getMemberModel() {
             return this.director.getProcessModel().Members[ this.memberId ];
         }
 
-        private updateAnswerCardCommand() {
-            this.memberCard.getAnswerCard().setCommand( new MemberDialogCommand( this.memberCard.getAnswerCard().getMemberId() ) );
-        }
     }
 }

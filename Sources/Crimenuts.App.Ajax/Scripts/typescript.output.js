@@ -247,10 +247,10 @@ var Crimenuts;
                     })(Name = Card.Name || (Card.Name = {}));
                     var Answer;
                     (function (Answer) {
-                        Answer.sizeRate = 0.6;
-                        Answer.xRate = 0.7;
-                        Answer.yRate = -0.1;
-                        Answer.tintColor = 0xCCCCCC;
+                        Answer.sizeRate = 0.5;
+                        Answer.xRate = 0.65;
+                        Answer.yRate = 0.0;
+                        Answer.tintColor = 0xDDDDDD;
                     })(Answer = Card.Answer || (Card.Answer = {}));
                     var Sign;
                     (function (Sign) {
@@ -287,6 +287,14 @@ var Crimenuts;
                         Title.color = "#AAAAAA";
                         Title.bgColor = BgColor.transparent;
                     })(Title = Dialog.Title || (Dialog.Title = {}));
+                    var Text;
+                    (function (Text) {
+                        Text.position = new Phaser.Point(252 * k, 85 * k);
+                        Text.width = 250 * k;
+                        Text.height = 22 * k;
+                        Text.color = "#AAAAAA";
+                        Text.bgColor = BgColor.transparent;
+                    })(Text = Dialog.Text || (Dialog.Text = {}));
                 })(Dialog = Members.Dialog || (Members.Dialog = {}));
             })(Members = Process.Members || (Process.Members = {}));
             var Answers;
@@ -382,14 +390,14 @@ var Crimenuts;
                     this.createFrameDecoration();
                     this.createMemberCard();
                     this.createTitle();
+                    this.createText();
                     MemberDialog.instance = this;
                 }
                 MemberDialog.prototype.setMember = function (memberId) {
                     this.memberId = memberId;
-                    var member = this.getMemberModel();
-                    var name = member.Name;
-                    this.memberCard.setMember(memberId);
-                    this.title.setText("" + name + ":\n\"" + member.TodayAnswer.AnswerDiaogText + "\"");
+                    this.updateMemberCard();
+                    this.updateTitle();
+                    this.updateText();
                     this.updateAnswerCardCommand();
                 };
                 MemberDialog.prototype.onProcessUpdated = function (director) {
@@ -399,19 +407,42 @@ var Crimenuts;
                     this.add(new Crimenuts.RectangleDecor(new Crimenuts.BracketDecor(new Crimenuts.Decorable(Crimenuts.Settings.Process.Members.Dialog.width, Crimenuts.Settings.Process.Members.Dialog.height), Crimenuts.Settings.Process.Members.Dialog.bracketColor, Crimenuts.Settings.Process.Members.Dialog.bracketWidth), Crimenuts.Settings.Process.Members.Dialog.bgColor, Crimenuts.Settings.BgColor.transparent, 0));
                 };
                 MemberDialog.prototype.createTitle = function () {
-                    this.add(this.title = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Members.Dialog.Title.width, Crimenuts.Settings.Process.Members.Dialog.Title.height, Crimenuts.Settings.Process.Members.Dialog.Title.color, Crimenuts.Settings.Process.Members.Dialog.Title.bgColor));
+                    this.title = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Members.Dialog.Title.width, Crimenuts.Settings.Process.Members.Dialog.Title.height, Crimenuts.Settings.Process.Members.Dialog.Title.color, Crimenuts.Settings.Process.Members.Dialog.Title.bgColor);
                     this.title.position = Crimenuts.Settings.Process.Members.Dialog.Title.position.clone();
+                    this.add(this.title);
+                };
+                MemberDialog.prototype.createText = function () {
+                    this.text = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Members.Dialog.Text.width, Crimenuts.Settings.Process.Members.Dialog.Text.height, Crimenuts.Settings.Process.Members.Dialog.Text.color, Crimenuts.Settings.Process.Members.Dialog.Text.bgColor);
+                    this.text.position = Crimenuts.Settings.Process.Members.Dialog.Text.position.clone();
+                    this.text.alignTop();
+                    this.add(this.text);
+                };
+                MemberDialog.prototype.createButtons = function () {
                 };
                 MemberDialog.prototype.createMemberCard = function () {
                     this.memberCard = new Process.MemberCard(this.director, this.memberId, Crimenuts.Settings.Process.Members.Dialog.Card.position.x, Crimenuts.Settings.Process.Members.Dialog.Card.position.y, Crimenuts.Settings.Process.Members.Dialog.Card.width, Crimenuts.Settings.Process.Members.Dialog.Card.height, Crimenuts.Command.nothing, false);
                     this.updateAnswerCardCommand();
                     this.add(this.memberCard);
                 };
-                MemberDialog.prototype.getMemberModel = function () {
-                    return this.director.getProcessModel().Members[this.memberId];
-                };
+                // Update
                 MemberDialog.prototype.updateAnswerCardCommand = function () {
                     this.memberCard.getAnswerCard().setCommand(new Crimenuts.MemberDialogCommand(this.memberCard.getAnswerCard().getMemberId()));
+                };
+                MemberDialog.prototype.updateTitle = function () {
+                    var member = this.getMemberModel();
+                    this.title.setText("" + member.Name + ":\n\"" + member.TodayAnswer.AnswerDiaogText + "\"");
+                };
+                MemberDialog.prototype.updateText = function () {
+                    var member = this.getMemberModel();
+                    var answer = member.TodayAnswer;
+                    this.text.setText(answer.IsValid ? "" + member.Name + " " + answer.SubjectRelation + "s " + answer.SubjectName : "");
+                };
+                MemberDialog.prototype.updateMemberCard = function () {
+                    this.memberCard.setMember(this.memberId);
+                };
+                // Model
+                MemberDialog.prototype.getMemberModel = function () {
+                    return this.director.getProcessModel().Members[this.memberId];
                 };
                 return MemberDialog;
             })(Phaser.Group);
