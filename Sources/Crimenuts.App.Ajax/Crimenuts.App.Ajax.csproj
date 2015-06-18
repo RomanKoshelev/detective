@@ -210,6 +210,7 @@
     <Content Include="App_Data\Logs\.gitignore" />
     <Content Include="App_Data\Pictures\heart.png" />
     <Content Include="App_Data\Pictures\light.png" />
+    <Content Include="App_Data\Pictures\transparent.png" />
     <Content Include="App_Data\Worlds\Simpsons\Images\world.picture.png" />
     <Content Include="App_Data\Worlds\Simpsons\Persons\.other\Dr_Nick.png" />
     <Content Include="App_Data\Worlds\Simpsons\Persons\.other\Groundskeeper_Willie.png" />
@@ -331,6 +332,7 @@
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\IMemberCard.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\IMemberDialog.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\MemberDialog.ts" />
+    <TypeScriptCompile Include="Game\Client\Types\RelationCode.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Widgets\ITicksWidget.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Answers.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\ProcessView.ts" />

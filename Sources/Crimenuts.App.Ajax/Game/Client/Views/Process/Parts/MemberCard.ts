@@ -12,6 +12,7 @@ module Crimenuts.View.Process {
             this.updateAnswer( memberId );
             this.updateShade( memberId );
             this.updateSpot( memberId );
+            this.updateSign( memberId );
         }
 
         setCommand( command: Command ) {
@@ -40,7 +41,8 @@ module Crimenuts.View.Process {
             x: number, y: number, w: number, h: number,
             command = Command.nothing,
             hasNameLabel = true,
-            answerLevel = 1
+            answerLevel = 1,
+            hasSign = false
         ) {
             super( app.game );
             this.director = director;
@@ -52,7 +54,7 @@ module Crimenuts.View.Process {
             this.createSpot( w, h );
             this.createAnswer( answerLevel, w, h, command );
             this.createPicture( member.World, member.Name, w, h );
-            this.createSign( w, h );
+            this.createSign( w, h, hasSign );
             this.createShade();
             this.createButton( command, w, h );
             this.createFrame();
@@ -73,12 +75,22 @@ module Crimenuts.View.Process {
         private shadeRect = new PIXI.Rectangle();
         private answerCode = AnswerCode.Unknown;
         private frame: Phaser.Graphics;
-        private sign: Phaser.Sprite;
+        private sign: Picture;
 
         // Create
-        private createSign( w: number, h: number ) {
-            this.sign = new Picture( "heart" );
-            
+        private createSign( width: number, height: number, hasSign: boolean ) {
+            if( !hasSign ) {
+                return;
+            }
+            var ks = Settings.Process.Members.Card.Sign.sizeRate;
+            var kx = Settings.Process.Members.Card.Sign.xRate;
+            var ky = Settings.Process.Members.Card.Sign.yRate;
+
+            var s = width * ks;
+            this.sign = new Picture( s );
+            this.sign.anchor.set( 0.5, 0.5 );
+            this.sign.x = width*kx;
+            this.sign.y = height*ky;
             this.add( this.sign );
         }
 
@@ -92,7 +104,12 @@ module Crimenuts.View.Process {
             this.add( this.spot );
         }
 
-        private createAnswer( level: number, w: number, h: number, command: Command ) {
+        private createAnswer(
+            level: number,
+            w: number,
+            h: number,
+            command: Command
+            ) {
             if( level < 1 ) return;
 
             var k = Settings.Process.Members.Card.Answer.sizeRate;
@@ -110,11 +127,13 @@ module Crimenuts.View.Process {
                 0,
                 mx, my, mw, mh,
                 command,
-                false,
-                level - 1
+                false, // hasNameLabel
+                level - 1,
+                true // hasSign
             );
             this.answer.visible = true;
             this.answer.picture.tint = Settings.Process.Members.Card.Answer.tintColor;
+
             this.add( this.answer );
         }
 
@@ -168,7 +187,14 @@ module Crimenuts.View.Process {
             this.add( this.shade );
         }
 
+
         // Set
+
+        private setSign( rel: RelationCode ) {
+            var pict = Settings.Process.Members.Card.Sign.picture[ RelationCode[ rel ] ];
+            this.sign.setPicture( pict  );
+        }
+
         private setShade( shade ) {
             this.shadeRect = this.getLocalBounds();
 
@@ -188,6 +214,19 @@ module Crimenuts.View.Process {
         }
 
         //Update
+        private updateSign( memberId: number ) {
+            if ( this.answer == null ) return;
+            if ( this.answer.sign == null ) return;
+
+            var model = this.getMemberModel( memberId );
+            if( model.TodayAnswer.IsValid ) {
+                this.answer.sign.visible = true;   
+                this.answer.setSign( RelationCode[ model.TodayAnswer.SubjectRelation ] );
+            } else {
+                this.answer.sign.visible = false;   
+            }
+        }
+
         private updatePicture( world: string, name: string ) {
             this.picture.setPerson( world, name );
         }
@@ -198,7 +237,7 @@ module Crimenuts.View.Process {
         }
 
         private updateAnswer( memberId: number ) {
-            if( this.answer === null ) return;
+            if( this.answer == null ) return;
 
             var model = this.getMemberModel( memberId );
             if( model.TodayAnswer.IsValid ) {

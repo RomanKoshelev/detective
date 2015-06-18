@@ -1,7 +1,7 @@
 ﻿module Crimenuts {
     export class Picture extends Phaser.Sprite {
 
-        constructor( name: string, width: number=Settings.Default.Assets.pictureSize ) {
+        constructor( width: number=Settings.Default.Assets.pictureSize, name: string=Settings.Assets.Sprites.transparent  ) {
             super( app.game, 0, 0 );
             this.imageWidth = width;
             this.setPicture( name );

@@ -115,8 +115,18 @@ var Crimenuts;
     })(Crimenuts.AnswerCode || (Crimenuts.AnswerCode = {}));
     var AnswerCode = Crimenuts.AnswerCode;
 })(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    (function (RelationCode) {
+        RelationCode[RelationCode["Love"] = 0] = "Love";
+        RelationCode[RelationCode["Hate"] = 1] = "Hate";
+        RelationCode[RelationCode["Ignore"] = 2] = "Ignore";
+    })(Crimenuts.RelationCode || (Crimenuts.RelationCode = {}));
+    var RelationCode = Crimenuts.RelationCode;
+})(Crimenuts || (Crimenuts = {}));
 /// <reference path="../UserInterface/Types/ColorSet.ts" />
 /// <reference path="../Types/AnswerCode.ts" />
+/// <reference path="../Types/RelationCode.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var Settings;
@@ -242,6 +252,16 @@ var Crimenuts;
                         Answer.yRate = -0.1;
                         Answer.tintColor = 0xCCCCCC;
                     })(Answer = Card.Answer || (Card.Answer = {}));
+                    var Sign;
+                    (function (Sign) {
+                        Sign.picture = {};
+                        Sign.picture[Crimenuts.RelationCode[0 /* Love */]] = "heart";
+                        Sign.picture[Crimenuts.RelationCode[1 /* Hate */]] = "light";
+                        Sign.picture[Crimenuts.RelationCode[2 /* Ignore */]] = "transparent";
+                        Sign.sizeRate = 0.5;
+                        Sign.xRate = 0.1;
+                        Sign.yRate = 0.15;
+                    })(Sign = Card.Sign || (Card.Sign = {}));
                 })(Card = Members.Card || (Members.Card = {}));
                 var Dialog;
                 (function (Dialog) {
@@ -976,8 +996,9 @@ var Crimenuts;
 (function (Crimenuts) {
     var Picture = (function (_super) {
         __extends(Picture, _super);
-        function Picture(name, width) {
+        function Picture(width, name) {
             if (width === void 0) { width = Crimenuts.Settings.Default.Assets.pictureSize; }
+            if (name === void 0) { name = Crimenuts.Settings.Assets.Sprites.transparent; }
             _super.call(this, Crimenuts.app.game, 0, 0);
             this.imageWidth = width;
             this.setPicture(name);
@@ -1249,10 +1270,11 @@ var Crimenuts;
             var MemberCard = (function (_super) {
                 __extends(MemberCard, _super);
                 // Ctor
-                function MemberCard(director, memberId, x, y, w, h, command, hasNameLabel, answerLevel) {
+                function MemberCard(director, memberId, x, y, w, h, command, hasNameLabel, answerLevel, hasSign) {
                     if (command === void 0) { command = Crimenuts.Command.nothing; }
                     if (hasNameLabel === void 0) { hasNameLabel = true; }
                     if (answerLevel === void 0) { answerLevel = 1; }
+                    if (hasSign === void 0) { hasSign = false; }
                     _super.call(this, Crimenuts.app.game);
                     this.answer = null;
                     this.spotEllipse = new PIXI.Rectangle();
@@ -1265,7 +1287,7 @@ var Crimenuts;
                     this.createSpot(w, h);
                     this.createAnswer(answerLevel, w, h, command);
                     this.createPicture(member.World, member.Name, w, h);
-                    this.createSign(w, h);
+                    this.createSign(w, h, hasSign);
                     this.createShade();
                     this.createButton(command, w, h);
                     this.createFrame();
@@ -1280,6 +1302,7 @@ var Crimenuts;
                     this.updateAnswer(memberId);
                     this.updateShade(memberId);
                     this.updateSpot(memberId);
+                    this.updateSign(memberId);
                 };
                 MemberCard.prototype.setCommand = function (command) {
                     this.button.visible = true;
@@ -1297,8 +1320,18 @@ var Crimenuts;
                     //this.updateFrame();
                 };
                 // Create
-                MemberCard.prototype.createSign = function (w, h) {
-                    this.sign = new Crimenuts.Picture("heart");
+                MemberCard.prototype.createSign = function (width, height, hasSign) {
+                    if (!hasSign) {
+                        return;
+                    }
+                    var ks = Crimenuts.Settings.Process.Members.Card.Sign.sizeRate;
+                    var kx = Crimenuts.Settings.Process.Members.Card.Sign.xRate;
+                    var ky = Crimenuts.Settings.Process.Members.Card.Sign.yRate;
+                    var s = width * ks;
+                    this.sign = new Crimenuts.Picture(s);
+                    this.sign.anchor.set(0.5, 0.5);
+                    this.sign.x = width * kx;
+                    this.sign.y = height * ky;
                     this.add(this.sign);
                 };
                 MemberCard.prototype.createSpot = function (width, height) {
@@ -1321,7 +1354,7 @@ var Crimenuts;
                     var my = h * hk;
                     var mw = w * kk;
                     var mh = h * kk;
-                    this.answer = new MemberCard(this.director, 0, mx, my, mw, mh, command, false, level - 1);
+                    this.answer = new MemberCard(this.director, 0, mx, my, mw, mh, command, false, level - 1, true);
                     this.answer.visible = true;
                     this.answer.picture.tint = Crimenuts.Settings.Process.Members.Card.Answer.tintColor;
                     this.add(this.answer);
@@ -1365,6 +1398,10 @@ var Crimenuts;
                     this.add(this.shade);
                 };
                 // Set
+                MemberCard.prototype.setSign = function (rel) {
+                    var pict = Crimenuts.Settings.Process.Members.Card.Sign.picture[Crimenuts.RelationCode[rel]];
+                    this.sign.setPicture(pict);
+                };
                 MemberCard.prototype.setShade = function (shade) {
                     this.shadeRect = this.getLocalBounds();
                     var color = 0x000000;
@@ -1381,6 +1418,20 @@ var Crimenuts;
                     this.spot.endFill();
                 };
                 //Update
+                MemberCard.prototype.updateSign = function (memberId) {
+                    if (this.answer == null)
+                        return;
+                    if (this.answer.sign == null)
+                        return;
+                    var model = this.getMemberModel(memberId);
+                    if (model.TodayAnswer.IsValid) {
+                        this.answer.sign.visible = true;
+                        this.answer.setSign(Crimenuts.RelationCode[model.TodayAnswer.SubjectRelation]);
+                    }
+                    else {
+                        this.answer.sign.visible = false;
+                    }
+                };
                 MemberCard.prototype.updatePicture = function (world, name) {
                     this.picture.setPerson(world, name);
                 };
@@ -1389,7 +1440,7 @@ var Crimenuts;
                     this.setSpotColor(color);
                 };
                 MemberCard.prototype.updateAnswer = function (memberId) {
-                    if (this.answer === null)
+                    if (this.answer == null)
                         return;
                     var model = this.getMemberModel(memberId);
                     if (model.TodayAnswer.IsValid) {

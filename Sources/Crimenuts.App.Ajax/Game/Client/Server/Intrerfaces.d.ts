@@ -138,6 +138,7 @@ interface AnswerModel {
     AnswerText : string;
     AnswerDiaogText : string;
     AnswerCode : string;
+    SubjectRelation : string;
 }
  
  

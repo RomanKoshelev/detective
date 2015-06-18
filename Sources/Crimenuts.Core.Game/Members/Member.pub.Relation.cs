@@ -4,6 +4,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Crimenuts.Core.Game.Enums;
 
 namespace Crimenuts.Core.Game.Members
 {
@@ -47,6 +48,17 @@ namespace Crimenuts.Core.Game.Members
         public bool IgnoresAny( IList< Member > subjects )
         {
             return subjects.Any( Ignores );
+        }
+
+        public Relation GetRelationTo( Member subject )
+        {
+            return Ignores( subject )
+                ? Relation.Ignore
+                : Loves( subject )
+                    ? Relation.Love
+                    : Hates( subject )
+                        ? Relation.Hate
+                        : Relation.Error;
         }
     }
 }

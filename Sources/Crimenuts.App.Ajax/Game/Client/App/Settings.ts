@@ -1,5 +1,7 @@
 ﻿/// <reference path="../UserInterface/Types/ColorSet.ts" />
 /// <reference path="../Types/AnswerCode.ts" />
+/// <reference path="../Types/RelationCode.ts" />
+
 module Crimenuts.Settings {
 
     export module Game {
@@ -91,7 +93,7 @@ module Crimenuts.Settings {
             export module Card {
                 export var heightRate = 1.22;
                 export var width = 90 * k;
-                export var height = width*heightRate;
+                export var height = width * heightRate;
                 export var inaciveShade = 0.8;
 
                 export module Spot {
@@ -119,6 +121,16 @@ module Crimenuts.Settings {
                     export var xRate = 0.7;
                     export var yRate = -0.1;
                     export var tintColor = 0xCCCCCC;
+                }
+
+                export module Sign {
+                    export var picture: { [ key: string ]: string } = {};
+                    picture[ RelationCode[ RelationCode.Love ] ] = "heart";
+                    picture[ RelationCode[ RelationCode.Hate ] ] = "light";
+                    picture[ RelationCode[ RelationCode.Ignore ] ] = "transparent";
+                    export var sizeRate = 0.5;
+                    export var xRate = 0.1;
+                    export var yRate = 0.15;
                 }
             }
 

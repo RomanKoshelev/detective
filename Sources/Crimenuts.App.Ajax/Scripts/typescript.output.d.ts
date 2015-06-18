@@ -46,6 +46,13 @@ declare module Crimenuts {
         NotSuspicious = 5,
     }
 }
+declare module Crimenuts {
+    enum RelationCode {
+        Love = 0,
+        Hate = 1,
+        Ignore = 2,
+    }
+}
 declare module Crimenuts.Settings {
     module Game {
         var width: number;
@@ -140,6 +147,14 @@ declare module Crimenuts.Settings {
                     var xRate: number;
                     var yRate: number;
                     var tintColor: number;
+                }
+                module Sign {
+                    var picture: {
+                        [key: string]: string;
+                    };
+                    var sizeRate: number;
+                    var xRate: number;
+                    var yRate: number;
                 }
             }
             module Dialog {
@@ -447,7 +462,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class Picture extends Phaser.Sprite {
-        constructor(name: string, width?: number);
+        constructor(width?: number, name?: string);
         setPicture(name: string): void;
         private imageKey;
         private imageWidth;
@@ -549,7 +564,7 @@ declare module Crimenuts.View.Process {
         getAnswerCard(): IMemberCard;
         getMemberId(): number;
         update(): void;
-        constructor(director: IProcessDirector, memberId: number, x: number, y: number, w: number, h: number, command?: Command, hasNameLabel?: boolean, answerLevel?: number);
+        constructor(director: IProcessDirector, memberId: number, x: number, y: number, w: number, h: number, command?: Command, hasNameLabel?: boolean, answerLevel?: number, hasSign?: boolean);
         private director;
         private memberId;
         private picture;
@@ -563,7 +578,7 @@ declare module Crimenuts.View.Process {
         private answerCode;
         private frame;
         private sign;
-        private createSign(w, h);
+        private createSign(width, height, hasSign);
         private createSpot(width, height);
         private createAnswer(level, w, h, command);
         private createPicture(world, name, w, h);
@@ -571,8 +586,10 @@ declare module Crimenuts.View.Process {
         private createButton(command, w, h);
         private createFrame();
         private createShade();
+        private setSign(rel);
         private setShade(shade);
         private setSpotColor(color);
+        private updateSign(memberId);
         private updatePicture(world, name);
         private updateSpot(memberId);
         private updateAnswer(memberId);
