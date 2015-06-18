@@ -9,14 +9,14 @@ module Crimenuts {
             width: number, height: number,
             fontFace: string = Settings.Default.Font.face,
             fontSize: number = Settings.Default.Font.size,
-            color: string = Settings.Default.Font.color, 
+            color: string = Settings.Default.Font.color,
             bgcolor: number = Settings.Default.Font.bgColor
-            ) {
+        ) {
 
             super( app.game, 0, 0 );
 
-            this.createBackground(width, height, bgcolor);
-            this.createLabel(fontFace, fontSize, color);
+            this.createBackground( width, height, bgcolor );
+            this.createLabel( fontFace, fontSize, color );
 
             this.alignLeft();
             this.alignMiddle();
@@ -64,15 +64,15 @@ module Crimenuts {
                     font: `${fontSize}px ${fontFace}`,
                     fill: color,
                     align: "left"
-                }) );
+                } ) );
 
-            this.label.scale.set( 1/magicScale, 1/magicScale );
+            this.label.scale.set( 1 / magicScale, 1 / magicScale );
         }
 
         private createBackground( width: number, height: number, bgcolor: number ) {
-            var a = bgcolor === Settings.BgColor.transparent? 0: 1;
+            var a = bgcolor === Settings.BgColor.transparent ? 0 : 1;
             this.beginFill( bgcolor, a );
-            this.drawRect( 0,0, width, height );
+            this.drawRect( 0, 0, width, height );
             this.endFill();
         }
     }

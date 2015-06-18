@@ -41,8 +41,8 @@ module Crimenuts.View.Process {
 
         private calcPersonCardPosition( i: number, w: number, h: number ): Phaser.Point {
             var n = Settings.Process.Members.numInRow;
-            var x = ( i % n ) * w * 1.2;
-            var y = Math.floor( i / n ) * h * 1.2;
+            var x = ( i % n ) * w * Settings.Process.Members.spanHorRate;
+            var y = Math.floor( i / n ) * h * Settings.Process.Members.spanVerRate;
             return new Phaser.Point( x, y );
         }
     }

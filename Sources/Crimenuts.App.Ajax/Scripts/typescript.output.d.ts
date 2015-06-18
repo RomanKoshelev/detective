@@ -111,7 +111,10 @@ declare module Crimenuts.Settings {
             var position: Phaser.Point;
             var numInRow: number;
             var unknownMember: number;
+            var spanHorRate: number;
+            var spanVerRate: number;
             module Card {
+                var heightRate: number;
                 var width: number;
                 var height: number;
                 var inaciveShade: number;
@@ -500,7 +503,6 @@ declare module Crimenuts.View.Process {
 declare module Crimenuts.View.Process {
     interface IMemberCard {
         setMember(memberId: number): any;
-        showName: boolean;
     }
 }
 declare module Crimenuts.View.Process {
@@ -519,10 +521,9 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class MemberCard extends Phaser.Group implements IMemberCard {
-        showName: boolean;
         setMember(memberId: number): void;
         update(): void;
-        constructor(director: IProcessDirector, memberId: number, x: number, y: number, w: number, h: number, command?: Command, answerLevel?: number);
+        constructor(director: IProcessDirector, memberId: number, x: number, y: number, w: number, h: number, command?: Command, hasNameLabel?: boolean, answerLevel?: number);
         private director;
         private picture;
         private button;
@@ -531,19 +532,24 @@ declare module Crimenuts.View.Process {
         private answer;
         private shade;
         private spotEllipse;
+        private shadeRect;
         private answerCode;
+        private frame;
         private createSpot(width, height);
-        private updateSpot(memberId);
-        private setSpotColor(color);
-        createAnswer(level: number, w: number, h: number): void;
+        private createAnswer(level, w, h, command);
         private createPicture(world, name, w, h);
-        private createNameLabel(name, width, height);
-        private createButton(w, h, command);
-        private createFrame(w, h);
-        private updateAnswer(memberId);
-        private createShade(w, h);
-        private updateShade(memberId);
+        private createNameLabel(name, width, height, hasNameLabel);
+        private createButton(command, w, h);
+        private createFrame();
+        private createShade();
         private setShade(shade);
+        private setSpotColor(color);
+        private updatePicture(world, name);
+        private updateSpot(memberId);
+        private updateAnswer(memberId);
+        private updateShade(memberId);
+        private updateFrame();
+        private updateName(name);
         private getMemberModel(memberId);
     }
 }

@@ -189,22 +189,25 @@ var Crimenuts;
             var Members;
             (function (Members) {
                 Members.left = 10 * k;
-                Members.top = 555 * k;
+                Members.top = 575 * k;
                 Members.position = new Phaser.Point(Members.left, Members.top);
                 Members.numInRow = 6;
                 Members.unknownMember = -1;
+                Members.spanHorRate = 1.3;
+                Members.spanVerRate = 1.2;
                 var Card;
                 (function (Card) {
-                    Card.width = 100 * k;
-                    Card.height = Card.width * 1.2;
+                    Card.heightRate = 1.22;
+                    Card.width = 90 * k;
+                    Card.height = Card.width * Card.heightRate;
                     Card.inaciveShade = 0.8;
                     var Spot;
                     (function (Spot) {
                         Spot.heightRate = 0.10;
-                        Spot.footShiftRate = 0.20;
+                        Spot.footShiftRate = 0.70;
                         Spot.color = {};
                         Spot.color[Crimenuts.AnswerCode[0 /* Error */]] = 0xFFFFFF;
-                        Spot.color[Crimenuts.AnswerCode[1 /* Unknown */]] = 0x222222;
+                        Spot.color[Crimenuts.AnswerCode[1 /* Unknown */]] = 0x666666;
                         Spot.color[Crimenuts.AnswerCode[2 /* Innocent */]] = 0x00FF00;
                         Spot.color[Crimenuts.AnswerCode[3 /* Murderer */]] = 0xFF0000;
                         Spot.color[Crimenuts.AnswerCode[5 /* NotSuspicious */]] = 0x006600;
@@ -212,16 +215,16 @@ var Crimenuts;
                     })(Spot = Card.Spot || (Card.Spot = {}));
                     var Name;
                     (function (Name) {
-                        Name.height = 16 * k;
+                        Name.height = 22 * k;
                         Name.fontSize = 11 * k;
                         Name.color = "#666666";
-                        Name.bgColor = BgColor.transparent;
+                        Name.bgColor = 0xFFFFFF; //BgColor.transparent;
                     })(Name = Card.Name || (Card.Name = {}));
                     var Answer;
                     (function (Answer) {
-                        Answer.sizeRate = 0.4;
-                        Answer.xRate = 0.6;
-                        Answer.yRate = 0.0;
+                        Answer.sizeRate = 0.6;
+                        Answer.xRate = 0.7;
+                        Answer.yRate = -0.1;
                         Answer.tintColor = 0xCCCCCC;
                     })(Answer = Card.Answer || (Card.Answer = {}));
                 })(Card = Members.Card || (Members.Card = {}));
@@ -231,15 +234,15 @@ var Crimenuts;
                     Dialog.top = 330 * k;
                     Dialog.position = new Phaser.Point(Dialog.left, Dialog.top);
                     Dialog.width = Game.width - Dialog.left * 2;
-                    Dialog.height = 200 * k;
+                    Dialog.height = 220 * k;
                     Dialog.bgColor = 0x000000;
                     Dialog.bracketColor = 0x888888;
                     Dialog.bracketWidth = 2;
                     var Card;
                     (function (Card) {
-                        Card.position = new Phaser.Point(8 * k, 10 * k);
-                        Card.width = 180 * k;
-                        Card.height = 210 * k;
+                        Card.position = new Phaser.Point(8 * k, 30 * k);
+                        Card.width = 170 * k;
+                        Card.height = Card.width * Members.Card.heightRate;
                     })(Card = Dialog.Card || (Dialog.Card = {}));
                     var Title;
                     (function (Title) {
@@ -364,8 +367,7 @@ var Crimenuts;
                     this.title.position = Crimenuts.Settings.Process.Members.Dialog.Title.position.clone();
                 };
                 MemberDialog.prototype.createMemberCard = function () {
-                    this.add(this.memberCard = new Process.MemberCard(this.director, this.memberId, Crimenuts.Settings.Process.Members.Dialog.Card.position.x, Crimenuts.Settings.Process.Members.Dialog.Card.position.y, Crimenuts.Settings.Process.Members.Dialog.Card.width, Crimenuts.Settings.Process.Members.Dialog.Card.height));
-                    this.memberCard.showName = false;
+                    this.add(this.memberCard = new Process.MemberCard(this.director, this.memberId, Crimenuts.Settings.Process.Members.Dialog.Card.position.x, Crimenuts.Settings.Process.Members.Dialog.Card.position.y, Crimenuts.Settings.Process.Members.Dialog.Card.width, Crimenuts.Settings.Process.Members.Dialog.Card.height, Crimenuts.Command.nothing, false));
                 };
                 MemberDialog.prototype.getMemberModel = function () {
                     return this.director.getProcessModel().Members[this.memberId];
@@ -1175,41 +1177,42 @@ var Crimenuts;
             var MemberCard = (function (_super) {
                 __extends(MemberCard, _super);
                 // Ctor
-                function MemberCard(director, memberId, x, y, w, h, command, answerLevel) {
+                function MemberCard(director, memberId, x, y, w, h, command, hasNameLabel, answerLevel) {
                     if (command === void 0) { command = Crimenuts.Command.nothing; }
+                    if (hasNameLabel === void 0) { hasNameLabel = true; }
                     if (answerLevel === void 0) { answerLevel = 1; }
                     _super.call(this, Crimenuts.app.game);
-                    // IMemberCard
-                    this.showName = true;
                     this.answer = null;
                     this.spotEllipse = new PIXI.Rectangle();
+                    this.shadeRect = new PIXI.Rectangle();
                     this.answerCode = 1 /* Unknown */;
                     this.director = director;
                     this.position.set(x, y);
                     var member = this.getMemberModel(memberId);
-                    this.createNameLabel(member.Name, w, h);
+                    this.createNameLabel(member.Name, w, h, hasNameLabel);
                     this.createSpot(w, h);
-                    this.createAnswer(answerLevel, w, h);
+                    this.createAnswer(answerLevel, w, h, command);
                     this.createPicture(member.World, member.Name, w, h);
-                    this.createButton(w, h, command);
-                    this.createShade(w, h);
-                    //this.createFrame( w, h );
+                    //this.createShade();
+                    this.createButton(command, w, h);
+                    this.createFrame();
                     this.setMember(memberId);
                 }
+                // IMemberCard
                 MemberCard.prototype.setMember = function (memberId) {
                     var member = this.getMemberModel(memberId);
-                    this.picture.setPerson(member.World, member.Name);
-                    this.nameLabel.setText(member.Name);
+                    this.updatePicture(member.World, member.Name);
+                    this.updateName(member.Name);
                     this.updateAnswer(memberId);
-                    this.updateShade(memberId);
+                    //this.updateShade( memberId );
                     this.updateSpot(memberId);
                 };
                 // Overrides
                 MemberCard.prototype.update = function () {
-                    this.nameLabel.visible = this.showName;
                     _super.prototype.update.call(this);
+                    this.updateFrame();
                 };
-                // Utils
+                // Create
                 MemberCard.prototype.createSpot = function (width, height) {
                     this.add(this.spot = new Phaser.Graphics(Crimenuts.app.game, 0, 0));
                     this.spotEllipse.width = width / 2;
@@ -1218,17 +1221,7 @@ var Crimenuts;
                     this.spotEllipse.y = height - this.spotEllipse.height - Crimenuts.Settings.Process.Members.Card.Name.height;
                     this.setSpotColor(0);
                 };
-                MemberCard.prototype.updateSpot = function (memberId) {
-                    var color = Crimenuts.Settings.Process.Members.Card.Spot.color[Crimenuts.AnswerCode[this.answerCode]];
-                    this.setSpotColor(color);
-                };
-                MemberCard.prototype.setSpotColor = function (color) {
-                    this.spot.clear();
-                    this.spot.beginFill(color);
-                    this.spot.drawEllipse(this.spotEllipse.x, this.spotEllipse.y, this.spotEllipse.width, this.spotEllipse.height);
-                    this.spot.endFill();
-                };
-                MemberCard.prototype.createAnswer = function (level, w, h) {
+                MemberCard.prototype.createAnswer = function (level, w, h, command) {
                     if (level < 1)
                         return;
                     var k = Crimenuts.Settings.Process.Members.Card.Answer.sizeRate;
@@ -1239,8 +1232,7 @@ var Crimenuts;
                     var my = h * hk;
                     var mw = w * kk;
                     var mh = h * kk;
-                    this.answer = new MemberCard(this.director, 0, mx, my, mw, mh, Crimenuts.Command.nothing, level - 1);
-                    this.answer.showName = false;
+                    this.answer = new MemberCard(this.director, 0, mx, my, mw, mh, command, false, level - 1);
                     this.answer.visible = true;
                     this.answer.picture.tint = Crimenuts.Settings.Process.Members.Card.Answer.tintColor;
                     this.add(this.answer);
@@ -1251,23 +1243,62 @@ var Crimenuts;
                     var pw = w - dx;
                     var ph = h - nh - dx;
                     var sz = Math.min(pw, ph);
-                    this.add(this.picture = new Crimenuts.PersonPicture(0, 0, sz, world, name));
+                    this.picture = new Crimenuts.PersonPicture(0, 0, sz, world, name);
                     this.picture.anchor.set(0.5, 1);
                     this.picture.position.x = w / 2;
                     this.picture.position.y = ph;
+                    this.add(this.picture);
                 };
-                MemberCard.prototype.createNameLabel = function (name, width, height) {
-                    this.add(this.nameLabel = new Crimenuts.TextLabel(width, Crimenuts.Settings.Process.Members.Card.Name.height, Crimenuts.Settings.Default.Font.face, Crimenuts.Settings.Process.Members.Card.Name.fontSize, Crimenuts.Settings.Process.Members.Card.Name.color, Crimenuts.Settings.Process.Members.Card.Name.bgColor));
+                MemberCard.prototype.createNameLabel = function (name, width, height, hasNameLabel) {
+                    if (!hasNameLabel) {
+                        return;
+                    }
+                    this.nameLabel = new Crimenuts.TextLabel(width, Crimenuts.Settings.Process.Members.Card.Name.height, Crimenuts.Settings.Default.Font.face, Crimenuts.Settings.Process.Members.Card.Name.fontSize, Crimenuts.Settings.Process.Members.Card.Name.color, Crimenuts.Settings.Process.Members.Card.Name.bgColor);
                     this.nameLabel.setText(name);
                     this.nameLabel.alignCenter();
                     this.nameLabel.position.set(0, height - this.nameLabel.height);
+                    this.add(this.nameLabel);
                 };
-                MemberCard.prototype.createButton = function (w, h, command) {
-                    this.add(this.button = new Crimenuts.ButtonEssence(command, w, h));
+                MemberCard.prototype.createButton = function (command, w, h) {
+                    h -= this.nameLabel == null ? Crimenuts.Settings.Process.Members.Card.Name.height : 0;
+                    this.button = new Crimenuts.ButtonEssence(command, w, h);
+                    this.add(this.button);
                 };
-                MemberCard.prototype.createFrame = function (w, h) {
-                    this.spot.lineStyle(1, 0x222222);
-                    this.spot.drawRect(0, 0, w, h);
+                MemberCard.prototype.createFrame = function () {
+                    this.frame = new Phaser.Graphics(Crimenuts.app.game, 0, 0);
+                    this.add(this.frame);
+                };
+                MemberCard.prototype.createShade = function () {
+                    this.shade = new Phaser.Graphics(Crimenuts.app.game, 0, 0);
+                    this.add(this.shade);
+                };
+                // Set
+                MemberCard.prototype.setShade = function (shade) {
+                    this.shadeRect.x = 0;
+                    this.shadeRect.y = 0;
+                    this.shadeRect.width = this.width;
+                    this.shadeRect.height = this.height;
+                    this.shadeRect = this.getLocalBounds();
+                    var color = 0x777777; // 0x000000
+                    this.shade.clear();
+                    this.shade.lineStyle(0);
+                    this.shade.beginFill(color, shade);
+                    this.shade.drawRect(this.shadeRect.x, this.shadeRect.y, this.shadeRect.width, this.shadeRect.height);
+                    this.shade.endFill();
+                };
+                MemberCard.prototype.setSpotColor = function (color) {
+                    this.spot.clear();
+                    this.spot.beginFill(color);
+                    this.spot.drawEllipse(this.spotEllipse.x, this.spotEllipse.y, this.spotEllipse.width, this.spotEllipse.height);
+                    this.spot.endFill();
+                };
+                //Update
+                MemberCard.prototype.updatePicture = function (world, name) {
+                    this.picture.setPerson(world, name);
+                };
+                MemberCard.prototype.updateSpot = function (memberId) {
+                    var color = Crimenuts.Settings.Process.Members.Card.Spot.color[Crimenuts.AnswerCode[this.answerCode]];
+                    this.setSpotColor(color);
                 };
                 MemberCard.prototype.updateAnswer = function (memberId) {
                     if (this.answer === null)
@@ -1283,9 +1314,6 @@ var Crimenuts;
                         this.answer.answerCode = 1 /* Unknown */;
                     }
                 };
-                MemberCard.prototype.createShade = function (w, h) {
-                    this.add(this.shade = new Phaser.Graphics(Crimenuts.app.game, 0, 0));
-                };
                 MemberCard.prototype.updateShade = function (memberId) {
                     var model = this.getMemberModel(memberId);
                     if (model.IsActive) {
@@ -1295,13 +1323,18 @@ var Crimenuts;
                         this.setShade(Crimenuts.Settings.Process.Members.Card.inaciveShade);
                     }
                 };
-                MemberCard.prototype.setShade = function (shade) {
-                    this.shade.clear();
-                    this.shade.lineStyle(0);
-                    this.shade.beginFill(0x000000, shade);
-                    this.shade.drawRect(0, 0, this.width, this.height);
-                    this.shade.endFill();
+                MemberCard.prototype.updateFrame = function () {
+                    this.frame.clear();
+                    var bounds = this.getLocalBounds();
+                    this.frame.lineStyle(1, 0x444444);
+                    this.frame.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
                 };
+                MemberCard.prototype.updateName = function (name) {
+                    if (this.nameLabel != null) {
+                        this.nameLabel.setText(name);
+                    }
+                };
+                // Model
                 MemberCard.prototype.getMemberModel = function (memberId) {
                     return this.director.getProcessModel().Members[memberId];
                 };
@@ -1346,8 +1379,8 @@ var Crimenuts;
                 };
                 Members.prototype.calcPersonCardPosition = function (i, w, h) {
                     var n = Crimenuts.Settings.Process.Members.numInRow;
-                    var x = (i % n) * w * 1.2;
-                    var y = Math.floor(i / n) * h * 1.2;
+                    var x = (i % n) * w * Crimenuts.Settings.Process.Members.spanHorRate;
+                    var y = Math.floor(i / n) * h * Crimenuts.Settings.Process.Members.spanVerRate;
                     return new Phaser.Point(x, y);
                 };
                 return Members;

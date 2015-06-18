@@ -80,23 +80,26 @@ module Crimenuts.Settings {
 
         export module Members {
             export var left = 10 * k;
-            export var top = 555 * k;
+            export var top = 575 * k;
             export var position = new Phaser.Point( left, top );
             export var numInRow = 6;
             export var unknownMember = -1;
+            export var spanHorRate = 1.3;
+            export var spanVerRate = 1.2;
 
             export module Card {
-                export var width = 100 * k;
-                export var height = width * 1.2;
+                export var heightRate = 1.22;
+                export var width = 90 * k;
+                export var height = width*heightRate;
                 export var inaciveShade = 0.8;
 
                 export module Spot {
                     export var heightRate = 0.10;
-                    export var footShiftRate = 0.20;
+                    export var footShiftRate = 0.70;
 
                     export var color: { [ key: string ]: number } = {};
                     color[ AnswerCode[ AnswerCode.Error ] ] = 0xFFFFFF;
-                    color[ AnswerCode[ AnswerCode.Unknown ] ] = 0x222222;
+                    color[ AnswerCode[ AnswerCode.Unknown ] ] = 0x666666;
                     color[ AnswerCode[ AnswerCode.Innocent ] ] = 0x00FF00;
                     color[ AnswerCode[ AnswerCode.Murderer ] ] = 0xFF0000;
                     color[ AnswerCode[ AnswerCode.NotSuspicious ] ] = 0x006600;
@@ -104,16 +107,16 @@ module Crimenuts.Settings {
                 }
 
                 export module Name {
-                    export var height = 16 * k;
+                    export var height = 22 * k;
                     export var fontSize = 11 * k;
                     export var color = "#666666";
-                    export var bgColor = BgColor.transparent;
+                    export var bgColor = 0xFFFFFF;//BgColor.transparent;
                 }
 
                 export module Answer {
-                    export var sizeRate = 0.4;
-                    export var xRate = 0.6;
-                    export var yRate = 0.0;
+                    export var sizeRate = 0.6;
+                    export var xRate = 0.7;
+                    export var yRate = -0.1;
                     export var tintColor = 0xCCCCCC;
                 }
             }
@@ -123,15 +126,15 @@ module Crimenuts.Settings {
                 export var top = 330 * k;
                 export var position = new Phaser.Point( left, top );
                 export var width = Game.width - left * 2;
-                export var height = 200 * k;
+                export var height = 220 * k;
                 export var bgColor = 0x000000;
                 export var bracketColor = 0x888888;
                 export var bracketWidth = 2;
 
                 export module Card {
-                    export var position = new Phaser.Point( 8 * k, 10 * k );
-                    export var width = 180 * k;
-                    export var height = 210 * k;
+                    export var position = new Phaser.Point( 8 * k, 30 * k );
+                    export var width = 170 * k;
+                    export var height = width * Members.Card.heightRate;
                 }
 
                 export module Title {

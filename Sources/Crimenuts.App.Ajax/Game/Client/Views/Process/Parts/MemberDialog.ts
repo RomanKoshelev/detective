@@ -9,7 +9,7 @@
             super( app.game );
             this.position = Settings.Process.Members.Dialog.position.clone();
             this.director = director;
-            
+
             this.createFrameDecoration();
             this.createMemberCard();
             this.createTitle();
@@ -25,7 +25,7 @@
             this.title.setText( `${name}:\n"${member.TodayAnswer.AnswerDiaogText}"` );
         }
 
-        onProcessUpdated(  director: IProcessDirector ): void {
+        onProcessUpdated( director: IProcessDirector ): void {
             this.setMember( this.memberId );
         }
 
@@ -71,9 +71,10 @@
                 Settings.Process.Members.Dialog.Card.position.x,
                 Settings.Process.Members.Dialog.Card.position.y,
                 Settings.Process.Members.Dialog.Card.width,
-                Settings.Process.Members.Dialog.Card.height
-                ) );
-            this.memberCard.showName = false;
+                Settings.Process.Members.Dialog.Card.height,
+                Command.nothing,
+                false
+            ) );
         }
 
         private getMemberModel() {
