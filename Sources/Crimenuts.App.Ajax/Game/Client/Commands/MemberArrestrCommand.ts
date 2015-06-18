@@ -1,9 +1,9 @@
 ﻿/// <reference path="./Command.ts" />
 /// <reference path="../Managers/IProcessController.ts" />
 module Crimenuts {
-    export class AutoAnswerCommand extends Command {
+    export class MemberArrestrCommand extends Command {
         constructor( controller: IProcessController, processId: string ) {
-            super( "Auto answer", () => controller.autoAnswer( processId ) );
+            super( "Arrest", () => controller.autoAnswer( processId ) );
         }
     }
 }

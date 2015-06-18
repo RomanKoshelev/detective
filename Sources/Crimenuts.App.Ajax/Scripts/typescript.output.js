@@ -219,12 +219,11 @@ var Crimenuts;
                 Members.numInRow = 6;
                 Members.unknownMember = -1;
                 Members.spanHorRate = 1.3;
-                Members.spanVerRate = 1.2;
+                Members.spanVerRate = 1.1;
                 var Card;
                 (function (Card) {
-                    Card.heightRate = 1.22;
                     Card.width = 90 * k;
-                    Card.height = Card.width * Card.heightRate;
+                    Card.height = 115 * k;
                     Card.inaciveShade = 0.8;
                     var Spot;
                     (function (Spot) {
@@ -248,7 +247,7 @@ var Crimenuts;
                     var Answer;
                     (function (Answer) {
                         Answer.sizeRate = 0.5;
-                        Answer.xRate = 0.65;
+                        Answer.xRate = 0.6;
                         Answer.yRate = 0.0;
                         Answer.tintColor = 0xDDDDDD;
                     })(Answer = Card.Answer || (Card.Answer = {}));
@@ -259,7 +258,7 @@ var Crimenuts;
                         Sign.picture[Crimenuts.RelationCode[1 /* Hate */]] = "light";
                         Sign.picture[Crimenuts.RelationCode[2 /* Ignore */]] = "transparent";
                         Sign.sizeRate = 0.5;
-                        Sign.xRate = 0.1;
+                        Sign.xRate = 0.15;
                         Sign.yRate = 0.15;
                     })(Sign = Card.Sign || (Card.Sign = {}));
                 })(Card = Members.Card || (Members.Card = {}));
@@ -276,8 +275,8 @@ var Crimenuts;
                     var Card;
                     (function (Card) {
                         Card.position = new Phaser.Point(8 * k, 30 * k);
-                        Card.width = 170 * k;
-                        Card.height = Card.width * Members.Card.heightRate;
+                        Card.width = 210 * k;
+                        Card.height = Card.width;
                     })(Card = Dialog.Card || (Dialog.Card = {}));
                     var Title;
                     (function (Title) {
@@ -295,6 +294,12 @@ var Crimenuts;
                         Text.color = "#AAAAAA";
                         Text.bgColor = BgColor.transparent;
                     })(Text = Dialog.Text || (Dialog.Text = {}));
+                    var Buttons;
+                    (function (Buttons) {
+                        Buttons.left = 595 * k;
+                        Buttons.markPosition = new Phaser.Point(Buttons.left, 120 * k);
+                        Buttons.arrestPosition = new Phaser.Point(Buttons.left, 170 * k);
+                    })(Buttons = Dialog.Buttons || (Dialog.Buttons = {}));
                 })(Dialog = Members.Dialog || (Members.Dialog = {}));
             })(Members = Process.Members || (Process.Members = {}));
             var Answers;
@@ -359,20 +364,27 @@ var __extends = this.__extends || function (d, b) {
 /// <reference path="../Managers/IProcessController.ts" />
 var Crimenuts;
 (function (Crimenuts) {
-    var View;
-    (function (View) {
-        var Process;
-        (function (Process) {
-            var AutoAnswerCommand = (function (_super) {
-                __extends(AutoAnswerCommand, _super);
-                function AutoAnswerCommand(controller, processId) {
-                    _super.call(this, "Auto answer", function () { return controller.autoAnswer(processId); });
-                }
-                return AutoAnswerCommand;
-            })(Crimenuts.Command);
-            Process.AutoAnswerCommand = AutoAnswerCommand;
-        })(Process = View.Process || (View.Process = {}));
-    })(View = Crimenuts.View || (Crimenuts.View = {}));
+    var AutoAnswerCommand = (function (_super) {
+        __extends(AutoAnswerCommand, _super);
+        function AutoAnswerCommand(controller, processId) {
+            _super.call(this, "Auto answer", function () { return controller.autoAnswer(processId); });
+        }
+        return AutoAnswerCommand;
+    })(Crimenuts.Command);
+    Crimenuts.AutoAnswerCommand = AutoAnswerCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="./Command.ts" />
+/// <reference path="../Managers/IProcessController.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var MemberArrestrCommand = (function (_super) {
+        __extends(MemberArrestrCommand, _super);
+        function MemberArrestrCommand(controller, processId) {
+            _super.call(this, "Arrest", function () { return controller.autoAnswer(processId); });
+        }
+        return MemberArrestrCommand;
+    })(Crimenuts.Command);
+    Crimenuts.MemberArrestrCommand = MemberArrestrCommand;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -382,7 +394,7 @@ var Crimenuts;
         (function (Process) {
             var MemberDialog = (function (_super) {
                 __extends(MemberDialog, _super);
-                function MemberDialog(director) {
+                function MemberDialog(director, cmdMark, cmdArrest) {
                     _super.call(this, Crimenuts.app.game);
                     this.memberId = 0;
                     this.position = Crimenuts.Settings.Process.Members.Dialog.position.clone();
@@ -391,6 +403,7 @@ var Crimenuts;
                     this.createMemberCard();
                     this.createTitle();
                     this.createText();
+                    this.createButtons(cmdMark, cmdArrest);
                     MemberDialog.instance = this;
                 }
                 MemberDialog.prototype.setMember = function (memberId) {
@@ -417,7 +430,11 @@ var Crimenuts;
                     this.text.alignTop();
                     this.add(this.text);
                 };
-                MemberDialog.prototype.createButtons = function () {
+                MemberDialog.prototype.createButtons = function (cmdMark, cmdArrest) {
+                    this.markButton = Crimenuts.app.uiFactory.makeDefaultButton(cmdMark, Crimenuts.Settings.Process.Members.Dialog.Buttons.markPosition);
+                    this.arrestButton = Crimenuts.app.uiFactory.makeDefaultButton(cmdArrest, Crimenuts.Settings.Process.Members.Dialog.Buttons.arrestPosition);
+                    this.add(this.markButton);
+                    this.add(this.arrestButton);
                 };
                 MemberDialog.prototype.createMemberCard = function () {
                     this.memberCard = new Process.MemberCard(this.director, this.memberId, Crimenuts.Settings.Process.Members.Dialog.Card.position.x, Crimenuts.Settings.Process.Members.Dialog.Card.position.y, Crimenuts.Settings.Process.Members.Dialog.Card.width, Crimenuts.Settings.Process.Members.Dialog.Card.height, Crimenuts.Command.nothing, false);
@@ -463,6 +480,19 @@ var Crimenuts;
         return MemberDialogCommand;
     })(Crimenuts.Command);
     Crimenuts.MemberDialogCommand = MemberDialogCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="./Command.ts" />
+/// <reference path="../Managers/IProcessController.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var MemberMarkCommand = (function (_super) {
+        __extends(MemberMarkCommand, _super);
+        function MemberMarkCommand(controller, processId) {
+            _super.call(this, "Mark", function () { return controller.autoAnswer(processId); });
+        }
+        return MemberMarkCommand;
+    })(Crimenuts.Command);
+    Crimenuts.MemberMarkCommand = MemberMarkCommand;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -572,11 +602,13 @@ var Crimenuts;
                 };
                 // Parts Utils
                 ProcessView.prototype.createParts = function (director, controller, observer, process) {
-                    var cmdAutoAnswer = new Process.AutoAnswerCommand(controller, process.Id);
+                    var cmdMark = new Crimenuts.MemberMarkCommand(controller, process.Id);
+                    var cmdArrest = new Crimenuts.MemberArrestrCommand(controller, process.Id);
+                    var cmdAutoAnswer = new Crimenuts.AutoAnswerCommand(controller, process.Id);
                     this.addPart(this.ticks = new Process.Display());
                     this.addPart(new Process.InfoBar());
                     this.addPart(new Process.Answers(process.Answers, cmdAutoAnswer));
-                    this.addPart(new Process.MemberDialog(director));
+                    this.addPart(new Process.MemberDialog(director, cmdMark, cmdArrest));
                     this.addPart(new Process.Members(director));
                     this.updateParts(director);
                 };

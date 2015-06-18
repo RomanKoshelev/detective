@@ -125,7 +125,6 @@ declare module Crimenuts.Settings {
             var spanHorRate: number;
             var spanVerRate: number;
             module Card {
-                var heightRate: number;
                 var width: number;
                 var height: number;
                 var inaciveShade: number;
@@ -185,6 +184,11 @@ declare module Crimenuts.Settings {
                     var color: string;
                     var bgColor: number;
                 }
+                module Buttons {
+                    var left: number;
+                    var markPosition: Phaser.Point;
+                    var arrestPosition: Phaser.Point;
+                }
             }
         }
         module Answers {
@@ -231,27 +235,33 @@ declare module Crimenuts {
         autoAnswer(processId: string): JQueryPromise<void>;
     }
 }
-declare module Crimenuts.View.Process {
+declare module Crimenuts {
     class AutoAnswerCommand extends Command {
+        constructor(controller: IProcessController, processId: string);
+    }
+}
+declare module Crimenuts {
+    class MemberArrestrCommand extends Command {
         constructor(controller: IProcessController, processId: string);
     }
 }
 declare module Crimenuts.View.Process {
     class MemberDialog extends Phaser.Group implements IProcessViewPart, IMemberDialog {
         static instance: IMemberDialog;
-        constructor(director: IProcessDirector);
+        constructor(director: IProcessDirector, cmdMark: Command, cmdArrest: Command);
         setMember(memberId: number): void;
         onProcessUpdated(director: IProcessDirector): void;
         private director;
-        private controller;
         private memberId;
         private title;
         private text;
         private memberCard;
+        private arrestButton;
+        private markButton;
         private createFrameDecoration();
         private createTitle();
         private createText();
-        private createButtons();
+        private createButtons(cmdMark, cmdArrest);
         private createMemberCard();
         private updateAnswerCardCommand();
         private updateTitle();
@@ -263,6 +273,11 @@ declare module Crimenuts.View.Process {
 declare module Crimenuts {
     class MemberDialogCommand extends Command {
         constructor(memberId: number);
+    }
+}
+declare module Crimenuts {
+    class MemberMarkCommand extends Command {
+        constructor(controller: IProcessController, processId: string);
     }
 }
 declare module Crimenuts {
@@ -452,7 +467,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class DefaultUIFactory implements IUIFactory {
-        makeDefaultButton(command: Command, position: Phaser.Point): any;
+        makeDefaultButton(command: Command, position: Phaser.Point): TextButton;
         makeTextLabel(width: number, height: number, color: string, bgColor: number): TextLabel;
     }
 }

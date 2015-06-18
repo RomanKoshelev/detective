@@ -88,12 +88,11 @@ module Crimenuts.Settings {
             export var numInRow = 6;
             export var unknownMember = -1;
             export var spanHorRate = 1.3;
-            export var spanVerRate = 1.2;
+            export var spanVerRate = 1.1;
 
             export module Card {
-                export var heightRate = 1.22;
                 export var width = 90 * k;
-                export var height = width * heightRate;
+                export var height = 115 * k;
                 export var inaciveShade = 0.8;
 
                 export module Spot {
@@ -118,7 +117,7 @@ module Crimenuts.Settings {
 
                 export module Answer {
                     export var sizeRate = 0.5;
-                    export var xRate = 0.65;
+                    export var xRate = 0.6;
                     export var yRate = 0.0;
                     export var tintColor = 0xDDDDDD;
                 }
@@ -129,7 +128,7 @@ module Crimenuts.Settings {
                     picture[ RelationCode[ RelationCode.Hate ] ] = "light";
                     picture[ RelationCode[ RelationCode.Ignore ] ] = "transparent";
                     export var sizeRate = 0.5;
-                    export var xRate = 0.1;
+                    export var xRate = 0.15;
                     export var yRate = 0.15;
                 }
             }
@@ -146,8 +145,8 @@ module Crimenuts.Settings {
 
                 export module Card {
                     export var position = new Phaser.Point( 8 * k, 30 * k );
-                    export var width = 170 * k;
-                    export var height = width * Members.Card.heightRate;
+                    export var width = 210 * k;
+                    export var height = width;
                 }
 
                 export module Title {
@@ -164,6 +163,11 @@ module Crimenuts.Settings {
                     export var height = 22 * k;
                     export var color = "#AAAAAA";
                     export var bgColor = BgColor.transparent;
+                }
+                export module Buttons {
+                    export var left = 595 * k;
+                    export var markPosition = new Phaser.Point( left, 120 * k );
+                    export var arrestPosition = new Phaser.Point( left, 170 * k );
                 }
             }
         }

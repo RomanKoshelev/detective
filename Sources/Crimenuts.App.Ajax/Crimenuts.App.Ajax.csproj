@@ -304,6 +304,8 @@
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
     <TypeScriptCompile Include="Game\Client\App\Settings.ts" />
+    <TypeScriptCompile Include="Game\Client\Commands\MemberMarkCommand.ts" />
+    <TypeScriptCompile Include="Game\Client\Commands\MemberArrestrCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\IProcessController.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\ProcessManager.ts" />
     <TypeScriptCompile Include="Game\Client\Server\IServerObserver.ts" />

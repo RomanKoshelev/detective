@@ -1,6 +1,6 @@
 ﻿module Crimenuts {
     export class DefaultUIFactory implements IUIFactory {
-        makeDefaultButton( command: Command, position: Phaser.Point ): any {
+        makeDefaultButton( command: Command, position: Phaser.Point ): TextButton {
             return new WhiteButton( command, position );
         }
 
