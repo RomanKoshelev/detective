@@ -1,9 +1,11 @@
 ﻿/// <reference path="./Command.ts" />
 /// <reference path="../Managers/IProcessController.ts" />
 module Crimenuts {
-    export class MemberArrestrCommand extends Command {
+    export class MemberArrestCommand extends Command {
         constructor( controller: IProcessController, processId: string ) {
-            super( "Arrest", this.execute, this );
+            super( "Arrest" );
+            this.callback = this.execute;
+            this.context = this;
             this.controller = controller;
             this.processId = processId;
             this.controller.onCurrentMemberChanged.add( this.onCurrentMemberChanged, this );
@@ -18,7 +20,7 @@ module Crimenuts {
         }
 
         private processId: string;
-        private memberId : number;
+        private memberId = 0;
         private controller: IProcessController;
     }
 }

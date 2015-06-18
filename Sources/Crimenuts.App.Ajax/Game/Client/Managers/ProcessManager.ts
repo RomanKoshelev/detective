@@ -20,7 +20,7 @@ module Crimenuts {
         }
 
         arrest( processId: string, memberId: number ): JQueryPromise<void> {
-            return this.server.arrest( processId, memberId+1 );
+            return this.server.arrest( processId, this.memberIdToNumber(memberId) );
         }
 
         currentMemberChanged( memberId: number ) {
@@ -36,5 +36,13 @@ module Crimenuts {
         // Fields
         private server: IGameHubServer;
         private process: JQueryPromise<ProcessModel>;
+
+        // Utils
+        private memberIdToNumber( memberId: number ): number {
+            var memberNumber: number;
+            memberNumber = memberId;
+            ++memberNumber;
+            return memberNumber;
+        }
     }
 }

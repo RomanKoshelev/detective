@@ -305,7 +305,7 @@
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
     <TypeScriptCompile Include="Game\Client\App\Settings.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\MemberMarkCommand.ts" />
-    <TypeScriptCompile Include="Game\Client\Commands\MemberArrestrCommand.ts" />
+    <TypeScriptCompile Include="Game\Client\Commands\MemberArrestCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\IProcessController.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\ProcessManager.ts" />
     <TypeScriptCompile Include="Game\Client\Server\IServerObserver.ts" />
@@ -402,7 +402,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1656</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2020/</IISUrl>
+          <IISUrl>http://localhost:2021/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -177,7 +177,7 @@ module Crimenuts.Settings {
         }
 
         export module Answers {
-            export var position = new Phaser.Point( 5 * k, 70 * k );
+            export var position = new Phaser.Point( 5 * k, 39 * k );
             export var width = Game.width - position.x * 2;
             export var height = 250 * k;
             export var bgColor = BgColor.transparent;
@@ -191,6 +191,7 @@ module Crimenuts.Settings {
             export module Answer {
                 export var fontSize = 14 * k;
                 export var left = 10 * k;
+                export var top = 23 * k;
 
                 export module Color {
                     export var regular = "#777777";
@@ -199,14 +200,14 @@ module Crimenuts.Settings {
         }
 
         export module Bars {
-            export var textColor = "#000000";
-            export var bgColor = 0x444444;
+            export var textColor = "#AAAAAA";
+            export var bgColor = BgColor.transparent;
             export var left = 5 * k;
             export var width = Game.width - left * 2;
-            export var height = 25 * k;
+            export var height = 30 * k;
 
             export module InfoBar {
-                export var position = new Phaser.Point( Bars.left, 37 * k );
+                export var position = new Phaser.Point( Bars.left, 5 * k );
             }
         }
     }

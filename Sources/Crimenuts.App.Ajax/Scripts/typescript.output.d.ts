@@ -207,6 +207,7 @@ declare module Crimenuts.Settings {
             module Answer {
                 var fontSize: number;
                 var left: number;
+                var top: number;
                 module Color {
                     var regular: string;
                 }
@@ -248,7 +249,7 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class MemberArrestrCommand extends Command {
+    class MemberArrestCommand extends Command {
         constructor(controller: IProcessController, processId: string);
         execute(): void;
         onCurrentMemberChanged(memberId: number): void;
@@ -312,6 +313,7 @@ declare module Crimenuts {
         onCurrentMemberChanged: Phaser.Signal;
         private server;
         private process;
+        private memberIdToNumber(memberId);
     }
 }
 declare module Crimenuts {
@@ -565,11 +567,14 @@ declare module Crimenuts.View.Process {
         private answerSheet;
         private controller;
         private processId;
+        private title;
+        createTitle(): void;
         private createFrameDecoration();
         private createAnswers();
         createButtons(cmdAutoAnswer: Command): void;
         private createButton(command, position);
         private updateAnswers(answers);
+        private updateTitle(director);
     }
 }
 declare module Crimenuts.View.Process {

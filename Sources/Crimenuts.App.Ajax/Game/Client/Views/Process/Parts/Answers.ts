@@ -8,22 +8,30 @@
             super( app.game );
             this.position = Settings.Process.Answers.position.clone();
             this.createFrameDecoration();
+            this.createTitle();
             this.createAnswers();
             this.createButtons( cmdAutoAnswer );
             this.updateAnswers( answers );
         }
 
+
         onProcessUpdated( director: IProcessDirector ): void {
             var answers = director.getProcessModel().Answers;
             this.updateAnswers( answers );
+            this.updateTitle( director );
         }
 
         // Fields
         private answerSheet: TextLabel;
         private controller: IProcessController;
         private processId: string;
+        private title: InfoBar;
 
         // Create
+        createTitle() {
+            this.add( this.title = new InfoBar() );
+        }
+
         private createFrameDecoration() {
             this.add(
                 new RectangleDecor(
@@ -51,7 +59,7 @@
                 Settings.Process.Answers.Answer.Color.regular,
                 Settings.Process.Answers.bgColor
                 );
-            this.answerSheet.x = Settings.Process.Answers.Answer.left;
+            this.answerSheet.position.set(Settings.Process.Answers.Answer.left, Settings.Process.Answers.Answer.top);
             this.answerSheet.alignMiddle();
             this.add( this.answerSheet );
         }
@@ -78,6 +86,10 @@
             } );
 
             this.answerSheet.setText( text );
+        }
+
+        private updateTitle( director: IProcessDirector ) {
+            this.title.onProcessUpdated(director);
         }
     }
 }
