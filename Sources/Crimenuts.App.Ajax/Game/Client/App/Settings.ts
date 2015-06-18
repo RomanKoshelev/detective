@@ -110,7 +110,7 @@ module Crimenuts.Settings {
                     export var height = 22 * k;
                     export var fontSize = 11 * k;
                     export var color = "#666666";
-                    export var bgColor = 0xFFFFFF;//BgColor.transparent;
+                    export var bgColor = BgColor.transparent;
                 }
 
                 export module Answer {

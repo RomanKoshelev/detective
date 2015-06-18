@@ -9,14 +9,14 @@ module Crimenuts.View.Process {
             this.updatePicture( member.World, member.Name );
             this.updateName( member.Name );
             this.updateAnswer( memberId );
-            //this.updateShade( memberId );
+            this.updateShade( memberId );
             this.updateSpot( memberId );
         }
 
         // Overrides
         update() {
             super.update();
-            this.updateFrame();
+            //this.updateFrame();
         }
 
         // Ctor
@@ -38,7 +38,7 @@ module Crimenuts.View.Process {
             this.createSpot( w, h );
             this.createAnswer( answerLevel, w, h, command );
             this.createPicture( member.World, member.Name, w, h );
-            //this.createShade();
+            this.createShade();
             this.createButton( command, w, h );
             this.createFrame();
 
@@ -145,13 +145,9 @@ module Crimenuts.View.Process {
 
         // Set
         private setShade( shade ) {
-            this.shadeRect.x = 0;
-            this.shadeRect.y = 0;
-            this.shadeRect.width = this.width;
-            this.shadeRect.height = this.height;
             this.shadeRect = this.getLocalBounds();
 
-            var color = 0x777777; // 0x000000
+            var color = 0x000000;
             this.shade.clear();
             this.shade.lineStyle( 0 );
             this.shade.beginFill( color, shade );
@@ -168,7 +164,6 @@ module Crimenuts.View.Process {
 
 
         //Update
-
         private updatePicture( world: string, name: string ) {
             this.picture.setPerson( world, name );
         }
@@ -218,6 +213,5 @@ module Crimenuts.View.Process {
         private getMemberModel( memberId: number ): MemberModel {
             return this.director.getProcessModel().Members[ memberId ];
         }
-
     }
 }
