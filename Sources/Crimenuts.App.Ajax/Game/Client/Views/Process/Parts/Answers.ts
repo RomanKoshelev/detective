@@ -7,6 +7,7 @@
         ) {
             super( app.game );
             this.position = Settings.Process.Answers.position.clone();
+            this.createFrameDecoration();
             this.createAnswers();
             this.createButtons( cmdAutoAnswer );
             this.updateAnswers( answers );
@@ -17,9 +18,29 @@
             this.updateAnswers( answers );
         }
 
+        // Fields
         private answerSheet: TextLabel;
         private controller: IProcessController;
         private processId: string;
+
+        // Create
+        private createFrameDecoration() {
+            this.add(
+                new RectangleDecor(
+                    new BracketDecor(
+                        new Decorable(
+                            Settings.UserInterface.Bracket.width,
+                            Settings.Process.Answers.height
+                        ),
+                        Settings.UserInterface.Bracket.lineColor,
+                        Settings.UserInterface.Bracket.lineWidth
+                    ),
+                    Settings.UserInterface.Bracket.bgColor,
+                    Settings.BgColor.transparent,
+                    0
+                )
+            );
+        }
 
         private createAnswers() {
             this.answerSheet = new TextLabel(
@@ -29,24 +50,10 @@
                 Settings.Process.Answers.Answer.fontSize,
                 Settings.Process.Answers.Answer.Color.regular,
                 Settings.Process.Answers.bgColor
-            );
+                );
+            this.answerSheet.x = Settings.Process.Answers.Answer.left;
             this.answerSheet.alignMiddle();
             this.add( this.answerSheet );
-        }
-
-        private updateAnswers( answers: AnswerModel[] ) {
-            var text = "";
-            var i = 1;
-            var n = answers.length;
-
-            answers.forEach( a => {
-                text += `${i++}.     ${a.AgentName} — `;
-                text += a.IsValid ? `${a.SubjectName} is ` : "";
-                text += a.AnswerText;
-                text += i <= n ? "\n" : "";
-            } );
-
-            this.answerSheet.setText( text );
         }
 
         createButtons( cmdAutoAnswer: Command ) {
@@ -55,6 +62,22 @@
 
         private createButton( command: Command, position: Phaser.Point ) {
             this.add( app.uiFactory.makeDefaultButton( command, position ) );
+        }
+
+        // Update
+        private updateAnswers( answers: AnswerModel[] ) {
+            var text = "";
+            var i = 1;
+            var n = answers.length;
+
+            answers.forEach( a => {
+                text += `• ${a.AgentName} — `;
+                text += a.IsValid ? `${a.SubjectName} is ` : "";
+                text += a.AnswerText;
+                text += i <= n ? "\n" : "";
+            } );
+
+            this.answerSheet.setText( text );
         }
     }
 }

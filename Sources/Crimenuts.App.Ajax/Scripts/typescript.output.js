@@ -183,14 +183,15 @@ var Crimenuts;
         (function (UserInterface) {
             var Button;
             (function (Button) {
-                Button.width = 100 * k;
-                Button.height = Button.width * 0.35;
+                Button.width = 120 * k;
+                Button.height = Button.width * 0.30;
                 Button.sprite = Assets.Sprites.transparent;
                 Button.fontSize = 16 * k;
                 Button.fillColor = 0x222222;
                 Button.lineColor = 0x888888;
                 Button.textColor = "#AAAAAA";
                 Button.lineWidth = Button.width * 0.015;
+                Button.left = 580 * k;
                 var White;
                 (function (White) {
                     var Regular;
@@ -207,6 +208,13 @@ var Crimenuts;
             (function (TextLabel) {
                 TextLabel.fontSizeToHeightRate = 16 / 25;
             })(TextLabel = UserInterface.TextLabel || (UserInterface.TextLabel = {}));
+            var Bracket;
+            (function (Bracket) {
+                Bracket.width = Game.width - 5 * 2;
+                Bracket.bgColor = 0x000000;
+                Bracket.lineColor = 0x888888;
+                Bracket.lineWidth = 2;
+            })(Bracket = UserInterface.Bracket || (UserInterface.Bracket = {}));
         })(UserInterface = Settings.UserInterface || (Settings.UserInterface = {}));
         var Process;
         (function (Process) {
@@ -267,11 +275,7 @@ var Crimenuts;
                     Dialog.left = 5 * k;
                     Dialog.top = 330 * k;
                     Dialog.position = new Phaser.Point(Dialog.left, Dialog.top);
-                    Dialog.width = Game.width - Dialog.left * 2;
                     Dialog.height = 220 * k;
-                    Dialog.bgColor = 0x000000;
-                    Dialog.bracketColor = 0x888888;
-                    Dialog.bracketWidth = 2;
                     var Card;
                     (function (Card) {
                         Card.position = new Phaser.Point(8 * k, 30 * k);
@@ -296,7 +300,7 @@ var Crimenuts;
                     })(Text = Dialog.Text || (Dialog.Text = {}));
                     var Buttons;
                     (function (Buttons) {
-                        Buttons.left = 595 * k;
+                        Buttons.left = UserInterface.Button.left;
                         Buttons.markPosition = new Phaser.Point(Buttons.left, 120 * k);
                         Buttons.arrestPosition = new Phaser.Point(Buttons.left, 170 * k);
                     })(Buttons = Dialog.Buttons || (Dialog.Buttons = {}));
@@ -304,20 +308,21 @@ var Crimenuts;
             })(Members = Process.Members || (Process.Members = {}));
             var Answers;
             (function (Answers) {
-                Answers.position = new Phaser.Point(15 * k, 70 * k);
+                Answers.position = new Phaser.Point(5 * k, 70 * k);
                 Answers.width = Game.width - Answers.position.x * 2;
                 Answers.height = 250 * k;
-                Answers.bgColor = 0x000000;
+                Answers.bgColor = BgColor.transparent;
                 var Buttons;
                 (function (Buttons) {
                     var Auto;
                     (function (Auto) {
-                        Auto.position = new Phaser.Point(590 * k, 10 * k);
+                        Auto.position = new Phaser.Point(UserInterface.Button.left, 220 * k);
                     })(Auto = Buttons.Auto || (Buttons.Auto = {}));
                 })(Buttons = Answers.Buttons || (Answers.Buttons = {}));
                 var Answer;
                 (function (Answer) {
-                    Answer.fontSize = 15 * k;
+                    Answer.fontSize = 14 * k;
+                    Answer.left = 10 * k;
                     var Color;
                     (function (Color) {
                         Color.regular = "#777777";
@@ -367,7 +372,7 @@ var Crimenuts;
     var AutoAnswerCommand = (function (_super) {
         __extends(AutoAnswerCommand, _super);
         function AutoAnswerCommand(controller, processId) {
-            _super.call(this, "Auto answer", function () { return controller.autoAnswer(processId); });
+            _super.call(this, "Auto", function () { return controller.autoAnswer(processId); });
         }
         return AutoAnswerCommand;
     })(Crimenuts.Command);
@@ -426,7 +431,7 @@ var Crimenuts;
                     this.setMember(this.memberId);
                 };
                 MemberDialog.prototype.createFrameDecoration = function () {
-                    this.add(new Crimenuts.RectangleDecor(new Crimenuts.BracketDecor(new Crimenuts.Decorable(Crimenuts.Settings.Process.Members.Dialog.width, Crimenuts.Settings.Process.Members.Dialog.height), Crimenuts.Settings.Process.Members.Dialog.bracketColor, Crimenuts.Settings.Process.Members.Dialog.bracketWidth), Crimenuts.Settings.Process.Members.Dialog.bgColor, Crimenuts.Settings.BgColor.transparent, 0));
+                    this.add(new Crimenuts.RectangleDecor(new Crimenuts.BracketDecor(new Crimenuts.Decorable(Crimenuts.Settings.UserInterface.Bracket.width, Crimenuts.Settings.Process.Members.Dialog.height), Crimenuts.Settings.UserInterface.Bracket.lineColor, Crimenuts.Settings.UserInterface.Bracket.lineWidth), Crimenuts.Settings.UserInterface.Bracket.bgColor, Crimenuts.Settings.BgColor.transparent, 0));
                 };
                 MemberDialog.prototype.createTitle = function () {
                     this.title = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Members.Dialog.Title.width, Crimenuts.Settings.Process.Members.Dialog.Title.height, Crimenuts.Settings.Process.Members.Dialog.Title.color, Crimenuts.Settings.Process.Members.Dialog.Title.bgColor);
@@ -883,10 +888,12 @@ var Crimenuts;
             this.lineTo(l, d);
             this.moveTo(0, t);
             this.lineTo(d, t);
-            this.moveTo(r - l, b);
-            this.lineTo(r - l, b - d);
-            this.moveTo(r, b - l);
-            this.lineTo(r - d, b - l);
+            /*
+                        this.moveTo( r - l, b );
+                        this.lineTo( r - l, b - d );
+                        this.moveTo( r, b - l );
+                        this.lineTo( r - d, b - l );
+            */
         };
         return BracketDecor;
     })(Phaser.Graphics);
@@ -1255,6 +1262,7 @@ var Crimenuts;
                 function Answers(answers, cmdAutoAnswer) {
                     _super.call(this, Crimenuts.app.game);
                     this.position = Crimenuts.Settings.Process.Answers.position.clone();
+                    this.createFrameDecoration();
                     this.createAnswers();
                     this.createButtons(cmdAutoAnswer);
                     this.updateAnswers(answers);
@@ -1263,28 +1271,34 @@ var Crimenuts;
                     var answers = director.getProcessModel().Answers;
                     this.updateAnswers(answers);
                 };
+                // Create
+                Answers.prototype.createFrameDecoration = function () {
+                    this.add(new Crimenuts.RectangleDecor(new Crimenuts.BracketDecor(new Crimenuts.Decorable(Crimenuts.Settings.UserInterface.Bracket.width, Crimenuts.Settings.Process.Answers.height), Crimenuts.Settings.UserInterface.Bracket.lineColor, Crimenuts.Settings.UserInterface.Bracket.lineWidth), Crimenuts.Settings.UserInterface.Bracket.bgColor, Crimenuts.Settings.BgColor.transparent, 0));
+                };
                 Answers.prototype.createAnswers = function () {
                     this.answerSheet = new Crimenuts.TextLabel(Crimenuts.Settings.Process.Answers.width, Crimenuts.Settings.Process.Answers.height, Crimenuts.Settings.Default.Font.face, Crimenuts.Settings.Process.Answers.Answer.fontSize, Crimenuts.Settings.Process.Answers.Answer.Color.regular, Crimenuts.Settings.Process.Answers.bgColor);
+                    this.answerSheet.x = Crimenuts.Settings.Process.Answers.Answer.left;
                     this.answerSheet.alignMiddle();
                     this.add(this.answerSheet);
-                };
-                Answers.prototype.updateAnswers = function (answers) {
-                    var text = "";
-                    var i = 1;
-                    var n = answers.length;
-                    answers.forEach(function (a) {
-                        text += "" + i++ + ".     " + a.AgentName + " — ";
-                        text += a.IsValid ? "" + a.SubjectName + " is " : "";
-                        text += a.AnswerText;
-                        text += i <= n ? "\n" : "";
-                    });
-                    this.answerSheet.setText(text);
                 };
                 Answers.prototype.createButtons = function (cmdAutoAnswer) {
                     this.createButton(cmdAutoAnswer, Crimenuts.Settings.Process.Answers.Buttons.Auto.position);
                 };
                 Answers.prototype.createButton = function (command, position) {
                     this.add(Crimenuts.app.uiFactory.makeDefaultButton(command, position));
+                };
+                // Update
+                Answers.prototype.updateAnswers = function (answers) {
+                    var text = "";
+                    var i = 1;
+                    var n = answers.length;
+                    answers.forEach(function (a) {
+                        text += "• " + a.AgentName + " — ";
+                        text += a.IsValid ? "" + a.SubjectName + " is " : "";
+                        text += a.AnswerText;
+                        text += i <= n ? "\n" : "";
+                    });
+                    this.answerSheet.setText(text);
                 };
                 return Answers;
             })(Phaser.Group);

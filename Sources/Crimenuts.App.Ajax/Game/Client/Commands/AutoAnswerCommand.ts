@@ -3,7 +3,7 @@
 module Crimenuts {
     export class AutoAnswerCommand extends Command {
         constructor( controller: IProcessController, processId: string ) {
-            super( "Auto answer", () => controller.autoAnswer( processId ) );
+            super( "Auto", () => controller.autoAnswer( processId ) );
         }
     }
 }

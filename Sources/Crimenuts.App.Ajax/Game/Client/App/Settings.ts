@@ -53,14 +53,15 @@ module Crimenuts.Settings {
 
     export module UserInterface {
         export module Button {
-            export var width = 100 * k;
-            export var height = width * 0.35;
+            export var width = 120 * k;
+            export var height = width * 0.30;
             export var sprite = Assets.Sprites.transparent;
             export var fontSize = 16 * k;
             export var fillColor = 0x222222;
             export var lineColor = 0x888888;
             export var textColor = "#AAAAAA";
             export var lineWidth = width * 0.015;
+            export var left = 580 * k;
 
             export module White {
                 export module Regular {
@@ -75,6 +76,13 @@ module Crimenuts.Settings {
 
         export module TextLabel {
             export var fontSizeToHeightRate = 16 / 25;
+        }
+
+        export module Bracket {
+            export var width = Game.width - 5 * 2;
+            export var bgColor = 0x000000;
+            export var lineColor = 0x888888;
+            export var lineWidth = 2;
         }
     }
 
@@ -137,11 +145,7 @@ module Crimenuts.Settings {
                 export var left = 5 * k;
                 export var top = 330 * k;
                 export var position = new Phaser.Point( left, top );
-                export var width = Game.width - left * 2;
                 export var height = 220 * k;
-                export var bgColor = 0x000000;
-                export var bracketColor = 0x888888;
-                export var bracketWidth = 2;
 
                 export module Card {
                     export var position = new Phaser.Point( 8 * k, 30 * k );
@@ -165,7 +169,7 @@ module Crimenuts.Settings {
                     export var bgColor = BgColor.transparent;
                 }
                 export module Buttons {
-                    export var left = 595 * k;
+                    export var left = UserInterface.Button.left;
                     export var markPosition = new Phaser.Point( left, 120 * k );
                     export var arrestPosition = new Phaser.Point( left, 170 * k );
                 }
@@ -173,19 +177,20 @@ module Crimenuts.Settings {
         }
 
         export module Answers {
-            export var position = new Phaser.Point( 15 * k, 70 * k );
+            export var position = new Phaser.Point( 5 * k, 70 * k );
             export var width = Game.width - position.x * 2;
             export var height = 250 * k;
-            export var bgColor = 0x000000;
+            export var bgColor = BgColor.transparent;
 
             export module Buttons {
                 export module Auto {
-                    export var position = new Phaser.Point( 590 * k, 10 * k );
+                    export var position = new Phaser.Point( UserInterface.Button.left, 220 * k );
                 }
             }
 
             export module Answer {
-                export var fontSize = 15 * k;
+                export var fontSize = 14 * k;
+                export var left = 10 * k;
 
                 export module Color {
                     export var regular = "#777777";

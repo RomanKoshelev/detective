@@ -48,13 +48,13 @@
                 new RectangleDecor(
                     new BracketDecor(
                         new Decorable(
-                            Settings.Process.Members.Dialog.width,
+                            Settings.UserInterface.Bracket.width,
                             Settings.Process.Members.Dialog.height
                         ),
-                        Settings.Process.Members.Dialog.bracketColor,
-                        Settings.Process.Members.Dialog.bracketWidth
+                        Settings.UserInterface.Bracket.lineColor,
+                        Settings.UserInterface.Bracket.lineWidth
                     ),
-                    Settings.Process.Members.Dialog.bgColor,
+                    Settings.UserInterface.Bracket.bgColor,
                     Settings.BgColor.transparent,
                     0
                 )

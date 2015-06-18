@@ -101,6 +101,7 @@ declare module Crimenuts.Settings {
             var lineColor: number;
             var textColor: string;
             var lineWidth: number;
+            var left: number;
             module White {
                 module Regular {
                     var colors: ColorSet;
@@ -112,6 +113,12 @@ declare module Crimenuts.Settings {
         }
         module TextLabel {
             var fontSizeToHeightRate: number;
+        }
+        module Bracket {
+            var width: number;
+            var bgColor: number;
+            var lineColor: number;
+            var lineWidth: number;
         }
     }
     module Process {
@@ -160,11 +167,7 @@ declare module Crimenuts.Settings {
                 var left: number;
                 var top: number;
                 var position: Phaser.Point;
-                var width: number;
                 var height: number;
-                var bgColor: number;
-                var bracketColor: number;
-                var bracketWidth: number;
                 module Card {
                     var position: Phaser.Point;
                     var width: number;
@@ -203,6 +206,7 @@ declare module Crimenuts.Settings {
             }
             module Answer {
                 var fontSize: number;
+                var left: number;
                 module Color {
                     var regular: string;
                 }
@@ -561,10 +565,11 @@ declare module Crimenuts.View.Process {
         private answerSheet;
         private controller;
         private processId;
+        private createFrameDecoration();
         private createAnswers();
-        private updateAnswers(answers);
         createButtons(cmdAutoAnswer: Command): void;
         private createButton(command, position);
+        private updateAnswers(answers);
     }
 }
 declare module Crimenuts.View.Process {

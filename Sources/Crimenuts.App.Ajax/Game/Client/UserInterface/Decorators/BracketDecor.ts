@@ -40,11 +40,12 @@ module Crimenuts {
             this.moveTo( 0, t );
             this.lineTo( d, t );
 
-
+/*
             this.moveTo( r - l, b );
             this.lineTo( r - l, b - d );
             this.moveTo( r, b - l );
             this.lineTo( r - d, b - l );
+*/
         }
     }
 }
