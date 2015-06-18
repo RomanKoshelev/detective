@@ -20,7 +20,7 @@ module Crimenuts {
         }
 
         arrest( processId: string, memberId: number ): JQueryPromise<void> {
-            return this.server.autoAnswer( processId );
+            return this.server.arrest( processId, memberId+1 );
         }
 
         currentMemberChanged( memberId: number ) {
