@@ -23,6 +23,7 @@
             var name = member.Name;
             this.memberCard.setMember( memberId );
             this.title.setText( `${name}:\n"${member.TodayAnswer.AnswerDiaogText}"` );
+            this.updateAnswerCardCommand();
         }
 
         onProcessUpdated( director: IProcessDirector ): void {
@@ -65,7 +66,7 @@
         }
 
         private createMemberCard() {
-            this.add( this.memberCard = new MemberCard(
+            this.memberCard = new MemberCard(
                 this.director,
                 this.memberId,
                 Settings.Process.Members.Dialog.Card.position.x,
@@ -74,11 +75,17 @@
                 Settings.Process.Members.Dialog.Card.height,
                 Command.nothing,
                 false
-            ) );
+            );
+            this.updateAnswerCardCommand();
+            this.add( this.memberCard );
         }
 
         private getMemberModel() {
             return this.director.getProcessModel().Members[ this.memberId ];
+        }
+
+        private updateAnswerCardCommand() {
+            this.memberCard.getAnswerCard().setCommand( new MemberDialogCommand( this.memberCard.getAnswerCard().getMemberId() ) );
         }
     }
 }

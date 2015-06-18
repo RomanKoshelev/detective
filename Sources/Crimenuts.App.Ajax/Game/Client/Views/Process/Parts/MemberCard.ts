@@ -5,12 +5,26 @@ module Crimenuts.View.Process {
 
         // IMemberCard
         setMember( memberId: number ) {
+            this.memberId = memberId;
             var member = this.getMemberModel( memberId );
             this.updatePicture( member.World, member.Name );
             this.updateName( member.Name );
             this.updateAnswer( memberId );
             this.updateShade( memberId );
             this.updateSpot( memberId );
+        }
+
+        setCommand( command: Command ) {
+            this.button.visible = true;
+            this.button.setCommand( command );
+        }
+
+        getAnswerCard(): IMemberCard {
+            return this.answer;
+        }
+
+        getMemberId(): number {
+            return this.memberId;
         }
 
         // Overrides
@@ -38,6 +52,7 @@ module Crimenuts.View.Process {
             this.createSpot( w, h );
             this.createAnswer( answerLevel, w, h, command );
             this.createPicture( member.World, member.Name, w, h );
+            this.createSign( w, h );
             this.createShade();
             this.createButton( command, w, h );
             this.createFrame();
@@ -47,8 +62,9 @@ module Crimenuts.View.Process {
 
         // Fields
         private director: IProcessDirector;
+        private memberId: number;
         private picture: PersonPicture;
-        private button: PIXI.DisplayObject;
+        private button: ButtonEssence;
         private nameLabel: TextLabel;
         private spot: Phaser.Graphics;
         private answer: MemberCard = null;
@@ -57,16 +73,21 @@ module Crimenuts.View.Process {
         private shadeRect = new PIXI.Rectangle();
         private answerCode = AnswerCode.Unknown;
         private frame: Phaser.Graphics;
+        private sign: Phaser.Sprite;
 
         // Create
-        private createSpot( width: number, height: number ) {
-            this.add( this.spot = new Phaser.Graphics( app.game, 0, 0 ) );
+        createSign( w: number, h: number ) {
 
+        }
+
+        private createSpot( width: number, height: number ) {
+            this.spot = new Phaser.Graphics( app.game, 0, 0 );
             this.spotEllipse.width = width / 2;
             this.spotEllipse.height = this.spotEllipse.width * Settings.Process.Members.Card.Spot.heightRate;
             this.spotEllipse.x = width / 2;
             this.spotEllipse.y = height - this.spotEllipse.height - Settings.Process.Members.Card.Name.height;
             this.setSpotColor( 0 );
+            this.add( this.spot );
         }
 
         private createAnswer( level: number, w: number, h: number, command: Command ) {
@@ -129,6 +150,9 @@ module Crimenuts.View.Process {
         private createButton( command: Command, w: number, h: number ) {
             h -= this.nameLabel == null ? Settings.Process.Members.Card.Name.height : 0;
             this.button = new ButtonEssence( command, w, h );
+            if( command === Command.nothing ) {
+                this.button.visible = false;
+            }
             this.add( this.button );
         }
 
@@ -141,7 +165,6 @@ module Crimenuts.View.Process {
             this.shade = new Phaser.Graphics( app.game, 0, 0 );
             this.add( this.shade );
         }
-
 
         // Set
         private setShade( shade ) {
@@ -161,7 +184,6 @@ module Crimenuts.View.Process {
             this.spot.drawEllipse( this.spotEllipse.x, this.spotEllipse.y, this.spotEllipse.width, this.spotEllipse.height );
             this.spot.endFill();
         }
-
 
         //Update
         private updatePicture( world: string, name: string ) {

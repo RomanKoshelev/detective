@@ -208,6 +208,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Logs\.gitignore" />
+    <Content Include="App_Data\Sprites\heart.png" />
+    <Content Include="App_Data\Sprites\light.png" />
     <Content Include="App_Data\Worlds\Simpsons\Images\world.picture.png" />
     <Content Include="App_Data\Worlds\Simpsons\Persons\.other\Dr_Nick.png" />
     <Content Include="App_Data\Worlds\Simpsons\Persons\.other\Groundskeeper_Willie.png" />
