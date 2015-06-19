@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../Commands/MemberSelectCommand.ts" />
+﻿/// <reference path="../../../Commands/Process/MemberSelectCommand.ts" />
 module Crimenuts.View.Process {
 
     export class Members extends Phaser.Group implements IProcessViewPart {

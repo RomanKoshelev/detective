@@ -1,4 +1,4 @@
-﻿/// <reference path="../../Commands/AutoAnswerCommand.ts" />
+﻿/// <reference path="../../Commands/Process/AutoAnswerCommand.ts" />
 
 module Crimenuts.View.Process {
     export class ProcessView extends Phaser.Group implements IProcessViewPart, IStateView {

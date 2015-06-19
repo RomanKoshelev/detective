@@ -1,4 +1,4 @@
-/// <reference path="../../Views/Tools/DevtoolsView.ts" />
+/// <reference path="../../Views/Devtools/DevtoolsView.ts" />
 
 module Crimenuts {
     export class DevtoolsManager
@@ -12,7 +12,7 @@ module Crimenuts {
             // Ctor
             constructor() {
                 this.view = new DevtoolsView( this );
-                this.view.visible = false;
+                //this.view.visible = false;
             }
 
             // Fields

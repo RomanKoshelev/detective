@@ -18,7 +18,7 @@
                 process.Today.ActiveMurdererNum );
         }
         
-        private textLabel: ITextLabel;
+        private textLabel: ITextArea;
 
         private createTextLabel() {
             this.add( this.textLabel = app.uiFactory.makeTextLabel(

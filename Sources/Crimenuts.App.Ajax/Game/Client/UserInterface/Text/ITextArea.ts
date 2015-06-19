@@ -1,5 +1,5 @@
 module Crimenuts {
-    export interface ITextLabel extends IDisplayObject{
+    export interface ITextArea extends IDisplayObject{
         setText( text: string );
         alignTop();
     }

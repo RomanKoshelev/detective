@@ -11,11 +11,11 @@ var Crimenuts;
         // Ctor
         function DevtoolsView(controller) {
             _super.call(this, Crimenuts.app.game);
-            this.alpha = 0.95;
+            this.buttonTop = 15;
             this.ignoreDestroy = true;
             this.controller = controller;
             this.createWindow();
-            this.createText();
+            this.createTextArea();
             this.createButtons();
         }
         // IDevtoolsView
@@ -24,31 +24,56 @@ var Crimenuts;
         };
         // Create
         DevtoolsView.prototype.createWindow = function () {
-            var w = 500;
-            var h = 700;
-            var y = 32;
-            var x = Crimenuts.app.game.width - w - 2;
+            var w = 700;
+            var h = 800;
             var window = new Crimenuts.RectangleDecor(new Crimenuts.ButtonEssence(Crimenuts.Command.nothing, w, h));
-            window.x = x;
-            window.y = y;
+            this.alpha = 0.95;
+            this.x = Crimenuts.app.game.width - w - 2;
+            this.y = 32;
             this.add(window);
         };
-        DevtoolsView.prototype.createText = function () {
+        DevtoolsView.prototype.createTextArea = function () {
+            var w = 600;
+            var h = this.height - 20;
+            var x = 10;
+            var y = 15;
+            var ff = "Courier";
+            var fc = "#DDDDDD";
+            var fs = 20;
+            var bg = Crimenuts.Settings.Color.transparent;
+            this.textArea = new Crimenuts.TextLabel(w, h, ff, fs, fc, bg);
+            var textArea = this.textArea.getDisplayObject();
+            textArea.x = x;
+            textArea.y = y;
+            this.textArea.setText("12345 asd");
+            this.textArea.alignTop();
+            this.add(textArea);
         };
         DevtoolsView.prototype.createButtons = function () {
+            this.createButton(new Crimenuts.ProcessesResetCommand());
+            this.createButton(new Crimenuts.ShowUserActionsCommand(this.textArea));
+        };
+        DevtoolsView.prototype.createButton = function (command) {
+            var d = 10;
+            var left = this.width - Crimenuts.Settings.UserInterface.Button.sizes.width - 15;
+            var button = Crimenuts.app.uiFactory.makeDefaultButton(command).getDisplayObject();
+            button.x = left;
+            button.y = this.buttonTop;
+            this.buttonTop += button.getLocalBounds().height + d;
+            this.add(button);
         };
         return DevtoolsView;
     })(Phaser.Group);
     Crimenuts.DevtoolsView = DevtoolsView;
 })(Crimenuts || (Crimenuts = {}));
-/// <reference path="../../Views/Tools/DevtoolsView.ts" />
+/// <reference path="../../Views/Devtools/DevtoolsView.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var DevtoolsManager = (function () {
         // Ctor
         function DevtoolsManager() {
             this.view = new Crimenuts.DevtoolsView(this);
-            this.view.visible = false;
+            //this.view.visible = false;
         }
         // IDevtoolsDirector
         DevtoolsManager.prototype.getView = function () {
@@ -445,8 +470,61 @@ var Crimenuts;
     })();
     Crimenuts.Command = Command;
 })(Crimenuts || (Crimenuts = {}));
-/// <reference path="./Command.ts" />
-/// <reference path="../Managers/Process/IProcessController.ts" />
+/// <reference path="../Command.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var ProcessesResetCommand = (function (_super) {
+        __extends(ProcessesResetCommand, _super);
+        function ProcessesResetCommand() {
+            _super.call(this, "Reset");
+            this.callback = this.execute;
+            this.context = this;
+        }
+        ProcessesResetCommand.prototype.execute = function () {
+            Crimenuts.app.server.resetProcesses();
+        };
+        return ProcessesResetCommand;
+    })(Crimenuts.Command);
+    Crimenuts.ProcessesResetCommand = ProcessesResetCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="../Command.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var ShowDevtoolsCommand = (function (_super) {
+        __extends(ShowDevtoolsCommand, _super);
+        function ShowDevtoolsCommand() {
+            _super.call(this, "Tools");
+            this.callback = this.execute;
+            this.context = this;
+        }
+        ShowDevtoolsCommand.prototype.execute = function () {
+            var view = Crimenuts.app.devtools.getView().getDisplayObject();
+            view.visible = !view.visible;
+        };
+        return ShowDevtoolsCommand;
+    })(Crimenuts.Command);
+    Crimenuts.ShowDevtoolsCommand = ShowDevtoolsCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="../Command.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var ShowUserActionsCommand = (function (_super) {
+        __extends(ShowUserActionsCommand, _super);
+        function ShowUserActionsCommand(textArea) {
+            _super.call(this, "User action");
+            this.callback = this.execute;
+            this.context = this;
+            this.textArea = textArea;
+        }
+        ShowUserActionsCommand.prototype.execute = function () {
+            this.textArea.setText("var view = app.devtools.getView().getDisplayObject();");
+        };
+        return ShowUserActionsCommand;
+    })(Crimenuts.Command);
+    Crimenuts.ShowUserActionsCommand = ShowUserActionsCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="../Command.ts" />
+/// <reference path="../../Managers/Process/IProcessController.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var AutoAnswerCommand = (function (_super) {
@@ -458,26 +536,8 @@ var Crimenuts;
     })(Crimenuts.Command);
     Crimenuts.AutoAnswerCommand = AutoAnswerCommand;
 })(Crimenuts || (Crimenuts = {}));
-/// <reference path="./Command.ts" />
-var Crimenuts;
-(function (Crimenuts) {
-    var DevtoolsCommand = (function (_super) {
-        __extends(DevtoolsCommand, _super);
-        function DevtoolsCommand() {
-            _super.call(this, "Tools");
-            this.callback = this.execute;
-            this.context = this;
-        }
-        DevtoolsCommand.prototype.execute = function () {
-            var view = Crimenuts.app.devtools.getView().getDisplayObject();
-            view.visible = !view.visible;
-        };
-        return DevtoolsCommand;
-    })(Crimenuts.Command);
-    Crimenuts.DevtoolsCommand = DevtoolsCommand;
-})(Crimenuts || (Crimenuts = {}));
-/// <reference path="./Command.ts" />
-/// <reference path="../Managers/Process/IProcessController.ts" />
+/// <reference path="../Command.ts" />
+/// <reference path="../../Managers/Process/IProcessController.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var MemberArrestCommand = (function (_super) {
@@ -501,8 +561,8 @@ var Crimenuts;
     })(Crimenuts.Command);
     Crimenuts.MemberArrestCommand = MemberArrestCommand;
 })(Crimenuts || (Crimenuts = {}));
-/// <reference path="./Command.ts" />
-/// <reference path="../Managers/Process/IProcessController.ts" />
+/// <reference path="../Command.ts" />
+/// <reference path="../../Managers/Process/IProcessController.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var MemberMarkCommand = (function (_super) {
@@ -596,8 +656,8 @@ var Crimenuts;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
 })(Crimenuts || (Crimenuts = {}));
-/// <reference path="./Command.ts" />
-/// <reference path="../Views/Process/Parts/MemberDialog.ts" />
+/// <reference path="../Command.ts" />
+/// <reference path="../../Views/Process/Parts/MemberDialog.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var MemberDialog = Crimenuts.View.Process.MemberDialog;
@@ -612,23 +672,6 @@ var Crimenuts;
         return MemberSelectCommand;
     })(Crimenuts.Command);
     Crimenuts.MemberSelectCommand = MemberSelectCommand;
-})(Crimenuts || (Crimenuts = {}));
-/// <reference path="./Command.ts" />
-var Crimenuts;
-(function (Crimenuts) {
-    var ProcessesResetCommand = (function (_super) {
-        __extends(ProcessesResetCommand, _super);
-        function ProcessesResetCommand() {
-            _super.call(this, "Reset");
-            this.callback = this.execute;
-            this.context = this;
-        }
-        ProcessesResetCommand.prototype.execute = function () {
-            Crimenuts.app.server.resetProcesses();
-        };
-        return ProcessesResetCommand;
-    })(Crimenuts.Command);
-    Crimenuts.ProcessesResetCommand = ProcessesResetCommand;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -737,7 +780,7 @@ var Crimenuts;
     })();
     Crimenuts.ServerAdapter = ServerAdapter;
 })(Crimenuts || (Crimenuts = {}));
-/// <reference path="../../Commands/AutoAnswerCommand.ts" />
+/// <reference path="../../Commands/Process/AutoAnswerCommand.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var View;
@@ -1397,7 +1440,7 @@ var Crimenuts;
     })(Phaser.Graphics);
     Crimenuts.BottomBar = BottomBar;
 })(Crimenuts || (Crimenuts = {}));
-/// <reference path="../../Commands/DevtoolsCommand.ts" />
+/// <reference path="../../Commands/Devtools/ShowDevtoolsCommand.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var TopBar = (function (_super) {
@@ -1426,7 +1469,7 @@ var Crimenuts;
             }));
         };
         TopBar.prototype.createMenu = function () {
-            var devButton = Crimenuts.app.uiFactory.makeTopMenuButton(new Crimenuts.DevtoolsCommand()).getDisplayObject();
+            var devButton = Crimenuts.app.uiFactory.makeTopMenuButton(new Crimenuts.ShowDevtoolsCommand()).getDisplayObject();
             this.addChild(devButton);
             devButton.x = this.width - devButton.getLocalBounds().width;
             var resetButton = Crimenuts.app.uiFactory.makeTopMenuButton(new Crimenuts.ProcessesResetCommand()).getDisplayObject();
@@ -1783,7 +1826,7 @@ var Crimenuts;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
 })(Crimenuts || (Crimenuts = {}));
-/// <reference path="../../../Commands/MemberSelectCommand.ts" />
+/// <reference path="../../../Commands/Process/MemberSelectCommand.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var View;

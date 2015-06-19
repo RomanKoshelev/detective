@@ -1,6 +1,6 @@
-﻿/// <reference path="./Command.ts" />
+﻿/// <reference path="../Command.ts" />
 module Crimenuts {
-    export class DevtoolsCommand extends Command {
+    export class ShowDevtoolsCommand extends Command {
         constructor() {
             super( "Tools" );
             this.callback = this.execute;

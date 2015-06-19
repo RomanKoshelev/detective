@@ -24,7 +24,7 @@ module Crimenuts {
             height: number,
             color: string,
             bgColor: number
-        ): ITextLabel {
+        ): ITextArea {
             return new TextLabel(
                 width,
                 height,

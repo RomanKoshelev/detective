@@ -1,5 +1,5 @@
 module Crimenuts {
-    export class TextLabel extends Phaser.Graphics implements ITextLabel {
+    export class TextLabel extends Phaser.Graphics implements ITextArea {
 
         // ITextLabel
         getDisplayObject(): PIXI.DisplayObject {

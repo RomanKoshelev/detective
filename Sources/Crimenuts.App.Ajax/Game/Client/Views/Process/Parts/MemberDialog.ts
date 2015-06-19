@@ -37,8 +37,8 @@
         private director: IProcessDirector;
 
         private memberId = 0;
-        private title: ITextLabel;
-        private text: ITextLabel;
+        private title: ITextArea;
+        private text: ITextArea;
         private memberCard: MemberCard;
         private arrestButton: IButton;
         private markButton: IButton;

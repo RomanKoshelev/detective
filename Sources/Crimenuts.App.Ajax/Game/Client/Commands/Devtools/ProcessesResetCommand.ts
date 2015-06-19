@@ -1,4 +1,4 @@
-﻿/// <reference path="./Command.ts" />
+﻿/// <reference path="../Command.ts" />
 module Crimenuts {
     export class ProcessesResetCommand extends Command {
         constructor() {

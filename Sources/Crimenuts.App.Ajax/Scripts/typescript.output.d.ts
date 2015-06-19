@@ -3,9 +3,12 @@ declare module Crimenuts {
         getDisplayObject(): PIXI.DisplayObject;
         constructor(controller: IDevtoolsController);
         private controller;
+        private buttonTop;
+        private textArea;
         private createWindow();
-        private createText();
+        private createTextArea();
         private createButtons();
+        private createButton(command);
     }
 }
 declare module Crimenuts {
@@ -272,6 +275,32 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
+    class ProcessesResetCommand extends Command {
+        constructor();
+        execute(): void;
+    }
+}
+declare module Crimenuts {
+    class ShowDevtoolsCommand extends Command {
+        constructor();
+        execute(): void;
+    }
+}
+declare module Crimenuts {
+    class ShowUserActionsCommand extends Command {
+        constructor(textArea: ITextArea);
+        private textArea;
+        private execute();
+    }
+}
+declare module Crimenuts {
+    interface ICommand {
+        callback: Function;
+        context: any;
+        name: string;
+    }
+}
+declare module Crimenuts {
     interface IProcessController {
         getProcess(processId: string): JQueryPromise<ProcessModel>;
         autoAnswer(processId: string): JQueryPromise<void>;
@@ -283,19 +312,6 @@ declare module Crimenuts {
 declare module Crimenuts {
     class AutoAnswerCommand extends Command {
         constructor(controller: IProcessController, processId: string);
-    }
-}
-declare module Crimenuts {
-    class DevtoolsCommand extends Command {
-        constructor();
-        execute(): void;
-    }
-}
-declare module Crimenuts {
-    interface ICommand {
-        callback: Function;
-        context: any;
-        name: string;
     }
 }
 declare module Crimenuts {
@@ -341,12 +357,6 @@ declare module Crimenuts.View.Process {
 declare module Crimenuts {
     class MemberSelectCommand extends Command {
         constructor(controller: IProcessController, memberId: number);
-    }
-}
-declare module Crimenuts {
-    class ProcessesResetCommand extends Command {
-        constructor();
-        execute(): void;
     }
 }
 declare module Crimenuts {
@@ -568,7 +578,7 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class TextLabel extends Phaser.Graphics implements ITextLabel {
+    class TextLabel extends Phaser.Graphics implements ITextArea {
         getDisplayObject(): PIXI.DisplayObject;
         setText(text: string): void;
         alignLeft(): void;
@@ -587,14 +597,14 @@ declare module Crimenuts {
     class DefaultUIFactory implements IUIFactory {
         makeDefaultButton(command: Command, position?: Phaser.Point): IButton;
         makeTopMenuButton(command: Command, position?: Phaser.Point): IButton;
-        makeTextLabel(width: number, height: number, color: string, bgColor: number): ITextLabel;
+        makeTextLabel(width: number, height: number, color: string, bgColor: number): ITextArea;
     }
 }
 declare module Crimenuts {
     interface IUIFactory {
         makeDefaultButton(command: Command, position?: Phaser.Point): IButton;
         makeTopMenuButton(command: Command, position?: Phaser.Point): IButton;
-        makeTextLabel(width: number, height: number, textColor: string, bgColor: number): ITextLabel;
+        makeTextLabel(width: number, height: number, textColor: string, bgColor: number): ITextArea;
     }
 }
 declare module Crimenuts {
@@ -622,7 +632,7 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    interface ITextLabel extends IDisplayObject {
+    interface ITextArea extends IDisplayObject {
         setText(text: string): any;
         alignTop(): any;
     }
@@ -637,6 +647,10 @@ declare module Crimenuts {
         getSignals(): {
             [key: string]: Phaser.Signal;
         };
+    }
+}
+declare module Crimenuts {
+    interface IDevtoolsView extends IDisplayObject {
     }
 }
 declare module Crimenuts {
@@ -759,10 +773,6 @@ declare module Crimenuts.View.Process {
         private director;
         private createMembers(director);
         private calcPersonCardPosition(i, w, h);
-    }
-}
-declare module Crimenuts {
-    interface IDevtoolsView extends IDisplayObject {
     }
 }
 declare module Crimenuts.View.Process {
