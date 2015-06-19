@@ -9,7 +9,7 @@ html, body {
 }
 
 .cn-layout-frame {
-    background: black;
+    background: #111111;
     display: table;
     height: 100%;
     margin: 0;
