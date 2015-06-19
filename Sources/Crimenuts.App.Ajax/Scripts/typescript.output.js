@@ -14,6 +14,7 @@ var Crimenuts;
             this.buttonTop = 15;
             this.ignoreDestroy = true;
             this.controller = controller;
+            this.visible = false;
             this.createWindow();
             this.createTextArea();
             this.createButtons();
@@ -22,11 +23,17 @@ var Crimenuts;
         DevtoolsView.prototype.getDisplayObject = function () {
             return this;
         };
+        // Overrides
+        DevtoolsView.prototype.update = function () {
+            if (this.visible) {
+                Crimenuts.app.game.world.bringToTop(this);
+            }
+        };
         // Create
         DevtoolsView.prototype.createWindow = function () {
             var w = 700;
             var h = 800;
-            var window = new Crimenuts.RectangleDecor(new Crimenuts.ButtonEssence(Crimenuts.Command.nothing, w, h));
+            var window = new Crimenuts.RectangleDecor(new Crimenuts.ButtonEssence(new Crimenuts.ShowDevtoolsCommand(), w, h));
             this.alpha = 0.95;
             this.x = Crimenuts.app.game.width - w - 2;
             this.y = 32;
@@ -73,7 +80,6 @@ var Crimenuts;
         // Ctor
         function DevtoolsManager() {
             this.view = new Crimenuts.DevtoolsView(this);
-            //this.view.visible = false;
         }
         // IDevtoolsDirector
         DevtoolsManager.prototype.getView = function () {
@@ -92,10 +98,11 @@ var Crimenuts;
             this.server.onServerStarted.addOnce(this.onServerStarted, this);
             this.uiFactory = new Crimenuts.DefaultUIFactory();
         }
-        Application.prototype.onProcessStateViewCreated = function (view) {
-            this.devtools = new Crimenuts.DevtoolsManager();
-            var devView = this.devtools.getView();
-            view.getRootGroup().add(devView, true);
+        Application.prototype.onProcessStateCreated = function (processDirector) {
+            this.processDirector = processDirector;
+            if (Crimenuts.app.devtools == null) {
+                Crimenuts.app.devtools = new Crimenuts.DevtoolsManager();
+            }
         };
         // Create
         Application.prototype.onServerStarted = function () {
@@ -511,13 +518,25 @@ var Crimenuts;
     var ShowUserActionsCommand = (function (_super) {
         __extends(ShowUserActionsCommand, _super);
         function ShowUserActionsCommand(textArea) {
-            _super.call(this, "User action");
+            _super.call(this, "User actions");
             this.callback = this.execute;
             this.context = this;
             this.textArea = textArea;
         }
         ShowUserActionsCommand.prototype.execute = function () {
-            this.textArea.setText("var view = app.devtools.getView().getDisplayObject();");
+            var process = Crimenuts.app.processDirector.getProcessModel();
+            var text = "" + process.State + " User Actions:\n\n";
+            process.Actions.forEach(function (action) {
+                var actionCode = Crimenuts.UserActionCode[action.Type];
+                if (actionCode !== 2 /* Ask */) {
+                    text += "  " + action.Type + " ( ";
+                    action.Args.forEach(function (arg) {
+                        text += "" + arg + " ";
+                    });
+                    text += ")\n";
+                }
+            });
+            this.textArea.setText(text);
         };
         return ShowUserActionsCommand;
     })(Crimenuts.Command);
@@ -867,6 +886,7 @@ var Crimenuts;
             var _this = this;
             this.loadModelThen(function () {
                 _this.createView();
+                Crimenuts.app.onProcessStateCreated(_this);
             });
         };
         // Parts
@@ -884,7 +904,6 @@ var Crimenuts;
         };
         ProcessState.prototype.createView = function () {
             this.view = new ProcessView(this, this.controller, this.observer, this.model);
-            Crimenuts.app.onProcessStateViewCreated(this.view);
         };
         ProcessState.prototype.destroyView = function () {
             this.view.destroy(true);
@@ -923,6 +942,21 @@ var Crimenuts;
         return Size;
     })();
     Crimenuts.Size = Size;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    (function (UserActionCode) {
+        UserActionCode[UserActionCode["None"] = 0] = "None";
+        UserActionCode[UserActionCode["Skip"] = 1] = "Skip";
+        UserActionCode[UserActionCode["Ask"] = 2] = "Ask";
+        UserActionCode[UserActionCode["AutoAsk"] = 3] = "AutoAsk";
+        UserActionCode[UserActionCode["Arrest"] = 4] = "Arrest";
+        UserActionCode[UserActionCode["Start"] = 5] = "Start";
+        UserActionCode[UserActionCode["Stop"] = 6] = "Stop";
+        UserActionCode[UserActionCode["EarlyArrest"] = 7] = "EarlyArrest";
+        UserActionCode[UserActionCode["Continue"] = 8] = "Continue";
+    })(Crimenuts.UserActionCode || (Crimenuts.UserActionCode = {}));
+    var UserActionCode = Crimenuts.UserActionCode;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -1472,9 +1506,6 @@ var Crimenuts;
             var devButton = Crimenuts.app.uiFactory.makeTopMenuButton(new Crimenuts.ShowDevtoolsCommand()).getDisplayObject();
             this.addChild(devButton);
             devButton.x = this.width - devButton.getLocalBounds().width;
-            var resetButton = Crimenuts.app.uiFactory.makeTopMenuButton(new Crimenuts.ProcessesResetCommand()).getDisplayObject();
-            this.addChild(resetButton);
-            resetButton.x = devButton.x - resetButton.getLocalBounds().width;
         };
         return TopBar;
     })(Phaser.Graphics);

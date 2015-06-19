@@ -24,6 +24,7 @@ module Crimenuts {
         create() {
             this.loadModelThen(() => {
                 this.createView();
+                app.onProcessStateCreated( this );
             });
         }
 
@@ -50,7 +51,6 @@ module Crimenuts {
 
         private createView() {
             this.view = new ProcessView( this, this.controller, this.observer, this.model );
-            app.onProcessStateViewCreated( this.view );
         }
 
         private destroyView() {

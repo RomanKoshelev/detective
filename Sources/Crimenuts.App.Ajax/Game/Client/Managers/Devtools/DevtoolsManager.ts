@@ -12,7 +12,6 @@ module Crimenuts {
             // Ctor
             constructor() {
                 this.view = new DevtoolsView( this );
-                //this.view.visible = false;
             }
 
             // Fields

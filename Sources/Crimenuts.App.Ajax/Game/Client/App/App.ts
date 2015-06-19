@@ -3,10 +3,12 @@
 module Crimenuts {
     export class Application {
 
+        // Public
         game: Phaser.Game;
         server: ServerAdapter;
         uiFactory: IUIFactory;
         devtools: IDevtoolsDirector;
+        processDirector: IProcessDirector;
 
         constructor() {
             this.server = new ServerAdapter();
@@ -14,10 +16,11 @@ module Crimenuts {
             this.uiFactory = new DefaultUIFactory();
         }
 
-        onProcessStateViewCreated( view: IStateView ) {
-            this.devtools = new DevtoolsManager();
-            var devView = this.devtools.getView();
-            view.getRootGroup().add( devView, true );
+        onProcessStateCreated( processDirector: IProcessDirector ) {
+            this.processDirector = processDirector;
+            if( app.devtools == null ) {
+                app.devtools = new DevtoolsManager();
+            }
         }
 
         // Create

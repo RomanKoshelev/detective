@@ -141,6 +141,17 @@ interface ProcessModel {
     Today : TodayModel;
     Members : MemberModel[];
     Answers : AnswerModel[];
+    Actions : UserActionModel[];
+}
+ 
+ 
+/**
+  * Data contract for Crimenuts.App.Ajax.Game.Server.Models.UserActionModel
+  */
+interface UserActionModel {
+    Type : string;
+    Args : number[];
+    Description : string;
 }
  
  

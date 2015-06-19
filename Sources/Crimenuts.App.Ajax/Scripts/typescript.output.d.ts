@@ -1,6 +1,7 @@
 declare module Crimenuts {
     class DevtoolsView extends Phaser.Group implements IDevtoolsView {
         getDisplayObject(): PIXI.DisplayObject;
+        update(): void;
         constructor(controller: IDevtoolsController);
         private controller;
         private buttonTop;
@@ -24,8 +25,9 @@ declare module Crimenuts {
         server: ServerAdapter;
         uiFactory: IUIFactory;
         devtools: IDevtoolsDirector;
+        processDirector: IProcessDirector;
         constructor();
-        onProcessStateViewCreated(view: IStateView): void;
+        onProcessStateCreated(processDirector: IProcessDirector): void;
         private onServerStarted();
         private createGame(width, height);
         static onGameCreated(): void;
@@ -472,6 +474,19 @@ declare module Crimenuts {
         width: number;
         height: number;
         constructor(width?: number, height?: number);
+    }
+}
+declare module Crimenuts {
+    enum UserActionCode {
+        None = 0,
+        Skip = 1,
+        Ask = 2,
+        AutoAsk = 3,
+        Arrest = 4,
+        Start = 5,
+        Stop = 6,
+        EarlyArrest = 7,
+        Continue = 8,
     }
 }
 declare module Crimenuts {

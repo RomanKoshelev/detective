@@ -41,10 +41,6 @@ module Crimenuts {
             var devButton = app.uiFactory.makeTopMenuButton( new ShowDevtoolsCommand() ).getDisplayObject();
             this.addChild( devButton );
             devButton.x = this.width - devButton.getLocalBounds().width;
-
-            var resetButton = app.uiFactory.makeTopMenuButton( new ProcessesResetCommand() ).getDisplayObject();
-            this.addChild( resetButton );
-            resetButton.x = devButton.x - resetButton.getLocalBounds().width;
         }
     }
 }

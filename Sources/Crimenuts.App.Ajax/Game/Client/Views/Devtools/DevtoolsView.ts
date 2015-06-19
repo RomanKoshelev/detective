@@ -6,6 +6,13 @@
              return this;
         }
 
+        // Overrides
+        update() {
+            if( this.visible ) {
+                app.game.world.bringToTop( this );
+            }
+        }
+
         // Ctor
         constructor(
             controller: IDevtoolsController
@@ -14,12 +21,13 @@
 
             this.ignoreDestroy = true;
             this.controller = controller;
+            this.visible = false;
+
             this.createWindow();
             this.createTextArea();
             this.createButtons();
-
         }
-
+        
         // Fields
         private controller: IDevtoolsController;
         private buttonTop = 15;
@@ -30,7 +38,7 @@
             var w = 700;
             var h = 800;
 
-            var window = new RectangleDecor( new ButtonEssence( Command.nothing, w, h ) );
+            var window = new RectangleDecor( new ButtonEssence( new ShowDevtoolsCommand(), w, h ) );
 
             this.alpha = 0.95;
             this.x = app.game.width - w - 2;

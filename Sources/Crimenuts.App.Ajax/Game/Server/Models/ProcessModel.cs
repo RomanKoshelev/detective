@@ -23,6 +23,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
         public TodayModel Today { get; set; }
         public List< MemberModel > Members { get; set; }
         public List< AnswerModel > Answers { get; set; }
+        public List< UserActionModel > Actions { get; set; }
 
         #endregion
 
@@ -38,12 +39,27 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
             Today = new TodayModel( process );
             Members = CreateMembers( process );
             Answers = CreateAnswers( process );
+            Actions = CreateActions ( process );
         }
 
         #endregion
 
 
         #region Utils
+
+        private List< UserActionModel > CreateActions( Process process )
+        {
+            return process.UserActions.Select( CreateUserActiopnModel ).ToList();
+        }
+
+        private UserActionModel CreateUserActiopnModel( Process.UserAction userAction )
+        {
+            return new UserActionModel {
+                Description = userAction.Description,
+                Type = userAction.Type.ToString(),
+                Args = userAction.Args.ToList()
+            };
+        }
 
         private static List< MemberModel > CreateMembers( Process process )
         {

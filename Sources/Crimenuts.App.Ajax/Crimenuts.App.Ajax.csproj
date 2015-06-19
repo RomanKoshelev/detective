@@ -192,6 +192,7 @@
     <Compile Include="Game\Server\Models\AnswerModel.cs" />
     <Compile Include="Game\Server\Models\MemberModel.cs" />
     <Compile Include="Game\Server\Models\TodayModel.cs" />
+    <Compile Include="Game\Server\Models\UserActionModel.cs" />
     <Compile Include="Game\Server\Utils\Calc.cs" />
     <Compile Include="Game\Server\Managers\ProcessManager.cs" />
     <Compile Include="Game\Server\Logic\MainLogic.cs" />
@@ -308,6 +309,7 @@
     <TypeScriptCompile Include="Game\Client\Commands\Devtools\ProcessesResetCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\Devtools\ShowUserActionsCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\Devtools\ShowDevtoolsCommand.ts" />
+    <TypeScriptCompile Include="Game\Client\Types\UserActionCode.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\ICommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\Process\MemberMarkCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\Process\MemberArrestCommand.ts" />
