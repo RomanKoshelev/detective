@@ -1,15 +1,6 @@
 module Crimenuts {
     export class ProcessManager implements IProcessController, IProcessObserver {
 
-        constructor( server: IGameHubServer, observer: IServerObserver ) {
-            this.server = server;
-
-            this.onProcessUpdated = observer.onProcessUpdated;
-            this.onTickCountUpdated = observer.onTickCountUpdated;
-            this.onProcessesReset = observer.onProcessesReset;
-            this.onCurrentMemberChanged = new Phaser.Signal();
-        }
-
         // IProcessController
         getProcess( processId: string ): JQueryPromise<ProcessModel> {
             return this.server.getProcess( processId );
@@ -32,6 +23,16 @@ module Crimenuts {
         onTickCountUpdated: Phaser.Signal;
         onProcessesReset: Phaser.Signal;
         onCurrentMemberChanged: Phaser.Signal;
+
+        // Ctor
+        constructor( server: IGameHubServer, observer: IServerObserver ) {
+            this.server = server;
+
+            this.onProcessUpdated = observer.onProcessUpdated;
+            this.onTickCountUpdated = observer.onTickCountUpdated;
+            this.onProcessesReset = observer.onProcessesReset;
+            this.onCurrentMemberChanged = new Phaser.Signal();
+        }
 
         // Fields
         private server: IGameHubServer;

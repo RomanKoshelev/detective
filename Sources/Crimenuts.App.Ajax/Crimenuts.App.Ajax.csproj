@@ -310,8 +310,10 @@
     <TypeScriptCompile Include="Game\Client\Commands\ICommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\MemberMarkCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\MemberArrestCommand.ts" />
-    <TypeScriptCompile Include="Game\Client\Managers\IProcessController.ts" />
-    <TypeScriptCompile Include="Game\Client\Managers\ProcessManager.ts" />
+    <TypeScriptCompile Include="Game\Client\Managers\Devtools\DevtoolsManager.ts" />
+    <TypeScriptCompile Include="Game\Client\Managers\Devtools\IDevtoolsDirector.ts" />
+    <TypeScriptCompile Include="Game\Client\Managers\Process\IProcessController.ts" />
+    <TypeScriptCompile Include="Game\Client\Managers\Process\ProcessManager.ts" />
     <TypeScriptCompile Include="Game\Client\Server\IServerObserver.ts" />
     <TypeScriptCompile Include="Game\Client\States\IProcessDirector.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Buttons\IButton.ts" />
@@ -334,7 +336,7 @@
     <TypeScriptCompile Include="Game\Client\UserInterface\Types\ISignalSource.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\RoundedRectangleDecor.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\TextDecor.ts" />
-    <TypeScriptCompile Include="Game\Client\Managers\IProcessObserver.ts" />
+    <TypeScriptCompile Include="Game\Client\Managers\Process\IProcessObserver.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\AutoAnswerCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\IProcessViewPart.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Factory\IUIFactory.ts" />
@@ -344,6 +346,9 @@
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\IMemberDialog.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\MemberDialog.ts" />
     <TypeScriptCompile Include="Game\Client\Types\RelationCode.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Tools\DevtoolsView.ts" />
+    <TypeScriptCompile Include="Game\Client\Managers\Devtools\IDevtoolsController.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Tools\IDevtoolsView.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Widgets\ITicksWidget.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\Answers.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\ProcessView.ts" />

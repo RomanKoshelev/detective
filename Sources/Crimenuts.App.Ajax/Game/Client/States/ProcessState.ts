@@ -1,5 +1,5 @@
 ﻿/// <reference path="../Views/Process/ProcessView.ts" />
-/// <reference path="../Managers/ProcessManager.ts" />
+/// <reference path="../Managers/Process/ProcessManager.ts" />
 module Crimenuts {
     import ProcessView = View.Process.ProcessView;
 

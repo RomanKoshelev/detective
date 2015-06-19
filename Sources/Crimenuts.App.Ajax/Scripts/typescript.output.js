@@ -229,7 +229,7 @@ var Crimenuts;
             })(TextLabel = UserInterface.TextLabel || (UserInterface.TextLabel = {}));
             var Bracket;
             (function (Bracket) {
-                Bracket.width = Game.width - 5 * 2;
+                Bracket.width = Game.width - 10;
                 Bracket.bgColor = 0x000000;
                 Bracket.lineColor = 0x888888;
                 Bracket.lineWidth = 2;
@@ -387,7 +387,7 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 /// <reference path="./Command.ts" />
-/// <reference path="../Managers/IProcessController.ts" />
+/// <reference path="../Managers/Process/IProcessController.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var AutoAnswerCommand = (function (_super) {
@@ -417,7 +417,7 @@ var Crimenuts;
     Crimenuts.DevToolsCommand = DevToolsCommand;
 })(Crimenuts || (Crimenuts = {}));
 /// <reference path="./Command.ts" />
-/// <reference path="../Managers/IProcessController.ts" />
+/// <reference path="../Managers/Process/IProcessController.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var MemberArrestCommand = (function (_super) {
@@ -442,7 +442,7 @@ var Crimenuts;
     Crimenuts.MemberArrestCommand = MemberArrestCommand;
 })(Crimenuts || (Crimenuts = {}));
 /// <reference path="./Command.ts" />
-/// <reference path="../Managers/IProcessController.ts" />
+/// <reference path="../Managers/Process/IProcessController.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var MemberMarkCommand = (function (_super) {
@@ -572,7 +572,24 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
+    var DevtoolsManager = (function () {
+        // Ctor
+        function DevtoolsManager() {
+            this.view = new Crimenuts.DevtoolsView(this);
+            //this.view.getDisplayObject().visible = false;
+        }
+        // IDevtoolsDirector
+        DevtoolsManager.prototype.getView = function () {
+            return this.view;
+        };
+        return DevtoolsManager;
+    })();
+    Crimenuts.DevtoolsManager = DevtoolsManager;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
     var ProcessManager = (function () {
+        // Ctor
         function ProcessManager(server, observer) {
             this.server = server;
             this.onProcessUpdated = observer.onProcessUpdated;
@@ -728,7 +745,7 @@ var Crimenuts;
     })(View = Crimenuts.View || (Crimenuts.View = {}));
 })(Crimenuts || (Crimenuts = {}));
 /// <reference path="../Views/Process/ProcessView.ts" />
-/// <reference path="../Managers/ProcessManager.ts" />
+/// <reference path="../Managers/Process/ProcessManager.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var ProcessView = Crimenuts.View.Process.ProcessView;
@@ -1758,5 +1775,35 @@ var Crimenuts;
             Process.Members = Members;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var DevtoolsView = (function (_super) {
+        __extends(DevtoolsView, _super);
+        // Ctor
+        function DevtoolsView(controller) {
+            _super.call(this, Crimenuts.app.game);
+            this.controller = controller;
+            this.createWindow();
+            this.createText();
+            this.createButtons();
+        }
+        // IDevtoolsView
+        DevtoolsView.prototype.getDisplayObject = function () {
+            return this;
+        };
+        // Create
+        DevtoolsView.prototype.createWindow = function () {
+            var window = new Crimenuts.Decorable(500, 700);
+            var decor = new Crimenuts.RoundedRectangleDecor(window);
+            this.add(decor);
+        };
+        DevtoolsView.prototype.createText = function () {
+        };
+        DevtoolsView.prototype.createButtons = function () {
+        };
+        return DevtoolsView;
+    })(Phaser.Group);
+    Crimenuts.DevtoolsView = DevtoolsView;
 })(Crimenuts || (Crimenuts = {}));
 //# sourceMappingURL=typescript.output.js.map

@@ -19,7 +19,6 @@ module Crimenuts.View.Process {
             this.updateParts( director );
         }
 
-
         // Fields
 
         private parts = new Array<IProcessViewPart>();

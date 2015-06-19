@@ -333,6 +333,22 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
+    class DevtoolsManager implements IDevtoolsDirector, IDevtoolsController {
+        getView(): IDevtoolsView;
+        constructor();
+        private view;
+    }
+}
+declare module Crimenuts {
+    interface IDevtoolsController {
+    }
+}
+declare module Crimenuts {
+    interface IDevtoolsDirector {
+        getView(): IDevtoolsView;
+    }
+}
+declare module Crimenuts {
     interface IProcessObserver {
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
@@ -341,7 +357,6 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class ProcessManager implements IProcessController, IProcessObserver {
-        constructor(server: IGameHubServer, observer: IServerObserver);
         getProcess(processId: string): JQueryPromise<ProcessModel>;
         autoAnswer(processId: string): JQueryPromise<void>;
         arrest(processId: string, memberId: number): JQueryPromise<void>;
@@ -350,6 +365,7 @@ declare module Crimenuts {
         onTickCountUpdated: Phaser.Signal;
         onProcessesReset: Phaser.Signal;
         onCurrentMemberChanged: Phaser.Signal;
+        constructor(server: IGameHubServer, observer: IServerObserver);
         private server;
         private process;
         private memberIdToNumber(memberId);
@@ -727,6 +743,20 @@ declare module Crimenuts.View.Process {
         private director;
         private createMembers(director);
         private calcPersonCardPosition(i, w, h);
+    }
+}
+declare module Crimenuts {
+    class DevtoolsView extends Phaser.Group implements IDevtoolsView {
+        getDisplayObject(): PIXI.DisplayObject;
+        constructor(controller: IDevtoolsController);
+        private controller;
+        private createWindow();
+        private createText();
+        private createButtons();
+    }
+}
+declare module Crimenuts {
+    interface IDevtoolsView extends IDisplayObject {
     }
 }
 declare module Crimenuts.View.Process {

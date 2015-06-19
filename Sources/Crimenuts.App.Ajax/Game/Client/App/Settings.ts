@@ -95,7 +95,7 @@ module Crimenuts.Settings {
         }
 
         export module Bracket {
-            export var width = Game.width - 5 * 2;
+            export var width = Game.width - 10;
             export var bgColor = 0x000000;
             export var lineColor = 0x888888;
             export var lineWidth = 2;
