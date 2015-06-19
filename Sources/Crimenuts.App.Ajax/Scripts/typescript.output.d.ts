@@ -1,17 +1,33 @@
 declare module Crimenuts {
-    class App {
+    class DevtoolsView extends Phaser.Group implements IDevtoolsView {
+        getDisplayObject(): PIXI.DisplayObject;
+        constructor(controller: IDevtoolsController);
+        private controller;
+        private createWindow();
+        private createText();
+        private createButtons();
+    }
+}
+declare module Crimenuts {
+    class DevtoolsManager implements IDevtoolsDirector {
+        getView(): IDevtoolsView;
+        constructor();
+        private view;
+    }
+}
+declare module Crimenuts {
+    class Application {
         game: Phaser.Game;
         server: ServerAdapter;
         uiFactory: IUIFactory;
-        tickCount: Number;
+        devtools: IDevtoolsDirector;
         constructor();
-        onGameCreate(): void;
-        private init();
+        private onServerStarted();
         private createGame(width, height);
-        private onTickCountUpdated(count);
+        static onGameCreated(): void;
         private getGameScreenSize();
     }
-    var app: App;
+    var app: Application;
     function initApp(): void;
 }
 declare module Crimenuts.Assets {
@@ -269,7 +285,7 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class DevToolsCommand extends Command {
+    class DevtoolsCommand extends Command {
         constructor();
         execute(): void;
     }
@@ -330,13 +346,6 @@ declare module Crimenuts {
     class ProcessesResetCommand extends Command {
         constructor();
         execute(): void;
-    }
-}
-declare module Crimenuts {
-    class DevtoolsManager implements IDevtoolsDirector, IDevtoolsController {
-        getView(): IDevtoolsView;
-        constructor();
-        private view;
     }
 }
 declare module Crimenuts {
@@ -743,16 +752,6 @@ declare module Crimenuts.View.Process {
         private director;
         private createMembers(director);
         private calcPersonCardPosition(i, w, h);
-    }
-}
-declare module Crimenuts {
-    class DevtoolsView extends Phaser.Group implements IDevtoolsView {
-        getDisplayObject(): PIXI.DisplayObject;
-        constructor(controller: IDevtoolsController);
-        private controller;
-        private createWindow();
-        private createText();
-        private createButtons();
     }
 }
 declare module Crimenuts {

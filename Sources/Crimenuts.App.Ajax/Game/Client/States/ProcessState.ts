@@ -24,7 +24,7 @@ module Crimenuts {
         create() {
             this.loadModelThen(() => {
                 this.createView();
-            } );
+            });
         }
 
         // Fields
@@ -50,6 +50,7 @@ module Crimenuts {
 
         private createView() {
             this.view = new ProcessView( this, this.controller, this.observer, this.model );
+            app.game.world.add( this.view );
         }
 
         private destroyView() {

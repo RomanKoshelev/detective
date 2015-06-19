@@ -1,37 +1,91 @@
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
 var Crimenuts;
 (function (Crimenuts) {
-    var App = (function () {
-        function App() {
+    var DevtoolsView = (function (_super) {
+        __extends(DevtoolsView, _super);
+        // Ctor
+        function DevtoolsView(controller) {
+            _super.call(this, Crimenuts.app.game);
+            this.controller = controller;
+            this.createWindow();
+            this.createText();
+            this.createButtons();
+        }
+        // IDevtoolsView
+        DevtoolsView.prototype.getDisplayObject = function () {
+            return this;
+        };
+        // Create
+        DevtoolsView.prototype.createWindow = function () {
+            var window = new Crimenuts.Decorable(500, 700);
+            var decor = new Crimenuts.RoundedRectangleDecor(window);
+            this.add(decor);
+        };
+        DevtoolsView.prototype.createText = function () {
+        };
+        DevtoolsView.prototype.createButtons = function () {
+        };
+        return DevtoolsView;
+    })(Phaser.Group);
+    Crimenuts.DevtoolsView = DevtoolsView;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="../../Views/Tools/DevtoolsView.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var DevtoolsManager = (function () {
+        // Ctor
+        function DevtoolsManager() {
+            this.view = new Crimenuts.DevtoolsView(this);
+            Crimenuts.app.game.world.add(this.view);
+            this.view.getDisplayObject().visible = false;
+        }
+        // IDevtoolsDirector
+        DevtoolsManager.prototype.getView = function () {
+            return this.view;
+        };
+        return DevtoolsManager;
+    })();
+    Crimenuts.DevtoolsManager = DevtoolsManager;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="../Managers/Devtools/DevtoolsManager.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var Application = (function () {
+        function Application() {
             this.server = new Crimenuts.ServerAdapter();
-            this.server.onServerStarted.addOnce(this.init, this);
-            this.server.onTickCountUpdated.add(this.onTickCountUpdated, this);
+            this.server.onServerStarted.addOnce(this.onServerStarted, this);
             this.uiFactory = new Crimenuts.DefaultUIFactory();
         }
-        App.prototype.onGameCreate = function () {
-            this.game.state.add("Process", Crimenuts.ProcessState, true);
-        };
-        App.prototype.init = function () {
+        // Create
+        Application.prototype.onServerStarted = function () {
             var size = this.getGameScreenSize();
             this.createGame(size.width, size.height);
         };
-        App.prototype.createGame = function (width, height) {
-            this.game = new Phaser.Game(width, height, Phaser.AUTO, "crimenuts-playground", { create: this.onGameCreate });
+        Application.prototype.createGame = function (width, height) {
+            this.game = new Phaser.Game(width, height, Phaser.AUTO, "crimenuts-playground", { create: Application.onGameCreated });
         };
-        App.prototype.onTickCountUpdated = function (count) {
-            this.tickCount = count;
+        Application.onGameCreated = function () {
+            Crimenuts.app.game.state.add("Process", Crimenuts.ProcessState, true);
+            Crimenuts.app.devtools = new Crimenuts.DevtoolsManager();
         };
-        App.prototype.getGameScreenSize = function () {
+        // Utils
+        Application.prototype.getGameScreenSize = function () {
             return {
                 width: Crimenuts.Settings.Game.width,
                 height: Crimenuts.Settings.Game.height
             };
         };
-        return App;
+        return Application;
     })();
-    Crimenuts.App = App;
+    Crimenuts.Application = Application;
     Crimenuts.app;
     function initApp() {
-        Crimenuts.app = new App();
+        Crimenuts.app = new Application();
     }
     Crimenuts.initApp = initApp;
 })(Crimenuts || (Crimenuts = {}));
@@ -380,12 +434,6 @@ var Crimenuts;
     })();
     Crimenuts.Command = Command;
 })(Crimenuts || (Crimenuts = {}));
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 /// <reference path="./Command.ts" />
 /// <reference path="../Managers/Process/IProcessController.ts" />
 var Crimenuts;
@@ -402,19 +450,22 @@ var Crimenuts;
 /// <reference path="./Command.ts" />
 var Crimenuts;
 (function (Crimenuts) {
-    var DevToolsCommand = (function (_super) {
-        __extends(DevToolsCommand, _super);
-        function DevToolsCommand() {
+    var DevtoolsCommand = (function (_super) {
+        __extends(DevtoolsCommand, _super);
+        function DevtoolsCommand() {
             _super.call(this, "Tools");
             this.callback = this.execute;
             this.context = this;
         }
-        DevToolsCommand.prototype.execute = function () {
-            // nothing
+        DevtoolsCommand.prototype.execute = function () {
+            Crimenuts.app.uiFactory.makeDefaultButton(Crimenuts.Command.nothing);
+            var devView = Crimenuts.app.devtools.getView().getDisplayObject();
+            devView.visible = true;
+            Crimenuts.app.game.world.bringToTop(devView);
         };
-        return DevToolsCommand;
+        return DevtoolsCommand;
     })(Crimenuts.Command);
-    Crimenuts.DevToolsCommand = DevToolsCommand;
+    Crimenuts.DevtoolsCommand = DevtoolsCommand;
 })(Crimenuts || (Crimenuts = {}));
 /// <reference path="./Command.ts" />
 /// <reference path="../Managers/Process/IProcessController.ts" />
@@ -569,22 +620,6 @@ var Crimenuts;
         return ProcessesResetCommand;
     })(Crimenuts.Command);
     Crimenuts.ProcessesResetCommand = ProcessesResetCommand;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    var DevtoolsManager = (function () {
-        // Ctor
-        function DevtoolsManager() {
-            this.view = new Crimenuts.DevtoolsView(this);
-            //this.view.getDisplayObject().visible = false;
-        }
-        // IDevtoolsDirector
-        DevtoolsManager.prototype.getView = function () {
-            return this.view;
-        };
-        return DevtoolsManager;
-    })();
-    Crimenuts.DevtoolsManager = DevtoolsManager;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -791,6 +826,7 @@ var Crimenuts;
         };
         ProcessState.prototype.createView = function () {
             this.view = new ProcessView(this, this.controller, this.observer, this.model);
+            Crimenuts.app.game.world.add(this.view);
         };
         ProcessState.prototype.destroyView = function () {
             this.view.destroy(true);
@@ -1346,6 +1382,7 @@ var Crimenuts;
     })(Phaser.Graphics);
     Crimenuts.BottomBar = BottomBar;
 })(Crimenuts || (Crimenuts = {}));
+/// <reference path="../../Commands/DevtoolsCommand.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var TopBar = (function (_super) {
@@ -1374,7 +1411,7 @@ var Crimenuts;
             }));
         };
         TopBar.prototype.createMenu = function () {
-            var devButton = Crimenuts.app.uiFactory.makeTopMenuButton(new Crimenuts.DevToolsCommand()).getDisplayObject();
+            var devButton = Crimenuts.app.uiFactory.makeTopMenuButton(new Crimenuts.DevtoolsCommand()).getDisplayObject();
             this.addChild(devButton);
             devButton.x = this.width - devButton.getLocalBounds().width;
             var resetButton = Crimenuts.app.uiFactory.makeTopMenuButton(new Crimenuts.ProcessesResetCommand()).getDisplayObject();
@@ -1775,35 +1812,5 @@ var Crimenuts;
             Process.Members = Members;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
-    var DevtoolsView = (function (_super) {
-        __extends(DevtoolsView, _super);
-        // Ctor
-        function DevtoolsView(controller) {
-            _super.call(this, Crimenuts.app.game);
-            this.controller = controller;
-            this.createWindow();
-            this.createText();
-            this.createButtons();
-        }
-        // IDevtoolsView
-        DevtoolsView.prototype.getDisplayObject = function () {
-            return this;
-        };
-        // Create
-        DevtoolsView.prototype.createWindow = function () {
-            var window = new Crimenuts.Decorable(500, 700);
-            var decor = new Crimenuts.RoundedRectangleDecor(window);
-            this.add(decor);
-        };
-        DevtoolsView.prototype.createText = function () {
-        };
-        DevtoolsView.prototype.createButtons = function () {
-        };
-        return DevtoolsView;
-    })(Phaser.Group);
-    Crimenuts.DevtoolsView = DevtoolsView;
 })(Crimenuts || (Crimenuts = {}));
 //# sourceMappingURL=typescript.output.js.map

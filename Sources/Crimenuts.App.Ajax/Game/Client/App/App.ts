@@ -1,35 +1,35 @@
-﻿module Crimenuts {
-    export class App {
+﻿/// <reference path="../Managers/Devtools/DevtoolsManager.ts" />
+
+module Crimenuts {
+    export class Application {
 
         game: Phaser.Game;
         server: ServerAdapter;
         uiFactory: IUIFactory;
-        tickCount: Number;
+        devtools: IDevtoolsDirector;
 
         constructor() {
             this.server = new ServerAdapter();
-            this.server.onServerStarted.addOnce( this.init, this );
-            this.server.onTickCountUpdated.add( this.onTickCountUpdated, this );
+            this.server.onServerStarted.addOnce( this.onServerStarted, this );
             this.uiFactory = new DefaultUIFactory();
         }
 
-        onGameCreate() {
-            this.game.state.add( "Process", ProcessState, true );
-        }
-
-        private init() {
+        // Create
+        private onServerStarted() {
             var size = this.getGameScreenSize();
             this.createGame( size.width, size.height );
         }
 
         private createGame( width: number, height: number ) {
-            this.game = new Phaser.Game( width, height, Phaser.AUTO, "crimenuts-playground", { create: this.onGameCreate } );
+            this.game = new Phaser.Game( width, height, Phaser.AUTO, "crimenuts-playground", { create: Application.onGameCreated } );
         }
 
-        private onTickCountUpdated( count: Number ) {
-            this.tickCount = count;
+        static onGameCreated() {
+            app.game.state.add( "Process", ProcessState, true );
+            app.devtools = new DevtoolsManager();
         }
 
+        // Utils
         private getGameScreenSize(): Size {
             return {
                 width: Settings.Game.width,
@@ -38,10 +38,10 @@
         }
     }
 
-    export var app: App;
+    export var app: Application;
 
     export function initApp() {
-        app = new App();
+        app = new Application();
     }
 }
 

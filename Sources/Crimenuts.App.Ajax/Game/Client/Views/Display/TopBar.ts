@@ -1,3 +1,4 @@
+/// <reference path="../../Commands/DevtoolsCommand.ts" />
 module Crimenuts {
     export class TopBar extends Phaser.Graphics {
 
@@ -37,7 +38,7 @@ module Crimenuts {
         }
 
         private createMenu() {
-            var devButton = app.uiFactory.makeTopMenuButton( new DevToolsCommand() ).getDisplayObject();
+            var devButton = app.uiFactory.makeTopMenuButton( new DevtoolsCommand() ).getDisplayObject();
             this.addChild( devButton );
             devButton.x = this.width - devButton.getLocalBounds().width;
 
