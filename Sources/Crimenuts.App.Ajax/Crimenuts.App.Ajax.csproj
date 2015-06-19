@@ -269,6 +269,7 @@
     </Content>
     <Content Include="NLog.config" />
     <Content Include="App_Code\GameView.cshtml" />
+    <None Include="Properties\PublishProfiles\crd-test-001 %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\crd-test-001.pubxml" />
     <None Include="Properties\PublishProfiles\crd-test-002.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -304,19 +305,26 @@
   <ItemGroup>
     <TypeScriptCompile Include="Game\Client\App\Assets.ts" />
     <TypeScriptCompile Include="Game\Client\App\Settings.ts" />
+    <TypeScriptCompile Include="Game\Client\Commands\DevToolsCommand.ts" />
+    <TypeScriptCompile Include="Game\Client\Commands\ICommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\MemberMarkCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\MemberArrestCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\IProcessController.ts" />
     <TypeScriptCompile Include="Game\Client\Managers\ProcessManager.ts" />
     <TypeScriptCompile Include="Game\Client\Server\IServerObserver.ts" />
     <TypeScriptCompile Include="Game\Client\States\IProcessDirector.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Buttons\IButton.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Buttons\MenuButton.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Types\SizePack.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\BracketDecor.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\RectangleDecor.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Factory\DefaultUIFactory.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\Decorable.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\Command.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Pictures\Picture.ts" />
-    <TypeScriptCompile Include="Game\Client\UserInterface\Types\ColorSet.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Types\IDisplayObject.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Text\ITextLabel.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Types\ColorPack.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\DecorableProxy.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Buttons\TextButton.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Buttons\WhiteButton.ts" />
@@ -329,7 +337,7 @@
     <TypeScriptCompile Include="Game\Client\Commands\AutoAnswerCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\IProcessViewPart.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Factory\IUIFactory.ts" />
-    <TypeScriptCompile Include="Game\Client\Commands\MemberDialogCommand.ts" />
+    <TypeScriptCompile Include="Game\Client\Commands\MemberSelectCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Types\AnswerCode.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\IMemberCard.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\IMemberDialog.ts" />

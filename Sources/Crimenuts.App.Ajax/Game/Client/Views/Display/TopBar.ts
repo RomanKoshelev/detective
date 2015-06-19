@@ -4,16 +4,18 @@ module Crimenuts {
         text: Phaser.Text;
 
         constructor() {
+            super( app.game, 0, 0 );
+            this.createBar();
+            this.createMenu();
+        }
+
+        private createBar() {
             var h1 = 30;
             var h2 = 3;
             var c1 = 0x005500;
             var c2 = 0x770000;
 
             var wg = app.game.width;
-            var x = 0;
-            var y = 0;
-
-            super( app.game, x, y );
 
             this.beginFill( c1 );
             this.drawRect( 0, 0, wg, h1 );
@@ -30,8 +32,16 @@ module Crimenuts {
                     font: "18px Arial",
                     fill: "#44dd44",
                     align: "left"
-                }) );
-            
+                }
+            ) );
+        }
+
+        private createMenu() {
+            var dcmdDevTools = new DevToolsCommand();
+            var devButton = app.uiFactory.makeTopMenuButton( dcmdDevTools ).getDisplayObject();
+            this.addChild( devButton );
+            devButton.y = 0;
+            devButton.x = this.width - devButton.getLocalBounds().width;
         }
     }
 }

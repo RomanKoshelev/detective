@@ -3,7 +3,7 @@
 
         game: Phaser.Game;
         server: ServerAdapter;
-        uiFactory: DefaultUIFactory;
+        uiFactory: IUIFactory;
         tickCount: Number;
 
         constructor() {

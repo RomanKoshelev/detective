@@ -4,6 +4,11 @@ module Crimenuts {
         text: Phaser.Text;
 
         constructor() {
+            super( app.game, 0, 0 );
+            this.createBar();
+        }
+
+        private createBar() {
             var h1 = 3;
             var h2 = 30;
             var c1 = 0x770000;
@@ -12,10 +17,8 @@ module Crimenuts {
             var wg = app.game.width;
             var hg = app.game.height;
             var hb = h1 + h2;
-            var x = 0;
-            var y = hg - hb;
-
-            super( app.game, x, y );
+            this.x = 0;
+            this.y = hg - hb;
 
             this.beginFill( c1 );
             this.drawRect( 0, 0, wg, h1 );
@@ -30,8 +33,8 @@ module Crimenuts {
                     font: "18px Arial",
                     fill: "#44dd44",
                     align: "left"
-                }) );
-            
+                }
+            ) );
         }
     }
 }

@@ -93,15 +93,24 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var ColorSet = (function () {
-        function ColorSet(fill, border, text) {
+    var ColorPack = (function () {
+        function ColorPack(fill, border, text) {
             this.fill = fill;
             this.border = border;
             this.text = text;
         }
-        return ColorSet;
+        return ColorPack;
     })();
-    Crimenuts.ColorSet = ColorSet;
+    Crimenuts.ColorPack = ColorPack;
+})(Crimenuts || (Crimenuts = {}));
+var Crimenuts;
+(function (Crimenuts) {
+    var SizePack = (function () {
+        function SizePack() {
+        }
+        return SizePack;
+    })();
+    Crimenuts.SizePack = SizePack;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -124,7 +133,8 @@ var Crimenuts;
     })(Crimenuts.RelationCode || (Crimenuts.RelationCode = {}));
     var RelationCode = Crimenuts.RelationCode;
 })(Crimenuts || (Crimenuts = {}));
-/// <reference path="../UserInterface/Types/ColorSet.ts" />
+/// <reference path="../UserInterface/Types/ColorPack.ts" />
+/// <reference path="../UserInterface/Types/SizePack.ts" />
 /// <reference path="../Types/AnswerCode.ts" />
 /// <reference path="../Types/RelationCode.ts" />
 var Crimenuts;
@@ -173,36 +183,52 @@ var Crimenuts;
                 Sprites.transparent = "transparent";
             })(Sprites = Assets.Sprites || (Assets.Sprites = {}));
         })(Assets = Settings.Assets || (Settings.Assets = {}));
-        var BgColor;
-        (function (BgColor) {
-            BgColor.black = 0x000000;
-            BgColor.white = 0xFFFFFF;
-            BgColor.transparent = -1;
-        })(BgColor = Settings.BgColor || (Settings.BgColor = {}));
+        var Color;
+        (function (Color) {
+            Color.black = 0x000000;
+            Color.white = 0xFFFFFF;
+            Color.transparent = 0xFF0123;
+        })(Color = Settings.Color || (Settings.Color = {}));
         var UserInterface;
         (function (UserInterface) {
             var Button;
             (function (Button) {
-                Button.width = 120 * k;
-                Button.height = Button.width * 0.30;
                 Button.sprite = Assets.Sprites.transparent;
-                Button.fontSize = 16 * k;
-                Button.fillColor = 0x222222;
-                Button.lineColor = 0x888888;
-                Button.textColor = "#AAAAAA";
-                Button.lineWidth = Button.width * 0.015;
-                Button.left = 580 * k;
+                Button.leftAlign = 580 * k;
+                Button.sizes = {
+                    width: 120 * k,
+                    height: 40 * k,
+                    font: 16 * k,
+                    stroke: 1.5
+                };
                 var White;
                 (function (White) {
                     var Regular;
                     (function (Regular) {
-                        Regular.colors = new Crimenuts.ColorSet(0xAAAAAA, 0xAAAAAA, "#000000");
+                        Regular.colors = new Crimenuts.ColorPack(0xAAAAAA, 0xAAAAAA, "#000000");
                     })(Regular = White.Regular || (White.Regular = {}));
                     var Highlight;
                     (function (Highlight) {
-                        Highlight.colors = new Crimenuts.ColorSet(0xFFFFFF, 0xFFFFFF, "#000000");
+                        Highlight.colors = new Crimenuts.ColorPack(0xFFFFFF, 0xFFFFFF, "#000000");
                     })(Highlight = White.Highlight || (White.Highlight = {}));
                 })(White = Button.White || (Button.White = {}));
+                var Menu;
+                (function (Menu) {
+                    Menu.sizes = {
+                        width: 100 * k,
+                        height: 30 * k,
+                        font: 16 * k,
+                        stroke: 0
+                    };
+                    var Regular;
+                    (function (Regular) {
+                        Regular.colors = new Crimenuts.ColorPack(Color.transparent, Color.transparent, "#008800");
+                    })(Regular = Menu.Regular || (Menu.Regular = {}));
+                    var Highlight;
+                    (function (Highlight) {
+                        Highlight.colors = new Crimenuts.ColorPack(Color.transparent, Color.transparent, "#00FF00");
+                    })(Highlight = Menu.Highlight || (Menu.Highlight = {}));
+                })(Menu = Button.Menu || (Button.Menu = {}));
             })(Button = UserInterface.Button || (UserInterface.Button = {}));
             var TextLabel;
             (function (TextLabel) {
@@ -250,7 +276,7 @@ var Crimenuts;
                         Name.height = 22 * k;
                         Name.fontSize = 11 * k;
                         Name.color = "#666666";
-                        Name.bgColor = BgColor.transparent;
+                        Name.bgColor = Color.transparent;
                     })(Name = Card.Name || (Card.Name = {}));
                     var Answer;
                     (function (Answer) {
@@ -288,7 +314,7 @@ var Crimenuts;
                         Title.width = 250 * k;
                         Title.height = 36 * k;
                         Title.color = "#AAAAAA";
-                        Title.bgColor = BgColor.transparent;
+                        Title.bgColor = Color.transparent;
                     })(Title = Dialog.Title || (Dialog.Title = {}));
                     var Text;
                     (function (Text) {
@@ -296,11 +322,11 @@ var Crimenuts;
                         Text.width = 250 * k;
                         Text.height = 22 * k;
                         Text.color = "#AAAAAA";
-                        Text.bgColor = BgColor.transparent;
+                        Text.bgColor = Color.transparent;
                     })(Text = Dialog.Text || (Dialog.Text = {}));
                     var Buttons;
                     (function (Buttons) {
-                        Buttons.left = UserInterface.Button.left;
+                        Buttons.left = UserInterface.Button.leftAlign;
                         Buttons.markPosition = new Phaser.Point(Buttons.left, 120 * k);
                         Buttons.arrestPosition = new Phaser.Point(Buttons.left, 170 * k);
                     })(Buttons = Dialog.Buttons || (Dialog.Buttons = {}));
@@ -311,12 +337,12 @@ var Crimenuts;
                 Answers.position = new Phaser.Point(5 * k, 39 * k);
                 Answers.width = Game.width - Answers.position.x * 2;
                 Answers.height = 250 * k;
-                Answers.bgColor = BgColor.transparent;
+                Answers.bgColor = Color.transparent;
                 var Buttons;
                 (function (Buttons) {
                     var Auto;
                     (function (Auto) {
-                        Auto.position = new Phaser.Point(UserInterface.Button.left, 220 * k);
+                        Auto.position = new Phaser.Point(UserInterface.Button.leftAlign, 220 * k);
                     })(Auto = Buttons.Auto || (Buttons.Auto = {}));
                 })(Buttons = Answers.Buttons || (Answers.Buttons = {}));
                 var Answer;
@@ -333,7 +359,7 @@ var Crimenuts;
             var Bars;
             (function (Bars) {
                 Bars.textColor = "#AAAAAA";
-                Bars.bgColor = BgColor.transparent;
+                Bars.bgColor = Color.transparent;
                 Bars.left = 5 * k;
                 Bars.width = Game.width - Bars.left * 2;
                 Bars.height = 30 * k;
@@ -349,13 +375,14 @@ var Crimenuts;
 (function (Crimenuts) {
     var Command = (function () {
         function Command(name, callback, context) {
+            if (name === void 0) { name = ""; }
             if (callback === void 0) { callback = null; }
             if (context === void 0) { context = null; }
             this.name = name;
             this.callback = callback;
             this.context = context;
         }
-        Command.nothing = new Command("");
+        Command.nothing = new Command();
         return Command;
     })();
     Crimenuts.Command = Command;
@@ -378,6 +405,23 @@ var Crimenuts;
         return AutoAnswerCommand;
     })(Crimenuts.Command);
     Crimenuts.AutoAnswerCommand = AutoAnswerCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="./Command.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var DevToolsCommand = (function (_super) {
+        __extends(DevToolsCommand, _super);
+        function DevToolsCommand() {
+            _super.call(this, "Dev");
+            this.callback = this.execute;
+            this.context = this;
+        }
+        DevToolsCommand.prototype.execute = function () {
+            // nothing
+        };
+        return DevToolsCommand;
+    })(Crimenuts.Command);
+    Crimenuts.DevToolsCommand = DevToolsCommand;
 })(Crimenuts || (Crimenuts = {}));
 /// <reference path="./Command.ts" />
 /// <reference path="../Managers/IProcessController.ts" />
@@ -403,6 +447,20 @@ var Crimenuts;
         return MemberArrestCommand;
     })(Crimenuts.Command);
     Crimenuts.MemberArrestCommand = MemberArrestCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="./Command.ts" />
+/// <reference path="../Managers/IProcessController.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var MemberMarkCommand = (function (_super) {
+        __extends(MemberMarkCommand, _super);
+        function MemberMarkCommand(controller, processId) {
+            _super.call(this, "Mark", function () {
+            });
+        }
+        return MemberMarkCommand;
+    })(Crimenuts.Command);
+    Crimenuts.MemberMarkCommand = MemberMarkCommand;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -435,16 +493,16 @@ var Crimenuts;
                     this.setMember(this.memberId);
                 };
                 MemberDialog.prototype.createFrameDecoration = function () {
-                    this.add(new Crimenuts.RectangleDecor(new Crimenuts.BracketDecor(new Crimenuts.Decorable(Crimenuts.Settings.UserInterface.Bracket.width, Crimenuts.Settings.Process.Members.Dialog.height), Crimenuts.Settings.UserInterface.Bracket.lineColor, Crimenuts.Settings.UserInterface.Bracket.lineWidth), Crimenuts.Settings.UserInterface.Bracket.bgColor, Crimenuts.Settings.BgColor.transparent, 0));
+                    this.add(new Crimenuts.RectangleDecor(new Crimenuts.BracketDecor(new Crimenuts.Decorable(Crimenuts.Settings.UserInterface.Bracket.width, Crimenuts.Settings.Process.Members.Dialog.height), Crimenuts.Settings.UserInterface.Bracket.lineColor, Crimenuts.Settings.UserInterface.Bracket.lineWidth), Crimenuts.Settings.UserInterface.Bracket.bgColor, Crimenuts.Settings.Color.transparent, 0));
                 };
                 MemberDialog.prototype.createTitle = function () {
                     this.title = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Members.Dialog.Title.width, Crimenuts.Settings.Process.Members.Dialog.Title.height, Crimenuts.Settings.Process.Members.Dialog.Title.color, Crimenuts.Settings.Process.Members.Dialog.Title.bgColor);
-                    this.title.position = Crimenuts.Settings.Process.Members.Dialog.Title.position.clone();
+                    this.title.getDisplayObject().position = Crimenuts.Settings.Process.Members.Dialog.Title.position.clone();
                     this.add(this.title);
                 };
                 MemberDialog.prototype.createText = function () {
                     this.text = Crimenuts.app.uiFactory.makeTextLabel(Crimenuts.Settings.Process.Members.Dialog.Text.width, Crimenuts.Settings.Process.Members.Dialog.Text.height, Crimenuts.Settings.Process.Members.Dialog.Text.color, Crimenuts.Settings.Process.Members.Dialog.Text.bgColor);
-                    this.text.position = Crimenuts.Settings.Process.Members.Dialog.Text.position.clone();
+                    this.text.getDisplayObject().position = Crimenuts.Settings.Process.Members.Dialog.Text.position.clone();
                     this.text.alignTop();
                     this.add(this.text);
                 };
@@ -461,7 +519,7 @@ var Crimenuts;
                 };
                 // Update
                 MemberDialog.prototype.updateAnswerCardCommand = function () {
-                    this.memberCard.getAnswerCard().setCommand(new Crimenuts.MemberDialogCommand(this.director.getController(), this.memberCard.getAnswerCard().getMemberId()));
+                    this.memberCard.getAnswerCard().setCommand(new Crimenuts.MemberSelectCommand(this.director.getController(), this.memberCard.getAnswerCard().getMemberId()));
                 };
                 MemberDialog.prototype.updateTitle = function () {
                     var member = this.getMemberModel();
@@ -490,31 +548,17 @@ var Crimenuts;
 var Crimenuts;
 (function (Crimenuts) {
     var MemberDialog = Crimenuts.View.Process.MemberDialog;
-    var MemberDialogCommand = (function (_super) {
-        __extends(MemberDialogCommand, _super);
-        function MemberDialogCommand(controller, memberId) {
+    var MemberSelectCommand = (function (_super) {
+        __extends(MemberSelectCommand, _super);
+        function MemberSelectCommand(controller, memberId) {
             _super.call(this, "Open Member Dialog", function () {
                 MemberDialog.instance.setMember(memberId);
                 controller.currentMemberChanged(memberId);
             });
         }
-        return MemberDialogCommand;
+        return MemberSelectCommand;
     })(Crimenuts.Command);
-    Crimenuts.MemberDialogCommand = MemberDialogCommand;
-})(Crimenuts || (Crimenuts = {}));
-/// <reference path="./Command.ts" />
-/// <reference path="../Managers/IProcessController.ts" />
-var Crimenuts;
-(function (Crimenuts) {
-    var MemberMarkCommand = (function (_super) {
-        __extends(MemberMarkCommand, _super);
-        function MemberMarkCommand(controller, processId) {
-            _super.call(this, "Mark", function () {
-            });
-        }
-        return MemberMarkCommand;
-    })(Crimenuts.Command);
-    Crimenuts.MemberMarkCommand = MemberMarkCommand;
+    Crimenuts.MemberSelectCommand = MemberSelectCommand;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -808,28 +852,71 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
+    var RoundedRectangleDecor = (function (_super) {
+        __extends(RoundedRectangleDecor, _super);
+        function RoundedRectangleDecor(component, fillColor, lineColor, lineWidth) {
+            if (fillColor === void 0) { fillColor = Crimenuts.Settings.Default.Shape.fillColor; }
+            if (lineColor === void 0) { lineColor = Crimenuts.Settings.Default.Shape.lineColor; }
+            if (lineWidth === void 0) { lineWidth = Crimenuts.Settings.Default.Shape.lineWidth; }
+            var size = component.getSize();
+            _super.call(this, Crimenuts.app.game, 0, 0);
+            this.createRoundedRectangle(size, fillColor, lineColor, lineWidth);
+            this.addChild(component.getDysplayObject());
+            this.component = component;
+        }
+        RoundedRectangleDecor.prototype.getSize = function () {
+            return this.component.getSize();
+        };
+        RoundedRectangleDecor.prototype.getDysplayObject = function () {
+            return this;
+        };
+        RoundedRectangleDecor.prototype.createRoundedRectangle = function (size, fillColor, lineColor, lineWidth) {
+            var lineAlpha = lineColor === Crimenuts.Settings.Color.transparent ? 0 : 1;
+            var fillAlpha = fillColor === Crimenuts.Settings.Color.transparent ? 0 : 1;
+            var radius = Math.min(size.width, size.height) * Crimenuts.Settings.Default.RoundedRectangle.radiusRate;
+            this.lineStyle(lineWidth, lineColor, lineAlpha);
+            this.beginFill(fillColor, fillAlpha);
+            this.drawRoundedRect(0, 0, size.width, size.height, radius);
+            this.endFill();
+        };
+        return RoundedRectangleDecor;
+    })(Phaser.Graphics);
+    Crimenuts.RoundedRectangleDecor = RoundedRectangleDecor;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="../Buttons/ButtonEssence.ts" />
+/// <reference path="../Decorators/RoundedRectangleDecor.ts" />
+/// <reference path="../../Commands/ICommand.ts" />
+var Crimenuts;
+(function (Crimenuts) {
     var TextButton = (function (_super) {
         __extends(TextButton, _super);
-        function TextButton(command, regularColors, highlightColors, position) {
+        // Ctor
+        function TextButton(command, regularColors, highlightColors, size, position) {
             _super.call(this, Crimenuts.app.game);
+            // Fields
             this.decors = new Array();
-            this.createButton(command, regularColors, highlightColors);
+            this.createButton(command, regularColors, highlightColors, size);
             this.position.set(position.x, position.y);
         }
-        TextButton.prototype.createButton = function (command, regularColors, highlightColors) {
-            var buttonEssence = this.createButtonEssence(command);
-            var regularDecor = this.createDecor(buttonEssence, command.name, regularColors);
-            var higlightDecor = this.createDecor(buttonEssence, command.name, highlightColors);
+        // IButton
+        TextButton.prototype.getDisplayObject = function () {
+            return this;
+        };
+        // Utils
+        TextButton.prototype.createButton = function (command, regularColors, highlightColors, size) {
+            var buttonEssence = this.createButtonEssence(command, size.width, size.height);
+            var regularDecor = this.createDecor(buttonEssence, command.name, regularColors, size);
+            var higlightDecor = this.createDecor(buttonEssence, command.name, highlightColors, size);
             this.initSignalHandlers(buttonEssence, regularDecor, higlightDecor);
             this.showDecor(regularDecor);
         };
-        TextButton.prototype.createButtonEssence = function (command) {
-            var essence = new Crimenuts.ButtonEssence(command, Crimenuts.Settings.UserInterface.Button.width, Crimenuts.Settings.UserInterface.Button.height);
+        TextButton.prototype.createButtonEssence = function (command, width, height) {
+            var essence = new Crimenuts.ButtonEssence(command, width, height);
             this.add(essence);
             return essence;
         };
-        TextButton.prototype.createDecor = function (essence, text, colors) {
-            var decor = new Crimenuts.RoundedRectangleDecor(new Crimenuts.TextDecor(new Crimenuts.DecorableProxy(essence), text, colors.text, Crimenuts.Settings.UserInterface.Button.fontSize), colors.fill, colors.border, Crimenuts.Settings.UserInterface.Button.lineWidth);
+        TextButton.prototype.createDecor = function (essence, text, colors, size) {
+            var decor = new Crimenuts.RoundedRectangleDecor(new Crimenuts.TextDecor(new Crimenuts.DecorableProxy(essence), text, colors.text, size.font), colors.fill, colors.border, size.stroke);
             decor.visible = false;
             this.add(decor);
             this.decors.push(decor);
@@ -855,13 +942,27 @@ var Crimenuts;
     })(Phaser.Group);
     Crimenuts.TextButton = TextButton;
 })(Crimenuts || (Crimenuts = {}));
+/// <reference path="TextButton.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var MenuButton = (function (_super) {
+        __extends(MenuButton, _super);
+        function MenuButton(command, position) {
+            if (position === void 0) { position = new Phaser.Point(); }
+            _super.call(this, command, Crimenuts.Settings.UserInterface.Button.Menu.Regular.colors, Crimenuts.Settings.UserInterface.Button.Menu.Highlight.colors, Crimenuts.Settings.UserInterface.Button.Menu.sizes, position);
+        }
+        return MenuButton;
+    })(Crimenuts.TextButton);
+    Crimenuts.MenuButton = MenuButton;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="TextButton.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var WhiteButton = (function (_super) {
         __extends(WhiteButton, _super);
         function WhiteButton(command, position) {
             if (position === void 0) { position = new Phaser.Point(); }
-            _super.call(this, command, Crimenuts.Settings.UserInterface.Button.White.Regular.colors, Crimenuts.Settings.UserInterface.Button.White.Highlight.colors, position);
+            _super.call(this, command, Crimenuts.Settings.UserInterface.Button.White.Regular.colors, Crimenuts.Settings.UserInterface.Button.White.Highlight.colors, Crimenuts.Settings.UserInterface.Button.sizes, position);
         }
         return WhiteButton;
     })(Crimenuts.TextButton);
@@ -982,37 +1083,6 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var RoundedRectangleDecor = (function (_super) {
-        __extends(RoundedRectangleDecor, _super);
-        function RoundedRectangleDecor(component, fillColor, lineColor, lineWidth) {
-            if (fillColor === void 0) { fillColor = Crimenuts.Settings.Default.Shape.fillColor; }
-            if (lineColor === void 0) { lineColor = Crimenuts.Settings.Default.Shape.lineColor; }
-            if (lineWidth === void 0) { lineWidth = Crimenuts.Settings.Default.Shape.lineWidth; }
-            var size = component.getSize();
-            _super.call(this, Crimenuts.app.game, 0, 0);
-            this.createRoundedRectangle(size, fillColor, lineColor, lineWidth);
-            this.addChild(component.getDysplayObject());
-            this.component = component;
-        }
-        RoundedRectangleDecor.prototype.getSize = function () {
-            return this.component.getSize();
-        };
-        RoundedRectangleDecor.prototype.getDysplayObject = function () {
-            return this;
-        };
-        RoundedRectangleDecor.prototype.createRoundedRectangle = function (size, fillColor, lineColor, lineWidth) {
-            var radius = Math.min(size.width, size.height) * Crimenuts.Settings.Default.RoundedRectangle.radiusRate;
-            this.lineStyle(lineWidth, lineColor);
-            this.beginFill(fillColor);
-            this.drawRoundedRect(0, 0, size.width, size.height, radius);
-            this.endFill();
-        };
-        return RoundedRectangleDecor;
-    })(Phaser.Graphics);
-    Crimenuts.RoundedRectangleDecor = RoundedRectangleDecor;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
     var TextDecor = (function (_super) {
         __extends(TextDecor, _super);
         function TextDecor(component, text, color, fontSize, fontFace) {
@@ -1021,7 +1091,7 @@ var Crimenuts;
             if (fontFace === void 0) { fontFace = Crimenuts.Settings.Default.Font.face; }
             var size = component.getSize();
             _super.call(this, Crimenuts.app.game);
-            this.textLabel = new Crimenuts.TextLabel(size.width, size.height, fontFace, fontSize, color, Crimenuts.Settings.BgColor.transparent);
+            this.textLabel = new Crimenuts.TextLabel(size.width, size.height, fontFace, fontSize, color, Crimenuts.Settings.Color.transparent);
             this.textLabel.setText(text);
             this.textLabel.alignCenter();
             this.add(this.component = component);
@@ -1039,11 +1109,86 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
+    var TextLabel = (function (_super) {
+        __extends(TextLabel, _super);
+        // Ctor
+        function TextLabel(width, height, fontFace, fontSize, color, bgcolor) {
+            if (fontFace === void 0) { fontFace = Crimenuts.Settings.Default.Font.face; }
+            if (fontSize === void 0) { fontSize = Crimenuts.Settings.Default.Font.size; }
+            if (color === void 0) { color = Crimenuts.Settings.Default.Font.color; }
+            if (bgcolor === void 0) { bgcolor = Crimenuts.Settings.Default.Font.bgColor; }
+            _super.call(this, Crimenuts.app.game, 0, 0);
+            this.createBackground(width, height, bgcolor);
+            this.createLabel(fontFace, fontSize, color);
+            this.alignLeft();
+            this.alignMiddle();
+        }
+        // ITextLabel
+        TextLabel.prototype.getDisplayObject = function () {
+            return this;
+        };
+        TextLabel.prototype.setText = function (text) {
+            this.label.text = text;
+        };
+        TextLabel.prototype.alignLeft = function () {
+            this.label.x = (this.fontSize) / 3;
+            this.label.anchor.x = 0;
+            this.label.align = "left";
+        };
+        TextLabel.prototype.alignCenter = function () {
+            this.label.x = this.width / 2;
+            this.label.anchor.x = 0.5;
+            this.label.align = "center";
+        };
+        TextLabel.prototype.alignTop = function () {
+            this.label.y = 0;
+            this.label.anchor.y = 0;
+        };
+        TextLabel.prototype.alignMiddle = function () {
+            this.label.y = this.height / 2 + 1;
+            this.label.anchor.y = 0.5;
+        };
+        TextLabel.prototype.setFontBold = function () {
+            this.label.fontWeight = "bold";
+        };
+        // Utils
+        TextLabel.prototype.createLabel = function (fontFace, fontSize, color) {
+            this.fontSize = fontSize;
+            var magicScale = 2.1;
+            fontSize *= magicScale;
+            this.addChild(this.label = new Phaser.Text(this.game, 0, 0, "", {
+                font: "" + fontSize + "px " + fontFace,
+                fill: color,
+                align: "left"
+            }));
+            this.label.scale.set(1 / magicScale, 1 / magicScale);
+        };
+        TextLabel.prototype.createBackground = function (width, height, bgcolor) {
+            var a = bgcolor === Crimenuts.Settings.Color.transparent ? 0 : 1;
+            this.beginFill(bgcolor, a);
+            this.drawRect(0, 0, width, height);
+            this.endFill();
+        };
+        return TextLabel;
+    })(Phaser.Graphics);
+    Crimenuts.TextLabel = TextLabel;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="../../Commands/ICommand.ts" />
+/// <reference path="../Buttons/MenuButton.ts" />
+/// <reference path="../Buttons/WhiteButton.ts" />
+/// <reference path="../Text/TextLabel.ts" />
+var Crimenuts;
+(function (Crimenuts) {
     var DefaultUIFactory = (function () {
         function DefaultUIFactory() {
         }
         DefaultUIFactory.prototype.makeDefaultButton = function (command, position) {
+            if (position === void 0) { position = new Phaser.Point(0, 0); }
             return new Crimenuts.WhiteButton(command, position);
+        };
+        DefaultUIFactory.prototype.makeTopMenuButton = function (command, position) {
+            if (position === void 0) { position = new Phaser.Point(0, 0); }
+            return new Crimenuts.MenuButton(command, position);
         };
         DefaultUIFactory.prototype.makeTextLabel = function (width, height, color, bgColor) {
             return new Crimenuts.TextLabel(width, height, Crimenuts.Settings.Default.Font.face, height * Crimenuts.Settings.UserInterface.TextLabel.fontSizeToHeightRate, color, bgColor);
@@ -1144,70 +1289,13 @@ var Crimenuts;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
-    var TextLabel = (function (_super) {
-        __extends(TextLabel, _super);
-        function TextLabel(width, height, fontFace, fontSize, color, bgcolor) {
-            if (fontFace === void 0) { fontFace = Crimenuts.Settings.Default.Font.face; }
-            if (fontSize === void 0) { fontSize = Crimenuts.Settings.Default.Font.size; }
-            if (color === void 0) { color = Crimenuts.Settings.Default.Font.color; }
-            if (bgcolor === void 0) { bgcolor = Crimenuts.Settings.Default.Font.bgColor; }
-            _super.call(this, Crimenuts.app.game, 0, 0);
-            this.createBackground(width, height, bgcolor);
-            this.createLabel(fontFace, fontSize, color);
-            this.alignLeft();
-            this.alignMiddle();
-        }
-        TextLabel.prototype.setText = function (text) {
-            this.label.text = text;
-        };
-        TextLabel.prototype.alignLeft = function () {
-            this.label.x = (this.fontSize) / 3;
-            this.label.anchor.x = 0;
-            this.label.align = "left";
-        };
-        TextLabel.prototype.alignCenter = function () {
-            this.label.x = this.width / 2;
-            this.label.anchor.x = 0.5;
-            this.label.align = "center";
-        };
-        TextLabel.prototype.alignTop = function () {
-            this.label.y = 0;
-            this.label.anchor.y = 0;
-        };
-        TextLabel.prototype.alignMiddle = function () {
-            this.label.y = this.height / 2 + 1;
-            this.label.anchor.y = 0.5;
-        };
-        TextLabel.prototype.setFontBold = function () {
-            this.label.fontWeight = "bold";
-        };
-        // utils
-        TextLabel.prototype.createLabel = function (fontFace, fontSize, color) {
-            this.fontSize = fontSize;
-            var magicScale = 2.1;
-            fontSize *= magicScale;
-            this.addChild(this.label = new Phaser.Text(this.game, 0, 0, "", {
-                font: "" + fontSize + "px " + fontFace,
-                fill: color,
-                align: "left"
-            }));
-            this.label.scale.set(1 / magicScale, 1 / magicScale);
-        };
-        TextLabel.prototype.createBackground = function (width, height, bgcolor) {
-            var a = bgcolor === Crimenuts.Settings.BgColor.transparent ? 0 : 1;
-            this.beginFill(bgcolor, a);
-            this.drawRect(0, 0, width, height);
-            this.endFill();
-        };
-        return TextLabel;
-    })(Phaser.Graphics);
-    Crimenuts.TextLabel = TextLabel;
-})(Crimenuts || (Crimenuts = {}));
-var Crimenuts;
-(function (Crimenuts) {
     var BottomBar = (function (_super) {
         __extends(BottomBar, _super);
         function BottomBar() {
+            _super.call(this, Crimenuts.app.game, 0, 0);
+            this.createBar();
+        }
+        BottomBar.prototype.createBar = function () {
             var h1 = 3;
             var h2 = 30;
             var c1 = 0x770000;
@@ -1215,9 +1303,8 @@ var Crimenuts;
             var wg = Crimenuts.app.game.width;
             var hg = Crimenuts.app.game.height;
             var hb = h1 + h2;
-            var x = 0;
-            var y = hg - hb;
-            _super.call(this, Crimenuts.app.game, x, y);
+            this.x = 0;
+            this.y = hg - hb;
             this.beginFill(c1);
             this.drawRect(0, 0, wg, h1);
             this.beginFill(c2);
@@ -1227,7 +1314,7 @@ var Crimenuts;
                 fill: "#44dd44",
                 align: "left"
             }));
-        }
+        };
         return BottomBar;
     })(Phaser.Graphics);
     Crimenuts.BottomBar = BottomBar;
@@ -1237,14 +1324,16 @@ var Crimenuts;
     var TopBar = (function (_super) {
         __extends(TopBar, _super);
         function TopBar() {
+            _super.call(this, Crimenuts.app.game, 0, 0);
+            this.createBar();
+            this.createMenu();
+        }
+        TopBar.prototype.createBar = function () {
             var h1 = 30;
             var h2 = 3;
             var c1 = 0x005500;
             var c2 = 0x770000;
             var wg = Crimenuts.app.game.width;
-            var x = 0;
-            var y = 0;
-            _super.call(this, Crimenuts.app.game, x, y);
             this.beginFill(c1);
             this.drawRect(0, 0, wg, h1);
             this.endFill();
@@ -1256,7 +1345,14 @@ var Crimenuts;
                 fill: "#44dd44",
                 align: "left"
             }));
-        }
+        };
+        TopBar.prototype.createMenu = function () {
+            var dcmdDevTools = new Crimenuts.DevToolsCommand();
+            var devButton = Crimenuts.app.uiFactory.makeTopMenuButton(dcmdDevTools).getDisplayObject();
+            this.addChild(devButton);
+            devButton.y = 0;
+            devButton.x = this.width - devButton.getLocalBounds().width;
+        };
         return TopBar;
     })(Phaser.Graphics);
     Crimenuts.TopBar = TopBar;
@@ -1288,7 +1384,7 @@ var Crimenuts;
                     this.add(this.title = new Process.InfoBar());
                 };
                 Answers.prototype.createFrameDecoration = function () {
-                    this.add(new Crimenuts.RectangleDecor(new Crimenuts.BracketDecor(new Crimenuts.Decorable(Crimenuts.Settings.UserInterface.Bracket.width, Crimenuts.Settings.Process.Answers.height), Crimenuts.Settings.UserInterface.Bracket.lineColor, Crimenuts.Settings.UserInterface.Bracket.lineWidth), Crimenuts.Settings.UserInterface.Bracket.bgColor, Crimenuts.Settings.BgColor.transparent, 0));
+                    this.add(new Crimenuts.RectangleDecor(new Crimenuts.BracketDecor(new Crimenuts.Decorable(Crimenuts.Settings.UserInterface.Bracket.width, Crimenuts.Settings.Process.Answers.height), Crimenuts.Settings.UserInterface.Bracket.lineColor, Crimenuts.Settings.UserInterface.Bracket.lineWidth), Crimenuts.Settings.UserInterface.Bracket.bgColor, Crimenuts.Settings.Color.transparent, 0));
                 };
                 Answers.prototype.createAnswers = function () {
                     this.answerSheet = new Crimenuts.TextLabel(Crimenuts.Settings.Process.Answers.width, Crimenuts.Settings.Process.Answers.height, Crimenuts.Settings.Default.Font.face, Crimenuts.Settings.Process.Answers.Answer.fontSize, Crimenuts.Settings.Process.Answers.Answer.Color.regular, Crimenuts.Settings.Process.Answers.bgColor);
@@ -1607,7 +1703,7 @@ var Crimenuts;
         })(Process = View.Process || (View.Process = {}));
     })(View = Crimenuts.View || (Crimenuts.View = {}));
 })(Crimenuts || (Crimenuts = {}));
-/// <reference path="../../../Commands/MemberDialogCommand.ts" />
+/// <reference path="../../../Commands/MemberSelectCommand.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var View;
@@ -1635,7 +1731,7 @@ var Crimenuts;
                     var process = director.getProcessModel();
                     for (var i in process.Members) {
                         var p = this.calcPersonCardPosition(i, w, h);
-                        var card = new Process.MemberCard(director, i, p.x, p.y, w, h, new Crimenuts.MemberDialogCommand(director.getController(), i));
+                        var card = new Process.MemberCard(director, i, p.x, p.y, w, h, new Crimenuts.MemberSelectCommand(director.getController(), i));
                         this.add(card);
                         this.cards.push(card);
                     }

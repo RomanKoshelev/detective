@@ -1,7 +1,7 @@
-﻿/// <reference path="../UserInterface/Types/ColorSet.ts" />
+﻿/// <reference path="../UserInterface/Types/ColorPack.ts" />
+/// <reference path="../UserInterface/Types/SizePack.ts" />
 /// <reference path="../Types/AnswerCode.ts" />
 /// <reference path="../Types/RelationCode.ts" />
-
 module Crimenuts.Settings {
 
     export module Game {
@@ -45,31 +45,47 @@ module Crimenuts.Settings {
         }
     }
 
-    export module BgColor {
+    export module Color {
         export var black = 0x000000;
         export var white = 0xFFFFFF;
-        export var transparent = -1;
+        export var transparent = 0xFF0123;
     }
 
     export module UserInterface {
         export module Button {
-            export var width = 120 * k;
-            export var height = width * 0.30;
             export var sprite = Assets.Sprites.transparent;
-            export var fontSize = 16 * k;
-            export var fillColor = 0x222222;
-            export var lineColor = 0x888888;
-            export var textColor = "#AAAAAA";
-            export var lineWidth = width * 0.015;
-            export var left = 580 * k;
+            export var leftAlign = 580 * k;
+            export var sizes = {
+                width: 120 * k,
+                height: 40 * k,
+                font: 16 * k,
+                stroke: 1.5
+            }
 
             export module White {
+
                 export module Regular {
-                    export var colors = new ColorSet( 0xAAAAAA, 0xAAAAAA, "#000000" );
+                    export var colors = new ColorPack( 0xAAAAAA, 0xAAAAAA, "#000000" );
                 }
 
                 export module Highlight {
-                    export var colors = new ColorSet( 0xFFFFFF, 0xFFFFFF, "#000000" );
+                    export var colors = new ColorPack( 0xFFFFFF, 0xFFFFFF, "#000000" );
+                }
+            }
+
+            export module Menu {
+                export var sizes = {
+                    width: 100 * k,
+                    height: 30 * k,
+                    font: 16 * k,
+                    stroke: 0
+                }
+                export module Regular {
+                    export var colors = new ColorPack( Color.transparent, Color.transparent, "#008800" );
+                }
+
+                export module Highlight {
+                    export var colors = new ColorPack( Color.transparent, Color.transparent, "#00FF00" );
                 }
             }
         }
@@ -120,7 +136,7 @@ module Crimenuts.Settings {
                     export var height = 22 * k;
                     export var fontSize = 11 * k;
                     export var color = "#666666";
-                    export var bgColor = BgColor.transparent;
+                    export var bgColor = Color.transparent;
                 }
 
                 export module Answer {
@@ -158,7 +174,7 @@ module Crimenuts.Settings {
                     export var width = 250 * k;
                     export var height = 36 * k;
                     export var color = "#AAAAAA";
-                    export var bgColor = BgColor.transparent;
+                    export var bgColor = Color.transparent;
                 }
 
                 export module Text {
@@ -166,10 +182,11 @@ module Crimenuts.Settings {
                     export var width = 250 * k;
                     export var height = 22 * k;
                     export var color = "#AAAAAA";
-                    export var bgColor = BgColor.transparent;
+                    export var bgColor = Color.transparent;
                 }
+
                 export module Buttons {
-                    export var left = UserInterface.Button.left;
+                    export var left = UserInterface.Button.leftAlign;
                     export var markPosition = new Phaser.Point( left, 120 * k );
                     export var arrestPosition = new Phaser.Point( left, 170 * k );
                 }
@@ -180,11 +197,11 @@ module Crimenuts.Settings {
             export var position = new Phaser.Point( 5 * k, 39 * k );
             export var width = Game.width - position.x * 2;
             export var height = 250 * k;
-            export var bgColor = BgColor.transparent;
+            export var bgColor = Color.transparent;
 
             export module Buttons {
                 export module Auto {
-                    export var position = new Phaser.Point( UserInterface.Button.left, 220 * k );
+                    export var position = new Phaser.Point( UserInterface.Button.leftAlign, 220 * k );
                 }
             }
 
@@ -201,7 +218,7 @@ module Crimenuts.Settings {
 
         export module Bars {
             export var textColor = "#AAAAAA";
-            export var bgColor = BgColor.transparent;
+            export var bgColor = Color.transparent;
             export var left = 5 * k;
             export var width = Game.width - left * 2;
             export var height = 30 * k;

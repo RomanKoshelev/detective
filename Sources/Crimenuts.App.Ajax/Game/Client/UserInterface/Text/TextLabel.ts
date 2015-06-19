@@ -1,25 +1,9 @@
 module Crimenuts {
+    export class TextLabel extends Phaser.Graphics implements ITextLabel {
 
-    export class TextLabel extends Phaser.Graphics {
-
-        private label: Phaser.Text;
-        private fontSize: number;
-
-        constructor(
-            width: number, height: number,
-            fontFace: string = Settings.Default.Font.face,
-            fontSize: number = Settings.Default.Font.size,
-            color: string = Settings.Default.Font.color,
-            bgcolor: number = Settings.Default.Font.bgColor
-        ) {
-
-            super( app.game, 0, 0 );
-
-            this.createBackground( width, height, bgcolor );
-            this.createLabel( fontFace, fontSize, color );
-
-            this.alignLeft();
-            this.alignMiddle();
+        // ITextLabel
+        getDisplayObject(): PIXI.DisplayObject {
+             return this;
         }
 
         setText( text: string ) {
@@ -52,7 +36,30 @@ module Crimenuts {
             this.label.fontWeight = "bold";
         }
 
-        // utils
+        // Ctor
+        constructor(
+            width: number, height: number,
+            fontFace: string = Settings.Default.Font.face,
+            fontSize: number = Settings.Default.Font.size,
+            color: string = Settings.Default.Font.color,
+            bgcolor: number = Settings.Default.Font.bgColor
+        ) {
+
+            super( app.game, 0, 0 );
+
+            this.createBackground( width, height, bgcolor );
+            this.createLabel( fontFace, fontSize, color );
+
+            this.alignLeft();
+            this.alignMiddle();
+        }
+
+        // Fields
+        private label: Phaser.Text;
+        private fontSize: number;
+
+
+        // Utils
         private createLabel( fontFace: string, fontSize: number, color: string ) {
             this.fontSize = fontSize;
 
@@ -70,7 +77,7 @@ module Crimenuts {
         }
 
         private createBackground( width: number, height: number, bgcolor: number ) {
-            var a = bgcolor === Settings.BgColor.transparent ? 0 : 1;
+            var a = bgcolor === Settings.Color.transparent ? 0 : 1;
             this.beginFill( bgcolor, a );
             this.drawRect( 0, 0, width, height );
             this.endFill();

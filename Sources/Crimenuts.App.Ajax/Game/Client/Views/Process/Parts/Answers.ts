@@ -14,7 +14,6 @@
             this.updateAnswers( answers );
         }
 
-
         onProcessUpdated( director: IProcessDirector ): void {
             var answers = director.getProcessModel().Answers;
             this.updateAnswers( answers );
@@ -44,7 +43,7 @@
                         Settings.UserInterface.Bracket.lineWidth
                     ),
                     Settings.UserInterface.Bracket.bgColor,
-                    Settings.BgColor.transparent,
+                    Settings.Color.transparent,
                     0
                 )
             );

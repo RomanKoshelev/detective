@@ -37,11 +37,11 @@
         private director: IProcessDirector;
 
         private memberId = 0;
-        private title: TextLabel;
-        private text: TextLabel;
+        private title: ITextLabel;
+        private text: ITextLabel;
         private memberCard: MemberCard;
-        private arrestButton: TextButton;
-        private markButton: TextButton;
+        private arrestButton: IButton;
+        private markButton: IButton;
 
         private createFrameDecoration() {
             this.add(
@@ -55,7 +55,7 @@
                         Settings.UserInterface.Bracket.lineWidth
                     ),
                     Settings.UserInterface.Bracket.bgColor,
-                    Settings.BgColor.transparent,
+                    Settings.Color.transparent,
                     0
                 )
             );
@@ -68,7 +68,7 @@
                 Settings.Process.Members.Dialog.Title.color,
                 Settings.Process.Members.Dialog.Title.bgColor
             );
-            this.title.position = Settings.Process.Members.Dialog.Title.position.clone();
+            this.title.getDisplayObject().position = Settings.Process.Members.Dialog.Title.position.clone();
             this.add( this.title );
         }
 
@@ -79,7 +79,7 @@
                 Settings.Process.Members.Dialog.Text.color,
                 Settings.Process.Members.Dialog.Text.bgColor
             );
-            this.text.position = Settings.Process.Members.Dialog.Text.position.clone();
+            this.text.getDisplayObject().position = Settings.Process.Members.Dialog.Text.position.clone();
             this.text.alignTop();
             this.add( this.text );
         }
@@ -116,7 +116,7 @@
         // Update
         private updateAnswerCardCommand() {
             this.memberCard.getAnswerCard().setCommand(
-                new MemberDialogCommand(
+                new MemberSelectCommand(
                     this.director.getController(),
                     this.memberCard.getAnswerCard().getMemberId()
                 ) );

@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../Commands/MemberDialogCommand.ts" />
+﻿/// <reference path="../../../Commands/MemberSelectCommand.ts" />
 module Crimenuts.View.Process {
 
     export class Members extends Phaser.Group implements IProcessViewPart {
@@ -32,7 +32,7 @@ module Crimenuts.View.Process {
             for( var i in process.Members ) {
                 var p = this.calcPersonCardPosition( i, w, h );
                 var card = new MemberCard( director, i, p.x, p.y, w, h,
-                    new MemberDialogCommand( director.getController(), i )
+                    new MemberSelectCommand( director.getController(), i )
                 );
                 this.add( card );
                 this.cards.push( card );

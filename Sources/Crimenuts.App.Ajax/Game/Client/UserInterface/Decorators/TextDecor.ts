@@ -18,7 +18,7 @@ module Crimenuts {
                 fontFace,
                 fontSize,
                 color,
-                Settings.BgColor.transparent
+                Settings.Color.transparent
             );
             this.textLabel.setText( text );
             this.textLabel.alignCenter();

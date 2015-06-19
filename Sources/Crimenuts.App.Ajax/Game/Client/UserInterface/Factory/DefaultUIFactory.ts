@@ -1,7 +1,22 @@
-﻿module Crimenuts {
+﻿/// <reference path="../../Commands/ICommand.ts" />
+/// <reference path="../Buttons/MenuButton.ts" />
+/// <reference path="../Buttons/WhiteButton.ts" />
+/// <reference path="../Text/TextLabel.ts" />
+
+module Crimenuts {
     export class DefaultUIFactory implements IUIFactory {
-        makeDefaultButton( command: Command, position: Phaser.Point ): TextButton {
+        makeDefaultButton(
+            command: Command,
+            position: Phaser.Point = new Phaser.Point( 0, 0 )
+        ): IButton {
             return new WhiteButton( command, position );
+        }
+
+        makeTopMenuButton(
+            command: Command,
+            position: Phaser.Point = new Phaser.Point( 0, 0 )
+        ): IButton {
+            return new MenuButton( command, position );
         }
 
         makeTextLabel(
@@ -9,7 +24,7 @@
             height: number,
             color: string,
             bgColor: number
-        ): TextLabel {
+        ): ITextLabel {
             return new TextLabel(
                 width,
                 height,

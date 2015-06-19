@@ -1,7 +1,7 @@
 module Crimenuts {
-    export class Command {
+    export class Command implements ICommand {
         constructor(
-            name: string,
+            name: string = "",
             callback: Function = null,
             context: any = null
         ) {
@@ -14,6 +14,6 @@ module Crimenuts {
         callback: Function;
         context: any;
 
-        static nothing = new Command( "" );
+        static nothing : ICommand = new Command();
     }
 }

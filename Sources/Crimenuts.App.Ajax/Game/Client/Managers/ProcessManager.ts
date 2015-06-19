@@ -23,7 +23,7 @@ module Crimenuts {
             return this.server.arrest( processId, this.memberIdToNumber(memberId) );
         }
 
-        currentMemberChanged( memberId: number ) {
+        currentMemberChanged( memberId: number ) { 
             this.onCurrentMemberChanged.dispatch( memberId );
         }
 

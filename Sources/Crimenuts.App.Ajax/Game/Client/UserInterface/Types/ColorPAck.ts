@@ -1,5 +1,5 @@
 module Crimenuts {
-    export class ColorSet {
+    export class ColorPack {
         constructor( fill: number, border: number, text: string ) {
             this.fill = fill;
             this.border = border;

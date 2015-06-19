@@ -29,10 +29,12 @@ module Crimenuts {
             fillColor: number,
             lineColor: number,
             lineWidth: number
-        ) {
+            ) {
+            var lineAlpha = lineColor === Settings.Color.transparent ? 0 : 1;
+            var fillAlpha = fillColor === Settings.Color.transparent ? 0 : 1;
             var radius = Math.min( size.width, size.height ) * Settings.Default.RoundedRectangle.radiusRate;
-            this.lineStyle( lineWidth, lineColor );
-            this.beginFill( fillColor );
+            this.lineStyle( lineWidth, lineColor, lineAlpha );
+            this.beginFill( fillColor, fillAlpha );
             this.drawRoundedRect( 0, 0, size.width, size.height, radius );
             this.endFill();
         }

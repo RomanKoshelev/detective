@@ -3,7 +3,7 @@
 module Crimenuts {
     import MemberDialog = View.Process.MemberDialog;
 
-    export class MemberDialogCommand extends Command {
+    export class MemberSelectCommand extends Command {
 
         constructor( controller: IProcessController, memberId: number ) {
             super( "Open Member Dialog", () => {

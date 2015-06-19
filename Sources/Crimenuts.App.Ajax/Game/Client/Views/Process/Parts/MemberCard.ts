@@ -108,7 +108,7 @@ module Crimenuts.View.Process {
             level: number,
             w: number,
             h: number,
-            command: Command
+            command: ICommand
             ) {
             if( level < 1 ) return;
 
@@ -168,7 +168,7 @@ module Crimenuts.View.Process {
             this.add( this.nameLabel );
         }
 
-        private createButton( command: Command, w: number, h: number ) {
+        private createButton( command: ICommand, w: number, h: number ) {
             h -= this.nameLabel == null ? Settings.Process.Members.Card.Name.height : 0;
             this.button = new ButtonEssence( command, w, h );
             if( command === Command.nothing ) {

@@ -1,53 +1,69 @@
-module Crimenuts {
+/// <reference path="../Buttons/ButtonEssence.ts" />
+/// <reference path="../Decorators/RoundedRectangleDecor.ts" />
+/// <reference path="../../Commands/ICommand.ts" />
 
-    export class TextButton extends Phaser.Group {
+module Crimenuts { 
 
+    export class TextButton extends Phaser.Group implements IButton {
+
+        // IButton
+        getDisplayObject(): PIXI.DisplayObject {
+            return this;
+        }
+
+        // Ctor
         constructor(
-            command: Command,
-            regularColors: ColorSet,
-            highlightColors: ColorSet,
+            command: ICommand,
+            regularColors: ColorPack,
+            highlightColors: ColorPack,
+            size: SizePack,
             position: Phaser.Point
-    
         ) {
             super( app.game );
-            this.createButton( command, regularColors, highlightColors );
+            this.createButton( command, regularColors, highlightColors, size );
             this.position.set( position.x, position.y );
         }
 
+        // Fields
         private decors = new Array<IDecorable>();
 
+        // Utils
         private createButton(
-            command: Command,
-            regularColors: ColorSet,
-            highlightColors: ColorSet
+            command: ICommand,
+            regularColors: ColorPack,
+            highlightColors: ColorPack,
+            size: SizePack
         ) {
-            var buttonEssence = this.createButtonEssence( command );
-            var regularDecor = this.createDecor( buttonEssence, command.name, regularColors );
-            var higlightDecor = this.createDecor( buttonEssence, command.name, highlightColors );
+            var buttonEssence = this.createButtonEssence( command, size.width, size.height );
+            var regularDecor = this.createDecor( buttonEssence, command.name, regularColors, size );
+            var higlightDecor = this.createDecor( buttonEssence, command.name, highlightColors, size );
 
             this.initSignalHandlers( buttonEssence, regularDecor, higlightDecor );
             this.showDecor( regularDecor );
         }
 
-        private createButtonEssence( command: Command ): ButtonEssence {
+        private createButtonEssence( command: ICommand, width: number, height: number ): ButtonEssence {
             var essence = new ButtonEssence(
                 command,
-                Settings.UserInterface.Button.width,
-                Settings.UserInterface.Button.height );
+                width,
+                height
+            );
             this.add( essence );
             return essence;
         }
 
-        private createDecor( essence: IDecorable, text: string, colors: ColorSet): IDecorable {
+        private createDecor( essence: IDecorable, text: string, colors: ColorPack, size: SizePack ): IDecorable {
             var decor = new RoundedRectangleDecor(
                 new TextDecor(
                     new DecorableProxy( essence ),
                     text,
                     colors.text,
-                    Settings.UserInterface.Button.fontSize ),
+                    size.font
+                ),
                 colors.fill,
                 colors.border,
-                Settings.UserInterface.Button.lineWidth );
+                size.stroke
+            );
             decor.visible = false;
             this.add( decor );
             this.decors.push( decor );

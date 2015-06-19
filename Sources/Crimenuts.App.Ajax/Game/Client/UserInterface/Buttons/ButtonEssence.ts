@@ -3,7 +3,7 @@ module Crimenuts {
     export class ButtonEssence extends Phaser.Group implements IDecorable, ISignalSource {
 
         constructor(
-            command: Command,
+            command: ICommand,
             width: number,
             height: number
         ) {
@@ -48,7 +48,7 @@ module Crimenuts {
             this.scale.set( width / this.button.texture.width, height / this.button.texture.height );
         }
 
-        private createButton( command: Command, width: number, height: number ) {
+        private createButton( command: ICommand, width: number, height: number ) {
             this.button = new Phaser.Button( app.game, 0, 0, Settings.UserInterface.Button.sprite, command.callback, command.context );
             this.add( this.button );
             this.resize( width, height );
