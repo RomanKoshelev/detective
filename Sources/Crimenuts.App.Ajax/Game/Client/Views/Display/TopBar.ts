@@ -37,11 +37,13 @@ module Crimenuts {
         }
 
         private createMenu() {
-            var dcmdDevTools = new DevToolsCommand();
-            var devButton = app.uiFactory.makeTopMenuButton( dcmdDevTools ).getDisplayObject();
+            var devButton = app.uiFactory.makeTopMenuButton( new DevToolsCommand() ).getDisplayObject();
             this.addChild( devButton );
-            devButton.y = 0;
             devButton.x = this.width - devButton.getLocalBounds().width;
+
+            var resetButton = app.uiFactory.makeTopMenuButton( new ProcessesResetCommand() ).getDisplayObject();
+            this.addChild( resetButton );
+            resetButton.x = devButton.x - resetButton.getLocalBounds().width;
         }
     }
 }

@@ -20,7 +20,6 @@
         private init() {
             var size = this.getGameScreenSize();
             this.createGame( size.width, size.height );
-            this.handleResetLink();
         }
 
         private createGame( width: number, height: number ) {
@@ -36,12 +35,6 @@
                 width: Settings.Game.width,
                 height: Settings.Game.height
             };
-        }
-
-        private handleResetLink() {
-            document.getElementById( "crimenuts-reset-processes" ).onclick = () => {
-                this.server.resetProcesses();
-            }
         }
     }
 

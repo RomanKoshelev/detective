@@ -13,7 +13,6 @@ var Crimenuts;
         App.prototype.init = function () {
             var size = this.getGameScreenSize();
             this.createGame(size.width, size.height);
-            this.handleResetLink();
         };
         App.prototype.createGame = function (width, height) {
             this.game = new Phaser.Game(width, height, Phaser.AUTO, "crimenuts-playground", { create: this.onGameCreate });
@@ -25,12 +24,6 @@ var Crimenuts;
             return {
                 width: Crimenuts.Settings.Game.width,
                 height: Crimenuts.Settings.Game.height
-            };
-        };
-        App.prototype.handleResetLink = function () {
-            var _this = this;
-            document.getElementById("crimenuts-reset-processes").onclick = function () {
-                _this.server.resetProcesses();
             };
         };
         return App;
@@ -215,7 +208,7 @@ var Crimenuts;
                 var Menu;
                 (function (Menu) {
                     Menu.sizes = {
-                        width: 100 * k,
+                        width: 50 * k,
                         height: 30 * k,
                         font: 16 * k,
                         stroke: 0
@@ -412,7 +405,7 @@ var Crimenuts;
     var DevToolsCommand = (function (_super) {
         __extends(DevToolsCommand, _super);
         function DevToolsCommand() {
-            _super.call(this, "Dev");
+            _super.call(this, "Tools");
             this.callback = this.execute;
             this.context = this;
         }
@@ -559,6 +552,23 @@ var Crimenuts;
         return MemberSelectCommand;
     })(Crimenuts.Command);
     Crimenuts.MemberSelectCommand = MemberSelectCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="./Command.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var ProcessesResetCommand = (function (_super) {
+        __extends(ProcessesResetCommand, _super);
+        function ProcessesResetCommand() {
+            _super.call(this, "Reset");
+            this.callback = this.execute;
+            this.context = this;
+        }
+        ProcessesResetCommand.prototype.execute = function () {
+            Crimenuts.app.server.resetProcesses();
+        };
+        return ProcessesResetCommand;
+    })(Crimenuts.Command);
+    Crimenuts.ProcessesResetCommand = ProcessesResetCommand;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -1347,11 +1357,12 @@ var Crimenuts;
             }));
         };
         TopBar.prototype.createMenu = function () {
-            var dcmdDevTools = new Crimenuts.DevToolsCommand();
-            var devButton = Crimenuts.app.uiFactory.makeTopMenuButton(dcmdDevTools).getDisplayObject();
+            var devButton = Crimenuts.app.uiFactory.makeTopMenuButton(new Crimenuts.DevToolsCommand()).getDisplayObject();
             this.addChild(devButton);
-            devButton.y = 0;
             devButton.x = this.width - devButton.getLocalBounds().width;
+            var resetButton = Crimenuts.app.uiFactory.makeTopMenuButton(new Crimenuts.ProcessesResetCommand()).getDisplayObject();
+            this.addChild(resetButton);
+            resetButton.x = devButton.x - resetButton.getLocalBounds().width;
         };
         return TopBar;
     })(Phaser.Graphics);

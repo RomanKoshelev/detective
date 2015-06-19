@@ -75,7 +75,7 @@ module Crimenuts.Settings {
 
             export module Menu {
                 export var sizes = {
-                    width: 100 * k,
+                    width: 50 * k,
                     height: 30 * k,
                     font: 16 * k,
                     stroke: 0

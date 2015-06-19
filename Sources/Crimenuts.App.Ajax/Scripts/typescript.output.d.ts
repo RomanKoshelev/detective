@@ -10,7 +10,6 @@ declare module Crimenuts {
         private createGame(width, height);
         private onTickCountUpdated(count);
         private getGameScreenSize();
-        private handleResetLink();
     }
     var app: App;
     function initApp(): void;
@@ -325,6 +324,12 @@ declare module Crimenuts.View.Process {
 declare module Crimenuts {
     class MemberSelectCommand extends Command {
         constructor(controller: IProcessController, memberId: number);
+    }
+}
+declare module Crimenuts {
+    class ProcessesResetCommand extends Command {
+        constructor();
+        execute(): void;
     }
 }
 declare module Crimenuts {

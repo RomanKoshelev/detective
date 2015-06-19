@@ -1,14 +1,14 @@
 ﻿/// <reference path="./Command.ts" />
 module Crimenuts {
-    export class DevToolsCommand extends Command {
+    export class ProcessesResetCommand extends Command {
         constructor() {
-            super( "Tools" );
+            super( "Reset" );
             this.callback = this.execute;
             this.context = this;
         }
 
         execute() {
-            // nothing
+            app.server.resetProcesses();
         }
     }
 }
