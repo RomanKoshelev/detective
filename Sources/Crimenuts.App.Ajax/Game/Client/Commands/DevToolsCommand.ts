@@ -8,10 +8,8 @@ module Crimenuts {
         }
 
         execute() {
-            app.uiFactory.makeDefaultButton( Command.nothing );
-            var devView = app.devtools.getView().getDisplayObject();
-            devView.visible = true;
-            app.game.world.bringToTop( devView );
+            var view = app.devtools.getView().getDisplayObject();
+            view.visible = ! view.visible;
         }
     }
 }

@@ -1,8 +1,19 @@
 ﻿/// <reference path="../../Commands/AutoAnswerCommand.ts" />
 
 module Crimenuts.View.Process {
-    export class ProcessView extends Phaser.Group implements IProcessViewPart {
+    export class ProcessView extends Phaser.Group implements IProcessViewPart, IStateView {
 
+        // IStateView
+        getRootGroup(): Phaser.Group {
+             return this;
+        }
+
+        // IProcessViewPart
+        onProcessUpdated( director: IProcessDirector ): void {
+            this.updateParts( director );
+        }
+
+        // Ctor
         constructor(
             director: IProcessDirector,
             controller: IProcessController,
@@ -13,10 +24,6 @@ module Crimenuts.View.Process {
             this.game.stage.backgroundColor = Settings.Process.bgColor;
             this.createParts( director, controller, observer, model );
             this.subscribeEvents( observer );
-        }
-
-        onProcessUpdated( director: IProcessDirector ): void {
-            this.updateParts( director );
         }
 
         // Fields

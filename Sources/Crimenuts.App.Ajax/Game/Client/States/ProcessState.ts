@@ -50,7 +50,7 @@ module Crimenuts {
 
         private createView() {
             this.view = new ProcessView( this, this.controller, this.observer, this.model );
-            app.game.world.add( this.view );
+            app.onProcessStateViewCreated( this.view );
         }
 
         private destroyView() {

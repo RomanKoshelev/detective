@@ -11,6 +11,7 @@ var Crimenuts;
         // Ctor
         function DevtoolsView(controller) {
             _super.call(this, Crimenuts.app.game);
+            this.ignoreDestroy = true;
             this.controller = controller;
             this.createWindow();
             this.createText();
@@ -41,8 +42,7 @@ var Crimenuts;
         // Ctor
         function DevtoolsManager() {
             this.view = new Crimenuts.DevtoolsView(this);
-            Crimenuts.app.game.world.add(this.view);
-            this.view.getDisplayObject().visible = false;
+            this.view.visible = false;
         }
         // IDevtoolsDirector
         DevtoolsManager.prototype.getView = function () {
@@ -61,6 +61,11 @@ var Crimenuts;
             this.server.onServerStarted.addOnce(this.onServerStarted, this);
             this.uiFactory = new Crimenuts.DefaultUIFactory();
         }
+        Application.prototype.onProcessStateViewCreated = function (view) {
+            this.devtools = new Crimenuts.DevtoolsManager();
+            var devView = this.devtools.getView();
+            view.getRootGroup().add(devView, true);
+        };
         // Create
         Application.prototype.onServerStarted = function () {
             var size = this.getGameScreenSize();
@@ -70,8 +75,8 @@ var Crimenuts;
             this.game = new Phaser.Game(width, height, Phaser.AUTO, "crimenuts-playground", { create: Application.onGameCreated });
         };
         Application.onGameCreated = function () {
-            Crimenuts.app.game.state.add("Process", Crimenuts.ProcessState, true);
-            Crimenuts.app.devtools = new Crimenuts.DevtoolsManager();
+            Crimenuts.app.game.state.add("Process", Crimenuts.ProcessState);
+            Crimenuts.app.game.state.start("Process");
         };
         // Utils
         Application.prototype.getGameScreenSize = function () {
@@ -458,10 +463,8 @@ var Crimenuts;
             this.context = this;
         }
         DevtoolsCommand.prototype.execute = function () {
-            Crimenuts.app.uiFactory.makeDefaultButton(Crimenuts.Command.nothing);
-            var devView = Crimenuts.app.devtools.getView().getDisplayObject();
-            devView.visible = true;
-            Crimenuts.app.game.world.bringToTop(devView);
+            var view = Crimenuts.app.devtools.getView().getDisplayObject();
+            view.visible = !view.visible;
         };
         return DevtoolsCommand;
     })(Crimenuts.Command);
@@ -737,6 +740,7 @@ var Crimenuts;
         (function (Process) {
             var ProcessView = (function (_super) {
                 __extends(ProcessView, _super);
+                // Ctor
                 function ProcessView(director, controller, observer, model) {
                     _super.call(this, Crimenuts.app.game);
                     // Fields
@@ -745,6 +749,11 @@ var Crimenuts;
                     this.createParts(director, controller, observer, model);
                     this.subscribeEvents(observer);
                 }
+                // IStateView
+                ProcessView.prototype.getRootGroup = function () {
+                    return this;
+                };
+                // IProcessViewPart
                 ProcessView.prototype.onProcessUpdated = function (director) {
                     this.updateParts(director);
                 };
@@ -826,7 +835,7 @@ var Crimenuts;
         };
         ProcessState.prototype.createView = function () {
             this.view = new ProcessView(this, this.controller, this.observer, this.model);
-            Crimenuts.app.game.world.add(this.view);
+            Crimenuts.app.onProcessStateViewCreated(this.view);
         };
         ProcessState.prototype.destroyView = function () {
             this.view.destroy(true);

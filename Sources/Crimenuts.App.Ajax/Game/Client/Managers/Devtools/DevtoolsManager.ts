@@ -2,7 +2,7 @@
 
 module Crimenuts {
     export class DevtoolsManager
-        implements IDevtoolsDirector {//}, IDevtoolsController {
+        implements IDevtoolsDirector, IDevtoolsController {
 
             // IDevtoolsDirector
             getView(): IDevtoolsView {
@@ -12,11 +12,10 @@ module Crimenuts {
             // Ctor
             constructor() {
                 this.view = new DevtoolsView( this );
-                app.game.world.add( this.view );
-                this.view.getDisplayObject().visible = false;
+                this.view.visible = false;
             }
 
             // Fields
-            private view: IDevtoolsView;
+            private view: DevtoolsView;
         }
 }

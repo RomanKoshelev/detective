@@ -1,5 +1,5 @@
 module Crimenuts {
     export interface IDevtoolsDirector {
-        getView( ): IDevtoolsView;
+        getView(): IDevtoolsView;
     }
 }

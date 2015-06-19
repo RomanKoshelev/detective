@@ -3,7 +3,7 @@
         
         // IDevtoolsView
         getDisplayObject(): PIXI.DisplayObject {
-            return this;
+             return this;
         }
 
         // Ctor
@@ -11,9 +11,10 @@
             controller: IDevtoolsController
         ) {
             super( app.game );
+            this.ignoreDestroy = true;
             this.controller = controller;
-            this.createWindow( );
-            this.createText( );
+            this.createWindow();
+            this.createText();
             this.createButtons();
         }
 
@@ -26,8 +27,9 @@
             var decor = new RoundedRectangleDecor( window );
             this.add( decor );
         }
-        private createText() {  }
-        private createButtons() {  }
 
+        private createText() {}
+
+        private createButtons() {}
     }
 }

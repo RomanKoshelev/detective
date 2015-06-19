@@ -9,7 +9,7 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class DevtoolsManager implements IDevtoolsDirector {
+    class DevtoolsManager implements IDevtoolsDirector, IDevtoolsController {
         getView(): IDevtoolsView;
         constructor();
         private view;
@@ -22,6 +22,7 @@ declare module Crimenuts {
         uiFactory: IUIFactory;
         devtools: IDevtoolsDirector;
         constructor();
+        onProcessStateViewCreated(view: IStateView): void;
         private onServerStarted();
         private createGame(width, height);
         static onGameCreated(): void;
@@ -416,10 +417,16 @@ declare module Crimenuts {
         getController(): IProcessController;
     }
 }
+declare module Crimenuts {
+    interface IStateView {
+        getRootGroup(): Phaser.Group;
+    }
+}
 declare module Crimenuts.View.Process {
-    class ProcessView extends Phaser.Group implements IProcessViewPart {
-        constructor(director: IProcessDirector, controller: IProcessController, observer: IProcessObserver, model: ProcessModel);
+    class ProcessView extends Phaser.Group implements IProcessViewPart, IStateView {
+        getRootGroup(): Phaser.Group;
         onProcessUpdated(director: IProcessDirector): void;
+        constructor(director: IProcessDirector, controller: IProcessController, observer: IProcessObserver, model: ProcessModel);
         private parts;
         private ticks;
         private createParts(director, controller, observer, process);

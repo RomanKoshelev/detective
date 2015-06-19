@@ -14,6 +14,12 @@ module Crimenuts {
             this.uiFactory = new DefaultUIFactory();
         }
 
+        onProcessStateViewCreated( view: IStateView ) {
+            this.devtools = new DevtoolsManager();
+            var devView = this.devtools.getView();
+            view.getRootGroup().add( devView, true );
+        }
+
         // Create
         private onServerStarted() {
             var size = this.getGameScreenSize();
@@ -25,8 +31,8 @@ module Crimenuts {
         }
 
         static onGameCreated() {
-            app.game.state.add( "Process", ProcessState, true );
-            app.devtools = new DevtoolsManager();
+            app.game.state.add( "Process", ProcessState );
+            app.game.state.start( "Process" );
         }
 
         // Utils
