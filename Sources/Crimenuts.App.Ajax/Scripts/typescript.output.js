@@ -11,6 +11,7 @@ var Crimenuts;
         // Ctor
         function DevtoolsView(controller) {
             _super.call(this, Crimenuts.app.game);
+            this.alpha = 0.95;
             this.ignoreDestroy = true;
             this.controller = controller;
             this.createWindow();
@@ -23,9 +24,14 @@ var Crimenuts;
         };
         // Create
         DevtoolsView.prototype.createWindow = function () {
-            var window = new Crimenuts.Decorable(500, 700);
-            var decor = new Crimenuts.RoundedRectangleDecor(window);
-            this.add(decor);
+            var w = 500;
+            var h = 700;
+            var y = 32;
+            var x = Crimenuts.app.game.width - w - 2;
+            var window = new Crimenuts.RectangleDecor(new Crimenuts.ButtonEssence(Crimenuts.Command.nothing, w, h));
+            window.x = x;
+            window.y = y;
+            this.add(window);
         };
         DevtoolsView.prototype.createText = function () {
         };

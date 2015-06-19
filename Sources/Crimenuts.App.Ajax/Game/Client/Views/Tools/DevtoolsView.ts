@@ -11,6 +11,7 @@
             controller: IDevtoolsController
         ) {
             super( app.game );
+            this.alpha = 0.95;
             this.ignoreDestroy = true;
             this.controller = controller;
             this.createWindow();
@@ -23,9 +24,17 @@
 
         // Create
         private createWindow() {
-            var window = new Decorable( 500, 700 );
-            var decor = new RoundedRectangleDecor( window );
-            this.add( decor );
+            var w = 500;
+            var h = 700;
+            var y = 32;
+            var x = app.game.width - w - 2;
+
+            var window = new RectangleDecor( new ButtonEssence( Command.nothing, w, h ) );
+            window.x = x;
+            window.y = y;
+
+            this.add( window );
+
         }
 
         private createText() {}
