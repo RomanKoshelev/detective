@@ -69,6 +69,13 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
             _clients.ProcessUpdated( new ProcessModel( process ) );
         }
 
+        public void EarlyArrest( string processId, int memberId )
+        {
+            var process = GetProcess( processId );
+            process.ExecuteUserAction( Process.UserAction.ActionType.EarlyArrest, memberId );
+            _clients.ProcessUpdated( new ProcessModel( process ) );
+        }
+
         #endregion
 
 

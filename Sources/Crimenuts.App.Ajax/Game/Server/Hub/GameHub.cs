@@ -40,6 +40,11 @@ namespace Crimenuts.App.Ajax.Game.Server.Hub
             _gameLogic.Mark( processId, memberId );
         }
 
+        public void EarlyArrest( string processId, int memberId )
+        {
+            _gameLogic.EarlyArrest( processId, memberId );
+        }
+
         public void Arrest( string processId, int memberId )
         {
             _gameLogic.Arrest( processId, memberId );

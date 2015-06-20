@@ -14,5 +14,6 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
         void Arrest( string processId, int memberId );
         void Mark( string processId, int memberId );
         void Continue( string processId );
+        void EarlyArrest( string processId, int memberId );
     }
 }

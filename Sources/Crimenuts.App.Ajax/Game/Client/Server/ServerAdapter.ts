@@ -28,6 +28,10 @@
             return this.server.arrest ( processId, memberId );
         }
 
+        earlyArrest( processId: string, memberId: number ): JQueryPromise<void> {
+            return this.server.earlyArrest( processId, memberId );
+        }
+
         continue( processId: string ): JQueryPromise<void> {
             return this.server.continue( processId );
         }

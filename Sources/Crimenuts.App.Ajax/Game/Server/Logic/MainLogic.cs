@@ -64,6 +64,11 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
             _processManager.Mark( processId, memberId );
         }
 
+        void IGameLogic.EarlyArrest( string processId, int memberId )
+        {
+            _processManager.EarlyArrest( processId, memberId );
+        }
+
         void IGameLogic.Arrest( string processId, int memberId )
         {
             _processManager.Arrest( processId, memberId );

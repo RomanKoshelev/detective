@@ -309,7 +309,7 @@
     <TypeScriptCompile Include="Game\Client\Commands\Devtools\ShowUserActionsCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\Devtools\ShowDevtoolsCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\Process\ContinueCommand.ts" />
-    <TypeScriptCompile Include="Game\Client\Commands\Process\MemberUserActionCommand.ts" />
+    <TypeScriptCompile Include="Game\Client\Commands\Process\MemberCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\Process\MemberEarlyArrestCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Commands\Process\UserActionCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Types\UserActionCode.ts" />

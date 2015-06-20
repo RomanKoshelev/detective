@@ -75,6 +75,15 @@ interface IGameHubServer {
     mark(processId : string, memberId : number) : JQueryPromise<void>;
  
     /** 
+      * Sends a "earlyArrest" message to the GameHub hub.
+      * Contract Documentation: ---
+      * @param processId {string} 
+      * @param memberId {number} 
+      * @return {JQueryPromise of void}
+      */
+    earlyArrest(processId : string, memberId : number) : JQueryPromise<void>;
+ 
+    /** 
       * Sends a "arrest" message to the GameHub hub.
       * Contract Documentation: ---
       * @param processId {string} 

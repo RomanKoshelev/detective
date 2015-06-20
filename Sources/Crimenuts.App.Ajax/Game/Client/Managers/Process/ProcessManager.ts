@@ -18,6 +18,10 @@ module Crimenuts {
             return this.server.arrest( processId, this.memberIdToNumber(memberId) );
         }
 
+        earlyArrest( processId: string, memberId: number ): JQueryPromise<void> {
+            return this.server.earlyArrest( processId, this.memberIdToNumber(memberId) );
+        }
+
         currentMemberChanged( memberId: number ) { 
             this.onCurrentMemberChanged.dispatch( memberId );
         }

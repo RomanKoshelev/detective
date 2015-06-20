@@ -1,13 +1,13 @@
-﻿/// <reference path="./MemberUserActionCommand.ts" />
+﻿/// <reference path="./MemberCommand.ts" />
 module Crimenuts {
-    export class MemberEarlyArrestCommand extends MemberUserActionCommand {
+    export class MemberEarlyArrestCommand extends MemberCommand {
 
         constructor( director: IProcessDirector, processId: string, memberId: number ) {
             super( "Arrest", director, processId, UserActionCode.EarlyArrest, memberId );
         }
 
         protected doExecute() {
-            this.getController().arrest( this.processId, this.memberId );
+            this.getController().earlyArrest( this.processId, this.memberId );
         }
     }
 }

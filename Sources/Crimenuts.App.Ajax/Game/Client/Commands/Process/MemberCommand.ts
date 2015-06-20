@@ -1,6 +1,6 @@
 ﻿/// <reference path="./UserActionCommand.ts" />
 module Crimenuts {
-    export class MemberUserActionCommand extends UserActionCommand {
+    export class MemberCommand extends UserActionCommand {
 
         constructor( name: string, director: IProcessDirector, processId: string, action: UserActionCode, memberId : number ) {
             super( name, director, processId, action, 0 );
