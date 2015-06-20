@@ -344,6 +344,20 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
+    class MemberUserActionCommand extends UserActionCommand {
+        constructor(name: string, director: IProcessDirector, processId: string, action: UserActionCode, memberId: number);
+        protected memberId: number;
+        private onCurrentMemberChanged(memberId);
+        private setMemberId(memberId);
+    }
+}
+declare module Crimenuts {
+    class MemberEarlyArrestCommand extends MemberUserActionCommand {
+        constructor(director: IProcessDirector, processId: string, memberId: number);
+        protected doExecute(): void;
+    }
+}
+declare module Crimenuts {
     class MemberMarkCommand extends UserActionCommand {
         constructor(director: IProcessDirector, processId: string);
         protected doUpdateAvailability(): boolean;

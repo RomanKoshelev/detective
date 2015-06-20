@@ -667,6 +667,43 @@ var Crimenuts;
 /// <reference path="./UserActionCommand.ts" />
 var Crimenuts;
 (function (Crimenuts) {
+    var MemberUserActionCommand = (function (_super) {
+        __extends(MemberUserActionCommand, _super);
+        function MemberUserActionCommand(name, director, processId, action, memberId) {
+            _super.call(this, name, director, processId, action, 0);
+            this.setMemberId(memberId);
+            this.getController().onCurrentMemberChanged.add(this.onCurrentMemberChanged, this);
+        }
+        MemberUserActionCommand.prototype.onCurrentMemberChanged = function (memberId) {
+            this.setMemberId(memberId);
+        };
+        MemberUserActionCommand.prototype.setMemberId = function (memberId) {
+            this.memberId = memberId;
+            var memberNumber = this.getController().memberIdToNumber(memberId);
+            this.args[0] = memberNumber;
+        };
+        return MemberUserActionCommand;
+    })(Crimenuts.UserActionCommand);
+    Crimenuts.MemberUserActionCommand = MemberUserActionCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="./MemberUserActionCommand.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var MemberEarlyArrestCommand = (function (_super) {
+        __extends(MemberEarlyArrestCommand, _super);
+        function MemberEarlyArrestCommand(director, processId, memberId) {
+            _super.call(this, "Arrest*", director, processId, 7 /* EarlyArrest */, memberId);
+        }
+        MemberEarlyArrestCommand.prototype.doExecute = function () {
+            this.getController().arrest(this.processId, this.memberId);
+        };
+        return MemberEarlyArrestCommand;
+    })(Crimenuts.MemberUserActionCommand);
+    Crimenuts.MemberEarlyArrestCommand = MemberEarlyArrestCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="./UserActionCommand.ts" />
+var Crimenuts;
+(function (Crimenuts) {
     var MemberMarkCommand = (function (_super) {
         __extends(MemberMarkCommand, _super);
         function MemberMarkCommand(director, processId) {
@@ -2067,8 +2104,9 @@ var Crimenuts;
                 }
                 // Create
                 MemberDialogButtons.prototype.createButtons = function (director, processId, memberId) {
-                    this.createButtonAtBottom(new Crimenuts.MemberMarkCommand(director, processId), Crimenuts.app.uiFactory.makeDefaultButton, 0);
-                    this.createButtonAtBottom(new Crimenuts.MemberArrestCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeDefaultButton, 1);
+                    this.createButtonAtBottom(new Crimenuts.MemberMarkCommand(director, processId), Crimenuts.app.uiFactory.makeDefaultButton, 1);
+                    this.createButtonAtBottom(new Crimenuts.MemberArrestCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeDefaultButton, 0);
+                    this.createButtonAtBottom(new Crimenuts.MemberEarlyArrestCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeDefaultButton, 0);
                 };
                 return MemberDialogButtons;
             })(Crimenuts.ButtonsHolder);
