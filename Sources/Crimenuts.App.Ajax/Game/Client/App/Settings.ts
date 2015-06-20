@@ -55,10 +55,10 @@ module Crimenuts.Settings {
         export module Button {
             export var sprite = Assets.Sprites.transparent;
             export var leftAlign = 580 * k;
-            export var verSpan = 10 * k;
+            export var verSpan = 20 * k;
             export var sizes = {
                 width: 120 * k,
-                height: 40 * k,
+                height: 54 * k,
                 font: 16 * k,
                 stroke: 1.3 * k
             }
