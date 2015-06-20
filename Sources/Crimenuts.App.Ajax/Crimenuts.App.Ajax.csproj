@@ -272,6 +272,7 @@
     <Content Include="App_Code\GameView.cshtml" />
     <None Include="Properties\PublishProfiles\crd-test-001.pubxml" />
     <None Include="Properties\PublishProfiles\crd-test-002.pubxml" />
+    <None Include="Properties\PublishProfiles\pgs-detective.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

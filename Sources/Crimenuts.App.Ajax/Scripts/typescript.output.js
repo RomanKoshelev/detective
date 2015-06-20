@@ -1812,8 +1812,6 @@ var Crimenuts;
                 }
                 // Create
                 BoardButtons.prototype.createButtons = function (director, processId) {
-                    this.createButtonAtBottom(new Crimenuts.AutoAnswerCommand(director, processId), Crimenuts.app.uiFactory.makeOptionalButton, 0);
-                    this.createButtonAtBottom(new Crimenuts.ContinueCommand(director, processId), Crimenuts.app.uiFactory.makeMainButton, 0);
                 };
                 return BoardButtons;
             })(Crimenuts.ButtonsHolder);
@@ -2128,9 +2126,11 @@ var Crimenuts;
                 }
                 // Create
                 MemberDialogButtons.prototype.createButtons = function (director, processId, memberId) {
+                    this.createButtonAtBottom(new Crimenuts.AutoAnswerCommand(director, processId), Crimenuts.app.uiFactory.makeOptionalButton, 2);
                     this.createButtonAtBottom(new Crimenuts.MemberMarkCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeOptionalButton, 1);
-                    this.createButtonAtBottom(new Crimenuts.MemberEarlyArrestCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeOptionalButton, 0);
+                    this.createButtonAtBottom(new Crimenuts.MemberEarlyArrestCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeMainButton, 0);
                     this.createButtonAtBottom(new Crimenuts.MemberArrestCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeMainButton, 0);
+                    this.createButtonAtBottom(new Crimenuts.ContinueCommand(director, processId), Crimenuts.app.uiFactory.makeMainButton, 0);
                 };
                 return MemberDialogButtons;
             })(Crimenuts.ButtonsHolder);
