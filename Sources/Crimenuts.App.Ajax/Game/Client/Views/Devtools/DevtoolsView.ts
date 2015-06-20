@@ -62,7 +62,6 @@
             textArea.x = x;
             textArea.y = y;
 
-            this.textArea.setText( "12345 asd" );
             this.textArea.alignTop();
 
             this.add( textArea );

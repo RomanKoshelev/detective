@@ -45,7 +45,7 @@ module Crimenuts.View.Process {
             var cmdContinue = new ContinueCommand( controller, process.Id );
 
             this.addPart( this.ticks = new Display() );
-            this.addPart( new Answers( process.Answers, cmdAutoAnswer, cmdContinue ) );
+            this.addPart( new Crimenuts.View.Process.Board( process.Answers, cmdAutoAnswer, cmdContinue ) );
             this.addPart( new MemberDialog( director, cmdMark, cmdArrest ) );
             this.addPart( new Members( director ) );
             this.updateParts( director );

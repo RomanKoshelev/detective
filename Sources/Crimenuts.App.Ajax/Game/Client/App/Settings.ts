@@ -193,11 +193,10 @@ module Crimenuts.Settings {
             }
         }
 
-        export module Answers {
+        export module Board {
             export var position = new Phaser.Point( 5 * k, 39 * k );
             export var width = Game.width - position.x * 2;
             export var height = 250 * k;
-            export var bgColor = Color.transparent;
 
             export module Buttons {
                 export module Auto {
@@ -208,13 +207,20 @@ module Crimenuts.Settings {
                 }
             }
 
-            export module Answer {
-                export var fontSize = 14 * k;
-                export var left = 10 * k;
-                export var top = 23 * k;
+            export module Answers {
+                export var position = new Phaser.Point( 0 * k, 47 * k );
+                export var width = 600;
+                export var height = 210 * k;
+                export var bgColor = Color.transparent;
 
-                export module Color {
-                    export var regular = "#777777";
+                export module Answer {
+                    export var fontSize = 14 * k;
+                    export var left = 10 * k;
+                    export var top = 0 * k;
+
+                    export module Colors {
+                        export var regular = "#777777";
+                    }
                 }
             }
         }
