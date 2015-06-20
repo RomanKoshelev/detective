@@ -76,7 +76,7 @@
             var d = 10;
             var left = this.width-Settings.UserInterface.Button.sizes.width - 15;
             
-            var button = app.uiFactory.makeDefaultButton( command ).getDisplayObject();
+            var button = app.uiFactory.makeMainButton( command ).getDisplayObject();
             button.x = left;
             button.y = this.buttonTop;
             this.buttonTop += button.getLocalBounds().height + d;

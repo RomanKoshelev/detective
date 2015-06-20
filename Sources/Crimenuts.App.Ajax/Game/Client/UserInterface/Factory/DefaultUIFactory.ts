@@ -2,14 +2,20 @@
 /// <reference path="../Buttons/MenuButton.ts" />
 /// <reference path="../Buttons/WhiteButton.ts" />
 /// <reference path="../Text/TextLabel.ts" />
-
 module Crimenuts {
     export class DefaultUIFactory implements IUIFactory {
-        makeDefaultButton(
+        makeMainButton(
             command: Command,
             position: Phaser.Point = new Phaser.Point( 0, 0 )
         ): IButton {
             return new WhiteButton( command, position );
+        }
+
+        makeOptionalButton(
+            command: Command,
+            position: Phaser.Point = new Phaser.Point( 0, 0 )
+        ): IButton {
+            return new FrameButton( command, position );
         }
 
         makeTopMenuButton(

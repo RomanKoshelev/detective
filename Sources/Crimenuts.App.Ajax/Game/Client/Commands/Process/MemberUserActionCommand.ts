@@ -19,6 +19,5 @@ module Crimenuts {
             var memberNumber = this.getController().memberIdToNumber( memberId );
             this.args[ 0 ] = memberNumber;
         }
-
     }
 }

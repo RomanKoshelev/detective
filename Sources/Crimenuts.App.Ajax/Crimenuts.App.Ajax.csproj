@@ -324,6 +324,7 @@
     <TypeScriptCompile Include="Game\Client\States\IProcessDirector.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Buttons\IButton.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Buttons\MenuButton.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Buttons\FrameButton.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Types\SizePack.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\BracketDecor.ts" />
     <TypeScriptCompile Include="Game\Client\UserInterface\Decorators\RectangleDecor.ts" />

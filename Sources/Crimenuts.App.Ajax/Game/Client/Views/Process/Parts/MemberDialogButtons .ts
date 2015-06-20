@@ -12,9 +12,9 @@ module Crimenuts.View.Process {
 
         // Create
         private createButtons( director: IProcessDirector, processId: string, memberId: number ) {
-            this.createButtonAtBottom( new MemberMarkCommand( director, processId ), app.uiFactory.makeDefaultButton, 1 );
-            this.createButtonAtBottom( new MemberArrestCommand( director, processId, memberId  ), app.uiFactory.makeDefaultButton, 0 );
-            this.createButtonAtBottom( new MemberEarlyArrestCommand( director, processId, memberId  ), app.uiFactory.makeDefaultButton, 0 );
+            this.createButtonAtBottom( new MemberMarkCommand( director, processId, memberId ), app.uiFactory.makeOptionalButton, 1 );
+            this.createButtonAtBottom( new MemberEarlyArrestCommand( director, processId, memberId ), app.uiFactory.makeOptionalButton, 0 );
+            this.createButtonAtBottom( new MemberArrestCommand( director, processId, memberId ), app.uiFactory.makeMainButton, 0 );
         }
     }
 }

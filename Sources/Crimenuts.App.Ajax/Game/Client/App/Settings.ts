@@ -64,13 +64,20 @@ module Crimenuts.Settings {
             }
 
             export module White {
-
                 export module Regular {
                     export var colors = new ColorPack( 0xAAAAAA, 0xAAAAAA, "#000000" );
                 }
-
                 export module Highlight {
                     export var colors = new ColorPack( 0xFFFFFF, 0xFFFFFF, "#000000" );
+                }
+            }
+
+            export module Frame {
+                export module Regular {
+                    export var colors = new ColorPack( 0x000000, 0xAAAAAA, "#AAAAAA" );
+                }
+                export module Highlight {
+                    export var colors = new ColorPack( 0x000000, 0xFFFFFF, "#FFFFFF" );
                 }
             }
 

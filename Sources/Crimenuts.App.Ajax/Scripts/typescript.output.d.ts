@@ -139,6 +139,14 @@ declare module Crimenuts.Settings {
                     var colors: ColorPack;
                 }
             }
+            module Frame {
+                module Regular {
+                    var colors: ColorPack;
+                }
+                module Highlight {
+                    var colors: ColorPack;
+                }
+            }
             module Menu {
                 var sizes: {
                     width: number;
@@ -335,20 +343,17 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class MemberArrestCommand extends UserActionCommand {
-        constructor(director: IProcessDirector, processId: string, memberId: number);
-        protected doExecute(): void;
-        private memberId;
-        private onCurrentMemberChanged(memberId);
-        private setMemberId(memberId);
-    }
-}
-declare module Crimenuts {
     class MemberUserActionCommand extends UserActionCommand {
         constructor(name: string, director: IProcessDirector, processId: string, action: UserActionCode, memberId: number);
         protected memberId: number;
         private onCurrentMemberChanged(memberId);
         private setMemberId(memberId);
+    }
+}
+declare module Crimenuts {
+    class MemberArrestCommand extends MemberUserActionCommand {
+        constructor(director: IProcessDirector, processId: string, memberId: number);
+        protected doExecute(): void;
     }
 }
 declare module Crimenuts {
@@ -358,8 +363,8 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class MemberMarkCommand extends UserActionCommand {
-        constructor(director: IProcessDirector, processId: string);
+    class MemberMarkCommand extends MemberUserActionCommand {
+        constructor(director: IProcessDirector, processId: string, memberId: number);
         protected doUpdateAvailability(): boolean;
         protected doExecute(): void;
     }
@@ -568,12 +573,6 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    interface IButton extends IDisplayObject {
-        getCommand(): ICommand;
-        setCommand(command: ICommand): any;
-    }
-}
-declare module Crimenuts {
     class RoundedRectangleDecor extends Phaser.Graphics implements IDecorable {
         constructor(component: IDecorable, fillColor?: number, lineColor?: number, lineWidth?: number);
         private component;
@@ -596,6 +595,17 @@ declare module Crimenuts {
         private initSignalHandlers(source, regularDecor, higlightDecor);
         private showDecor(decor);
         private setDecorMapping(source, signal, decor);
+    }
+}
+declare module Crimenuts {
+    class FrameButton extends TextButton {
+        constructor(command: ICommand, position?: Phaser.Point);
+    }
+}
+declare module Crimenuts {
+    interface IButton extends IDisplayObject {
+        getCommand(): ICommand;
+        setCommand(command: ICommand): any;
     }
 }
 declare module Crimenuts {
@@ -675,16 +685,18 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class DefaultUIFactory implements IUIFactory {
-        makeDefaultButton(command: Command, position?: Phaser.Point): IButton;
+        makeMainButton(command: Command, position?: Phaser.Point): IButton;
+        makeOptionalButton(command: Command, position?: Phaser.Point): IButton;
         makeTopMenuButton(command: Command, position?: Phaser.Point): IButton;
         makeTextLabel(width: number, height: number, color: string, bgColor: number): ITextArea;
     }
 }
 declare module Crimenuts {
     interface IUIFactory {
-        makeDefaultButton(command: ICommand, position?: Phaser.Point): IButton;
+        makeMainButton(command: ICommand, position?: Phaser.Point): IButton;
         makeTopMenuButton(command: ICommand, position?: Phaser.Point): IButton;
         makeTextLabel(width: number, height: number, textColor: string, bgColor: number): ITextArea;
+        makeOptionalButton(command: ICommand, position?: Phaser.Point): IButton;
     }
 }
 declare module Crimenuts {

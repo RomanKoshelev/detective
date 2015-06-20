@@ -1,9 +1,9 @@
-﻿/// <reference path="./UserActionCommand.ts" />
+﻿/// <reference path="./MemberUserActionCommand.ts" />
 module Crimenuts {
-    export class MemberMarkCommand extends UserActionCommand {
+    export class MemberMarkCommand extends MemberUserActionCommand {
 
-        constructor( director: IProcessDirector, processId: string ) {
-            super( "Mark", director, processId, UserActionCode.Mark );
+        constructor( director: IProcessDirector, processId: string, memberId:number ) {
+            super( "Mark", director, processId, UserActionCode.Mark, memberId );
         }
 
         protected doUpdateAvailability(): boolean {
