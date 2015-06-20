@@ -4,9 +4,7 @@
         static instance: IMemberDialog;
 
         constructor(
-            director: IProcessDirector,
-            cmdMark: Command,
-            cmdArrest: Command
+            director: IProcessDirector
         ) {
             super( app.game );
             this.position = Settings.Process.Members.Dialog.position.clone();
@@ -16,7 +14,7 @@
             this.createMemberCard();
             this.createTitle();
             this.createText();
-            this.createButtons( cmdMark, cmdArrest );
+            this.createButtons( director );
 
             MemberDialog.instance = this;
         }
@@ -40,8 +38,7 @@
         private title: ITextArea;
         private text: ITextArea;
         private memberCard: MemberCard;
-        private arrestButton: IButton;
-        private markButton: IButton;
+        private buttons: MemberDialogButtons;
 
         private createFrameDecoration() {
             this.add(
@@ -84,17 +81,9 @@
             this.add( this.text );
         }
 
-        private createButtons( cmdMark: Command, cmdArrest: Command ) {
-            this.markButton = app.uiFactory.makeDefaultButton(
-                cmdMark,
-                Settings.Process.Members.Dialog.Buttons.markPosition
-            );
-            this.arrestButton = app.uiFactory.makeDefaultButton(
-                cmdArrest,
-                Settings.Process.Members.Dialog.Buttons.arrestPosition
-            );
-            this.add( this.markButton );
-            this.add( this.arrestButton );
+        private createButtons( director: IProcessDirector ) {
+            this.buttons = new MemberDialogButtons( director, director.getProcessModel().Id );
+            this.add( this.buttons );
         }
 
         private createMemberCard() {
@@ -144,6 +133,5 @@
         private getMemberModel() {
             return this.director.getProcessModel().Members[ this.memberId ];
         }
-
     }
 }

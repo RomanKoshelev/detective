@@ -187,9 +187,7 @@ module Crimenuts.Settings {
                 }
 
                 export module Buttons {
-                    export var left = UserInterface.Button.leftAlign;
-                    export var markPosition = new Phaser.Point( left, 120 * k );
-                    export var arrestPosition = new Phaser.Point( left, 170 * k );
+                    export var bottom = Dialog.height;
                 }
             }
         }

@@ -9,11 +9,12 @@
 
         // Ctor
         constructor(
-            director: IProcessDirector,
-            process: ProcessModel
+            director: IProcessDirector
         ) {
             super( app.game );
             this.position = Settings.Process.Board.position.clone();
+            var process = director.getProcessModel();
+
             this.createDecoration();
             this.createStatus( process );
             this.createAnswers( process.Answers );

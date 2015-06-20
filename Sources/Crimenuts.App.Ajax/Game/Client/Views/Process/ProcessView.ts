@@ -13,15 +13,12 @@
 
         // Ctor
         constructor(
-            director: IProcessDirector,
-            controller: IProcessController,
-            observer: IProcessObserver,
-            model: ProcessModel
+            director: IProcessDirector
         ) {
             super( app.game );
             this.game.stage.backgroundColor = Settings.Process.bgColor;
-            this.createParts( director, controller, observer, model );
-            this.subscribeEvents( observer );
+            this.createParts( director );
+            this.subscribeEvents( director.getObserver() );
         }
 
         // Fields
@@ -32,17 +29,11 @@
         // Parts Utils
 
         private createParts(
-            director: IProcessDirector,
-            controller: IProcessController,
-            observer: IProcessObserver,
-            process: ProcessModel
+            director: IProcessDirector
         ) {
-            var cmdMark = new MemberMarkCommand( controller, process.Id );
-            var cmdArrest = new MemberArrestCommand( controller, process.Id );
-
             this.addPart( this.ticks = new Display() );
-            this.addPart( new Board( director, process ) );
-            this.addPart( new MemberDialog( director, cmdMark, cmdArrest ) );
+            this.addPart( new Board( director ) );
+            this.addPart( new MemberDialog( director ) );
             this.addPart( new Members( director ) );
             this.updateParts( director );
         }

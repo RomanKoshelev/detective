@@ -346,8 +346,10 @@
     <TypeScriptCompile Include="Game\Client\Commands\Process\MemberSelectCommand.ts" />
     <TypeScriptCompile Include="Game\Client\Types\AnswerCode.ts" />
     <TypeScriptCompile Include="Game\Client\States\IStateView.ts" />
+    <TypeScriptCompile Include="Game\Client\Views\Process\Parts\MemberDialogButtons .ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\BoardButtons.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\BoardAnswers.ts" />
+    <TypeScriptCompile Include="Game\Client\UserInterface\Buttons\ButtonsHolder.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\IMemberCard.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\IMemberDialog.ts" />
     <TypeScriptCompile Include="Game\Client\Views\Process\Parts\MemberDialog.ts" />

@@ -15,6 +15,8 @@ module Crimenuts {
         // IProcessDirector
         getProcessModel(): ProcessModel { return this.model; }
         getController(): IProcessController { return this.controller; }
+        getObserver(): IProcessObserver { return this.observer; }
+        getView(): IStateView { return this.view; }
 
         // Phaser.State
         preload() {
@@ -50,7 +52,7 @@ module Crimenuts {
         }
 
         private createView() {
-            this.view = new ProcessView( this, this.controller, this.observer, this.model );
+            this.view = new ProcessView( this  );
         }
 
         private destroyView() {
