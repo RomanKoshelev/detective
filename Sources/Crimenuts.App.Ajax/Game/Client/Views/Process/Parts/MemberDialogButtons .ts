@@ -16,13 +16,8 @@ module Crimenuts.View.Process {
 
         // Create
         private createButtons( director: IProcessDirector, processId: string ) {
-            var controller = director.getController();
-
-            var cmdMark = new MemberMarkCommand( controller, processId );
-            var cmdArrest = new MemberArrestCommand( controller, processId );
-
-            this.createButtonAtBottom( cmdArrest, app.uiFactory.makeDefaultButton, 0 );
-            this.createButtonAtBottom( cmdMark, app.uiFactory.makeDefaultButton, 1 );
+            //this.createButtonAtBottom( new MemberMarkCommand( processId ), app.uiFactory.makeDefaultButton, 0 );
+//            this.createButtonAtBottom( new MemberArrestCommand( processId ), app.uiFactory.makeDefaultButton, 1 );
         }
     }
 }
