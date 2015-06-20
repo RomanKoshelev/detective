@@ -1,21 +1,16 @@
 ﻿module Crimenuts.View.Process {
 
-    export class InfoBar extends Phaser.Group implements IProcessViewPart{
-
-        constructor() {
-            super( app.game );
-            this.position = Settings.Process.Bars.InfoBar.position.clone();
-            this.createTextLabel();
-        }
+    export class BoardStatus extends Phaser.Group implements IProcessViewPart{
 
         onProcessUpdated( director: IProcessDirector ): void {
             var process = director.getProcessModel();
-            this.setInfo(
-                process.State,
-                process.Today.Day,
-                process.Today.Victim,
-                process.Today.Prisoner,
-                process.Today.ActiveMurdererNum );
+            this.setText( process );
+        }
+        constructor(process: ProcessModel) {
+            super( app.game );
+            this.position = Settings.Process.Bars.InfoBar.position.clone();
+            this.createTextLabel();
+            this.setText( process );
         }
         
         private textLabel: ITextArea;
@@ -28,7 +23,13 @@
                 Settings.Process.Bars.bgColor ) );
         }
 
-        private setInfo( state: string, day: number, victim: string, arrested: string, murdererNum: number ) {
+        private setText( process: ProcessModel) {
+            var state = process.State;
+            var day = process.Today.Day;
+            var victim = process.Today.Victim;
+            var arrested = process.Today.Prisoner;
+            var murdererNum = process.Today.ActiveMurdererNum;
+
             this.textLabel.setText( `Day ${day}: ${state}, ${victim} was killed, ${arrested} arrested, ${murdererNum} active murderers` );
         }
     }

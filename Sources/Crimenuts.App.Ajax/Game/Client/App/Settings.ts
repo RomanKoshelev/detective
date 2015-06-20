@@ -55,11 +55,12 @@ module Crimenuts.Settings {
         export module Button {
             export var sprite = Assets.Sprites.transparent;
             export var leftAlign = 580 * k;
+            export var verSpan = 10 * k;
             export var sizes = {
                 width: 120 * k,
                 height: 40 * k,
                 font: 16 * k,
-                stroke: 1.5
+                stroke: 1.3 * k
             }
 
             export module White {
@@ -199,12 +200,7 @@ module Crimenuts.Settings {
             export var height = 250 * k;
 
             export module Buttons {
-                export module Auto {
-                    export var position = new Phaser.Point( UserInterface.Button.leftAlign, 220 * k );
-                }
-                export module Continue {
-                    export var position = new Phaser.Point( UserInterface.Button.leftAlign, 170 * k );
-                }
+                export var bottom = Board.height;
             }
 
             export module Answers {
