@@ -2,8 +2,8 @@
 module Crimenuts {
     export class ContinueCommand extends UserActionCommand {
 
-        constructor( processId: string ) {
-            super( "Continue", UserActionCode.Continue, processId );
+        constructor( director: IProcessDirector, processId: string ) {
+            super( "Continue", director, processId, UserActionCode.Continue );
         }
 
         protected doExecute() {

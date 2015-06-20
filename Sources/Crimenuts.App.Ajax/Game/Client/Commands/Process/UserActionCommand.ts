@@ -3,20 +3,31 @@ module Crimenuts {
     export class UserActionCommand extends Command {
 
         // Ctor
-        constructor( name: string, action: UserActionCode, processId: string ) {
+        constructor(
+            name: string,
+            director: IProcessDirector,
+            processId: string,
+            action: UserActionCode,
+            ...args: number[]
+        ) {
             super( name );
             this.callback = this.doExecute;
             this.context = this;
+
+            this.director = director;
             this.processId = processId;
             this.action = action;
+            this.args = args;
         }
 
         // Protected
+        protected director: IProcessDirector;
         protected processId: string;
         protected action: UserActionCode;
+        protected args: number[];
 
         protected getController(): IProcessController {
-            return app.processDirector.getController();
+            return this.director.getController();
         }
 
         // Virtual
@@ -31,12 +42,25 @@ module Crimenuts {
 
             var res = false;
             process.Actions.forEach( a => {
-                if( this.action === UserActionCode[ a.Type ] ) {
+                if( this.action === UserActionCode[ a.Type ] && this.checkArgs( a.Args )) {
                     res = true;
                 }
             } );
 
             return res;
+        }
+
+        // Utils
+        private checkArgs( args: number[] ): boolean {
+            if( args.length !== this.args.length ) {
+                return false;
+            }
+            for( var i in this.args ) {
+                if( this.args[ i ] !== args[ i ] ) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

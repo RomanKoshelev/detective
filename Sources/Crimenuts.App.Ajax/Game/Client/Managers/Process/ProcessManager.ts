@@ -22,6 +22,13 @@ module Crimenuts {
             this.onCurrentMemberChanged.dispatch( memberId );
         }
 
+        memberIdToNumber( memberId: number ): number {
+            var memberNumber: number;
+            memberNumber = memberId;
+            ++memberNumber;
+            return memberNumber;
+        }
+
         // IProcessObserver
         onProcessUpdated: Phaser.Signal;
         onTickCountUpdated: Phaser.Signal;
@@ -41,13 +48,5 @@ module Crimenuts {
         // Fields
         private server: IGameHubServer;
         private process: JQueryPromise<ProcessModel>;
-
-        // Utils
-        private memberIdToNumber( memberId: number ): number {
-            var memberNumber: number;
-            memberNumber = memberId;
-            ++memberNumber;
-            return memberNumber;
-        }
     }
 }

@@ -1,9 +1,16 @@
-﻿/// <reference path="../Command.ts" />
-/// <reference path="../../Managers/Process/IProcessController.ts" />
+﻿/// <reference path="./UserActionCommand.ts" />
 module Crimenuts {
-    export class MemberMarkCommand extends Command {
-        constructor( controller: IProcessController, processId: string ) {
-            super( "Mark", () => {} );
+    export class MemberMarkCommand extends UserActionCommand {
+
+        constructor( director: IProcessDirector, processId: string ) {
+            super( "Mark", director, processId, UserActionCode.Mark );
+        }
+
+        protected doUpdateAvailability(): boolean {
+            return true;
+        }
+
+        protected doExecute() {
         }
     }
 }

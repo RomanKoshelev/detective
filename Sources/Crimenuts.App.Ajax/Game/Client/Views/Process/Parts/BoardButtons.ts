@@ -1,10 +1,6 @@
 ﻿/// <reference path="../../../UserInterface/Buttons/ButtonsHolder.ts" />
 module Crimenuts.View.Process {
-    export class BoardButtons extends ButtonsHolder implements IProcessViewPart {
-
-        // IProcessViewPart
-        onProcessUpdated( director: IProcessDirector ): void {
-        }
+    export class BoardButtons extends ButtonsHolder {
 
         // Ctor
         constructor( director: IProcessDirector, processId: string) {
@@ -16,8 +12,8 @@ module Crimenuts.View.Process {
 
         // Create
         private createButtons( director: IProcessDirector, processId: string ) {
-            this.createButtonAtBottom( new AutoAnswerCommand( processId ), app.uiFactory.makeDefaultButton, 0 );
-            this.createButtonAtBottom( new ContinueCommand( processId ), app.uiFactory.makeDefaultButton, 0 );
+            this.createButtonAtBottom( new AutoAnswerCommand( director, processId ), app.uiFactory.makeDefaultButton, 0 );
+            this.createButtonAtBottom( new ContinueCommand( director, processId ), app.uiFactory.makeDefaultButton, 0 );
         }
     }
 }

@@ -24,7 +24,7 @@
         // Fields
         private answers: IProcessViewPart;
         private status: IProcessViewPart;
-        private buttons: IProcessViewPart;
+        private buttons: ButtonsHolder;
 
         // Create
         private createDecoration() {

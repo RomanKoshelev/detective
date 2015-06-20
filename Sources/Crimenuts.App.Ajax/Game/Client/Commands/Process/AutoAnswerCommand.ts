@@ -2,8 +2,8 @@
 module Crimenuts {
     export class AutoAnswerCommand extends UserActionCommand {
 
-        constructor( processId: string ) {
-            super( "Auto Answer", UserActionCode.AutoAsk, processId );
+        constructor( director: IProcessDirector, processId: string ) {
+            super( "Auto Answer", director, processId, UserActionCode.AutoAsk);
         }
 
         protected doExecute() {

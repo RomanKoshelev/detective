@@ -8,6 +8,7 @@
         Start,
         Stop,
         EarlyArrest,
-        Continue
+        Continue,
+        Mark
     }
 }

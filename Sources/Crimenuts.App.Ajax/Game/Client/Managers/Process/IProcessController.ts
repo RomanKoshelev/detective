@@ -8,5 +8,6 @@ module Crimenuts {
         onCurrentMemberChanged: Phaser.Signal;
 
         currentMemberChanged( memberId: number );
+        memberIdToNumber( memberId: number ): number;
     }
 }

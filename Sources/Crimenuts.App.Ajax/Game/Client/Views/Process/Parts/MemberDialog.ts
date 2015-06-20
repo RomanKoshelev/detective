@@ -82,7 +82,7 @@
         }
 
         private createButtons( director: IProcessDirector ) {
-            this.buttons = new MemberDialogButtons( director, director.getProcessModel().Id );
+            this.buttons = new MemberDialogButtons( director, director.getProcessModel().Id, this.memberId );
             this.add( this.buttons );
         }
 

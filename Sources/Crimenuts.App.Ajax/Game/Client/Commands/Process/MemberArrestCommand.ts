@@ -1,26 +1,28 @@
-﻿/// <reference path="../Command.ts" />
-/// <reference path="../../Managers/Process/IProcessController.ts" />
+﻿/// <reference path="./UserActionCommand.ts" />
 module Crimenuts {
-    export class MemberArrestCommand extends Command {
-        constructor( controller: IProcessController, processId: string ) {
-            super( "Arrest" );
-            this.callback = this.execute;
-            this.context = this;
-            this.controller = controller;
-            this.processId = processId;
-            this.controller.onCurrentMemberChanged.add( this.onCurrentMemberChanged, this );
+    export class MemberArrestCommand extends UserActionCommand {
+
+        constructor( director: IProcessDirector, processId: string, memberId : number ) {
+            super( "Arrest", director, processId, UserActionCode.Arrest, 0 );
+            this.setMemberId( memberId );
+            this.getController().onCurrentMemberChanged.add( this.onCurrentMemberChanged, this );
         }
 
-        execute() {
-            this.controller.arrest( this.processId, this.memberId );
+        protected doExecute() {
+            this.getController().arrest( this.processId, this.memberId );
         }
 
-        onCurrentMemberChanged( memberId: number) {
+        private memberId: number;
+
+        private onCurrentMemberChanged( memberId: number ) {
+            this.setMemberId( memberId );
+        }
+
+        private setMemberId( memberId: number ) {
             this.memberId = memberId;
+            var memberNumber = this.getController().memberIdToNumber( memberId );
+            this.args[ 0 ] = memberNumber;
         }
 
-        private processId: string;
-        private memberId = 0;
-        private controller: IProcessController;
     }
 }
