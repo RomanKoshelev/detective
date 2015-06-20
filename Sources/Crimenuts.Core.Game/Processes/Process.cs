@@ -145,11 +145,6 @@ namespace Crimenuts.Core.Game.Processes
             get { return _userActions; }
         }
 
-        public void ExecuteUserAction( UserAction.ActionType actionType, int actionParam, bool autoSkip = true )
-        {
-            ExecuteUserAction( actionType, new [] { actionParam }, autoSkip );
-        }
-
         public void ExecuteUserAction( UserAction.ActionType actionType, int[] actionParams, bool autoSkip = true )
         {
             var correctedActionParams  = actionParams ?? new int[0];
@@ -160,6 +155,16 @@ namespace Crimenuts.Core.Game.Processes
                 return;
             }
             DoExecuteUserAction( actionType, correctedActionParams, autoSkip );
+        }
+
+        public void ExecuteUserAction( UserAction.ActionType actionType, int actionParam, bool autoSkip = true )
+        {
+            ExecuteUserAction( actionType, new [] { actionParam }, autoSkip );
+        }
+
+        public void ExecuteUserAction( UserAction.ActionType actionType, bool autoSkip = true  )
+        {
+            ExecuteUserAction( actionType, new int[0], autoSkip );
         }
 
         public bool IsUserActionEnabled( UserAction.ActionType actionType )

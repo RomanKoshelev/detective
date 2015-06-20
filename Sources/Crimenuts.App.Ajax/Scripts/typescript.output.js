@@ -434,6 +434,10 @@ var Crimenuts;
                     (function (Auto) {
                         Auto.position = new Phaser.Point(UserInterface.Button.leftAlign, 220 * k);
                     })(Auto = Buttons.Auto || (Buttons.Auto = {}));
+                    var Continue;
+                    (function (Continue) {
+                        Continue.position = new Phaser.Point(UserInterface.Button.leftAlign, 170 * k);
+                    })(Continue = Buttons.Continue || (Buttons.Continue = {}));
                 })(Buttons = Answers.Buttons || (Answers.Buttons = {}));
                 var Answer;
                 (function (Answer) {
@@ -554,6 +558,19 @@ var Crimenuts;
         return AutoAnswerCommand;
     })(Crimenuts.Command);
     Crimenuts.AutoAnswerCommand = AutoAnswerCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="../Command.ts" />
+/// <reference path="../../Managers/Process/IProcessController.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var ContinueCommand = (function (_super) {
+        __extends(ContinueCommand, _super);
+        function ContinueCommand(controller, processId) {
+            _super.call(this, "Continue", function () { return controller.continue(processId); });
+        }
+        return ContinueCommand;
+    })(Crimenuts.Command);
+    Crimenuts.ContinueCommand = ContinueCommand;
 })(Crimenuts || (Crimenuts = {}));
 /// <reference path="../Command.ts" />
 /// <reference path="../../Managers/Process/IProcessController.ts" />
@@ -707,6 +724,9 @@ var Crimenuts;
         ProcessManager.prototype.getProcess = function (processId) {
             return this.server.getProcess(processId);
         };
+        ProcessManager.prototype.continue = function (processId) {
+            return this.server.continue(processId);
+        };
         ProcessManager.prototype.autoAnswer = function (processId) {
             return this.server.autoAnswer(processId);
         };
@@ -760,6 +780,9 @@ var Crimenuts;
         };
         ServerAdapter.prototype.arrest = function (processId, memberId) {
             return this.server.arrest(processId, memberId);
+        };
+        ServerAdapter.prototype.continue = function (processId) {
+            return this.server.continue(processId);
         };
         ServerAdapter.prototype.resetProcesses = function () {
             return this.server.resetProcesses();
@@ -830,8 +853,9 @@ var Crimenuts;
                     var cmdMark = new Crimenuts.MemberMarkCommand(controller, process.Id);
                     var cmdArrest = new Crimenuts.MemberArrestCommand(controller, process.Id);
                     var cmdAutoAnswer = new Crimenuts.AutoAnswerCommand(controller, process.Id);
+                    var cmdContinue = new Crimenuts.ContinueCommand(controller, process.Id);
                     this.addPart(this.ticks = new Process.Display());
-                    this.addPart(new Process.Answers(process.Answers, cmdAutoAnswer));
+                    this.addPart(new Process.Answers(process.Answers, cmdAutoAnswer, cmdContinue));
                     this.addPart(new Process.MemberDialog(director, cmdMark, cmdArrest));
                     this.addPart(new Process.Members(director));
                     this.updateParts(director);
@@ -1519,13 +1543,13 @@ var Crimenuts;
         (function (Process) {
             var Answers = (function (_super) {
                 __extends(Answers, _super);
-                function Answers(answers, cmdAutoAnswer) {
+                function Answers(answers, cmdAutoAnswer, cmdContinue) {
                     _super.call(this, Crimenuts.app.game);
                     this.position = Crimenuts.Settings.Process.Answers.position.clone();
                     this.createFrameDecoration();
                     this.createTitle();
                     this.createAnswers();
-                    this.createButtons(cmdAutoAnswer);
+                    this.createButtons(cmdAutoAnswer, cmdContinue);
                     this.updateAnswers(answers);
                 }
                 Answers.prototype.onProcessUpdated = function (director) {
@@ -1546,8 +1570,9 @@ var Crimenuts;
                     this.answerSheet.alignMiddle();
                     this.add(this.answerSheet);
                 };
-                Answers.prototype.createButtons = function (cmdAutoAnswer) {
+                Answers.prototype.createButtons = function (cmdAutoAnswer, cmdContinue) {
                     this.createButton(cmdAutoAnswer, Crimenuts.Settings.Process.Answers.Buttons.Auto.position);
+                    this.createButton(cmdContinue, Crimenuts.Settings.Process.Answers.Buttons.Continue.position);
                 };
                 Answers.prototype.createButton = function (command, position) {
                     this.add(Crimenuts.app.uiFactory.makeDefaultButton(command, position));

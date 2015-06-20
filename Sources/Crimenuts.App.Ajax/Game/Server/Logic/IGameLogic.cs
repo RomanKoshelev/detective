@@ -12,6 +12,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
         void AutoAnswer( string processId );
         void Mark( string processId, int memberId );
         void Arrest( string processId, int memberId );
+        void Continue( string processId );
         void ResetProcesses();
     }
 }

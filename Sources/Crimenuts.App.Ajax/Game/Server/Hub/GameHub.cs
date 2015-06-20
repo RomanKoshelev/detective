@@ -45,6 +45,11 @@ namespace Crimenuts.App.Ajax.Game.Server.Hub
             _gameLogic.Arrest( processId, memberId );
         }
 
+        public void Continue( string processId )
+        {
+            _gameLogic.Continue( processId );
+        }
+
         public void ResetProcesses()
         {
             _gameLogic.ResetProcesses();

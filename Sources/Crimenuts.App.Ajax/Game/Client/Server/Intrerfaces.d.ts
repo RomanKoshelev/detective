@@ -84,6 +84,14 @@ interface IGameHubServer {
     arrest(processId : string, memberId : number) : JQueryPromise<void>;
  
     /** 
+      * Sends a "continue" message to the GameHub hub.
+      * Contract Documentation: ---
+      * @param processId {string} 
+      * @return {JQueryPromise of void}
+      */
+    continue(processId : string) : JQueryPromise<void>;
+ 
+    /** 
       * Sends a "resetProcesses" message to the GameHub hub.
       * Contract Documentation: ---
       * @return {JQueryPromise of void}

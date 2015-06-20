@@ -42,9 +42,10 @@ module Crimenuts.View.Process {
             var cmdMark = new MemberMarkCommand( controller, process.Id );
             var cmdArrest = new MemberArrestCommand( controller, process.Id );
             var cmdAutoAnswer = new AutoAnswerCommand( controller, process.Id );
+            var cmdContinue = new ContinueCommand( controller, process.Id );
 
             this.addPart( this.ticks = new Display() );
-            this.addPart( new Answers( process.Answers, cmdAutoAnswer ) );
+            this.addPart( new Answers( process.Answers, cmdAutoAnswer, cmdContinue ) );
             this.addPart( new MemberDialog( director, cmdMark, cmdArrest ) );
             this.addPart( new Members( director ) );
             this.updateParts( director );

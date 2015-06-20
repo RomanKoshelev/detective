@@ -28,6 +28,10 @@
             return this.server.arrest ( processId, memberId );
         }
 
+        continue( processId: string ): JQueryPromise<void> {
+            return this.server.continue( processId );
+        }
+
         resetProcesses(): JQueryPromise<void> {
             return this.server.resetProcesses();
         }

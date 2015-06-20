@@ -6,6 +6,10 @@ module Crimenuts {
             return this.server.getProcess( processId );
         }
 
+        continue( processId: string ): JQueryPromise<void> {
+            return this.server.continue( processId );
+        }
+
         autoAnswer( processId: string ): JQueryPromise<void> {
             return this.server.autoAnswer( processId );
         }

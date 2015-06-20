@@ -203,6 +203,9 @@ module Crimenuts.Settings {
                 export module Auto {
                     export var position = new Phaser.Point( UserInterface.Button.leftAlign, 220 * k );
                 }
+                export module Continue {
+                    export var position = new Phaser.Point( UserInterface.Button.leftAlign, 170 * k );
+                }
             }
 
             export module Answer {

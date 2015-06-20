@@ -245,6 +245,9 @@ declare module Crimenuts.Settings {
                 module Auto {
                     var position: Phaser.Point;
                 }
+                module Continue {
+                    var position: Phaser.Point;
+                }
             }
             module Answer {
                 var fontSize: number;
@@ -307,12 +310,18 @@ declare module Crimenuts {
         getProcess(processId: string): JQueryPromise<ProcessModel>;
         autoAnswer(processId: string): JQueryPromise<void>;
         arrest(processId: string, memberId: number): JQueryPromise<void>;
+        continue(processId: string): JQueryPromise<void>;
         onCurrentMemberChanged: Phaser.Signal;
         currentMemberChanged(memberId: number): any;
     }
 }
 declare module Crimenuts {
     class AutoAnswerCommand extends Command {
+        constructor(controller: IProcessController, processId: string);
+    }
+}
+declare module Crimenuts {
+    class ContinueCommand extends Command {
         constructor(controller: IProcessController, processId: string);
     }
 }
@@ -380,6 +389,7 @@ declare module Crimenuts {
 declare module Crimenuts {
     class ProcessManager implements IProcessController, IProcessObserver {
         getProcess(processId: string): JQueryPromise<ProcessModel>;
+        continue(processId: string): JQueryPromise<void>;
         autoAnswer(processId: string): JQueryPromise<void>;
         arrest(processId: string, memberId: number): JQueryPromise<void>;
         currentMemberChanged(memberId: number): void;
@@ -409,6 +419,7 @@ declare module Crimenuts {
         autoAnswer(processId: string): JQueryPromise<void>;
         mark(processId: string, memberId: number): JQueryPromise<void>;
         arrest(processId: string, memberId: number): JQueryPromise<void>;
+        continue(processId: string): JQueryPromise<void>;
         resetProcesses(): JQueryPromise<void>;
         onServerStarted: Phaser.Signal;
         onProcessUpdated: Phaser.Signal;
@@ -690,7 +701,7 @@ declare module Crimenuts.View.Process {
 }
 declare module Crimenuts.View.Process {
     class Answers extends Phaser.Group implements IProcessViewPart {
-        constructor(answers: AnswerModel[], cmdAutoAnswer: Command);
+        constructor(answers: AnswerModel[], cmdAutoAnswer: ICommand, cmdContinue: ICommand);
         onProcessUpdated(director: IProcessDirector): void;
         private answerSheet;
         private controller;
@@ -699,7 +710,7 @@ declare module Crimenuts.View.Process {
         createTitle(): void;
         private createFrameDecoration();
         private createAnswers();
-        createButtons(cmdAutoAnswer: Command): void;
+        private createButtons(cmdAutoAnswer, cmdContinue);
         private createButton(command, position);
         private updateAnswers(answers);
         private updateTitle(director);

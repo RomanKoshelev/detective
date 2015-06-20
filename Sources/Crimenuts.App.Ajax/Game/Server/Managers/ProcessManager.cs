@@ -40,7 +40,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
         void IProcessManager.AutoAnswer( string processId )
         {
             var process = GetProcess( processId );
-            process.ExecuteUserAction( Process.UserAction.ActionType.AutoAsk, null );
+            process.ExecuteUserAction( Process.UserAction.ActionType.AutoAsk );
             _clients.ProcessUpdated( new ProcessModel( process ) );
         }
 
@@ -60,6 +60,13 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
         void IProcessManager.Mark( string processId, int memberId )
         {
             throw new NotImplementedException();
+        }
+
+        public void Continue( string processId )
+        {
+            var process = GetProcess( processId );
+            process.ExecuteUserAction( Process.UserAction.ActionType.Continue );
+            _clients.ProcessUpdated( new ProcessModel( process ) );
         }
 
         #endregion

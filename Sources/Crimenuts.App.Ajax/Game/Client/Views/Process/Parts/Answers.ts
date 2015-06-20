@@ -3,14 +3,15 @@
 
         constructor(
             answers: AnswerModel[],
-            cmdAutoAnswer: Command
+            cmdAutoAnswer: ICommand,
+            cmdContinue: ICommand
         ) {
             super( app.game );
             this.position = Settings.Process.Answers.position.clone();
             this.createFrameDecoration();
             this.createTitle();
             this.createAnswers();
-            this.createButtons( cmdAutoAnswer );
+            this.createButtons( cmdAutoAnswer, cmdContinue );
             this.updateAnswers( answers );
         }
 
@@ -63,8 +64,9 @@
             this.add( this.answerSheet );
         }
 
-        createButtons( cmdAutoAnswer: Command ) {
+        private createButtons( cmdAutoAnswer: ICommand, cmdContinue : ICommand ) {
             this.createButton( cmdAutoAnswer, Settings.Process.Answers.Buttons.Auto.position );
+            this.createButton( cmdContinue, Settings.Process.Answers.Buttons.Continue.position );
         }
 
         private createButton( command: Command, position: Phaser.Point ) {
