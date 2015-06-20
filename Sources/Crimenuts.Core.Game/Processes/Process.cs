@@ -133,9 +133,9 @@ namespace Crimenuts.Core.Game.Processes
             DoInit();
         }
 
-        public void RunFirstNightUntilQuestioning()
+        public void RunFirstNightUntil( State state )
         {
-            DoRunFirstNightUntilQuestioning();
+            DoRunFirstNightUntil(state);
         }
 
         // ===================================================================================== []

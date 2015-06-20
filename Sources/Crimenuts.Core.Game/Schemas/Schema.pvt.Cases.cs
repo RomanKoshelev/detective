@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using Crimenuts.Core.Game.Cases;
+using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Masters;
 using Crimenuts.Core.Game.Processes;
 using Crimenuts.Utils;
@@ -37,7 +38,7 @@ namespace Crimenuts.Core.Game.Schemas
         private static void RunCaseProcessToGetVictims( Case gcase )
         {
             var proc = new Process( gcase );
-            proc.RunFirstNightUntilQuestioning();
+            proc.RunFirstNightUntil(State.Questioning);
             proc.Stop();
 
             proc.Victims.ForEach( v => gcase.FindMember( v.Number ).IsVictim = true );

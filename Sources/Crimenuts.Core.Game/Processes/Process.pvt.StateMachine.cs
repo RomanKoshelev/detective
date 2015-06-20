@@ -129,9 +129,9 @@ namespace Crimenuts.Core.Game.Processes
             throw new CrimenutsException( "State {0} can't be run", state );
         }
 
-        private void DoRunFirstNightUntilQuestioning()
+        private void DoRunFirstNightUntil( State state )
         {
-            do DoStep(); while( State != State.Questioning );
+            do DoStep(); while( State != state );
         }
     }
 }

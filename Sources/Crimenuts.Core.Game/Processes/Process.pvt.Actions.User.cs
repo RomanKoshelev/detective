@@ -39,6 +39,7 @@ namespace Crimenuts.Core.Game.Processes
                 case State.Error :
                     AddNoneAction();
                     break;
+                case State.Morning :
                 case State.CheckArrest :
                     AddContinueAction();
                     break;

@@ -26,7 +26,7 @@ namespace Crimenuts.Core.Game.Schemas
         {
             const int procNum = 1;
             for( var i = 0; i < procNum; i++ ) {
-                DoNewProcess( c ).RunFirstNightUntilQuestioning();
+                DoNewProcess( c ).RunFirstNightUntil(State.Morning);
             }
         }
 
