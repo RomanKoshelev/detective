@@ -15,7 +15,7 @@ module Crimenuts {
             return new Size( this.width, this.height );
         }
 
-        getDysplayObject(): PIXI.DisplayObject { return this; }
+        getDisplayObject(): PIXI.DisplayObject { return this; }
 
         // Utils
         private resize( width: number, height: number ) {

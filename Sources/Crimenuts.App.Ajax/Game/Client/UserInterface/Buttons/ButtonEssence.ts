@@ -1,14 +1,10 @@
 module Crimenuts {
 
-    export class ButtonEssence extends Phaser.Group implements IDecorable, ISignalSource {
+    export class ButtonEssence extends Phaser.Group implements IDecorable, ISignalSource, IButton {
 
-        constructor(
-            command: ICommand,
-            width: number,
-            height: number
-        ) {
-            super( app.game );
-            this.createButton( command, width, height );
+        // IButton 
+        getCommand(): ICommand {
+            return this.command;
         }
 
         setCommand( command: Command ) {
@@ -18,12 +14,15 @@ module Crimenuts {
             this.createButton( command, width, height );
         }
 
+
         // IDecorable
         getSize(): Size {
             return new Size( this.width, this.height );
         }
 
-        getDysplayObject(): PIXI.DisplayObject { return this; }
+        getDisplayObject(): PIXI.DisplayObject {
+            return this;
+        }
 
         // ISignalSource
         static signalOver = "signal.hover";
@@ -40,8 +39,15 @@ module Crimenuts {
             return states;
         }
 
+        // Ctor
+        constructor( command: ICommand, width: number, height: number ) {
+            super( app.game );
+            this.createButton( command, width, height );
+        }
+
         // Fields
         private button: Phaser.Button;
+        private command: ICommand;
 
         // Utils
         private resize( width: number, height: number ) {
@@ -50,6 +56,7 @@ module Crimenuts {
 
         private createButton( command: ICommand, width: number, height: number ) {
             this.button = new Phaser.Button( app.game, 0, 0, Settings.UserInterface.Button.sprite, command.callback, command.context );
+            this.command = command;
             this.add( this.button );
             this.resize( width, height );
 

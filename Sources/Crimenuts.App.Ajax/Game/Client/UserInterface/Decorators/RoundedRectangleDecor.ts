@@ -14,7 +14,7 @@ module Crimenuts {
 
             this.createRoundedRectangle( size, fillColor, lineColor, lineWidth );
 
-            this.addChild( component.getDysplayObject() );
+            this.addChild( component.getDisplayObject() );
             this.component = component;
         }
 
@@ -22,7 +22,7 @@ module Crimenuts {
 
         getSize(): Size { return this.component.getSize(); }
 
-        getDysplayObject(): PIXI.DisplayObject { return this; }
+        getDisplayObject(): PIXI.DisplayObject { return this; }
 
         createRoundedRectangle(
             size: Size,

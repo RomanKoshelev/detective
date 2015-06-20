@@ -1,9 +1,12 @@
-﻿/// <reference path="../Command.ts" />
-/// <reference path="../../Managers/Process/IProcessController.ts" />
+﻿/// <reference path="./UserActionCommand.ts" />
 module Crimenuts {
-    export class ContinueCommand extends Command {
-        constructor( controller: IProcessController, processId: string ) {
-            super( "Continue", () => controller.continue( processId ) );
+    export class ContinueCommand extends UserActionCommand {
+        constructor( processId: string ) {
+            super( "Continue", UserActionCode.Continue, processId );
+        }
+
+        protected doExecute() {
+            this.getController().continue( this.processId );
         }
     }
 }

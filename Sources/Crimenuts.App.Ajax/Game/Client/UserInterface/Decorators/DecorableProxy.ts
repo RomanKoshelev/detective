@@ -9,8 +9,8 @@ module Crimenuts {
             return this.essence.getSize();
         }
 
-        getDysplayObject(): PIXI.DisplayObject {
-            return this.essence.getDysplayObject();
+        getDisplayObject(): PIXI.DisplayObject {
+            return this.essence.getDisplayObject();
         }
 
         private essence: IDecorable;

@@ -1,14 +1,21 @@
 /// <reference path="../Buttons/ButtonEssence.ts" />
 /// <reference path="../Decorators/RoundedRectangleDecor.ts" />
 /// <reference path="../../Commands/ICommand.ts" />
-
-module Crimenuts { 
+module Crimenuts {
 
     export class TextButton extends Phaser.Group implements IButton {
 
         // IButton
         getDisplayObject(): PIXI.DisplayObject {
             return this;
+        }
+
+        getCommand(): ICommand {
+            return this.essence.getCommand();
+        }
+
+        setCommand( command: ICommand ) {
+            this.essence.setCommand( command );
         }
 
         // Ctor
@@ -26,6 +33,7 @@ module Crimenuts {
 
         // Fields
         private decors = new Array<IDecorable>();
+        private essence: IButton;
 
         // Utils
         private createButton(
@@ -38,6 +46,7 @@ module Crimenuts {
             var regularDecor = this.createDecor( buttonEssence, command.name, regularColors, size );
             var higlightDecor = this.createDecor( buttonEssence, command.name, highlightColors, size );
 
+            this.essence = buttonEssence;
             this.initSignalHandlers( buttonEssence, regularDecor, higlightDecor );
             this.showDecor( regularDecor );
         }
@@ -78,8 +87,8 @@ module Crimenuts {
         }
 
         private showDecor( decor: IDecorable ) {
-            this.decors.forEach( d => d.getDysplayObject().visible = false );
-            decor.getDysplayObject().visible = true;
+            this.decors.forEach( d => d.getDisplayObject().visible = false );
+            decor.getDisplayObject().visible = true;
         }
 
         private setDecorMapping( source: ISignalSource, signal: string, decor: IDecorable ) {

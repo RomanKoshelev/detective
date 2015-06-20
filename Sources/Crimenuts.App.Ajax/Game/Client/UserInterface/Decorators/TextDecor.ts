@@ -31,6 +31,6 @@ module Crimenuts {
 
         getSize(): Size { return this.component.getSize(); }
 
-        getDysplayObject(): PIXI.DisplayObject { return this; }
+        getDisplayObject(): PIXI.DisplayObject { return this; }
     }
 }

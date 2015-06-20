@@ -275,6 +275,7 @@ declare module Crimenuts {
         name: string;
         callback: Function;
         context: any;
+        isAvailable: boolean;
         static nothing: ICommand;
     }
 }
@@ -302,6 +303,7 @@ declare module Crimenuts {
         callback: Function;
         context: any;
         name: string;
+        isAvailable: boolean;
     }
 }
 declare module Crimenuts {
@@ -320,8 +322,18 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class ContinueCommand extends Command {
-        constructor(controller: IProcessController, processId: string);
+    class UserActionCommand extends Command {
+        constructor(name: string, action: UserActionCode, processId: string);
+        protected processId: string;
+        protected action: UserActionCode;
+        protected doExecute(): void;
+        protected getController(): IProcessController;
+    }
+}
+declare module Crimenuts {
+    class ContinueCommand extends UserActionCommand {
+        constructor(processId: string);
+        protected doExecute(): void;
     }
 }
 declare module Crimenuts {
@@ -503,11 +515,11 @@ declare module Crimenuts {
     }
 }
 declare module Crimenuts {
-    class ButtonEssence extends Phaser.Group implements IDecorable, ISignalSource {
-        constructor(command: ICommand, width: number, height: number);
+    class ButtonEssence extends Phaser.Group implements IDecorable, ISignalSource, IButton {
+        getCommand(): ICommand;
         setCommand(command: Command): void;
         getSize(): Size;
-        getDysplayObject(): PIXI.DisplayObject;
+        getDisplayObject(): PIXI.DisplayObject;
         static signalOver: string;
         static signalOut: string;
         static signalDown: string;
@@ -515,7 +527,9 @@ declare module Crimenuts {
         getSignals(): {
             [key: string]: Phaser.Signal;
         };
+        constructor(command: ICommand, width: number, height: number);
         private button;
+        private command;
         private resize(width, height);
         private createButton(command, width, height);
     }
@@ -523,11 +537,14 @@ declare module Crimenuts {
 declare module Crimenuts {
     class ButtonsHolder extends Phaser.Group {
         protected bottom: number;
+        protected buttons: IButton[];
         protected createButtonAtBottom(command: ICommand, method: Function, num: number): void;
     }
 }
 declare module Crimenuts {
     interface IButton extends IDisplayObject {
+        getCommand(): ICommand;
+        setCommand(command: ICommand): any;
     }
 }
 declare module Crimenuts {
@@ -535,15 +552,18 @@ declare module Crimenuts {
         constructor(component: IDecorable, fillColor?: number, lineColor?: number, lineWidth?: number);
         private component;
         getSize(): Size;
-        getDysplayObject(): PIXI.DisplayObject;
+        getDisplayObject(): PIXI.DisplayObject;
         createRoundedRectangle(size: Size, fillColor: number, lineColor: number, lineWidth: number): void;
     }
 }
 declare module Crimenuts {
     class TextButton extends Phaser.Group implements IButton {
         getDisplayObject(): PIXI.DisplayObject;
+        getCommand(): ICommand;
+        setCommand(command: ICommand): void;
         constructor(command: ICommand, regularColors: ColorPack, highlightColors: ColorPack, size: SizePack, position: Phaser.Point);
         private decors;
+        private essence;
         private createButton(command, regularColors, highlightColors, size);
         private createButtonEssence(command, width, height);
         private createDecor(essence, text, colors, size);
@@ -567,7 +587,7 @@ declare module Crimenuts {
         constructor(component: IDecorable, lineColor?: number, lineWidth?: number);
         private component;
         getSize(): Size;
-        getDysplayObject(): PIXI.DisplayObject;
+        getDisplayObject(): PIXI.DisplayObject;
         createBrackets(size: Size, lineColor: number, lineWidth: number): void;
     }
 }
@@ -575,7 +595,7 @@ declare module Crimenuts {
     class Decorable extends Phaser.Sprite implements IDecorable {
         constructor(width: number, height: number);
         getSize(): Size;
-        getDysplayObject(): PIXI.DisplayObject;
+        getDisplayObject(): PIXI.DisplayObject;
         private resize(width, height);
     }
 }
@@ -583,14 +603,14 @@ declare module Crimenuts {
     class DecorableProxy extends Phaser.Group implements IDecorable {
         constructor(essence: IDecorable);
         getSize(): Size;
-        getDysplayObject(): PIXI.DisplayObject;
+        getDisplayObject(): PIXI.DisplayObject;
         private essence;
     }
 }
 declare module Crimenuts {
     interface IDecorable {
         getSize(): Size;
-        getDysplayObject(): PIXI.DisplayObject;
+        getDisplayObject(): PIXI.DisplayObject;
     }
 }
 declare module Crimenuts {
@@ -598,7 +618,7 @@ declare module Crimenuts {
         constructor(component: IDecorable, fillColor?: number, lineColor?: number, lineWidth?: number);
         private component;
         getSize(): Size;
-        getDysplayObject(): PIXI.DisplayObject;
+        getDisplayObject(): PIXI.DisplayObject;
         createRectangle(size: Size, fillColor: number, lineColor: number, lineWidth: number): void;
     }
 }
@@ -608,7 +628,7 @@ declare module Crimenuts {
         private component;
         private textLabel;
         getSize(): Size;
-        getDysplayObject(): PIXI.DisplayObject;
+        getDisplayObject(): PIXI.DisplayObject;
     }
 }
 declare module Crimenuts {
@@ -732,6 +752,7 @@ declare module Crimenuts.View.Process {
 declare module Crimenuts.View.Process {
     class BoardButtons extends ButtonsHolder implements IProcessViewPart {
         onProcessUpdated(director: IProcessDirector): void;
+        update(): void;
         constructor(director: IProcessDirector, processId: string);
         private createButtons(director, processId);
     }

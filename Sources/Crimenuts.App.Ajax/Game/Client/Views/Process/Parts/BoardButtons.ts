@@ -6,6 +6,12 @@ module Crimenuts.View.Process {
         onProcessUpdated( director: IProcessDirector ): void {
         }
 
+        update() {
+            this.buttons.forEach( b => {
+                b.getDisplayObject().visible = b.getCommand().isAvailable;
+            } );
+        }
+
         // Ctor
         constructor( director: IProcessDirector, processId: string) {
             super( app.game );
@@ -18,11 +24,8 @@ module Crimenuts.View.Process {
         private createButtons( director: IProcessDirector, processId: string ) {
             var controller = director.getController();
 
-            var cmdAutoAnswer = new AutoAnswerCommand( controller, processId );
-            var cmdContinue = new ContinueCommand( controller, processId );
-
-            this.createButtonAtBottom( cmdAutoAnswer, app.uiFactory.makeDefaultButton, 0 );
-            this.createButtonAtBottom( cmdContinue, app.uiFactory.makeDefaultButton, 1 );
+            this.createButtonAtBottom( new AutoAnswerCommand( controller, processId ), app.uiFactory.makeDefaultButton, 0 );
+            this.createButtonAtBottom( new ContinueCommand( processId ), app.uiFactory.makeDefaultButton, 1 );
         }
     }
 }

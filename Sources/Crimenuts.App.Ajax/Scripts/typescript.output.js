@@ -472,6 +472,7 @@ var Crimenuts;
             this.name = name;
             this.callback = callback;
             this.context = context;
+            this.isAvailable = true;
         }
         Command.nothing = new Command();
         return Command;
@@ -557,16 +558,39 @@ var Crimenuts;
     Crimenuts.AutoAnswerCommand = AutoAnswerCommand;
 })(Crimenuts || (Crimenuts = {}));
 /// <reference path="../Command.ts" />
-/// <reference path="../../Managers/Process/IProcessController.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var UserActionCommand = (function (_super) {
+        __extends(UserActionCommand, _super);
+        function UserActionCommand(name, action, processId) {
+            _super.call(this, name);
+            this.callback = this.doExecute;
+            this.context = this;
+            this.processId = processId;
+            this.action = action;
+        }
+        UserActionCommand.prototype.doExecute = function () {
+        };
+        UserActionCommand.prototype.getController = function () {
+            return Crimenuts.app.processDirector.getController();
+        };
+        return UserActionCommand;
+    })(Crimenuts.Command);
+    Crimenuts.UserActionCommand = UserActionCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="./UserActionCommand.ts" />
 var Crimenuts;
 (function (Crimenuts) {
     var ContinueCommand = (function (_super) {
         __extends(ContinueCommand, _super);
-        function ContinueCommand(controller, processId) {
-            _super.call(this, "Continue", function () { return controller.continue(processId); });
+        function ContinueCommand(processId) {
+            _super.call(this, "Continue", 8 /* Continue */, processId);
         }
+        ContinueCommand.prototype.doExecute = function () {
+            this.getController().continue(this.processId);
+        };
         return ContinueCommand;
-    })(Crimenuts.Command);
+    })(Crimenuts.UserActionCommand);
     Crimenuts.ContinueCommand = ContinueCommand;
 })(Crimenuts || (Crimenuts = {}));
 /// <reference path="../Command.ts" />
@@ -982,10 +1006,15 @@ var Crimenuts;
 (function (Crimenuts) {
     var ButtonEssence = (function (_super) {
         __extends(ButtonEssence, _super);
+        // Ctor
         function ButtonEssence(command, width, height) {
             _super.call(this, Crimenuts.app.game);
             this.createButton(command, width, height);
         }
+        // IButton 
+        ButtonEssence.prototype.getCommand = function () {
+            return this.command;
+        };
         ButtonEssence.prototype.setCommand = function (command) {
             var width = this.width;
             var height = this.height;
@@ -996,7 +1025,7 @@ var Crimenuts;
         ButtonEssence.prototype.getSize = function () {
             return new Crimenuts.Size(this.width, this.height);
         };
-        ButtonEssence.prototype.getDysplayObject = function () {
+        ButtonEssence.prototype.getDisplayObject = function () {
             return this;
         };
         ButtonEssence.prototype.getSignals = function () {
@@ -1013,6 +1042,7 @@ var Crimenuts;
         };
         ButtonEssence.prototype.createButton = function (command, width, height) {
             this.button = new Phaser.Button(Crimenuts.app.game, 0, 0, Crimenuts.Settings.UserInterface.Button.sprite, command.callback, command.context);
+            this.command = command;
             this.add(this.button);
             this.resize(width, height);
         };
@@ -1031,11 +1061,13 @@ var Crimenuts;
         __extends(ButtonsHolder, _super);
         function ButtonsHolder() {
             _super.apply(this, arguments);
+            this.buttons = new Array();
         }
         ButtonsHolder.prototype.createButtonAtBottom = function (command, method, num) {
             var button = method(command);
             var dy = Crimenuts.Settings.UserInterface.Button.sizes.height + Crimenuts.Settings.UserInterface.Button.verSpan;
             button.getDisplayObject().y = this.bottom - num * dy - Crimenuts.Settings.UserInterface.Button.sizes.height;
+            this.buttons.push(button);
             this.add(button);
         };
         return ButtonsHolder;
@@ -1053,13 +1085,13 @@ var Crimenuts;
             var size = component.getSize();
             _super.call(this, Crimenuts.app.game, 0, 0);
             this.createRoundedRectangle(size, fillColor, lineColor, lineWidth);
-            this.addChild(component.getDysplayObject());
+            this.addChild(component.getDisplayObject());
             this.component = component;
         }
         RoundedRectangleDecor.prototype.getSize = function () {
             return this.component.getSize();
         };
-        RoundedRectangleDecor.prototype.getDysplayObject = function () {
+        RoundedRectangleDecor.prototype.getDisplayObject = function () {
             return this;
         };
         RoundedRectangleDecor.prototype.createRoundedRectangle = function (size, fillColor, lineColor, lineWidth) {
@@ -1094,11 +1126,18 @@ var Crimenuts;
         TextButton.prototype.getDisplayObject = function () {
             return this;
         };
+        TextButton.prototype.getCommand = function () {
+            return this.essence.getCommand();
+        };
+        TextButton.prototype.setCommand = function (command) {
+            this.essence.setCommand(command);
+        };
         // Utils
         TextButton.prototype.createButton = function (command, regularColors, highlightColors, size) {
             var buttonEssence = this.createButtonEssence(command, size.width, size.height);
             var regularDecor = this.createDecor(buttonEssence, command.name, regularColors, size);
             var higlightDecor = this.createDecor(buttonEssence, command.name, highlightColors, size);
+            this.essence = buttonEssence;
             this.initSignalHandlers(buttonEssence, regularDecor, higlightDecor);
             this.showDecor(regularDecor);
         };
@@ -1121,8 +1160,8 @@ var Crimenuts;
             this.setDecorMapping(source, Crimenuts.ButtonEssence.signalDown, higlightDecor);
         };
         TextButton.prototype.showDecor = function (decor) {
-            this.decors.forEach(function (d) { return d.getDysplayObject().visible = false; });
-            decor.getDysplayObject().visible = true;
+            this.decors.forEach(function (d) { return d.getDisplayObject().visible = false; });
+            decor.getDisplayObject().visible = true;
         };
         TextButton.prototype.setDecorMapping = function (source, signal, decor) {
             var _this = this;
@@ -1169,14 +1208,14 @@ var Crimenuts;
             if (lineWidth === void 0) { lineWidth = Crimenuts.Settings.Default.Shape.lineWidth; }
             var size = component.getSize();
             _super.call(this, Crimenuts.app.game, 0, 0);
-            this.addChild(component.getDysplayObject());
+            this.addChild(component.getDisplayObject());
             this.createBrackets(size, lineColor, lineWidth);
             this.component = component;
         }
         BracketDecor.prototype.getSize = function () {
             return this.component.getSize();
         };
-        BracketDecor.prototype.getDysplayObject = function () {
+        BracketDecor.prototype.getDisplayObject = function () {
             return this;
         };
         BracketDecor.prototype.createBrackets = function (size, lineColor, lineWidth) {
@@ -1214,7 +1253,7 @@ var Crimenuts;
         Decorable.prototype.getSize = function () {
             return new Crimenuts.Size(this.width, this.height);
         };
-        Decorable.prototype.getDysplayObject = function () {
+        Decorable.prototype.getDisplayObject = function () {
             return this;
         };
         // Utils
@@ -1236,8 +1275,8 @@ var Crimenuts;
         DecorableProxy.prototype.getSize = function () {
             return this.essence.getSize();
         };
-        DecorableProxy.prototype.getDysplayObject = function () {
-            return this.essence.getDysplayObject();
+        DecorableProxy.prototype.getDisplayObject = function () {
+            return this.essence.getDisplayObject();
         };
         return DecorableProxy;
     })(Phaser.Group);
@@ -1254,13 +1293,13 @@ var Crimenuts;
             var size = component.getSize();
             _super.call(this, Crimenuts.app.game, 0, 0);
             this.createRectangle(size, fillColor, lineColor, lineWidth);
-            this.addChild(component.getDysplayObject());
+            this.addChild(component.getDisplayObject());
             this.component = component;
         }
         RectangleDecor.prototype.getSize = function () {
             return this.component.getSize();
         };
-        RectangleDecor.prototype.getDysplayObject = function () {
+        RectangleDecor.prototype.getDisplayObject = function () {
             return this;
         };
         RectangleDecor.prototype.createRectangle = function (size, fillColor, lineColor, lineWidth) {
@@ -1292,7 +1331,7 @@ var Crimenuts;
         TextDecor.prototype.getSize = function () {
             return this.component.getSize();
         };
-        TextDecor.prototype.getDysplayObject = function () {
+        TextDecor.prototype.getDisplayObject = function () {
             return this;
         };
         return TextDecor;
@@ -1657,13 +1696,16 @@ var Crimenuts;
                 // IProcessViewPart
                 BoardButtons.prototype.onProcessUpdated = function (director) {
                 };
+                BoardButtons.prototype.update = function () {
+                    this.buttons.forEach(function (b) {
+                        b.getDisplayObject().visible = b.getCommand().isAvailable;
+                    });
+                };
                 // Create
                 BoardButtons.prototype.createButtons = function (director, processId) {
                     var controller = director.getController();
-                    var cmdAutoAnswer = new Crimenuts.AutoAnswerCommand(controller, processId);
-                    var cmdContinue = new Crimenuts.ContinueCommand(controller, processId);
-                    this.createButtonAtBottom(cmdAutoAnswer, Crimenuts.app.uiFactory.makeDefaultButton, 0);
-                    this.createButtonAtBottom(cmdContinue, Crimenuts.app.uiFactory.makeDefaultButton, 1);
+                    this.createButtonAtBottom(new Crimenuts.AutoAnswerCommand(controller, processId), Crimenuts.app.uiFactory.makeDefaultButton, 0);
+                    this.createButtonAtBottom(new Crimenuts.ContinueCommand(processId), Crimenuts.app.uiFactory.makeDefaultButton, 1);
                 };
                 return BoardButtons;
             })(Crimenuts.ButtonsHolder);

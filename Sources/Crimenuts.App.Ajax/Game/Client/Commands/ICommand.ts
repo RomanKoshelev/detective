@@ -3,5 +3,6 @@ module Crimenuts {
         callback: Function;
         context : any;
         name: string;
+        isAvailable: boolean;
     }
 }

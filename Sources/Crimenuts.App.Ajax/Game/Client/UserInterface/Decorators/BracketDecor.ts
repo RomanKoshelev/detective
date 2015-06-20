@@ -11,7 +11,7 @@ module Crimenuts {
 
             super( app.game, 0, 0 );
 
-            this.addChild( component.getDysplayObject() );
+            this.addChild( component.getDisplayObject() );
             this.createBrackets( size, lineColor, lineWidth );
             this.component = component;
         }
@@ -20,7 +20,7 @@ module Crimenuts {
 
         getSize(): Size { return this.component.getSize(); }
 
-        getDysplayObject(): PIXI.DisplayObject { return this; }
+        getDisplayObject(): PIXI.DisplayObject { return this; }
 
         createBrackets(
             size: Size,
