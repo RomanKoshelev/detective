@@ -1,6 +1,14 @@
 module Crimenuts {
     export class ButtonsHolder extends Phaser.Group {
 
+        update() {
+            this.buttons.forEach( b => {
+                var c = b.getCommand();
+                c.updateAvailability();
+                b.getDisplayObject().visible = c.isAvailable;
+            } );
+        }
+
         protected bottom: number;
         protected buttons = new Array<IButton>();
 

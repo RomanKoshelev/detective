@@ -6,12 +6,6 @@ module Crimenuts.View.Process {
         onProcessUpdated( director: IProcessDirector ): void {
         }
 
-        update() {
-            this.buttons.forEach( b => {
-                b.getDisplayObject().visible = b.getCommand().isAvailable;
-            } );
-        }
-
         // Ctor
         constructor( director: IProcessDirector, processId: string) {
             super( app.game );

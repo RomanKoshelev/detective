@@ -1,5 +1,19 @@
 module Crimenuts {
     export class Command implements ICommand {
+
+        // ICommand
+        updateAvailability() {
+            this.isAvailable = this.doUpdateAvailability();
+        }
+
+        name: string;
+        callback: Function;
+        context: any;
+        isAvailable: boolean;
+
+        static nothing: ICommand = new Command();
+
+        // Ctor
         constructor(
             name: string = "",
             callback: Function = null,
@@ -11,11 +25,7 @@ module Crimenuts {
             this.isAvailable = true;
         }
 
-        name: string;
-        callback: Function;
-        context: any;
-        isAvailable: boolean;
-
-        static nothing : ICommand = new Command();
+        // Virtual
+        protected doUpdateAvailability() : boolean { return true; }
     }
 }

@@ -465,6 +465,7 @@ var Crimenuts;
 var Crimenuts;
 (function (Crimenuts) {
     var Command = (function () {
+        // Ctor
         function Command(name, callback, context) {
             if (name === void 0) { name = ""; }
             if (callback === void 0) { callback = null; }
@@ -474,6 +475,14 @@ var Crimenuts;
             this.context = context;
             this.isAvailable = true;
         }
+        // ICommand
+        Command.prototype.updateAvailability = function () {
+            this.isAvailable = this.doUpdateAvailability();
+        };
+        // Virtual
+        Command.prototype.doUpdateAvailability = function () {
+            return true;
+        };
         Command.nothing = new Command();
         return Command;
     })();
@@ -562,6 +571,7 @@ var Crimenuts;
 (function (Crimenuts) {
     var UserActionCommand = (function (_super) {
         __extends(UserActionCommand, _super);
+        // Ctor
         function UserActionCommand(name, action, processId) {
             _super.call(this, name);
             this.callback = this.doExecute;
@@ -569,10 +579,26 @@ var Crimenuts;
             this.processId = processId;
             this.action = action;
         }
-        UserActionCommand.prototype.doExecute = function () {
-        };
         UserActionCommand.prototype.getController = function () {
             return Crimenuts.app.processDirector.getController();
+        };
+        // Virtual
+        UserActionCommand.prototype.doExecute = function () {
+        };
+        // Overrides 
+        UserActionCommand.prototype.doUpdateAvailability = function () {
+            var _this = this;
+            var process = Crimenuts.app.processDirector.getProcessModel();
+            if (process.Id !== this.processId) {
+                return false;
+            }
+            var res = false;
+            process.Actions.forEach(function (a) {
+                if (_this.action === Crimenuts.UserActionCode[a.Type]) {
+                    res = true;
+                }
+            });
+            return res;
         };
         return UserActionCommand;
     })(Crimenuts.Command);
@@ -1063,6 +1089,13 @@ var Crimenuts;
             _super.apply(this, arguments);
             this.buttons = new Array();
         }
+        ButtonsHolder.prototype.update = function () {
+            this.buttons.forEach(function (b) {
+                var c = b.getCommand();
+                c.updateAvailability();
+                b.getDisplayObject().visible = c.isAvailable;
+            });
+        };
         ButtonsHolder.prototype.createButtonAtBottom = function (command, method, num) {
             var button = method(command);
             var dy = Crimenuts.Settings.UserInterface.Button.sizes.height + Crimenuts.Settings.UserInterface.Button.verSpan;
@@ -1695,11 +1728,6 @@ var Crimenuts;
                 }
                 // IProcessViewPart
                 BoardButtons.prototype.onProcessUpdated = function (director) {
-                };
-                BoardButtons.prototype.update = function () {
-                    this.buttons.forEach(function (b) {
-                        b.getDisplayObject().visible = b.getCommand().isAvailable;
-                    });
                 };
                 // Create
                 BoardButtons.prototype.createButtons = function (director, processId) {

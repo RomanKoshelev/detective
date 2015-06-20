@@ -271,12 +271,14 @@ declare module Crimenuts.Settings {
 }
 declare module Crimenuts {
     class Command implements ICommand {
-        constructor(name?: string, callback?: Function, context?: any);
+        updateAvailability(): void;
         name: string;
         callback: Function;
         context: any;
         isAvailable: boolean;
         static nothing: ICommand;
+        constructor(name?: string, callback?: Function, context?: any);
+        protected doUpdateAvailability(): boolean;
     }
 }
 declare module Crimenuts {
@@ -304,6 +306,7 @@ declare module Crimenuts {
         context: any;
         name: string;
         isAvailable: boolean;
+        updateAvailability(): any;
     }
 }
 declare module Crimenuts {
@@ -326,8 +329,9 @@ declare module Crimenuts {
         constructor(name: string, action: UserActionCode, processId: string);
         protected processId: string;
         protected action: UserActionCode;
-        protected doExecute(): void;
         protected getController(): IProcessController;
+        protected doExecute(): void;
+        protected doUpdateAvailability(): boolean;
     }
 }
 declare module Crimenuts {
@@ -536,6 +540,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class ButtonsHolder extends Phaser.Group {
+        update(): void;
         protected bottom: number;
         protected buttons: IButton[];
         protected createButtonAtBottom(command: ICommand, method: Function, num: number): void;
@@ -656,8 +661,8 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     interface IUIFactory {
-        makeDefaultButton(command: Command, position?: Phaser.Point): IButton;
-        makeTopMenuButton(command: Command, position?: Phaser.Point): IButton;
+        makeDefaultButton(command: ICommand, position?: Phaser.Point): IButton;
+        makeTopMenuButton(command: ICommand, position?: Phaser.Point): IButton;
         makeTextLabel(width: number, height: number, textColor: string, bgColor: number): ITextArea;
     }
 }
@@ -752,7 +757,6 @@ declare module Crimenuts.View.Process {
 declare module Crimenuts.View.Process {
     class BoardButtons extends ButtonsHolder implements IProcessViewPart {
         onProcessUpdated(director: IProcessDirector): void;
-        update(): void;
         constructor(director: IProcessDirector, processId: string);
         private createButtons(director, processId);
     }

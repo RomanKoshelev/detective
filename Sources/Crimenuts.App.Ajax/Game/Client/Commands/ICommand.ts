@@ -1,8 +1,9 @@
 module Crimenuts {
-    export interface ICommand{
+    export interface ICommand {
         callback: Function;
-        context : any;
+        context: any;
         name: string;
         isAvailable: boolean;
+        updateAvailability();
     }
 }
