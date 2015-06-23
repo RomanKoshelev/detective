@@ -52,10 +52,10 @@ module Crimenuts {
 
         // Utils
         private checkArgs( args: number[] ): boolean {
-            if( args.length !== this.args.length ) {
+            if( args.length < this.args.length ) {
                 return false;
             }
-            for( var i in this.args ) {
+            for( var i = 0; i < Math.min( this.args.length, this.args.length ); i++ ) {
                 if( this.args[ i ] !== args[ i ] ) {
                     return false;
                 }

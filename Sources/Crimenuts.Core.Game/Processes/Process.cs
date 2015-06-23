@@ -111,6 +111,10 @@ namespace Crimenuts.Core.Game.Processes
         {
             DoArrest( suspect );
         }
+        public void Annotate( int memberId, AnswerCode annotation )
+        {
+            DoAnnotate( memberId, annotation );
+        }
 
         public void Skip()
         {

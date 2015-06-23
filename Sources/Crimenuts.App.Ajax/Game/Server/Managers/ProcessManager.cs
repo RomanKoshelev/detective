@@ -58,11 +58,10 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
             _clients.ProcessUpdated( new ProcessModel( process ) );
         }
 
-        void IProcessManager.Annotate( string processId, int memberId, AnswerCode note )
+        void IProcessManager.Annotate( string processId, int memberId, AnswerCode annotation )
         {
             var process = GetProcess( processId );
-            var args = new [] { memberId, ( int ) note };
-            process.ExecuteUserAction( Process.UserAction.ActionType.Annotate, args );
+            process.Annotate( memberId, annotation );
             _clients.ProcessUpdated( new ProcessModel( process ) );
         }
 

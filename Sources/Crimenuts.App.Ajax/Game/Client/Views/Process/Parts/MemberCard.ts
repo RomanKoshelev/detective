@@ -69,6 +69,7 @@ module Crimenuts.View.Process {
         private button: ButtonEssence;
         private nameLabel: TextLabel;
         private spot: Phaser.Graphics;
+        private superCard: MemberCard = null;
         private answer: MemberCard = null;
         private shade: Phaser.Graphics;
         private spotEllipse = new PIXI.Rectangle();
@@ -89,8 +90,8 @@ module Crimenuts.View.Process {
             var s = width * ks;
             this.sign = new Picture( s );
             this.sign.anchor.set( 0.5, 0.5 );
-            this.sign.x = width*kx;
-            this.sign.y = height*ky;
+            this.sign.x = width * kx;
+            this.sign.y = height * ky;
             this.add( this.sign );
         }
 
@@ -109,7 +110,7 @@ module Crimenuts.View.Process {
             w: number,
             h: number,
             command: ICommand
-            ) {
+        ) {
             if( level < 1 ) return;
 
             var k = Settings.Process.Members.Card.Answer.sizeRate;
@@ -131,6 +132,7 @@ module Crimenuts.View.Process {
                 level - 1,
                 true // hasSign
             );
+            this.answer.superCard = this;
             this.answer.visible = true;
             this.answer.picture.tint = Settings.Process.Members.Card.Answer.tintColor;
 
@@ -189,10 +191,9 @@ module Crimenuts.View.Process {
 
 
         // Set
-
         private setSign( rel: RelationCode ) {
             var pict = Settings.Process.Members.Card.Sign.picture[ RelationCode[ rel ] ];
-            this.sign.setPicture( pict  );
+            this.sign.setPicture( pict );
         }
 
         private setShade( shade ) {
@@ -215,15 +216,15 @@ module Crimenuts.View.Process {
 
         //Update
         private updateSign( memberId: number ) {
-            if ( this.answer == null ) return;
-            if ( this.answer.sign == null ) return;
+            if( this.answer == null ) return;
+            if( this.answer.sign == null ) return;
 
             var model = this.getMemberModel( memberId );
             if( model.TodayAnswer.IsValid ) {
-                this.answer.sign.visible = true;   
+                this.answer.sign.visible = true;
                 this.answer.setSign( RelationCode[ model.TodayAnswer.SubjectRelation ] );
             } else {
-                this.answer.sign.visible = false;   
+                this.answer.sign.visible = false;
             }
         }
 
@@ -232,6 +233,9 @@ module Crimenuts.View.Process {
         }
 
         private updateSpot( memberId: number ) {
+            if( this.superCard == null ) {
+                this.answerCode = AnswerCode[ this.getMemberModel( memberId ).Annotation ];
+            }
             var color = Settings.Process.Members.Card.Spot.color[ AnswerCode[ this.answerCode ] ];
             this.setSpotColor( color );
         }

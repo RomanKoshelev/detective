@@ -27,9 +27,9 @@ namespace Crimenuts.Core.Game.Processes
             return answer;
         }
 
-        private static void DoAnnotate( Member member, AnswerCode annotation )
+        private void DoAnnotate( int member, AnswerCode annotation )
         {
-            member.Annotation = annotation;
+            FindMember( member ).Annotation = annotation;
         }
 
         private void DoArrest( Member suspect )
@@ -52,11 +52,6 @@ namespace Crimenuts.Core.Game.Processes
         private void DoAsk( int respondent, int subject )
         {
             DoAsk( FindMember( respondent ), FindMember( subject ) );
-        }
-
-        private void DoAnnotate( int member, int annotation )
-        {
-            DoAnnotate( FindMember( member ), ( AnswerCode ) annotation );
         }
 
         private void DoAutoAsk()

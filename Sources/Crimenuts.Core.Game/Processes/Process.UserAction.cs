@@ -21,8 +21,7 @@ namespace Crimenuts.Core.Game.Processes
                 Start,
                 Stop,
                 EarlyArrest,
-                Continue,
-                Annotate
+                Continue
             }
 
             public ActionType Type = ActionType.None;

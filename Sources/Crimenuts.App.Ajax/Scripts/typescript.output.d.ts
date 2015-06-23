@@ -346,15 +346,20 @@ declare module Crimenuts {
     class MemberCommand extends UserActionCommand {
         constructor(name: string, director: IProcessDirector, processId: string, action: UserActionCode, ...args: number[]);
         protected memberId: number;
-        private onCurrentMemberChanged(memberId);
-        private setMemberId(memberId);
+        protected onCurrentMemberChanged(memberId: number): void;
+        protected setMemberId(memberId: number): void;
+        protected getMemberModel(): MemberModel;
     }
 }
 declare module Crimenuts {
     class MemberAnnotateCommand extends MemberCommand {
-        constructor(director: IProcessDirector, processId: string, memberId: number, code: AnswerCode);
+        constructor(director: IProcessDirector, processId: string, memberId: number);
+        update(): void;
+        protected doUpdateAvailability(): boolean;
         protected doExecute(): void;
         private code;
+        private updateAnnotationCode();
+        private getAnnotationCode();
     }
 }
 declare module Crimenuts {
@@ -845,6 +850,7 @@ declare module Crimenuts.View.Process {
         private button;
         private nameLabel;
         private spot;
+        private superCard;
         private answer;
         private shade;
         private spotEllipse;
@@ -877,7 +883,6 @@ declare module Crimenuts.View.Process {
     class MemberDialogButtons extends ButtonsHolder {
         constructor(director: IProcessDirector, processId: string, memberId: number);
         private createButtons(director, processId, memberId);
-        getAnnotationCode(processDirector: IProcessDirector, memberId: number): AnswerCode;
     }
 }
 declare module Crimenuts.View.Process {

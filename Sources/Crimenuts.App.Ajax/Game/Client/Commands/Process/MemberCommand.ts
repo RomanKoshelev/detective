@@ -2,22 +2,26 @@
 module Crimenuts {
     export class MemberCommand extends UserActionCommand {
 
-        constructor( name: string, director: IProcessDirector, processId: string, action: UserActionCode, ...args:number[] ) {
+        constructor( name: string, director: IProcessDirector, processId: string, action: UserActionCode, ...args: number[] ) {
             super( name, director, processId, action, args );
-            this.setMemberId( args[0] );
+            this.setMemberId( args[ 0 ] );
             this.getController().onCurrentMemberChanged.add( this.onCurrentMemberChanged, this );
         }
 
         protected memberId: number;
 
-        private onCurrentMemberChanged( memberId: number ) {
+        protected onCurrentMemberChanged( memberId: number ) {
             this.setMemberId( memberId );
         }
 
-        private setMemberId( memberId: number ) {
+        protected setMemberId( memberId: number ) {
             this.memberId = memberId;
             var memberNumber = this.getController().memberIdToNumber( memberId );
             this.args[ 0 ] = memberNumber;
+        }
+
+        protected getMemberModel(): MemberModel {
+            return this.director.getProcessModel().Members[ this.memberId ];
         }
     }
 }

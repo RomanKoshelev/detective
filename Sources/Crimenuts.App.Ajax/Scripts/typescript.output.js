@@ -603,10 +603,10 @@ var Crimenuts;
         };
         // Utils
         UserActionCommand.prototype.checkArgs = function (args) {
-            if (args.length !== this.args.length) {
+            if (args.length < this.args.length) {
                 return false;
             }
-            for (var i in this.args) {
+            for (var i = 0; i < Math.min(this.args.length, this.args.length); i++) {
                 if (this.args[i] !== args[i]) {
                     return false;
                 }
@@ -669,6 +669,9 @@ var Crimenuts;
             var memberNumber = this.getController().memberIdToNumber(memberId);
             this.args[0] = memberNumber;
         };
+        MemberCommand.prototype.getMemberModel = function () {
+            return this.director.getProcessModel().Members[this.memberId];
+        };
         return MemberCommand;
     })(Crimenuts.UserActionCommand);
     Crimenuts.MemberCommand = MemberCommand;
@@ -678,13 +681,29 @@ var Crimenuts;
 (function (Crimenuts) {
     var MemberAnnotateCommand = (function (_super) {
         __extends(MemberAnnotateCommand, _super);
-        function MemberAnnotateCommand(director, processId, memberId, code) {
-            this.code = code;
-            _super.call(this, "Annotate", director, processId, 9 /* Annotate */, memberId, this.code);
-            this.name = Crimenuts.AnswerCode[this.code];
+        function MemberAnnotateCommand(director, processId, memberId) {
+            _super.call(this, "Annotate", director, processId, 0 /* None */, memberId);
+            this.updateAnnotationCode();
         }
+        MemberAnnotateCommand.prototype.update = function () {
+            this.updateAnnotationCode();
+        };
+        // Protected
+        MemberAnnotateCommand.prototype.doUpdateAvailability = function () {
+            this.updateAnnotationCode();
+            return this.getMemberModel().IsActive;
+        };
         MemberAnnotateCommand.prototype.doExecute = function () {
+            //this.code = AnswerCode.Murderer;
             this.getController().annotate(this.processId, this.memberId, this.code);
+        };
+        MemberAnnotateCommand.prototype.updateAnnotationCode = function () {
+            this.code = this.getAnnotationCode();
+        };
+        MemberAnnotateCommand.prototype.getAnnotationCode = function () {
+            var curAnnotation = Crimenuts.AnswerCode[this.getMemberModel().Annotation];
+            var newAnnotation = curAnnotation === 3 /* Murderer */ ? 2 /* Innocent */ : curAnnotation === 2 /* Innocent */ ? 1 /* Unknown */ : 3 /* Murderer */;
+            return newAnnotation;
         };
         return MemberAnnotateCommand;
     })(Crimenuts.MemberCommand);
@@ -1907,6 +1926,7 @@ var Crimenuts;
                     if (answerLevel === void 0) { answerLevel = 1; }
                     if (hasSign === void 0) { hasSign = false; }
                     _super.call(this, Crimenuts.app.game);
+                    this.superCard = null;
                     this.answer = null;
                     this.spotEllipse = new PIXI.Rectangle();
                     this.shadeRect = new PIXI.Rectangle();
@@ -1986,6 +2006,7 @@ var Crimenuts;
                     var mw = w * kk;
                     var mh = h * kk;
                     this.answer = new MemberCard(this.director, 0, mx, my, mw, mh, command, false, level - 1, true);
+                    this.answer.superCard = this;
                     this.answer.visible = true;
                     this.answer.picture.tint = Crimenuts.Settings.Process.Members.Card.Answer.tintColor;
                     this.add(this.answer);
@@ -2067,6 +2088,9 @@ var Crimenuts;
                     this.picture.setPerson(world, name);
                 };
                 MemberCard.prototype.updateSpot = function (memberId) {
+                    if (this.superCard == null) {
+                        this.answerCode = Crimenuts.AnswerCode[this.getMemberModel(memberId).Annotation];
+                    }
                     var color = Crimenuts.Settings.Process.Members.Card.Spot.color[Crimenuts.AnswerCode[this.answerCode]];
                     this.setSpotColor(color);
                 };
@@ -2132,18 +2156,11 @@ var Crimenuts;
                 }
                 // Create
                 MemberDialogButtons.prototype.createButtons = function (director, processId, memberId) {
-                    var annotation = this.getAnnotationCode(director, memberId);
                     this.createButtonAtBottom(new Crimenuts.AutoAnswerCommand(director, processId), Crimenuts.app.uiFactory.makeOptionalButton, 2);
-                    this.createButtonAtBottom(new Crimenuts.MemberAnnotateCommand(director, processId, memberId, annotation), Crimenuts.app.uiFactory.makeOptionalButton, 1);
+                    this.createButtonAtBottom(new Crimenuts.MemberAnnotateCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeOptionalButton, 1);
                     this.createButtonAtBottom(new Crimenuts.MemberEarlyArrestCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeMainButton, 0);
                     this.createButtonAtBottom(new Crimenuts.MemberArrestCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeMainButton, 0);
                     this.createButtonAtBottom(new Crimenuts.ContinueCommand(director, processId), Crimenuts.app.uiFactory.makeMainButton, 0);
-                };
-                // Utils
-                MemberDialogButtons.prototype.getAnnotationCode = function (processDirector, memberId) {
-                    var curAnnotation = Crimenuts.AnswerCode[processDirector.getProcessModel().Members[memberId].Annotation];
-                    var newAnnotation = curAnnotation === 3 /* Murderer */ ? 2 /* Innocent */ : curAnnotation === 2 /* Innocent */ ? 1 /* Unknown */ : 3 /* Murderer */;
-                    return newAnnotation;
                 };
                 return MemberDialogButtons;
             })(Crimenuts.ButtonsHolder);

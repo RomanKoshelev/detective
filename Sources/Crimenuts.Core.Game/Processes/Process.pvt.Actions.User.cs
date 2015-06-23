@@ -24,12 +24,10 @@ namespace Crimenuts.Core.Game.Processes
                     AddInitActions();
                     break;
                 case State.Questioning :
-                    AddAnnotateActions();
                     AddQuestioningActions();
                     AddExtraQuestioningActions();
                     break;
                 case State.Arrest :
-                    AddAnnotateActions();
                     AddArrestActions();
                     break;
                 case State.Finished :
@@ -37,7 +35,6 @@ namespace Crimenuts.Core.Game.Processes
                     AddNoneAction();
                     break;
                 case State.CheckArrest :
-                    AddAnnotateActions();
                     AddContinueAction();
                     break;
                 case State.Morning :
@@ -110,31 +107,6 @@ namespace Crimenuts.Core.Game.Processes
             if( Options.EarlyArrestIsEnabled ) {
                 AddEarlyArrestActions();
             }
-        }
-
-        // ===================================================================================== []
-        // Annotate
-        private void AddAnnotateActions()
-        {
-            ActiveMembers.ForEach(
-                m => {
-                    GetAvailableAnnotations( m ).ForEach( a => {
-                        AddUserAction(
-                            UserAction.ActionType.Annotate,
-                            new[] { m.Number, ( int ) a },
-                            string.Format( "Annotate {0} as {1}", m.Name, a.ToString() )
-                            );
-                    } );
-                } );
-        }
-
-        private static List< AnswerCode > GetAvailableAnnotations( Member member )
-        {
-            return new[] {
-                AnswerCode.Unknown,
-                AnswerCode.Innocent,
-                AnswerCode.Murderer
-            }.Except( new[] { member.Annotation } ).ToList();
         }
 
         // ===================================================================================== []
@@ -291,9 +263,6 @@ namespace Crimenuts.Core.Game.Processes
                     break;
                 case UserAction.ActionType.Ask :
                     DoAsk( args[ 0 ], args[ 1 ] );
-                    break;
-                case UserAction.ActionType.Annotate :
-                    DoAnnotate( args[ 0 ], args[ 1 ] );
                     break;
                 case UserAction.ActionType.EarlyArrest :
                     DoEarlyArrest( args[ 0 ] );
