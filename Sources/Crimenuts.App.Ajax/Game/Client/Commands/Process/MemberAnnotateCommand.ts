@@ -18,7 +18,6 @@ module Crimenuts {
         }
 
         protected doExecute() {
-            //this.code = AnswerCode.Murderer;
             this.getController().annotate( this.processId, this.memberId, this.code );
         }
 

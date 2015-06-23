@@ -694,7 +694,6 @@ var Crimenuts;
             return this.getMemberModel().IsActive;
         };
         MemberAnnotateCommand.prototype.doExecute = function () {
-            //this.code = AnswerCode.Murderer;
             this.getController().annotate(this.processId, this.memberId, this.code);
         };
         MemberAnnotateCommand.prototype.updateAnnotationCode = function () {
