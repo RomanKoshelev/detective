@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Crimenuts.Core.Game.Enums;
+using Crimenuts.Core.Game.Packs.Profiles;
 using Crimenuts.Core.Game.Persons;
 using Crimenuts.Utils;
 using Crimenuts.Utils.Extensions;
@@ -45,9 +46,9 @@ namespace Crimenuts.Core.Game.Packs.Worlds
         #region Tools
 
         // ===================================================================================== []
-        protected IList< Profile.Profile > Profiles;
+        protected readonly IList< Profile > Profiles;
 
-        protected BaseWorld( string name, IList< Profile.Profile > profiles )
+        protected BaseWorld( string name, IList< Profile > profiles )
         {
             Name = name;
             Profiles = profiles;

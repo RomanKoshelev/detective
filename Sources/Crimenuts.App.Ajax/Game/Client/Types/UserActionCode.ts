@@ -9,6 +9,6 @@
         Stop,
         EarlyArrest,
         Continue,
-        Mark
+        Annotate
     }
 }

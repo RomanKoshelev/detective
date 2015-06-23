@@ -8,7 +8,7 @@ module Crimenuts {
             director: IProcessDirector,
             processId: string,
             action: UserActionCode,
-            ...args: number[]
+            args: number[]=new Array<number>( 0 )
         ) {
             super( name );
             this.callback = this.doExecute;
@@ -42,7 +42,7 @@ module Crimenuts {
 
             var res = false;
             process.Actions.forEach( a => {
-                if( this.action === UserActionCode[ a.Type ] && this.checkArgs( a.Args )) {
+                if( this.action === UserActionCode[ a.Type ] && this.checkArgs( a.Args ) ) {
                     res = true;
                 }
             } );

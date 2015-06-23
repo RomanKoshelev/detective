@@ -19,6 +19,7 @@ namespace Crimenuts.Core.Game.Members
             IsMurderer = false;
             IsVictim = false;
             IsPrisoner = false;
+            Annotation = AnswerCode.Unknown;
             InitDecisionModules();
         }
 
@@ -35,6 +36,7 @@ namespace Crimenuts.Core.Game.Members
         {
             get { return Person.Name; }
         }
+        public AnswerCode Annotation { get; set; }
 
         public bool IsMurderer { get; set; }
         public bool IsVictim { get; set; }

@@ -3,11 +3,10 @@
 // Profile.pvt.Evidence.cs
 
 using Crimenuts.Core.Game.Enums;
-using Crimenuts.Utils;
 using Crimenuts.Utils.Extensions;
 using Crimenuts.Utils.Traces;
 
-namespace Crimenuts.Core.Game.Packs.Profile
+namespace Crimenuts.Core.Game.Packs.Profiles
 {
     public partial class Profile
     {

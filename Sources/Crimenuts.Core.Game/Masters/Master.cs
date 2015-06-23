@@ -5,6 +5,7 @@
 using System;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Members;
+using Crimenuts.Core.Game.Options;
 using Crimenuts.Utils;
 using Crimenuts.Utils.Traces;
 
@@ -12,7 +13,7 @@ namespace Crimenuts.Core.Game.Masters
 {
     public class Master
     {
-        public static Role GetOpenRole( IOptions.IOptions options, Member member, State state )
+        public static Role GetOpenRole( IOptions options, Member member, State state )
         {
             if( state == State.Finished ) {
                 return member.Role;
@@ -37,7 +38,7 @@ namespace Crimenuts.Core.Game.Masters
             throw new CrimenutsException( "Can't get Role for {0}", member.Name );
         }
 
-        public static int? GetActiveMurderersOpenNum( IOptions.IOptions options, int num )
+        public static int? GetActiveMurderersOpenNum( IOptions options, int num )
         {
             return
                 options.MurderersNumIsOpen && options.VictimRoleIsOpen && options.PrisonerRoleIsOpen
@@ -45,7 +46,7 @@ namespace Crimenuts.Core.Game.Masters
                     : ( int? ) null;
         }
 
-        public static int? GetMurderersOpenNum( IOptions.IOptions options, int num )
+        public static int? GetMurderersOpenNum( IOptions options, int num )
         {
             return options.MurderersNumIsOpen ? num : ( int? ) null;
         }
@@ -70,7 +71,7 @@ namespace Crimenuts.Core.Game.Masters
             return ( int ) Math.Floor( ( membersNum - 1.0 )/2.0 );
         }
 
-        public static int? GetTodayEvidencesOpenNum( IOptions.IOptions options, int num )
+        public static int? GetTodayEvidencesOpenNum( IOptions options, int num )
         {
             return options.EvidencesNumIsOpen ? num : ( int? ) null;
         }

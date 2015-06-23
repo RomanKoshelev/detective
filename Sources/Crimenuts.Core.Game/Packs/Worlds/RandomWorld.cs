@@ -6,18 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Crimenuts.Core.Game.Enums;
+using Crimenuts.Core.Game.Packs.Profiles;
 using Crimenuts.Core.Game.Packs.Utils.NameGenerator;
 using Crimenuts.Core.Game.Persons;
-using Crimenuts.Utils;
 using Crimenuts.Utils.Extensions;
 
 namespace Crimenuts.Core.Game.Packs.Worlds
 {
     public sealed class RandomWorld : BaseWorld
     {
-        public RandomWorld( IList< Profile.Profile > profiles )
-            : base( "Random", profiles ) {}
-
         private const double RelationRate = 0.6;
         private const int RandomSeed = 100;
         private const int RandomPersonNum = 24;
@@ -59,5 +56,8 @@ namespace Crimenuts.Core.Game.Packs.Worlds
 
             //return (ProfileType) Random.Next((int)ProfileType.Normal, (int)ProfileType.Enemy + 1);
         }
+
+        public RandomWorld( IList< Profile > profiles )
+            : base( "Random", profiles ) {}
     }
 }

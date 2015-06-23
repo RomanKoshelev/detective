@@ -3,6 +3,7 @@
 // IProcessManager.cs
 
 using Crimenuts.App.Ajax.Game.Server.Models;
+using Crimenuts.Core.Game.Enums;
 
 namespace Crimenuts.App.Ajax.Game.Server.Managers
 {
@@ -12,7 +13,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
         void AutoAnswer( string processId );
         void Reset();
         void Arrest( string processId, int memberId );
-        void Mark( string processId, int memberId );
+        void Annotate( string processId, int memberId, AnswerCode note );
         void Continue( string processId );
         void EarlyArrest( string processId, int memberId );
     }

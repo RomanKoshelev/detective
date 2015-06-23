@@ -20,8 +20,8 @@
             return this.server.autoAnswer( processId );
         }
 
-        mark( processId: string, memberId: number ): JQueryPromise<void> {
-            return this.server.mark ( processId, memberId );
+        annotate( processId: string, memberId: number, note: string ): JQueryPromise<void> {
+            return this.server.annotate ( processId, memberId, note );
         }
 
         arrest( processId: string, memberId: number ): JQueryPromise<void> {

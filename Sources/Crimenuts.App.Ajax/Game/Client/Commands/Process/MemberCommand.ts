@@ -2,9 +2,9 @@
 module Crimenuts {
     export class MemberCommand extends UserActionCommand {
 
-        constructor( name: string, director: IProcessDirector, processId: string, action: UserActionCode, memberId : number ) {
-            super( name, director, processId, action, 0 );
-            this.setMemberId( memberId );
+        constructor( name: string, director: IProcessDirector, processId: string, action: UserActionCode, ...args:number[] ) {
+            super( name, director, processId, action, args );
+            this.setMemberId( args[0] );
             this.getController().onCurrentMemberChanged.add( this.onCurrentMemberChanged, this );
         }
 

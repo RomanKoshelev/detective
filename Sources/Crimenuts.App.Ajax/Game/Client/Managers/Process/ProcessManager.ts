@@ -1,7 +1,7 @@
 module Crimenuts {
     export class ProcessManager implements IProcessController, IProcessObserver {
 
-        // IProcessController
+        // IProcessController Actions
         getProcess( processId: string ): JQueryPromise<ProcessModel> {
             return this.server.getProcess( processId );
         }
@@ -22,16 +22,23 @@ module Crimenuts {
             return this.server.earlyArrest( processId, this.memberIdToNumber(memberId) );
         }
 
+        annotate( processId: string, memberId: number, note: AnswerCode ) {
+            return this.server.annotate( processId, this.memberIdToNumber(memberId), AnswerCode[note] );
+        }
+
+        // IProcessController Events
         currentMemberChanged( memberId: number ) { 
             this.onCurrentMemberChanged.dispatch( memberId );
         }
 
+        // IProcessController Utils
         memberIdToNumber( memberId: number ): number {
             var memberNumber: number;
             memberNumber = memberId;
             ++memberNumber;
             return memberNumber;
         }
+
 
         // IProcessObserver
         onProcessUpdated: Phaser.Signal;

@@ -7,7 +7,7 @@ using System.Linq;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Masters;
 using Crimenuts.Core.Game.Members;
-using Crimenuts.Core.Game.Packs.Profile;
+using Crimenuts.Core.Game.Packs.Profiles;
 using Crimenuts.Core.Game.Persons;
 using Crimenuts.Utils;
 using Crimenuts.Utils.Extensions;

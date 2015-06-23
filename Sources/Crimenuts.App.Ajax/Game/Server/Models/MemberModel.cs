@@ -18,6 +18,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
         public string World { get; set; }
         public string Name { get; set; }
         public AnswerModel TodayAnswer { get; set; }
+        public string Annotation { get; set; }
         public bool IsActive { get; set; }
 
         #endregion
@@ -30,6 +31,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Models
             World = member.World;
             Name = member.Name;
             IsActive = member.IsActive;
+            Annotation = member.Annotation.ToString();
             TodayAnswer = new AnswerModel( member, todayAnswers.FirstOrDefault() );
         }
 

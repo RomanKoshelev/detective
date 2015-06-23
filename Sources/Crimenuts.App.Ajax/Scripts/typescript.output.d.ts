@@ -319,7 +319,7 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class UserActionCommand extends Command {
-        constructor(name: string, director: IProcessDirector, processId: string, action: UserActionCode, ...args: number[]);
+        constructor(name: string, director: IProcessDirector, processId: string, action: UserActionCode, args?: number[]);
         protected director: IProcessDirector;
         protected processId: string;
         protected action: UserActionCode;
@@ -344,10 +344,17 @@ declare module Crimenuts {
 }
 declare module Crimenuts {
     class MemberCommand extends UserActionCommand {
-        constructor(name: string, director: IProcessDirector, processId: string, action: UserActionCode, memberId: number);
+        constructor(name: string, director: IProcessDirector, processId: string, action: UserActionCode, ...args: number[]);
         protected memberId: number;
         private onCurrentMemberChanged(memberId);
         private setMemberId(memberId);
+    }
+}
+declare module Crimenuts {
+    class MemberAnnotateCommand extends MemberCommand {
+        constructor(director: IProcessDirector, processId: string, memberId: number, code: AnswerCode);
+        protected doExecute(): void;
+        private code;
     }
 }
 declare module Crimenuts {
@@ -359,13 +366,6 @@ declare module Crimenuts {
 declare module Crimenuts {
     class MemberEarlyArrestCommand extends MemberCommand {
         constructor(director: IProcessDirector, processId: string, memberId: number);
-        protected doExecute(): void;
-    }
-}
-declare module Crimenuts {
-    class MemberMarkCommand extends MemberCommand {
-        constructor(director: IProcessDirector, processId: string, memberId: number);
-        protected doUpdateAvailability(): boolean;
         protected doExecute(): void;
     }
 }
@@ -417,6 +417,7 @@ declare module Crimenuts {
         arrest(processId: string, memberId: number): JQueryPromise<void>;
         continue(processId: string): JQueryPromise<void>;
         earlyArrest(processId: string, memberId: number): any;
+        annotate(processId: string, memberId: number, note: AnswerCode): any;
     }
 }
 declare module Crimenuts {
@@ -433,6 +434,7 @@ declare module Crimenuts {
         autoAnswer(processId: string): JQueryPromise<void>;
         arrest(processId: string, memberId: number): JQueryPromise<void>;
         earlyArrest(processId: string, memberId: number): JQueryPromise<void>;
+        annotate(processId: string, memberId: number, note: AnswerCode): JQueryPromise<void>;
         currentMemberChanged(memberId: number): void;
         memberIdToNumber(memberId: number): number;
         onProcessUpdated: Phaser.Signal;
@@ -458,7 +460,7 @@ declare module Crimenuts {
         getPlayerId(): JQueryPromise<string>;
         getProcess(processId: string): JQueryPromise<ProcessModel>;
         autoAnswer(processId: string): JQueryPromise<void>;
-        mark(processId: string, memberId: number): JQueryPromise<void>;
+        annotate(processId: string, memberId: number, note: string): JQueryPromise<void>;
         arrest(processId: string, memberId: number): JQueryPromise<void>;
         earlyArrest(processId: string, memberId: number): JQueryPromise<void>;
         continue(processId: string): JQueryPromise<void>;
@@ -544,7 +546,7 @@ declare module Crimenuts {
         Stop = 6,
         EarlyArrest = 7,
         Continue = 8,
-        Mark = 9,
+        Annotate = 9,
     }
 }
 declare module Crimenuts {
@@ -875,6 +877,7 @@ declare module Crimenuts.View.Process {
     class MemberDialogButtons extends ButtonsHolder {
         constructor(director: IProcessDirector, processId: string, memberId: number);
         private createButtons(director, processId, memberId);
+        getAnnotationCode(processDirector: IProcessDirector, memberId: number): AnswerCode;
     }
 }
 declare module Crimenuts.View.Process {

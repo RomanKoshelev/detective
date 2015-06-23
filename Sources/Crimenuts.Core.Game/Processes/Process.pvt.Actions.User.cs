@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Members;
-using Crimenuts.Utils;
 using Crimenuts.Utils.Extensions;
 using Crimenuts.Utils.Traces;
 using MoreLinq;
@@ -15,10 +14,6 @@ namespace Crimenuts.Core.Game.Processes
 {
     public partial class Process
     {
-        // ===================================================================================== []
-        // User Action Menu
-        private readonly IList< UserAction > _userActions = new List< UserAction >();
-
         // ===================================================================================== []
         // Update
         private void UpdateUserActions()
@@ -29,18 +24,23 @@ namespace Crimenuts.Core.Game.Processes
                     AddInitActions();
                     break;
                 case State.Questioning :
+                    AddAnnotateActions();
                     AddQuestioningActions();
                     AddExtraQuestioningActions();
                     break;
                 case State.Arrest :
+                    AddAnnotateActions();
                     AddArrestActions();
                     break;
                 case State.Finished :
                 case State.Error :
                     AddNoneAction();
                     break;
-                case State.Morning :
                 case State.CheckArrest :
+                    AddAnnotateActions();
+                    AddContinueAction();
+                    break;
+                case State.Morning :
                     AddContinueAction();
                     break;
                 default :
@@ -110,6 +110,31 @@ namespace Crimenuts.Core.Game.Processes
             if( Options.EarlyArrestIsEnabled ) {
                 AddEarlyArrestActions();
             }
+        }
+
+        // ===================================================================================== []
+        // Annotate
+        private void AddAnnotateActions()
+        {
+            ActiveMembers.ForEach(
+                m => {
+                    GetAvailableAnnotations( m ).ForEach( a => {
+                        AddUserAction(
+                            UserAction.ActionType.Annotate,
+                            new[] { m.Number, ( int ) a },
+                            string.Format( "Annotate {0} as {1}", m.Name, a.ToString() )
+                            );
+                    } );
+                } );
+        }
+
+        private static List< AnswerCode > GetAvailableAnnotations( Member member )
+        {
+            return new[] {
+                AnswerCode.Unknown,
+                AnswerCode.Innocent,
+                AnswerCode.Murderer
+            }.Except( new[] { member.Annotation } ).ToList();
         }
 
         // ===================================================================================== []
@@ -267,6 +292,9 @@ namespace Crimenuts.Core.Game.Processes
                 case UserAction.ActionType.Ask :
                     DoAsk( args[ 0 ], args[ 1 ] );
                     break;
+                case UserAction.ActionType.Annotate :
+                    DoAnnotate( args[ 0 ], args[ 1 ] );
+                    break;
                 case UserAction.ActionType.EarlyArrest :
                     DoEarlyArrest( args[ 0 ] );
                     break;
@@ -300,5 +328,14 @@ namespace Crimenuts.Core.Game.Processes
                     .Where( a => a.Type == actionType )
                     .Any( a => a.Args.EqualContent( args ) );
         }
+
+
+        #region
+
+        // ===================================================================================== []
+        // User Action Menu
+        private readonly IList< UserAction > _userActions = new List< UserAction >();
+
+        #endregion
     }
 }

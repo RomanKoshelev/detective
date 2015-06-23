@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
-using Crimenuts.Core.Game.Packs.Profile;
+using Crimenuts.Core.Game.Packs.Profiles;
 using Crimenuts.Utils;
 using Crimenuts.Utils.Localization;
 using Crimenuts.Utils.Sex;

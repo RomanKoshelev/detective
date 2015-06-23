@@ -570,11 +570,8 @@ var Crimenuts;
     var UserActionCommand = (function (_super) {
         __extends(UserActionCommand, _super);
         // Ctor
-        function UserActionCommand(name, director, processId, action) {
-            var args = [];
-            for (var _i = 4; _i < arguments.length; _i++) {
-                args[_i - 4] = arguments[_i];
-            }
+        function UserActionCommand(name, director, processId, action, args) {
+            if (args === void 0) { args = new Array(0); }
             _super.call(this, name);
             this.callback = this.doExecute;
             this.context = this;
@@ -655,9 +652,13 @@ var Crimenuts;
 (function (Crimenuts) {
     var MemberCommand = (function (_super) {
         __extends(MemberCommand, _super);
-        function MemberCommand(name, director, processId, action, memberId) {
-            _super.call(this, name, director, processId, action, 0);
-            this.setMemberId(memberId);
+        function MemberCommand(name, director, processId, action) {
+            var args = [];
+            for (var _i = 4; _i < arguments.length; _i++) {
+                args[_i - 4] = arguments[_i];
+            }
+            _super.call(this, name, director, processId, action, args);
+            this.setMemberId(args[0]);
             this.getController().onCurrentMemberChanged.add(this.onCurrentMemberChanged, this);
         }
         MemberCommand.prototype.onCurrentMemberChanged = function (memberId) {
@@ -671,6 +672,23 @@ var Crimenuts;
         return MemberCommand;
     })(Crimenuts.UserActionCommand);
     Crimenuts.MemberCommand = MemberCommand;
+})(Crimenuts || (Crimenuts = {}));
+/// <reference path="./MemberCommand.ts" />
+var Crimenuts;
+(function (Crimenuts) {
+    var MemberAnnotateCommand = (function (_super) {
+        __extends(MemberAnnotateCommand, _super);
+        function MemberAnnotateCommand(director, processId, memberId, code) {
+            this.code = code;
+            _super.call(this, "Annotate", director, processId, 9 /* Annotate */, memberId, this.code);
+            this.name = Crimenuts.AnswerCode[this.code];
+        }
+        MemberAnnotateCommand.prototype.doExecute = function () {
+            this.getController().annotate(this.processId, this.memberId, this.code);
+        };
+        return MemberAnnotateCommand;
+    })(Crimenuts.MemberCommand);
+    Crimenuts.MemberAnnotateCommand = MemberAnnotateCommand;
 })(Crimenuts || (Crimenuts = {}));
 /// <reference path="./MemberCommand.ts" />
 var Crimenuts;
@@ -701,23 +719,6 @@ var Crimenuts;
         return MemberEarlyArrestCommand;
     })(Crimenuts.MemberCommand);
     Crimenuts.MemberEarlyArrestCommand = MemberEarlyArrestCommand;
-})(Crimenuts || (Crimenuts = {}));
-/// <reference path="./MemberCommand.ts" />
-var Crimenuts;
-(function (Crimenuts) {
-    var MemberMarkCommand = (function (_super) {
-        __extends(MemberMarkCommand, _super);
-        function MemberMarkCommand(director, processId, memberId) {
-            _super.call(this, "Mark", director, processId, 9 /* Mark */, memberId);
-        }
-        MemberMarkCommand.prototype.doUpdateAvailability = function () {
-            return true;
-        };
-        MemberMarkCommand.prototype.doExecute = function () {
-        };
-        return MemberMarkCommand;
-    })(Crimenuts.MemberCommand);
-    Crimenuts.MemberMarkCommand = MemberMarkCommand;
 })(Crimenuts || (Crimenuts = {}));
 var Crimenuts;
 (function (Crimenuts) {
@@ -826,7 +827,7 @@ var Crimenuts;
             this.onProcessesReset = observer.onProcessesReset;
             this.onCurrentMemberChanged = new Phaser.Signal();
         }
-        // IProcessController
+        // IProcessController Actions
         ProcessManager.prototype.getProcess = function (processId) {
             return this.server.getProcess(processId);
         };
@@ -842,9 +843,14 @@ var Crimenuts;
         ProcessManager.prototype.earlyArrest = function (processId, memberId) {
             return this.server.earlyArrest(processId, this.memberIdToNumber(memberId));
         };
+        ProcessManager.prototype.annotate = function (processId, memberId, note) {
+            return this.server.annotate(processId, this.memberIdToNumber(memberId), Crimenuts.AnswerCode[note]);
+        };
+        // IProcessController Events
         ProcessManager.prototype.currentMemberChanged = function (memberId) {
             this.onCurrentMemberChanged.dispatch(memberId);
         };
+        // IProcessController Utils
         ProcessManager.prototype.memberIdToNumber = function (memberId) {
             var memberNumber;
             memberNumber = memberId;
@@ -883,8 +889,8 @@ var Crimenuts;
         ServerAdapter.prototype.autoAnswer = function (processId) {
             return this.server.autoAnswer(processId);
         };
-        ServerAdapter.prototype.mark = function (processId, memberId) {
-            return this.server.mark(processId, memberId);
+        ServerAdapter.prototype.annotate = function (processId, memberId, note) {
+            return this.server.annotate(processId, memberId, note);
         };
         ServerAdapter.prototype.arrest = function (processId, memberId) {
             return this.server.arrest(processId, memberId);
@@ -1091,7 +1097,7 @@ var Crimenuts;
         UserActionCode[UserActionCode["Stop"] = 6] = "Stop";
         UserActionCode[UserActionCode["EarlyArrest"] = 7] = "EarlyArrest";
         UserActionCode[UserActionCode["Continue"] = 8] = "Continue";
-        UserActionCode[UserActionCode["Mark"] = 9] = "Mark";
+        UserActionCode[UserActionCode["Annotate"] = 9] = "Annotate";
     })(Crimenuts.UserActionCode || (Crimenuts.UserActionCode = {}));
     var UserActionCode = Crimenuts.UserActionCode;
 })(Crimenuts || (Crimenuts = {}));
@@ -2126,11 +2132,18 @@ var Crimenuts;
                 }
                 // Create
                 MemberDialogButtons.prototype.createButtons = function (director, processId, memberId) {
+                    var annotation = this.getAnnotationCode(director, memberId);
                     this.createButtonAtBottom(new Crimenuts.AutoAnswerCommand(director, processId), Crimenuts.app.uiFactory.makeOptionalButton, 2);
-                    this.createButtonAtBottom(new Crimenuts.MemberMarkCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeOptionalButton, 1);
+                    this.createButtonAtBottom(new Crimenuts.MemberAnnotateCommand(director, processId, memberId, annotation), Crimenuts.app.uiFactory.makeOptionalButton, 1);
                     this.createButtonAtBottom(new Crimenuts.MemberEarlyArrestCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeMainButton, 0);
                     this.createButtonAtBottom(new Crimenuts.MemberArrestCommand(director, processId, memberId), Crimenuts.app.uiFactory.makeMainButton, 0);
                     this.createButtonAtBottom(new Crimenuts.ContinueCommand(director, processId), Crimenuts.app.uiFactory.makeMainButton, 0);
+                };
+                // Utils
+                MemberDialogButtons.prototype.getAnnotationCode = function (processDirector, memberId) {
+                    var curAnnotation = Crimenuts.AnswerCode[processDirector.getProcessModel().Members[memberId].Annotation];
+                    var newAnnotation = curAnnotation === 3 /* Murderer */ ? 2 /* Innocent */ : curAnnotation === 2 /* Innocent */ ? 1 /* Unknown */ : 3 /* Murderer */;
+                    return newAnnotation;
                 };
                 return MemberDialogButtons;
             })(Crimenuts.ButtonsHolder);

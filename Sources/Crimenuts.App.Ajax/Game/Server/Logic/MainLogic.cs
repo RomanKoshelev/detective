@@ -8,6 +8,7 @@ using Crimenuts.App.Ajax.Game.Server.Clients;
 using Crimenuts.App.Ajax.Game.Server.Config;
 using Crimenuts.App.Ajax.Game.Server.Managers;
 using Crimenuts.App.Ajax.Game.Server.Models;
+using Crimenuts.Core.Game.Enums;
 using NLog;
 
 namespace Crimenuts.App.Ajax.Game.Server.Logic
@@ -59,9 +60,10 @@ namespace Crimenuts.App.Ajax.Game.Server.Logic
             _processManager.AutoAnswer( processId );
         }
 
-        void IGameLogic.Mark( string processId, int memberId )
+        void IGameLogic.Annotate( string processId, int memberId, string  note )
         {
-            _processManager.Mark( processId, memberId );
+            var noteCode = ( AnswerCode ) Enum.Parse( typeof( AnswerCode ), note );
+            _processManager.Annotate( processId, memberId, noteCode );
         }
 
         void IGameLogic.EarlyArrest( string processId, int memberId )

@@ -2,9 +2,11 @@
 // Crimenuts.App.Ajax
 // GameHub.cs
 
+using System;
 using Crimenuts.App.Ajax.Game.Server.App;
 using Crimenuts.App.Ajax.Game.Server.Logic;
 using Crimenuts.App.Ajax.Game.Server.Models;
+using Crimenuts.Core.Game.Enums;
 
 namespace Crimenuts.App.Ajax.Game.Server.Hub
 {
@@ -35,9 +37,9 @@ namespace Crimenuts.App.Ajax.Game.Server.Hub
             _gameLogic.AutoAnswer( processId );
         }
 
-        public void Mark( string processId, int memberId )
+        public void Annotate( string processId, int memberId, string note )
         {
-            _gameLogic.Mark( processId, memberId );
+            _gameLogic.Annotate( processId, memberId, note );
         }
 
         public void EarlyArrest( string processId, int memberId )

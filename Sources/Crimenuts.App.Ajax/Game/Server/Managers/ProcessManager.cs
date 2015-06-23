@@ -5,6 +5,7 @@
 using System;
 using Crimenuts.App.Ajax.Game.Server.Clients;
 using Crimenuts.App.Ajax.Game.Server.Models;
+using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Processes;
 using Crimenuts.Core.Game.Schemas;
 using Krokodev.Common.Identifier;
@@ -47,7 +48,7 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
         void IProcessManager.Reset()
         {
             Schema.ResetProcesses();
-            _clients.ProcessesReset( );
+            _clients.ProcessesReset();
         }
 
         void IProcessManager.Arrest( string processId, int memberId )
@@ -57,9 +58,12 @@ namespace Crimenuts.App.Ajax.Game.Server.Managers
             _clients.ProcessUpdated( new ProcessModel( process ) );
         }
 
-        void IProcessManager.Mark( string processId, int memberId )
+        void IProcessManager.Annotate( string processId, int memberId, AnswerCode note )
         {
-            throw new NotImplementedException();
+            var process = GetProcess( processId );
+            var args = new [] { memberId, ( int ) note };
+            process.ExecuteUserAction( Process.UserAction.ActionType.Annotate, args );
+            _clients.ProcessUpdated( new ProcessModel( process ) );
         }
 
         public void Continue( string processId )

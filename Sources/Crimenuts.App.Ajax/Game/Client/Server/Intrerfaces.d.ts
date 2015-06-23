@@ -66,13 +66,14 @@ interface IGameHubServer {
     autoAnswer(processId : string) : JQueryPromise<void>;
  
     /** 
-      * Sends a "mark" message to the GameHub hub.
+      * Sends a "annotate" message to the GameHub hub.
       * Contract Documentation: ---
       * @param processId {string} 
       * @param memberId {number} 
+      * @param note {string} 
       * @return {JQueryPromise of void}
       */
-    mark(processId : string, memberId : number) : JQueryPromise<void>;
+    annotate(processId : string, memberId : number, note : string) : JQueryPromise<void>;
  
     /** 
       * Sends a "earlyArrest" message to the GameHub hub.
@@ -195,6 +196,7 @@ interface MemberModel {
     World : string;
     Name : string;
     TodayAnswer : AnswerModel;
+    Annotation : string;
     IsActive : boolean;
 }
  

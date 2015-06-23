@@ -3,13 +3,14 @@
 // SimpsonsWorld.cs
 
 using System.Collections.Generic;
+using Crimenuts.Core.Game.Packs.Profiles;
 using Crimenuts.Core.Game.Persons;
 
 namespace Crimenuts.Core.Game.Packs.Worlds
 {
     public sealed class SimpsonsWorld : BaseWorld
     {
-        public SimpsonsWorld( IList< Profile.Profile > profiles )
+        public SimpsonsWorld( IList< Profile > profiles )
             : base( "Simpsons", profiles ) {}
 
         protected override void LoadSettings()

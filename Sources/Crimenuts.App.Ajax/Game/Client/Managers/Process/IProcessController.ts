@@ -9,5 +9,6 @@ module Crimenuts {
         arrest( processId: string, memberId: number ): JQueryPromise<void>;
         continue( processId: string ): JQueryPromise<void>;
         earlyArrest( processId: string, memberId: number );
+        annotate( processId: string, memberId: number, note: AnswerCode );
     }
 }

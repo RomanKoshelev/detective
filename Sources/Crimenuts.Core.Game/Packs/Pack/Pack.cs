@@ -2,6 +2,7 @@
 // Crimenuts.Core.Game
 // Pack.cs
 
+using Crimenuts.Core.Game.Packs.Profiles;
 using Crimenuts.Core.Game.Packs.Worlds;
 
 namespace Crimenuts.Core.Game.Packs.Pack
@@ -21,7 +22,7 @@ namespace Crimenuts.Core.Game.Packs.Pack
 
         private void LoadWorlds()
         {
-            var profiles = Profile.Profile.LoadAll();
+            var profiles = Profile.LoadAll();
 
             RandomWorld = new RandomWorld( profiles );
             SimpsonsWorld = new SimpsonsWorld( profiles );

@@ -13,13 +13,26 @@ module Crimenuts.View.Process {
         // Create
         private createButtons( director: IProcessDirector, processId: string, memberId: number ) {
 
-            this.createButtonAtBottom( new AutoAnswerCommand( director, processId ), app.uiFactory.makeOptionalButton, 2 );
+            var annotation = this.getAnnotationCode( director, memberId );
 
-            this.createButtonAtBottom( new MemberMarkCommand( director, processId, memberId ), app.uiFactory.makeOptionalButton, 1 );
+            this.createButtonAtBottom( new AutoAnswerCommand( director, processId ), app.uiFactory.makeOptionalButton, 2 );
+            this.createButtonAtBottom( new MemberAnnotateCommand( director, processId, memberId, annotation ), app.uiFactory.makeOptionalButton, 1 );
 
             this.createButtonAtBottom( new MemberEarlyArrestCommand( director, processId, memberId ), app.uiFactory.makeMainButton, 0 );
             this.createButtonAtBottom( new MemberArrestCommand( director, processId, memberId ), app.uiFactory.makeMainButton, 0 );
             this.createButtonAtBottom( new ContinueCommand( director, processId ), app.uiFactory.makeMainButton, 0 );
+        }
+
+        // Utils
+        getAnnotationCode( processDirector: IProcessDirector, memberId: number ): AnswerCode {
+            var curAnnotation = AnswerCode[ processDirector.getProcessModel().Members[ memberId ].Annotation ];
+            var newAnnotation = curAnnotation === AnswerCode.Murderer
+                ? AnswerCode.Innocent
+                : curAnnotation === AnswerCode.Innocent
+                ? AnswerCode.Unknown
+                : AnswerCode.Murderer;
+
+            return newAnnotation;
         }
     }
 }

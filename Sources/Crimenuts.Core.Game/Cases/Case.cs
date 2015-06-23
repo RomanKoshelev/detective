@@ -5,12 +5,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Crimenuts.Core.Game.Members;
+using Crimenuts.Core.Game.Options;
 using Crimenuts.Core.Game.Packs.Worlds;
 using Krokodev.Common.Identifier;
 
 namespace Crimenuts.Core.Game.Cases
 {
-    public partial class Case : Identifiable< Case, int >, IOptions.IOptions
+    public partial class Case : Identifiable< Case, int >, IOptions
     {
         public Case( IWorld world, int membersNum, int murderersNum )
         {

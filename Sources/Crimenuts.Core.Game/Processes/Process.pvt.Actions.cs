@@ -6,7 +6,6 @@ using System;
 using System.Linq;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Members;
-using Crimenuts.Utils;
 using Crimenuts.Utils.Extensions;
 using Crimenuts.Utils.Traces;
 
@@ -26,6 +25,11 @@ namespace Crimenuts.Core.Game.Processes
             var answer = respondent.Ask( subject );
             History.StoreAnswer( Today, respondent, subject, answer );
             return answer;
+        }
+
+        private static void DoAnnotate( Member member, AnswerCode annotation )
+        {
+            member.Annotation = annotation;
         }
 
         private void DoArrest( Member suspect )
@@ -48,6 +52,11 @@ namespace Crimenuts.Core.Game.Processes
         private void DoAsk( int respondent, int subject )
         {
             DoAsk( FindMember( respondent ), FindMember( subject ) );
+        }
+
+        private void DoAnnotate( int member, int annotation )
+        {
+            DoAnnotate( FindMember( member ), ( AnswerCode ) annotation );
         }
 
         private void DoAutoAsk()

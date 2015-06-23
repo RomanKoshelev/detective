@@ -8,6 +8,7 @@ using Crimenuts.Core.Game.Cases;
 using Crimenuts.Core.Game.Enums;
 using Crimenuts.Core.Game.Histories;
 using Crimenuts.Core.Game.Members;
+using Crimenuts.Core.Game.Options;
 using Krokodev.Common.Identifier;
 
 namespace Crimenuts.Core.Game.Processes
@@ -184,7 +185,7 @@ namespace Crimenuts.Core.Game.Processes
             get { return Case.WorldName; }
         }
 
-        public IOptions.IOptions Options
+        public IOptions Options
         {
             get { return Case; }
         }
